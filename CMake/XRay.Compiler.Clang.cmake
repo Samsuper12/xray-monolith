@@ -16,15 +16,47 @@ set(XRAY_COMPILER_FLAGS
   -Wuninitialized
 )
 
+# Explicitly state when we're compiling for Win32
+if(WIN32)
+  list(APPEND XRAY_COMPILER_FLAGS -DWIN32)
+endif()
+
+set(XRAY_COMPILER_FLAGS_DEBUG
+  # FIXME: Optimization levels above 0 cause crashes
+  -O0
+  # Enable debugging-friendly optimizations
+  # -Og
+  
+  # Generate full debug info
+  -g
+)
+
 set(XRAY_COMPILER_FLAGS_RELEASE
-  # Not Debug
-  -DNDEBUG
+  # FIXME: Optimization levels above 0 cause crashes
+  -O0
+  # Enable aggressive optimizations
+  # -O3
+
+  # Optimize loop execution
+  -funroll-loops
+  
+  # Enable link-time optimization
+  -flto=full
+
   # Disable iterator debugging
   -D_HAS_ITERATOR_DEBUGGING=0
   -D_SECURE_SCL=0
 )
 
-# Explicitly state when we're compiling for Win32
-if(WIN32)
-  list(APPEND XRAY_COMPILER_FLAGS -DWIN32)
-endif()
+set(XRAY_LINKER_FLAGS_RELEASE
+  # FIXME: Optimization levels above 0 cause crashes
+  -O0
+  # Enable aggressive optimizations
+  # -O3
+
+  # Optimize loop execution
+  -funroll-loops
+
+  # Enable link-time optimization
+  -flto=full
+)
