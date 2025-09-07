@@ -170,44 +170,44 @@ volatile u32 mt_Thread_marker = 0x12345678;
 
 void mt_Thread(void* ptr)
 {
-	auto& device = *static_cast<CRenderDevice*>(ptr);
+	CRenderDevice* device = static_cast<CRenderDevice*>(ptr);
 	while (true)
 	{
 		PROF_EVENT();
 
 		START_PROFILE("Wait for device");
 		// waiting for Device permission to execute
-		device.mt_csEnter.Enter();
+		device->mt_csEnter.Enter();
 
-		if (device.mt_bMustExit)
+		if (device->mt_bMustExit)
 		{
 			PROF_EVENT("Must exit");
 
-			device.mt_bMustExit = FALSE; // Important!!!
-			device.mt_csEnter.Leave(); // Important!!!
+			device->mt_bMustExit = FALSE; // Important!!!
+			device->mt_csEnter.Leave(); // Important!!!
 			return;
 		}
 		// we has granted permission to execute
-		mt_Thread_marker = device.dwFrame;
+		mt_Thread_marker = device->dwFrame;
 		STOP_PROFILE;
 
 		START_PROFILE("Process seqParallel");
-		for (u32 pit = 0; pit < device.seqParallel.size(); pit++)
-			device.seqParallel[pit]();
-		device.seqParallel.clear_not_free();
+		for (u32 pit = 0; pit < device->seqParallel.size(); pit++)
+			device->seqParallel[pit]();
+		device->seqParallel.clear_not_free();
 		STOP_PROFILE;
 
 		START_PROFILE("Process seqFrameMT");
-		device.seqFrameMT.Process(rp_Frame);
+		device->seqFrameMT.Process(rp_Frame);
 		STOP_PROFILE;
 
 		START_PROFILE("Synchronization");
 		// now we give control to device - signals that we are ended our work
-		device.mt_csEnter.Leave();
+		device->mt_csEnter.Leave();
 		// waits for device signal to continue - to start again
-		device.mt_csLeave.Enter();
+		device->mt_csLeave.Enter();
 		// returns sync signal to device
-		device.mt_csLeave.Leave();
+		device->mt_csLeave.Leave();
 		STOP_PROFILE;
 	}
 }
