@@ -24,7 +24,8 @@ set(XRAY_COMPILER_FLAGS
     /wd4005
     # Disable variable shadowing warnings
     /wd4458
-
+    # Use updated __cplusplus macro
+    /Zc:__cplusplus
 )
 
 # Debug flags
