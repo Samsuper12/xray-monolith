@@ -468,8 +468,10 @@ void CRender::OnFrame()
 	{
 		// MT-details (@front)
 		if (Details)
-			Device.seqParallel.insert(Device.seqParallel.begin(),
-				fastdelegate::FastDelegate0<>(Details, &CDetailManager::MT_CALC));
+			Device.seqParallel.insert(
+				Device.seqParallel.begin(),
+				fastdelegate::FastDelegate0<>(Details, &CDetailManager::MT_CALC)
+			);
 
 		// MT-HOM (@front)
 		Device.seqParallel.insert(Device.seqParallel.begin(),
