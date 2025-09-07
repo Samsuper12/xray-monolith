@@ -31,7 +31,7 @@ void CRenderTarget::phase_blur()
 	h = float(Device.dwHeight) * 0.5f;
 
 #if defined(USE_DX10) || defined(USE_DX11)
-	u_setrt(rt_blur_h_2, 0, 0, rt_blur_2_zb->pZRT);
+	u_setrt(rt_blur_h_2, 0, 0, 0);
 #else
 	u_setrt(rt_blur_h_2, 0, 0, rt_blur_2_zb);
 #endif
@@ -55,7 +55,7 @@ void CRenderTarget::phase_blur()
 	////Final blur
 	///////////////////////////////////////////////////////////////////////////////////
 #if defined(USE_DX10) || defined(USE_DX11)
-	u_setrt(rt_blur_2, 0, 0, rt_blur_2_zb->pZRT);
+	u_setrt(rt_blur_2, 0, 0, 0);
 #else
 	u_setrt(rt_blur_2, 0, 0, rt_blur_2_zb);
 #endif
@@ -82,7 +82,7 @@ void CRenderTarget::phase_blur()
 	h = float(Device.dwHeight) * 0.25f;
 
 #if defined(USE_DX10) || defined(USE_DX11)
-	u_setrt(rt_blur_h_4, 0, 0, rt_blur_4_zb->pZRT);
+	u_setrt(rt_blur_h_4, 0, 0, 0);
 #else
 	u_setrt(rt_blur_h_4, 0, 0, rt_blur_4_zb);
 #endif
@@ -106,7 +106,7 @@ void CRenderTarget::phase_blur()
 	////Final blur
 	///////////////////////////////////////////////////////////////////////////////////
 #if defined(USE_DX10) || defined(USE_DX11)
-	u_setrt(rt_blur_4, 0, 0, rt_blur_4_zb->pZRT);
+	u_setrt(rt_blur_4, 0, 0, 0);
 #else
 	u_setrt(rt_blur_4, 0, 0, rt_blur_4_zb);
 #endif
@@ -133,7 +133,7 @@ void CRenderTarget::phase_blur()
 	h = float(Device.dwHeight) * 0.125f;
 
 #if defined(USE_DX10) || defined(USE_DX11)
-	u_setrt(rt_blur_h_8, 0, 0, rt_blur_8_zb->pZRT);
+	u_setrt(rt_blur_h_8, 0, 0, 0);
 #else
 	u_setrt(rt_blur_h_8, 0, 0, rt_blur_8_zb);
 #endif
@@ -157,7 +157,7 @@ void CRenderTarget::phase_blur()
 	////Final blur
 	///////////////////////////////////////////////////////////////////////////////////
 #if defined(USE_DX10) || defined(USE_DX11)
-	u_setrt(rt_blur_8, 0, 0, rt_blur_8_zb->pZRT);
+	u_setrt(rt_blur_8, 0, 0, 0);
 #else
 	u_setrt(rt_blur_8, 0, 0, rt_blur_8_zb);
 #endif

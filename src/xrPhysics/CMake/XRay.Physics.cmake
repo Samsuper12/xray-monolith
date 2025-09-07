@@ -6,9 +6,11 @@ add_module(XRay.Physics
 
   LINKS
   dxsdk
+  fastdelegate
   FastDynamicCast
   loki
   ode
+  robin_hood
   tbb
   OPCODE
   
@@ -58,7 +60,6 @@ add_module(XRay.Physics
 
 target_compile_options(XRay.Physics
   PRIVATE
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4458>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4459>
 )
 

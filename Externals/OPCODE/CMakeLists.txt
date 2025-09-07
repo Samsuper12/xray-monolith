@@ -13,6 +13,7 @@ target_include_directories(OPCODE
 target_link_libraries(OPCODE
   PRIVATE
   FastDynamicCast
+  robin_hood
   
   XRay.Platform
 
@@ -26,7 +27,6 @@ target_compile_options(OPCODE
   PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/wd4100>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4456>
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4458>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4995>
   $<$<CXX_COMPILER_ID:Clang>:-Wno-unused-value>
 )

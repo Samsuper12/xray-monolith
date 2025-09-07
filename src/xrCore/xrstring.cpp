@@ -117,7 +117,7 @@ struct str_container_impl
 		}
 	}
 
-	int stat_economy()
+	int stat_economy(u32& count)
 	{
 		int counter = 0;
 		for (u32 i = 0; i < buffer_size; ++i)
@@ -125,6 +125,7 @@ struct str_container_impl
 			str_value* value = buffer[i];
 			while (value)
 			{
+				count += 1;
 				counter -= sizeof(str_value);
 				counter += (value->dwReference - 1) * (value->dwLength + 1);
 				value = value->next;
@@ -235,12 +236,12 @@ void str_container::dump(IWriter* W)
 	cs.Leave();
 }
 
-u32 str_container::stat_economy()
+u32 str_container::stat_economy(u32& count)
 {
 	cs.Enter();
 	int counter = 0;
 	counter -= sizeof(*this);
-	counter += impl->stat_economy();
+	counter += impl->stat_economy(count);
 	cs.Leave();
 	return u32(counter);
 }

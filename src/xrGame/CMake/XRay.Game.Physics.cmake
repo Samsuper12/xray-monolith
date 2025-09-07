@@ -3,6 +3,7 @@ add_module(XRay.Game.Physics
 
   LINKS
   dxsdk
+  fastdelegate
   FastDynamicCast
   IKAN
   luabind
@@ -10,6 +11,7 @@ add_module(XRay.Game.Physics
   LZO
   OPCODE
   ode
+  robin_hood
   TinyXML
 
   XRay.Core.Defines

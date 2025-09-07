@@ -11,7 +11,6 @@
 #include "level_graph.h"
 #include "GameObject.h"
 #include "Kinematics.h"
-#include <boost/crc.hpp>
 
 #include "bone.h"
 
@@ -275,9 +274,7 @@ void ai_obstacle::compute_impl()
 		return;
 	}
 
-	boost::crc_32_type temp;
-	temp.process_block(&*m_area.begin(), &*m_area.end());
-	m_crc = temp.checksum();
+	m_crc = crc32(&*m_area.begin(), (u32)m_area.size());
 }
 
 void ai_obstacle::on_move()

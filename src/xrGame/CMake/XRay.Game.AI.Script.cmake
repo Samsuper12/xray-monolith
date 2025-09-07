@@ -3,6 +3,7 @@ add_module(XRay.Game.AI.Script
 
   LINKS
   dxsdk
+  fastdelegate
   FastDynamicCast
   ode
   imgui
@@ -10,6 +11,7 @@ add_module(XRay.Game.AI.Script
   lua-extensions
   LuaJIT
   LZO
+  robin_hood
   TinyXML
   
   XRay.Core.Defines

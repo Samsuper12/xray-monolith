@@ -34,7 +34,7 @@
 #include "PHElementInline.h"
 #include "PhysicsShellAnimator.h"
 #include "phshellbuildjoint.h"
-#include <boost/noncopyable.hpp>
+
 #ifdef DEBUG
 #include    "debug_output.h"
 #endif
@@ -343,6 +343,52 @@ void CPHShell::applyTorque(float x, float y, float z)
 	{
 		dir.mul(1.f / val);
 		applyTorque(dir, val);
+	}
+};
+
+void CPHShell::applyRelForce(const Fvector &dir, float val)
+{
+	if (!isActive())
+		return;
+	ELEMENT_I i = elements.begin(), e = elements.end();
+	val /= getMass();
+	for (; e != i; ++i)
+		(*i)->applyRelForce(dir, val * (*i)->getMass());
+	EnableObject(0);
+};
+
+void CPHShell::applyRelForce(float x, float y, float z)
+{
+	Fvector dir;
+	dir.set(x, y, z);
+	float val = dir.magnitude();
+	if (!fis_zero(val))
+	{
+		dir.mul(1.f / val);
+		applyRelForce(dir, val);
+	}
+};
+
+void CPHShell::applyRelTorque(const Fvector &dir, float val)
+{
+	if (!isActive())
+		return;
+	ELEMENT_I i = elements.begin(), e = elements.end();
+	val /= getMass();
+	for (; e != i; ++i)
+		(*i)->applyRelTorque(dir, val * (*i)->getMass());
+	EnableObject(0);
+};
+
+void CPHShell::applyRelTorque(float x, float y, float z)
+{
+	Fvector dir;
+	dir.set(x, y, z);
+	float val = dir.magnitude();
+	if (!fis_zero(val))
+	{
+		dir.mul(1.f / val);
+		applyRelTorque(dir, val);
 	}
 };
 
@@ -1065,7 +1111,7 @@ void CPHShell::SetCallbacks()
 	};
 	std::for_each(elements.begin(), elements.end(), set_bone_callback());
 
-	struct set_bone_reference : private boost::noncopyable
+	struct set_bone_reference : private xray::noncopyable
 	{
 		IKinematics& K;
 

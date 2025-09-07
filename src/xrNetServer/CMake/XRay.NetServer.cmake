@@ -7,8 +7,10 @@ add_module(XRay.NetServer
   LINKS
   DPlay
   DxErr
+  fastdelegate
   FastDynamicCast
   optick
+  robin_hood
   Ws2_32
 
   XRay.Core.Defines

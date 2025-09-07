@@ -10,7 +10,7 @@
 #define SMART_COVER_OBJECT_H_INCLUDED
 
 #include "gameobject.h"
-#include <boost/noncopyable.hpp>
+
 #include "script_export_space.h"
 
 namespace smart_cover
@@ -19,18 +19,17 @@ namespace smart_cover
 
 	class object :
 		public CGameObject,
-		private boost::noncopyable
+		private xray::noncopyable
 	{
 	private:
 		typedef CGameObject inherited;
 
 	private:
-		cover const* m_cover;
+		cover const* m_cover{};
 		float m_enter_min_enemy_distance;
 		float m_exit_min_enemy_distance;
 
 	public:
-		virtual void Load(LPCSTR section);
 		virtual bool feel_touch_on_contact(CObject*) { return FALSE; }
 		virtual bool use(CGameObject* who_use) { return false; }
 		virtual BOOL net_Spawn(CSE_Abstract* DC);

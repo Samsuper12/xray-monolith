@@ -276,8 +276,66 @@ This behaviour can be customized by setting the following variables in your fork
 - `TARGET`
 
 ## Changelog
+**2025.09.06**
+* Replaced luabind with non-Boost version (https://github.com/ixray-team/ixray-1.6-stcop/commit/2f61f5f781130468c945720b76d23ce4bbea95b1)
+* Disable `std::terminate` in luabind (https://github.com/ixray-team/ixray-1.6-stcop/commit/723fb65a8b9ebb89dda8f03cbb4b1bebceabacdc)
+* Removed Boost library
+* Added nullptr check in `CMonsterCorpseMemory::add_corpse`
+* LVutner:
+  * ADD: [Render] Added missing s_position samplers (https://github.com/themrdemonized/xray-monolith/pull/358)
+  * UPD: [Render] r_ComputePass fix (https://github.com/themrdemonized/xray-monolith/pull/359)
+
+**2025.08.30**
+* MFB: Smart covers now have fixed enter min/max distances (https://github.com/themrdemonized/xray-monolith/pull/352)
+* Lucy: Level Script Attachments (https://github.com/themrdemonized/xray-monolith/pull/353)
+* ProfLander: ImGui: Implement grouping API (https://github.com/themrdemonized/xray-monolith/pull/354)
+
+**2025.08.27**
+* Fix https://github.com/themrdemonized/xray-monolith/issues/346
+* NLTP_Ashes:
+  * Export multiple CWeaponKnife related functions to Lua (https://github.com/themrdemonized/xray-monolith/pull/347)
+  * Export HUD elements to Lua (https://github.com/themrdemonized/xray-monolith/pull/351)
+* Ncenka: Fix for Random Music in Main Menu (https://github.com/themrdemonized/xray-monolith/pull/345)
+
+**2025.08.23**
+* Kutez: Callback Priority System (https://github.com/themrdemonized/xray-monolith/pull/339)
+* Ncenka: PDA UI XML Setter (https://github.com/themrdemonized/xray-monolith/pull/343)
+
+**2025.08.21**
+* GhenTuong:
+  * CCar CWeaponStatMgun changes (https://github.com/themrdemonized/xray-monolith/pull/310)
+  * Export API functions and minor improvements (https://github.com/themrdemonized/xray-monolith/pull/340)
+* Antglobes: Sun values (https://github.com/themrdemonized/xray-monolith/pull/341)
+
+**2025.08.19**
+* Removed `parallel_for` in HOM and `particle_actions_collection` in favor of single-threaded loop for less thread creation overhead
+* Replace `unordered_map` implementation to `unordered_node_map`, same with set
+* Removed double loop in volumetric lights code
+* Disabled update of actor stamina while driving cars (https://github.com/ixray-team/ixray-1.6-stcop/commit/6c1ad01adffba180df8f47a58f33e66e69def949)
+* Fix crash when NPC trying use destroyed object (https://github.com/ixray-team/ixray-1.6-stcop/commit/d34966c3e255568f60df7bd0e33d61bebfe98afa)
+* ProfLander: Add string count to stat_memory and OOM handler (https://github.com/themrdemonized/xray-monolith/pull/337)
+* Kutez: Added the new "volume_mult" property for HUD sound call back. Removed all indoor framework related engine side code (https://github.com/themrdemonized/xray-monolith/pull/338)
+
+**2025.08.12u1**
+* Fix issue https://github.com/themrdemonized/xray-monolith/issues/333
+* v2v3v4: fix ctd when zooming into about to be destroyed object with detector scopes
+
+**2025.08.12**
+* Fix issue https://github.com/themrdemonized/xray-monolith/issues/332
+
+**2025.08.11**
+* Small reorganization of 3rd party files
+* `g_interrupt_fire_on_aim_toggle` cvar to set stop firing when pressed aim, default enabled addresses issue https://github.com/themrdemonized/xray-monolith/issues/327
+* v2v3v4: update all sound positions at once
+* ProfLander: Launchers: Cartridge Ammo + Trajectory and Reload Options (https://github.com/themrdemonized/xray-monolith/pull/322)
+* VodoXleb: Add `binoculars_dynamic_zoom_check` cvar for new Binoc zoom, default disabled (https://github.com/themrdemonized/xray-monolith/pull/328), addresses issue https://github.com/themrdemonized/xray-monolith/issues/325
+* Lucy: Fix lua function to get/set shaders and textures of models (https://github.com/themrdemonized/xray-monolith/pull/329)
+* LVutner:
+  * Removed useless DSVs... (https://github.com/themrdemonized/xray-monolith/pull/330)
+  * Possible fix for corrupted CBuffers [r_ComputePass] (https://github.com/themrdemonized/xray-monolith/pull/331)
+
 **2025.08.09**
-* Replace `smart_cast` with fast_dynamic_cast library (https://github.com/ixray-team/ixray-1.6-stcop/commit2197a168bbd700f64df0fbcb5f0139a289a39102)
+* Replace `smart_cast` with fast_dynamic_cast library (https://github.com/ixray-team/ixray-1.6-stcop/commit/2197a168bbd700f64df0fbcb5f0139a289a39102)
 * Convert LuaJIT NMake to VS2022 project (https://github.com/themrdemonized/xray-monolith/pull/323)
 * Reduced .pdb size
 

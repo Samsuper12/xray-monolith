@@ -5,8 +5,10 @@ add_module(XRay.CPUPipe
 
   LINKS
   dxsdk
+  fastdelegate
   FastDynamicCast
   loki
+  robin_hood
 
   XRay.Core.Defines
   XRay.Engine.Defines

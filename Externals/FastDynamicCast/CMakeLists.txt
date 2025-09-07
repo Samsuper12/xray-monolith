@@ -2,6 +2,11 @@ add_library(FastDynamicCast INTERFACE)
 
 target_folder(FastDynamicCast ${FOLDER_EXTERNAL})
 
+target_link_libraries(FastDynamicCast
+  INTERFACE
+  sm_boost
+)
+
 set(FAST_DYNAMIC_CAST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../FastDynamicCast-git)
 
 target_include_directories(FastDynamicCast

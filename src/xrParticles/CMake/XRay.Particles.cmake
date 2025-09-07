@@ -6,6 +6,7 @@ add_module(XRay.Particles
 
   LINKS
   FastDynamicCast
+  robin_hood
   tbb
   
   XRay.Core.Defines

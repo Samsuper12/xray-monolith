@@ -29,7 +29,6 @@ add_module(XRay.Game.Core.Server.Editor
   ../xrServerEntities/ItemListTypes.h
   ../xrServerEntities/WaveForm.h
   ../xrServerEntities/xrEProps.h
-  ../xrCore/FastDelegate.h
   ../Layers/xrRender/DrawUtils.h
 )
 

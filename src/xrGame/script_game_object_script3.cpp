@@ -37,9 +37,9 @@
 
 using namespace luabind;
 
-class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject>& instance)
+class_<CScriptGameObject> script_register_game_object2(class_<CScriptGameObject> &&instance)
 {
-	instance
+	return std::move(instance)
 		.def("add_sound",
 		     (u32 (CScriptGameObject::*)(LPCSTR, u32, ESoundTypes, u32, u32, u32))(&CScriptGameObject::add_sound))
 		.def("add_sound",
@@ -174,7 +174,7 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
 		.def("base_out_restrictions", &CScriptGameObject::base_out_restrictions)
 		.def("accessible", &CScriptGameObject::accessible_position)
 		.def("accessible", &CScriptGameObject::accessible_vertex_id)
-		.def("accessible_nearest", &CScriptGameObject::accessible_nearest, out_value(_3))
+		.def("accessible_nearest", &CScriptGameObject::accessible_nearest, out_value<3>())
 
 		//////////////////////////////////////////////////////////////////////////
 		.def("enable_attachable_item", &CScriptGameObject::enable_attachable_item)
@@ -221,7 +221,7 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
 
 		.def("get_task_state", &CScriptGameObject::GetGameTaskState)
 		.def("set_task_state", &CScriptGameObject::SetGameTaskState)
-		.def("give_task", &CScriptGameObject::GiveTaskToActor, adopt(_2))
+		.def("give_task", &CScriptGameObject::GiveTaskToActor, adopt<2>())
 		.def("set_active_task", &CScriptGameObject::SetActiveTask)
 		.def("is_active_task", &CScriptGameObject::IsActiveTask)
 		.def("get_task", &CScriptGameObject::GetTask)
@@ -365,10 +365,16 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
 		//HELICOPTER
 		.def("get_helicopter", &CScriptGameObject::get_helicopter)
 		.def("get_car", &CScriptGameObject::get_car)
+#ifdef STATIONARYMGUN_NEW
+		.def("get_stmgun", &CScriptGameObject::get_stmgun)
+#endif
 		.def("get_hanging_lamp", &CScriptGameObject::get_hanging_lamp)
 		.def("get_physics_shell", &CScriptGameObject::get_physics_shell)
 		.def("get_holder_class", &CScriptGameObject::get_custom_holder)
 		.def("get_current_holder", &CScriptGameObject::get_current_holder)
+#ifdef HOLDERCUSTOM_NEW
+		.def("get_holder_owner", &CScriptGameObject::get_holder_owner)
+#endif
 		//usable object
 		.def("set_tip_text", &CScriptGameObject::SetTipText)
 		.def("set_tip_text_default", &CScriptGameObject::SetTipTextDefault)
@@ -515,6 +521,7 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
 		.def("cast_Artefact", &CScriptGameObject::cast_Artefact)
 		.def("cast_Ammo", &CScriptGameObject::cast_Ammo)
 		.def("cast_Weapon", &CScriptGameObject::cast_Weapon)
+		.def("cast_Knife", &CScriptGameObject::cast_Knife)
 		.def("cast_WeaponMagazined", &CScriptGameObject::cast_WeaponMagazined)
 		.def("cast_WeaponMagazinedWGrenade", &CScriptGameObject::cast_WeaponMagazinedWGrenade)
 		.def("cast_EatableItem", &CScriptGameObject::cast_EatableItem)
@@ -522,6 +529,7 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
 		.def("cast_Antirad", &CScriptGameObject::cast_Antirad)
 		.def("cast_FoodItem", &CScriptGameObject::cast_FoodItem)
 		.def("cast_BottleItem", &CScriptGameObject::cast_BottleItem)
+		.def("cast_Missile", &CScriptGameObject::cast_Missile)
 		//Alundaio: END
 
 		//Torch
@@ -651,5 +659,4 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
 		.def("set_shader", &CScriptGameObject::SetShaderTexture)
 		.def("reset_shader", &CScriptGameObject::ResetShaderTexture)
 		;
-	return (instance);
 }

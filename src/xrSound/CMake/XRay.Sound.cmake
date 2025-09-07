@@ -26,12 +26,14 @@ add_module(XRay.Sound
   LINKS
   dxsdk
   dxguid
+  fastdelegate
   FastDynamicCast
   libogg
   libtheora
   libvorbis
   libvorbisfile
   OpenAL
+  robin_hood
   tbb
 
   XRay.Core.Defines

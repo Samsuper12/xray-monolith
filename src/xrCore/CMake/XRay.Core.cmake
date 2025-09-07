@@ -18,8 +18,10 @@ add_module(XRay.Core
 
   LINKS
   DxErr
+  fastdelegate
   LZO
   optick
+  robin_hood
   StackWalker
   winmm
 
@@ -39,7 +41,6 @@ add_module(XRay.Core
   
   ChooseTypes.H
   client_id.h
-  robin_hood.h
 
   destructor.h
 

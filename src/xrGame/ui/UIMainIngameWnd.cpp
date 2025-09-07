@@ -1084,3 +1084,15 @@ void CUIMainIngameWnd::UpdateBoosterIndicators(const xr_map<EBoostParams, SBoost
 		}
 	}
 }
+
+::luabind::object CUIMainIngameWnd::GetQuickSlotIconsScript()
+{
+	::luabind::object table = ::luabind::newtable(ai().script_engine().lua());
+	
+	for (u32 i = 0; i < m_quick_slots_icons.size(); i++)
+	{
+		table[i + 1] = m_quick_slots_icons[i];
+	}
+
+	return table;
+}

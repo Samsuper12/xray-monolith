@@ -908,7 +908,9 @@ add_module(XRay.Game.Core.Client.Objects.ItemsWeapons.Weapons.StationaryMinigun
   WeaponStatMgun.cpp
   WeaponStatMgun.h
 
+  WeaponStatMgunBarrel.cpp
   WeaponStatMgunFire.cpp
+  WeaponStatMgunMisc.cpp
 
   WeaponStatMgunIR.cpp
 )
@@ -1043,6 +1045,12 @@ add_module(XRay.Game.Core.Client.Objects.ItemsWeapons.Weapons.Various.Shotgun
   WeaponShotgun.cpp
   weaponshotgun_script.cpp
   WeaponShotgun.h
+)
+
+add_module(XRay.Game.Core.Client.Objects.ItemsWeapons.Weapons.Various.GrenadeLauncher
+  SOURCES
+  WeaponGrenadeLauncher.cpp
+  WeaponGrenadeLauncher.h
 )
 
 add_module(XRay.Game.Core.Client.Objects.ItemsWeapons.Weapons.Various.USP45
@@ -1242,6 +1250,7 @@ add_module(XRay.Game.Core.Client.Objects.Vehicles.Car
   CarScript.cpp
   CarSound.cpp
   CarWheels.cpp
+  CarNew.cpp
 
   DBG_Car.cpp
 )

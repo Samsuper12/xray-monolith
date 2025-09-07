@@ -58,6 +58,7 @@ void FHierrarhyVisual::Load(const char* N, IReader* data, u32 dwFlags)
 #else
 			u32 ID = data->r_u32();
 			children[i] = ::Render->getVisual(ID);
+			((dxRender_Visual*)children[i])->setID(i + 1);
 #endif
 		}
 		bDontDelete = TRUE;
@@ -78,6 +79,7 @@ void FHierrarhyVisual::Load(const char* N, IReader* data, u32 dwFlags)
 					if (strext(short_name)) *strext(short_name) = 0;
 					strconcat(sizeof(name_load), name_load, short_name, ":", _itoa(count, num, 10));
 					children.push_back(::Render->model_CreateChild(name_load, O));
+					((dxRender_Visual*)children.back())->setID(count);
 					O->close();
 					O = OBJ->open_chunk(count);
 				}
@@ -98,6 +100,8 @@ void FHierrarhyVisual::MarkAsHot(bool is_hot)
 	dxRender_Visual::MarkAsHot(is_hot);
 	for (u32 i = 0; i < children.size(); i++)
 		children[i]->MarkAsHot(is_hot);
+	for (u32 i = 0; i < children_invisible.size(); i++)
+		children_invisible[i]->MarkAsHot(is_hot);
 }
 //--DSR-- HeatVision_end
 

@@ -22,6 +22,9 @@ set(XRAY_COMPILER_FLAGS
     /wd4530
     # Disable redefined symbol warnings (loki / xrDebug STATIC_CHECK)
     /wd4005
+    # Disable variable shadowing warnings
+    /wd4458
+
 )
 
 # Debug flags

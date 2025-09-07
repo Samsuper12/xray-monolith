@@ -3,11 +3,13 @@ add_module(XRay.Game.AI.Life
   
   LINKS
   dxsdk
+  fastdelegate
   FastDynamicCast
   luabind
   LuaJIT
   LZO
   ode
+  robin_hood
   TinyXML
 
   XRay.Core.Defines

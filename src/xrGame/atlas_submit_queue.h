@@ -1,8 +1,8 @@
 #ifndef ATLAS_SUBMIT_QUEUE_INCLUDED
 #define ATLAS_SUBMIT_QUEUE_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../xrCore/fastdelegate.h"
+
+#include <fastdelegate/fastdelegate.h>
 #include "profile_data_types.h"
 
 namespace gamespy_profile
@@ -15,7 +15,7 @@ namespace gamespy_gp
 	struct profile;
 };
 
-class atlas_submit_queue : private boost::noncopyable
+class atlas_submit_queue : private xray::noncopyable
 {
 public:
 	atlas_submit_queue(gamespy_profile::stats_submitter* stats_submitter);

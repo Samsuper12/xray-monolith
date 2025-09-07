@@ -9,10 +9,12 @@ add_module(XRay.Collision
   XRCDB_EXPORTS
 
   LINKS
+  fastdelegate
   FastDynamicCast
   loki
   OPCODE
   optick
+  robin_hood
 
   XRay.Core.Defines
   XRay.Engine.Defines
@@ -43,11 +45,6 @@ add_module(XRay.Collision
   alloc.h
   Frustum.h
   xrCDB.h
-)
-
-target_compile_options(XRay.Collision
-  PRIVATE
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4458>
 )
 
 set_source_files_properties(

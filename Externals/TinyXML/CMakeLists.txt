@@ -10,6 +10,7 @@ target_include_directories(TinyXML
 target_link_libraries(TinyXML
   PRIVATE
   FastDynamicCast
+  robin_hood
   
   XRay.Platform
 

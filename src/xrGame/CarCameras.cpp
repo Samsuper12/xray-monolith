@@ -1,8 +1,10 @@
 #ifdef DEBUG
-
+#include <iphworld.h>
 #include "PHDebug.h"
-#include "../xrphysics/iphworld.h"
 #endif
+
+#include <cameramanager.h>
+
 #include "alife_space.h"
 #include "hit.h"
 #include "PHDestroyable.h"
@@ -11,7 +13,10 @@
 #include "cameralook.h"
 #include "camerafirsteye.h"
 #include "level.h"
-#include "../xrEngine/cameramanager.h"
+
+#ifdef CAR_NEW
+#include <Kinematics.h>
+#endif
 
 bool CCar::HUDView() const
 {
@@ -26,6 +31,42 @@ void CCar::cam_Update(float dt, float fov)
 	Fvector P, Da;
 	Da.set(0, 0, 0);
 	//bool							owner = !!Owner();
+
+#ifdef CAR_NEW
+	u16 bone_id = (IsCameraZoom() && (m_camera_bone_aim != BI_NONE)) ? m_camera_bone_aim : m_camera_bone_def;
+	if (bone_id != BI_NONE)
+	{
+		Fvector D = Fvector().set(0, 0, 0);
+		CCameraBase *cam = Camera();
+		switch (cam->tag)
+		{
+		case ectFirst:
+		{
+			Fmatrix xfm = Visual()->dcast_PKinematics()->LL_GetTransform(bone_id);
+			XFORM().transform_tiny(P, xfm.c);
+			if (m_remote_control == false)
+			{
+				if (OwnerActor())
+					OwnerActor()->Orientation().yaw = -cam->yaw;
+				if (OwnerActor())
+					OwnerActor()->Orientation().pitch = -cam->pitch;
+			}
+		}
+		break;
+		case ectChase:
+		case ectFree:
+		{
+			XFORM().transform_tiny(P, m_camera_position);
+		}
+		break;
+		}
+
+		cam->f_fov = fov / (IsCameraZoom() ? m_zoom_factor_aim : m_zoom_factor_def);
+		cam->Update(P, D);
+		Level().Cameras().UpdateFromCamera(cam);
+		return;
+	}
+#endif
 
 	XFORM().transform_tiny(P, m_camera_position);
 
@@ -50,7 +91,18 @@ void CCar::OnCameraChange(int type)
 	{
 		if (type == ectFirst)
 		{
+#ifdef CAR_NEW
+			if (m_remote_control)
+			{
+				Owner()->setVisible(TRUE);
+			}
+			else
+			{
+				Owner()->setVisible(FALSE);
+			}
+#else
 			Owner()->setVisible(FALSE);
+#endif
 		}
 		else if (active_camera->tag == ectFirst)
 		{

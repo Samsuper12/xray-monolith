@@ -8,7 +8,7 @@
 
 #include "debug_make_final.hpp"
 
-struct A : private boost::noncopyable
+struct A : private xray::noncopyable
 {
 };
 

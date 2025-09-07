@@ -14,6 +14,7 @@ target_link_libraries(IKAN
   PRIVATE
   FastDynamicCast
   ode
+  robin_hood
   
   XRay.Platform
   

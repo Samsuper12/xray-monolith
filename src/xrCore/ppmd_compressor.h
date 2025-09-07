@@ -1,8 +1,8 @@
 #ifndef PPMD_COMPRESSOR_H
 #define PPMD_COMPRESSOR_H
 
-#include "_types.h"
-#include "fastdelegate.h"
+#include <_types.h>
+#include <fastdelegate.h>
 
 namespace compression
 {

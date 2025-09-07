@@ -26,7 +26,6 @@ target_compile_options(CxImage
   $<$<CXX_COMPILER_ID:MSVC>:/wd4324>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4456>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4457>
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4458>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4611>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4702>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4996>

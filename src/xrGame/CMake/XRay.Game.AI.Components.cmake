@@ -3,12 +3,14 @@ add_module(XRay.Game.AI.Components
 
   LINKS
   dxsdk
+  fastdelegate
   FastDynamicCast
   ode
   IKAN
   luabind
   LuaJIT
   LZO
+  robin_hood
   TinyXML
 
   XRay.Core.Defines

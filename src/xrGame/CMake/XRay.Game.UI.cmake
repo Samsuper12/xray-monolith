@@ -4,12 +4,14 @@ add_module(XRay.Game.UI
   LINKS
   CxImage
   dxsdk
+  fastdelegate
   FastDynamicCast
   luabind
   LuaJIT
   LZO
   ode
   OPCODE
+  robin_hood
   TinyXML
 
   XRay.Core.Defines

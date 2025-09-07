@@ -6,7 +6,6 @@
 #include "extendedgeom.h"
 
 #include "Kinematics.h"
-#include <boost/noncopyable.hpp>
 ///////////////////////////////////////////////////////////////////////////////////////
 #include "physicsshellholder.h"
 
@@ -129,7 +128,7 @@ void imotion_position::state_start()
 	update_callback.motion = this;
 	struct get_controled_blend :
 		public IterateBlendsCallback,
-		private boost::noncopyable
+		private xray::noncopyable
 
 	{
 		CBlend* blend;
@@ -487,7 +486,7 @@ public:
 static void save_blends(buffer_vector<sblend_save>& buffer, IKinematicsAnimated& KA)
 {
 	buffer.clear();
-	struct scbl : public IterateBlendsCallback, private boost::noncopyable
+	struct scbl : public IterateBlendsCallback, private xray::noncopyable
 	{
 		buffer_vector<sblend_save>& _buffer;
 

@@ -49,16 +49,19 @@ public:
 #ifdef _EDITOR
     ogf_desc					desc		;
 #endif
+	u32							dbg_id		;
 	shared_str					dbg_name	;
 	shared_str					dbg_shader	;
 	shared_str					dbg_texture	;
 	shared_str					dbg_shader_def	;
 	shared_str					dbg_texture_def	;
-	virtual shared_str getDebugName() { return dbg_name; }
-	virtual LPCSTR getDebugShader() { return *dbg_shader; }
-	virtual LPCSTR getDebugTexture() { return *dbg_texture; }
-	virtual LPCSTR getDebugShaderDef() { return *dbg_shader_def; }
-	virtual LPCSTR getDebugTextureDef() { return *dbg_texture_def; }
+	virtual void				setID(u32 id) { dbg_id = id; }
+	virtual u32			getID() { return dbg_id; }
+	virtual shared_str	getDebugName() { return dbg_name; }
+	virtual LPCSTR		getDebugShader() { return *dbg_shader; }
+	virtual LPCSTR		getDebugTexture() { return *dbg_texture; }
+	virtual LPCSTR		getDebugShaderDef() { return *dbg_shader_def; }
+	virtual LPCSTR		getDebugTextureDef() { return *dbg_texture_def; }
 public:
 	// Common data for rendering
 	u32 Type; // visual's type

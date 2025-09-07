@@ -2,8 +2,10 @@ add_module(XRay.Core.Crypto
   TYPE STATIC
 
   LINKS
+  fastdelegate
   FastDynamicCast
   OpenSSL
+  robin_hood
 
   XRay.Core.Defines
   

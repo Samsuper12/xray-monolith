@@ -2,7 +2,6 @@
 #ifndef intersectH
 #define intersectH
 
-#include "_vector3d.h"
 #include "vector.h"
 
 namespace CDB

@@ -9,6 +9,7 @@ add_module(XRay.XMLParser
 
   LINKS
   FastDynamicCast
+  robin_hood
   TinyXML
 
   XRay.Core.Defines

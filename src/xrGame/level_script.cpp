@@ -55,6 +55,7 @@
 #include "script_ini_file.h"
 #include "EffectorBobbing.h"
 #include "LevelDebugScript.h"
+#include "script_attachment_manager.h"
 
 #include "ui\UIPdaMsgListItem.h"
 #include "ui\UILogsWnd.h"
@@ -186,6 +187,27 @@ float get_wfx_time()
 void stop_weather_fx()
 {
 	g_pGamePersistent->Environment().StopWFX();
+}
+
+Fvector get_sun_pos()
+{
+	return Render->GetSunPosition();
+}
+
+Fcolor get_sun_color()
+{
+	return Render->GetSunColor();
+}
+
+float get_sun_intensity()
+{
+	return Render->GetSunIntensity();
+}
+
+bool is_sun_visible()
+{
+	//return Render().RImplementation->is_sun();
+	return Render->IsSun();
 }
 
 void set_time_factor(float time_factor)
@@ -2155,6 +2177,34 @@ void update_pda_news_from_uiwindow(CUIWindow* CUIWindowPItem) {
 	}
 }
 
+script_attachment* AddAttachment(LPCSTR name, LPCSTR model_name)
+{
+	script_attachment* att = xr_new<script_attachment>(name, model_name);
+	R_ASSERT(att);
+	att->SetParentLevel();
+	return att;
+}
+
+script_attachment* GetAttachment(LPCSTR name)
+{
+	return Level().get_attachment(name);
+}
+
+void RemoveAttachment(LPCSTR name)
+{
+	Level().remove_attachment(name);
+}
+
+void RemoveAttachment(script_attachment* child)
+{
+	Level().remove_attachment(child);
+}
+
+void IterateAttachments(::luabind::functor<bool> functor)
+{
+	Level().iterate_attachments(functor);
+}
+
 #pragma optimize("s",on)
 
 extern void open_originals_link();
@@ -2238,6 +2288,14 @@ void CLevel::script_register(lua_State* L)
 			// demonized: get world position under crosshair
 			def("get_target_pos", ((Fvector(*)()) & g_get_target_pos)),
 			def("get_target_pos", ((Fvector (*)(ETraceTarget)) & g_get_target_pos)),
+			// antglobes: Get Sun Position in World Space
+			def("get_sun_pos", ((Fvector(*)()) & get_sun_pos)),
+			// antglobes: Get the float represenation of the sun's color in rgb format
+			def("get_sun_color", ((Fcolor (*)()) & get_sun_color)),
+			// antglobes: Get the sun's brightness
+			def("get_sun_intensity", ((float (*)()) & get_sun_intensity)),
+			// antglobes: Check if the weather is clear
+			def("is_sun_visible", ((bool (*)()) & is_sun_visible)),
 
 			// demonized: get result of crosshair ray query
 			def("get_target_result", ((script_rq_result(*)()) & g_get_target_result)),
@@ -2380,7 +2438,14 @@ void CLevel::script_register(lua_State* L)
 			def("iterate_nearest", &iterate_nearest),
 			def("pick_material", &PickMaterial),
 			def("add_bullet", ((void (*)(Fvector, Fvector, float, float, float, u16, ALife::EHitType, float, LPCSTR, float))& AddBullet)),
-			def("add_bullet", ((void (*)(::luabind::object))& AddBullet))
+			def("add_bullet", ((void (*)(::luabind::object))& AddBullet)),
+
+			// Lucy: Script Attachments
+			def("add_attachment", &AddAttachment),
+			def("get_attachment", &GetAttachment),
+			def("remove_attachment", (void (*)(LPCSTR)) &RemoveAttachment),
+			def("remove_attachment", (void (*)(script_attachment*)) &RemoveAttachment),
+			def("iterate_attachments", &IterateAttachments)
 		],
 
 		module(L, "actor_stats")
@@ -2514,8 +2579,8 @@ void CLevel::script_register(lua_State* L)
 		.def("setHMSms", &xrTime::setHMSms)
 		.def("set", &xrTime::set)
 		.def("get", &xrTime::get,
-		     out_value(_2) + out_value(_3) + out_value(_4) + out_value(_5) + out_value(_6) + out_value(_7) +
-		     out_value(_8))
+		     out_value<2>() + out_value<3>() + out_value<4>() + out_value<5>() + out_value<6>() + out_value<7>() +
+		     out_value<8>())
 		.def("dateToString", &xrTime::dateToString)
 		.def("timeToString", &xrTime::timeToString),
 		// declarations
@@ -2550,10 +2615,10 @@ void CLevel::script_register(lua_State* L)
 		def("prefetch_model", prefetch_model),
 		def("get_visual_userdata", GetVisualUserdata),
 		def("world2ui", world2ui),
-		def("ui2world", (void (*)(Fvector2, Fvector&, u16&))&ui2world, pure_out_value(_2) + pure_out_value(_3)),
-		def("ui2world", (void (*)(Fvector&, Fvector&, u16&))&ui2world, pure_out_value(_2) + pure_out_value(_3)),
-		def("ui2world_offscreen", (void (*)(Fvector2, Fvector&, u16&))& ui2world_offscreen, pure_out_value(_2) + pure_out_value(_3)),
-		def("ui2world_offscreen", (void (*)(Fvector&, Fvector&, u16&))& ui2world_offscreen, pure_out_value(_2) + pure_out_value(_3)),
+		def("ui2world", (void (*)(Fvector2, Fvector&, u16&))&ui2world, pure_out_value<2>() + pure_out_value<3>()),
+		def("ui2world", (void (*)(Fvector&, Fvector&, u16&))&ui2world, pure_out_value<2>() + pure_out_value<3>()),
+		def("ui2world_offscreen", (void (*)(Fvector2, Fvector&, u16&))& ui2world_offscreen, pure_out_value<2>() + pure_out_value<3>()),
+		def("ui2world_offscreen", (void (*)(Fvector&, Fvector&, u16&))& ui2world_offscreen, pure_out_value<2>() + pure_out_value<3>()),
 		
 		// demonized: adjust game news time
 		def("change_game_news_show_time", &change_game_news_show_time),

@@ -1,7 +1,7 @@
 #ifndef STATS_SUBMITTER_INCLUDED
 #define STATS_SUBMITTER_INCLUDED
 
-#include <boost/noncopyable.hpp>
+
 #include "profile_data_types.h"
 #include "gsc_dsigned_ltx.h"
 #include "crypto.h"
@@ -18,7 +18,7 @@ namespace gamespy_profile
 {
 	class stats_submitter :
 		public ISheduled,
-		private boost::noncopyable
+		private xray::noncopyable
 	{
 	public:
 		stats_submitter(CGameSpy_Full* fullgs);

@@ -22,6 +22,7 @@ add_module(XRay.Render.R4
   LINKS
   dxgi
   dxsdk
+  fastdelegate
   FastDynamicCast
   imgui
   loki
@@ -30,6 +31,7 @@ add_module(XRay.Render.R4
   NVAPI
   optick
   ReShadeCompat
+  robin_hood
   tbb
 
   XRay.Platform

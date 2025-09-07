@@ -1,4 +1,8 @@
 add_module(XRay.Core.Math
+  LINKS
+  fastdelegate
+  robin_hood
+
   SOURCES
   cpuid.cpp
   
@@ -16,7 +20,6 @@ add_module(XRay.Core.Math
   _stl_extensions.h
   _type_traits.h
   clsid.h
-  fastdelegate.h
   string_concatenations.h
   string_concatenations_inline.h
   xr_trims.h

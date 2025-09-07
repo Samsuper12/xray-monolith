@@ -131,7 +131,6 @@ protected:
 	u32 CurrentFrame;
 	Fmatrix	Matrix_Prev;
 	Fmatrix Matrix_Temp;
-	xr_vector<dxRender_Visual*> children_invisible;
 
 	// Globals
 	CInifile* pUserData;

@@ -1,6 +1,9 @@
 #pragma once
 
-#include <boost/noncopyable.hpp>
+#pragma warning (disable : 4511 )
+#pragma warning (disable : 4512 )
+
+#include "../ui_base.h"
 
 #include "ui_base.h"
 #include "gamefont.h"
@@ -42,7 +45,7 @@ enum EWindowAlignment
 	waCenter =16
 };
 
-class CUISimpleWindow : public boost::noncopyable
+class CUISimpleWindow : public xray::noncopyable
 {
 public:
 	CUISimpleWindow()

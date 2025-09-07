@@ -1,4 +1,4 @@
-#include <boost/noncopyable.hpp>
+#include "IKLimb.h"
 
 #include <string_concatenations.h>
 #include <xr_ini.h>
@@ -1047,7 +1047,7 @@ float CIKLimb::get_time_to_step_begin(const CBlend& B) const
 }
 
 struct ssaved_callback :
-	private boost::noncopyable
+	private xray::noncopyable
 {
 	ssaved_callback(CBoneInstance& bi):
 		_bi(bi),

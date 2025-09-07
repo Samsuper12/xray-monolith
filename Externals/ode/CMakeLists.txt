@@ -105,7 +105,6 @@ target_compile_options(ode
   $<$<CXX_COMPILER_ID:MSVC>:/wd4244>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4456>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4457>
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4458>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4459>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4505>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4702>

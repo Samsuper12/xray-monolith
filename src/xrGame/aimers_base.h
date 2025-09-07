@@ -10,7 +10,6 @@
 #define AIMERS_BASE_H_INCLUDED
 
 #include "animation_motion.h"
-#include <boost/noncopyable.hpp>
 
 class CGameObject;
 class IKinematics;
@@ -19,7 +18,7 @@ class ENGINE_API CBoneInstance;
 
 namespace aimers
 {
-	class base : private boost::noncopyable
+	class base : private xray::noncopyable
 	{
 	public:
 		base(
