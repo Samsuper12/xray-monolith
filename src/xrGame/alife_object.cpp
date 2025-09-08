@@ -39,21 +39,25 @@ void CSE_ALifeObject::spawn_supplies(LPCSTR ini_string)
 	// No need to spawn ammo, this will automatically spawn 1 box for weapon and if ammo_type is specficied it will spawn that type
 	// count is used only for ammo boxes (ie wpn_pm = 3) will spawn 3 boxes, not 3 wpn_pm
 	// Usage: to create random weapon loadouts
-	LPCSTR loadout_section = "spawn_loadout";
+	std::string loadout_section = "spawn_loadout";
 	u8 iItr = 1;
-	while (ini.section_exist(loadout_section))
+	while (ini.section_exist(loadout_section.c_str()))
 	{
 		LPCSTR itmSection, V;
 		xr_vector<u32> OnlyOne;
 		OnlyOne.clear();
-		LPCSTR lname = *ai().game_graph().header().level(ai().game_graph().vertex(m_tGraphID)->level_id()).name();
 
-		for (u32 k = 0; ini.r_line(loadout_section, k, &itmSection, &V); k++)
+		for (u32 k = 0; ini.r_line(loadout_section.c_str(), k, &itmSection, &V); k++)
 		{
 			// If level=<lname> then only spawn items if object on that level
 			if (strstr(V, "level=") != NULL)
 			{
-				if (strstr(V, lname) != NULL)
+				CGameGraph& graph = ai().game_graph();
+				const GameGraph::CHeader& header = graph.header();
+				const GameGraph::CVertex* vertex = graph.vertex(m_tGraphID);
+				const GameGraph::SLevel& level = header.level(vertex->level_id());
+				const shared_str& lname = level.name();
+				if (strstr(V, lname.c_str()) != NULL)
 					OnlyOne.push_back(k);
 			}
 			else
@@ -65,7 +69,7 @@ void CSE_ALifeObject::spawn_supplies(LPCSTR ini_string)
 		if (!OnlyOne.empty())
 		{
 			s32 sel = ::Random.randI(0, OnlyOne.size() - 1);
-			if (ini.r_line(loadout_section, OnlyOne.at(sel), &itmSection, &V))
+			if (ini.r_line(loadout_section.c_str(), OnlyOne.at(sel), &itmSection, &V))
 			{
 				VERIFY(xr_strlen(itmSection));
 				if (pSettings->section_exist(itmSection))
@@ -137,8 +141,7 @@ void CSE_ALifeObject::spawn_supplies(LPCSTR ini_string)
 		}
 
 		iItr++;
-		string32 buf;
-		loadout_section = strconcat(sizeof(buf), buf, "spawn_loadout", std::to_string(iItr).c_str());
+		loadout_section = std::string("spawn_loadout") + std::to_string(iItr);
 	}
 	//-Alundaio 
 
