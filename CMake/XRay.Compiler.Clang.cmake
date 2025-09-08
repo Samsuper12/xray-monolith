@@ -22,20 +22,16 @@ if(WIN32)
 endif()
 
 set(XRAY_COMPILER_FLAGS_DEBUG
-  # FIXME: Optimization levels above 0 cause crashes
-  -O0
   # Enable debugging-friendly optimizations
-  # -Og
+  -Og
   
   # Generate full debug info
   -g
 )
 
 set(XRAY_COMPILER_FLAGS_RELEASE
-  # FIXME: Optimization levels above 0 cause crashes
-  -O0
   # Enable aggressive optimizations
-  # -O3
+  -O3
 
   # Optimize loop execution
   -funroll-loops
@@ -49,10 +45,8 @@ set(XRAY_COMPILER_FLAGS_RELEASE
 )
 
 set(XRAY_LINKER_FLAGS_RELEASE
-  # FIXME: Optimization levels above 0 cause crashes
-  -O0
   # Enable aggressive optimizations
-  # -O3
+  -O3
 
   # Optimize loop execution
   -funroll-loops
