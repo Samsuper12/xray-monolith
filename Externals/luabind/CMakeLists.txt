@@ -29,7 +29,7 @@ target_compile_options(luabind
 target_compile_definitions(luabind
   PRIVATE
   LUABIND_BUILDING
-  LUABIND_NO_EXCEPTIONS
+  $<IF:$<CONFIG:Debug>,,LUABIND_NO_EXCEPTIONS>
 )
 
 target_sources(luabind PRIVATE

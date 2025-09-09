@@ -1,9 +1,22 @@
 set(XRPLATFORM_H xrPlatform.h)
 
+set(BENCHMARK_BUILD Off)
+
 # Single source of truth for global definitions
 add_module(XRay.Platform
   INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}
+
+  DEFINES
+  # Benchmark build
+  $<$<BOOL:${BENCHMARK_BUILD}>:BENCHMARK_BUILD>
+
+  # STL Exceptions
+  HAS_EXCEPTIONS=1
+  # X-Ray Exceptions
+  $<IF:$<CONFIG:Debug>,XRAY_EXCEPTIONS=1,XRAY_EXCEPTIONS=0>
+  # Luabind exception handler for non-debug builds
+  $<IF:$<CONFIG:Debug>,,LUABIND_NO_EXCEPTIONS>
 
   LINKS
   XRay.Includes

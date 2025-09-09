@@ -2,21 +2,6 @@
 #define xrPlatformH
 #pragma once
 
-#ifndef DEBUG
-#ifdef _DEBUG
-#define DEBUG
-#endif
-#ifdef MIXED
-#define DEBUG
-#endif
-#endif
-
-#ifndef DEBUG
-#define MASTER_GOLD
-#endif // DEBUG
-
-//#define BENCHMARK_BUILD
-
 #ifdef BENCHMARK_BUILD
 #define BENCH_SEC_CALLCONV __stdcall
 #define BENCH_SEC_SCRAMBLEVTBL1 virtual int GetFlags() { return 1;}
@@ -35,24 +20,6 @@
 #define BENCH_SEC_SCRAMBLEMEMBER2
 #endif // BENCHMARK_BUILD
 
-#if (defined(_DEBUG) || defined(MIXED) || defined(DEBUG)) && !defined(FORCE_NO_EXCEPTIONS)
-// "debug" or "mixed"
-#if !defined(_CPPUNWIND)
-#error Please enable exceptions...
-#endif
-#define _HAS_EXCEPTIONS 1 // STL
-#define XRAY_EXCEPTIONS 1 // XRAY
-#else
-// "release"
-#if defined(_CPPUNWIND) && !defined __clang__
-#error Please disable exceptions...
-#endif
-#define _HAS_EXCEPTIONS 1 // STL
-#define XRAY_EXCEPTIONS 0 // XRAY
-#define LUABIND_NO_EXCEPTIONS
-#pragma warning(disable:4530)
-#endif
-
 #if !defined(_MT)
 // multithreading disabled
 #error Please enable multi-threaded library...
@@ -62,12 +29,14 @@
 // it seems "IC" is misused in many places which cause code-bloat
 // ...and VC7.1 really don't miss opportunities for inline :)
 #ifdef _EDITOR
-# define __forceinline inline
+#define __forceinline inline
 #endif
+
 #define _inline inline
 #define __inline inline
 #define IC inline
 #define ICF __forceinline // !!! this should be used only in critical places found by PROFILER
+
 #ifdef _EDITOR
 # define ICN
 #else

@@ -51,7 +51,6 @@ target_compile_options(XRay.Platform.Windows
   $<$<CXX_COMPILER_ID:MSVC>:/wd4201> # nonstandard extension used : nameless struct/union
   $<$<CXX_COMPILER_ID:MSVC>:/wd4100> # unreferenced formal parameter
   $<$<CXX_COMPILER_ID:MSVC>:/wd4127> # conditional expression is constant
-  $<$<CXX_COMPILER_ID:MSVC>:/wd4530> # C++ exception handler used, but unwind semantics are not enabled
   $<$<CXX_COMPILER_ID:MSVC>:/wd4345>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4714> # __forceinline not inlined
 

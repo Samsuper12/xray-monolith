@@ -64,8 +64,6 @@ set(XRAY_COMPILER_FLAGS_RELEASE
     /GL
     # Disable security check
     /GS-
-    # Not Debug
-    /DNDEBUG
     # Disable iterator debugging
     /D_HAS_ITERATOR_DEBUGGING=0
     /D_SECURE_SCL=0
