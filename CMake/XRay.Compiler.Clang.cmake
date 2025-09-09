@@ -22,9 +22,9 @@ if(WIN32)
 endif()
 
 set(XRAY_COMPILER_FLAGS_DEBUG
-  # Enable debugging-friendly optimizations
-  -Og
-  
+  # Disable optimizations
+  -O0
+
   # Generate full debug info
   -g
 )
