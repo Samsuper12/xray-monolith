@@ -113,8 +113,8 @@ target_compile_options(ode
   $<$<CXX_COMPILER_ID:Clang>:-Wno-null-dereference>
 )
 
-if(ODE_DOUBLE_PRECISION)
-  target_compile_definitions(ode PUBLIC dDOUBLE)
-else()
-  target_compile_definitions(ode PUBLIC dSINGLE)
-endif()
+target_compile_definitions(ode
+  PUBLIC
+  $<IF:$<CONFIG:Debug>,,dNODEBUG>
+  $<IF:$<BOOL:${ODE_DOUBLE_PRECISION}>,dDOUBLE,dSINGLE>
+)
