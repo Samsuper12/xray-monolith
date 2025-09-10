@@ -1,6 +1,13 @@
 set(XRPLATFORM_H xrPlatform.h)
 
-set(BENCHMARK_BUILD Off)
+set(BENCHMARK_BUILD Off
+  CACHE BOOL
+  "Compile in additional performance testing machinery."
+)
+
+message(STATUS "${CMAKE_SYSTEM_NAME} Platform")
+message(STATUS "    Benchmark: ${BENCHMARK_BUILD}")
+message(STATUS)
 
 # Single source of truth for global definitions
 add_module(XRay.Platform

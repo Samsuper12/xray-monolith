@@ -4,6 +4,11 @@ message(STATUS "      Version: 1.6")
 
 cmake_policy(SET CMP0140 NEW)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS Off
+  CACHE BOOL
+  "Dump compiler arguments to compile_commands.json"
+)
+
 # Setup build configurations
 include(XRay.Configs)
 
