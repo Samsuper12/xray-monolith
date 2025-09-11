@@ -81,6 +81,8 @@ set(XRAY_LINKER_FLAGS
     /DYNAMICBASE:NO
     # Allow larger PDBs
     /PDBPAGESIZE:16384
+    # Compress PDBs during build
+    /PDBCOMPRESS
     # Treat warnings as errors
     /WX
     # Disable multiply-defined symbol warnings (libjpeg / cximage)
