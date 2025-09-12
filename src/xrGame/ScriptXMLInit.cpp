@@ -40,7 +40,10 @@ void _attach_child(CUIWindow* _child, CUIWindow* _parent)
 // demonized
 // Clear XML from BOM
 LPCSTR clearBOM(LPCSTR s) {
-	if (s[0] == 0xEF && s[1] == 0xBB && s[2] == 0xBF) {
+	if ((unsigned char)s[0] == 0xEF &&
+	    (unsigned char)s[1] == 0xBB &&
+		(unsigned char)s[2] == 0xBF)
+	{
 		LPCSTR new_s = s + 3;
 		return new_s;
 	}
