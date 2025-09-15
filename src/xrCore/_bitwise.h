@@ -2,7 +2,7 @@
 #define _BITWISE_
 #pragma once
 
-#include <corecrt_math.h>
+#include <cmath>
 
 #include "_types.h"
 #include "vector.h"
@@ -84,44 +84,17 @@ IC u64 btwCount1(u64 v)
 }
 
 
-ICF int iFloor(float x)
+IC int iFloor(float x)
 {
-	int a = *(const int*)(&x);
-	int exponent = (127 + 31) - ((a >> 23) & 0xFF);
-	int r = (((u32)(a) << 8) | (1U << 31)) >> exponent;
-	exponent += 31 - 127;
-	{
-		int imask = (!(((((1 << (exponent))) - 1) >> 8) & a));
-		exponent -= (31 - 127) + 32;
-		exponent >>= 31;
-		a >>= 31;
-		r -= (imask & a);
-		r &= exponent;
-		r ^= a;
-	}
-	return r;
+    return static_cast<int>(std::floor(x));
 }
 
 /* intCeil() is a non-interesting variant, since effectively
  ceil(x) == -floor(-x)
  */
-ICF int iCeil(float x)
+IC int iCeil(float x)
 {
-	int a = (*(const int*)(&x));
-	int exponent = (127 + 31) - ((a >> 23) & 0xFF);
-	int r = (((u32)(a) << 8) | (1U << 31)) >> exponent;
-	exponent += 31 - 127;
-	{
-		int imask = (!(((((1 << (exponent))) - 1) >> 8) & a));
-		exponent -= (31 - 127) + 32;
-		exponent >>= 31;
-		a = ~((a - 1) >> 31); /* change sign */
-		r -= (imask & a);
-		r &= exponent;
-		r ^= a;
-		r = -r; /* change sign */
-	}
-	return r; /* r = (int)(ceil(f)) */
+    return static_cast<int>(std::ceil(x));
 }
 
 // Validity checks
