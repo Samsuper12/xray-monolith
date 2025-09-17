@@ -16,6 +16,7 @@ target_precompile_headers(ReShadeCompat
 target_compile_options(ReShadeCompat
   PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/permissive->
+  $<$<CXX_COMPILER_ID:Clang>:-Wno-microsoft-cast>
 )
 
 target_compile_definitions(ReShadeCompat
