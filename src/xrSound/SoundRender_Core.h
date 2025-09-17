@@ -12,8 +12,8 @@ class CSoundRender_Core : public CSound_manager_interface
 {
 	volatile BOOL bLocked;
 protected:
-	virtual void _create_data(ref_sound_data& S, LPCSTR fName, esound_type sound_type, int game_type);
-	virtual void _destroy_data(ref_sound_data& S);
+	virtual void _create_data(ref_sound_data& S, LPCSTR fName, esound_type sound_type, int game_type) override;
+	virtual void _destroy_data(ref_sound_data& S) override;
 	CNotificationClient* pSysNotification = nullptr;
 protected:
 	BOOL bListenerMoved;
@@ -65,33 +65,33 @@ public:
 	virtual ~CSoundRender_Core();
 
 	// General
-	virtual void _initialize(int stage) =0;
-	virtual void _clear() =0;
-	virtual void _restart();
+	virtual void _initialize(int stage) override = 0;
+	virtual void _clear() override = 0;
+	virtual void _restart() override;
 
 	// Sound interface
 	void verify_refsound(ref_sound& S);
-	virtual void create(ref_sound& S, LPCSTR fName, esound_type sound_type, int game_type);
-	virtual void attach_tail(ref_sound& S, LPCSTR fName);
+	virtual void create(ref_sound& S, LPCSTR fName, esound_type sound_type, int game_type) override;
+	virtual void attach_tail(ref_sound& S, LPCSTR fName) override;
 
-	virtual void clone(ref_sound& S, const ref_sound& from, esound_type sound_type, int game_type);
-	virtual void destroy(ref_sound& S);
-	virtual void stop_emitters();
-	virtual int pause_emitters(bool val);
+	virtual void clone(ref_sound& S, const ref_sound& from, esound_type sound_type, int game_type) override;
+	virtual void destroy(ref_sound& S) override;
+	virtual void stop_emitters() override;
+	virtual int pause_emitters(bool val) override;
 
-	virtual void play(ref_sound& S, CObject* O, u32 flags = 0, float delay = 0.f);
-	virtual void play_at_pos(ref_sound& S, CObject* O, const Fvector& pos, u32 flags = 0, float delay = 0.f);
+	virtual void play(ref_sound& S, CObject* O, u32 flags = 0, float delay = 0.f) override;
+	virtual void play_at_pos(ref_sound& S, CObject* O, const Fvector& pos, u32 flags = 0, float delay = 0.f) override;
 	virtual void play_no_feedback(ref_sound& S, CObject* O, u32 flags = 0, float delay = 0.f, Fvector* pos = 0,
-	                              float* vol = 0, float* freq = 0, Fvector2* range = 0);
-	virtual void set_master_volume(float f) =0;
-	virtual void set_geometry_env(IReader* I);
-	virtual void set_geometry_som(IReader* I);
-	virtual void set_geometry_occ(CDB::MODEL* M);
-	virtual void set_handler(sound_event* E);
+	                              float* vol = 0, float* freq = 0, Fvector2* range = 0) override;
+	virtual void set_master_volume(float f) override = 0;
+	virtual void set_geometry_env(IReader* I) override;
+	virtual void set_geometry_som(IReader* I) override;
+	virtual void set_geometry_occ(CDB::MODEL* M) override;
+	virtual void set_handler(sound_event* E) override;
 
-	virtual void update(const Fvector& P, const Fvector& D, const Fvector& N);
+	virtual void update(const Fvector& P, const Fvector& D, const Fvector& N) override;
 	virtual void update_events();
-	virtual void statistic(CSound_stats* dest, CSound_stats_ext* ext);
+	virtual void statistic(CSound_stats* dest, CSound_stats_ext* ext) override;
 
 	// listener
 	virtual void update_listener(const Fvector& P, const Fvector& D, const Fvector& N, float dt)=0;
@@ -117,12 +117,12 @@ public:
 	void i_stop(CSoundRender_Emitter* E);
 	void i_rewind(CSoundRender_Emitter* E);
 	BOOL i_allow_play(CSoundRender_Emitter* E);
-	virtual BOOL i_locked() { return bLocked; }
+	virtual BOOL i_locked() override { return bLocked; }
 
-	virtual void object_relcase(CObject* obj);
+	virtual void object_relcase(CObject* obj) override;
 	void i_create_all_sources();
 
-	virtual float get_occlusion_to(const Fvector& hear_pt, const Fvector& snd_pt, float dispersion = 0.2f);
+	virtual float get_occlusion_to(const Fvector& hear_pt, const Fvector& snd_pt, float dispersion = 0.2f) override;
 	float get_occlusion(Fvector& P, float R, Fvector* occ) override;
 	CSoundRender_Environment* get_environment(const Fvector& P);
 
