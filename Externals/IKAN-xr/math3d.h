@@ -33,6 +33,7 @@
 #ifndef _MYVECH
 #define _MYVECH
 
+#include <xrMemory.h>
 
 #define DTOR(x)  ((x)*M_PI/180.0)
 #define DOT4(u,v)  ((u)[0]*(v)[0]+(u)[1]*(v)[1]+(u)[2]*(v)[2]+(u)[3]*((v)[3]))
@@ -87,7 +88,7 @@ inline float unitize(float u[])
 
 	if (f != 0.0)
 	{
-		m = (float)_sqrt(f);
+		m = sqrtf(f);
 
 		u[0] = u[0] / m;
 		u[1] = u[1] / m;
