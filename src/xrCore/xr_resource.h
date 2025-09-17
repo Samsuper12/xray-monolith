@@ -97,41 +97,42 @@ template <class T, typename C>
 class resptr_core : public C
 {
 protected:
+	typedef C inherited;
 	typedef resptr_core this_type;
 	typedef resptr_core<T, C> self;
 public:
 	// construction
-	resptr_core() { p_ = 0; }
+	resptr_core() { C::p_ = 0; }
 
 	resptr_core(T* p, bool add_ref = true)
 	{
-		p_ = p;
-		if (add_ref) _inc();
+		inherited::p_ = p;
+		if (add_ref) inherited::_inc();
 	}
 
 	resptr_core(const self& rhs)
 	{
-		p_ = rhs.p_;
-		_inc();
+		inherited::p_ = rhs.p_;
+		inherited::_inc();
 	}
 
-	~resptr_core() { _dec(); }
+	~resptr_core() { inherited::_dec(); }
 
 	// assignment
 	self& operator=(const self& rhs)
 	{
-		_set(rhs);
+		inherited::_set(rhs);
 		return (self&)*this;
 	}
 
 	// accessors
 	T& operator*() const { return *p_; }
-	T* operator->() const { return p_; }
+	T* operator->() const { return inherited::p_; }
 
 	// unspecified bool type
 	typedef T* (resptr_core::*unspecified_bool_type)() const;
-	operator unspecified_bool_type() const { return p_ == 0 ? 0 : &resptr_core::_get; }
-	bool operator!() const { return p_ == 0; }
+	operator unspecified_bool_type() const { return inherited::p_ == 0 ? 0 : &resptr_core::_get; }
+	bool operator!() const { return inherited::p_ == 0; }
 
 	// fast swapping
 	void swap(self& rhs)
