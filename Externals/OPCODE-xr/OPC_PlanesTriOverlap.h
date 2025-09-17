@@ -6,6 +6,14 @@
  *	\warning	THIS IS A CONSERVATIVE TEST !! Some triangles will be returned as intersecting, while they're not!
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <minwindef.h>
+
+#include "OPC_Types.h"
+#include "OPC_Preprocessor.h"
+#include "OPC_PlanesCollider.h"
+#include "OPC_VolumeCollider.h"
+
 inline_ BOOL PlanesCollider::PlanesTriOverlap(udword in_clip_mask)
 {
 	// Stats
