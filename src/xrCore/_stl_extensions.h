@@ -164,6 +164,8 @@ private:
 public:
 	typedef allocator allocator_type;
 	typedef const T& const_reference;
+	typedef typename inherited::reference reference;
+	typedef typename inherited::size_type size_type;
 
 public:
 	xr_vector() : inherited()
@@ -217,7 +219,7 @@ public:
 			        make_string("index is out of range: index requested[%d], size of container[%d]", _Pos, size()).c_str
 			        ());
 		}
-		return (*(begin() + _Pos));
+		return (*(inherited::begin() + _Pos));
 	}
 };
 
@@ -249,7 +251,7 @@ template <typename T, typename allocator = xalloc<T>>
 class xr_deque : public std::deque<T, allocator>
 {
 public:
-	typedef typename allocator allocator_type;
+	typedef allocator allocator_type;
 	typedef typename allocator_type::value_type value_type;
 	typedef typename allocator_type::size_type size_type;
 	u32 size() const { return (u32)__super::size(); }
