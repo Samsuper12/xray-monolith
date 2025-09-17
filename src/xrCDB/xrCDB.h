@@ -200,8 +200,9 @@ namespace CDB
 		{
 		}
 
-		non_copyable& operator=(const non_copyable&)
+		non_copyable& operator=(const non_copyable& rhs)
 		{
+			return *this;
 		}
 	};
 
