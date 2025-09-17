@@ -166,6 +166,7 @@ private:
 	private:
 		victim_filter& operator=(victim_filter const& copy)
 		{
+			return *this;
 		};
 
 		u16 m_except_id;
@@ -186,6 +187,7 @@ private:
 	private:
 		best_victim_selector& operator=(best_victim_selector const& copy)
 		{
+			return *this;
 		};
 
 		Fvector m_start_pos;

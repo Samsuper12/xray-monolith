@@ -1007,6 +1007,7 @@ public:
 private:
 	EventDeleteForClientPredicate& operator =(EventDeleteForClientPredicate const& copy)
 	{
+		return *this;
 	}
 
 	ClientID const m_client_id;

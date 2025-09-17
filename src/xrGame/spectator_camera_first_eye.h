@@ -15,6 +15,7 @@ public:
 
 	CSpectrCameraFirstEye& operator=(CSpectrCameraFirstEye& copy)
 	{
+		return *this;
 	};
 
 	virtual void Move(int cmd, float val = 0, float factor = 1.0f);

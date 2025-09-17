@@ -431,6 +431,7 @@ private:
 	SInertVal& operator =(SInertVal& v)
 	{
 		R_ASSERT(false);
+		return *this;
 	}
 };
 

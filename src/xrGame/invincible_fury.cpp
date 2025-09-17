@@ -34,6 +34,7 @@ namespace award_system
 		{
 			m_killer_name = copy.m_killer_name;
 			m_after_time = copy.m_after_time;
+			return *this;
 		}
 
 		bool operator()(shared_str const& killer,

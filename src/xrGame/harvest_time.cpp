@@ -40,6 +40,7 @@ namespace award_system
 			m_killer = copy.m_killer;
 			m_victim = copy.m_victim;
 			m_after_time = copy.m_after_time;
+			return *this;
 		}
 
 		bool operator()(shared_str const& killer,

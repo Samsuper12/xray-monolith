@@ -132,6 +132,7 @@ class CUILevelMap : public CUICustomMap
 
 	CUILevelMap& operator=(const CUILevelMap& obj)
 	{
+		return *this;
 	}
 
 public:

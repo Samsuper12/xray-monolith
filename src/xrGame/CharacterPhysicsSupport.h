@@ -176,6 +176,7 @@ public:
 	CCharacterPhysicsSupport& operator =(CCharacterPhysicsSupport& /**asup/**/)
 	{
 		R_ASSERT2(false, "Can not assign it");
+		return *this;
 	}
 
 	CCharacterPhysicsSupport(EType atype, CEntityAlive* aentity);

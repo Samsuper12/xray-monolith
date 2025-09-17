@@ -20,7 +20,7 @@ public:
 	virtual void SaveBackUpOptValue() {} // current->backup
 	virtual void SaveOptValue() = 0; // current->opt
 	virtual void UndoOptValue() = 0; // backup->current
-	virtual bool IsChangedOptValue() const {} // backup!=current
+	virtual bool IsChangedOptValue() const { return false; } // backup!=current
 	void OnChangedOptValue();
 
 protected:
