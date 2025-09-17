@@ -6,7 +6,7 @@
 #if defined(USE_DX10) || defined(USE_DX11)
 #include <StateManager/dx10StateManager.h>
 #include <StateManager/dx10ShaderResourceStateCache.h>
-#endif	USE_DX10
+#endif // USE_DX10
 
 #include "R_Backend_Runtime.h"
 

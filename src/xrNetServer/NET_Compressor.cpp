@@ -467,7 +467,7 @@ u16 NET_Compressor::Decompress(BYTE* dest, const u32& dest_size, BYTE* src, cons
         Msg( "! invalid compression-tag %02X", src[0] );
         __asm { int 3 }
     }
-#endif NET_USE_COMPRESSSION
+#endif // NET_USE_COMPRESSSION
 
 
 #if !NET_USE_COMPRESSION
