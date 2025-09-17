@@ -279,6 +279,8 @@ void CSoundRender_Emitter::update(float dt)
 			SoundRender->i_start(this);
 		}
 		break;
+	case stFORCEDWORD:
+		throw std::logic_error("Unimplemented");
 	}
 
 #ifdef MEASURE_PROCESSING_TIME
