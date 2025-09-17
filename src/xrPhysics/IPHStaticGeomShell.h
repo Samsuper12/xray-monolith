@@ -4,7 +4,7 @@
 class IPHStaticGeomShell
 {
 protected:
-	virtual ~IPHStaticGeomShell() =0
+	virtual ~IPHStaticGeomShell()
 	{
 	}
 

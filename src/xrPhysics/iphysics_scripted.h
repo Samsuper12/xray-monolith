@@ -37,9 +37,7 @@ protected:
 #ifdef _EDITOR
 	 virtual ~iphysics_scripted_class		(){}
 #else
-	virtual ~iphysics_scripted_class() =0
-	{
-	}
+	virtual ~iphysics_scripted_class() {}
 #endif
 };
 

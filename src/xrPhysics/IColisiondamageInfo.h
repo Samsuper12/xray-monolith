@@ -18,7 +18,7 @@ public:
 	virtual bool IsInitiated() const =0;
 	virtual bool GetAndResetInitiated() =0;
 protected:
-	virtual ~ICollisionDamageInfo() = 0
+	virtual ~ICollisionDamageInfo()
 	{
 	}
 };

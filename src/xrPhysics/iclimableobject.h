@@ -40,7 +40,7 @@ public:
 	virtual IPhysicsShellHolder* cast_IPhysicsShellHolder() =0;
 
 protected:
-	virtual ~IClimableObject() =0
+	virtual ~IClimableObject()
 	{
 	}
 };
