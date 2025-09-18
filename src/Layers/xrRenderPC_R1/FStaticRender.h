@@ -122,19 +122,19 @@ public:
 	};
 public:
 	// feature level
-	virtual GenerationLevel get_generation() { return IRender_interface::GENERATION_R1; }
-	virtual DWORD get_dx_level() { return 0x00090000; }
+	virtual GenerationLevel get_generation() override { return IRender_interface::GENERATION_R1; }
+	virtual DWORD get_dx_level() override { return 0x00090000; }
 
-	virtual bool is_sun_static() { return true; }
+	virtual bool is_sun_static() override { return true; }
 
 	// Loading / Unloading
-	virtual void create();
-	virtual void destroy();
-	virtual void reset_begin();
-	virtual void reset_end();
+	virtual void create() override;
+	virtual void destroy() override;
+	virtual void reset_begin() override;
+	virtual void reset_end() override;
 
-	virtual void level_Load(IReader*);
-	virtual void level_Unload();
+	virtual void level_Load(IReader*) override;
+	virtual void level_Unload() override;
 
 	virtual IDirect3DBaseTexture9* texture_load(LPCSTR fname, u32& msize);
 	virtual HRESULT shader_compile(
@@ -145,71 +145,71 @@ public:
 		LPCSTR pTarget,
 		DWORD Flags,
 		void*& result
-	);
+	) override;
 
 	// Information
-	virtual void Statistics(CGameFont* F);
-	virtual LPCSTR getShaderPath() { return "r1\\"; }
+	virtual void Statistics(CGameFont* F) override;
+	virtual LPCSTR getShaderPath() override { return "r1\\"; }
 	virtual ref_shader getShader(int id);
-	virtual IRender_Sector* getSector(int id);
-	virtual IRenderVisual* getVisual(int id);
-	virtual IRender_Sector* detectSector(const Fvector& P);
+	virtual IRender_Sector* getSector(int id) override;
+	virtual IRenderVisual* getVisual(int id) override;
+	virtual IRender_Sector* detectSector(const Fvector& P) override;
 	int translateSector(IRender_Sector* pSector);
-	virtual IRender_Target* getTarget();
+	virtual IRender_Target* getTarget() override;
 
 	// Main 
-	virtual void flush();
-	virtual void set_Object(IRenderable* O);
-	virtual void add_Occluder(Fbox2& bb_screenspace); // mask screen region as oclluded
-	virtual void add_Visual(IRenderVisual* V); // add visual leaf (no culling performed at all)
-	virtual void add_Geometry(IRenderVisual* V); // add visual(s)	(all culling performed)
+	virtual void flush() override;
+	virtual void set_Object(IRenderable* O) override;
+	virtual void add_Occluder(Fbox2& bb_screenspace) override; // mask screen region as oclluded
+	virtual void add_Visual(IRenderVisual* V) override; // add visual leaf (no culling performed at all)
+	virtual void add_Geometry(IRenderVisual* V) override; // add visual(s)	(all culling performed)
 
 	// wallmarks
 	// demonized: add user defined rotation to wallmark
 	virtual void add_StaticWallmark(ref_shader& S, const Fvector& P, float s, CDB::TRI* T, Fvector* V, float ttl = 0.f, bool ignore_opt = false, bool random_rotation = true);
 	virtual void add_StaticWallmark(ref_shader& S, const Fvector& P, float s, CDB::TRI* T, Fvector* V, float ttl, bool ignore_opt, float rotation);
-	virtual void add_StaticWallmark(IWallMarkArray* pArray, const Fvector& P, float s, CDB::TRI* T, Fvector* V, float ttl = 0.f, bool ignore_opt = false, bool random_rotation = true);
-	virtual void add_StaticWallmark(IWallMarkArray* pArray, const Fvector& P, float s, CDB::TRI* T, Fvector* V, float ttl, bool ignore_opt, float rotation);
+	virtual void add_StaticWallmark(IWallMarkArray* pArray, const Fvector& P, float s, CDB::TRI* T, Fvector* V, float ttl = 0.f, bool ignore_opt = false, bool random_rotation = true) override;
+	virtual void add_StaticWallmark(IWallMarkArray* pArray, const Fvector& P, float s, CDB::TRI* T, Fvector* V, float ttl, bool ignore_opt, float rotation) override;
 
-	virtual void add_StaticWallmark(const wm_shader& S, const Fvector& P, float s, CDB::TRI* T, Fvector* V);
-	virtual void clear_static_wallmarks();
+	virtual void add_StaticWallmark(const wm_shader& S, const Fvector& P, float s, CDB::TRI* T, Fvector* V) override;
+	virtual void clear_static_wallmarks() override;
 	virtual void add_SkeletonWallmark(intrusive_ptr<CSkeletonWallmark> wm);
 	virtual void add_SkeletonWallmark(const Fmatrix* xf, CKinematics* obj, ref_shader& sh, const Fvector& start,
 	                                  const Fvector& dir, float size, float ttl = 0.f, bool ignore_opt = false);
 	virtual void add_SkeletonWallmark(const Fmatrix* xf, IKinematics* obj, IWallMarkArray* pArray, const Fvector& start,
-	                                  const Fvector& dir, float size, float ttl = 0.f, bool ignore_opt = false);
+	                                  const Fvector& dir, float size, float ttl = 0.f, bool ignore_opt = false) override;
 
 	//
 	virtual IBlender* blender_create(CLASS_ID cls);
 	virtual void blender_destroy(IBlender* &);
 
 	//
-	virtual IRender_ObjectSpecific* ros_create(IRenderable* parent);
-	virtual void ros_destroy(IRender_ObjectSpecific* &);
+	virtual IRender_ObjectSpecific* ros_create(IRenderable* parent) override;
+	virtual void ros_destroy(IRender_ObjectSpecific* &) override;
 
 	// Particle library
 	virtual CPSLibrary* ps_library() { return &PSLibrary; }
 
 	// Lighting
-	virtual IRender_Light* light_create();
-	virtual IRender_Glow* glow_create();
+	virtual IRender_Light* light_create() override;
+	virtual IRender_Glow* glow_create() override;
 
 	// Models
-	virtual IRenderVisual* model_CreateParticles(LPCSTR name);
+	virtual IRenderVisual* model_CreateParticles(LPCSTR name) override;
 	virtual IRender_DetailModel* model_CreateDM(IReader* F);
-	virtual IRenderVisual* model_Create(LPCSTR name, IReader* data = 0);
-	virtual IRenderVisual* model_CreateChild(LPCSTR name, IReader* data);
-	virtual IRenderVisual* model_Duplicate(IRenderVisual* V);
-	virtual void model_Delete(IRenderVisual* & V, BOOL bDiscard);
+	virtual IRenderVisual* model_Create(LPCSTR name, IReader* data = 0) override;
+	virtual IRenderVisual* model_CreateChild(LPCSTR name, IReader* data) override;
+	virtual IRenderVisual* model_Duplicate(IRenderVisual* V) override;
+	virtual void model_Delete(IRenderVisual* & V, BOOL bDiscard) override;
 	virtual void model_Delete(IRender_DetailModel* & F);
-	virtual void model_Logging(BOOL bEnable) { Models->Logging(bEnable); }
-	virtual void models_Prefetch();
-	virtual void models_PrefetchOne(LPCSTR name, bool assert = true);
-	virtual void models_Clear(BOOL b_complete);
-	virtual bool models_Exists(LPCSTR name);
+	virtual void model_Logging(BOOL bEnable) override { Models->Logging(bEnable); }
+	virtual void models_Prefetch() override;
+	virtual void models_PrefetchOne(LPCSTR name, bool assert = true) override;
+	virtual void models_Clear(BOOL b_complete) override;
+	virtual bool models_Exists(LPCSTR name) override;
 
 	// anglobes: Sun Values
-	virtual Fvector GetSunPosition()
+	virtual Fvector GetSunPosition() override
 	{
 		static Fvector default_pos = { 0, 0, 0 };
 		light* sun = (light*)L_DB->sun_adapted._get();
@@ -217,7 +217,7 @@ public:
 			return default_pos;
 		return sun->position;
 	};
-	virtual Fcolor GetSunColor()
+	virtual Fcolor GetSunColor() override
 	{
 		static Fcolor default_color = { 0.0f, 0.0f, 0.0f, 0.0f };
 		light* sun = (light*)L_DB->sun_adapted._get();
@@ -225,7 +225,7 @@ public:
 			return default_color;
 		return sun->color;
 	};
-	virtual float GetSunIntensity()
+	virtual float GetSunIntensity() override
 	{
 		static float default_intensity = 0.0f;
 		light* sun = (light*)L_DB->sun_adapted._get();
@@ -233,7 +233,7 @@ public:
 			return default_intensity;
 		return sun->color.intensity();
 	};
-	virtual bool IsSun()
+	virtual bool IsSun() override
 	{
 		static bool is_sun_visible = false;
 		light* sun = (light*)L_DB->sun_adapted._get();
@@ -246,30 +246,30 @@ public:
 	};
 
 	// Occlusion culling
-	virtual BOOL occ_visible(vis_data& V);
-	virtual BOOL occ_visible(Fbox& B);
-	virtual BOOL occ_visible(sPoly& P);
+	virtual BOOL occ_visible(vis_data& V) override;
+	virtual BOOL occ_visible(Fbox& B) override;
+	virtual BOOL occ_visible(sPoly& P) override;
 
 	// Main
-	virtual void Calculate();
-	virtual void Render();
-	virtual void Screenshot(ScreenshotMode mode = SM_NORMAL, LPCSTR name = 0);
-	virtual void Screenshot(ScreenshotMode mode, CMemoryWriter& memory_writer);
-	virtual void ScreenshotAsyncBegin();
-	virtual void ScreenshotAsyncEnd(CMemoryWriter& memory_writer);
-	virtual void OnFrame();
+	virtual void Calculate() override;
+	virtual void Render() override;
+	virtual void Screenshot(ScreenshotMode mode = SM_NORMAL, LPCSTR name = 0) override;
+	virtual void Screenshot(ScreenshotMode mode, CMemoryWriter& memory_writer) override;
+	virtual void ScreenshotAsyncBegin() override;
+	virtual void ScreenshotAsyncEnd(CMemoryWriter& memory_writer) override;
+	virtual void OnFrame() override;
 
 	// Render mode
-	virtual void rmNear();
-	virtual void rmFar();
-	virtual void rmNormal();
-	virtual u32 active_phase() { return phase; }; //Swartz: actor shadow
+	virtual void rmNear() override;
+	virtual void rmFar() override;
+	virtual void rmNormal() override;
+	virtual u32 active_phase() override { return phase; }; //Swartz: actor shadow
 	void RenderToTarget(RRT target) override;
 	// Constructor/destructor/loader
 	CRender();
 	virtual ~CRender();
 protected:
-	virtual void ScreenshotImpl(ScreenshotMode mode, LPCSTR name, CMemoryWriter* memory_writer);
+	virtual void ScreenshotImpl(ScreenshotMode mode, LPCSTR name, CMemoryWriter* memory_writer) override;
 
 private:
 	FS_FileSet m_file_set;

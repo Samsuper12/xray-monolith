@@ -225,7 +225,7 @@ protected:
 	float m_death_lin_vel_k;
 	shared_str m_death_bones_to_hide;
 
-	virtual bool IsHudModeNow() { return false; };
+	virtual bool IsHudModeNow() override { return false; };
 
 	//////////////////////////////////////////////////
 
@@ -248,12 +248,12 @@ protected:
 	void TurnLighting(bool bOn);
 	void TurnEngineSound(bool bOn);
 	//explosive
-	virtual void OnAfterExplosion()
+	virtual void OnAfterExplosion() override
 	{
 	};
-	virtual void GetRayExplosionSourcePos(Fvector& pos) { random_point_in_object_box(pos, this); }
+	virtual void GetRayExplosionSourcePos(Fvector& pos) override { random_point_in_object_box(pos, this); }
 
-	virtual void ActivateExplosionBox(const Fvector& size, Fvector& in_out_pos)
+	virtual void ActivateExplosionBox(const Fvector& size, Fvector& in_out_pos) override
 	{
 	};
 	//general
@@ -278,58 +278,58 @@ public:
 	void setState_script(u32 s) { setState((CHelicopter::EHeliState)s); };
 
 	void init();
-	virtual void reinit();
+	virtual void reinit() override;
 
-	virtual void Load(LPCSTR section);
-	virtual void reload(LPCSTR section);
+	virtual void Load(LPCSTR section) override;
+	virtual void reload(LPCSTR section) override;
 
-	virtual BOOL net_Spawn(CSE_Abstract* DC);
-	virtual void net_Destroy();
+	virtual BOOL net_Spawn(CSE_Abstract* DC) override;
+	virtual void net_Destroy() override;
 
-	virtual void net_Export(NET_Packet& P)
+	virtual void net_Export(NET_Packet& P) override
 	{
 	};
 
-	virtual void net_Import(NET_Packet& P)
+	virtual void net_Import(NET_Packet& P) override
 	{
 	};
-	virtual void net_Relcase(CObject* O);
-	virtual void save(NET_Packet& output_packet);
-	virtual void load(IReader& input_packet);
+	virtual void net_Relcase(CObject* O) override;
+	virtual void save(NET_Packet& output_packet) override;
+	virtual void load(IReader& input_packet) override;
 
-	virtual void SpawnInitPhysics(CSE_Abstract* D);
-	virtual CPhysicsShellHolder* PPhysicsShellHolder() { return PhysicsShellHolder(); }
-	virtual void net_Save(NET_Packet& P);
+	virtual void SpawnInitPhysics(CSE_Abstract* D) override;
+	virtual CPhysicsShellHolder* PPhysicsShellHolder() override { return PhysicsShellHolder(); }
+	virtual void net_Save(NET_Packet& P) override;
 
-	virtual BOOL net_SaveRelevant()
+	virtual BOOL net_SaveRelevant() override
 	{
 		return (inherited::net_SaveRelevant() && BOOL(PPhysicsShell() != NULL)) || m_exploded;
 	};
 
-	virtual void renderable_Render() { inherited::renderable_Render(); };
-	virtual BOOL renderable_ShadowGenerate() { return FALSE; }
-	virtual BOOL renderable_ShadowReceive() { return TRUE; }
+	virtual void renderable_Render() override { inherited::renderable_Render(); };
+	virtual BOOL renderable_ShadowGenerate() override { return FALSE; }
+	virtual BOOL renderable_ShadowReceive() override { return TRUE; }
 
 	// demonized: check if object is eligible for bone calc optimization
 	bool canOptimizeCalculateBones() override { return false; };
 
-	virtual void OnEvent(NET_Packet& P, u16 type);
-	virtual void UpdateCL();
-	virtual void shedule_Update(u32 time_delta);
+	virtual void OnEvent(NET_Packet& P, u16 type) override;
+	virtual void UpdateCL() override;
+	virtual void shedule_Update(u32 time_delta) override;
 	void MoveStep();
 
-	virtual void Hit(SHit* pHDS);
-	virtual void PHHit(SHit& H);
+	virtual void Hit(SHit* pHDS) override;
+	virtual void PHHit(SHit& H) override;
 	//CEntity
-	virtual void HitSignal(float P, Fvector& local_dir, CObject* who, s16 element) { ; }
-	virtual void HitImpulse(float P, Fvector& vWorldDir, Fvector& vLocalDir) { ; }
+	virtual void HitSignal(float P, Fvector& local_dir, CObject* who, s16 element) override { ; }
+	virtual void HitImpulse(float P, Fvector& vWorldDir, Fvector& vLocalDir) override { ; }
 
-	virtual const Fmatrix& get_ParticlesXFORM();
-	virtual const Fvector& get_CurrentFirePoint();
+	virtual const Fmatrix& get_ParticlesXFORM() override;
+	virtual const Fvector& get_CurrentFirePoint() override;
 
-	virtual CGameObject* cast_game_object() { return this; }
-	virtual CExplosive* cast_explosive() { return this; }
-	virtual CPHSkeleton* PHSkeleton() { return this; }
+	virtual CGameObject* cast_game_object() override { return this; }
+	virtual CExplosive* cast_explosive() override { return this; }
+	virtual CPHSkeleton* PHSkeleton() override { return this; }
 
 public:
 	//for scripting
@@ -370,7 +370,7 @@ public:
 	int GetHuntState();
 	int GetBodyState();
 
-	virtual DLL_Pure* _construct();
+	virtual DLL_Pure* _construct() override;
 	float GetSafeAltitude() { return m_movement.GetSafeAltitude(); };
 	float GetHeliHealth() const { return inherited::GetfHealth(); }
 	float SetHeliHealth(float value) { return inherited::SetfHealth(value); }

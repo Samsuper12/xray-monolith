@@ -59,15 +59,15 @@ public:
 	virtual ~CWeapon();
 
 	// Generic
-	virtual void Load(LPCSTR section);
+	virtual void Load(LPCSTR section) override;
 
-	virtual BOOL net_Spawn(CSE_Abstract* DC);
-	virtual void net_Destroy();
-	virtual void net_Export(NET_Packet& P);
-	virtual void net_Import(NET_Packet& P);
+	virtual BOOL net_Spawn(CSE_Abstract* DC) override;
+	virtual void net_Destroy() override;
+	virtual void net_Export(NET_Packet& P) override;
+	virtual void net_Import(NET_Packet& P) override;
 	virtual void net_Relcase(CObject* object) override;
 
-	virtual CWeapon* cast_weapon()
+	virtual CWeapon* cast_weapon() override
 	{
 		return this;
 	}
@@ -78,15 +78,15 @@ public:
 	}
 
 	//serialization
-	virtual void save(NET_Packet& output_packet);
-	virtual void load(IReader& input_packet);
+	virtual void save(NET_Packet& output_packet) override;
+	virtual void load(IReader& input_packet) override;
 
-	virtual BOOL net_SaveRelevant()
+	virtual BOOL net_SaveRelevant() override
 	{
 		return inherited::net_SaveRelevant();
 	}
 
-	float CWeapon::GetSecondVPFov() const;
+	float GetSecondVPFov() const;
 	IC float GetZRotatingFactor()    const { return m_zoom_params.m_fZoomRotationFactor; }
 	IC float GetSecondVPZoomFactor() const { return m_zoom_params.m_fSecondVPFovFactor; }
 	IC float IsSecondVPZoomPresent() const { return GetSecondVPZoomFactor() > 0.005f; }
@@ -107,35 +107,36 @@ public:
 		const CCartridge& cartridge,
 		u16 parent_id,
 		u16 weapon_id,
-		bool send_hit, int iShotNum);
+		bool send_hit, int iShotNum
+	) override;
 
-	virtual float GetGlowing();
+	virtual float GetGlowing() override;
 	//--DSR-- SilencerOverheat_end
 
 	virtual void HUD_VisualBulletUpdate(bool force = false, int force_idx = -1);
 
 	void UpdateSecondVP();
 
-	virtual void UpdateCL();
-	virtual void shedule_Update(u32 dt);
+	virtual void UpdateCL() override;
+	virtual void shedule_Update(u32 dt) override;
 
-	virtual void renderable_Render();
-	virtual void render_hud_mode();
-	virtual bool need_renderable();
+	virtual void renderable_Render() override;
+	virtual void render_hud_mode() override;
+	virtual bool need_renderable() override;
 
-	virtual void render_item_ui();
-	virtual bool render_item_ui_query();
+	virtual void render_item_ui() override;
+	virtual bool render_item_ui_query() override;
 
-	virtual void OnH_B_Chield();
-	virtual void OnH_A_Chield();
-	virtual void OnH_B_Independent(bool just_before_destroy);
-	virtual void OnH_A_Independent();
-	virtual void OnEvent(NET_Packet& P, u16 type); // {inherited::OnEvent(P,type);}
+	virtual void OnH_B_Chield() override;
+	virtual void OnH_A_Chield() override;
+	virtual void OnH_B_Independent(bool just_before_destroy) override;
+	virtual void OnH_A_Independent() override;
+	virtual void OnEvent(NET_Packet& P, u16 type) override; // {inherited::OnEvent(P,type);}
 
-	virtual void Hit(SHit* pHDS);
+	virtual void Hit(SHit* pHDS) override;
 
-	virtual void reinit();
-	virtual void reload(LPCSTR section);
+	virtual void reinit() override;
+	virtual void reload(LPCSTR section) override;
 
 	// demonized: World model on stalkers adjustments
 	void set_mOffset(Fvector position, Fvector orientation);
@@ -144,39 +145,39 @@ public:
 	void set_mFirePoint2(Fvector &fire_point);
 	void set_mShellPoint(Fvector &fire_point);
 
-	virtual void create_physic_shell();
-	virtual void activate_physic_shell();
-	virtual void setup_physic_shell();
+	virtual void create_physic_shell() override;
+	virtual void activate_physic_shell() override;
+	virtual void setup_physic_shell() override;
 
-	virtual void SwitchState(u32 S);
+	virtual void SwitchState(u32 S) override;
 
-	virtual void OnActiveItem();
-	virtual void OnHiddenItem();
-	virtual void SendHiddenItem(); //same as OnHiddenItem but for client... (sends message to a server)...
+	virtual void OnActiveItem() override;
+	virtual void OnHiddenItem() override;
+	virtual void SendHiddenItem() override; //same as OnHiddenItem but for client... (sends message to a server)...
 
-	virtual bool NeedBlendAnm();
+	virtual bool NeedBlendAnm() override;
 	virtual void OnEmptyClick() {};
 
 public:
-	virtual bool can_kill() const;
-	virtual CInventoryItem* can_kill(CInventory* inventory) const;
-	virtual const CInventoryItem* can_kill(const xr_vector<const CGameObject*>& items) const;
-	virtual bool ready_to_kill() const;
-	virtual bool NeedToDestroyObject() const;
-	virtual ALife::_TIME_ID TimePassedAfterIndependant() const;
+	virtual bool can_kill() const override;
+	virtual CInventoryItem* can_kill(CInventory* inventory) const override;
+	virtual const CInventoryItem* can_kill(const xr_vector<const CGameObject*>& items) const override;
+	virtual bool ready_to_kill() const override;
+	virtual bool NeedToDestroyObject() const override;
+	virtual ALife::_TIME_ID TimePassedAfterIndependant() const override;
 protected:
 	//âðåìÿ óäàëåíèÿ îðóæèÿ
 	ALife::_TIME_ID m_dwWeaponRemoveTime;
 	ALife::_TIME_ID m_dwWeaponIndependencyTime;
 
-	virtual bool IsHudModeNow();
-	virtual bool SOParentIsActor() { return ParentIsActor(); }
+	virtual bool IsHudModeNow() override;
+	virtual bool SOParentIsActor() override { return ParentIsActor(); }
 	u8 last_idx;
 
 	CAnonHudItem* m_scopeItem = NULL;
 public:
 	void signal_HideComplete();
-	virtual bool Action(u16 cmd, u32 flags);
+	virtual bool Action(u16 cmd, u32 flags) override;
 
 	enum EWeaponStates
 	{
@@ -439,7 +440,7 @@ public:
 		return (m_zoom_params.m_fZoomRotationFactor < 1.f);
 	}
 
-	virtual u8 GetCurrentHudOffsetIdx();
+	virtual u8 GetCurrentHudOffsetIdx() override;
 
 	// Tronex script exports
 	void AmmoTypeForEach(const ::luabind::functor<bool>& funct);
@@ -461,15 +462,15 @@ public:
 	void SetModeRPM(float newOneShotTime) { fModeShotTime = newOneShotTime; } // Input - time between shots like received from getter
 	void SetModeRealRPM(float rpm) { fModeShotTime = 60.0f / rpm; } // Input - actual RPM like in configs
 
-	virtual float Weight() const;
-	virtual u32 Cost() const;
+	virtual float Weight() const override;
+	virtual u32 Cost() const override;
 public:
-	virtual EHandDependence HandDependence() const
+	virtual EHandDependence HandDependence() const override
 	{
 		return eHandDependence;
 	}
 
-	bool IsSingleHanded() const
+	bool IsSingleHanded() const override
 	{
 		return m_bIsSingleHanded;
 	}
@@ -541,11 +542,11 @@ private:
 public:
 	bool GetFirepos() { return m_firepos; }
 	bool GetAimpos() { return m_aimpos; }
-	float GetTargetNearWallOffset();
-	float GetTargetHudFov();
+	float GetTargetNearWallOffset() override;
+	float GetTargetHudFov() override;
 
 public:
-	Fmatrix RayTransform();
+	Fmatrix RayTransform() override;
 
 protected:
 	virtual void UpdateFireDependencies_internal();
@@ -555,16 +556,16 @@ protected:
     void SetZoomType(u8 new_zoom_type);
 	void SetZoomTypeAndParams(u8 zoomType);
 	virtual void UpdatePosition(const Fmatrix& transform); //.
-	virtual void UpdateXForm();
+	virtual void UpdateXForm() override;
 	void InterpolateOffset(Fvector& current, const Fvector& target, const float factor) const;
-	virtual void UpdateHudAdditional(Fmatrix& trans);
+	virtual void UpdateHudAdditional(Fmatrix& trans) override;
 	IC void UpdateFireDependencies()
 	{
 		if (dwFP_Frame == Device.dwFrame) return;
 		UpdateFireDependencies_internal();
 	};
 
-	virtual void LoadFireParams(LPCSTR section);
+	virtual void LoadFireParams(LPCSTR section) override;
 public:
 	IC const Fvector& get_LastFP()
 	{
@@ -596,7 +597,7 @@ public:
 		return m_current_firedeps.vLastSP;
 	}
 
-	virtual const Fvector& get_CurrentFirePoint()
+	virtual const Fvector& get_CurrentFirePoint() override
 	{
 		if (SilencerAttachable() && IsSilencerAttached()) {
 			return get_LastFPSilencer();
@@ -614,29 +615,29 @@ public:
 		return get_LastFPSilencer();
 	}
 
-	virtual const Fmatrix& get_ParticlesXFORM()
+	virtual const Fmatrix& get_ParticlesXFORM() override
 	{
 		UpdateFireDependencies();
 		return m_current_firedeps.m_FireParticlesXForm;
 	}
 
-	virtual void ForceUpdateFireParticles();
-	virtual void debug_draw_firedeps();
+	virtual void ForceUpdateFireParticles() override;
+	virtual void debug_draw_firedeps() override;
 
 protected:
 	virtual void SetDefaults();
 
-	virtual bool MovingAnimAllowedNow();
-	virtual void OnStateSwitch(u32 S, u32 oldState);
-	virtual void OnAnimationEnd(u32 state);
+	virtual bool MovingAnimAllowedNow() override;
+	virtual void OnStateSwitch(u32 S, u32 oldState) override;
+	virtual void OnAnimationEnd(u32 state) override;
 
 	//òðàññèðîâàíèå ïîëåòà ïóëè
 	virtual void FireTrace(const Fvector& P, const Fvector& D);
 	virtual float GetWeaponDeterioration();
 
-	virtual void FireStart();
+	virtual void FireStart() override;
 
-	virtual void FireEnd();
+	virtual void FireEnd() override;
 
 	virtual void Reload();
 	void StopShooting();
@@ -668,7 +669,7 @@ public:
 	//ïàðàìåòû îðóæèÿ â çàâèñèìîòè îò åãî ñîñòîÿíèÿ èñïðàâíîñòè
 	float GetConditionDispersionFactor() const;
 	float GetConditionMisfireProbability() const;
-	virtual float GetConditionToShow() const;
+	virtual float GetConditionToShow() const override;
 
 public:
 	CameraRecoil cam_recoil; // simple mode (walk, run)
@@ -1023,7 +1024,7 @@ protected:
 	mutable u32 m_BriefInfo_CalcFrame; //êàäð íà êîòîðîì ïðîñ÷èòàëè êîë-âî ïàòðîíîâ
 	bool m_bAmmoWasSpawned;
 
-	virtual bool IsNecessaryItem(const shared_str& item_sect);
+	virtual bool IsNecessaryItem(const shared_str& item_sect) override;
 
 public:
 	xr_vector<shared_str> m_ammoTypes;
@@ -1087,8 +1088,8 @@ protected:
 	u32 m_ef_weapon_type;
 
 public:
-	virtual u32 ef_main_weapon_type() const;
-	virtual u32 ef_weapon_type() const;
+	virtual u32 ef_main_weapon_type() const override;
+	virtual u32 ef_weapon_type() const override;
 
 	//Alundaio
 	int GetAmmoCount_forType(shared_str const& ammo_type) const;
@@ -1105,7 +1106,7 @@ protected:
 	float m_addon_holder_fov_modifier;
 
 public:
-	virtual void modify_holder_params(float& range, float& fov) const;
+	virtual void modify_holder_params(float& range, float& fov) const override;
 
 	virtual bool use_crosshair() const
 	{
@@ -1114,7 +1115,7 @@ public:
 
 	bool show_crosshair();
 	bool show_indicators();
-	virtual BOOL ParentMayHaveAimBullet();
+	virtual BOOL ParentMayHaveAimBullet() override;
 
 private:
 	virtual bool install_upgrade_ammo_class(LPCSTR section, bool test);
@@ -1123,7 +1124,7 @@ private:
 	bool install_upgrade_hud(LPCSTR section, bool test);
 	bool install_upgrade_addon(LPCSTR section, bool test);
 protected:
-	virtual bool install_upgrade_impl(LPCSTR section, bool test);
+	virtual bool install_upgrade_impl(LPCSTR section, bool test) override;
 
 private:
 	float m_hit_probability[egdCount];
@@ -1134,7 +1135,7 @@ public:
 private:
 	Fvector m_overriden_activation_speed;
 	bool m_activation_speed_is_overriden;
-	virtual bool ActivationSpeedOverriden(Fvector& dest, bool clear_override);
+	virtual bool ActivationSpeedOverriden(Fvector& dest, bool clear_override) override;
 
 	bool m_bRememberActorNVisnStatus;
 public:
@@ -1150,12 +1151,12 @@ public:
 		return m_bRememberActorNVisnStatus;
 	};
 	virtual void EnableActorNVisnAfterZoom();
-	virtual float GetInertionAimFactor() { return 1.f - m_zoom_params.m_fZoomRotationFactor; };
+	virtual float GetInertionAimFactor() override { return 1.f - m_zoom_params.m_fZoomRotationFactor; };
 	//--> [От 1.0 - Инерция от бедра, до 0.0 - Инерция при зумме] Какую инерцию использовать
 
-	virtual void DumpActiveParams(shared_str const& section_name, CInifile& dst_ini) const;
+	virtual void DumpActiveParams(shared_str const& section_name, CInifile& dst_ini) const override;
 
-	virtual shared_str const GetAnticheatSectionName() const
+	virtual shared_str const GetAnticheatSectionName() const override
 	{
 		return cNameSect();
 	};
