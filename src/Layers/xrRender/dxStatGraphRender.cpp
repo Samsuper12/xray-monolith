@@ -50,6 +50,8 @@ void dxStatGraphRender::OnRender(CStatGraph& owner)
 				//				TriElem += it->elements.size()*4;
 			}
 			break;
+		default:
+			break;
 		};
 	};
 
@@ -71,6 +73,8 @@ void dxStatGraphRender::OnRender(CStatGraph& owner)
 			{
 			case CStatGraph::stBar: RenderBars(owner, &pv_Tri, &(it->elements));
 				break;
+			default:
+				break;
 			};
 		};
 		dwCount = u32(pv_Tri - pv_Tri_start);
@@ -91,6 +95,8 @@ void dxStatGraphRender::OnRender(CStatGraph& owner)
 			case CStatGraph::stCurve: RenderLines(owner, &pv_Line, &(it->elements));
 				break;
 			case CStatGraph::stBarLine: RenderBarLines(owner, &pv_Line, &(it->elements));
+				break;
+			default:
 				break;
 			};
 		};
@@ -329,6 +335,8 @@ void dxStatGraphRender::RenderMarkers(CStatGraph& owner, FVF::TL0uv** ppv, CStat
 				clamp(Y0, float(owner.lt.y), float(owner.rb.y));
 				Y1 = Y0;
 			}
+			break;
+		default:
 			break;
 		}
 		(*ppv)->set(X0, Y0, CurMarker.m_dwColor);

@@ -718,6 +718,8 @@ void CBaseMonster::TranslateActionToPathParams()
 		vel_mask = MonsterMovement::eVelocityParamsSteal;
 		des_mask = MonsterMovement::eVelocityParameterSteal;
 		break;
+	default:
+		break;
 	}
 
 	if (state_invisible)

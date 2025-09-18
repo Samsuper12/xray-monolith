@@ -241,6 +241,8 @@ void CRender::ScreenshotImpl(ScreenshotMode mode, LPCSTR name, CMemoryWriter* me
 		FS.w_close(fs);
 		}
 		break;
+	default:
+		break;
 	}
 
 	_RELEASE(pSrcTexture);
@@ -409,6 +411,8 @@ void CRender::ScreenshotImpl(ScreenshotMode mode, LPCSTR name, CMemoryWriter* me
 
 			FS.w_close(fs);
 		}
+		break;
+	default:
 		break;
 	}
 

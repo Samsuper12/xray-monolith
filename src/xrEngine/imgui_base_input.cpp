@@ -143,6 +143,7 @@ namespace xr_imgui
     {
         ImGuiIO& io = ImGui::GetIO();
 
+        bool rcon;
         switch (get_binded_action(key))
         {
         case kQUIT:
@@ -153,7 +154,7 @@ namespace xr_imgui
             return;
 
         case kEDITOR:
-            bool rcon = !!pInput->iGetAsyncKeyState(DIK_RCONTROL);
+            rcon = !!pInput->iGetAsyncKeyState(DIK_RCONTROL);
             if (rcon)
             {
                 EnableInput(false);
@@ -162,6 +163,8 @@ namespace xr_imgui
 
             Show(false);
             return;
+        default:
+            break;
         }
 
         switch (key)

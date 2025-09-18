@@ -154,6 +154,8 @@ void CUIMpAdminMenu::ShowMessageBox(CUIMessageBox::E_MESSAGEBOX_STYLE style, LPC
 			m_pMessageBoxOk->ShowDialog(true);
 		}
 		break;
+	default:
+		break;
 	}
 }
 

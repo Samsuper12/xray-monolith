@@ -615,6 +615,7 @@ void CUIActorMenu::SelectInventoryTab(int tab)
 		FilterDeadBodyList(tab);
 	}
 	break;
+	default: break;
 	}
 }
 

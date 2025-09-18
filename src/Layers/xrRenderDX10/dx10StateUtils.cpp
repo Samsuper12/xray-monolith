@@ -600,6 +600,8 @@ namespace dx10StateUtils
 				case D3D_BLEND_INV_SRC1_COLOR:
 					desc.RenderTarget[i].SrcBlendAlpha = D3D_BLEND_INV_SRC1_ALPHA;
 					break;
+				default:
+					break;
 				}
 
 				switch (desc.RenderTarget[i].DestBlendAlpha)
@@ -621,6 +623,8 @@ namespace dx10StateUtils
 					break;
 				case D3D_BLEND_INV_SRC1_COLOR:
 					desc.RenderTarget[i].DestBlendAlpha = D3D_BLEND_INV_SRC1_ALPHA;
+					break;
+				default:
 					break;
 				}
 			}
@@ -668,6 +672,8 @@ namespace dx10StateUtils
 			case D3D_BLEND_INV_SRC1_COLOR:
 				desc.SrcBlendAlpha = D3D_BLEND_INV_SRC1_ALPHA;
 				break;
+			default:
+				break;
 			}
 
 			switch (desc.DestBlendAlpha)
@@ -689,6 +695,8 @@ namespace dx10StateUtils
 				break;
 			case D3D_BLEND_INV_SRC1_COLOR:
 				desc.DestBlendAlpha = D3D_BLEND_INV_SRC1_ALPHA;
+				break;
+			default:
 				break;
 			}
 		}

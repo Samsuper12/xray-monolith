@@ -138,6 +138,8 @@ void CPhantom::animation_end_callback(CBlend* B)
 		break;
 	case stShoot: phantom->SwitchToState(stIdle);
 		break;
+	default:
+		break;
 	}
 }
 
@@ -178,6 +180,8 @@ void CPhantom::SwitchToState_internal(EState new_state)
 			}
 			break;
 		case stIdle: break;
+		default:
+			break;
 		}
 		// before event
 		switch (new_state)
@@ -223,6 +227,8 @@ void CPhantom::SwitchToState_internal(EState new_state)
 				sdata.sound.stop();
 				CParticlesObject::Destroy(m_fly_particles);
 			}
+			break;
+		default:
 			break;
 		}
 		m_CurState = new_state;

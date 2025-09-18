@@ -83,6 +83,8 @@ bool CUITrackBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 			OnChangedOptValue();
 		}
 		break;
+	default:
+		break;
 	};
 	return true;
 }

@@ -1788,6 +1788,8 @@ static SPickParam* get_pick(ETraceTarget tt)
 		break;
 	case TT_ACTOR:
 		return &Actor()->GetPick();
+	default:
+		break;
 	}
 
 	if (!item)

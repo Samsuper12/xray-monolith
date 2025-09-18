@@ -101,6 +101,8 @@ void CControlAnimationBase::on_start_control(ControlCom::EControlType type)
 		m_state_attack = false;
 		select_animation();
 		break;
+	default:
+		break;
 	}
 }
 
@@ -111,6 +113,8 @@ void CControlAnimationBase::on_stop_control(ControlCom::EControlType type)
 	case ControlCom::eControlAnimation:
 		m_man->unsubscribe(this, ControlCom::eventAnimationEnd);
 		m_state_attack = false;
+		break;
+	default:
 		break;
 	}
 }
@@ -129,6 +133,8 @@ void CControlAnimationBase::on_event(ControlCom::EEventType type, ControlCom::IE
 				event_data->motion, event_data->time_perc);
 			break;
 		}
+	default:
+		break;
 	}
 }
 

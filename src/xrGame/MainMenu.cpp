@@ -386,9 +386,10 @@ void CMainMenu::IR_OnKeyboardPress(int dik)
 
 		Device.imgui().Show(false);
 		return;
+	default:
+		CDialogHolder::IR_UIOnKeyboardPress(dik);
+		break;
 	}
-
-	CDialogHolder::IR_UIOnKeyboardPress(dik);
 };
 
 void CMainMenu::IR_OnKeyboardRelease(int dik)

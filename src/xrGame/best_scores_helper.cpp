@@ -142,6 +142,8 @@ namespace award_system
 				++m_eyeshots_kills_in_row;
 			}
 			break;
+		default:
+			break;
 		}; //switch (kill_type.second)
 
 		++m_kills_in_row;

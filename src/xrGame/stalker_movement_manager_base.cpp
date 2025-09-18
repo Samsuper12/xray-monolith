@@ -277,6 +277,8 @@ void stalker_movement_manager_base::setup_movement_params(stalker_movement_param
 			set_desired_position(0);
 			break;
 		}
+	default:
+		break;
 	}
 
 	detail().set_path_type(movement_params.m_detail_path_type);

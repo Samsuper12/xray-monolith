@@ -39,6 +39,8 @@ bool CUIListBox::OnMouseAction(float x, float y, EUIMessages mouse_action)
 		m_VScrollBar->TryScrollInc();
 		return true;
 		break;
+	default:
+		break;
 	};
 	return false;
 }

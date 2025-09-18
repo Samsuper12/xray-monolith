@@ -84,6 +84,8 @@ void CStateManagerDog::execute()
 				break;
 			case eWeak: state_id = eStateAttack;
 				break;
+			default:
+				break;
 			}
 			if (state_id == eStatePanic && squad->squad_alife_count() > 2)
 			{

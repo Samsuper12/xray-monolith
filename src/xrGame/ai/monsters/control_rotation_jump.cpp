@@ -82,6 +82,8 @@ void CControlRotationJump::on_event(ControlCom::EEventType type, ControlCom::IEv
 		else
 			m_man->notify(ControlCom::eventRotationJumpEnd, 0);
 		break;
+	default:
+		break;
 	}
 }
 

@@ -308,6 +308,8 @@ public:
 						break;
 					case Fsphere::rpOriginOutside: range = afT[0];
 						break;
+					default:
+						break;
 					}
 					range2 = range * range;
 				}

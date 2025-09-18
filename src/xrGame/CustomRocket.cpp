@@ -427,6 +427,8 @@ void CCustomRocket::UpdateCL()
 		UpdateLights();
 		UpdateParticles();
 		break;
+	default:
+		break;
 	}
 	if (m_eState == eEngine || m_eState == eFlying)
 	{

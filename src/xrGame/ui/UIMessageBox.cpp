@@ -389,6 +389,8 @@ void CUIMessageBox::SendMessage(CUIWindow* pWnd, s16 msg, void* pData)
 				GetMessageTarget()->SendMessage(this, MESSAGE_BOX_COPY_CLICKED);
 			}
 			break;
+		default:
+			break;
 		};
 	};
 	inherited::SendMessage(pWnd, msg, pData);

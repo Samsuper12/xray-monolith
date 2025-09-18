@@ -115,6 +115,8 @@ void CHUDRecon::Update(const SPickParam& pp)
 						case ALife::eRelationTypeFriend:
 							color = C_ON_FRIEND;
 							break;
+						default:
+							break;
 						}
 
 						if (fuzzyShowInfo > 0.5f)

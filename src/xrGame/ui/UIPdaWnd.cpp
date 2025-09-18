@@ -189,6 +189,8 @@ bool CUIPdaWnd::OnMouseAction(float x, float y, EUIMessages mouse_action)
 		}
 		break;
 	}
+	default:
+		break;
 	}
 	CUIDialogWnd::OnMouseAction(x, y, mouse_action);
 	return true; //always true because StopAnyMove() == false

@@ -1081,6 +1081,8 @@ void CUIMainIngameWnd::UpdateBoosterIndicators(const xr_map<EBoostParams, SBoost
 					m_ind_boost_chem->ResetColorAnimation();
 			}
 			break;
+		default:
+			break;
 		}
 	}
 }

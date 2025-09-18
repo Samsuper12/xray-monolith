@@ -227,6 +227,8 @@ bool CUIScrollBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 	case WINDOW_LBUTTON_UP:
 		m_mouse_state = 0;
 		break;
+	default:
+		break;
 	};
 
 	return inherited::OnMouseAction(x, y, mouse_action);

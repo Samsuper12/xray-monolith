@@ -209,6 +209,8 @@ bool CUIFixedScrollBar::OnMouseAction(float x, float y, EUIMessages mouse_action
 			}
 			return true;
 		}
+	default:
+		break;
 	};
 
 	return inherited::OnMouseAction(x, y, mouse_action);

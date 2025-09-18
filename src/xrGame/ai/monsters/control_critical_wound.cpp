@@ -45,5 +45,7 @@ void CControlCriticalWound::on_event(ControlCom::EEventType type, ControlCom::IE
 	case ControlCom::eventAnimationEnd:
 		m_man->notify(ControlCom::eventCriticalWoundEnd, 0);
 		break;
+	default:
+		break;
 	}
 }

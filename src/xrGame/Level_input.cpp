@@ -273,6 +273,8 @@ void CLevel::IR_OnKeyboardPress(int key)
 			return;
 		}
 		break;
+    default:
+        break;
 	};
 
 	if (g_bDisableAllInput || !bReady || !b_ui_exist) return;
@@ -693,6 +695,8 @@ void CLevel::IR_OnActivate()
 					IR_OnKeyboardPress(i);
 				}
 				break;
+            default:
+                break;
 			};
 		};
 	}

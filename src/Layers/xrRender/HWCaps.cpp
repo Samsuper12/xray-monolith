@@ -188,6 +188,8 @@ void CHWCaps::Update()
 		break;
 	case D3DFMT_D24X4S4: bStencil = TRUE;
 		break;
+	default:
+		break;
 	}
 
 	// Scissoring

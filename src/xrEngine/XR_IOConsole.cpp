@@ -122,6 +122,8 @@ bool is_console_mark(Console_mark type)
 	case mark12:
 		return true;
 		break;
+	default:
+		break;
 	}
 	return false;
 }

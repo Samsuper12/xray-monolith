@@ -740,6 +740,8 @@ struct DumbClipper
 					}
 				}
 				break;
+			default:
+				break;
 			};
 		}
 		return result;

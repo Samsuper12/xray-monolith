@@ -58,6 +58,8 @@ namespace award_system
 					return &le_function;
 				}
 				break;
+			default:
+				break;
 			}; //switch (ftype)
 			return NULL;
 		}

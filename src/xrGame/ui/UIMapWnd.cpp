@@ -457,6 +457,8 @@ bool CUIMapWnd::OnMouseAction(float x, float y, EUIMessages mouse_action)
 			UpdateZoom(!mouseWheelInvertZoom, true);
 			return true;
 			break;
+		default:
+			break;
 		} //switch	
 	};
 

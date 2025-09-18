@@ -173,6 +173,8 @@ void CUIMMShniaga::SetPage(enum_page_id page_id, LPCSTR xml_file, LPCSTR xml_pat
 			lst = &m_buttons_new_network;
 		}
 		break;
+	default:
+		break;
 	}; //switch (page_id)
 	delete_data(*lst);
 
@@ -199,6 +201,8 @@ void CUIMMShniaga::ShowPage(enum_page_id page_id)
 		{
 			ShowNetworkGame();
 		}
+		break;
+	default:
 		break;
 	}; //switch (page_id)
 }

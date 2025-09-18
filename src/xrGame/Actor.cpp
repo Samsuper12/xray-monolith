@@ -2837,6 +2837,8 @@ float CActor::GetRestoreSpeed(ALife::EConditionRestoreType const& type)
 			}
 			break;
 		}
+	default:
+		break;
 	} //switch
 
 	return res;

@@ -106,6 +106,8 @@ void CStateManagerBloodsucker::execute()
 				break;
 			case eWeak: state_id = eStateAttack;
 				break;
+			default:
+				break;
 			}
 		}
 	}

@@ -33,6 +33,8 @@ void CControllerAnimation::on_start_control(ControlCom::EControlType type)
 
 		on_switch_controller();
 		break;
+	default:
+		break;
 	}
 }
 
@@ -44,6 +46,8 @@ void CControllerAnimation::on_stop_control(ControlCom::EControlType type)
 		m_man->unsubscribe(this, ControlCom::eventAnimationEnd);
 		m_man->unsubscribe(this, ControlCom::eventTorsoAnimationEnd);
 		m_man->unsubscribe(this, ControlCom::eventLegsAnimationEnd);
+		break;
+	default:
 		break;
 	}
 }
@@ -76,6 +80,8 @@ void CControllerAnimation::on_event(ControlCom::EEventType type, ControlCom::IEv
 				break;
 			}
 		}
+	default:
+		break;
 	}
 }
 

@@ -191,9 +191,10 @@ void CPHActivationShape::Create(const Fvector start_pos, const Fvector start_siz
 	case etBox:
 		m_geom = dCreateBox(0, start_size.x, start_size.y, start_size.z);
 		break;
-
 	case etSphere:
 		m_geom = dCreateSphere(0, start_size.x);
+		break;
+	default:
 		break;
 	};
 

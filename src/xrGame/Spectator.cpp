@@ -445,6 +445,8 @@ void CSpectator::cam_Update(CActor* A)
 				cam->Update(point, dangle);
 			}
 			break;
+		default:
+			break;
 		}
 		//-----------------------------------
 		Fvector P, D, N;
@@ -672,6 +674,8 @@ void CSpectator::GetSpectatorString(string1024& pStr)
 			//			SpectatorMsg = "SPECTATOR (Look-At):";
 			SpectatorMsg += m_pActorToLookAt ? m_pActorToLookAt->Name() : "";
 		}
+		break;
+	default:
 		break;
 	};
 	xr_strcpy(pStr, SpectatorMsg.c_str());

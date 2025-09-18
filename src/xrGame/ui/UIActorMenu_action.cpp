@@ -186,6 +186,8 @@ bool CUIActorMenu::OnItemDrop(CUICellItem* itm)
 			ToQuickSlot(itm);
 		}
 		break;
+	default:
+		break;
 	};
 
 	OnItemDropped(CurrentIItem(), new_owner, old_owner);
@@ -315,6 +317,8 @@ bool CUIActorMenu::OnItemDbClick(CUICellItem* itm)
 		{
 			ToQuickSlot(itm);
 		}
+		break;
+	default:
 		break;
 	}; //switch 
 

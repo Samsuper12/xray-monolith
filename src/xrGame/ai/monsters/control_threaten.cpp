@@ -84,5 +84,7 @@ void CControlThreaten::on_event(ControlCom::EEventType type, ControlCom::IEventD
 				m_object->on_threaten_execute();
 			break;
 		}
+	default:
+		break;
 	}
 }

@@ -190,6 +190,8 @@ void SBinocVisibleObj::Update()
 						case ALife::eRelationTypeFriend:
 							clr = C_ON_FRIEND;
 							break;
+						default:
+							break;
 						}
 					}
 					else

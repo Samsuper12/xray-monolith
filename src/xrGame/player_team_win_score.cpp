@@ -68,6 +68,8 @@ namespace award_system
 				}
 			}
 			break;
+		default:
+			break;
 		}; //switch (Game().Type())
 		if (static_cast<ETeam>(m_player_team) == etGreenTeam)
 		{

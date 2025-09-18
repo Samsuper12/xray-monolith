@@ -836,6 +836,8 @@ void WeaponUsageStatistic::OnPlayerKillPlayer(game_PlayerState* ps, KILL_TYPE Ki
 	case SKT_EYESHOT:
 		PlayerStat.m_dwSpecialKills[3]++;
 		break;
+	default:
+		break;
 	};
 }
 

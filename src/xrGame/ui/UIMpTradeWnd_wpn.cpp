@@ -303,6 +303,8 @@ bool CUIMpTradeWnd::IsAddonAttached(SBuyItemInfo* itm, item_addon_type at)
 			b_res = (w->GrenadeLauncherAttachable() && w->IsGrenadeLauncherAttached());
 		}
 		break;
+	default:
+		break;
 	};
 	return b_res;
 }
@@ -335,6 +337,8 @@ bool CUIMpTradeWnd::CanAttachAddon(SBuyItemInfo* itm, item_addon_type at)
 		{
 			b_res = (w->GrenadeLauncherAttachable() && !w->IsGrenadeLauncherAttached());
 		}
+		break;
+	default:
 		break;
 	};
 	return b_res;
@@ -381,6 +385,8 @@ shared_str CUIMpTradeWnd::GetAddonNameSect(SBuyItemInfo* itm, item_addon_type at
 		{
 			return w->GetGrenadeLauncherName();
 		}
+		break;
+	default:
 		break;
 	};
 	return NULL;

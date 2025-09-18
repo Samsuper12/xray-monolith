@@ -908,6 +908,8 @@ bool CUIGameCTA::IR_UIOnKeyboardPress(int dik)
 			return Game().OnKeyboardPress(cmd);
 		}
 		break;
+	default:
+		break;
 	}
 
 	return false;

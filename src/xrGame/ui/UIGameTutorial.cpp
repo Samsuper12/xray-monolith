@@ -459,6 +459,8 @@ void CUISequencer::IR_OnActivate()
 					IR_OnKeyboardPress(i);
 				}
 				break;
+			default:
+				break;
 			};
 		};
 	}

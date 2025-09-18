@@ -237,6 +237,8 @@ pDomain::pDomain(PDomainEnum dtype, float a0, float a1,
 			radius1Sqr = -(p1 * p2); // D of the plane eqn.
 		}
 		break;
+	default:
+		break;
 	}
 }
 

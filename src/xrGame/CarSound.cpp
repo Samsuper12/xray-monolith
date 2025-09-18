@@ -140,6 +140,8 @@ void CCar::SCarSound::Update()
 		break;
 	case sndStoping: UpdateStalling();
 		break;
+	default:
+		break;
 	}
 }
 

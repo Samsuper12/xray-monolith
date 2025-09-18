@@ -87,6 +87,8 @@ void dxFontRender::OnRender(CGameFont& owner)
 				case CGameFont::alRight:
 					X -= iFloor(fSize);
 					break;
+				default:
+					break;
 				}
 
 				u32 clr, clr2;

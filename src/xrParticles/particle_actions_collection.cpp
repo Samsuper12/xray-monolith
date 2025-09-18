@@ -345,6 +345,8 @@ void PAPI::PAAvoid::Execute(ParticleEffect* effect, const float dt, float& tm_ma
 			}
 		}
 		break;
+	default:
+		break;
 	}
 }
 
@@ -671,6 +673,8 @@ void PABounce::Execute(ParticleEffect* effect, const float dt, float& tm_max)
 				}
 			}
 		}
+	default:
+		break;
 	}
 }
 

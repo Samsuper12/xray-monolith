@@ -1295,6 +1295,8 @@ void CBulletManager::CommitEvents() // @ the start of frame
 				m_Bullets.pop_back();
 			}
 			break;
+		default:
+			break;
 		}
 	}
 	m_Events.clear_and_reserve();
@@ -1353,6 +1355,8 @@ void CBulletManager::RegisterEvent(EventType Type, BOOL _dynamic, SBullet* bulle
 		{
 			E.tgt_material = tgt_material;
 		}
+		break;
+	default:
 		break;
 	}
 }

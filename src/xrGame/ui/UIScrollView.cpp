@@ -299,6 +299,8 @@ bool CUIScrollView::OnMouseAction(float x, float y, EUIMessages mouse_action)
 			res = true;
 		}
 		break;
+	default:
+		break;
 	};
 	if (prev_pos != m_VScrollBar->GetScrollPos())
 		m_visible_rgn.set(-1, -1);

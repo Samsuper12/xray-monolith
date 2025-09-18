@@ -112,6 +112,8 @@ Fvector CMonsterHitMemory::get_last_hit_dir()
 		case eSideRight:
 			h -= PI_DIV_2;
 			break;
+		default:
+			break;
 		}
 
 		dir.setHP(h, p);

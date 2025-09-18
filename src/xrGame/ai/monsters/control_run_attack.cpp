@@ -133,5 +133,7 @@ void CControlRunAttack::on_event(ControlCom::EEventType type, ControlCom::IEvent
 			}
 		}
 		break;
+	default:
+		break;
 	}
 }

@@ -1025,6 +1025,8 @@ void game_cl_mp::OnPlayerKilled(NET_Packet& P)
 						PlaySndMessage(ID_ASSASSIN);
 				}
 				break;
+			default:
+				break;
 			}
 			//suicide
 			if (KilledID == KillerID)
@@ -1308,6 +1310,8 @@ void game_cl_mp::OnEventMoneyChanged(NET_Packet& P)
 				R_ASSERT((player_team == 0) || (player_team == 1));
 				RectID = ((local_player->rank) * 2) + player_team;
 			}
+			break;
+		default:
 			break;
 		};
 		BONUSES_it it = std::find(m_pBonusList.begin(), m_pBonusList.end(), BName.c_str());

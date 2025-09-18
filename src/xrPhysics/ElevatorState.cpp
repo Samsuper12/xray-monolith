@@ -72,6 +72,8 @@ void CElevatorState::PhTune(float step)
 		break;
 	case clbNoLadder: m_ladder = NULL;
 		break;
+	default:
+		break;
 	}
 }
 
@@ -323,6 +325,8 @@ bool CElevatorState::GetControlDir(Fvector& dir)
 #endif
 			ret = false;
 		}
+		break;
+	default:
 		break;
 	}
 	return ret;

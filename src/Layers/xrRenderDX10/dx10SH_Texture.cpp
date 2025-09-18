@@ -101,6 +101,8 @@ void CTexture::surface_set(ID3DBaseTexture* surf)
 			case DXGI_FORMAT_R32_TYPELESS:
 				ViewDesc.Format = DXGI_FORMAT_R32_FLOAT;
 				break;
+			default:
+				break;
 			}
 
 			// this would be supported by DX10.1 but is not needed for stalker

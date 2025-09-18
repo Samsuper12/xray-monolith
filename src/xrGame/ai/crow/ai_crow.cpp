@@ -337,6 +337,8 @@ void CAI_Crow::UpdateWorkload(float fdt)
 	case eDeathFall:
 		state_DeathFall();
 		break;
+	default:
+		break;
 	}
 }
 
@@ -380,6 +382,8 @@ void CAI_Crow::shedule_Update(u32 DT)
 			break;
 		case eDeathDead: switch2_DeathDead();
 			break;
+		default:
+			break;
 		}
 		st_current = st_target;
 	}
@@ -391,6 +395,8 @@ void CAI_Crow::shedule_Update(u32 DT)
 	case eFlyUp: if (Position().y <= vOldPosition.y) st_target = eFlyIdle;
 		break;
 	case eDeathFall: state_DeathFall();
+		break;
+	default:
 		break;
 	}
 	if ((eDeathFall != st_current) && (eDeathDead != st_current))

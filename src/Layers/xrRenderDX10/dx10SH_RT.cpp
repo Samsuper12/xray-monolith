@@ -162,6 +162,8 @@ void CRT::create(LPCSTR Name, u32 w, u32 h, D3DFORMAT f, u32 SampleCount)
 		case DXGI_FORMAT_R32_TYPELESS:
 			ViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
 			break;
+		default:
+			break;
 		}
 
 		CHK_DX(HW.pDevice->CreateDepthStencilView( pSurface, &ViewDesc, &pZRT));

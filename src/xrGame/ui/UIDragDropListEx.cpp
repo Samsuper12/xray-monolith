@@ -409,6 +409,8 @@ bool CUIDragDropListEx::OnMouseAction(float x, float y, EUIMessages mouse_action
 			for (u8 i = 0; i < 4; ++i) { m_vScrollBar->TryScrollDec(); }
 			return true;
 			break;
+		default:
+			break;
 		}
 	}
 	return b;

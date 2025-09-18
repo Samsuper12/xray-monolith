@@ -66,6 +66,8 @@ void CControlPathBuilderBase::on_event(ControlCom::EEventType type, ControlCom::
 		break;
 	case ControlCom::eventTravelPointChange: travel_point_changed();
 		break;
+	default:
+		break;
 	}
 }
 
@@ -77,6 +79,8 @@ void CControlPathBuilderBase::on_start_control(ControlCom::EControlType type)
 		m_man->subscribe(this, ControlCom::eventTravelPointChange);
 		m_man->subscribe(this, ControlCom::eventPathUpdated);
 		break;
+	default:
+		break;
 	}
 }
 
@@ -87,6 +91,8 @@ void CControlPathBuilderBase::on_stop_control(ControlCom::EControlType type)
 	case ControlCom::eControlPath: m_man->unsubscribe(this, ControlCom::eventPathBuilt);
 		m_man->unsubscribe(this, ControlCom::eventTravelPointChange);
 		m_man->unsubscribe(this, ControlCom::eventPathUpdated);
+		break;
+	default:
 		break;
 	}
 }

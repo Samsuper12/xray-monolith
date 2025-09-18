@@ -150,6 +150,8 @@ bool CUIGameSP::IR_UIOnKeyboardPress(int dik)
 			}
 		}
 		break;
+	default:
+		break;
 	}
 
 	return false;

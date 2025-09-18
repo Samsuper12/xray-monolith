@@ -278,6 +278,8 @@ void CCar::SDoor::Update()
 				RemoveFromUpdate();
 			}
 		}
+	default:
+		break;
 	}
 }
 
@@ -668,6 +670,8 @@ void CCar::SDoor::Break()
 		RemoveFromUpdate();
 	case opening:
 		ApplyTorque(torque / 10.f, 0.f);
+	default:
+		break;
 	}
 	if (joint)
 	{

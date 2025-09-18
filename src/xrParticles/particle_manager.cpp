@@ -110,6 +110,7 @@ void CParticleManager::PlayEffect(int effect_id, int alist_id)
 				case PASourceID: 		static_cast<PASource*>(*it)->m_Flags.set(PASource::flSilent, FALSE); break;
 				case PAExplosionID:		static_cast<PAExplosion*>(*it)->age = 0.f; break;
 				case PATurbulenceID:	static_cast<PATurbulence*>(*it)->age = 0.f; break;
+				default: break;
 			}
 	}
 	pa->unlock();
@@ -130,6 +131,7 @@ void CParticleManager::StopEffect(int effect_id, int alist_id, BOOL deffered)
 			switch ((*it)->type)
 			{
 				case PASourceID: static_cast<PASource*>(*it)->m_Flags.set(PASource::flSilent, TRUE);		break;
+				default: break;
 			}
 	}
 	if (!deffered)
@@ -194,6 +196,8 @@ void CParticleManager::Transform(int alist_id, const Fmatrix& full, const Fvecto
 		case PASourceID:
 			static_cast<PASource*>(*it)->parent_vel = pVector(vel.x, vel.y, vel.z) * static_cast<PASource*>(*it)->
 				parent_motion;
+			break;
+		default:
 			break;
 		}
 	}
