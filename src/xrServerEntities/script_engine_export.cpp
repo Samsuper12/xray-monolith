@@ -67,7 +67,7 @@ struct DynamicCast
 		}
 
 		template <>
-		static void declare<true>()
+		void declare<true>()
 		{
 			Msg("Exporting function to cast from \"%s\" to \"%s\"", typeid(T).name(), typeid(Head).name());
 		}

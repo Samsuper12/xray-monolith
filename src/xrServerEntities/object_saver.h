@@ -22,7 +22,7 @@ struct CSaver
 		}
 
 		template <>
-		IC static void save_data<true>(const T& data, M& stream, const P& p)
+		IC void save_data<true>(const T& data, M& stream, const P& p)
 		{
 			T* data1 = const_cast<T*>(&data);
 			data1->save(stream);
@@ -44,7 +44,7 @@ struct CSaver
 		}
 
 		template <>
-		IC static void save_data<true>(const T& data, M& stream, const P& p)
+		IC void save_data<true>(const T& data, M& stream, const P& p)
 		{
 			CSaver<M, P>::save_data(*data, stream, p);
 		}
@@ -74,7 +74,7 @@ struct CSaver
 		}
 
 		template <>
-		IC static void save_data<true>(const T& data, M& stream, const P& p)
+		IC void save_data<true>(const T& data, M& stream, const P& p)
 		{
 			CHelper3::save_data(data, stream, p);
 		}

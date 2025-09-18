@@ -24,7 +24,7 @@ struct CLoader
 		}
 
 		template <>
-		IC static void load_data<true>(T& data, M& stream, const P& p)
+		IC void load_data<true>(T& data, M& stream, const P& p)
 		{
 			T* data1 = const_cast<T*>(&data);
 			data1->load(stream);
@@ -46,7 +46,7 @@ struct CLoader
 		}
 
 		template <>
-		IC static void load_data<true>(T& data, M& stream, const P& p)
+		IC void load_data<true>(T& data, M& stream, const P& p)
 		{
 			typedef typename object_type_traits::remove_pointer<T>::type type;
 			CLoader<M, P>::load_data(*(data = xr_new<type>()), stream, p);
@@ -87,7 +87,7 @@ struct CLoader
 			}
 
 			template <>
-			IC static void add<true>(T1& data, T2& value)
+			IC void add<true>(T1& data, T2& value)
 			{
 				data.insert(value);
 			}
@@ -125,7 +125,7 @@ struct CLoader
 		}
 
 		template <>
-		IC static void load_data<true>(T& data, M& stream, const P& p)
+		IC void load_data<true>(T& data, M& stream, const P& p)
 		{
 			CHelper3::load_data(data, stream, p);
 		}

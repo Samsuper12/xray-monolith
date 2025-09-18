@@ -21,7 +21,7 @@ struct CComparer
 		}
 
 		template <>
-		IC static bool compare<true>(const T& _1, const T& _2, const P& p)
+		IC bool compare<true>(const T& _1, const T& _2, const P& p)
 		{
 			return (CComparer::compare(*_1, *_2, p));
 		}
@@ -151,7 +151,7 @@ struct CComparer
 		}
 
 		template <>
-		IC static bool compare<true>(const T& _1, const T& _2, const P& p)
+		IC bool compare<true>(const T& _1, const T& _2, const P& p)
 		{
 			return (CHelper3::compare(_1, _2, p));
 		}
