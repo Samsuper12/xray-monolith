@@ -1587,7 +1587,7 @@ bool CLocatorAPI::path_exist(LPCSTR path)
 
 FS_Path* CLocatorAPI::append_path(LPCSTR path_alias, LPCSTR root, LPCSTR add, BOOL recursive)
 {
-	VERIFY(root/**&&root[0]/**/);
+	VERIFY(root/*&&root[0]*/);
 	VERIFY(false == path_exist(path_alias));
 	FS_Path* P = xr_new<FS_Path>(root, add, LPCSTR(0), LPCSTR(0), 0);
 	bNoRecurse = !recursive;

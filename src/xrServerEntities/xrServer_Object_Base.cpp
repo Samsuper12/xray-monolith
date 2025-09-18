@@ -476,7 +476,7 @@ bool CSE_Abstract::validate()
 	return (true);
 }
 
-/**
+/*
 void CSE_Abstract::save_update				(NET_Packet &tNetPacket)
 {
 	tNetPacket.w				(&m_spawn_count,sizeof(m_spawn_count));
@@ -490,4 +490,4 @@ void CSE_Abstract::load_update				(NET_Packet &tNetPacket)
 	tNetPacket.r				(&m_last_spawn_time,sizeof(m_last_spawn_time));
 	tNetPacket.r				(&m_next_spawn_time,sizeof(m_next_spawn_time));
 }
-/**/
+*/

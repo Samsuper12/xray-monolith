@@ -123,7 +123,7 @@ void CPHCharacter::Enable()
 }
 
 
-void CarHitCallback(bool& /**do_colide/**/, dContact& /**c/**/)
+void CarHitCallback(bool& /*do_colide*/, dContact& /*c*/)
 {
 }
 

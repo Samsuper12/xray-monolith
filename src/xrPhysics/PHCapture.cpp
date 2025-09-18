@@ -72,7 +72,7 @@ bool CPHCapture::Invalid()
 		!m_character->b_exist;
 }
 
-void CPHCapture::PhDataUpdate(dReal /**step/**/)
+void CPHCapture::PhDataUpdate(dReal /*step*/)
 {
 	switch (e_state)
 	{
@@ -88,7 +88,7 @@ void CPHCapture::PhDataUpdate(dReal /**step/**/)
 	}
 }
 
-void CPHCapture::PhTune(dReal /**step/**/)
+void CPHCapture::PhTune(dReal /*step*/)
 {
 	if (e_state == cstFree)
 		return;

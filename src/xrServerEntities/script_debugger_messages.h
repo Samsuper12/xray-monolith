@@ -39,7 +39,7 @@ struct SScriptThread
 	char name[255];
 	char process[255];
 
-	SScriptThread():/**pScript(0),/**/lua(0), scriptID(-1), active(false)
+	SScriptThread():/*pScript(0),*/lua(0), scriptID(-1), active(false)
 	{
 		name[0] = 0;
 		process[0] = 0;

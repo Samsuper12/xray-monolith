@@ -193,7 +193,7 @@ void CSoundPlayer::play(u32 internal_type, u32 max_start_time, u32 min_start_tim
 	R_ASSERT(sound_single.m_bone_id != BI_NONE);
 
 	sound_single.m_sound = xr_new<ref_sound>();
-	/**
+	/*
 	sound_single.m_sound->clone	(
 		*(*I).second.second->m_sounds[
 			id == u32(-1)
@@ -207,7 +207,7 @@ void CSoundPlayer::play(u32 internal_type, u32 max_start_time, u32 min_start_tim
 		st_Effect,
 		sg_SourceType
 	);
-	/**/
+	*/
 	u32 random_id = (*I).second.second->random_num(id);
 	sound_single.m_sound->clone(
 		(*I).second.second->random(random_id),

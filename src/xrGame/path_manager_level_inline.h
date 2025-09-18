@@ -75,7 +75,7 @@ IC void CLevelPathManager::init()
 
 TEMPLATE_SPECIALIZATION
 IC _dist_type CLevelPathManager::evaluate(const _index_type& node_index1, const _index_type& node_index2,
-                                          const _Graph::const_iterator&/**i/**/)
+                                          const _Graph::const_iterator&/*i**/)
 {
 	VERIFY(graph);
 

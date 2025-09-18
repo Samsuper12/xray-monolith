@@ -71,7 +71,7 @@ public:
 	void LowerPoint(Fvector& P) const;
 	void UpperPoint(Fvector& P) const;
 	void DefineClimbState(CPHCharacter* actor) const;
-	static void ObjectContactCallback(bool& /**do_colide/**/, bool bo1, dContact& c, SGameMtl* /*material_1*/,
+	static void ObjectContactCallback(bool& /*do_colide**/, bool bo1, dContact& c, SGameMtl* /*material_1*/,
 	                                  SGameMtl* /*material_2*/);
 
 public:

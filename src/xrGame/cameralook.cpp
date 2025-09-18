@@ -29,7 +29,7 @@ CCameraLook::~CCameraLook()
 {
 }
 
-void CCameraLook::Update(Fvector& point, Fvector& /**noise_dangle/**/)
+void CCameraLook::Update(Fvector& point, Fvector& /*noise_dangle**/)
 {
 	vPosition.set(point);
 	Fmatrix mR;

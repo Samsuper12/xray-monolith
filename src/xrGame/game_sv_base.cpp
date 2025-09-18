@@ -361,7 +361,7 @@ void game_sv_GameState::net_Export_GameTime(NET_Packet& P)
 };
 
 
-void game_sv_GameState::OnPlayerConnect(ClientID /**id_who/**/)
+void game_sv_GameState::OnPlayerConnect(ClientID /*id_who**/)
 {
 	signal_Syncronize();
 }

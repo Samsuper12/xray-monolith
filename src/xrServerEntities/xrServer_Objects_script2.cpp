@@ -28,7 +28,7 @@ void CSE_AbstractVisual::script_register(lua_State* L)
 	];
 }
 
-/**
+/*
 void CSE_SpawnGroup::script_register(lua_State *L)
 {
 	module(L)[
@@ -39,4 +39,4 @@ void CSE_SpawnGroup::script_register(lua_State *L)
 		)
 	];
 }
-/**/
+*/

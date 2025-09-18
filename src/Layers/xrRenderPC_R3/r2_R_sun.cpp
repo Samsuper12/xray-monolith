@@ -949,7 +949,7 @@ void CRender::render_sun_near()
 		frustum_bb.min.y -= diff_y; frustum_bb.max.y += diff_y;
 		Fbox&	bb					= frustum_bb;
 		D3DXMatrixOrthoOffCenterLH	((D3DXMATRIX*)&mdir_Project,bb.min.x,bb.max.x,  bb.min.y,bb.max.y,  bb.min.z-tweak_ortho_xform_initial_offs,bb.max.z);
-		/**/
+		*/
 
 		//	Simple
 		Fbox frustum_bb;

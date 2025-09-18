@@ -266,7 +266,7 @@ void CEntityAlive::net_Destroy()
 	inherited::net_Destroy();
 }
 
-void CEntityAlive::HitImpulse(float /**amount/**/, Fvector& /**vWorldDir/**/, Fvector& /**vLocalDir/**/)
+void CEntityAlive::HitImpulse(float /*amount**/, Fvector& /*vWorldDir**/, Fvector& /*vLocalDir**/)
 {
 	//	float Q					= 2*float(amount)/m_PhysicMovementControl->GetMass();
 	//	m_PhysicMovementControl->vExternalImpulse.mad	(vWorldDir,Q);
@@ -343,7 +343,7 @@ void CEntityAlive::Die(CObject* who)
 }
 
 //вывзывает при подсчете хита
-float CEntityAlive::CalcCondition(float /**hit/**/)
+float CEntityAlive::CalcCondition(float /*hit**/)
 {
 	conditions().UpdateCondition();
 

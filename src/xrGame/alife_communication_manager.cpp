@@ -8,7 +8,7 @@
 
 #include "alife_communication_manager.h"
 
-/**
+/*
 #include "alife_communication_space.h"
 #include "xrServer_objects_ALife_All.h"
 #include "alife_object_registry.h"
@@ -75,7 +75,7 @@ public:
 			return						(tpALifeInventoryItem1->m_dwCost > tpALifeInventoryItem2->m_dwCost);
 	}
 };
-/**/
+*/
 
 CALifeCommunicationManager::CALifeCommunicationManager(xrServer* server, LPCSTR section)
 {
@@ -89,7 +89,7 @@ CALifeCommunicationManager::CALifeCommunicationManager(xrServer* server, LPCSTR 
 	//	m_tpSums2.reserve			(MAX_STACK_DEPTH);
 }
 
-/**
+/*
 CALifeCommunicationManager::~CALifeCommunicationManager	()
 {
 }
@@ -900,4 +900,4 @@ void CALifeCommunicationManager::communicate_with_customer(CSE_ALifeHumanAbstrac
 		tpALifeHumanAbstract->attach		(original_pda,true);
 	}
 }
-/**/
+*/

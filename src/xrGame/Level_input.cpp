@@ -661,7 +661,7 @@ void CLevel::IR_OnKeyboardHold(int key)
 	}
 }
 
-void CLevel::IR_OnMouseStop(int /**axis/**/, int /**value/**/)
+void CLevel::IR_OnMouseStop(int /*axis**/, int /*value**/)
 {
 }
 

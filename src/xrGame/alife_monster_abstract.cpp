@@ -56,7 +56,7 @@ void CSE_ALifeMonsterAbstract::update()
 		return;
 
 	brain().update();
-	/**
+	/*
 		GameGraph::_GRAPH_ID	start_game_vertex_id = m_tGraphID;
 		bool				bContinue = true;
 		while (bContinue && bfActive()) {
@@ -138,7 +138,7 @@ void CSE_ALifeMonsterAbstract::update()
 			}
 		}
 		m_tTimeID					= ai().alife().time_manager().game_time();
-	/**/
+	*/
 }
 
 void CSE_ALifeMonsterAbstract::on_location_change() const
@@ -158,7 +158,7 @@ ALife::EMeetActionType CSE_ALifeMonsterAbstract::tfGetActionType(CSE_ALifeSchedu
                                                                  int iGroupIndex, bool bMutualDetection)
 {
 	return (ALife::eMeetActionTypeIgnore);
-	/**
+	/*
 	if (ALife::eCombatTypeMonsterMonster == ai().alife().combat_type()) {
 		CSE_ALifeMonsterAbstract	*l_tpALifeMonsterAbstract = smart_cast<CSE_ALifeMonsterAbstract*>(tpALifeSchedulable);
 		R_ASSERT2					(l_tpALifeMonsterAbstract,"Inconsistent meet action type");
@@ -172,7 +172,7 @@ ALife::EMeetActionType CSE_ALifeMonsterAbstract::tfGetActionType(CSE_ALifeSchedu
 		}
 		else
 			return					(ALife::eMeetActionTypeAttack);
-	/**/
+	*/
 }
 
 bool CSE_ALifeMonsterAbstract::bfActive()

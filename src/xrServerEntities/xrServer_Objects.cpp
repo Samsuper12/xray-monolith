@@ -163,7 +163,7 @@ void CSE_Temporary::FillProps				(LPCSTR pref, PropItemVec& values)
 };
 #endif // #ifndef XRGAME_EXPORTS
 
-/**
+/*
 ////////////////////////////////////////////////////////////////////////////
 // CSE_SpawnGroup
 ////////////////////////////////////////////////////////////////////////////
@@ -216,7 +216,7 @@ void CSE_SpawnGroup::FillProps				(LPCSTR pref, PropItemVec& values)
 	PHelper().CreateFlag32		(values,PrepareKey(pref,*s_name,"Spawn\\spawn single item only"),	&m_spawn_flags,	flSpawnSingleItemOnly);
 }
 #endif // #ifndef XRGAME_EXPORTS
-/**/
+*/
 
 ////////////////////////////////////////////////////////////////////////////
 // CSE_PHSkeleton

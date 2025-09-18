@@ -20,7 +20,7 @@ class CSE_ALifeTraderAbstract;
 
 class CALifeCommunicationManager : public virtual CALifeSimulatorBase
 {
-	/**
+	/*
 	protected:
 		typedef CALifeSimulatorBase inherited;
 	
@@ -70,11 +70,11 @@ class CALifeCommunicationManager : public virtual CALifeSimulatorBase
 				void		vfPrintItems					(CSE_ALifeHumanAbstract		*tpALifeHumanAbstract,		ALife::ITEM_P_VECTOR			&tpItemVector);
 				void		vfPrintItems					(CSE_ALifeHumanAbstract		*tpALifeHumanAbstract);
 	#endif
-	/**/
+	*/
 public:
 	CALifeCommunicationManager(xrServer* server, LPCSTR section);
-	/**
+	/*
 		virtual				~CALifeCommunicationManager		();
 				void		communicate_with_customer		(CSE_ALifeHumanAbstract		*tpALifeHumanAbstract,		CSE_ALifeTrader			*tpALifeTrader);
-	/**/
+	*/
 };

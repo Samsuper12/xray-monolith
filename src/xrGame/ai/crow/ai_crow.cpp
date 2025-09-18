@@ -76,7 +76,7 @@ void cb_OnHitEndPlaying(CBlend* B)
 	((CAI_Crow*)B->CallbackParam)->OnHitEndPlaying(B);
 }
 
-void CAI_Crow::OnHitEndPlaying(CBlend* /**B/**/)
+void CAI_Crow::OnHitEndPlaying(CBlend* /*B*/)
 {
 	bPlayDeathIdle = true;
 }
@@ -499,7 +499,7 @@ void CAI_Crow::net_Import(NET_Packet& P)
 }
 
 //---------------------------------------------------------------------
-void CAI_Crow::HitSignal(float /**HitAmount/**/, Fvector& /**local_dir/**/, CObject* who, s16 /**element/**/)
+void CAI_Crow::HitSignal(float /*HitAmount*/, Fvector& /*local_dir*/, CObject* who, s16 /*element*/)
 {
 	//bool				first_time = !!g_Alive(); 
 	//	bool				first_time = !PPhysicsShell(); 
@@ -514,7 +514,7 @@ void CAI_Crow::HitSignal(float /**HitAmount/**/, Fvector& /**local_dir/**/, CObj
 }
 
 //---------------------------------------------------------------------
-void CAI_Crow::HitImpulse(float /**amount/**/, Fvector& /**vWorldDir/**/, Fvector& /**vLocalDir/**/)
+void CAI_Crow::HitImpulse(float /*amount*/, Fvector& /*vWorldDir*/, Fvector& /*vLocalDir*/)
 {
 }
 

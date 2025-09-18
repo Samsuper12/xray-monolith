@@ -209,7 +209,7 @@ public:
 			        make_string("index is out of range: index requested[%d], size of container[%d]", _Pos, size()).c_str
 			        ());
 		}
-		return (*(begin() + _Pos));
+		return (*(inherited::begin() + _Pos));
 	}
 
 	reference operator[](size_type _Pos)

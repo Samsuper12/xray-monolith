@@ -205,10 +205,10 @@ public:
 	IPhysicsShellHolder* PhysicsRefObject();
 	void SetNonInteractive(bool v);
 
-	void CalcMaximumVelocity(Fvector& /**dest/**/, Fvector& /**accel/**/, float /**friction/**/)
+	void CalcMaximumVelocity(Fvector& /*dest**/, Fvector& /*accel**/, float /*friction**/)
 	{};
 
-	void CalcMaximumVelocity(float& /**dest/**/, float /**accel/**/, float /**friction/**/)
+	void CalcMaximumVelocity(float& /*dest**/, float /*accel**/, float /*friction**/)
 	{};
 
 	void ActivateBox(DWORD id, BOOL Check = false);

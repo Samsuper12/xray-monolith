@@ -115,7 +115,7 @@ public:
 		//		if (queue.empty()/* || (T<queue.begin()->timestamp)*/)	return FALSE;
 		//		else												return TRUE;
 		if (queue.empty()) return FALSE;
-		/**
+		/*
 		else 
 		{
 			if (!g_bCheckTime) return TRUE;
@@ -124,7 +124,7 @@ public:
 #endif
 			return TRUE;
 		}
-		/**/
+		*/
 		return TRUE;
 	}
 

@@ -129,7 +129,7 @@ IC bool dcTriListCollider::PointSphereTest(const dReal* center, const dReal radi
 
 /////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-int dcTriListCollider::dSortedTriSphere(const dReal* /**v1/**/, const dReal* /**v2/**/,
+int dcTriListCollider::dSortedTriSphere(const dReal* /*v1*/, const dReal* /*v2*/,
                                         const dReal* triAx,
                                         CDB::TRI* T,
                                         dReal dist,
@@ -181,7 +181,7 @@ int dcTriListCollider::dSortedTriSphere(const dReal* /**v1/**/, const dReal* /**
 int dcTriListCollider::dTriSphere(const dReal* v0, const dReal* v1, const dReal* v2,
                                   Triangle* T,
                                   dxGeom* Sphere, dxGeom* Geometry, int Flags,
-                                  dContactGeom* Contacts, int /**skip/**/)
+                                  dContactGeom* Contacts, int /*skip*/)
 {
 	const dVector3& triSideAx0 = T->side0;
 	const dVector3& triSideAx1 = T->side1;

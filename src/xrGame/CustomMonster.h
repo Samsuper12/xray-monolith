@@ -151,7 +151,7 @@ public:
 
 	virtual void HitSignal(float P, Fvector& vLocalDir, CObject* who);
 
-	virtual void g_WeaponBones(int&/**L/**/, int&/**R1/**/, int&/**R2/**/)
+	virtual void g_WeaponBones(int&/*L**/, int&/*R1**/, int&/*R2**/)
 	{
 	};
 	virtual void shedule_Update(u32 DT);

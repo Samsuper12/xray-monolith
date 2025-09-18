@@ -449,11 +449,11 @@ void CSE_ALifeObject::STATE_Read(NET_Packet& tNetPacket, u16 size)
 		else
 		{
 			tNetPacket.r_u8();
-			/**
+			/*
 			u8					l_ucTemp;
 			tNetPacket.r_u8		(l_ucTemp);
 			m_spawn_probability	= (float)l_ucTemp;
-			/**/
+			*/
 		}
 		if (m_wVersion < 83)
 		{
@@ -1683,7 +1683,7 @@ CSE_ALifeSchedulable::~CSE_ALifeSchedulable()
 
 bool CSE_ALifeSchedulable::need_update(CSE_ALifeDynamicObject* object)
 {
-	return (!object || (object->m_bDirectControl && /**object->interactive() && /**/object->used_ai_locations() && !
+	return (!object || (object->m_bDirectControl && /*object->interactive() && */object->used_ai_locations() && !
 		object->m_bOnline));
 }
 
