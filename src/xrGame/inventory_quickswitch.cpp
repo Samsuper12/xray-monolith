@@ -80,6 +80,7 @@ public:
 private:
 	next_weapon_searcher& operator =(next_weapon_searcher const& copy)
 	{
+		return *this;
 	}
 
 	priority_group& m_prior_group;
