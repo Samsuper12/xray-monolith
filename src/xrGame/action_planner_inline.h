@@ -385,15 +385,15 @@ TEMPLATE_SPECIALIZATION
 IC void CPlanner::save(NET_Packet& packet)
 {
 	{
-		EVALUATORS::iterator I = m_evaluators.begin();
-		EVALUATORS::iterator E = m_evaluators.end();
+		typename EVALUATORS::iterator I = m_evaluators.begin();
+		typename EVALUATORS::iterator E = m_evaluators.end();
 		for (; I != E; ++I)
 			(*I).second->save(packet);
 	}
 
 	{
-		OPERATOR_VECTOR::iterator I = m_operators.begin();
-		OPERATOR_VECTOR::iterator E = m_operators.end();
+		typename OPERATOR_VECTOR::iterator I = m_operators.begin();
+		typename OPERATOR_VECTOR::iterator E = m_operators.end();
 		for (; I != E; ++I)
 			(*I).m_operator->save(packet);
 	}
@@ -415,15 +415,15 @@ TEMPLATE_SPECIALIZATION
 IC void CPlanner::load(IReader& packet)
 {
 	{
-		EVALUATORS::iterator I = m_evaluators.begin();
-		EVALUATORS::iterator E = m_evaluators.end();
+		typename EVALUATORS::iterator I = m_evaluators.begin();
+		typename EVALUATORS::iterator E = m_evaluators.end();
 		for (; I != E; ++I)
 			(*I).second->load(packet);
 	}
 
 	{
-		OPERATOR_VECTOR::iterator I = m_operators.begin();
-		OPERATOR_VECTOR::iterator E = m_operators.end();
+		typename OPERATOR_VECTOR::iterator I = m_operators.begin();
+		typename OPERATOR_VECTOR::iterator E = m_operators.end();
 		for (; I != E; ++I)
 			(*I).m_operator->load(packet);
 	}

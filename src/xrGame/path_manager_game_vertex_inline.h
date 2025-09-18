@@ -61,7 +61,7 @@ IC bool CGameVertexPathManager::is_accessible(const _index_type& vertex_id) cons
 	if (!m_start_is_accessible)
 		return (true);
 
-	typedef _Parameters::VERTEX_TYPES::const_iterator const_iterator;
+	typedef typename _Parameters::VERTEX_TYPES::const_iterator const_iterator;
 #ifdef DEBUG
 	if (m_evaluator->m_vertex_types->empty()) {
 		Msg					("! warning : empty vertex types");

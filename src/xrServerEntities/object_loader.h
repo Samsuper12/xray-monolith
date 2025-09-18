@@ -107,7 +107,7 @@ struct CLoader
 			u32 count = stream.r_u32();
 			for (u32 i = 0; i < count; ++i)
 			{
-				T::value_type temp;
+				typename T::value_type temp;
 				CLoader<M, P>::load_data(temp, stream, p);
 				if (p(data, temp))
 					add(data, temp);
