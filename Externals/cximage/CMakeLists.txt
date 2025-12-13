@@ -2,7 +2,7 @@ add_library(CxImage STATIC)
 
 target_folder(CxImage ${FOLDER_EXTERNAL})
 
-set(CXIMAGE_DIR ../CxImage-git/CxImage)
+set(CXIMAGE_DIR ../cximage-git/CxImage)
 
 target_include_directories(CxImage
   PUBLIC
@@ -50,7 +50,7 @@ target_sources_sandboxed(CxImage
 
   ${CXIMAGE_DIR}/ximaenc.cpp
   ${CXIMAGE_DIR}/ximaexif.cpp
-  ${CXIMAGE_DIR}/xImage.cpp
+  ${CXIMAGE_DIR}/ximage.cpp
   ${CXIMAGE_DIR}/ximainfo.cpp
   ${CXIMAGE_DIR}/ximaint.cpp
   ${CXIMAGE_DIR}/ximajpg.cpp

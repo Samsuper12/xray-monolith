@@ -7,12 +7,12 @@ set_target_properties(DxErr PROPERTIES OUTPUT_NAME DxErr_x64_ar)
 set(DXERR_DIR ../DxErr-git/DxErr/src)
 
 # Patch dxerr.cpp with Clang / GCC -compliant macro stringify and concat
-file(READ ${DXERR_DIR}/DxErr.cpp DXERR_CPP)
+file(READ ${DXERR_DIR}/DXErr.cpp DXERR_CPP)
 string(REPLACE "L#hrchk" "L###hrchk" DXERR_CPP "${DXERR_CPP}")
 string(REPLACE "L##__VA_ARGS__" "L###__VA_ARGS__" DXERR_CPP "${DXERR_CPP}")
-file(GENERATE OUTPUT DxErr/DxErr.cpp CONTENT "${DXERR_CPP}")
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS DxErr.cpp)
-target_sources(DxErr PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/DxErr/DxErr.cpp)
+file(GENERATE OUTPUT DxErr/DXErr.cpp CONTENT "${DXERR_CPP}")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS DXErr.cpp)
+target_sources(DxErr PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/DxErr/DXErr.cpp)
 
 target_sources_sandboxed(DxErr
   DIRECTORY DxErr
@@ -21,10 +21,10 @@ target_sources_sandboxed(DxErr
   ${DXERR_DIR}/
 
   SOURCES
-  ${DXERR_DIR}/DxErr.h
-  ${DXERR_DIR}/DxGetErrorString.inl
-  ${DXERR_DIR}/DxGetErrorDescription.inl
-  ${DXERR_DIR}/DxTrace.inl
+  ${DXERR_DIR}/DXErr.h
+  ${DXERR_DIR}/DXGetErrorString.inl
+  ${DXERR_DIR}/DXGetErrorDescription.inl
+  ${DXERR_DIR}/DXTrace.inl
 )
 
 target_include_directories(DxErr

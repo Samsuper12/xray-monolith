@@ -108,8 +108,8 @@ add_module(XRay.Game.UI.Common.MainIngame
   ui/UICarPanel.cpp
   ui/UICarPanel.h
 
-  ui/UIHudstatesWnd.cpp
-  ui/UIHudstatesWnd.h
+  ui/UIHudStatesWnd.cpp
+  ui/UIHudStatesWnd.h
 
   ui/UIMainIngameWnd.cpp
   ui/UIMainIngameWnd.h
@@ -546,8 +546,8 @@ add_module(XRay.Game.UI.Multiplayer.Voting
   ui/UIVote.cpp
   ui/UIVote.h
 
-  ui/UIVotingcategory.cpp
-  ui/UIVotingcategory.h
+  ui/UIVotingCategory.cpp
+  ui/UIVotingCategory.h
 )
 
 add_module(XRay.Game.UI.Tutorial
@@ -754,8 +754,8 @@ add_module(XRay.Game.UI.Windows.Static
   ui/UIAnimatedStatic.cpp
   ui/UIAnimatedStatic.h
 
-  ui/UILanimcontroller.cpp
-  ui/UILanimcontroller.h
+  ui/UILanimController.cpp
+  ui/UILanimController.h
 
   ui/UIStatic_script.cpp
   ui/UIStatic.cpp

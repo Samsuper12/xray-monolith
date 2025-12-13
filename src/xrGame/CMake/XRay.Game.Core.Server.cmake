@@ -402,11 +402,11 @@ add_module(XRay.Game.Core.Server.Games.Server.TeamDeathmatch
 
 add_module(XRay.Game.Core.Server.GameSpy.CDKeyDecode
   SOURCES
-  gamespy/cdkeydecode/base32.c
-  gamespy/cdkeydecode/base32.h
+  gamespy/CdkeyDecode/base32.c
+  gamespy/CdkeyDecode/base32.h
 
-  gamespy/cdkeydecode/cdkeydecode.c
-  gamespy/cdkeydecode/cdkeydecode.h
+  gamespy/CdkeyDecode/cdkeydecode.c
+  gamespy/CdkeyDecode/cdkeydecode.h
 )
 
 add_module(XRay.Game.Core.Server.IDGenerator
@@ -477,13 +477,13 @@ add_module(XRay.Game.Core.Server.Server.Entities.ALife.Items
 
 add_module(XRay.Game.Core.Server.Server.Entities.ALife.Monsters
   SOURCES
-  ../xrServerEntities/xrServer_Objects_ALife_monsters.cpp
-  ../xrServerEntities/xrServer_Objects_ALife_monsters.h
+  ../xrServerEntities/xrServer_Objects_ALife_Monsters.cpp
+  ../xrServerEntities/xrServer_Objects_ALife_Monsters.h
 
-  ../xrServerEntities/xrServer_Objects_ALife_monsters_script.cpp
-  ../xrServerEntities/xrServer_Objects_ALife_monsters_script2.cpp
+  ../xrServerEntities/xrServer_Objects_ALife_Monsters_script.cpp
+  ../xrServerEntities/xrServer_Objects_ALife_Monsters_script2.cpp
   ../xrServerEntities/xrserver_objects_alife_monsters_script3.cpp
-  ../xrServerEntities/xrServer_Objects_ALife_monsters_script4.cpp
+  ../xrServerEntities/xrServer_Objects_ALife_Monsters_script4.cpp
 )
 
 add_module(XRay.Game.Core.Server.Server.Entities.ALife.SmartCover

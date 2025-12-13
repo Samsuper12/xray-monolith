@@ -49,12 +49,12 @@ target_sources_sandboxed(OpenAL
   version.h
   default_hrtf.txt
 
-  ${OPENAL_DIR}/include/al/al.h
-  ${OPENAL_DIR}/include/al/alc.h
-  ${OPENAL_DIR}/include/al/alext.h
-  ${OPENAL_DIR}/include/al/efx-creative.h
-  ${OPENAL_DIR}/include/al/efx-presets.h
-  ${OPENAL_DIR}/include/al/efx.h
+  ${OPENAL_DIR}/include/AL/al.h
+  ${OPENAL_DIR}/include/AL/alc.h
+  ${OPENAL_DIR}/include/AL/alext.h
+  ${OPENAL_DIR}/include/AL/efx-creative.h
+  ${OPENAL_DIR}/include/AL/efx-presets.h
+  ${OPENAL_DIR}/include/AL/efx.h
 
   ${OPENAL_DIR}/common/albit.h
   ${OPENAL_DIR}/common/albyte.h

@@ -153,8 +153,8 @@ add_module(XRay.Game.Physics.IK
   IKFoot.h
   IKFoot_inl.h
 
-  IKLimbscontroller.cpp
-  IKLimbscontroller.h
+  IKLimbsController.cpp
+  IKLimbsController.h
 
   pose_extrapolation.cpp
   pose_extrapolation.h

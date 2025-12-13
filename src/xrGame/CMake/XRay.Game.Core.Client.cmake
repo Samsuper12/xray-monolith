@@ -797,8 +797,8 @@ add_module(XRay.Game.Core.Client.Objects.ItemsWeapons.Outfit
   ScientificOutfit.cpp
   ScientificOutfit.h
 
-  stalkerOutfit.cpp
-  stalkerOutfit.h
+  StalkerOutfit.cpp
+  StalkerOutfit.h
 )
 
 add_module(XRay.Game.Core.Client.Objects.ItemsWeapons.PDAInformation
