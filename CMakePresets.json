@@ -9,7 +9,10 @@
         "value": "x64",
         "strategy": "external"
       },
-      "installDir": "${sourceDir}/_build/install/${presetName}"
+      "installDir": "${sourceDir}/_build/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/.vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
     },
     {
       "name": "MSVS.MSVC.MSBuild",
@@ -56,6 +59,7 @@
         "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_C_COMPILER": "clang"
       }
+
     },
     {
       "name": "System.Clang.AVX",
