@@ -40,18 +40,19 @@ add_engine_target(
   Anomaly.DX8
   XRay.Render.R1
 )
-add_engine_target(
-  Anomaly.DX9
-  XRay.Render.R2
-)
-add_engine_target(
-  Anomaly.DX10
-  XRay.Render.R3
-)
-add_engine_target(
-  Anomaly.DX11
-  XRay.Render.R4
-)
+
+#add_engine_target(
+#  Anomaly.DX9
+#  XRay.Render.R2
+#)
+#add_engine_target(
+#  Anomaly.DX10
+#  XRay.Render.R3
+#)
+#add_engine_target(
+#  Anomaly.DX11
+#  XRay.Render.R4
+#)
 
 # Set visual studio startup project
 set_property(
