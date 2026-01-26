@@ -26,6 +26,11 @@
 #include "RenderDeviceRender.h"
 #include "imgui_base.h"
 
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_properties.h>
+#include <SDL3/SDL_platform.h>
+#include <SDL3/SDL_events.h>
+
 class engine_impl;
 
 #pragma pack(push,4)
@@ -103,6 +108,7 @@ public:
 	CRegistrator<pureScreenResolutionChanged> seqResolutionChanged;
 
 	HWND m_hWnd;
+	SDL_Window* m_window;
 	// CStats* Statistic;
 
 public:

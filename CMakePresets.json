@@ -9,10 +9,7 @@
         "value": "x64",
         "strategy": "external"
       },
-      "installDir": "${sourceDir}/_build/install/${presetName}",
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/.vcpkg/scripts/buildsystems/vcpkg.cmake"
-      }
+      "installDir": "${sourceDir}/_build/install/${presetName}"      
     },
     {
       "name": "MSVS.MSVC.MSBuild",
@@ -58,8 +55,8 @@
       "cacheVariables": {
         "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_C_COMPILER": "clang"
-      }
-
+      },
+      "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
     },
     {
       "name": "System.Clang.AVX",
@@ -237,7 +234,6 @@
     },
     {
       "name": "System.Clang.Debug",
-      "hidden": true,
       "displayName": "Debug",
       "configurePreset": "System.Clang",
       "inherits": "Base.Debug"

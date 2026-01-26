@@ -63,6 +63,8 @@ add_module(XRay.Engine
   _d3d_extensions.h
 )
 
+find_package(SDL3 CONFIG REQUIRED)
+target_link_libraries(XRay.Engine.Includes INTERFACE SDL3::SDL3)
 
 # you must define ENGINE_BUILD then building the engine itself
 # and not define it if you are about to build DLL

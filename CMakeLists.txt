@@ -1,5 +1,5 @@
 # Use minimum VS-supported CMake for broad IDE compatibility
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.28)
 
 message(STATUS "CMake")
 message(STATUS "      Version: ${CMAKE_VERSION}")

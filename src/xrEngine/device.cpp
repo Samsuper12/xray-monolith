@@ -174,7 +174,7 @@ void mt_Thread(void* ptr)
 	while (true)
 	{
 		PROF_EVENT();
-
+     
 		START_PROFILE("Wait for device");
 		// waiting for Device permission to execute
 		device->mt_csEnter.Enter();
@@ -517,7 +517,7 @@ void CRenderDevice::message_loop()
 #endif
 	MSG msg;
 	PeekMessage(&msg, NULL, 0U, 0U, PM_NOREMOVE);
-	while (msg.message != WM_QUIT)
+	while (1)//msg.message != WM_QUIT)
 	{
 		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
 		{
@@ -576,6 +576,8 @@ void CRenderDevice::Run()
 	// InitializeCriticalSection (&mt_csLeave);
 	mt_csEnter.Enter();
 	mt_bMustExit = FALSE;
+	
+	OnWM_Activate(NULL, NULL);
 	thread_spawn(mt_FreezeThread, "Freeze detecting thread", 0, 0);
 	thread_spawn(mt_Thread, "X-RAY Secondary thread", 0, this);
 	thread_spawn(mt_DiscordThread, "X-RAY Discord thread", 0, 0);
@@ -730,9 +732,11 @@ bool CRenderDevice::Paused()
 
 void CRenderDevice::OnWM_Activate(WPARAM wParam, LPARAM lParam)
 {
-	u16 fActive = LOWORD(wParam);
-	BOOL fMinimized = (BOOL)HIWORD(wParam);
-	BOOL bActive = ((fActive != WA_INACTIVE) && (!fMinimized)) ? TRUE : FALSE;
+	Device.b_is_Active = TRUE;
+
+	//u16 fActive = LOWORD(wParam);
+	BOOL fMinimized = FALSE;//(BOOL)HIWORD(wParam);
+	BOOL bActive = TRUE; //((fActive != WA_INACTIVE) && (!fMinimized)) ? TRUE : FALSE;
 
 	if (psDeviceFlags2.test(rsAlwaysActive) && g_screenmode != 2)
 	{
