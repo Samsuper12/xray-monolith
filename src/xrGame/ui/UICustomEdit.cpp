@@ -3,7 +3,7 @@
 #include "UILines.h"
 
 #include "../../xrEngine/line_edit_control.h"
-#include "../../xrEngine/xr_input.h"
+#include "../../xrEngine/xr_sdl3_input.hpp"
 
 CUICustomEdit::CUICustomEdit()
 {

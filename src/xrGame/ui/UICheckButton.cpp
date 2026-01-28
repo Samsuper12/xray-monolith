@@ -5,7 +5,7 @@
 #include ".\uicheckbutton.h"
 #include "UIXmlInit.h"
 #include "UIHint.h"
-#include "../../xrEngine/xr_input.h"
+#include "../../xrEngine/xr_sdl3_input.hpp"
 
 CUICheckButton::CUICheckButton()
 {
@@ -78,7 +78,7 @@ void CUICheckButton::InitTexture2(LPCSTR texture_name)
 
 void CUICheckButton::OnFocusLost()
 {
-	if (m_eButtonState == BUTTON_PUSHED && pInput->iGetAsyncBtnState(0))
+	if (m_eButtonState == BUTTON_PUSHED && pSDL3Input->iGetAsyncBtnState(0))
 		return;
 
 	inherited::OnFocusLost();

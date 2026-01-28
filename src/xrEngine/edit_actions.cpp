@@ -7,7 +7,7 @@
 
 #include "edit_actions.h"
 #include "line_edit_control.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 #include <locale.h>
 #include <locale>
 
@@ -98,17 +98,18 @@ namespace text_editor
 
 			static _locale_t current_locale = _create_locale(LC_ALL, "");
 
-			if (pInput->get_dik_name(m_dik, buff, sizeof(buff)))
-			{
-				// demonized: add extra check for russian letters
-				if (std::isalpha(buff[0], std::locale("")) || _isalpha_l(buff[0], current_locale) || buff[0] == char(-1)) // "я" = -1
-				{
-					_strlwr_l(buff, current_locale);
-					c = buff[0];
-					_strupr_l(buff, current_locale);
-					c_shift = buff[0];
-				}
-			}
+			// FIXME: SDL
+			// if (pInput->get_dik_name(m_dik, buff, sizeof(buff)))
+			// {
+			// 	// demonized: add extra check for russian letters
+			// 	if (std::isalpha(buff[0], std::locale("")) || _isalpha_l(buff[0], current_locale) || buff[0] == char(-1)) // "я" = -1
+			// 	{
+			// 		_strlwr_l(buff, current_locale);
+			// 		c = buff[0];
+			// 		_strupr_l(buff, current_locale);
+			// 		c_shift = buff[0];
+			// 	}
+			// }
 
 			//setlocale( LC_ALL, "C" ); // restore to ANSI
 

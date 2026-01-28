@@ -2,7 +2,7 @@
 
 #include <LocatorAPI.h>
 #include <xr_ioconsole.h>
-#include <xr_input.h>
+#include "xr_sdl3_input.hpp"
 #include <xr_trims.h>
 #include <xr_ioc_cmd.h>
 
@@ -227,7 +227,8 @@ void remap_keys()
 	{
 		buff[0] = 0;
 		_keyboard& kb = keyboards[idx];
-		bool res = pInput->get_dik_name(kb.dik, buff, sizeof(buff));
+		//FIXME:
+		bool res =  false; //pSDL3Input->get_dik_name(kb.dik, buff, sizeof(buff));
 		if (res)
 			kb.key_local_name = buff;
 		else

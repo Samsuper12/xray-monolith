@@ -1,5 +1,5 @@
 #include <script_engine.h>
-#include <xr_input.h>
+#include "xr_sdl3_input.hpp"
 #include <xr_ioconsole.h>
 #include <xrCore.h>
 
@@ -169,7 +169,7 @@ void CUISequencer::Start(LPCSTR tutor_name)
 	CUISequenceItem* pCurrItem = GetNextItem();
 	R_ASSERT3(pCurrItem, "no item(s) to start", tutor_name);
 	pCurrItem->Start();
-	m_pStoredInputReceiver = pInput->CurrentIR();
+	m_pStoredInputReceiver = pSDL3Input->CurrentIR();
 	IR_Capture();
 
 
@@ -433,9 +433,9 @@ void CUISequencer::IR_OnKeyboardPress(int dik)
 
 void CUISequencer::IR_OnActivate()
 {
-	if (!pInput) return;
+	if (!pSDL3Input) return;
 	int i;
-	for (i = 0; i < CInput::COUNT_KB_BUTTONS; i++)
+	for (i = 0; i < SDL3Input::count_kb_buttons; i++)
 	{
 		if (IR_GetKeyState(i))
 		{

@@ -13,7 +13,7 @@
 //#include "fbasicvisual.h"
 #include "cameramanager.h"
 #include "environment.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 #include "CustomHUD.h"
 
 #include "RenderDeviceRender.h"
@@ -846,13 +846,14 @@ public:
 		else if (!xr_strcmp(args, "0"))
 			value = false;
 		else InvalidSyntax();
-
-		pInput->exclusive_mode(value);
+		// FIXME: SDL_SetWindowMouseGrab
+		//pSDL3Input->exclusive_mode(value);
 	}
 
 	virtual void Save(IWriter* F)
 	{
-		F->w_printf("input_exclusive_mode %s\r\n", pInput->get_exclusive_mode() ? "on" : "off");
+		//F->w_printf("input_exclusive_mode %s\r\n", pInput->get_exclusive_mode() ? "on" : "off");
+		F->w_printf("input_exclusive_mode %s\r\n", "off");
 	}
 };
 

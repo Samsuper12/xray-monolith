@@ -12,7 +12,7 @@
 #include "xrHemisphere.h"
 #include "perlin.h"
 
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 
 #include "../build_config_defines.h"
 

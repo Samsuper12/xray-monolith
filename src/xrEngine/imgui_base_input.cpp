@@ -4,7 +4,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 #include "../xrGame/xr_level_controller.h"
 #include "../xrCore/os_clipboard.h"
 
@@ -84,8 +84,7 @@ namespace xr_imgui
         ImGuiIO& io = ImGui::GetIO();
         io.MouseDrawCursor = true;
 
-        Ivector2 p;
-        IR_GetMousePosReal(Device.m_hWnd, p);
+        glm::ivec2 p = IR_GetMousePosReal();
         ImGui::TeleportMousePos(ImVec2{(float)p.x, (float)p.y});
 
         xray_cursor_state = GetUICursor().IsVisible();
@@ -132,9 +131,8 @@ namespace xr_imgui
     {
         // x and y are relative
         // ImGui accepts absolute coordinates
-        Ivector2 p;
-        IR_GetMousePosReal(Device.m_hWnd, p);
 
+        glm::ivec2 p = IR_GetMousePosReal();
         ImGuiIO& io = ImGui::GetIO();
         io.AddMousePosEvent(static_cast<float>(p.x), static_cast<float>(p.y));
     }
@@ -154,7 +152,9 @@ namespace xr_imgui
             return;
 
         case kEDITOR:
-            rcon = !!pInput->iGetAsyncKeyState(DIK_RCONTROL);
+            //rcon = !!pInput->iGetAsyncKeyState(DIK_RCONTROL);
+            rcon = !!pSDL3Input->iGetAsyncKeyState(DIK_RCONTROL);
+
             if (rcon)
             {
                 EnableInput(false);

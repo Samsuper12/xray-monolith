@@ -14,7 +14,7 @@
 #include <xr_efflensflare.h>
 #include <thunderbolt.h>
 #include <GameMtlLib.h>
-#include <xr_input.h>
+#include "xr_sdl3_input.hpp"
 
 #include "pch_script.h"
 #include "level.h"
@@ -598,7 +598,7 @@ extern bool g_bDisableAllInput;
 void disable_input()
 {
 	// "unpress" all keys when we disable level input! (but keep input devices aquired)
-	pInput->DeactivateSoft();
+	pSDL3Input->DeactivateSoft();
 	g_bDisableAllInput = true;
 #ifdef DEBUG
 	Msg("input disabled");

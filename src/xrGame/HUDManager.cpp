@@ -2,7 +2,7 @@
 #include "hudtarget.h"
 #include "actor.h"
 #include "../xrEngine/igame_level.h"
-#include "../xrEngine/xr_input.h"
+#include "../xrEngine/xr_sdl3_input.hpp"
 #include "../xrEngine/gamemtllib.h"
 #include "MainMenu.h"
 #include "grenade.h"
@@ -412,7 +412,8 @@ void CHUDManager::HitMarked(int idx, float power, const Fvector& dir)
 {
 	HitMarker.Hit(dir);
 	clamp(power, 0.0f, 1.0f);
-	pInput->feedback(u16(iFloor(u16(-1) * power)), u16(iFloor(u16(-1) * power)), 0.5f);
+	// FIXME: what? 
+	//pSDL3Input->feedback(u16(iFloor(u16(-1) * power)), u16(iFloor(u16(-1) * power)), 0.5f);
 }
 
 bool CHUDManager::AddGrenade_ForMark(CGrenade* grn)

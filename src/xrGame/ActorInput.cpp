@@ -25,7 +25,7 @@
 #include "CharacterPhysicsSupport.h"
 #include "InventoryBox.h"
 #include "player_hud.h"
-#include "../xrEngine/xr_input.h"
+#include "../xrEngine/xr_sdl3_input.hpp"
 #include "flare.h"
 #include "CustomDetector.h"
 #include "clsid_game.h"
@@ -41,7 +41,7 @@ extern u32 hud_adj_mode;
 
 void CActor::IR_OnKeyboardPress(int cmd)
 {
-	if (hud_adj_mode && pInput->iGetAsyncKeyState(DIK_LSHIFT)) return;
+	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT)) return;
 
 	if (Remote()) return;
 
@@ -303,7 +303,7 @@ void CActor::IR_OnMouseWheel(int direction)
 
 void CActor::IR_OnKeyboardRelease(int cmd)
 {
-	if (hud_adj_mode && pInput->iGetAsyncKeyState(DIK_LSHIFT)) return;
+	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT)) return;
 
 	if (Remote()) return;
 
@@ -337,7 +337,7 @@ void CActor::IR_OnKeyboardRelease(int cmd)
 
 void CActor::IR_OnKeyboardHold(int cmd)
 {
-	if (hud_adj_mode && pInput->iGetAsyncKeyState(DIK_LSHIFT)) return;
+	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT)) return;
 
 	if (Remote() || !g_Alive()) return;
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd)) return;
@@ -458,11 +458,13 @@ void CActor::IR_OnMouseMove(int dx, int dy)
 	if (dx)
 	{
 		float d = float(dx) * scale;
+		Msg("dx %d, %f, %f, %f, %f, %f, %f, %f, %f", dx, d, C->f_fov, g_fov,  psMouseSens, sens_multiple, psMouseSensScale, LookFactor, scale);
 		cam_Active()->Move((d < 0) ? kLEFT : kRIGHT, _abs(d));
 	}
 	if (dy)
 	{
 		float d = ((psMouseInvert.test(1)) ? -1 : 1) * float(dy) * scale * psMouseSensVerticalK * 3.f / 4.f;
+		Msg("dy %d, %f", dy, d);
 		cam_Active()->Move((d > 0) ? kUP : kDOWN, _abs(d));
 	}
 }
@@ -777,9 +779,9 @@ void CActor::NoClipFly(int cmd)
 	Fvector cur_pos;// = Position();
 	cur_pos.set(0,0,0);
 	float scale = 1.0f;
-	if(pInput->iGetAsyncKeyState(DIK_LSHIFT))
+	if(pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT))
 		scale = 0.25f;
-	else if(pInput->iGetAsyncKeyState(DIK_LMENU))
+	else if(pSDL3Input->iGetAsyncKeyState(DIK_LMENU))
 		scale = 4.0f;
 
 	switch(cmd)

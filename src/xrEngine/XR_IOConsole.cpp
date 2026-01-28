@@ -10,7 +10,7 @@
 #include "igame_persistent.h"
 
 #include "x_ray.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 #include "xr_ioc_cmd.h"
 #include "GameFont.h"
 
@@ -685,7 +685,8 @@ void CConsole::Show()
 	//SECUROM_MARKER_HIGH_SECURITY_OFF(11)
 }
 
-extern CInput* pInput;
+//extern CInput* pInput;
+extern SDL3Input* pSDL3Input;
 
 void CConsole::Hide()
 {
@@ -700,10 +701,11 @@ void CConsole::Hide()
 	// if ( g_pGameLevel ||
 	// ( g_pGamePersistent && g_pGamePersistent->m_pMainMenu && g_pGamePersistent->m_pMainMenu->IsActive() ))
 
-	if (pInput->get_exclusive_mode())
-	{
-		SetCursorPos(m_mouse_pos.x, m_mouse_pos.y);
-	}
+	// FIXME:
+	// if (pInput->get_exclusive_mode())
+	// {
+	// 	SetCursorPos(m_mouse_pos.x, m_mouse_pos.y);
+	// }
 
 	bVisible = false;
 	reset_selected_tip();

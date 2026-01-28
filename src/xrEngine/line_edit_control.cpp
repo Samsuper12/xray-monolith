@@ -9,7 +9,7 @@
 
 #include "../xrCore/os_clipboard.h"
 #include "../xrServerEntities/object_broker.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 
 #include "edit_actions.h"
 
@@ -132,12 +132,12 @@ namespace text_editor
 	{
 		m_key_state.zero();
 
-		set_key_state(ks_LShift, !!pInput->iGetAsyncKeyState(DIK_LSHIFT));
-		set_key_state(ks_RShift, !!pInput->iGetAsyncKeyState(DIK_RSHIFT));
-		set_key_state(ks_LCtrl, !!pInput->iGetAsyncKeyState(DIK_LCONTROL));
-		set_key_state(ks_RCtrl, !!pInput->iGetAsyncKeyState(DIK_RCONTROL));
-		set_key_state(ks_LAlt, !!pInput->iGetAsyncKeyState(DIK_LALT));
-		set_key_state(ks_RAlt, !!pInput->iGetAsyncKeyState(DIK_RALT));
+		set_key_state(ks_LShift, !!pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT));
+		set_key_state(ks_RShift, !!pSDL3Input->iGetAsyncKeyState(DIK_RSHIFT));
+		set_key_state(ks_LCtrl, !!pSDL3Input->iGetAsyncKeyState(DIK_LCONTROL));
+		set_key_state(ks_RCtrl, !!pSDL3Input->iGetAsyncKeyState(DIK_RCONTROL));
+		set_key_state(ks_LAlt, !!pSDL3Input->iGetAsyncKeyState(DIK_LALT));
+		set_key_state(ks_RAlt, !!pSDL3Input->iGetAsyncKeyState(DIK_RALT));
 		set_key_state(ks_CapsLock, text_editor::get_caps_lock_state());
 	}
 

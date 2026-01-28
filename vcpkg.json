@@ -2,6 +2,7 @@
   "name": "xray",
   "version-string": "1.5.3",
   "dependencies": [
-    "sdl3"
+    "sdl3",
+    "glm"
   ]
 }

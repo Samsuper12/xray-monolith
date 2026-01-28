@@ -144,8 +144,9 @@ extern BOOL mouseWheelInvertChangeWeapons;
 extern BOOL monsterStuckFix;
 extern BOOL logTimestamps;
 extern float f_Freelook_cam_limit;
-extern int MOUSEBUFFERSIZE;
-extern int KEYBOARDBUFFERSIZE;
+// TODO:
+//extern int MOUSEBUFFERSIZE;
+//extern int KEYBOARDBUFFERSIZE;
 extern BOOL print_bone_warnings;
 extern BOOL print_dltx_warnings;
 extern BOOL poltergeist_spawn_corpse_on_death;
@@ -2959,8 +2960,9 @@ void CCC_RegisterCommands()
 	CMD4(CCC_Float, "freelook_cam_limit", &f_Freelook_cam_limit, 0.f, PI);
 
 	// Input buffer sizes
-	CMD4(CCC_Integer, "mouse_buffer_size", &MOUSEBUFFERSIZE, 64, 2048);
-	CMD4(CCC_Integer, "keyboard_buffer_size", &KEYBOARDBUFFERSIZE, 64, 512);
+	// FIXME:
+	//CMD4(CCC_Integer, "mouse_buffer_size", &MOUSEBUFFERSIZE, 64, 2048);
+	//CMD4(CCC_Integer, "keyboard_buffer_size", &KEYBOARDBUFFERSIZE, 64, 512);
 
 	// Print warnings when using bone_position and bone_direction functions and encounter invalid bones
 	CMD4(CCC_Integer, "print_bone_warnings", &print_bone_warnings, 0, 1);

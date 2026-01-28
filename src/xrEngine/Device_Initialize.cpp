@@ -85,9 +85,9 @@ PROTECT_API void CRenderDevice::Initialize()
 
 		m_window = SDL_CreateWindow(
 			"S.T.A.L.K.E.R.: Anomaly SDL3",
-			800,
-			600,
-			SDL_WINDOW_FULLSCREEN
+			1920,
+			1080,
+			SDL_WINDOW_RESIZABLE
     	);
 
 		if (m_window == nullptr) {
@@ -110,7 +110,7 @@ PROTECT_API void CRenderDevice::Initialize()
 	//m_dwWindowStyle = GetWindowLong(m_hWnd, GWL_STYLE);
 	GetWindowRect(m_hWnd, &m_rcWindowBounds);
 	GetClientRect(m_hWnd, &m_rcWindowClient);
-
+	
 	/*
 	if (strstr(lpCmdLine,"-gpu_sw")!=NULL) HW.Caps.bForceGPU_SW = TRUE;
 	else HW.Caps.bForceGPU_SW = FALSE;

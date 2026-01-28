@@ -22,7 +22,7 @@
 #include "UIPropertiesBox.h"
 #include "UIListBoxItem.h"
 
-#include "../../xrEngine/xr_input.h"		//remove me !!!
+#include "../../xrEngine/xr_sdl3_input.hpp"		//remove me !!!
 
 CUIMapWnd* g_map_wnd = NULL; // quick temporary solution -(
 CUIMapWnd* GetMapWnd()
@@ -440,7 +440,7 @@ bool CUIMapWnd::OnMouseAction(float x, float y, EUIMessages mouse_action)
 			ActivatePropertiesBox(NULL);
 			break;
 		case WINDOW_MOUSE_MOVE:
-			if (pInput->iGetAsyncBtnState(0))
+			if (pSDL3Input->iGetAsyncBtnState(0))
 			{
 				GlobalMap()->MoveWndDelta(GetUICursor().GetCursorPositionDelta());
 				UpdateScroll();

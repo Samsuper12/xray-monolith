@@ -147,7 +147,7 @@ void CCameraLook::OnActivate(CCameraBase* old_cam)
 	if (yaw < -PI_MUL_2)yaw += PI_MUL_2;
 }
 
-#include "../xrEngine/xr_input.h"
+#include "../xrEngine/xr_sdl3_input.hpp"
 #include "visual_memory_manager.h"
 #include "actor_memory.h"
 
@@ -166,7 +166,7 @@ void CCameraLook2::Update(Fvector& point, Fvector&)
 	if (!m_locked_enemy)
 	{
 		//autoaim
-		if (pInput->iGetAsyncKeyState(cam_dik))
+		if (pSDL3Input->iGetAsyncKeyState(cam_dik))
 		{
 			const CVisualMemoryManager::VISIBLES& vVisibles = Actor()->memory().visual().objects();
 			CVisualMemoryManager::VISIBLES::const_iterator v_it = vVisibles.begin();
@@ -195,7 +195,7 @@ void CCameraLook2::Update(Fvector& point, Fvector&)
 	}
 	else
 	{
-		if (!pInput->iGetAsyncKeyState(cam_dik))
+		if (!pSDL3Input->iGetAsyncKeyState(cam_dik))
 		{
 			m_locked_enemy = NULL;
 			//.			Msg				("enemy is NILL");

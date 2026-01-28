@@ -9,7 +9,7 @@ class CUICursor : public pureRender,
 	bool bVisible;
 	Fvector2 vPos;
 	Fvector2 vPrevPos;
-	bool m_b_use_win_cursor;
+	//bool m_b_use_win_cursor;
 	CUIStatic* m_static;
 	void InitInternal();
 public:

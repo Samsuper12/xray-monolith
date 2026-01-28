@@ -19,10 +19,11 @@ add_module(XRay.Engine.Interfaces.Input
   IInputReceiver.cpp
   IInputReceiver.h
   
-  Xr_input.cpp
-  xr_input_xinput.cpp
-  xr_input.h
-  xr_input_xinput.h
+  xr_sdl3_input.cpp
+  xr_sdl3_input.hpp
+  #xr_input_xinput.cpp
+  #xr_input.h
+  #xr_input_xinput.h
 )
 
 add_module(XRay.Engine.Interfaces.Physics

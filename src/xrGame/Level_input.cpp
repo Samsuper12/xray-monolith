@@ -18,7 +18,7 @@
 #include "huditem.h"
 #include "UIGameCustom.h"
 #include "UI/UIDialogWnd.h"
-#include "../xrEngine/xr_input.h"
+#include "../xrEngine/xr_sdl3_input.hpp"
 #include "saved_game_wrapper.h"
 #include "ui\UIPdaWnd.h"
 
@@ -135,8 +135,9 @@ void CLevel::IR_OnMouseMove(int dx, int dy)
     POINT p;
     p.x = Device.dwWidth / 2;
     p.y = Device.dwHeight / 2;
-    ClientToScreen(Device.m_hWnd, &p);
-    SetCursorPos(p.x, p.y);
+    // FIXME: why? for what?
+    //ClientToScreen(Device.m_hWnd, &p);
+    //SetCursorPos(p.x, p.y);
 }
 
 // Обработка нажатия клавиш
@@ -369,7 +370,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                             Msg("For this game type Demo Record is disabled.");
                             ///				return;
                         };
-                        if(!pInput->iGetAsyncKeyState(DIK_LSHIFT))
+                        if(!pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT))
                         {
                             Console->Hide	();
                             Console->Execute("demo_record 1");
@@ -420,10 +421,10 @@ void CLevel::IR_OnKeyboardPress(int key)
         return;
 
     case DIK_F4: {
-                     if (pInput->iGetAsyncKeyState(DIK_LALT))
+                     if (pSDL3Input->iGetAsyncKeyState(DIK_LALT))
                          break;
 
-                     if (pInput->iGetAsyncKeyState(DIK_RALT))
+                     if (pSDL3Input->iGetAsyncKeyState(DIK_RALT))
                          break;
 
                      bool bOk = false;
@@ -499,7 +500,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                       if (GameID() != eGameIDSingle)
                           break;
 
-                      if (pInput->iGetAsyncKeyState(DIK_LALT)) {
+                      if (pSDL3Input->iGetAsyncKeyState(DIK_LALT)) {
                           if (smart_cast<CActor*>(CurrentEntity()))
                               try_change_current_entity	();
                           else
@@ -669,9 +670,9 @@ void CLevel::IR_OnMouseStop(int /*axis**/, int /*value**/)
 
 void CLevel::IR_OnActivate()
 {
-	if (!pInput) return;
+	if (!pSDL3Input) return;
 	int i;
-	for (i = 0; i < CInput::COUNT_KB_BUTTONS; i++)
+	for (i = 0; i < SDL3Input::count_kb_buttons; i++)
 	{
 		if (IR_GetKeyState(i))
 		{

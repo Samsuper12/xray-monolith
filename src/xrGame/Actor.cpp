@@ -70,6 +70,8 @@
 #include "ActorNightVision.h"
 #include "Flashlight.h"
 
+#include "xr_sdl3_input.hpp"
+
 //Alundaio
 #include "ActorBackpack.h"
 #include "script_hit.h"
@@ -1118,11 +1120,11 @@ void CActor::UpdateCL()
 			const bool allowed = psActorFlags.test(AF_MULTI_ITEM_PICKUP);
 
 			auto dik = get_action_dik(kUSE, 0);
-			if (dik && pInput->iGetAsyncKeyState(dik) && allowed)
+			if (dik && pSDL3Input->iGetAsyncKeyState(dik) && allowed)
 				m_bPickupMode = true;
 
 			dik = get_action_dik(kUSE, 1);
-			if (dik && pInput->iGetAsyncKeyState(dik) && allowed)
+			if (dik && pSDL3Input->iGetAsyncKeyState(dik) && allowed)
 				m_bPickupMode = true;
 		}
 		else
@@ -1865,7 +1867,7 @@ void CActor::shedule_Update(u32 DT)
 				}
 				else
 				{
-					if (!CanUseFreelook() || !pInput->iGetAsyncKeyState(get_action_dik(kFREELOOK)))
+					if (!CanUseFreelook() || !pSDL3Input->iGetAsyncKeyState(get_action_dik(kFREELOOK)))
 						cam_UnsetFreelook();
 				}
 			}

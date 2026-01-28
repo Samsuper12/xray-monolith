@@ -64,7 +64,12 @@ add_module(XRay.Engine
 )
 
 find_package(SDL3 CONFIG REQUIRED)
-target_link_libraries(XRay.Engine.Includes INTERFACE SDL3::SDL3)
+find_package(glm CONFIG REQUIRED)
+
+target_link_libraries(XRay.Engine.Includes INTERFACE 
+  SDL3::SDL3
+  glm::glm-header-only
+)
 
 # you must define ENGINE_BUILD then building the engine itself
 # and not define it if you are about to build DLL

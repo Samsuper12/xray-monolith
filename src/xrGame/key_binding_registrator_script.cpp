@@ -2,7 +2,7 @@
 #include <dinput.h>
 #include "key_binding_registrator.h"
 #include "xr_level_controller.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 
 using namespace luabind;
 
@@ -13,7 +13,7 @@ int dik_to_bind(int dik)
 
 BOOL key_state(int key)
 {
-	return pInput->iGetAsyncKeyState(key);
+	return pSDL3Input->iGetAsyncKeyState(key);
 }
 
 #pragma optimize("s",on)

@@ -3,7 +3,7 @@
 #include "UIFixedScrollBar.h"
 #include "../ui_base.h"
 #include "../UICursor.h"
-#include "../../xrEngine/xr_input.h"
+#include "../../xrEngine/xr_sdl3_input.hpp"
 
 CUIScrollView::CUIScrollView()
 {
@@ -286,7 +286,7 @@ bool CUIScrollView::OnMouseAction(float x, float y, EUIMessages mouse_action)
 		res = true;
 		break;
 	case WINDOW_MOUSE_MOVE:
-		if (pInput->iGetAsyncBtnState(0))
+		if (pSDL3Input->iGetAsyncBtnState(0))
 		{
 			Fvector2 curr_pad_pos = m_pad->GetWndPos();
 			curr_pad_pos.y += GetUICursor().GetCursorPositionDelta().y;

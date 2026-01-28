@@ -5,16 +5,18 @@
 #ifndef IINPUTRECEIVERH
 #define IINPUTRECEIVERH
 #pragma once
+#include <glm/vec2.hpp>
 
 class ENGINE_API IInputReceiver
 {
 public:
-	static void IR_GetLastMouseDelta(Ivector2& p);
-	static void IR_GetMousePosScreen(Ivector2& p);
-	static void IR_GetMousePosReal(HWND hwnd, Ivector2& p);
-	static void IR_GetMousePosReal(Ivector2& p);
-	static void IR_GetMousePosIndependent(Fvector2& f);
-	static void IR_GetMousePosIndependentCrop(Fvector2& f);
+	// static void IR_GetLastMouseDelta(Ivector2& p);
+	// static void IR_GetMousePosScreen(Ivector2& p);
+	// static void IR_GetMousePosReal(HWND hwnd, Ivector2& p);
+	// static void IR_GetMousePosReal(Ivector2& p);
+	static glm::ivec2 IR_GetMousePosReal();
+	// static void IR_GetMousePosIndependent(Fvector2& f);
+	// static void IR_GetMousePosIndependentCrop(Fvector2& f);
 	BOOL IR_GetKeyState(int dik);
 	BOOL IR_GetBtnState(int btn);
 	virtual void IR_Capture();

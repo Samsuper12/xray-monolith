@@ -10,7 +10,7 @@
 #include "gamefont.h"
 #include "fDemoRecord.h"
 #include "xr_ioconsole.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 #include "xr_object.h"
 #include "render.h"
 #include "CustomHUD.h"

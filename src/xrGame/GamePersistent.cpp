@@ -36,6 +36,8 @@
 #include "xrserver_objects_alife_monsters.h"
 #include "UI/UIGameTutorial.h"
 
+#include "xr_sdl3_input.hpp"
+
 
 #ifndef MASTER_GOLD
 #	include "custommonster.h"
@@ -537,7 +539,7 @@ void CGamePersistent::game_loaded()
 			m_intro->m_on_destroy_event.bind(this, &CGamePersistent::update_game_loaded);
 
 			// demonized: Reset mouse state on loading the game
-			pInput->resetMouseState();
+			pSDL3Input->resetMouseState();
 
 			// demonized
 			// Callback for when loading screen happens and "Press Any Key to Continue" prompt appears

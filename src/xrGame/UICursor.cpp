@@ -7,7 +7,7 @@
 #define C_DEFAULT	D3DCOLOR_XRGB(0xff,0xff,0xff)
 
 CUICursor::CUICursor()
-	: m_static(NULL), m_b_use_win_cursor(false)
+	: m_static(NULL) //, m_b_use_win_cursor(false)
 {
 	bVisible = false;
 	vPrevPos.set(0.0f, 0.0f);
@@ -47,7 +47,7 @@ void CUICursor::InitInternal()
 
 	u32 screen_size_x = GetSystemMetrics(SM_CXSCREEN);
 	u32 screen_size_y = GetSystemMetrics(SM_CYSCREEN);
-	m_b_use_win_cursor = (screen_size_y >= Device.dwHeight && screen_size_x >= Device.dwWidth);
+	// m_b_use_win_cursor = (screen_size_y >= Device.dwHeight && screen_size_x >= Device.dwWidth);
 }
 
 //--------------------------------------------------------------------
@@ -102,23 +102,23 @@ Fvector2 CUICursor::GetCursorPositionDelta()
 
 void CUICursor::UpdateCursorPosition(int _dx, int _dy)
 {
-	Fvector2 p;
-	vPrevPos = vPos;
-	if (m_b_use_win_cursor)
-	{
-		Ivector2 pti;
-		IInputReceiver::IR_GetMousePosReal(pti);
-		p.x = (float)pti.x;
-		p.y = (float)pti.y;
-		vPos.x = p.x * (UI_BASE_WIDTH / (float)Device.dwWidth);
-		vPos.y = p.y * (UI_BASE_HEIGHT / (float)Device.dwHeight);
-	}
-	else
-	{
-		float sens = 1.0f;
-		vPos.x += _dx * sens;
-		vPos.y += _dy * sens;
-	}
+	//Fvector2 p;
+	//vPrevPos = vPos;
+	// if (m_b_use_win_cursor)
+	// {
+	// 	Ivector2 pti;
+	// 	IInputReceiver::IR_GetMousePosReal(pti);
+	// 	p.x = (float)pti.x;
+	// 	p.y = (float)pti.y;
+	// 	vPos.x = p.x * (UI_BASE_WIDTH / (float)Device.dwWidth);
+	// 	vPos.y = p.y * (UI_BASE_HEIGHT / (float)Device.dwHeight);
+	// }
+	// else
+	// {
+	float sens = 1.0f;
+	vPos.x += _dx * sens;
+	vPos.y += _dy * sens;
+	//}
 	clamp(vPos.x, 0.f, UI_BASE_WIDTH);
 	clamp(vPos.y, 0.f, UI_BASE_HEIGHT);
 }
@@ -129,7 +129,8 @@ void CUICursor::SetUICursorPosition(Fvector2 pos)
 	POINT p;
 	p.x = iFloor(vPos.x / (UI_BASE_WIDTH / (float)Device.dwWidth));
 	p.y = iFloor(vPos.y / (UI_BASE_HEIGHT / (float)Device.dwHeight));
-	if (m_b_use_win_cursor)
-		ClientToScreen(Device.m_hWnd, (LPPOINT)&p);
-	SetCursorPos(p.x, p.y);
+	// if (m_b_use_win_cursor)
+	// 	ClientToScreen(Device.m_hWnd, (LPPOINT)&p);
+	// fuck win32
+	//SetCursorPos(p.x, p.y);
 }

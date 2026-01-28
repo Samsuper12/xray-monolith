@@ -25,7 +25,7 @@
 #include "igame_persistent.h"
 #include "dedicated_server_only.h"
 #include "no_single.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 #include "xr_ioconsole.h"
 #include "x_ray.h"
 #include "std_classes.h"
@@ -246,14 +246,15 @@ PROTECT_API void InitConsole()
 
 PROTECT_API void InitInput()
 {
-	BOOL bCaptureInput = FALSE; // !strstr(Core.Params, "-i");
-
-	pInput = xr_new<CInput>(bCaptureInput);
+	//BOOL bCaptureInput = FALSE; // !strstr(Core.Params, "-i");
+	//pInput = xr_new<CInput>(bCaptureInput);
+	pSDL3Input = xr_new<SDL3Input>();
 }
 
 void destroyInput()
 {
-	xr_delete(pInput);
+	//xr_delete(pInput);
+	xr_delete(pSDL3Input);
 }
 
 PROTECT_API void InitSound1()
@@ -310,7 +311,8 @@ void slowdownthread(void*)
 		if (Device.mt_bMustExit) return;
 		if (0 == pSettings) return;
 		if (0 == Console) return;
-		if (0 == pInput) return;
+		//if (0 == pInput) return;
+		if (0 == pSDL3Input) return;
 		if (0 == pApp) return;
 	}
 }

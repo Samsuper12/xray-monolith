@@ -2,7 +2,7 @@
 #include "uigamesp.h"
 #include "actor.h"
 #include "level.h"
-#include "../xrEngine/xr_input.h"
+#include "../xrEngine/xr_sdl3_input.hpp"
 
 #ifdef DEBUG
 #include "attachable_item.h"
@@ -71,11 +71,11 @@ void CUIGameSP::OnFrame()
 	{
 		bool b_remove = false;
 		int dik = get_action_dik(kSCORES, 0);
-		if (dik && !pInput->iGetAsyncKeyState(dik))
+		if (dik && !pSDL3Input->iGetAsyncKeyState(dik))
 			b_remove = true;
 
 		dik = get_action_dik(kSCORES, 1);
-		if (!b_remove && dik && !pInput->iGetAsyncKeyState(dik))
+		if (!b_remove && dik && !pSDL3Input->iGetAsyncKeyState(dik))
 			b_remove = true;
 
 		if (b_remove)

@@ -4,7 +4,7 @@
 #include <xrCore.h>
 
 #include "xr_ioconsole.h"
-#include "xr_input.h"
+#include "xr_sdl3_input.hpp"
 
 #pragma warning(disable:4995)
 // mmsystem.h
@@ -515,16 +515,31 @@ void CRenderDevice::message_loop()
         return;
     }
 #endif
-	MSG msg;
-	PeekMessage(&msg, NULL, 0U, 0U, PM_NOREMOVE);
-	while (1)//msg.message != WM_QUIT)
+	// MSG msg;
+	// PeekMessage(&msg, NULL, 0U, 0U, PM_NOREMOVE);
+	SDL_Event ev;
+	while (true)//msg.message != WM_QUIT)
 	{
-		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			continue;
+		SDL_PollEvent(&ev);
+
+		if (ev.type == SDL_EVENT_QUIT) {
+			Msg("SDL quie event. BB");
+			break;
 		}
+
+		pSDL3Input->UpdateSDL3Event(ev);
+	// 	  if (Event.type == SDL_EVENT_WINDOW_MOUSE_ENTER) {
+    //   } else if (Event.type == SDL_EVENT_WINDOW_MOUSE_LEAVE
+	// } else if (Event.type == SDL_EVENT_QUIT) {
+		// if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
+		// {
+		// 	TranslateMessage(&msg);
+		// 	DispatchMessage(&msg);
+		// 	continue;
+		// }
+
+
+
 		on_idle();
 	}
 }
@@ -756,13 +771,16 @@ void CRenderDevice::OnWM_Activate(WPARAM wParam, LPARAM lParam)
 					MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
 					ClipCursor(&winRect);
 				}
-				pInput->OnAppActivate();
+				//pInput->OnAppActivate();
+				pSDL3Input->OnAppActivate();
 			}
 			else
 			{
 				ShowCursor(TRUE);
 				ClipCursor(NULL);
-				pInput->OnAppDeactivate();
+				//pInput->OnAppDeactivate();
+				pSDL3Input->OnAppDeactivate();
+
 			}
 		}
 
