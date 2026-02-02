@@ -11,7 +11,6 @@ CUIEditKeyBind::CUIEditKeyBind(bool bPrim)
 	TextItemControl()->SetTextComplexMode(false);
 	m_keyboard = NULL;
 	m_opt_backup_value = NULL;
-	m_action = NULL;
 }
 
 CUIEditKeyBind::~CUIEditKeyBind()
@@ -90,7 +89,7 @@ bool CUIEditKeyBind::OnMouseDown(int mouse_btn)
 		SetValue();
 		OnFocusLost();
 
-		xr_strcpy(message, m_action->action_name);
+		xr_strcpy(message, m_action.action_name);
 		xr_strcat(message, "=");
 		xr_strcat(message, m_keyboard->key_name);
 		SendMessage2Group("key_binding", message);
@@ -98,7 +97,7 @@ bool CUIEditKeyBind::OnMouseDown(int mouse_btn)
 		return true;
 	}
 
-	if (mouse_btn == MOUSE_1)
+	if (mouse_btn == SDL_BUTTON_LEFT)
 		SetEditMode(m_bCursorOverWindow);
 
 	return CUIStatic::OnMouseDown(mouse_btn);
@@ -106,7 +105,7 @@ bool CUIEditKeyBind::OnMouseDown(int mouse_btn)
 
 bool CUIEditKeyBind::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 {
-	if (dik == MOUSE_1 || dik == MOUSE_2 || dik == MOUSE_3)
+	if (dik == SDL_BUTTON_LEFT || dik == SDL_BUTTON_RIGHT || dik == SDL_BUTTON_MIDDLE)
 		return false;
 
 	if (CUIStatic::OnKeyboardAction(dik, keyboard_action))
@@ -120,7 +119,7 @@ bool CUIEditKeyBind::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 
 		SetValue();
 
-		xr_strcpy(message, m_action->action_name);
+		xr_strcpy(message, m_action.action_name);
 		xr_strcat(message, "=");
 		xr_strcat(message, m_keyboard->key_name);
 		OnFocusLost();
@@ -154,13 +153,16 @@ void CUIEditKeyBind::SetEditMode(bool b)
 void CUIEditKeyBind::AssignProps(const shared_str& entry, const shared_str& group)
 {
 	CUIOptionsItem::AssignProps(entry, group);
-	m_action = action_name_to_ptr(entry.c_str());
+
+	auto opt = get_action_by_name(entry.c_str());
+	if (opt)
+		m_action = opt.value();
 }
 
 void CUIEditKeyBind::SetValue()
 {
 	if (m_keyboard)
-		SetText(m_keyboard->key_local_name.c_str());
+		SetText(m_keyboard->key_name);
 	else
 		SetText(NULL);
 }
@@ -170,13 +172,12 @@ void CUIEditKeyBind::SetCurrentOptValue()
 	string64 buff;
 	ZeroMemory(buff, sizeof(buff));
 
-	_binding* pbinding = &g_key_bindings[m_action->id];
-
-
-	int idx = (m_bPrimary) ? 0 : 1;
-	m_keyboard = pbinding->m_keyboard[idx];
-
-	SetValue();
+	auto binding = get_binding_by_action_id_ref(m_action.id);
+	if (binding) {
+		int idx = (m_bPrimary) ? 0 : 1;
+		m_keyboard = binding.value().get().keyboard[idx];
+		SetValue();
+	}
 }
 
 void CUIEditKeyBind::SaveOptValue()
@@ -205,13 +206,13 @@ bool CUIEditKeyBind::IsChangedOptValue() const
 void CUIEditKeyBind::BindAction2Key()
 {
 	xr_string comm_unbind = (m_bPrimary) ? "unbind " : "unbind_sec ";
-	comm_unbind += m_action->action_name;
+	comm_unbind += m_action.action_name;
 	Console->Execute(comm_unbind.c_str());
 
 	if (m_keyboard)
 	{
 		xr_string comm_bind = (m_bPrimary) ? "bind " : "bind_sec ";
-		comm_bind += m_action->action_name;
+		comm_bind += m_action.action_name;
 		comm_bind += " ";
 		comm_bind += m_keyboard->key_name;
 		Console->Execute(comm_bind.c_str());
@@ -233,12 +234,12 @@ void CUIEditKeyBind::OnMessage(LPCSTR message)
 	xr_strcpy(command, message);
 	command[eq] = 0;
 
-	if (0 == xr_strcmp(m_action->action_name, command))
+	if (0 == xr_strcmp(m_action.action_name, command))
 		return; // fuck
 
-	_action* other_action = action_name_to_ptr(command);
-	if (is_group_not_conflicted(m_action->key_group, other_action->key_group))
-		return;
+	// _action* other_action = action_name_to_ptr(command);
+	// if (is_group_not_conflicted(m_action->key_group, other_action->key_group))
+	// 	return;
 
 	SetText("---");
 	m_keyboard = NULL;

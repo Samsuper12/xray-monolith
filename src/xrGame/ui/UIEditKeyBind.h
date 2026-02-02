@@ -10,7 +10,7 @@ class CUIColorAnimatorWrapper;
 class CUIEditKeyBind : public CUIStatic, public CUIOptionsItem
 {
 	bool m_bPrimary;
-	_action* m_action;
+	_action m_action;
 	_keyboard* m_keyboard;
 	_keyboard* m_opt_backup_value;
 public:

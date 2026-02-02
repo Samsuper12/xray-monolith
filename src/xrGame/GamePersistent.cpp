@@ -268,10 +268,10 @@ void CGamePersistent::UpdateGameType()
 	m_game_params.m_e_game_type = ParseStringToGameType(m_game_params.m_game_type);
 
 
-	if (m_game_params.m_e_game_type == eGameIDSingle)
-		g_current_keygroup = _sp;
-	else
-		g_current_keygroup = _mp;
+	// if (m_game_params.m_e_game_type == eGameIDSingle)
+	// 	g_current_keygroup = _sp;
+	// else
+	// 	g_current_keygroup = _mp;
 }
 
 void CGamePersistent::OnGameEnd()

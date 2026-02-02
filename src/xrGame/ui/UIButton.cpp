@@ -182,7 +182,7 @@ void CUIButton::OnFocusLost()
 {
 	inherited::OnFocusLost();
 
-	if (m_eButtonState == BUTTON_PUSHED && pSDL3Input->iGetAsyncBtnState(0) && !m_bIsSwitch)
+	if (m_eButtonState == BUTTON_PUSHED && pSDL3Input->iGetAsyncBtnState(SDL_BUTTON_LEFT) && !m_bIsSwitch)
 		SetButtonState(BUTTON_NORMAL); //??? 
 
 	if (g_btnHint->Owner() == this)

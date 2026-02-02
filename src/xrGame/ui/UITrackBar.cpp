@@ -31,7 +31,7 @@ bool CUITrackBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 		{
 			if (m_bCursorOverWindow && m_b_mouse_capturer)
 			{
-				if (pSDL3Input->iGetAsyncBtnState(0))
+				if (pSDL3Input->iGetAsyncBtnState(SDL_BUTTON_LEFT))
 					UpdatePosRelativeToMouse();
 			}
 		}
@@ -123,7 +123,7 @@ void CUITrackBar::Update()
 
 	if (m_b_mouse_capturer)
 	{
-		if (!pSDL3Input->iGetAsyncBtnState(0))
+		if (!pSDL3Input->iGetAsyncBtnState(SDL_BUTTON_LEFT))
 			m_b_mouse_capturer = false;
 	}
 }

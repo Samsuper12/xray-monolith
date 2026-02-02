@@ -327,26 +327,26 @@ void CUISequenceSimpleItem::OnKeyboardPress(int dik)
 
 void CUISequenceSimpleItem::OnMousePress(int btn)
 {
-	int dik = 0;
-	switch (btn)
-	{
-	case 0: dik = MOUSE_1;
-		break;
-	case 1: dik = MOUSE_2;
-		break;
-	case 2: dik = MOUSE_3;
-		break;
-	case 3: dik = MOUSE_4;
-		break;
-	case 4: dik = MOUSE_5;
-		break;
-	case 5: dik = MOUSE_6;
-		break;
-	case 6: dik = MOUSE_7;
-		break;
-	case 7: dik = MOUSE_8;
-		break;
-	default: return;
-	}
-	OnKeyboardPress(dik);
+	// int dik = 0;
+	// switch (btn)
+	// {
+	// case 0: dik = MOUSE_1;
+	// 	break;
+	// case 1: dik = MOUSE_2;
+	// 	break;
+	// case 2: dik = MOUSE_3;
+	// 	break;
+	// case 3: dik = MOUSE_4;
+	// 	break;
+	// case 4: dik = MOUSE_5;
+	// 	break;
+	// case 5: dik = MOUSE_6;
+	// 	break;
+	// case 6: dik = MOUSE_7;
+	// 	break;
+	// case 7: dik = MOUSE_8;
+	// 	break;
+	// default: return;
+	// }
+	OnKeyboardPress(btn);
 }

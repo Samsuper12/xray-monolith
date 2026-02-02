@@ -41,7 +41,7 @@ bool UIGameMP::IR_UIOnKeyboardPress(int dik)
 		return true;
 	}
 #ifdef DEBUG
-	if (dik == DIK_T)
+	if (dik == SDL_SCANCODE_T)
 	{
 		m_game->AddRewardTask(0); //mp_award_massacre
 	}

@@ -8,7 +8,7 @@ bool CUITrackButton::OnMouseAction(float x, float y, EUIMessages mouse_action){
 
 	if (false && m_bCursorOverWindow)
 	{
-		if (pInput->iGetAsyncBtnState(0))
+		if (pInput->iGetAsyncBtnState(SDL_BUTTON_LEFT))
 			m_pOwner->UpdatePosRelativeToMouse();
 	}
 	return false;

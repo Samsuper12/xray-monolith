@@ -946,8 +946,8 @@ void CUICellItemTradeMenuDraw::OnDraw(CUICellItem* cell)
 		if (acc == 11)
 			acc = 1;
 		string64 buff;
-
-		xr_sprintf(buff, " %d", acc - DIK_ESCAPE);
+		// FIXME: acc - SDL_SCANCODE_ESCAPE
+		xr_sprintf(buff, " %d", acc - SDL_SCANCODE_ESCAPE);
 		CGameFont* pFont = UI().Font().pFontLetterica16Russian;
 		pFont->SetAligment(CGameFont::alCenter);
 		pFont->SetColor(color_rgba(135, 123, 116, 255));

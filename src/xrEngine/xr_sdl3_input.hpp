@@ -6,6 +6,8 @@
 #include <glm/vec2.hpp>
 #include <glm/integer.hpp>
 #include <SDL3/SDL_events.h>
+#include <SDL3/SDL_scancode.h>
+#include <set>
 
 // TODO: remove this piece of shit
 #define DIRECTINPUT_VERSION 0x0800
@@ -45,7 +47,7 @@ public:
 
 	void iCapture(IInputReceiver* pc);
 	void iRelease(IInputReceiver* pc);
-	bool iGetAsyncKeyState(int dik);
+	bool iGetAsyncKeyState(SDL_Scancode code);
 	bool iGetAsyncBtnState(int btn);
 
 	glm::vec2 iGetLastMouseDelta() const { return mouseLastRel; }
@@ -55,7 +57,8 @@ public:
 	IInputReceiver* CurrentIR();
 
 	// FIXME: SDL_SetWindowMouseGrab
-	//exclusive_mode();
+	//set_exclusive_mode();
+	//get_exclusive_mode();
 
 	// FIXME: 
 	// bool get_dik_name(int dik, LPSTR dest, int dest_sz);
@@ -64,7 +67,7 @@ private:
 	//FIXME: init {} in constructor
     uint64_t timeStamp;
     std::array<bool, count_mouse_buttors> mouseState;
-    std::array<bool, count_kb_buttons> KBState;
+    std::set<SDL_Scancode> KBState;
 	glm::vec2 mouseLastRel;
 	glm::ivec2 mouseLastPos;
     xr_vector<IInputReceiver*> cbStack;

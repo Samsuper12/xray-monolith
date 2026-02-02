@@ -431,6 +431,7 @@ void CUISequencer::IR_OnKeyboardPress(int dik)
 		m_pStoredInputReceiver->IR_OnKeyboardPress(dik);
 }
 
+// FIXME:
 void CUISequencer::IR_OnActivate()
 {
 	if (!pSDL3Input) return;

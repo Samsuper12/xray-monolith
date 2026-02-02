@@ -323,28 +323,26 @@ bool CMainMenu::CanSkipSceneRendering()
 	return IsActive() && !m_Flags.test(flGameSaveScreenshot);
 }
 
-//IInputReceiver
-extern int mouse_button_2_key[];
 
 void CMainMenu::IR_OnMousePress(int btn)
 {
 	if (!IsActive()) return;
 
-	IR_OnKeyboardPress(mouse_button_2_key[btn]);
+	IR_OnKeyboardPress(btn);
 };
 
 void CMainMenu::IR_OnMouseRelease(int btn)
 {
 	if (!IsActive()) return;
 
-	IR_OnKeyboardRelease(mouse_button_2_key[btn]);
+	IR_OnKeyboardRelease(btn);
 };
 
 void CMainMenu::IR_OnMouseHold(int btn)
 {
 	if (!IsActive()) return;
 
-	IR_OnKeyboardHold(mouse_button_2_key[btn]);
+	IR_OnKeyboardHold(btn);
 };
 
 void CMainMenu::IR_OnMouseMove(int x, int y)

@@ -201,7 +201,7 @@ u32 last_hold_time = 0;
 
 bool CUIScrollBar::OnKeyboardHold(int dik)
 {
-	if (dik == MOUSE_1 && (last_hold_time + m_hold_delay) < Device.dwTimeContinual) //100
+	if (dik == SDL_BUTTON_LEFT && (last_hold_time + m_hold_delay) < Device.dwTimeContinual) //100
 	{
 		if (OnMouseDownEx())
 		{
@@ -236,7 +236,7 @@ bool CUIScrollBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 
 bool CUIScrollBar::OnMouseDown(int mouse_btn)
 {
-	if (mouse_btn == MOUSE_1)
+	if (mouse_btn == SDL_BUTTON_LEFT)
 	{
 		if (OnMouseDownEx())
 		{

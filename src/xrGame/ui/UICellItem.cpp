@@ -148,7 +148,7 @@ bool CUICellItem::OnMouseAction(float x, float y, EUIMessages mouse_action)
 	}
 	else if (mouse_action == WINDOW_MOUSE_MOVE)
 	{
-		if (pSDL3Input->iGetAsyncBtnState(0) && m_mouse_selected_item && m_mouse_selected_item == this)
+		if (pSDL3Input->iGetAsyncBtnState(SDL_BUTTON_LEFT) && m_mouse_selected_item && m_mouse_selected_item == this)
 		{
 			GetMessageTarget()->SendMessage(this, DRAG_DROP_ITEM_DRAG, NULL);
 			return true;

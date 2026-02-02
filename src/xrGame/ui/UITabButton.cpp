@@ -15,7 +15,7 @@ bool CUITabButton::OnMouseAction(float x, float y, EUIMessages mouse_action)
 
 bool CUITabButton::OnMouseDown(int mouse_btn)
 {
-	if (mouse_btn == MOUSE_1)
+	if (mouse_btn == SDL_BUTTON_LEFT)
 	{
 		GetMessageTarget()->SendMessage(this, TAB_CHANGED, NULL);
 		return true;

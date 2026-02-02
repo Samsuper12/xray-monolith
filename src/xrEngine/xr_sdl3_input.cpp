@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <glm/common.hpp>
 #include <glm/glm.hpp>
+#include <algorithm>
 
 IInputReceiver dummyController;
 SDL3Input* pSDL3Input = nullptr;
@@ -66,10 +67,6 @@ void SDL3Input::iCapture(IInputReceiver* p)
 	cbStack.push_back(p);
 	cbStack.back()->IR_OnActivate();
 
-    
-   // std::fill(timeStamp.begin(), timeStamp.end(), 0);
-   // std::fill(timeSave.begin(), timeSave.end(), 0);
-    //std::fill(offs.begin(), offs.end(), 0);
 }
 
 void SDL3Input::iRelease(IInputReceiver* p)
@@ -129,49 +126,53 @@ void SDL3Input::OnFrame(void)
 	RDEVICE.Statistic->Input.End();
 }
 
-bool SDL3Input::iGetAsyncKeyState(int dik)
-{
-    //if (code < SDL_SCANCODE_UNKNOWN || code >= SDL_SCANCODE_COUNT)
-      return false;
+bool is_mouse_scancode(SDL_Scancode code) {
+	return (code < SDL_SCANCODE_A && code > SDL_SCANCODE_UNKNOWN);
+}
 
-	//return KBState[code];
+bool is_scanode_in_range(SDL_Scancode code) {
+return code != SDL_SCANCODE_UNKNOWN && code < SDL_SCANCODE_ENDCALL;
+}
+
+bool SDL3Input::iGetAsyncKeyState(SDL_Scancode code)
+{
+	if (!is_scanode_in_range(code))
+		return false;
+	
+	if (is_mouse_scancode(code))
+		return iGetAsyncBtnState(static_cast<int>(code));
+	
+	const bool* state = SDL_GetKeyboardState(nullptr);
+    return state[code];
 }
 
 bool SDL3Input::iGetAsyncBtnState(int btn)
 {
-	if (btn == 0 || btn == 1)
-		btn = btn == 0 ? 1 : 0;
-	return mouseState[btn];
+	if (!is_scanode_in_range(static_cast<SDL_Scancode>(btn)))
+		return false;
+
+	size_t index = std::clamp(btn -1, 0,  static_cast<int>(mouseState.size() - 1));
+	return mouseState[index];
 }
 
 void SDL3Input::resetMouseState()
 {
-
    std::fill(mouseState.begin(), mouseState.end(), 0);
 }
 
 void SDL3Input::KeyUpdate(SDL_KeyboardEvent key)
 {
-
-	// {
-	// 	for (u32 i = 0; i < dwElements; i++)
-	// 	{
-	// 		if (od[i].uAppData == 666) //ignored action
-	// 			continue;
-
-	// 		key = od[i].dwOfs;
-	// 		if (od[i].dwData & 0x80)
-	// 			cbStack.back()->IR_OnKeyboardPress(key);
-	// 		else
-	// 		{
-	// 			cbStack.back()->IR_OnKeyboardRelease(key);
-	// 		}
-	// 	}
-
-	// 	for (u32 i = 0; i < COUNT_KB_BUTTONS; i++)
-	// 		if (KBState[i])
-	// 			cbStack.back()->IR_OnKeyboardHold(i);
-	// }
+	if (key.repeat) {
+			cbStack.back()->IR_OnKeyboardHold(static_cast<int>(key.scancode));
+			return;
+	}
+	if (key.down) {
+		cbStack.back()->IR_OnKeyboardPress(static_cast<int>(key.scancode));
+		KBState.insert(key.scancode);
+	} else {
+		cbStack.back()->IR_OnKeyboardRelease(static_cast<int>(key.scancode));
+		KBState.erase(key.scancode);
+	}
 }
 
 void SDL3Input::MouseUpdate(SDL_MouseWheelEvent wheel)
@@ -190,52 +191,22 @@ void SDL3Input::MouseUpdate(SDL_MouseMotionEvent motion)
 
 void SDL3Input::MouseUpdate(SDL_MouseButtonEvent button)
 {
-	std::array<bool, count_mouse_buttors> mousePrev = mouseState;
+	// TODO: add support for x1-x1 keys
+	if (button.button > SDL_BUTTON_RIGHT)
+		return;
 
-		switch (button.button)
-		{
-		case SDL_BUTTON_LEFT:
-			mouseState[0] = button.down;
+	size_t index = std::clamp(button.button - 1, 0, SDL_BUTTON_RIGHT);
+
+	if(button.down)
+		cbStack.back()->IR_OnMousePress(button.button);
 			
-			if(button.down)
-				cbStack.back()->IR_OnMousePress(0);
-			
-			if(!button.down)
-				cbStack.back()->IR_OnMouseRelease(0);
+	if(!button.down)
+		cbStack.back()->IR_OnMouseRelease(button.button);
 
-			if(mousePrev[0] == button.down)
-				cbStack.back()->IR_OnMouseHold(0);
+	if(mouseState[index] == button.down)
+		cbStack.back()->IR_OnMouseHold(button.button);
 
-			break;
-		case SDL_BUTTON_RIGHT:
-			mouseState[1] = button.down;
-			
-			if(button.down)
-				cbStack.back()->IR_OnMousePress(1);
-			
-			if(!button.down)
-				cbStack.back()->IR_OnMouseRelease(1);
-
-			if(mousePrev[1] == button.down)
-				cbStack.back()->IR_OnMouseHold(1);
-
-			break;
-		case SDL_BUTTON_MIDDLE:
-			mouseState[2] = button.down;
-			
-			if(button.down)
-				cbStack.back()->IR_OnMousePress(2);
-			
-			if(!button.down)
-				cbStack.back()->IR_OnMouseRelease(2);
-
-			if(button.down)
-				cbStack.back()->IR_OnMouseHold(2);
-
-			break;
-		default:
-			break;
-	};
+	mouseState[index] = button.down;
 }
 
 void SDL3Input::Update() {
@@ -243,9 +214,12 @@ void SDL3Input::Update() {
 	glm::vec2 pos;
 	SDL_GetRelativeMouseState(&pos.x, &pos.y);
 	if(timeStamp && ((SDL_GetTicks() - timeStamp) >= mouse_dt) && pos == mouseLastRel) {
-		cbStack.back()->IR_OnMouseStop(DIMOFS_X, 0);
-		cbStack.back()->IR_OnMouseStop(DIMOFS_Y, 0);
+		cbStack.back()->IR_OnMouseStop(0, 0);
 	}
-
 	timeStamp = 0;
+
+	// SDL_KeyboardEvent.repeat not enough
+	for(auto code : KBState) {
+		cbStack.back()->IR_OnKeyboardHold(static_cast<int>(code));
+	}
 }

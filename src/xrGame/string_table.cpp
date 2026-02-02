@@ -184,13 +184,11 @@ STRING_VALUE CStringTable::ParseLine(LPCSTR str, LPCSTR skey, bool bFirst)
 	//.	int LEN				= (int)xr_strlen(ACTION_STR);
 #define LEN			9
 
-	string256 buff;
 	string256 srcbuff;
 	bool b_hit = false;
 
 	while ((b = strstr(str + k,ACTION_STR)) != 0)
 	{
-		buff[0] = 0;
 		srcbuff[0] = 0;
 		res.append(str + k, b - str - k);
 		const char* e = strstr(b + LEN, "$$");
@@ -199,9 +197,8 @@ STRING_VALUE CStringTable::ParseLine(LPCSTR str, LPCSTR skey, bool bFirst)
 
 		strncpy_s(srcbuff, b + LEN, len);
 		srcbuff[len] = 0;
-		GetActionAllBinding(srcbuff, buff, sizeof(buff));
-		res.append(buff, xr_strlen(buff));
-
+		auto ret = GetActionAllBinding(srcbuff);
+		res.append(ret);
 		k = (int)(b - str);
 		k += len;
 		k += LEN;

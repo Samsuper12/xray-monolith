@@ -370,7 +370,7 @@ BOOL CDemoRecord::ProcessCam(SCamEffectorInfo& info)
 	}
 	else
 	{
-		if (IR_GetKeyState(DIK_F1))
+		if (IR_GetKeyState(SDL_SCANCODE_F1))
 		{
 			pApp->pFontSystem->SetColor(color_rgba(255, 0, 0, 255));
 			pApp->pFontSystem->SetAligment(CGameFont::alCenter);
@@ -400,17 +400,17 @@ BOOL CDemoRecord::ProcessCam(SCamEffectorInfo& info)
 
 		float speed = m_fSpeed1, ang_speed = m_fAngSpeed1;
 
-		if (IR_GetKeyState(DIK_LSHIFT))
+		if (IR_GetKeyState(SDL_SCANCODE_LSHIFT))
 		{
 			speed = m_fSpeed0;
 			ang_speed = m_fAngSpeed0;
 		}
-		else if (IR_GetKeyState(DIK_LALT))
+		else if (IR_GetKeyState(SDL_SCANCODE_LALT))
 		{
 			speed = m_fSpeed2;
 			ang_speed = m_fAngSpeed2;
 		}
-		else if (IR_GetKeyState(DIK_LCONTROL))
+		else if (IR_GetKeyState(SDL_SCANCODE_LCTRL))
 		{
 			speed = m_fSpeed3;
 			ang_speed = m_fAngSpeed3;
@@ -497,16 +497,15 @@ BOOL CDemoRecord::ProcessCam(SCamEffectorInfo& info)
 	return TRUE;
 }
 
-extern int mouse_button_2_key[];
 
 void CDemoRecord::IR_OnMousePress(int btn)
 {
-	IR_OnKeyboardPress(mouse_button_2_key[btn]);
+	IR_OnKeyboardPress(btn);
 }
 
 void CDemoRecord::IR_OnMouseRelease(int btn)
 {
-	IR_OnKeyboardRelease(mouse_button_2_key[btn]);
+	IR_OnKeyboardRelease(btn);
 }
 
 void CDemoRecord::IR_OnMouseWheel(int direction)
@@ -517,16 +516,16 @@ void CDemoRecord::IR_OnMouseWheel(int direction)
 void CDemoRecord::IR_OnKeyboardPress(int dik)
 {
 	if (isInputBlocked) {
-		if (dik == DIK_PAUSE)
+		if (dik == SDL_SCANCODE_PAUSE)
 			Device.Pause(!Device.Paused(), TRUE, TRUE, "demo_record");
-		if (dik == DIK_GRAVE)
+		if (dik == SDL_SCANCODE_GRAVE)
 			Console->Show();
-		if (dik == DIK_ESCAPE)
+		if (dik == SDL_SCANCODE_ESCAPE)
 			Console->Execute("main_menu on");
 	} else {
 		// Added dik == DIK_RCONTROL as extra keybind to support keyboards with no numpad
 		// Added dik == DIK_TAB as extra keybind that can also be used if return_ctrl_inputs is enabled. This key press event can be captured by the Demo Record invoker 
-		if (dik == DIK_MULTIPLY || dik == DIK_RCONTROL || (dik == DIK_TAB && return_ctrl_inputs)) m_b_redirect_input_to_level = !m_b_redirect_input_to_level;
+		if (dik == SDL_SCANCODE_KP_MULTIPLY || dik == SDL_SCANCODE_RCTRL || (dik == SDL_SCANCODE_TAB && return_ctrl_inputs)) m_b_redirect_input_to_level = !m_b_redirect_input_to_level;
 
 		if (m_b_redirect_input_to_level)
 		{
@@ -544,7 +543,7 @@ void CDemoRecord::IR_OnKeyboardPress(int dik)
 			}
 			// we end up here if controls have not been redirected to the invoker
 			// if we launched demo_record_return_ctrl_inputs we return the event DIK_TAB key press also to the invoker 
-			if (dik == DIK_TAB && return_ctrl_inputs) {
+			if (dik == SDL_SCANCODE_TAB && return_ctrl_inputs) {
 				// Sends upstream the DIK_TAB keyboard press event. This key toggles controls between demo_record and its launcher (game console or script)
 				// upon relinquishing the controls (to gameconsole/scripts), if the DIK_TAB key is pressed (captured by DemoRecord regardless) we end up here 
 				// but we like to let know the invoker that the DIK_TAB key was pressed and controls are back into DemoRecord hands
@@ -553,9 +552,9 @@ void CDemoRecord::IR_OnKeyboardPress(int dik)
 			}
 		}
 
-		if (dik == DIK_GRAVE)
+		if (dik == SDL_SCANCODE_GRAVE)
 			Console->Show();
-		if (dik == DIK_ESCAPE) {
+		if (dik == SDL_SCANCODE_ESCAPE) {
 			StopDemo();
 			// if we launched demo_record_return_ctrl_inputs we return the event ESCAPE key press also to the launcher entity
 			if (return_ctrl_inputs) {
@@ -582,14 +581,14 @@ void CDemoRecord::IR_OnKeyboardPress(int dik)
 		//#endif // #ifndef MASTER_GOLD
 		//-Alundaio
 
-		if (dik == DIK_PAUSE)
+		if (dik == SDL_SCANCODE_PAUSE)
 			Device.Pause(!Device.Paused(), TRUE, TRUE, "demo_record");
 
 		if (Device.imgui_shown()) return;
-		if (dik == DIK_SPACE) RecordKey();
-		if (dik == DIK_BACK) MakeCubemap();
-		if (dik == DIK_F11) MakeLevelMapScreenshot(IR_GetKeyState(DIK_LCONTROL));
-		if (dik == DIK_F12) MakeScreenshot();
+		if (dik == SDL_SCANCODE_SPACE) RecordKey();
+		if (dik == SDL_SCANCODE_BACKSPACE) MakeCubemap();
+		if (dik == SDL_SCANCODE_F11) MakeLevelMapScreenshot(IR_GetKeyState(DIK_LCONTROL));
+		if (dik == SDL_SCANCODE_F12) MakeScreenshot();
 	}
 }
 
@@ -599,7 +598,7 @@ void CDemoRecord::IR_OnKeyboardRelease(int dik)
 	if (m_b_redirect_input_to_level) {
 		g_pGameLevel->IR_OnKeyboardRelease(dik);
 	} else {
-		if (dik == DIK_F12 && return_ctrl_inputs) {
+		if (dik == SDL_SCANCODE_F12 && return_ctrl_inputs) {
 			// if demo_record_return_ctrl_inputs is enabled we return the event F12 key release also to the launcher entity
 			g_pGameLevel->IR_OnKeyboardRelease(dik);
 		}
@@ -627,43 +626,43 @@ void CDemoRecord::IR_OnKeyboardHold(int dik)
 
 	switch (dik)
 	{
-	case DIK_A:
-	case DIK_NUMPAD1:
-	case DIK_LEFT:
+	case SDL_SCANCODE_A:
+	case SDL_SCANCODE_KP_1:
+	case SDL_SCANCODE_LEFT:
 		vT_delta.x -= 1.0f;
 		break; // Slide Left
-	case DIK_D:
-	case DIK_NUMPAD3:
-	case DIK_RIGHT:
+	case SDL_SCANCODE_D:
+	case SDL_SCANCODE_KP_3:
+	case SDL_SCANCODE_RIGHT:
 		vT_delta.x += 1.0f;
 		break; // Slide Right
-	case DIK_S:
+	case SDL_SCANCODE_S:
 		vT_delta.y -= 1.0f;
 		break; // Slide Down
-	case DIK_W:
+	case SDL_SCANCODE_W:
 		vT_delta.y += 1.0f;
 		break; // Slide Up
 		// rotate
-	case DIK_NUMPAD2:
+	case SDL_SCANCODE_KP_2:
 		vR_delta.x -= 1.0f;
 		break; // Pitch Down
-	case DIK_NUMPAD8:
+	case SDL_SCANCODE_KP_8:
 		vR_delta.x += 1.0f;
 		break; // Pitch Up
-	case DIK_E:
-	case DIK_NUMPAD6:
+	case SDL_SCANCODE_E:
+	case SDL_SCANCODE_KP_6:
 		vR_delta.y += 1.0f;
 		break; // Turn Left
-	case DIK_Q:
-	case DIK_NUMPAD4:
+	case SDL_SCANCODE_Q:
+	case SDL_SCANCODE_KP_4:
 		vR_delta.y -= 1.0f;
 		break; // Turn Right
-	case DIK_C: // Added DIK_C as extra keybind to support keyboards with no numpad
-	case DIK_NUMPAD9:
+	case SDL_SCANCODE_C: // Added DIK_C as extra keybind to support keyboards with no numpad
+	case SDL_SCANCODE_KP_9:
 		vR_delta.z -= 2.0f;
 		break; // tilt Right
-	case DIK_Z: // Added DIK_Z as extra keybind to support keyboards with no numpad
-	case DIK_NUMPAD7:
+	case SDL_SCANCODE_Z: // Added DIK_Z as extra keybind to support keyboards with no numpad
+	case SDL_SCANCODE_KP_7:
 		vR_delta.z += 2.0f;
 		break; // tilt left
 	}

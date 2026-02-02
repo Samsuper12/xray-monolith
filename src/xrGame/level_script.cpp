@@ -1041,24 +1041,24 @@ void refresh_npc_names()
 
 void LevelPressAction(int cmd)
 {
-	if ((cmd == MOUSE_1 || cmd == MOUSE_2) && !!GetSystemMetrics(SM_SWAPBUTTON))
-		cmd = cmd == MOUSE_1 ? MOUSE_2 : MOUSE_1;
+	if ((cmd == SDL_BUTTON_LEFT || cmd == SDL_BUTTON_RIGHT))
+		cmd = cmd == SDL_BUTTON_LEFT ? SDL_BUTTON_RIGHT : SDL_BUTTON_LEFT;
 
 	Level().IR_OnKeyboardPress(cmd);
 }
 
 void LevelReleaseAction(int cmd)
 {
-	if ((cmd == MOUSE_1 || cmd == MOUSE_2) && !!GetSystemMetrics(SM_SWAPBUTTON))
-		cmd = cmd == MOUSE_1 ? MOUSE_2 : MOUSE_1;
+	if ((cmd == SDL_BUTTON_LEFT || cmd == SDL_BUTTON_RIGHT))
+		cmd = cmd == SDL_BUTTON_LEFT ? SDL_BUTTON_RIGHT : SDL_BUTTON_LEFT;
 
 	Level().IR_OnKeyboardRelease(cmd);
 }
 
 void LevelHoldAction(int cmd)
 {
-	if ((cmd == MOUSE_1 || cmd == MOUSE_2) && !!GetSystemMetrics(SM_SWAPBUTTON))
-		cmd = cmd == MOUSE_1 ? MOUSE_2 : MOUSE_1;
+	if ((cmd == SDL_BUTTON_LEFT || cmd == SDL_BUTTON_RIGHT))
+		cmd = cmd == SDL_BUTTON_LEFT ? SDL_BUTTON_RIGHT : SDL_BUTTON_LEFT;
 
 	Level().IR_OnKeyboardHold(cmd);
 }

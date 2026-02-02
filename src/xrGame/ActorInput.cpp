@@ -41,7 +41,7 @@ extern u32 hud_adj_mode;
 
 void CActor::IR_OnKeyboardPress(int cmd)
 {
-	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT)) return;
+	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LSHIFT)) return;
 
 	if (Remote()) return;
 
@@ -303,7 +303,7 @@ void CActor::IR_OnMouseWheel(int direction)
 
 void CActor::IR_OnKeyboardRelease(int cmd)
 {
-	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT)) return;
+	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LSHIFT)) return;
 
 	if (Remote()) return;
 
@@ -337,7 +337,7 @@ void CActor::IR_OnKeyboardRelease(int cmd)
 
 void CActor::IR_OnKeyboardHold(int cmd)
 {
-	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT)) return;
+	if (hud_adj_mode && pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LSHIFT)) return;
 
 	if (Remote() || !g_Alive()) return;
 	if (m_input_external_handler && !m_input_external_handler->authorized(cmd)) return;
@@ -458,13 +458,11 @@ void CActor::IR_OnMouseMove(int dx, int dy)
 	if (dx)
 	{
 		float d = float(dx) * scale;
-		Msg("dx %d, %f, %f, %f, %f, %f, %f, %f, %f", dx, d, C->f_fov, g_fov,  psMouseSens, sens_multiple, psMouseSensScale, LookFactor, scale);
 		cam_Active()->Move((d < 0) ? kLEFT : kRIGHT, _abs(d));
 	}
 	if (dy)
 	{
 		float d = ((psMouseInvert.test(1)) ? -1 : 1) * float(dy) * scale * psMouseSensVerticalK * 3.f / 4.f;
-		Msg("dy %d, %f", dy, d);
 		cam_Active()->Move((d > 0) ? kUP : kDOWN, _abs(d));
 	}
 }
@@ -558,7 +556,7 @@ void CActor::ActorUse()
 		if (object)
 			element = (u16)RQ.element;
 
-		if (object && Level().IR_GetKeyState(DIK_LSHIFT))
+		if (object && Level().IR_GetKeyState(SDL_SCANCODE_LSHIFT))
 		{
 			bool b_allow = !!pSettings->line_exist("ph_capture_visuals", object->cNameVisual());
 			::luabind::functor<bool> funct;
@@ -779,9 +777,9 @@ void CActor::NoClipFly(int cmd)
 	Fvector cur_pos;// = Position();
 	cur_pos.set(0,0,0);
 	float scale = 1.0f;
-	if(pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT))
+	if(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LSHIFT))
 		scale = 0.25f;
-	else if(pSDL3Input->iGetAsyncKeyState(DIK_LMENU))
+	else if(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LGUI))
 		scale = 4.0f;
 
 	switch(cmd)

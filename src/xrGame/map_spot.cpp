@@ -88,7 +88,7 @@ void CMapSpot::Update()
 
 bool CMapSpot::OnMouseDown(int mouse_btn)
 {
-	if (mouse_btn == MOUSE_1)
+	if (mouse_btn == SDL_BUTTON_LEFT)
 	{
 		CGameTask* t = Level().GameTaskManager().HasGameTask(m_map_location, true);
 		if (t)
@@ -98,7 +98,7 @@ bool CMapSpot::OnMouseDown(int mouse_btn)
 		}
 		return false;
 	}
-	else if (mouse_btn == MOUSE_2)
+	else if (mouse_btn == SDL_BUTTON_RIGHT)
 	{
 		GetMessageTarget()->SendMessage(this, MAP_SELECT_SPOT2);
 		return true;

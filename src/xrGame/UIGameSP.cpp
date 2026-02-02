@@ -71,11 +71,11 @@ void CUIGameSP::OnFrame()
 	{
 		bool b_remove = false;
 		int dik = get_action_dik(kSCORES, 0);
-		if (dik && !pSDL3Input->iGetAsyncKeyState(dik))
+		if (dik && !pSDL3Input->iGetAsyncKeyState(static_cast<SDL_Scancode>(dik)))
 			b_remove = true;
 
 		dik = get_action_dik(kSCORES, 1);
-		if (!b_remove && dik && !pSDL3Input->iGetAsyncKeyState(dik))
+		if (!b_remove && dik && !pSDL3Input->iGetAsyncKeyState(static_cast<SDL_Scancode>(dik)))
 			b_remove = true;
 
 		if (b_remove)

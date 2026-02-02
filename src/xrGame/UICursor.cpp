@@ -115,6 +115,8 @@ void CUICursor::UpdateCursorPosition(int _dx, int _dy)
 	// }
 	// else
 	// {
+
+	// TODO: IR_GetMousePosReal. It's required when mouse enters / leaves the window.
 	float sens = 1.0f;
 	vPos.x += _dx * sens;
 	vPos.y += _dy * sens;

@@ -149,44 +149,44 @@ void attach_adjust_mode_keyb(int dik)
 {
 	if(!CAttachableItem::m_dbgItem)	return;
 
-	bool b_move		= !!(pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT));
-	bool b_rot		= !!(pSDL3Input->iGetAsyncKeyState(DIK_LMENU));
+	bool b_move		= !!(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LSHIFT));
+	bool b_rot		= !!(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LMENU));
 	
 	int axis		= -1;
-	if(pSDL3Input->iGetAsyncKeyState(DIK_Z))
+	if(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_Z))
 		axis = 0;
 	else
-	if(pSDL3Input->iGetAsyncKeyState(DIK_X))
+	if(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_X))
 		axis = 1;
-	if(pSDL3Input->iGetAsyncKeyState(DIK_C))
+	if(pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_C))
 		axis = 2;
 
 	if(!b_move && !b_rot)	return;
 
 	switch(dik)
 	{
-	case DIK_LEFT:
+	case SDL_SCANCODE_LEFT:
 		{
 			if(b_move)
 				CAttachableItem::mov(axis, ATT_ITEM_MOVE_CURR);
 			else
 				CAttachableItem::rot(axis, ATT_ITEM_ROT_CURR);
 		}break;
-	case DIK_RIGHT:
+	case SDL_SCANCODE_RIGHT:
 		{
 			if(b_move)
 				CAttachableItem::mov(axis, -ATT_ITEM_MOVE_CURR);
 			else
 				CAttachableItem::rot(axis, -ATT_ITEM_ROT_CURR);
 		}break;
-	case DIK_PRIOR:
+	case SDL_SCANCODE_PRIOR:
 		{
 			if(b_move)
 				ATT_ITEM_MOVE_CURR +=ATT_ITEM_MOVE_STEP;
 			else
 				ATT_ITEM_ROT_CURR +=ATT_ITEM_ROT_STEP;
 		}break;
-	case DIK_NEXT:
+	case SDL_SCANCODE_MEDIA_NEXT_TRACK:
 		{
 			if(b_move)
 				ATT_ITEM_MOVE_CURR -=ATT_ITEM_MOVE_STEP;

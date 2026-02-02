@@ -153,7 +153,7 @@ namespace xr_imgui
 
         case kEDITOR:
             //rcon = !!pInput->iGetAsyncKeyState(DIK_RCONTROL);
-            rcon = !!pSDL3Input->iGetAsyncKeyState(DIK_RCONTROL);
+            rcon = !!pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_RCTRL);
 
             if (rcon)
             {
@@ -169,23 +169,23 @@ namespace xr_imgui
 
         switch (key)
         {
-        case DIK_LCONTROL:
-        case DIK_RCONTROL:
+        case SDL_SCANCODE_LCTRL:
+        case SDL_SCANCODE_RCTRL:
             io.AddKeyEvent(ImGuiMod_Ctrl, true);
             break;
 
-        case DIK_LSHIFT:
-        case DIK_RSHIFT:
+        case SDL_SCANCODE_LSHIFT:
+        case SDL_SCANCODE_RSHIFT:
             io.AddKeyEvent(ImGuiMod_Shift, true);
             break;
 
-        case DIK_LALT:
-        case DIK_RALT:
+        case SDL_SCANCODE_LALT:
+        case SDL_SCANCODE_RALT:
             io.AddKeyEvent(ImGuiMod_Alt, true);
             break;
 
-        case DIK_LWIN:
-        case DIK_RWIN:
+        case SDL_SCANCODE_LGUI:
+        case SDL_SCANCODE_RGUI:
             io.AddKeyEvent(ImGuiMod_Super, true);
             break;
         }
@@ -208,14 +208,14 @@ namespace xr_imgui
 
         switch (key)
         {
-        case DIK_LCONTROL:  check(ImGuiMod_Ctrl,    DIK_RCONTROL);  break;
-        case DIK_RCONTROL:  check(ImGuiMod_Ctrl,    DIK_LCONTROL);  break;
-        case DIK_LSHIFT:    check(ImGuiMod_Shift,   DIK_RSHIFT);    break;
-        case DIK_RSHIFT:    check(ImGuiMod_Shift,   DIK_LSHIFT);    break;
-        case DIK_LALT:      check(ImGuiMod_Alt,     DIK_RALT);      break;
-        case DIK_RALT:      check(ImGuiMod_Alt,     DIK_LALT);      break;
-        case DIK_LWIN:      check(ImGuiMod_Super,   DIK_RWIN);      break;
-        case DIK_RWIN:      check(ImGuiMod_Super,   DIK_LWIN);      break;
+        case SDL_SCANCODE_LCTRL:  check(ImGuiMod_Ctrl,    SDL_SCANCODE_RCTRL);  break;
+        case SDL_SCANCODE_RCTRL:  check(ImGuiMod_Ctrl,    SDL_SCANCODE_LCTRL);  break;
+        case SDL_SCANCODE_LSHIFT:    check(ImGuiMod_Shift,   SDL_SCANCODE_RSHIFT);    break;
+        case SDL_SCANCODE_RSHIFT:    check(ImGuiMod_Shift,   SDL_SCANCODE_LSHIFT);    break;
+        case SDL_SCANCODE_LALT:      check(ImGuiMod_Alt,     SDL_SCANCODE_RALT);      break;
+        case SDL_SCANCODE_RALT:      check(ImGuiMod_Alt,     SDL_SCANCODE_LALT);      break;
+        case SDL_SCANCODE_LGUI:      check(ImGuiMod_Super,   SDL_SCANCODE_RGUI);      break;
+        case SDL_SCANCODE_RGUI:      check(ImGuiMod_Super,   SDL_SCANCODE_LGUI);      break;
         }                                              
 
         const auto imkey = xr_key_to_imgui_key(key);

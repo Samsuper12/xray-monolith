@@ -351,13 +351,13 @@ bool CUIWindow::OnMouseAction(float x, float y, EUIMessages mouse_action)
 		OnMouseScroll(WINDOW_MOUSE_WHEEL_UP);
 		break;
 	case WINDOW_LBUTTON_DOWN:
-		if (OnMouseDown(MOUSE_1)) return true;
+		if (OnMouseDown(SDL_BUTTON_LEFT)) return true;
 		break;
 	case WINDOW_RBUTTON_DOWN:
-		if (OnMouseDown(MOUSE_2)) return true;
+		if (OnMouseDown(SDL_BUTTON_RIGHT)) return true;
 		break;
 	case WINDOW_CBUTTON_DOWN:
-		if (OnMouseDown(MOUSE_3)) return true;
+		if (OnMouseDown(SDL_BUTTON_MIDDLE)) return true;
 		break;
 	case WINDOW_LBUTTON_DB_CLICK:
 		if (OnDbClick()) return true;

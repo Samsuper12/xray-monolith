@@ -85,21 +85,19 @@ void CLevel::IR_OnMouseWheel(int direction)
 	}
 }
 
-ENGINE_API int mouse_button_2_key[] = { MOUSE_1, MOUSE_2, MOUSE_3, MOUSE_4, MOUSE_5, MOUSE_6, MOUSE_7, MOUSE_8 };
-
 void CLevel::IR_OnMousePress(int btn)
 {
-	IR_OnKeyboardPress(mouse_button_2_key[btn]);
+	IR_OnKeyboardPress(btn);
 }
 
 void CLevel::IR_OnMouseRelease(int btn)
 {
-	IR_OnKeyboardRelease(mouse_button_2_key[btn]);
+	IR_OnKeyboardRelease(btn);
 }
 
 void CLevel::IR_OnMouseHold(int btn)
 {
-	IR_OnKeyboardHold(mouse_button_2_key[btn]);
+	IR_OnKeyboardHold(btn);
 }
 
 void CLevel::IR_OnMouseMove(int dx, int dy)
@@ -164,7 +162,7 @@ void CLevel::IR_OnKeyboardPress(int key)
 
 	bool b_ui_exist = (!!CurrentGameUI());
 
-	EGameActions _curr = get_binded_action(key);
+	EGameActions _curr = get_binded_action(static_cast<SDL_Scancode>(key));
 
     if (_curr == kEDITOR)
     {
@@ -221,18 +219,18 @@ void CLevel::IR_OnKeyboardPress(int key)
 	{
 		switch (key)
 		{
-		case DIK_1:
-		case DIK_2:
-		case DIK_3:
-		case DIK_4:
-		case DIK_5:
-		case DIK_6:
-		case DIK_7:
-		case DIK_8:
-		case DIK_9:
-		case DIK_0:
+		case SDL_SCANCODE_1:
+		case SDL_SCANCODE_2:
+		case SDL_SCANCODE_3:
+		case SDL_SCANCODE_4:
+		case SDL_SCANCODE_5:
+		case SDL_SCANCODE_6:
+		case SDL_SCANCODE_7:
+		case SDL_SCANCODE_8:
+		case SDL_SCANCODE_9:
+		case SDL_SCANCODE_0:
 		{
-			u16 tab = u16(key - DIK_1);
+			u16 tab = u16(key - SDL_SCANCODE_1);
 			if (CurrentGameUI()->GetActorMenu().m_sort_buttons.size() > tab && CurrentGameUI()->GetActorMenu().m_sort_buttons.at(tab)->IsEnabled())
 				CurrentGameUI()->GetActorMenu().SelectInventoryTab(tab);
 			return;
@@ -311,7 +309,7 @@ void CLevel::IR_OnKeyboardPress(int key)
 
 #ifndef MASTER_GOLD
     switch (key) {
-    case DIK_F7: {
+    case SDL_SCANCODE_F7: {
                      if (GameID() != eGameIDSingle) return;
                      FS.get_path					("$game_config$")->m_Flags.set(FS_Path::flNeedRescan, TRUE);
                      FS.get_path					("$game_scripts$")->m_Flags.set(FS_Path::flNeedRescan, TRUE);
@@ -321,7 +319,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                      Send						(net_packet,net_flags(TRUE));
                      return;
     }
-    case DIK_DIVIDE: {
+    case SDL_SCANCODE_DIVIDE: {
                          if (!Server)
                              break;
 
@@ -336,7 +334,7 @@ void CLevel::IR_OnKeyboardPress(int key)
 
                          break;
     }
-    case DIK_MULTIPLY: {
+    case SDL_SCANCODE_MULTIPLY: {
                            if (!Server)
                                break;
 
@@ -351,7 +349,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                            break;
     }
 #ifdef DEBUG
-    case DIK_SUBTRACT:{
+    case SDL_SCANCODE_SUBTRACT:{
                           if (!Server)
                               break;
                           if(m_bEnvPaused)
@@ -363,14 +361,14 @@ void CLevel::IR_OnKeyboardPress(int key)
                           break;
     }
 #endif //DEBUG
-    case DIK_NUMPAD5:
+    case SDL_SCANCODE_KP_5:
     {
                         if (GameID()!=eGameIDSingle)
                         {
                             Msg("For this game type Demo Record is disabled.");
                             ///				return;
                         };
-                        if(!pSDL3Input->iGetAsyncKeyState(DIK_LSHIFT))
+                        if(!pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LSHIFT))
                         {
                             Console->Hide	();
                             Console->Execute("demo_record 1");
@@ -381,12 +379,12 @@ void CLevel::IR_OnKeyboardPress(int key)
 #ifdef DEBUG
 
         // Lain: added TEMP!!!
-    case DIK_UP:
+    case SDL_SCANCODE_UP:
     {
                    g_separate_factor /= 0.9f;
                    break;
     }
-    case DIK_DOWN:
+    case SDL_SCANCODE_DOWN:
     {
                      g_separate_factor *= 0.9f;
                      if ( g_separate_factor < 0.1f )
@@ -395,7 +393,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                      }
                      break;
     }
-    case DIK_LEFT:
+    case SDL_SCANCODE_LEFT:
     {
                      g_separate_radius *= 0.9f;
                      if ( g_separate_radius < 0 )
@@ -404,27 +402,27 @@ void CLevel::IR_OnKeyboardPress(int key)
                      }
                      break;
     }
-    case DIK_RIGHT:
+    case SDL_SCANCODE_RIGHT:
     {
                       g_separate_radius /= 0.9f;
                       break;
     }
 
-    case DIK_RETURN: {
+    case SDL_SCANCODE_RETURN: {
                          bDebug	= !bDebug;
                          return;
     }
-    case DIK_BACK:
+    case SDL_SCANCODE_BACKSPACE:
         if (GameID() == eGameIDSingle)
             DRender->NextSceneMode();
         //HW.Caps.SceneMode			= (HW.Caps.SceneMode+1)%3;
         return;
 
-    case DIK_F4: {
-                     if (pSDL3Input->iGetAsyncKeyState(DIK_LALT))
+    case SDL_SCANCODE_F4: {
+                     if (pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LALT))
                          break;
 
-                     if (pSDL3Input->iGetAsyncKeyState(DIK_RALT))
+                     if (pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_RALT))
                          break;
 
                      bool bOk = false;
@@ -487,7 +485,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                      return;
     }
         // Lain: added
-    case DIK_F5:
+    case SDL_SCANCODE_F5:
     {
                    if ( CBaseMonster* pBM = smart_cast<CBaseMonster*>(CurrentEntity()))
                    {
@@ -496,11 +494,11 @@ void CLevel::IR_OnKeyboardPress(int key)
                    break;
     }
 
-    case MOUSE_1: {
+    case SDL_BUTTON_LEFT: {
                       if (GameID() != eGameIDSingle)
                           break;
 
-                      if (pSDL3Input->iGetAsyncKeyState(DIK_LALT)) {
+                      if (pSDL3Input->iGetAsyncKeyState(SDL_SCANCODE_LALT)) {
                           if (smart_cast<CActor*>(CurrentEntity()))
                               try_change_current_entity	();
                           else
@@ -512,7 +510,7 @@ void CLevel::IR_OnKeyboardPress(int key)
         /**/
 #endif
 #ifdef DEBUG
-    case DIK_F9:{
+    case SDL_SCANCODE_F9:{
                     //		if (!ai().get_alife())
 	//			break;
                     //		const_cast<CALifeSimulatorHeader&>(ai().alife().header()).set_state(ALife::eZoneStateSurge);
@@ -549,7 +547,7 @@ void CLevel::IR_OnKeyboardPress(int key)
     }
 #endif // MASTER_GOLD
 
-	if (bindConsoleCmds.execute(key))
+	if (bindConsoleCmds.execute(static_cast<SDL_Scancode>(key)))
 		return;
 
 	if (CURRENT_ENTITY())
@@ -623,7 +621,7 @@ void CLevel::IR_OnKeyboardHold(int key)
 
 #ifdef DEBUG
     // Lain: added
-    if ( key == DIK_UP )
+    if ( key == SDL_SCANCODE_UP )
     {
         static u32 time = Device.dwTimeGlobal;
         if ( Device.dwTimeGlobal - time > 20 )
@@ -635,7 +633,7 @@ void CLevel::IR_OnKeyboardHold(int key)
             }
         }
     }
-    else if ( key == DIK_DOWN )
+    else if ( key == SDL_SCANCODE_DOWN )
     {
         static u32 time = Device.dwTimeGlobal;
         if ( Device.dwTimeGlobal - time > 20 )

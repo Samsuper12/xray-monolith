@@ -234,12 +234,12 @@ void CZombie::fake_death_stand_up()
 void CZombie::debug_on_key(int key)
 {
 	switch (key){
-	case DIK_MINUS:
+	case SDL_SCANCODE_MINUS:
 		{
 			fake_death_fall_down();
 		}
 		break;
-	case DIK_EQUALS:
+	case SDL_SCANCODE_EQUALS:
 		{
 			fake_death_stand_up();
 		}

@@ -42,7 +42,8 @@ void IInputReceiver::IR_OnActivate(void)
 BOOL IInputReceiver::IR_GetKeyState(int dik)
 {
 	VERIFY(pSDL3Input);
-	return pSDL3Input->iGetAsyncKeyState(dik);
+	// FIXME:
+	return pSDL3Input->iGetAsyncKeyState(static_cast<SDL_Scancode>(dik));
 }
 
 BOOL IInputReceiver::IR_GetBtnState(int btn)

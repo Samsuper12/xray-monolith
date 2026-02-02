@@ -162,11 +162,11 @@ void CCameraLook2::OnActivate(CCameraBase* old_cam)
 
 void CCameraLook2::Update(Fvector& point, Fvector&)
 {
-	int cam_dik = get_action_dik(kCAM_AUTOAIM, 0);
+	SDL_Scancode cam_keycode = get_scancode_by_action_id(kCAM_AUTOAIM, bind_type::primary);
 	if (!m_locked_enemy)
 	{
 		//autoaim
-		if (pSDL3Input->iGetAsyncKeyState(cam_dik))
+		if (pSDL3Input->iGetAsyncKeyState(cam_keycode))
 		{
 			const CVisualMemoryManager::VISIBLES& vVisibles = Actor()->memory().visual().objects();
 			CVisualMemoryManager::VISIBLES::const_iterator v_it = vVisibles.begin();
@@ -195,7 +195,7 @@ void CCameraLook2::Update(Fvector& point, Fvector&)
 	}
 	else
 	{
-		if (!pSDL3Input->iGetAsyncKeyState(cam_dik))
+		if (!pSDL3Input->iGetAsyncKeyState(cam_keycode))
 		{
 			m_locked_enemy = NULL;
 			//.			Msg				("enemy is NILL");

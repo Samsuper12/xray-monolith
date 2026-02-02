@@ -86,7 +86,7 @@ void CUIKickPlayer::InitKick(CUIXml& xml_doc)
 
 bool CUIKickPlayer::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 {
-	if (dik == DIK_ESCAPE)
+	if (dik == SDL_SCANCODE_ESCAPE)
 	{
 		OnBtnCancel();
 		return true;

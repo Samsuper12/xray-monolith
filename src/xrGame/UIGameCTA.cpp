@@ -880,7 +880,7 @@ bool CUIGameCTA::IR_UIOnKeyboardPress(int dik)
 
 	switch (dik)
 	{
-	case DIK_CAPSLOCK:
+	case SDL_SCANCODE_CAPSLOCK:
 		{
 			if (m_game)
 			{
@@ -922,7 +922,7 @@ bool CUIGameCTA::IR_UIOnKeyboardRelease(int dik)
 
 	switch (dik)
 	{
-	case DIK_CAPSLOCK:
+	case SDL_SCANCODE_CAPSLOCK:
 		{
 			if (m_game)
 			{

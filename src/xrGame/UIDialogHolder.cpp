@@ -282,12 +282,12 @@ bool CDialogHolder::IR_UIOnKeyboardPress(int dik)
 	if (!TIR) return false;
 	if (!TIR->IR_process()) return false;
 	//mouse click
-	if (dik == MOUSE_1 || dik == MOUSE_2 || dik == MOUSE_3)
+	if (dik == SDL_BUTTON_LEFT || dik == SDL_BUTTON_RIGHT || dik == SDL_BUTTON_MIDDLE)
 	{
 		Fvector2 cp = GetUICursor().GetCursorPosition();
-		EUIMessages action = (dik == MOUSE_1)
+		EUIMessages action = (dik == SDL_BUTTON_LEFT)
 			                     ? WINDOW_LBUTTON_DOWN
-			                     : (dik == MOUSE_2)
+			                     : (dik == SDL_BUTTON_RIGHT)
 			                     ? WINDOW_RBUTTON_DOWN
 			                     : WINDOW_CBUTTON_DOWN;
 		if (TIR->OnMouseAction(cp.x, cp.y, action))
@@ -322,12 +322,12 @@ bool CDialogHolder::IR_UIOnKeyboardRelease(int dik)
 	if (!TIR->IR_process()) return false;
 
 	//mouse click
-	if (dik == MOUSE_1 || dik == MOUSE_2 || dik == MOUSE_3)
+	if (dik == SDL_BUTTON_LEFT || dik == SDL_BUTTON_RIGHT || dik == SDL_BUTTON_MIDDLE)
 	{
 		Fvector2 cp = GetUICursor().GetCursorPosition();
-		EUIMessages action = (dik == MOUSE_1)
+		EUIMessages action = (dik == SDL_BUTTON_LEFT)
 			                     ? WINDOW_LBUTTON_UP
-			                     : (dik == MOUSE_2)
+			                     : (dik == SDL_BUTTON_RIGHT)
 			                     ? WINDOW_RBUTTON_UP
 			                     : WINDOW_CBUTTON_UP;
 		if (TIR->OnMouseAction(cp.x, cp.y, action))

@@ -51,14 +51,14 @@ CGameFont* CUIListBoxItem::GetFont()
 
 bool CUIListBoxItem::OnMouseDown(int mouse_btn)
 {
-	if (mouse_btn == MOUSE_1)
+	if (mouse_btn == SDL_BUTTON_LEFT)
 	{
 		smart_cast<CUIScrollView*>(GetParent()->GetParent())->SetSelected(this);
 		GetMessageTarget()->SendMessage(this, LIST_ITEM_SELECT, &tag);
 		GetMessageTarget()->SendMessage(this, LIST_ITEM_CLICKED, &tag);
 		return true;
 	}
-	else if (mouse_btn == MOUSE_2)
+	else if (mouse_btn == SDL_BUTTON_RIGHT)
 	{
 		GetMessageTarget()->SendMessage(this, WINDOW_RBUTTON_DOWN, &tag);
 		return true;

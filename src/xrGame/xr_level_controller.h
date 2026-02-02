@@ -1,5 +1,7 @@
 #pragma once
-
+#include <optional>
+#include <map>
+#include <string_view>
 enum EGameActions
 {
 	kLEFT,
@@ -117,88 +119,85 @@ enum EGameActions
 	kFORCEDWORD = u32(-1)
 };
 
-struct _keyboard
-{
-	LPCSTR key_name;
-	int dik;
-	xr_string key_local_name;
+enum bind_type : uint32_t {
+	primary = 0,
+	secondary = 1,
+	any,
 };
-
-enum _key_group
-{
-	_both = (1 << 0),
-	_sp = _both | (1 << 1),
-	_mp = _both | (1 << 2),
-};
-
-extern _key_group g_current_keygroup;
-
-bool is_group_not_conflicted(_key_group g1, _key_group g2);
-
-struct _action
-{
-	LPCSTR action_name;
-	EGameActions id;
-	_key_group key_group;
-};
-
-LPCSTR dik_to_keyname(int _dik, bool bLocalize);
-int keyname_to_dik(LPCSTR _name);
-_keyboard* keyname_to_ptr(LPCSTR _name);
-_keyboard* dik_to_ptr(int _dik, bool bSafe);
-
-LPCSTR id_to_action_name(EGameActions _id);
-EGameActions action_name_to_id(LPCSTR _name);
-_action* action_name_to_ptr(LPCSTR _name);
-
-extern _action actions [];
-//extern _keyboard	keyboards	[];
-//extern xr_vector< _keyboard >	keyboards;
-
-#define bindings_count kLASTACTION
-
-struct _binding
-{
-	_action* m_action;
-	_keyboard* m_keyboard[2];
-};
-
-extern _binding g_key_bindings[];
-
-bool is_binded(EGameActions action_id, int dik);
-int get_action_dik(EGameActions action_id, int idx = -1);
-EGameActions get_binded_action(int dik);
-
-extern void CCC_RegisterInput();
 
 struct _conCmd
 {
 	shared_str cmd;
 };
 
+struct _keyboard
+{
+	const char* key_name;
+	SDL_Scancode code;
+};
+
+struct _action
+{
+	const char* action_name;
+	EGameActions id;
+};
+
+struct _binding
+{	
+	_action action;
+	_keyboard* keyboard[2];
+};
+
 class ConsoleBindCmds
 {
 public:
-	xr_map<int, _conCmd> m_bindConsoleCmds;
+	std::map<SDL_Scancode, _conCmd> m_bindConsoleCmds;
 
-	void bind(int dik, LPCSTR N);
-	void unbind(int dik);
-	bool execute(int dik);
+	void bind(SDL_Scancode code, const char* N);
+	void unbind(SDL_Scancode code);
+	bool execute(SDL_Scancode code);
 	void clear();
 	void save(IWriter* F);
 };
 
-void GetActionAllBinding(LPCSTR action, char* dst_buff, int dst_buff_sz);
-
+extern void CCC_RegisterInput();
 extern ConsoleBindCmds bindConsoleCmds;
 
-// 0xED - max vavue in DIK* enum
-#define MOUSE_1		(0xED + 100)
-#define MOUSE_2		(0xED + 101)
-#define MOUSE_3		(0xED + 102)
+auto get_scancode_by_action_id(EGameActions _action_id, bind_type bind = bind_type::any) -> SDL_Scancode;
 
-#define MOUSE_4		(0xED + 103)
-#define MOUSE_5		(0xED + 104)
-#define MOUSE_6		(0xED + 105)
-#define MOUSE_7		(0xED + 106)
-#define MOUSE_8		(0xED + 107)
+auto get_keyboard_by_name(const char* _name) -> _keyboard*;
+auto get_keyboard_by_code(SDL_Scancode code) -> _keyboard*;
+
+auto get_action_by_name(const char* _name) -> std::optional<_action>;
+auto get_action_id_by_scancode(SDL_Scancode code) -> EGameActions;
+
+auto get_binding_by_action_id_ref(EGameActions _action_id) -> std::optional<std::reference_wrapper<_binding>>;
+auto get_binding_by_action_id(EGameActions _action_id) -> std::optional<_binding>;
+
+auto is_binded_sdl(EGameActions action_id, SDL_Scancode code) -> bool;
+
+auto GetActionAllBinding(const char* action) -> std::string;
+
+// TODO:
+// Compatibility:
+inline auto get_binded_action(int dik) -> EGameActions{
+	return get_action_id_by_scancode(static_cast<SDL_Scancode>(dik));
+}
+inline auto get_action_dik(EGameActions _action_id, int index = -1) -> SDL_Scancode {
+	return get_scancode_by_action_id(_action_id, (index == -1) ? bind_type::any : static_cast<bind_type>(index));
+}
+inline auto is_binded(EGameActions action_id, int dik) -> bool {
+	return is_binded_sdl(action_id, static_cast<SDL_Scancode>(dik));
+}
+inline auto dik_to_ptr(int dik, bool safe) -> _keyboard* {
+	return get_keyboard_by_code(static_cast<SDL_Scancode>(dik));
+}
+inline EGameActions action_name_to_id(const char* _name) {
+	auto action = get_action_by_name(_name);
+	return action ? action.value().id : kNOTBINDED;
+}
+inline int keyname_to_dik(const char* name) {
+	const auto* ret = get_keyboard_by_name(name);
+	return static_cast<int>(ret ? ret->code : SDL_SCANCODE_UNKNOWN);
+}
+
