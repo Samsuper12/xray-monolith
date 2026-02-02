@@ -53,8 +53,8 @@ BOOL IInputReceiver::IR_GetBtnState(int btn)
 }
 
 glm::ivec2 IInputReceiver::IR_GetMousePosReal() {
-		VERIFY(pSDL3Input);
-		return pSDL3Input->iGetLastMouseReal();
+	VERIFY(pSDL3Input);
+	return pSDL3Input->iGetLastMouseReal();
 }
 
 // void IInputReceiver::IR_GetMousePosScreen(Ivector2& p)

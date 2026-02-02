@@ -102,24 +102,18 @@ Fvector2 CUICursor::GetCursorPositionDelta()
 
 void CUICursor::UpdateCursorPosition(int _dx, int _dy)
 {
-	//Fvector2 p;
-	//vPrevPos = vPos;
-	// if (m_b_use_win_cursor)
-	// {
-	// 	Ivector2 pti;
-	// 	IInputReceiver::IR_GetMousePosReal(pti);
-	// 	p.x = (float)pti.x;
-	// 	p.y = (float)pti.y;
-	// 	vPos.x = p.x * (UI_BASE_WIDTH / (float)Device.dwWidth);
-	// 	vPos.y = p.y * (UI_BASE_HEIGHT / (float)Device.dwHeight);
-	// }
-	// else
-	// {
+	vPrevPos = vPos;
+	// TODO: // if (m_b_use_win_cursor)
 
-	// TODO: IR_GetMousePosReal. It's required when mouse enters / leaves the window.
-	float sens = 1.0f;
-	vPos.x += _dx * sens;
-	vPos.y += _dy * sens;
+	auto pos = IInputReceiver::IR_GetMousePosReal();
+
+	vPos.x = pos.x * (UI_BASE_WIDTH / (float)Device.dwWidth);
+	vPos.y = pos.y * (UI_BASE_HEIGHT / (float)Device.dwHeight);
+
+	// TODO: ok. good. This way use for a gamepad 
+	// float sens = 1.0f;
+	// vPos.x += _dx * sens;
+	// vPos.y += _dy * sens;
 	//}
 	clamp(vPos.x, 0.f, UI_BASE_WIDTH);
 	clamp(vPos.y, 0.f, UI_BASE_HEIGHT);
