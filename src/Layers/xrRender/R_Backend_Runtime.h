@@ -9,9 +9,16 @@
 #include "sh_constant.h"
 #include "sh_rt.h"
 
+// TODO:
 #if defined(USE_DX10) || defined(USE_DX11)
+#if defined(USE_VK)
+#include <vkR_Backend_Runtime.hpp>
+#include <R_Backend.h>
+
+#else
 #include <dx10R_Backend_Runtime.h>
 #include <StateManager/dx10State.h>
+#endif
 #else	//	USE_DX10
 #include <dx9R_Backend_Runtime.h>
 #endif	//	USE_DX10

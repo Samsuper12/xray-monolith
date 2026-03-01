@@ -7,6 +7,8 @@ add_module(XRay.Render.Common
   R_R2=2
   R_R3=3
   R_R4=4
+  R_RV=5
+
 
   SOURCES
   #blenders/Blender.cpp

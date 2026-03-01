@@ -1,8 +1,0 @@
-{
-  "name": "xray",
-  "version-string": "1.5.3",
-  "dependencies": [
-    "sdl3",
-    "glm"
-  ]
-}

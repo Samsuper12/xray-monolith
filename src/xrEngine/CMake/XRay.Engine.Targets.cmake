@@ -49,15 +49,15 @@ endfunction()
 #  Anomaly.DX10
 #  XRay.Render.R3
 #)
-add_engine_target(
- Anomaly.DX11
- XRay.Render.R4
-)
-
 # add_engine_target(
-#  Anomaly.VK
-#  XRay.Render.RV
+#  Anomaly.DX11
+#  XRay.Render.R4
 # )
+
+add_engine_target(
+ Anomaly.VK
+ XRay.Render.RV
+)
 
 # Set visual studio startup project
 set_property(

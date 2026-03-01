@@ -59,6 +59,8 @@ extern BOOL DllMainXrRenderR1(HANDLE hModule, DWORD ul_reason_for_call, LPVOID l
 extern BOOL DllMainXrRenderR2(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
 extern BOOL DllMainXrRenderR3(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
 extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
+extern BOOL DllMainXrRenderRV(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
+
 
 #ifdef STATIC_RENDERER_R1
     #define DLL_MAIN_RENDERER DllMainXrRenderR1
@@ -72,9 +74,34 @@ extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID l
 #ifdef STATIC_RENDERER_R4
     #define DLL_MAIN_RENDERER DllMainXrRenderR4
 #endif
+#ifdef STATIC_RENDERER_RV
+    #define DLL_MAIN_RENDERER DllMainXrRenderRV
+#endif
 
 void CEngineAPI::InitializeNotDedicated()
 {
+#ifdef STATIC_RENDERER_RV
+	LPCSTR rv_name = "xrRender_RV.dll";
+	//if (psDeviceFlags.test(rsR4))
+    {
+        // try to initialize R4
+		psDeviceFlags.set(rsR2, FALSE);
+		psDeviceFlags.set(rsR3, FALSE);
+		psDeviceFlags.set(rsR4, FALSE);
+
+		Log("Loading DLL:", rv_name);
+		DllMainXrRenderRV(NULL, DLL_PROCESS_ATTACH, NULL);
+        //hRender = LoadLibrary(r4_name);
+	//if (0 == hRender)
+	//{
+	//    // try to load R1
+	//    Msg("! ...Failed - incompatible hardware/pre-Vista OS.");
+	//    psDeviceFlags.set(rsR2, TRUE);
+        //}
+		g_current_renderer = 5;
+    }
+#endif
+
 #ifdef STATIC_RENDERER_R4
 	LPCSTR r4_name = "xrRender_R4.dll";
 	//if (psDeviceFlags.test(rsR4))
@@ -226,6 +253,8 @@ extern "C" {
 typedef bool __cdecl SupportsAdvancedRenderingREF(void);
 typedef bool /*_declspec(dllexport)*/ SupportsDX10RenderingREF();
 typedef bool /*_declspec(dllexport)*/ SupportsDX11RenderingREF();
+typedef bool /*_declspec(dllexport)*/ SupportsVulkanRenderingREF();
+
 };
 
 extern "C" {
@@ -238,6 +267,9 @@ bool SupportsDX10Rendering();
 #endif
 #ifdef STATIC_RENDERER_R4
 	bool SupportsDX11Rendering();
+#endif
+#ifdef STATIC_RENDERER_RV
+	bool SupportsVulkanRendering();
 #endif
 };
 
@@ -260,6 +292,7 @@ void CEngineAPI::CreateRendererList()
 	bool bSupports_r2_5 = false;
 	bool bSupports_r3 = false;
 	bool bSupports_r4 = false;
+	bool bSupports_rv = true;
 
 	if (strstr(Core.Params, "-perfhud_hack"))
 	{
@@ -267,6 +300,7 @@ void CEngineAPI::CreateRendererList()
 		bSupports_r2_5 = true;
 		bSupports_r3 = true;
 		bSupports_r4 = true;
+		bSupports_rv = true;
 	}
 	else
 	{
@@ -326,6 +360,18 @@ void CEngineAPI::CreateRendererList()
             //FreeLibrary(hRender);
         }
 #endif
+
+#ifdef STATIC_RENDERER_RV
+		LPCSTR rv_name = "xrRender_RV.dll";
+        Log("Loading DLL:", rv_name);
+		DllMainXrRenderRV(NULL, DLL_PROCESS_ATTACH, NULL);
+        {
+            //SupportsDX11RenderingREF* test_dx11_rendering = (SupportsDX11RenderingREF*)GetProcAddress(hRender, "SupportsDX11Rendering");
+            SupportsDX11RenderingREF* test_vulkan_rendering = SupportsVulkanRendering;
+            R_ASSERT(test_vulkan_rendering);
+            bSupports_r4 = test_vulkan_rendering();
+        }
+#endif 
 	}
 
 	//hRender = 0;
@@ -352,6 +398,11 @@ void CEngineAPI::CreateRendererList()
 	bool proceed = true;
 	if (proceed &= bSupports_r4, proceed)
         _tmp.push_back("renderer_r4");
+#endif
+#ifdef STATIC_RENDERER_RV
+	bool proceed = true;
+	if (proceed &= bSupports_rv, proceed)
+        _tmp.push_back("renderer_rv");
 #endif
 
 	R_ASSERT2(_tmp.size() != 0, "No valid renderer found, please use a render system that's supported by your PC");

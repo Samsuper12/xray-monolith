@@ -5,6 +5,6 @@ add_subdirectory(xrRenderDX10)
 #add_subdirectory(xrRenderPC_R1)
 #add_subdirectory(xrRenderPC_R2)
 #add_subdirectory(xrRenderPC_R3)
-add_subdirectory(xrRenderPC_R4)
-#add_subdirectory(xrRenderPC_RV)
+#add_subdirectory(xrRenderPC_R4)
+add_subdirectory(xrRenderPC_RV)
 

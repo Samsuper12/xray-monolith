@@ -31,13 +31,13 @@ set(XRAY_COMPILER_FLAGS_DEBUG
 
 set(XRAY_COMPILER_FLAGS_RELEASE
   # Enable aggressive optimizations
-  -O3
+  -O2
 
   # Optimize loop execution
-  -funroll-loops
+ # -funroll-loops
   
   # Enable link-time optimization
-  -flto=full
+  #-flto=full
 
   # Disable iterator debugging
   -D_HAS_ITERATOR_DEBUGGING=0
@@ -46,11 +46,11 @@ set(XRAY_COMPILER_FLAGS_RELEASE
 
 set(XRAY_LINKER_FLAGS_RELEASE
   # Enable aggressive optimizations
-  -O3
+  -O2
 
   # Optimize loop execution
-  -funroll-loops
+  #-funroll-loops
 
   # Enable link-time optimization
-  -flto=full
+  #-flto=full
 )

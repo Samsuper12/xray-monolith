@@ -7,8 +7,12 @@
 #include "r_constants.h"
 #include "tss_def.h"
 
+// TODO:
 #if defined(USE_DX10) || defined(USE_DX11)
+#if defined(USE_VK)
+#else
 #include <StateManager/dx10State.h>
+#endif
 #endif	//	USE_DX10
 
 #pragma pack(push,4)

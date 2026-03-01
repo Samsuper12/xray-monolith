@@ -2,13 +2,16 @@
 #define	xrD3DDefs_included
 #pragma once
 
+
+// TODO:
+#if defined(USE_DX10) || defined(USE_DX11)
+#if defined(USE_VK)
+#else
+#include <DXCommonTypes.h>
+#endif
+#else	//	USE_DX10 || USE_DX11
 #include <d3d9.h>
 #include <d3dx9core.h>
-
-#if defined(USE_DX10) || defined(USE_DX11)
-#include <DXCommonTypes.h>
-#else	//	USE_DX10 || USE_DX11
-
 typedef IDirect3DVertexShader9 ID3DVertexShader;
 typedef IDirect3DPixelShader9 ID3DPixelShader;
 typedef ID3DXBuffer ID3DBlob;

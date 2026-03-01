@@ -26,7 +26,8 @@ class ENGINE_API IRenderable;
 //class ENGINE_API IBlender;
 //class ENGINE_API CSkeletonWallmark;
 //class ENGINE_API CKinematics;
-struct ENGINE_API FSlideWindowItem;
+
+//struct ENGINE_API FSlideWindowItem;
 
 // Igor
 class IRenderVisual;
@@ -192,6 +193,7 @@ public:
 		GENERATION_DX81 = 81,
 		GENERATION_R2 = 90,
 		GENERATION_DX90 = 90,
+		GENERATION_VK14,
 		GENERATION_forcedword = u32(-1)
 	};
 
