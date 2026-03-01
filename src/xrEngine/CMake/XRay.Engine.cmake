@@ -63,7 +63,7 @@ add_module(XRay.Engine
   _d3d_extensions.h
 )
 
-find_package(SDL3 CONFIG REQUIRED)
+#find_package(SDL3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 target_link_libraries(XRay.Engine.Includes INTERFACE 

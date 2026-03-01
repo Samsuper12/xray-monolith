@@ -56,7 +56,7 @@ void dxRenderDeviceRender::DestroyHW()
 	HW.DestroyDevice();
 }
 
-void dxRenderDeviceRender::Reset(HWND hWnd, u32& dwWidth, u32& dwHeight, float& fWidth_2, float& fHeight_2)
+void dxRenderDeviceRender::Reset(SDL_Window* window, u32& dwWidth, u32& dwHeight, float& fWidth_2, float& fHeight_2)
 {
 #ifdef DEBUG
     _SHOW_REF("*ref -CRenderDevice::ResetTotal: DeviceREF:",HW.pDevice);
@@ -71,7 +71,7 @@ void dxRenderDeviceRender::Reset(HWND hWnd, u32& dwWidth, u32& dwHeight, float& 
 		ResourcesDeferredUnload();
 #endif
 
-	HW.Reset(hWnd);
+	HW.Reset(window);
 
 #if defined(USE_DX11)
 	dwWidth = HW.m_ChainDesc.Width;
@@ -171,10 +171,10 @@ void dxRenderDeviceRender::OnDeviceCreate(LPCSTR shName)
 	//#endif
 }
 
-void dxRenderDeviceRender::Create(HWND hWnd, u32& dwWidth, u32& dwHeight, float& fWidth_2, float& fHeight_2,
+void dxRenderDeviceRender::Create(SDL_Window* window, u32& dwWidth, u32& dwHeight, float& fWidth_2, float& fHeight_2,
                                   bool move_window)
 {
-	HW.CreateDevice(hWnd, move_window);
+	HW.CreateDevice(window, move_window);
 #if defined(USE_DX11)
 	dwWidth = HW.m_ChainDesc.Width;
 	dwHeight = HW.m_ChainDesc.Height;

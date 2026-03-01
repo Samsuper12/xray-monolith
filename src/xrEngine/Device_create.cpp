@@ -191,7 +191,7 @@ PROTECT_API void CRenderDevice::Create()
 	fFOV = 90.f;
 	fASPECT = 1.f;
 	m_pRender->Create(
-		m_hWnd,
+		m_window,
 		dwWidth,
 		dwHeight,
 		fWidth_2,

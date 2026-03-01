@@ -201,10 +201,10 @@ void CHW::DestroyD3D()
 
 extern u32 g_screenmode;
 
-void CHW::CreateDevice(HWND hwnd, bool move_window)
+void CHW::CreateDevice(SDL_Window* window, bool move_window)
 {
 #ifdef USE_DX11
-    m_hWnd = hwnd;
+    m_window = window;
 #endif
     m_move_window = move_window;
     CreateD3D();
@@ -479,7 +479,10 @@ void CHW::CreateDevice(HWND hwnd, bool move_window)
     _RELEASE(context);
 
     // create swapchain
-    R_CHK(m_pFactory->CreateSwapChainForHwnd(pDevice, m_hWnd, &sd, &sd_fullscreen, NULL, &m_pSwapChain));
+    auto props = SDL_GetWindowProperties(m_window);
+    auto hwnd = static_cast<HWND>(SDL_GetPointerProperty(props, SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL));
+
+    R_CHK(m_pFactory->CreateSwapChainForHwnd(pDevice, hwnd, &sd, &sd_fullscreen, NULL, &m_pSwapChain));
 
     // setup colorspace
     // HDR10 (U10 output) -> DXGI_COLOR_SPACE_RGB_FULL_G2084_NONE_P2020
@@ -594,13 +597,13 @@ void CHW::CreateDevice(HWND hwnd, bool move_window)
         Msg("*     Texture memory: %d M", memory / (1024 * 1024));
 
 #ifndef _EDITOR
-        updateWindowProps(hwnd);
+       // updateWindowProps(hwnd);
         fill_vid_mode_list(this);
 #endif
     } else {
         size_t memory = Desc.DedicatedVideoMemory;
         Msg("*     Texture memory: %d M", memory / (1024 * 1024));
-        Reset(hwnd);
+        Reset(window);
         fill_vid_mode_list(this);
     }
     
@@ -681,7 +684,7 @@ void CHW::DestroyDevice()
 //////////////////////////////////////////////////////////////////////
 // Resetting device
 //////////////////////////////////////////////////////////////////////
-void CHW::Reset(HWND hwnd)
+void CHW::Reset(SDL_Window* window)
 {
 #if defined(USE_DX11)
     DXGI_SWAP_CHAIN_DESC1&           cd    = m_ChainDesc;
@@ -795,8 +798,8 @@ void CHW::Reset(HWND hwnd)
 	//#ifdef DEBUG
     //	R_CHK				(pDevice->CreateStateBlock			(D3DSBT_ALL,&dwDebugSB));
 	//#endif
-
-    updateWindowProps(hwnd);
+    // TODO: update sdl surface?
+    //updateWindowProps(hwnd);
 
 
     /*
@@ -982,7 +985,8 @@ void CHW::OnAppActivate()
 	if (m_pSwapChain && !is_windowed)
 	{
 #if defined(USE_DX11)
-        ShowWindow(m_hWnd, SW_RESTORE);
+        SDL_RestoreWindow(m_window);
+        //ShowWindow(m_hWnd, SW_RESTORE);
 #elif defined(USE_DX10)
         ShowWindow(m_ChainDesc.OutputWindow, SW_RESTORE);
 #endif
@@ -1061,7 +1065,8 @@ void CHW::OnAppDeactivate()
 #endif
 
 #if defined(USE_DX11)
-        ShowWindow(m_hWnd, SW_MINIMIZE);
+        SDL_MinimizeWindow(m_window);
+        //ShowWindow(m_hWnd, SW_MINIMIZE);
 #elif defined(USE_DX10)
         ShowWindow(m_ChainDesc.OutputWindow, SW_MINIMIZE);
 #endif

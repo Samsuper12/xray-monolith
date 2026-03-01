@@ -76,7 +76,7 @@ void CRenderDevice::Reset(bool precache)
 	ShowCursor(TRUE);
 	u32 tm_start = TimerAsync();
 
-	m_pRender->Reset(m_hWnd, dwWidth, dwHeight, fWidth_2, fHeight_2);
+	m_pRender->Reset(m_window, dwWidth, dwHeight, fWidth_2, fHeight_2);
 
 	if (g_pGamePersistent)
 		g_pGamePersistent->Environment().bNeed_re_create_env = TRUE;

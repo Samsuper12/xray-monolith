@@ -36,10 +36,10 @@ function(add_engine_target NAME)
 endfunction()
 
 # Setup executable targets
-add_engine_target(
-  Anomaly.DX8
-  XRay.Render.R1
-)
+# add_engine_target(
+#   Anomaly.DX8
+#   XRay.Render.R1
+# )
 
 #add_engine_target(
 #  Anomaly.DX9
@@ -49,10 +49,15 @@ add_engine_target(
 #  Anomaly.DX10
 #  XRay.Render.R3
 #)
-#add_engine_target(
-#  Anomaly.DX11
-#  XRay.Render.R4
-#)
+add_engine_target(
+ Anomaly.DX11
+ XRay.Render.R4
+)
+
+# add_engine_target(
+#  Anomaly.VK
+#  XRay.Render.RV
+# )
 
 # Set visual studio startup project
 set_property(

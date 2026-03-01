@@ -21,6 +21,8 @@
 #include "stats_manager.h"
 #endif
 
+
+#include <SDL3/SDL_video.h>
 class CHW
 #if defined(USE_DX10) || defined(USE_DX11)
 	:	public pureAppActivate,
@@ -35,11 +37,11 @@ public:
 
 	void CreateD3D();
 	void DestroyD3D();
-	void CreateDevice(HWND hw, bool move_window);
+	void CreateDevice(SDL_Window* window, bool move_window);
 
 	void DestroyDevice();
 
-	void Reset(HWND hw);
+	void Reset(SDL_Window* window);
 
 	void selectResolution(u32& dwWidth, u32& dwHeight, BOOL bWindowed);
 	D3DFORMAT selectDepthStencil(D3DFORMAT);
@@ -78,7 +80,7 @@ public:
 	D3D_DRIVER_TYPE					m_DriverType;	//	DevT equivalent
 	DXGI_SWAP_CHAIN_DESC1			m_ChainDesc;	//	DevPP equivalent
     DXGI_SWAP_CHAIN_FULLSCREEN_DESC m_ChainDescFullscreen;
-    HWND                            m_hWnd;
+    SDL_Window*                            m_window;
 	bool							m_bUsePerfhud;
 	D3D_FEATURE_LEVEL				FeatureLevel;
 	bool 							m_SupportsVRR; // whether we can use DXGI_PRESENT_ALLOW_TEARING etc.
