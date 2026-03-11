@@ -25,6 +25,7 @@
 #include <luabind/luabind.hpp>
 #include <utility>
 #include <luabind/detail/find_best_match.hpp>
+#include <cstring>
 
 using namespace luabind::detail;
 

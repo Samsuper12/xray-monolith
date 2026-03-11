@@ -23,7 +23,7 @@
 #pragma once
 
 #include <luabind/config.hpp>
-
+#include <cstring>
 namespace luabind { namespace detail
 {
 	template<class T>
