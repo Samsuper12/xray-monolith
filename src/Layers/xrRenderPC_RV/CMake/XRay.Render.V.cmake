@@ -26,8 +26,8 @@ add_module(XRay.Render.RV
   imgui
   luabind
   LuaJIT
-  NVAPI
-  ReShadeCompat
+  #NVAPI
+  #ReShadeCompat
   robin_hood
   tbb
   
@@ -67,9 +67,9 @@ add_module(XRay.Render.RV
   #[["R_Backend_Runtime.h"]]
   #[["resourcemanager.h"]]
   #[["vis_common.h"]]
-  #[["render.h"]]
+  #[["Render.h"]]
   #[["_d3d_extensions.h"]]
-  #[["igame_level.h"]]
+  #[["IGame_Level.h"]]
   #[["blenders/blender.h"]]
   #[["blenders/blender_clsid.h"]]
   #[["xrRender_console.h"]]
@@ -87,14 +87,14 @@ add_module(XRay.Render.RV
   xrRender_RV.cpp
 )
 
-find_package(glm CONFIG REQUIRED)
-find_package(volk CONFIG REQUIRED)
+#find_package(glm CONFIG REQUIRED)
+#find_package(volk CONFIG REQUIRED)
 #find_package(glslang CONFIG REQUIRED)
 
 target_link_libraries(XRay.Render.RV.Includes INTERFACE
-  glm::glm-header-only
-  volk::volk
-  volk::volk_headers
+  #glm::glm-header-only
+  #volk::volk
+  #volk::volk_headers
   # glslang::glslang
   # glslang::glslang-default-resource-limits
   # glslang::SPIRV

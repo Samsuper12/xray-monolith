@@ -6,7 +6,7 @@
 #include <xrRender_console.h>
 
 #include <PSLibrary.h>
-#include <light_db.h>
+#include <Light_DB.h>
 #include <LightTrack.h>
 #include <r_sun_cascades.h>
 #include "IRenderDetailModel.h"

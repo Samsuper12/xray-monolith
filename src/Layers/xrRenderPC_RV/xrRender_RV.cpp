@@ -19,7 +19,7 @@ BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		// //::vid_mode_token			= inited by HW;
 		// UIRender = &UIRenderImpl;
 		// DRender	= &DebugRenderImpl;
-		xrRender_initconsole();
+		//xrRender_initconsole();
 		break ;
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
