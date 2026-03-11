@@ -11,7 +11,7 @@ enum pDomainEnum : u32;
 
 namespace PAPI
 {
-#pragma pack (push,4)
+// #pragma pack (push,4)
 	struct PARTICLES_API pDomain
 	{
 		PDomainEnum type; // PABoxDomain, PASphereDomain, PAConeDomain...
@@ -39,7 +39,7 @@ namespace PAPI
 		        float a3 = 0.0f, float a4 = 0.0f, float a5 = 0.0f,
 		        float a6 = 0.0f, float a7 = 0.0f, float a8 = 0.0f);
 	};
-#pragma pack (pop)
+// #pragma pack (pop)
 	// misc    
 	float NRand(float sigma = 1.0f);
 };
