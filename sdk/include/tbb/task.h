@@ -363,7 +363,7 @@ private:
     };
 
 public:
-    enum kind_type {
+    enum kind_type : int{
         isolated,
         bound
     };
