@@ -56,15 +56,17 @@ file(
 )
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
-CPMAddPackage("gh:libsdl-org/SDL#release-3.4.2")
-CPMAddPackage("gh:fmtlib/fmt#12.1.0")
-CPMAddPackage("gh:GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator#v3.3.0")
-CPMAddPackage("gh:KhronosGroup/Vulkan-Headers@1.4.344")
+#CPMAddPackage("gh:libsdl-org/SDL#release-3.4.2")
+# CPMAddPackage("gh:fmtlib/fmt#12.1.0")
+# CPMAddPackage("gh:GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator#v3.3.0")
+#CPMAddPackage("gh:KhronosGroup/Vulkan-Headers@1.4.344")
 CPMAddPackage("gh:g-truc/glm#1.0.3")
-CPMAddPackage("gh:ocornut/imgui#v1.92.6")
-CPMAddPackage("gh:spnda/fastgltf#v0.9.0")
-CPMAddPackage("gh:nothings/stb#f1c79c0")
-CPMAddPackage("gh:zeux/volk#vulkan-sdk-1.4.341.0")
+# CPMAddPackage("gh:ocornut/imgui#v1.92.6")
+# CPMAddPackage("gh:spnda/fastgltf#v0.9.0")
+# CPMAddPackage("gh:nothings/stb#f1c79c0")
+#CPMAddPackage("gh:zeux/volk#vulkan-sdk-1.4.341.0")
+CPMAddPackage("gh:intel/safestringlib#e399109")
+
 
 
 message(STATUS)
