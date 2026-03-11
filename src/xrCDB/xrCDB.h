@@ -21,7 +21,7 @@ namespace Opcode
 	class AABBNoLeafNode;
 };
 
-#pragma pack(push,8)
+// #pragma pack(push,8)
 namespace CDB
 {
 	// Triangle
@@ -247,5 +247,5 @@ namespace CDB
 #pragma warning(pop)
 };
 
-#pragma pack(pop)
+// #pragma pack(pop)
 #endif

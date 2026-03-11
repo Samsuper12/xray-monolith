@@ -9,16 +9,15 @@
 
 //#pragma once
 
-#include "../xrcore/fixedvector.h"
-
-#pragma pack(push,4)
+#include "../xrCore/FixedVector.h"
+// #pragma pack(push,4)
 
 enum EFC_Visible
 {
 	fcvNone = 0,
 	fcvPartial,
 	fcvFully,
-	fcv_forcedword = u32(-1)
+	fcv_forcedword = uint32_t(-1)
 };
 
 
@@ -35,14 +34,14 @@ enum EFC_Visible
 
 #define FRUSTUM_SAFE		(FRUSTUM_MAXPLANES*4)
 typedef svector<Fvector,FRUSTUM_SAFE> sPoly;
-extern u32 frustum_aabb_remap[8][6];
+extern uint32_t frustum_aabb_remap[8][6];
 
 class XRCDB_API CFrustum
 {
 public:
 	struct fplane : public Fplane
 	{
-		u32 aabb_overlap_id; // [0..7]
+		uint32_t aabb_overlap_id; // [0..7]
 		void cache();
 	};
 
@@ -74,7 +73,7 @@ public:
 	void SimplifyPoly_AABB(sPoly* P, Fplane& plane);
 
 	void CreateOccluder(Fvector* p, int count, Fvector& vBase, CFrustum& clip);
-	BOOL CreateFromClipPoly(Fvector* p, int count, Fvector& vBase, CFrustum& clip);
+	bool CreateFromClipPoly(Fvector* p, int count, Fvector& vBase, CFrustum& clip);
 	// returns 'false' if creation failed
 	void CreateFromPoints(Fvector* p, int count, Fvector& vBase);
 	void CreateFromMatrix(Fmatrix& M, u32 mask);
@@ -103,6 +102,6 @@ public:
 		return testPolyInside(src);
 	}
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif // !defined(AFX_FRUSTUM_H__E66ED755_F741_49CF_8B2A_404CCF7067F2__INCLUDED_)

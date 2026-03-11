@@ -77,7 +77,7 @@ namespace CDB
 #include <malloc.h>
 #pragma warning(pop)
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 	struct edge
 	{
 		u32 face_id : 30;
@@ -85,7 +85,7 @@ namespace CDB
 		u16 vertex_id0;
 		u16 vertex_id1;
 	};
-#pragma pack(pop)
+// #pragma pack(pop)
 
 	struct sort_predicate
 	{

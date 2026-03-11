@@ -3,7 +3,7 @@
 #include <xrLevel.h>
 #include <xr_collide_form.h>
 
-//#include "igame_level.h"
+//#include "IGame_Level.h"
 
 #include "xr_area.h"
 //#include "../xrsound/sound.h"

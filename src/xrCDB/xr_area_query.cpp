@@ -1,5 +1,5 @@
 #include "xr_area.h"
-#include "frustum.h"
+#include "Frustum.h"
 
 #include "../xrCore/_vector3d_ext.h"
 

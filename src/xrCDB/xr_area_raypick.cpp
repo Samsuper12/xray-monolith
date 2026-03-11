@@ -1,13 +1,13 @@
 #include <cl_intersect.h>
-#include <opcode.h>
+#include <Opcode.h>
 #include <xr_collide_form.h>
 #include <xr_object.h>
 #include <xr_resource.h>
 
 #include "xr_area.h"
-#include "ispatial.h"
-#include "d3d9types.h"
-//#include "igame_level.h"
+#include "ISpatial.h"
+//#include "d3d9types.h"
+//#include "IGame_Level.h"
 //#include "x_ray.h"
 //#include "GameFont.h"
 

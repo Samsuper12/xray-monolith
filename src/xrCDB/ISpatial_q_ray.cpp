@@ -1,7 +1,7 @@
 #include "ISpatial.h"
 #pragma warning(push)
 #pragma warning(disable:4995)
-#include <xmmintrin.h>
+// #include <xmmintrin.h>
 #pragma warning(pop)
 
 // can you say "barebone"?

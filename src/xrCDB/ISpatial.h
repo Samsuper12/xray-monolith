@@ -7,7 +7,8 @@
 
 #include "xr_collide_defs.h"
 
-#pragma pack(push,4)
+
+// #pragma pack(push,4)
 
 /*
 Requirements:
@@ -90,7 +91,7 @@ private:
 public:
 	struct _spatial
 	{
-		u32 type;
+		uint32_t type;
 		Fsphere sphere;
 		Fvector node_center; // Cached node center for TBV optimization
 		float node_radius; // Cached node bounds for TBV optimization
@@ -112,7 +113,7 @@ public:
 	BENCH_SEC_SCRAMBLEVTBL2
 	virtual void spatial_move();
 	virtual Fvector spatial_sector_point() { return spatial.sphere.P; }
-	ICF void spatial_updatesector()
+	inline void spatial_updatesector()
 	{
 		if (0 == (spatial.type & STYPEFLAG_INVALIDSECTOR)) return;
 		spatial_updatesector_internal();
@@ -135,7 +136,7 @@ public:
 class ISpatial_NODE
 {
 public:
-	typedef __w64 unsigned ptrt;
+	typedef uint64_t ptrt;
 public:
 	ISpatial_NODE* parent; // parent node for "empty-members" optimization
 	ISpatial_NODE* children [8]; // children nodes
@@ -180,15 +181,15 @@ public:
 	Fvector m_center;
 	float m_bounds;
 	xr_vector<ISpatial*>* q_result;
-	u32 stat_nodes;
-	u32 stat_objects;
+	uint32_t stat_nodes;
+	uint32_t stat_objects;
 	CStatTimer stat_insert;
 	CStatTimer stat_remove;
 private:
-	IC u32 _octant(u32 x, u32 y, u32 z) { return z * 4 + y * 2 + x; }
-	IC u32 _octant(Fvector& base, Fvector& rel)
+	IC uint32_t _octant(uint32_t x, uint32_t y, uint32_t z) { return z * 4 + y * 2 + x; }
+	IC uint32_t _octant(Fvector& base, Fvector& rel)
 	{
-		u32 o = 0;
+		uint32_t o = 0;
 		if (rel.x > base.x) o += 1;
 		if (rel.y > base.y) o += 2;
 		if (rel.z > base.z) o += 4;
@@ -209,7 +210,7 @@ public:
 	//void							destroy			();
 	void insert(ISpatial* S);
 	void remove(ISpatial* S);
-	void update(u32 nodes = 8);
+	void update(uint32_t nodes = 8);
 	BOOL verify();
 
 public:
@@ -218,20 +219,20 @@ public:
 		O_ONLYFIRST = (1 << 0),
 		O_ONLYNEAREST = (1 << 1),
 		O_ORDERED = (1 << 2),
-		O_force_u32 = u32(-1)
+		O_force_uint32_t = uint32_t(-1)
 	};
 
 	// query
-	void q_ray(xr_vector<ISpatial*>& R, u32 _o, u32 _mask_and, const Fvector& _start, const Fvector& _dir,
+	void q_ray(xr_vector<ISpatial*>& R, uint32_t _o, uint32_t _mask_and, const Fvector& _start, const Fvector& _dir,
 	           float _range);
-	void q_box(xr_vector<ISpatial*>& R, u32 _o, u32 _mask_or, const Fvector& _center, const Fvector& _size);
-	void q_sphere(xr_vector<ISpatial*>& R, u32 _o, u32 _mask_or, const Fvector& _center, const float _radius);
-	void q_frustum(xr_vector<ISpatial*>& R, u32 _o, u32 _mask_or, const CFrustum& _frustum);
+	void q_box(xr_vector<ISpatial*>& R, uint32_t _o, uint32_t _mask_or, const Fvector& _center, const Fvector& _size);
+	void q_sphere(xr_vector<ISpatial*>& R, uint32_t _o, uint32_t _mask_or, const Fvector& _center, const float _radius);
+	void q_frustum(xr_vector<ISpatial*>& R, uint32_t _o, uint32_t _mask_or, const CFrustum& _frustum);
 };
 
 XRCDB_API extern ISpatial_DB* g_SpatialSpace;
 XRCDB_API extern ISpatial_DB* g_SpatialSpacePhysic;
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif // #ifndef XRENGINE_ISPATIAL_H_INCLUDED

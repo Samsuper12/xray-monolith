@@ -1,7 +1,7 @@
 // xrCDB.cpp : Defines the entry point for the DLL application.
 //
 
-#include <opcode.h>
+#include <Opcode.h>
 
 #include "xrCDB.h"
 #include "profiler.h"
@@ -109,7 +109,7 @@ void MODEL::build(Fvector* V, int Vcnt, TRI* T, int Tcnt, build_callback* bc, vo
 		{
 			if (status != S_INIT)
 				break;
-			Sleep(5);
+			sleep(5);
 		}
 	}
 #endif
