@@ -25,6 +25,7 @@
 
 #include "objects.h"
 #include "float.h"
+#include <cmath>
 
 void dInternalHandleAutoDisabling (dxWorld *world, dReal stepsize);
 extern "C"
@@ -39,10 +40,17 @@ void dxProcessIslands (dxWorld *world, dReal stepsize, dstepper_fn_t stepper);
 
 inline bool		dValid	(const float x)
 {
+	switch (std::fpclassify(x))
+    {
+        case FP_INFINITE:
+        case FP_NAN:
+        case FP_SUBNORMAL:
+            return false;
+    }
 	// check for: Signaling NaN, Quiet NaN, Negative infinity ( –INF), Positive infinity (+INF), Negative denormalized, Positive denormalized
-	int			cls			= _fpclass		(double(x));
-	if (cls&(_FPCLASS_SNAN+_FPCLASS_QNAN+_FPCLASS_NINF+_FPCLASS_PINF+_FPCLASS_ND+_FPCLASS_PD))	
-		return	false;	
+	// int			cls			= _fpclass		(double(x));
+	// if (cls&(_FPCLASS_SNAN+_FPCLASS_QNAN+_FPCLASS_NINF+_FPCLASS_PINF+_FPCLASS_ND+_FPCLASS_PD))	
+	// 	return	false;	
 
 	/*	*****other cases are*****
 	_FPCLASS_NN Negative normalized non-zero 
