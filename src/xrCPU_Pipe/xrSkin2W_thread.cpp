@@ -46,7 +46,7 @@ void __stdcall xrSkin4W_thread(vertRender* D,
 		return;
 	}
 
-	SKIN_PARAMS* sknParams = (SKIN_PARAMS*)_alloca(sizeof(SKIN_PARAMS) * nWorkers);
+	SKIN_PARAMS* sknParams = (SKIN_PARAMS*)alloca(sizeof(SKIN_PARAMS) * nWorkers);
 
 	// Give ~1% more for the last worker
 	// to minimize wait in final spin

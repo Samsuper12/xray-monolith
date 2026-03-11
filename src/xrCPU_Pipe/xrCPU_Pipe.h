@@ -30,7 +30,7 @@ typedef void __stdcall xrSkin4W(vertRender* D, vertBoned4W* S, u32 vCount, CBone
 typedef void __stdcall xrPLC_calc3(int& c0, int& c1, int& c2, CRenderDevice& Device, Fvector* P, Fvector& N, light* L,
                                    float energy, Fvector& O);
 
-#pragma pack(push,8)
+// #pragma pack(push,8)
 struct xrDispatchTable
 {
 	xrSkin1W* skin1W;
@@ -39,7 +39,7 @@ struct xrDispatchTable
 	xrSkin4W* skin4W;
 	xrPLC_calc3* PLC_calc3;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 // Binder
 // NOTE: Engine calls function named "_xrBindPSGP"

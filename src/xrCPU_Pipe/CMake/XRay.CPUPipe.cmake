@@ -4,7 +4,7 @@ add_module(XRay.CPUPipe
   INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}
 
   LINKS
-  dxsdk
+  #dxsdk
   fastdelegate
   FastDynamicCast
   loki
@@ -26,7 +26,8 @@ add_module(XRay.CPUPipe
   DEFINES
   $<$<PLATFORM_ID:Windows>:_WIN32_WINNT=0x0501>
   WIN32_LEAN_AND_MEAN
-  RENDER=1
+  RENDER=5
+  USE_DX11
 
   PRECOMPILES
   #[["windows.h"]]
