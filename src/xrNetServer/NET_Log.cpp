@@ -1,4 +1,4 @@
-#include "net_log.h"
+#include "NET_Log.h"
 //---------------------------------------------------------
 string64 PacketName[] = {
 	"M_UPDATE", // DUAL: Update state

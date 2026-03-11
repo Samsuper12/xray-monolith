@@ -2,13 +2,13 @@
 
 #define XRNETSERVER_API
 
-#include <dplay/dplay8.h>
+#include <DPlay/dplay8.h>
 
 #include <FTimer.h>
 #include <net_utils.h>
 
-#include "net_messages.h"
-#include "net_compressor.h"
+#include "NET_Messages.h"
+#include "NET_Compressor.h"
 
 class CTimer;
 

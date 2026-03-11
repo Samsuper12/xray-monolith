@@ -39,15 +39,15 @@ void PrintParsedPacket(const char* message, u16 message_type, const void* packet
 #endif*/
 //==============================================================================
 
-#pragma pack( push )
-#pragma pack( 1 )
+// #pragma pack( push )
+// #pragma pack( 1 )
 struct
 	MultipacketHeader
 {
 	u8 tag;
 	u16 unpacked_size;
 };
-#pragma pack( pop )
+// #pragma pack( pop )
 
 
 //==============================================================================

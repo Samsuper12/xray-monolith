@@ -1,5 +1,5 @@
 #pragma once
-#pragma pack(push,1)
+// #pragma pack(push,1)
 
 #define	DPNSEND_IMMEDIATELLY				0x0100
 
@@ -29,4 +29,4 @@ struct MSYS_PING
 };
 
 
-#pragma pack(pop)
+// #pragma pack(pop)

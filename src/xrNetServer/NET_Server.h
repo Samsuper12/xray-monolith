@@ -1,6 +1,6 @@
 #pragma once
 
-#include "net_shared.h"
+#include "NET_Shared.h"
 #include "ip_filter.h"
 #include "NET_Common.h"
 #include "NET_PlayersMonitor.h"
@@ -166,8 +166,8 @@ public:
 
 protected:
 	shared_str connect_options;
-	IDirectPlay8Server* NET;
-	IDirectPlay8Address* net_Address_device;
+	// IDirectPlay8Server* NET;
+	// IDirectPlay8Address* net_Address_device;
 
 	NET_Compressor net_Compressor;
 
