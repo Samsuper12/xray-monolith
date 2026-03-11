@@ -4,6 +4,8 @@
 #include <random>
 #include "build_config_defines.h"
 
+#include <cstdlib>
+
 /******************** BIT ********************/
 int ROL(int a, int n)
 {
@@ -27,7 +29,8 @@ int bit_tobit(lua_State *L)
     LUA_INTEGER n = luaL_checkinteger(L, 1);
     BYTE len = sizeof(n) * 8;
     char *s = new char[len + 1];
-    _itoa(n, s, 2);
+    sprintf(s, "%d", n);
+    //_itoa(n, s, 2);
     lua_pushfstring(L, s);
     return 1;
 }
@@ -37,7 +40,8 @@ int bit_tohex(lua_State *L)
     LUA_INTEGER n = luaL_checkinteger(L, 1);
     BYTE len = sizeof(n) * 2;
     char *s = new char[len + 1];
-    _itoa(n, s, 16);
+    sprintf(s, "%d", n);
+    //_itoa(n, s, 16);
     lua_pushfstring(L, s);
     return 1;
 }
@@ -198,11 +202,11 @@ int open_string(lua_State *L)
 /******************** MATH ********************/
 std::random_device ndrng;
 std::mt19937 intgen;
-std::uniform_real<float> float_random_01;
+std::uniform_real_distribution<float> float_random_01;
 
 int gen_random_in_range(int a1, int a2)
 {	//unsigned?
-    std::uniform_int<> dist(a1, a2);
+    std::uniform_int_distribution<> dist(a1, a2);
     return dist(intgen);
 }
 
