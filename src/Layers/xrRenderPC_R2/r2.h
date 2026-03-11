@@ -17,13 +17,13 @@
 #include "../xrRender/wallmarksengine.h"
 
 #include "smap_allocator.h"
-#include "../xrRender/light_db.h"
+#include "../xrRender/Light_DB.h"
 #include "light_render_direct.h"
 #include "../xrRender/LightTrack.h"
 #include "../xrRender/r_sun_cascades.h"
 
-#include "../../xrEngine/irenderable.h"
-#include "../../xrEngine/fmesh.h"
+#include "../../xrEngine/IRenderable.h"
+#include "../../xrEngine/Fmesh.h"
 
 
 class CStreamReader;

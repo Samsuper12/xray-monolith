@@ -8,7 +8,7 @@
 #include <FS.h>
 
 #ifndef _EDITOR
-#include <render.h>
+#include <Render.h>
 #else
 #include <xrAPI.h>
 #endif

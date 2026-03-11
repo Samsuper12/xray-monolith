@@ -1,7 +1,7 @@
 #ifndef TSS_DEF_H
 #define TSS_DEF_H
 
-#include <d3d9.h>
+//#include <d3d9.h>
 #include <_types.h>
 #include <_stl_extensions.h>
 

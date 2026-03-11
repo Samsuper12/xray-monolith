@@ -69,7 +69,7 @@ bool det_render_debug = false;
 #endif
 #endif
 
-#include "../../xrEngine/gamemtllib.h"
+#include "../../xrEngine/GameMtlLib.h"
 
 static inline u32 hash2(u32 x, u32 y)
 {

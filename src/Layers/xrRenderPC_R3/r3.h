@@ -10,11 +10,11 @@
 #include <detailmanager.h>
 #include <modelpool.h>
 #include <wallmarksengine.h>
-#include <light_db.h>
+#include <Light_DB.h>
 #include <LightTrack.h>
 #include <r_sun_cascades.h>
-#include <irenderable.h>
-#include <fmesh.h>
+#include <IRenderable.h>
+#include <Fmesh.h>
 #include <xrRender_console.h>
 
 #include "smap_allocator.h"

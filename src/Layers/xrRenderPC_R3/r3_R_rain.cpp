@@ -1,5 +1,5 @@
-#include <igame_persistent.h>
-#include <irenderable.h>
+#include <IGame_Persistent.h>
+#include <IRenderable.h>
 #include <FBasicVisual.h>
 #include <Debug/dxPixEventWrapper.h>
 

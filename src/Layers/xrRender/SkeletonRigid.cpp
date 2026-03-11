@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
 #include "SkeletonCustom.h"
-#include "Device.h"
+#include "device.h"
 
 #include "../../xrCore/profiler.h"
 

@@ -4,7 +4,7 @@
 
 
 #include <d3dx9.h>
-#include <fmesh.h>
+#include <Fmesh.h>
 #include <xrCPU_Pipe.h>
 #include <dx10BufferUtils.h>
 #include <EnnumerateVertices.h>
@@ -18,7 +18,7 @@
 //////////////////////////////////////////////////////////////////////
 static shared_str sbones_array;
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 float u_P(s16 v)
 {
 	return float(v) / (32767.f / 12.f);
@@ -375,7 +375,7 @@ struct vertHW_4W
 	}
 };
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 //////////////////////////////////////////////////////////////////////
 // Body Part

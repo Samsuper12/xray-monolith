@@ -2,10 +2,10 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 #include <CustomHUD.h>
-#include <fbasicvisual.h>
+#include <FBasicVisual.h>
 
 #include "R_Backend_Runtime.h"
 #include "LightPPA.h"

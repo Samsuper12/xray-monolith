@@ -1,11 +1,11 @@
 #include "flod.h"
 
 #ifdef _EDITOR
-#include "igame_persistent.h"
-#include "environment.h"
+#include "IGame_Persistent.h"
+#include "Environment.h"
 #else
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 #endif
 
 #include "r__dsgraph_structure.h"

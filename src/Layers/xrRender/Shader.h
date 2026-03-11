@@ -12,18 +12,18 @@
 
 #include "r_constants.h"
 
-#include "sh_atomic.h"
-#include "sh_texture.h"
-#include "sh_matrix.h"
-#include "sh_constant.h"
-#include "sh_rt.h"
+#include "SH_Atomic.h"
+#include "SH_Texture.h"
+#include "SH_Matrix.h"
+#include "SH_Constant.h"
+#include "SH_RT.h"
 
 typedef xr_vector<shared_str> sh_list;
 class CBlender_Compile;
 class IBlender;
 #define	SHADER_PASSES_MAX		2
 
-#pragma pack(push,8)
+// #pragma pack(push,8)
 
 //////////////////////////////////////////////////////////////////////////
 struct ECORE_API STextureList : public xr_resource_flagged, public xr_vector<std::pair<u32, ref_texture>>
@@ -190,6 +190,6 @@ enum SE_R1
 //	E[4] - distortion or self illumination(self emission). 
 //	E[4] Can use for lightmap capturing.
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif // !defined(AFX_SHADER_H__9CBD70DD_E147_446B_B4EE_5DA321EB726F__INCLUDED_)

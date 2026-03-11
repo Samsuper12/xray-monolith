@@ -1,12 +1,12 @@
 ﻿
 #include <defines.h>
-#include <fmesh.h>
-#include <irenderable.h>
+#include <Fmesh.h>
+#include <IRenderable.h>
 
-#include "fhierrarhyvisual.h"
+#include "FHierrarhyVisual.h"
 #include "SkeletonCustom.h"
 
-#include "Device.h"
+#include "device.h"
 #include "flod.h"
 #include "particlegroup.h"
 #include "FTreeVisual.h"

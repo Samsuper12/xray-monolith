@@ -94,7 +94,7 @@ void CHW::Reset(HWND hwnd)
 		HRESULT _hr = HW.pDevice->Reset(&DevPP);
 		if (SUCCEEDED(_hr)) break;
 		Msg("! ERROR: [%dx%d]: %s", DevPP.BackBufferWidth, DevPP.BackBufferHeight, Debug.error2string(_hr));
-		Sleep(100);
+		sleep(100);
 	}
 	R_CHK(pDevice->GetRenderTarget (0,&pBaseRT));
 	R_CHK(pDevice->GetDepthStencilSurface (&pBaseZB));

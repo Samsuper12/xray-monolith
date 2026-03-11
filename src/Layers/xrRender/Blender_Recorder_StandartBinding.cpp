@@ -1,8 +1,8 @@
 ﻿
 #include <d3dx9.h>
 
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 
 #include "ResourceManager.h"
 #include "blenders\Blender_Recorder.h"

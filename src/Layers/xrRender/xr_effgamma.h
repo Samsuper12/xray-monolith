@@ -1,7 +1,7 @@
 #ifndef __XR_GAMMA_H__
 #define __XR_GAMMA_H__
 
-#include <d3d9types.h>
+//#include <d3d9types.h>
 
 #include <_color.h>
 

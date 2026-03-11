@@ -3,11 +3,11 @@
 #include "detailmanager.h"
 
 #ifdef _EDITOR
-#	include "igame_persistent.h"
-#	include "environment.h"
+#	include "IGame_Persistent.h"
+#	include "Environment.h"
 #else
-#	include <igame_persistent.h>
-#	include <environment.h>
+#	include <IGame_Persistent.h>
+#	include <Environment.h>
 #endif
 
 #include <dx10BufferUtils.h>
@@ -26,13 +26,13 @@ static D3DVERTEXELEMENT9 dwDecl[] =
 	D3DDECL_END()
 };
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 struct vertHW
 {
 	float x, y, z;
 	short u, v, t, mid;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 short QC(float v)
 {

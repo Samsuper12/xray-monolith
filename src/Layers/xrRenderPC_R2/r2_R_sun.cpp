@@ -1,6 +1,6 @@
 #include <xrRender_console.h>
-#include <igame_persistent.h>
-#include <irenderable.h>
+#include <IGame_Persistent.h>
+#include <IRenderable.h>
 #include <FBasicVisual.h>
 
 #include "r2.h"

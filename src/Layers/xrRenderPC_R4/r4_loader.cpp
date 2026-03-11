@@ -1,7 +1,7 @@
 #include <defines.h>
 #include <ResourceManager.h>
-#include <fbasicvisual.h>
-#include <fmesh.h>
+#include <FBasicVisual.h>
+#include <Fmesh.h>
 #include <xrLevel.h>
 #include <x_ray.h>
 #include <IGame_Persistent.h>
@@ -208,7 +208,7 @@ void CRender::LoadBuffers(CStreamReader* base_fs, BOOL _alternative)
 		_DC.resize(count);
 		_VB.resize(count);
 		u32 bufferSize = (MAXD3DDECLLENGTH + 1) * sizeof(D3DVERTEXELEMENT9);
-		D3DVERTEXELEMENT9* dcl = (D3DVERTEXELEMENT9*)_alloca(bufferSize);
+		D3DVERTEXELEMENT9* dcl = (D3DVERTEXELEMENT9*)alloca(bufferSize);
 		for (u32 i = 0; i < count; i++)
 		{
 			// decl

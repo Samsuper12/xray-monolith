@@ -6,11 +6,11 @@
 #include <FS.h>
 
 #ifndef _EDITOR
-#	include <render.h>
+#	include <Render.h>
 #endif // #ifndef _EDITOR
 
-#include <fmesh.h>
-#include "fbasicvisual.h"
+#include <Fmesh.h>
+#include "FBasicVisual.h"
 #include "dxRenderDeviceRender.h"
 
 //////////////////////////////////////////////////////////////////////

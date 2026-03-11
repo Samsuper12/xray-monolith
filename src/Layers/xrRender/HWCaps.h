@@ -2,7 +2,7 @@
 #define _HW_CAPS_
 #pragma once
 
-#include <d3d9types.h>
+//#include <d3d9types.h>
 
 #include <_types.h>
 

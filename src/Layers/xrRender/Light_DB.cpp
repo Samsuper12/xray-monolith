@@ -1,12 +1,12 @@
-#include <Device.h>
+#include <device.h>
 #include <LocatorAPI.h>
 
 #include "_d3d_extensions.h"
 #include "xrLevel.h"
-#include "igame_persistent.h"
-#include "environment.h"
+#include "IGame_Persistent.h"
+#include "Environment.h"
 #include "R_light.h"
-#include "light_db.h"
+#include "Light_DB.h"
 #include "xrRender_console.h"
 
 CLight_DB::CLight_DB()

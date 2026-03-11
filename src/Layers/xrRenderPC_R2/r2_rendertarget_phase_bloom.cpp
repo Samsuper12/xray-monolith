@@ -1,9 +1,9 @@
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 #include <xrRender_console.h>
 #include "r2.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 struct v_build
 {
 	Fvector4 p;
@@ -25,7 +25,7 @@ struct v_filter
 	Fvector4 uv6;
 	Fvector4 uv7;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 // Gauss filtering coeffs
 // Samples:			0-central, -1, -2,..., -7, 1, 2,... 7

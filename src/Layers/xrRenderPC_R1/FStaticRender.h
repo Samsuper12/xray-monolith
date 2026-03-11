@@ -16,7 +16,7 @@
 #include "lightProjector.h"
 #include "lightPPA.h"
 #include "../xrRender/light_DB.h"
-#include "../../xrEngine/fmesh.h"
+#include "../../xrEngine/Fmesh.h"
 
 class CStreamReader;
 class dxRender_Visual;

@@ -228,7 +228,7 @@ BOOL CRenderTarget::Perform()
 		Device.dwFrame - 1)));
 }
 
-#include <dinput.h>
+//#include <dinput.h>
 #define SHOW(a)		Log			(#a,a);
 #define SHOWX(a)	Msg			("%s %x",#a,a);
 

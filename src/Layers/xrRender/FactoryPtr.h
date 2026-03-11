@@ -3,7 +3,7 @@
 #pragma once
 
 #include "RenderFactory.h"
-#include "xrAPI.h"
+#include "../xrAPI/xrAPI.h"
 #include "dxRenderFactory.h"
 
 #define FACTORY_PTR_INSTANCIATE(Class) \

@@ -5,11 +5,11 @@
 #include <xrRender_console.h>
 
 #include <resourcemanager.h>
-#include <fbasicvisual.h>
+#include <FBasicVisual.h>
 #include <xr_object.h>
 #include <CustomHUD.h>
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 #include <SkeletonCustom.h>
 #include <LightTrack.h>
 #include <dxRenderDeviceRender.h>

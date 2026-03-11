@@ -1,7 +1,7 @@
 #include <xrRender_console.h>
 #include "r2.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 struct v_build
 {
 	Fvector4 p;
@@ -16,7 +16,7 @@ struct v_filter
 	Fvector4 p;
 	Fvector4 uv[8];
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 void CRenderTarget::phase_luminance()
 {

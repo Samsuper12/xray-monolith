@@ -5,7 +5,7 @@
 #include "R_Backend_Runtime.h"
 
 #ifndef _EDITOR
-#include <xmmintrin.h>
+// #include <xmmintrin.h>
 #endif
 
 using namespace PAPI;

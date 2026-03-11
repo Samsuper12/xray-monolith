@@ -1,5 +1,5 @@
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 #include <R_Backend_Runtime.h>
 #include <StateManager/dx10StateManager.h>
 #include <Debug/dxPixEventWrapper.h>

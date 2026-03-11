@@ -7,7 +7,7 @@
 #include <d3dx9.h>
 
 #include <IGame_Persistent.h>
-#include <Device.h>
+#include <device.h>
 
 #include "HW.h"
 #include "Render.h"

@@ -116,7 +116,7 @@ R_occlusion::occq_result R_occlusion::occq_get(u32& ID)
 	while ((hr = GetData(used[ID].Q, &fragments, sizeof(fragments))) == S_FALSE)
 	{
 		if (!SwitchToThread())
-			Sleep(ps_r2_wait_sleep);
+			sleep(ps_r2_wait_sleep);
 
 		if (T.GetElapsed_ms() > 500)
 		{

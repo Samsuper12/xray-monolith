@@ -6,9 +6,9 @@
 #include "RenderVisual.h"
 #include "xr_object.h"
 
-#include "igame_persistent.h"
-#include "igame_level.h"
-#include "environment.h"
+#include "IGame_Persistent.h"
+#include "IGame_Level.h"
+#include "Environment.h"
 #include "xrRender_console.h"
 
 //////////////////////////////////////////////////////////////////////

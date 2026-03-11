@@ -1,7 +1,7 @@
 #include <d3dx9.h>
 
 #include <string_concatenations.h>
-#include <render.h>
+#include <Render.h>
 #include <xrCore.h>
 #include <LocatorAPI.h>
 #include <HW.h>
@@ -178,7 +178,7 @@ SVS* CResourceManager::_CreateVS(LPCSTR _name)
 		IReader* file = FS.r_open(cname);
 		R_ASSERT2(file, cname);
 		u32 const size = file->length();
-		char* const data = (LPSTR)_alloca(size + 1);
+		char* const data = (LPSTR)alloca(size + 1);
 		CopyMemory(data, file->pointer(), size);
 		data[size] = 0;
 		FS.r_close(file);
@@ -254,7 +254,7 @@ SPS* CResourceManager::_CreatePS(LPCSTR name)
 		IReader* file = FS.r_open(cname);
 		R_ASSERT2(file, cname);
 		u32 const size = file->length();
-		char* const data = (LPSTR)_alloca(size + 1);
+		char* const data = (LPSTR)alloca(size + 1);
 		CopyMemory(data, file->pointer(), size);
 		data[size] = 0;
 		FS.r_close(file);

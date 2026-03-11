@@ -6,10 +6,10 @@
 #define AFX_BLENDER_H__A023332E_C09B_4D93_AA53_57C052CCC075__INCLUDED_
 #pragma once
 
-#include "../../xrEngine/properties.h"
+#include "../../xrEngine/Properties.h"
 #include "Blender_Recorder.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 class ECORE_API CBlender_DESC
 {
 public:
@@ -64,6 +64,6 @@ public:
 	IBlender();
 	virtual ~IBlender();
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif // !defined(AFX_BLENDER_H__A023332E_C09B_4D93_AA53_57C052CCC075__INCLUDED_)

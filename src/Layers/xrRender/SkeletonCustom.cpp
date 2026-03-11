@@ -1,8 +1,8 @@
 //---------------------------------------------------------------------------
 
-#include <Device.h>
+#include <device.h>
 #include <LocatorAPI.h>
-#include <fmesh.h>
+#include <Fmesh.h>
 #include <xr_ini.h>
 
 #ifndef _EDITOR

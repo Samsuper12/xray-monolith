@@ -9,7 +9,7 @@
 #include		"KinematicsAnimated.h"
 
 //*** Bone Instance *******************************************************************************
-#pragma pack(push,8)
+// #pragma pack(push,8)
 class CBlendInstance // Bone Instance Blend List (per-bone data)
 {
 public:
@@ -34,7 +34,7 @@ public:
 		return sz;
 	}
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 
 //typedef void	( * MotionMarkCallback)		(CBlend*		P);

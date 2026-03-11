@@ -1,6 +1,6 @@
 #include <xrRender_console.h>
-#include <igame_persistent.h>
-#include <environment.h>
+#include <IGame_Persistent.h>
+#include <Environment.h>
 #include "r2.h"
 
 //////////////////////////////////////////////////////////////////////////

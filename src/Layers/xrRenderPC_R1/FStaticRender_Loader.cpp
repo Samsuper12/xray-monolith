@@ -1,8 +1,8 @@
 #include <malloc.h>
 
 #include <defines.h>
-#include <fbasicvisual.h>
-#include <fmesh.h>
+#include <FBasicVisual.h>
+#include <Fmesh.h>
 #include <xrLevel.h>
 #include <x_ray.h>
 #include <IGame_Level.h>
@@ -188,7 +188,7 @@ void CRender::LoadBuffers(CStreamReader* base_fs)
 		VB.resize(count);
 
 		u32 buffer_size = (MAXD3DDECLLENGTH + 1) * sizeof(D3DVERTEXELEMENT9);
-		D3DVERTEXELEMENT9* dcl = (D3DVERTEXELEMENT9*)_alloca(buffer_size); //Alundaio: moved out of loop!
+		D3DVERTEXELEMENT9* dcl = (D3DVERTEXELEMENT9*)alloca(buffer_size); //Alundaio: moved out of loop!
 
 		for (u32 i = 0; i < count; i++)
 		{

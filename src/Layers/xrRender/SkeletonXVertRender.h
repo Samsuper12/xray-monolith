@@ -4,13 +4,13 @@
 
 #include "_vector3d.h"
 
-#pragma pack(push,2)
+// #pragma pack(push,2)
 struct vertRender // T&B are not skinned, because in R2 skinning occurs always in hardware
 {
 	Fvector P;
 	Fvector N;
 	float u, v;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif	//	SkeletonXVertRender_h_included

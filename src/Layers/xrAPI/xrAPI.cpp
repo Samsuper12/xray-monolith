@@ -3,7 +3,7 @@
 
 #include "xrAPI.h"
 
-#include "dxRenderFactory.h"
+//#include "dxRenderFactory.h"
 
 extern dxRenderFactory RenderFactoryImpl;
 

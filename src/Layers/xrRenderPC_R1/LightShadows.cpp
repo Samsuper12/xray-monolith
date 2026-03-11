@@ -4,7 +4,7 @@
 
 #include <CustomHUD.h>
 #include <Engine.h>
-#include <fbasicvisual.h>
+#include <FBasicVisual.h>
 #include <IGame_Level.h>
 #include <LocatorAPI.h>
 #include <string_concatenations.h>

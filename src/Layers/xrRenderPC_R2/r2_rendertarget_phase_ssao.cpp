@@ -1,13 +1,13 @@
 #include "r2.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 struct v_ssao
 {
 	Fvector4 p;
 	Fvector2 uv0;
 	Fvector2 uv1;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 float hclip(float v, float dim);
 

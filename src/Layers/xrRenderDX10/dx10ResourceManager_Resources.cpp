@@ -1,8 +1,8 @@
-#include <d3dx9.h>
+//#include <d3dx9.h>
 #include <defines.h>
 
 #ifndef _EDITOR
-#include <render.h>
+#include <Render.h>
 #endif
 
 #include <string_concatenations.h>
@@ -185,7 +185,7 @@ SVS* CResourceManager::_CreateVS(LPCSTR _name)
 			file = FS.r_open(cname);
 		}
 		u32 const size = file->length();
-		char* const data = (LPSTR)_alloca(size + 1);
+		char* const data = (LPSTR)alloca(size + 1);
 		CopyMemory(data, file->pointer(), size);
 		data[size] = 0;
 		FS.r_close(file);
@@ -301,7 +301,7 @@ SPS* CResourceManager::_CreatePS(LPCSTR _name)
 
 		R_ASSERT2(file, cname);
 		u32 const size = file->length();
-		char* const data = (LPSTR)_alloca(size + 1);
+		char* const data = (LPSTR)alloca(size + 1);
 		CopyMemory(data, file->pointer(), size);
 		data[size] = 0;
 		FS.r_close(file);

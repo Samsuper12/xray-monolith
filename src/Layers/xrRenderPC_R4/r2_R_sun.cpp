@@ -1,8 +1,8 @@
 #include <defines.h>
 #include <dx10EventWrapper.h>
 
-#include "igame_persistent.h"
-#include "irenderable.h"
+#include "IGame_Persistent.h"
+#include "IRenderable.h"
 #include "FBasicVisual.h"
 #include "r4_R_sun_support.h"
 

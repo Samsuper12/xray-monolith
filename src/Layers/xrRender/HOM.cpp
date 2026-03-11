@@ -50,13 +50,13 @@ CHOM::~CHOM()
 #endif
 }
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 struct HOM_poly
 {
 	Fvector v1, v2, v3;
 	u32 flags;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 IC float Area(Fvector& v0, Fvector& v1, Fvector& v2)
 {

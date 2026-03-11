@@ -7,7 +7,7 @@
 #include <xr_object.h>
 
 #include "r__sector.h"
-#include "fbasicvisual.h"
+#include "FBasicVisual.h"
 #include "dxRenderDeviceRender.h"
 
 //////////////////////////////////////////////////////////////////////

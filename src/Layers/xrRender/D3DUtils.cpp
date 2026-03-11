@@ -1,7 +1,7 @@
 // file: D3DUtils.cpp
 
 #include <defines.h>
-#include <gamefont.h>
+#include <GameFont.h>
 #include <d3dx9.h>
 
 #include "d3dutils.h"

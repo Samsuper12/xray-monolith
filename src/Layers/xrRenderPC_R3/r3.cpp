@@ -2,13 +2,13 @@
 
 #include <3DFluid\dx103DFluidManager.h>
 #include <defines.h>
-#include <fbasicvisual.h>
+#include <FBasicVisual.h>
 #include <CustomHUD.h>
 #include <dxRenderDeviceRender.h>
 #include <dxWallMarkArray.h>
 #include <dxUIShader.h>
-#include <environment.h>
-#include <igame_persistent.h>
+#include <Environment.h>
+#include <IGame_Persistent.h>
 #include <LightTrack.h>
 #include <SkeletonCustom.h>
 #include <string_concatenations.h>

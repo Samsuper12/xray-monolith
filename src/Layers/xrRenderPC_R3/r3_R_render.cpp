@@ -1,5 +1,5 @@
-#include <igame_persistent.h>
-#include <customhud.h>
+#include <IGame_Persistent.h>
+#include <CustomHUD.h>
 #include <xr_object.h>
 #include <FBasicVisual.h>
 #include <QueryHelper.h>
@@ -311,7 +311,7 @@ void CRender::Render()
 		//while	((hr=q_sync_point[q_sync_count]->GetData	(&result,sizeof(result),D3DGETDATA_FLUSH))==S_FALSE) {
 		while ((hr = GetData(q_sync_point[q_sync_count], &result, sizeof(result))) == S_FALSE)
 		{
-			if (!SwitchToThread()) Sleep(ps_r2_wait_sleep);
+			if (!SwitchToThread()) sleep(ps_r2_wait_sleep);
 			if (T.GetElapsed_ms() > 500)
 			{
 				result = FALSE;

@@ -3,8 +3,8 @@
 #include <LocatorAPI.h>
 
 #include <ResourceManager.h>
-#include <fbasicvisual.h>
-#include <fmesh.h>
+#include <FBasicVisual.h>
+#include <Fmesh.h>
 #include <xrLevel.h>
 #include <x_ray.h>
 #include <IGame_Persistent.h>
@@ -225,7 +225,7 @@ void CRender::LoadBuffers(CStreamReader* base_fs, BOOL _alternative)
 			// decl
 			//			D3DVERTEXELEMENT9*	dcl		= (D3DVERTEXELEMENT9*) fs().pointer();
 			u32 buffer_size = (MAXD3DDECLLENGTH + 1) * sizeof(D3DVERTEXELEMENT9);
-			D3DVERTEXELEMENT9* dcl = (D3DVERTEXELEMENT9*)_alloca(buffer_size);
+			D3DVERTEXELEMENT9* dcl = (D3DVERTEXELEMENT9*)alloca(buffer_size);
 			fs->r(dcl, buffer_size);
 			fs->advance(-(int)buffer_size);
 

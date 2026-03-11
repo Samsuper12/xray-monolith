@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 
-#include <d3dx9.h>
+//#include <d3dx9.h>
 #include <defines.h>
 
 #include <LocatorAPI.h>

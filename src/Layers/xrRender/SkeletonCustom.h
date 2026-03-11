@@ -4,12 +4,14 @@
 
 #include <intrusive_ptr.h>
 
-#include "fhierrarhyvisual.h"
+#include "FHierrarhyVisual.h"
 #include "IRenderable.h"
 #include <optional>
 #include "bone.h"
 #include "Kinematics.h"
 #include "FVF.h"
+#include "SkeletonX.h"
+#include "SkeletonCustom.h"
 
 // refs
 class CKinematics;

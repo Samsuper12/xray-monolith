@@ -7,10 +7,10 @@
 #if defined(USE_DX10) || defined(USE_DX11)
 #if defined(USE_VK)
 #else
-#include <DXCommonTypes.h>
+#include <../xrRenderDX10/DXCommonTypes.h>
 #endif
 #else	//	USE_DX10 || USE_DX11
-#include <d3d9.h>
+//#include <d3d9.h>
 #include <d3dx9core.h>
 typedef IDirect3DVertexShader9 ID3DVertexShader;
 typedef IDirect3DPixelShader9 ID3DPixelShader;

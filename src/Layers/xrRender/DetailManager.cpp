@@ -5,7 +5,7 @@
 
 #include <defines.h>
 #include <LocatorAPI.h>
-#include <frustum.h>
+#include <Frustum.h>
 #include <xr_ini.h>
 
 #include "DetailManager.h"
@@ -17,13 +17,13 @@
 #	include "ESceneClassList.h"
 #	include "Scene.h"
 #	include "SceneObject.h"
-#	include "igame_persistent.h"
-#	include "environment.h"
+#	include "IGame_Persistent.h"
+#	include "Environment.h"
 #else
-#   include <xmmintrin.h>
+// #   include <xmmintrin.h>
 
-#	include <igame_persistent.h>
-#	include <environment.h>
+#	include <IGame_Persistent.h>
+#	include <Environment.h>
 #endif
 
 

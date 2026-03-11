@@ -1,18 +1,17 @@
 #pragma once
 
-#include <d3d10_1.h>
-#include <d3d10shader.h>
+//#include <d3d10shader.h>
 
 class dx10State;
 
-typedef ID3D10Include ID3DInclude;
-typedef ID3D10Blob ID3DBlob;
+// typedef ID3D10Include ID3DInclude;
+// typedef ID3D10Blob ID3DBlob;
 
-typedef D3D10_SHADER_MACRO D3D_SHADER_MACRO;
+// typedef D3D10_SHADER_MACRO D3D_SHADER_MACRO;
 
 #if defined(USE_DX11)
-#include <d3d11.h>
-#include <d3d11shader.h>
+#include "d3d11.h"
+//#include <d3d11shader.h>
 
 typedef D3D11_BLEND D3D_BLEND;
 typedef D3D11_BLEND_OP D3D_BLEND_OP;

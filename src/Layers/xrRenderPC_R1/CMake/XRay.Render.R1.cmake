@@ -64,7 +64,7 @@ add_module(XRay.Render.R1
   #[["R_Backend_Runtime.h"]]
   #[["resourcemanager.h"]]
   #[["vis_common.h"]]
-  #[["render.h"]]
+  #[["Render.h"]]
   #[["_d3d_extensions.h"]]
 
   SOURCES
@@ -80,7 +80,7 @@ add_module(XRay.Render.R1
 if(NOT EDITOR)
   target_precompile_headers(XRay.Render.R1
     PRIVATE
-    #[["igame_level.h"]]
+    #[["IGame_Level.h"]]
 
     #[["blenders/blender.h"]]
     #[["blenders/blender_clsid.h"]]

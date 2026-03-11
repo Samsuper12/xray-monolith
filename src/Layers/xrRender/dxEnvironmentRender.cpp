@@ -1,6 +1,6 @@
 #include <defines.h>
 
-#include <environment.h>
+#include <Environment.h>
 #include <ResourceManager.h>
 #include <xr_efflensflare.h>
 
@@ -59,7 +59,7 @@ static u16 hbox_faces[20 * 3] =
 	4, 6, 11
 };
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 struct v_skybox
 {
 	Fvector3 p;
@@ -92,7 +92,7 @@ struct v_clouds
 };
 
 const u32 v_clouds_fvf = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR;
-#pragma pack(pop)
+// #pragma pack(pop)
 
 void dxEnvDescriptorRender::Copy(IEnvDescriptorRender& _in)
 {

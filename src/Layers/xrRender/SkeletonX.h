@@ -14,8 +14,9 @@
 // refs
 class CKinematics;
 class Fvisual;
+class CSkeletonWallmark;
 
-//.#pragma pack(push,4)
+//.// #pragma pack(push,4)
 
 struct SEnumVerticesCallback;
 

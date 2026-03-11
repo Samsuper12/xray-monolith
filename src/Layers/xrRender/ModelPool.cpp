@@ -6,8 +6,8 @@
 
 #ifndef _EDITOR
 #include <IGame_Persistent.h>
-#include <fmesh.h>
-#include "fhierrarhyvisual.h"
+#include <Fmesh.h>
+#include "FHierrarhyVisual.h"
 #include "SkeletonAnimated.h"
 #include "fvisual.h"
 #include "fprogressive.h"
@@ -17,13 +17,13 @@
 #include "ParticleGroup.h"
 #include "ParticleEffect.h"
 #else
-    #include "fmesh.h"
+    #include "Fmesh.h"
     #include "fvisual.h"
     #include "fprogressive.h"
     #include "ParticleEffect.h"
     #include "ParticleGroup.h"
 	#include "fskinned.h"
-    #include "fhierrarhyvisual.h"
+    #include "FHierrarhyVisual.h"
     #include "SkeletonAnimated.h"
 	#include "IGame_Persistent.h"
 #endif

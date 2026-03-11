@@ -11,11 +11,11 @@
 #if defined(USE_DX10) || defined(USE_DX11)
 #if defined(USE_VK)
 #else
-#include <StateManager/dx10State.h>
+#include <../xrRenderDX10/StateManager/dx10State.h>
 #endif
 #endif	//	USE_DX10
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -122,5 +122,5 @@ struct ECORE_API SDeclaration : public xr_resource_flagged
 
 typedef resptr_core<SDeclaration, resptr_base<SDeclaration>> ref_declaration;
 
-#pragma pack(pop)
+// #pragma pack(pop)
 #endif //sh_atomicH
