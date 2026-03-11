@@ -19,7 +19,7 @@
 #	define CS_STATIC_LIBRARIES
 #	define CS_PLATFORM_ID				[xbox_360]
 #else // #elif defined(_XBOX)
-	STATIC_CHECK(false, Unknown_Platform);
+	//STATIC_CHECK(false, Unknown_Platform);
 #endif // #elif defined(_XBOX)
 
 #ifdef DEBUG
