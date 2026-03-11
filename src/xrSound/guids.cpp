@@ -1,4 +1,4 @@
-#include <mmreg.h>
+// #include <mmreg.h>
 
-#define INITGUID 
-#include <dsound.h>
+// #define INITGUID 
+// #include <dsound.h>

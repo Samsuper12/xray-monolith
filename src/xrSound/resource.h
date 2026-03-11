@@ -7,6 +7,6 @@
 #pragma once
 
 #define ENGINE_API
-#include "../xrcore/xr_resource.h"
+#include "../xrCore/xr_resource.h"
 
 #endif

@@ -1,6 +1,6 @@
 #include <log.h>
 
-#include "soundrender_cache.h"
+#include "SoundRender_Cache.h"
 
 CSoundRender_Cache::CSoundRender_Cache()
 {

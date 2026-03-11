@@ -17,37 +17,38 @@ CNotificationClient::~CNotificationClient()
 
 inline bool CNotificationClient::Start() 
 {
+    FIXME:
     // Initialize the COM library for the current thread
-    HRESULT ihr = CoInitialize(NULL);
+    // HRESULT ihr = CoInitialize(NULL);
 
-    if (SUCCEEDED(ihr)) {
-        // Create the device enumerator
-        IMMDeviceEnumerator* pEnumerator;
-        HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (void**)&pEnumerator);
-        if (SUCCEEDED(hr)) {
-            // Register for device change notifications
-            hr = pEnumerator->RegisterEndpointNotificationCallback(this);
-            m_pEnumerator = pEnumerator;
+    // if (SUCCEEDED(ihr)) {
+    //     // Create the device enumerator
+    //     IMMDeviceEnumerator* pEnumerator;
+    //     HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (void**)&pEnumerator);
+    //     if (SUCCEEDED(hr)) {
+    //         // Register for device change notifications
+    //         hr = pEnumerator->RegisterEndpointNotificationCallback(this);
+    //         m_pEnumerator = pEnumerator;
 
-            return true;
-        }
+    //         return true;
+    //     }
 
-        CoUninitialize();
-    }
+    //     CoUninitialize();
+    // }
 
-    return false;
+    // return false;
 }
 
 inline void CNotificationClient::Close() 
 {
     // Unregister the device enumerator
-    if (m_pEnumerator) {
-        m_pEnumerator->UnregisterEndpointNotificationCallback(this);
-        m_pEnumerator->Release();
-    }
+    // if (m_pEnumerator) {
+    //     m_pEnumerator->UnregisterEndpointNotificationCallback(this);
+    //     m_pEnumerator->Release();
+    // }
 
     // Uninitialize the COM library for the current thread
-    CoUninitialize();
+    // FIXME: CoUninitialize();
 }
 
 inline STDMETHODIMP_(HRESULT __stdcall) CNotificationClient::OnDeviceAdded(LPCWSTR pwstrDeviceId) 

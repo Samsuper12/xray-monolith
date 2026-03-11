@@ -1,6 +1,6 @@
-#include <mmsystem.h>
-#include <mmreg.h>
-#include <msacm.h>
+// #include <mmsystem.h>
+// #include <mmreg.h>
+// #include <msacm.h>
 #include <vorbis/vorbisfile.h>
 
 #include <string_concatenations.h>

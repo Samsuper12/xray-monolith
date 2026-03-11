@@ -24,8 +24,8 @@ add_module(XRay.Sound
   XRSOUND_EXPORTS
 
   LINKS
-  dxsdk
-  dxguid
+  #dxsdk
+  #dxguid
   fastdelegate
   FastDynamicCast
   libogg

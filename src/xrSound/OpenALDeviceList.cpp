@@ -23,13 +23,13 @@
  */
 
 #include "OpenALDeviceList.h"
-#include "sound.h"
+#include "Sound.h"
 #include "log.h"
 
-#pragma warning(push)
-#pragma warning(disable:4995)
-#include <objbase.h>
-#pragma warning(pop)
+// #pragma warning(push)
+// #pragma warning(disable:4995)
+// #include <objbase.h>
+// #pragma warning(pop)
 
 #ifdef _EDITOR
 	log_fn_ptr_type* pLog = NULL;
@@ -73,7 +73,7 @@ void ALDeviceList::Enumerate()
 	// -- empty all the lists and reserve space for 10 devices
 	m_devices.clear();
 
-	CoUninitialize();
+	//CoUninitialize();
 
 	xr_vector<xr_string> DeviceNameList;
 	xr_vector<const char*> DeviceOALNameList;

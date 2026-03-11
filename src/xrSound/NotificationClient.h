@@ -1,6 +1,6 @@
 #pragma once
-#include <mmdeviceapi.h>
-#include <endpointvolume.h>
+// #include <mmdeviceapi.h>
+// #include <endpointvolume.h>
 
 class CNotificationClient : 
     public IMMNotificationClient 
@@ -8,28 +8,28 @@ class CNotificationClient :
 public:
     CNotificationClient();
     ~CNotificationClient();
+    //FIXME:
+    // // IUnknown methods
+    // STDMETHOD(QueryInterface)(REFIID riid, void** ppvObject) {
+    //     if (riid == IID_IUnknown || riid == __uuidof(IMMNotificationClient)) {
+    //         *ppvObject = static_cast<IMMNotificationClient*>(this);
+    //         AddRef();
+    //         return S_OK;
+    //     }
+    //     return E_NOINTERFACE;
+    // }
 
-    // IUnknown methods
-    STDMETHOD(QueryInterface)(REFIID riid, void** ppvObject) {
-        if (riid == IID_IUnknown || riid == __uuidof(IMMNotificationClient)) {
-            *ppvObject = static_cast<IMMNotificationClient*>(this);
-            AddRef();
-            return S_OK;
-        }
-        return E_NOINTERFACE;
-    }
+    // ULONG STDMETHODCALLTYPE AddRef() {
+    //     return InterlockedIncrement(&m_cRef);
+    // }
 
-    ULONG STDMETHODCALLTYPE AddRef() {
-        return InterlockedIncrement(&m_cRef);
-    }
-
-    ULONG STDMETHODCALLTYPE Release() {
-        ULONG ulRef = InterlockedDecrement(&m_cRef);
-        if (0 == ulRef) {
-            delete this;
-        }
-        return ulRef;
-    }
+    // ULONG STDMETHODCALLTYPE Release() {
+    //     ULONG ulRef = InterlockedDecrement(&m_cRef);
+    //     if (0 == ulRef) {
+    //         delete this;
+    //     }
+    //     return ulRef;
+    // }
 
     // IMMNotificationClient methods
     STDMETHOD(OnDefaultDeviceChanged)(EDataFlow flow, ERole role, LPCWSTR pwstrDeviceId);

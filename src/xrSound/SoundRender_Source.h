@@ -2,7 +2,7 @@
 #define SoundRender_SourceH
 #pragma once
 
-#include <mmreg.h>
+//#include <mmreg.h>
 
 #include "SoundRender_Cache.h"
 
@@ -18,7 +18,7 @@ public:
 
 	float fTimeTotal;
 	u32 dwBytesTotal;
-
+	//FIXME:
 	WAVEFORMATEX m_wformat;
 
 	float m_fBaseVolume;
