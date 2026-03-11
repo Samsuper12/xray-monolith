@@ -11,21 +11,31 @@
 
 #include <build_config_defines.h>
 #include <fastdelegate.h>
-#include <ftimer.h>
+#include <FTimer.h>
 #include <xrSyncronize.h>
+#include "../xrCore/_vector3d.h"
 
 #include "pure.h"
-#include "stats.h"
+#include "Stats.h"
+
+#ifndef WIN32
+#include <stdint.h>
+using HWND    = void*;
+using UINT    = unsigned int;
+
+#endif
+
 
 #define VIEWPORT_NEAR  Device.ViewportNear //0.2f
 #define R_VIEWPORT_NEAR 0.005f
 
 #define DEVICE_RESET_PRECACHE_FRAME_COUNT 10
 
-#include "FactoryPtr.h"
-#include "RenderDeviceRender.h"
+#include "../Layers/xrRender/FactoryPtr.h"
+#include "../Layers/xrRender/RenderDeviceRender.h"
 #include "imgui_base.h"
 
+// #pragma pack() 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_properties.h>
 #include <SDL3/SDL_platform.h>
@@ -33,10 +43,10 @@
 
 class engine_impl;
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 
 
-#pragma pack(pop)
+// #pragma pack(pop)
 // refs
 class ENGINE_API CRenderDevice
 {
@@ -149,7 +159,7 @@ private:
 	void _SetupStates();
 public:
 	// HWND m_hWnd;
-	LRESULT MsgProc(HWND, UINT, WPARAM, LPARAM);
+	//LRESULT MsgProc(HWND, UINT, WPARAM, LPARAM);
 
 	// u32 dwFrame;
 	// u32 dwPrecacheFrame;

@@ -1,6 +1,6 @@
 
 #include "xr_sdl3_input.hpp"
-#include "iinputreceiver.h"
+#include "IInputReceiver.h"
 
 void IInputReceiver::IR_Capture()
 {

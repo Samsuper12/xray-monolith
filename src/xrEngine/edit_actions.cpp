@@ -96,7 +96,7 @@ namespace text_editor
 			STRCONCAT ( loc, ".", _itoa( GetACP(), code_page, 10 ) );
 			setlocale ( LC_ALL, loc );*/
 
-			static _locale_t current_locale = _create_locale(LC_ALL, "");
+			//static _locale_t current_locale = _create_locale(LC_ALL, "");
 
 			// FIXME: SDL
 			// if (pInput->get_dik_name(m_dik, buff, sizeof(buff)))

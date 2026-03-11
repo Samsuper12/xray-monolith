@@ -25,7 +25,7 @@ CEngineAPI::CEngineAPI()
 {
 	//hGame = 0;
 	//hRender = 0;
-	hTuner = 0;
+	//hTuner = 0;
 	pCreate = 0;
 	pDestroy = 0;
 	tune_pause = dummy;
@@ -220,21 +220,21 @@ void CEngineAPI::Initialize(void)
 
 	//////////////////////////////////////////////////////////////////////////
 	// vTune
-	tune_enabled = FALSE;
-	if (strstr(Core.Params, "-tune"))
-	{
-		LPCSTR g_name = "vTuneAPI.dll";
-		Log("Loading DLL:", g_name);
-		hTuner = LoadLibrary(g_name);
-		if (0 == hTuner)
-			R_CHK(GetLastError());
-		R_ASSERT2(hTuner, "Intel vTune is not installed");
-		tune_enabled = TRUE;
-		tune_pause = (VTPause*)GetProcAddress(hTuner, "VTPause");
-		R_ASSERT(tune_pause);
-		tune_resume = (VTResume*)GetProcAddress(hTuner, "VTResume");
-		R_ASSERT(tune_resume);
-	}
+	// tune_enabled = FALSE;
+	// if (strstr(Core.Params, "-tune"))
+	// {
+	// 	LPCSTR g_name = "vTuneAPI.dll";
+	// 	Log("Loading DLL:", g_name);
+	// 	hTuner = LoadLibrary(g_name);
+	// 	if (0 == hTuner)
+	// 		R_CHK(GetLastError());
+	// 	R_ASSERT2(hTuner, "Intel vTune is not installed");
+	// 	tune_enabled = TRUE;
+	// 	tune_pause = (VTPause*)GetProcAddress(hTuner, "VTPause");
+	// 	R_ASSERT(tune_pause);
+	// 	tune_resume = (VTResume*)GetProcAddress(hTuner, "VTResume");
+	// 	R_ASSERT(tune_resume);
+	// }
 }
 
 void CEngineAPI::Destroy(void)

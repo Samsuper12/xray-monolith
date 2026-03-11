@@ -3,17 +3,17 @@
 #include <xr_ini.h>
 
 #ifndef _EDITOR
-#include "render.h"
+#include "Render.h"
 #endif
-#include "Thunderbolt.h"
-#include "igame_persistent.h"
+#include "thunderbolt.h"
+#include "IGame_Persistent.h"
 #include "LightAnimLibrary.h"
 
 #ifdef _EDITOR
 #include "ui_toolscustom.h"
 #else
 #include <xr_area.h>
-#include "igame_level.h"
+#include "IGame_Level.h"
 #include "xr_object.h"
 #endif
 

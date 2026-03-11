@@ -5,13 +5,13 @@
 #include <LocatorAPI.h>
 #include <xr_ini.h>
 
-#include "igame_level.h"
-#include "fdemoplay.h"
-#include "xr_ioconsole.h"
+#include "IGame_Level.h"
+#include "FDemoPlay.h"
+#include "XR_IOConsole.h"
 #include "motion.h"
 #include "Render.h"
 #include "CameraManager.h"
-#include "xrSash.h"
+#include "xrSASH.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -85,7 +85,7 @@ void CDemoPlay::stat_Start()
 	//if (stat_started) return;
 	VERIFY(!stat_started);
 	stat_started = TRUE;
-	Sleep(1);
+	sleep(1);
 	stat_StartFrame = Device.dwFrame;
 	stat_Timer_frame.Start();
 	stat_Timer_total.Start();

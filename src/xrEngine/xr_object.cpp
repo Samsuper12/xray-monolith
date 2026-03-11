@@ -1,10 +1,10 @@
-#include "igame_level.h"
+#include "IGame_Level.h"
 
 #include "xr_object.h"
-#include "../xrcdb/xr_area.h"
-#include "render.h"
+#include "../xrCDB/xr_area.h"
+#include "Render.h"
 #include "xrLevel.h"
-//#include "fbasicvisual.h"
+//#include "FBasicVisual.h"
 #include "RenderVisual.h"
 #include "Kinematics.h"
 
@@ -16,7 +16,7 @@
 
 #pragma warning(push)
 #pragma warning(disable:4995)
-#include <intrin.h>
+// #include <intrin.h>
 #pragma warning(pop)
 
 #pragma intrinsic(_InterlockedCompareExchange)

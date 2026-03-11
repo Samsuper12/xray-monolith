@@ -13,15 +13,15 @@ add_module(XRay.Engine
   $<$<NOT:$<CONFIG:DEBUG>>:LUABIND_NO_ERROR_CHECKING>
 
   LINKS
-  dxsdk
+  #dxsdk
   discord
-  dinput8
+  #dinput8
   imgui
   libogg
   libtheora
   LuaJIT
   luabind
-  Vfw32
+  #Vfw32
   
   XRay.Core.Defines
 
@@ -63,7 +63,7 @@ add_module(XRay.Engine
   _d3d_extensions.h
 )
 
-#find_package(SDL3 CONFIG REQUIRED)
+find_package(SDL3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 target_link_libraries(XRay.Engine.Includes INTERFACE 

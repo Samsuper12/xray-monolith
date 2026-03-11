@@ -8,8 +8,8 @@
 
 class ENGINE_API CGameFont;
 
-#include "FactoryPtr.h"
-#include "StatsRender.h"
+#include "../Layers/xrRender/FactoryPtr.h"
+#include "../Layers/xrRender/StatsRender.h"
 
 DECLARE_MESSAGE(Stats);
 

@@ -2,11 +2,11 @@
 #include <xrCore.h>
 
 #include "DrawUtils.h"
-#include "render.h"
+#include "Render.h"
 #include "dedicated_server_only.h"
 //#include "resourcemanager.h"
 //#include "securom_api.h"
-#include "xrxrc.h"
+#include "xrXRC.h"
 //#include "xr_effgamma.h"
 
 extern XRCDB_API BOOL* cdb_bDebug;

@@ -5,11 +5,11 @@
 #include <string_concatenations.h>
 #include <xr_ini.h>
 #include <xr_trims.h>
-#include <Unknwn.h>
+// #include <unknwn.h>
 
 #include "Environment.h"
 #include "IGame_Level.h"
-#include "rain.h"
+#include "Rain.h"
 //#include "securom_api.h"
 #include "thunderbolt.h"
 #include "xr_efflensflare.h"
@@ -804,7 +804,7 @@ void CEnvironment::load_weather_effects()
 		sections_type& sections = config->sections();
 
 		env.reserve(sections.size() + 2);
-		env.push_back(create_descriptor("00:00:00", false));
+		env.push_back(create_descriptor("00:00:00", nullptr));
 
 		sections_type::const_iterator i = sections.begin();
 		sections_type::const_iterator e = sections.end();
@@ -816,7 +816,7 @@ void CEnvironment::load_weather_effects()
 
 		CInifile::Destroy(config);
 
-		env.push_back(create_descriptor("24:00:00", false));
+		env.push_back(create_descriptor("24:00:00", nullptr));
 		env.back()->exec_time_loaded = DAY_LENGTH;
 	}
 

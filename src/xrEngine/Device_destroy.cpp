@@ -1,8 +1,8 @@
 
 #include "DrawUtils.h"
-#include "render.h"
+#include "Render.h"
 #include "IGame_Persistent.h"
-#include "xr_IOConsole.h"
+#include "XR_IOConsole.h"
 
 void CRenderDevice::_Destroy(BOOL bKeepTextures)
 {

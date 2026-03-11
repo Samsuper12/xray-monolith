@@ -1,17 +1,17 @@
 #pragma once
 
 #include "Rain.h"
-#include "igame_persistent.h"
-#include "environment.h"
+#include "IGame_Persistent.h"
+#include "Environment.h"
 
 #include "../../xrEngine/perlin.h"
 
 #ifdef _EDITOR
 #include "ui_toolscustom.h"
 #else
-#include "render.h"
-#include "igame_level.h"
-#include "../xrcdb/xr_area.h"
+#include "Render.h"
+#include "IGame_Level.h"
+#include "../xrCDB/xr_area.h"
 #include "xr_object.h"
 #endif
 

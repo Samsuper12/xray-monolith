@@ -6,7 +6,7 @@
 #define ThunderboltH
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 #include <xr_ini.h>
 
 #include "FactoryPtr.h"

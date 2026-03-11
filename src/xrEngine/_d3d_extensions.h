@@ -1,8 +1,8 @@
 #ifndef _D3D_EXT_internal
 #define _D3D_EXT_internal
 
-#include <d3d9types.h>
-#include <d3dx9mesh.h>
+////#include <d3d9types.h>
+//#include <d3dx9mesh.h>
 
 #include <_types.h>
 #include <_color.h>

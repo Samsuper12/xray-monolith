@@ -2,12 +2,12 @@
 #include <xr_ini.h>
 
 #ifndef _EDITOR
-#include "render.h"
+#include "Render.h"
 #endif
 
 #include "Environment.h"
 #include "xr_efflensflare.h"
-#include "rain.h"
+#include "Rain.h"
 #include "thunderbolt.h"
 #include "xrHemisphere.h"
 #include "perlin.h"
@@ -498,13 +498,14 @@ void CEnvironment::SelectEnvs(float gt)
 
 int get_ref_count(IUnknown* ii)
 {
-	if (ii)
-	{
-		ii->AddRef();
-		return ii->Release();
-	}
-	else
-		return 0;
+	//FIXME:
+	// if (ii)
+	// {
+	// 	ii->AddRef();
+	// 	return ii->Release();
+	// }
+	// else
+	// 	return 0;
 }
 
 void CEnvironment::lerp(float& current_weight)

@@ -4,8 +4,8 @@
 //---------------------------------------------------------------------------
 #pragma once
 
-#include "sound.h"
-#include "xrapi.h"
+#include "Sound.h"
+#include "xrAPI.h"
 
 #define GAMEMTL_CURRENT_VERSION 0x0001
 //----------------------------------------------------
@@ -300,7 +300,7 @@ public:
 	IC GameMtlIt GetMaterialIt(LPCSTR name)
 	{
 		for (GameMtlIt it = materials.begin(); materials.end() != it; ++it)
-			if (0 == _strcmpi(*(*it)->m_Name, name)) return it;
+			if (0 == strcasecmp(*(*it)->m_Name, name)) return it;
 		return materials.end();
 	}
 
@@ -409,7 +409,7 @@ public:
 #endif
 
 #define CLONE_MTL_SOUND_DO(_res_, _mtl_pair_, _a_vector_)\
- { _res_.clone(GET_RANDOM(_mtl_pair_##->_a_vector_),st_Effect,sg_SourceType); }
+ { _res_.clone(GET_RANDOM(_mtl_pair_->_a_vector_),st_Effect,sg_SourceType); }
 
 extern MTL_EXPORT_API CGameMtlLibrary GMLib;
 

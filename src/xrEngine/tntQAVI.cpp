@@ -1,4 +1,6 @@
 //#include <crtdbg.h>
+#if 0
+
 
 #include <LocatorAPI.h>
 #include <string_concatenations.h>
@@ -471,3 +473,5 @@ DWORD CAviPlayerCustom::CalcFrame()
 
 	return DWORD(floor((RDEVICE.dwTimeContinual - m_dwFirstFrameOffset) * m_fCurrentRate / 1000.0f)) % m_dwFrameTotal;
 }
+
+#endif

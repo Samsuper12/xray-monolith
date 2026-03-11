@@ -7,7 +7,7 @@
 
 #include "IGame_Level.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 
 // Parameter/Property specifications
 
@@ -174,5 +174,5 @@ IC void xrPREAD_MARKER(IReader& fs)
 // case xrPID_CLSID: FS.Advance(((xrP_CLSID*)&data)->Count * sizeof(CLASS_ID)); break;
 // };
 //}
-#pragma pack(pop)
+// #pragma pack(pop)
 #endif // xrPROPERTIES_H

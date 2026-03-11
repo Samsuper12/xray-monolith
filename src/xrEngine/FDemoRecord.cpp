@@ -1,18 +1,19 @@
+#include <SDL3/SDL_scancode.h>
 #include <defines.h>
 #include <LocatorAPI.h>
 #include <UICursor.h>
 #include <xr_ini.h>
 #include <xrCore.h>
 
-#include "igame_level.h"
+#include "IGame_Level.h"
 #include "x_ray.h"
 
-#include "gamefont.h"
-#include "fDemoRecord.h"
-#include "xr_ioconsole.h"
+#include "GameFont.h"
+#include "FDemoRecord.h"
+#include "XR_IOConsole.h"
 #include "xr_sdl3_input.hpp"
 #include "xr_object.h"
-#include "render.h"
+#include "Render.h"
 #include "CustomHUD.h"
 #include "CameraManager.h"
 
@@ -81,7 +82,7 @@ CDemoRecord::CDemoRecord(const char* name, float life_time, BOOL return_ctrl_inp
 	 psHUD_Flags.set(HUD_CROSSHAIR, FALSE);
 	 */
 	m_b_redirect_input_to_level = false;
-	_unlink(name);
+	//_unlink(name);
 	file = FS.w_open(name);
 	isInputBlocked = FALSE;
 	pDemoRecords = nullptr;
@@ -218,7 +219,7 @@ void CDemoRecord::MakeScreenshotFace()
 }
 
 
-void GetLM_BBox(Fbox& bb, INT Step)
+void GetLM_BBox(Fbox& bb, int Step)
 {
 	float half_x = bb.min.x + (bb.max.x - bb.min.x) / 2;
 	float half_z = bb.min.z + (bb.max.z - bb.min.z) / 2;
@@ -567,7 +568,7 @@ void CDemoRecord::IR_OnKeyboardPress(int dik)
 		}
 		//Alundaio: Teleport to demo cam
 		//#ifndef MASTER_GOLD
-		if (dik == DIK_RETURN)
+		if (dik == SDL_SCANCODE_BACKSPACE)
 		{
 			if (strstr(Core.Params, "-dbg"))
 			{
@@ -587,7 +588,7 @@ void CDemoRecord::IR_OnKeyboardPress(int dik)
 		if (Device.imgui_shown()) return;
 		if (dik == SDL_SCANCODE_SPACE) RecordKey();
 		if (dik == SDL_SCANCODE_BACKSPACE) MakeCubemap();
-		if (dik == SDL_SCANCODE_F11) MakeLevelMapScreenshot(IR_GetKeyState(DIK_LCONTROL));
+		if (dik == SDL_SCANCODE_F11) MakeLevelMapScreenshot(IR_GetKeyState(SDL_SCANCODE_LCTRL));
 		if (dik == SDL_SCANCODE_F12) MakeScreenshot();
 	}
 }

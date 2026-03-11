@@ -1,9 +1,9 @@
 #include <defines.h>
-#include <frustum.h>
+#include <Frustum.h>
 #include <profiler.h>
 #include <xrCore.h>
 
-#include "xr_ioconsole.h"
+#include "XR_IOConsole.h"
 #include "xr_sdl3_input.hpp"
 
 #pragma warning(disable:4995)
@@ -13,14 +13,14 @@
 #define MMNOAUX
 #define MMNOMIXER
 #define MMNOJOY
-#include <mmsystem.h>
-// d3dx9.h
-#include <d3dx9.h>
+// #include <mmsystem.h>
+// // d3dx9.h
+// #include <d3dx9.h>
 #pragma warning(default:4995)
 
 #include "x_ray.h"
 #include "discord.h"
-#include "render.h"
+#include "Render.h"
 #include <chrono>
 
 // must be defined before include of FS_impl.h
@@ -32,8 +32,8 @@
 # include "engine_impl.hpp"
 #endif // #ifdef INGAME_EDITOR
 
-#include "xrSash.h"
-#include "igame_persistent.h"
+#include "xrSASH.h"
+#include "IGame_Persistent.h"
 
 ENGINE_API CRenderDevice Device;
 ENGINE_API CLoadScreenRenderer load_screen_renderer;
@@ -69,7 +69,7 @@ BOOL CRenderDevice::Begin()
 
 	case IRenderDeviceRender::dsLost:
 		// If the device was lost, do not render until we get it back
-		Sleep(33);
+		sleep(33);
 		return FALSE;
 		break;
 
@@ -144,7 +144,7 @@ void CRenderDevice::End(void)
 			if (g_pGamePersistent->GameType() == 1) //haCk
 			{
 				WINDOWINFO wi;
-				GetWindowInfo(m_hWnd, &wi);
+				//GetWindowInfo(m_hWnd, &wi);
 				if (wi.dwWindowStatus != WS_ACTIVECAPTION)
 					Pause(TRUE, TRUE, TRUE, "application start");
 			}
@@ -212,7 +212,7 @@ void mt_Thread(void* ptr)
 	}
 }
 
-#include "igame_level.h"
+#include "IGame_Level.h"
 
 void CRenderDevice::PreCache(u32 amount, bool b_draw_loadscreen, bool b_wait_user_input)
 {
@@ -310,7 +310,7 @@ void mt_FreezeThread(void *ptr) {
 		}
 		STOP_PROFILE;
 
-		Sleep((DWORD)repeatcheck);
+		sleep((DWORD)repeatcheck);
 	}
 }
 
@@ -320,7 +320,7 @@ void CRenderDevice::on_idle()
 
 	if (!b_is_Ready)
 	{
-		Sleep(100);
+		sleep(100);
 		return;
 	}
 
@@ -399,7 +399,8 @@ void CRenderDevice::on_idle()
 
 	//RCache.set_xform_view ( mView );
 	//RCache.set_xform_project ( mProject );
-	D3DXMatrixInverse((D3DXMATRIX*)&mInvFullTransform, 0, (D3DXMATRIX*)&mFullTransform);
+	//FIXME:
+	//D3DXMatrixInverse((D3DXMATRIX*)&mInvFullTransform, 0, (D3DXMATRIX*)&mFullTransform);
 
 	vCameraPosition_saved = vCameraPosition;
 	mFullTransform_saved = mFullTransform;
@@ -485,10 +486,10 @@ void CRenderDevice::on_idle()
     u32 FrameTime = (FrameEndTime - FrameStartTime);
     u32 DSUpdateDelta = 1000 / g_svDedicateServerUpdateReate;
     if (FrameTime < DSUpdateDelta)
-        Sleep(DSUpdateDelta - FrameTime);
+        sleep(DSUpdateDelta - FrameTime);
 #endif
 	if (!b_is_Active)
-		Sleep(1);
+		sleep(1);
 }
 
 #ifdef INGAME_EDITOR
@@ -561,11 +562,11 @@ void mt_DiscordThread(void*)
 			discord_core->RunCallbacks();
 			updateDiscordPresence();
 			STOP_PROFILE;
-			Sleep(int(discord_update_rate * 1000));
+			sleep(int(discord_update_rate * 1000));
 		}
 		else
 		{
-			Sleep(1000); // Sleep for 1 second if Discord is not used or disabled
+			sleep(1000); // Sleep for 1 second if Discord is not used or disabled
 		}
 	}
 }
@@ -605,7 +606,7 @@ void CRenderDevice::Run()
 	// Stop Balance-Thread
 	mt_bMustExit = TRUE;
 	mt_csEnter.Leave();
-	while (mt_bMustExit) Sleep(0);
+	while (mt_bMustExit) sleep(0);
 	// DeleteCriticalSection (&mt_csEnter);
 	// DeleteCriticalSection (&mt_csLeave);
 }

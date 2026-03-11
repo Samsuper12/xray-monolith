@@ -5,8 +5,13 @@
 #include <xrAPI.h>
 #include <xr_resource.h>
 
-#include "frustum.h"
+#include "Frustum.h"
 #include "vis_common.h"
+
+#include <stdint.h>
+
+using UINT = unsigned int;
+
 //#include "IRenderDetailModel.h"
 
 class IReader;
@@ -194,7 +199,7 @@ public:
 		GENERATION_R2 = 90,
 		GENERATION_DX90 = 90,
 		GENERATION_VK14,
-		GENERATION_forcedword = u32(-1)
+		GENERATION_forcedword = uint32_t(-1)
 	};
 
 	enum ScreenshotMode
@@ -208,7 +213,7 @@ public:
 		SM_FOR_LEVELMAP = 3,
 		// tga, name used as postfix (level_name)
 		SM_FOR_MPSENDING = 4,
-		SM_forcedword = u32(-1)
+		SM_forcedword = uint32_t(-1)
 	};
 
 	enum RRT

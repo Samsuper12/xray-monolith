@@ -28,7 +28,7 @@ PROTECT_API void CEngine::Initialize(void)
 {
 	// Bind PSGP
 	//hPSGP = LoadLibrary("xrCPU_Pipe.dll");
-	hPSGP = 0;
+	//hPSGP = 0;
 	//R_ASSERT(hPSGP);
 	//xrBinder* bindCPU = (xrBinder*)GetProcAddress(hPSGP, "xrBind_PSGP");
 	xrBinder* bindCPU = xrBind_PSGP;
@@ -65,7 +65,7 @@ void CEngine::Destroy()
 			ttapiDone();
 
 		//FreeLibrary(hPSGP);
-		hPSGP = 0;
+		//hPSGP = 0;
 		ZeroMemory(&PSGP, sizeof(PSGP));
 	}
 }

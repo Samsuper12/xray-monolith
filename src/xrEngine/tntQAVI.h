@@ -1,11 +1,13 @@
 #ifndef tntQAVIH
 #define tntQAVIH
 
+#if 0
+
 #include <math.h>
 
 //#include "tntTimer.h"
-#include "vfw.h"
-#include "mmsystem.h"
+//#include "vfw.h"
+//#include "mmsystem.h"
 
 // replaced with standard AVIIF_KEYFRAME
 //rr #define AVIINDEX_ISKEYFRAME 0x10 // ключевой кадр
@@ -102,4 +104,6 @@ public:
 	BOOL NeedUpdate() { return CalcFrame() != m_dwFrameCurrent; }
 	INT SetSpeed(INT nPercent);
 };
+#endif
+
 #endif

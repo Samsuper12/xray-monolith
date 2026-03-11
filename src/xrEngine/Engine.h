@@ -8,15 +8,15 @@
 
 #include <xrCPU_Pipe.h>
 
-#include "engineAPI.h"
-#include "eventAPI.h"
+#include "EngineAPI.h"
+#include "EventAPI.h"
 #include "xrSheduler.h"
 
 class CInifile;
 
 class ENGINE_API CEngine
 {
-	HMODULE hPSGP;
+	//HMODULE hPSGP;
 public:
 	BENCH_SEC_SCRAMBLEMEMBER1
 	// DLL api stuff

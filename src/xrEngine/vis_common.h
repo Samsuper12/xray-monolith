@@ -6,7 +6,7 @@
 #include "_sphere.h"
 #include "_fbox.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 struct vis_data
 {
 	Fsphere sphere; //
@@ -27,5 +27,5 @@ struct vis_data
 		hom_tested = 0;
 	}
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 #endif

@@ -5,12 +5,12 @@
 
 #pragma warning(disable:4731)
 
-#pragma pack(push)
-#pragma pack(1)
+// #pragma pack(push)
+// #pragma pack(1)
 
 typedef tv_sshort tv_sshort_tables[256][4];
 
-#pragma pack(pop)
+// #pragma pack(pop)
 /*
 
 //. width_diff = surface_width - theora_width

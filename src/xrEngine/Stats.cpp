@@ -7,7 +7,7 @@
 #include "DrawUtils.h"
 #include "GameFont.h"
 #include "IGame_Persistent.h"
-#include "render.h"
+#include "Render.h"
 #include "xr_object.h"
 
 int g_ErrorLineCount = 15;

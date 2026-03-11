@@ -3,8 +3,9 @@
 
 #include <_types.h>
 #include <_stl_extensions.h>
+#include "_std_extensions.h"
 #include <resource.h>
-#include <smart_cast.h>
+#include <../xrServerEntities/smart_cast.h>
 
 // messages
 #define REG_PRIORITY_LOW 0x11111111ul

@@ -7,12 +7,12 @@
 #include "Engine.h"
 
 #ifndef _EDITOR
-#include "environment.h"
+#include "Environment.h"
 #include "x_ray.h"
 #include "IGame_Level.h"
 #include "XR_IOConsole.h"
 #include "Render.h"
-#include "ps_instance.h"
+#include "PS_instance.h"
 #include "CustomHUD.h"
 #include "perlin.h"
 #endif
@@ -323,7 +323,7 @@ void IGame_Persistent::destroy_particles(const bool& all_particles)
 	else
 	{
 		u32 active_size = ps_active.size();
-		CPS_Instance** I = (CPS_Instance**)_alloca(active_size * sizeof(CPS_Instance*));
+		CPS_Instance** I = (CPS_Instance**)alloca(active_size * sizeof(CPS_Instance*));
 		std::copy(ps_active.begin(), ps_active.end(), I);
 
 		struct destroy_on_game_load

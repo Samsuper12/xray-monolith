@@ -32,7 +32,7 @@ the envelopes.
 #define BEH_LINEAR 5
 
 
-#pragma pack( push,1 )
+// #pragma pack( push,1 )
 struct st_Key
 {
 	enum
@@ -112,7 +112,7 @@ struct st_Key
 		}
 	}
 };
-#pragma pack( pop )
+// #pragma pack( pop )
 
 DEFINE_VECTOR(st_Key*, KeyVec, KeyIt);
 

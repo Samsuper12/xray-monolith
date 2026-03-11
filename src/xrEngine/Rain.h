@@ -6,7 +6,7 @@
 #define RainH
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 #include <xr_collide_defs.h>
 
 //refs

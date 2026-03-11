@@ -8,7 +8,7 @@
 #include "../xrGame/xr_level_controller.h"
 #include "../xrCore/os_clipboard.h"
 
-#include "render.h"
+#include "Render.h"
 #include "../xrGame/UICursor.h"
 
 namespace xr_imgui
@@ -22,11 +22,12 @@ namespace xr_imgui
 
     static void ImGui_UpdateKeyboardCodePage(UINT32& keyboard_code_page)
     {
+        //FIXME:
         // Retrieve keyboard code page, required for handling of non-Unicode Windows.
-        HKL keyboard_layout = ::GetKeyboardLayout(0);
-        LCID keyboard_lcid = MAKELCID(HIWORD(keyboard_layout), SORT_DEFAULT);
-        if (::GetLocaleInfoA(keyboard_lcid, (LOCALE_RETURN_NUMBER | LOCALE_IDEFAULTANSICODEPAGE), (LPSTR)&keyboard_code_page, sizeof(keyboard_code_page)) == 0)
-            keyboard_code_page = CP_ACP; // Fallback to default ANSI code page when fails.
+        // HKL keyboard_layout = ::GetKeyboardLayout(0);
+        // LCID keyboard_lcid = MAKELCID(HIWORD(keyboard_layout), SORT_DEFAULT);
+        // if (::GetLocaleInfoA(keyboard_lcid, (LOCALE_RETURN_NUMBER | LOCALE_IDEFAULTANSICODEPAGE), (LPSTR)&keyboard_code_page, sizeof(keyboard_code_page)) == 0)
+        //     keyboard_code_page = CP_ACP; // Fallback to default ANSI code page when fails.
     }
 
     void ide::InitBackend()

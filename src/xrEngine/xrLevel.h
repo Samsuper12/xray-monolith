@@ -87,7 +87,7 @@ enum EBuildQuality
 	ebq_force_u16 = u16(-1)
 };
 
-#pragma pack(push,8)
+// #pragma pack(push,8)
 struct hdrLEVEL
 {
 	u16 XRLC_version;
@@ -111,10 +111,10 @@ struct hdrNODES
 	Fbox aabb;
 	xrGUID guid;
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
-#pragma pack(push,1)
-#pragma pack(1)
+// #pragma pack(push,1)
+// #pragma pack(1)
 #ifndef _EDITOR
 class NodePosition
 {
@@ -376,7 +376,7 @@ struct SNodePositionOld
 	u16 y;
 	s16 z;
 };
-#pragma pack (pop)
+// #pragma pack (pop)
 
 #ifdef _EDITOR
 typedef SNodePositionOld NodePosition;

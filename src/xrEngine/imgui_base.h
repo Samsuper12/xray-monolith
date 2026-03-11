@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IInputReceiver.h"
-#include "ImGuiRender.h"
+#include "../Layers/xrRender/ImGuiRender.h"
 
 struct ImGuiContext;
 struct ImFont;
@@ -90,7 +90,7 @@ namespace xr_imgui
         bool m_shown;
         bool m_input;
         bool firstframe;
-        UINT32 keyboard_code_page;
+        uint32_t keyboard_code_page;
         xr_vector<IReader*> ImGuiFontsPtr;
         xr_map<shared_str, ImFont*> ImFonts;
     };

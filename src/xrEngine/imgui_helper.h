@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dinput.h>
+//#include <dinput.h>
 #include <imgui.h>
 
 namespace xr_imgui

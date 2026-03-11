@@ -4,15 +4,15 @@
 #include <xrCore.h>
 
 #include "Engine.h"
-#include "igame_level.h"
+#include "IGame_Level.h"
 
 //#include "xr_effgamma.h"
 #include "x_ray.h"
-#include "xr_ioconsole.h"
+#include "XR_IOConsole.h"
 #include "xr_ioc_cmd.h"
-//#include "fbasicvisual.h"
-#include "cameramanager.h"
-#include "environment.h"
+//#include "FBasicVisual.h"
+#include "CameraManager.h"
+#include "Environment.h"
 #include "xr_sdl3_input.hpp"
 #include "CustomHUD.h"
 
@@ -261,7 +261,7 @@ public:
 
 		BOOL b_allow = TRUE;
 		if (FS.exist(cfg_full_name))
-			b_allow = SetFileAttributes(cfg_full_name, FILE_ATTRIBUTE_NORMAL);
+			//FIXME: b_allow = SetFileAttributes(cfg_full_name, FILE_ATTRIBUTE_NORMAL);
 
 		if (b_allow)
 		{

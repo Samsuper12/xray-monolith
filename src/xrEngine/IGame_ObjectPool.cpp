@@ -2,9 +2,9 @@
 #include <xr_ini.h>
 
 #include "Engine.h"
-#include "igame_level.h"
+#include "IGame_Level.h"
 #include "IGame_Persistent.h"
-#include "igame_objectpool.h"
+#include "IGame_ObjectPool.h"
 #include "xr_object.h"
 
 IGame_ObjectPool::IGame_ObjectPool(void)

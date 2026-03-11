@@ -2,19 +2,19 @@
 #include <profiler.h>
 #include <xrCore.h>
 
-#include "igame_level.h"
-#include "igame_persistent.h"
+#include "IGame_Level.h"
+#include "IGame_Persistent.h"
 
 #include "Engine.h"
 #include "x_ray.h"
 #include "std_classes.h"
-#include "customHUD.h"
-#include "render.h"
-#include "gamefont.h"
+#include "CustomHUD.h"
+#include "Render.h"
+#include "GameFont.h"
 #include "xrLevel.h"
 #include "CameraManager.h"
 #include "xr_object.h"
-#include "feel_sound.h"
+#include "Feel_Sound.h"
 
 //#include "securom_api.h"
 
@@ -174,7 +174,7 @@ void IGame_Level::OnRender()
 	}
 	else
 	{
-		Sleep(psNET_DedicatedSleep);
+		sleep(psNET_DedicatedSleep);
 	}
 
 #ifdef _GPA_ENABLED

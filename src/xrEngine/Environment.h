@@ -1,7 +1,7 @@
 #ifndef EnvironmentH
 #define EnvironmentH
 
-#include <sound.h>
+#include <Sound.h>
 
 // refs
 class ENGINE_API IRender_Visual;

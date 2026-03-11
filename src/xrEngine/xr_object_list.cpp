@@ -1,8 +1,8 @@
 #include <defines.h>
 #include <net_utils.h>
 
-#include "igame_level.h"
-#include "igame_persistent.h"
+#include "IGame_Level.h"
+#include "IGame_Persistent.h"
 
 #include "xrSheduler.h"
 #include "xr_object_list.h"
@@ -250,7 +250,7 @@ void CObjectList::Update(bool bForce)
 			Device.Statistic->UpdateClient_total = objects_active.size() + objects_sleeping.size();
 
 			u32 const objects_count = workload->size();
-			CObject** objects = (CObject**)_alloca(objects_count * sizeof(CObject*));
+			CObject** objects = (CObject**)alloca(objects_count * sizeof(CObject*));
 			std::copy(workload->begin(), workload->end(), objects);
 
 			crows.clear_not_free();

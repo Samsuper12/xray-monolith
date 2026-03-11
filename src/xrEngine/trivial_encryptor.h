@@ -70,7 +70,7 @@ private:
 	IC static void initialize()
 	{
 #ifndef TRIVIAL_ENCRYPTOR_ENCODER
-		type* m_alphabet = (type*)_alloca(sizeof(type) * alphabet_size);
+		type* m_alphabet = (type*)alloca(sizeof(type) * alphabet_size);
 #endif // TRIVIAL_ENCRYPTOR_ENCODER
 
 		for (u32 i = 0; i < alphabet_size; ++i)

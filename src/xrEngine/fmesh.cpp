@@ -1,7 +1,7 @@
 #include <FS.h>
-#include <d3dx9.h>
+//#include <d3dx9.h>
 
-#include "fmesh.h"
+#include "Fmesh.h"
 
 //BOOL ValidateIndices(u32 vCount, u32 iCount, u16* pIndices)
 //{

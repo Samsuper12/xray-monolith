@@ -7,7 +7,7 @@
 
 #ifndef EDIT_ACTIONS_H_INCLUDED
 #define EDIT_ACTIONS_H_INCLUDED
-
+#include "line_edit_control.h"
 
 
 namespace text_editor

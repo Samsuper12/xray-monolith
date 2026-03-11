@@ -5,7 +5,7 @@
 #include <xrsharedmem.h>
 
 #include "bone.h"
-#include "skeletonmotiondefs.h"
+#include "SkeletonMotionDefs.h"
 
 class CKinematicsAnimated;
 class CBlend;
@@ -20,7 +20,7 @@ enum
 	flRKeyAbsent = (1 << 1),
 	flTKey16IsBit = (1 << 2),
 };
-#pragma pack(push,2)
+// #pragma pack(push,2)
 struct CKey
 {
 	Fquaternion Q; // rotation
@@ -49,7 +49,7 @@ struct CKeyQT
 s16 x1,y1,z1;
 };
 */
-#pragma pack(pop)
+// #pragma pack(pop)
 
 //*** Motion Data *********************************************************************************
 class ENGINE_API CMotion

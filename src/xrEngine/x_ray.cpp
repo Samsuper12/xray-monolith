@@ -8,7 +8,7 @@
 
 #include <defines.h>
 #include <discord.h>
-#include <process.h>
+// #include <process.h>
 #include <locale.h>
 #include <time.h>
 #include <unicode/unistr.h>
@@ -18,15 +18,15 @@
 #include <xr_ini.h>
 #include <xrCore.h>
 #include <NET_AuthCheck.h>
-#include <ispatial.h>
+#include <ISpatial.h>
 
 #include "Engine.h"
-#include "igame_level.h"
-#include "igame_persistent.h"
+#include "IGame_Level.h"
+#include "IGame_Persistent.h"
 #include "dedicated_server_only.h"
 #include "no_single.h"
 #include "xr_sdl3_input.hpp"
-#include "xr_ioconsole.h"
+#include "XR_IOConsole.h"
 #include "x_ray.h"
 #include "std_classes.h"
 #include "GameFont.h"
@@ -34,7 +34,7 @@
 #include "LightAnimLibrary.h"
 #include "Text_Console.h"
 #include "profiler.h"
-#include "xrSash.h"
+#include "xrSASH.h"
 //#include "securom_api.h"
 
 //---------------------------------------------------------------------
@@ -43,7 +43,7 @@ ENGINE_API CInifile* pGameIni = NULL;
 BOOL g_bIntroFinished = FALSE;
 extern void Intro(void* fn);
 extern void Intro_DSHOW(void* fn);
-extern int PASCAL IntroDSHOW_wnd(HINSTANCE hInstC, HINSTANCE hInstP, LPSTR lpCmdLine, int nCmdShow);
+//extern int PASCAL IntroDSHOW_wnd(HINSTANCE hInstC, HINSTANCE hInstP, LPSTR lpCmdLine, int nCmdShow);
 //int max_load_stage = 0;
 
 // computing build id
@@ -158,7 +158,7 @@ ENGINE_API string_path g_sLaunchWorkingFolder;
 void InitEngine()
 {
 	Engine.Initialize();
-	while (!g_bIntroFinished) Sleep(100);
+	while (!g_bIntroFinished) sleep(100);
 	Device.Initialize();
 }
 
@@ -307,7 +307,7 @@ void slowdownthread(void*)
 	// Sleep (30*1000);
 	for (;;)
 	{
-		if (Device.Statistic->fFPS < 30) Sleep(1);
+		if (Device.Statistic->fFPS < 30) sleep(1);
 		if (Device.mt_bMustExit) return;
 		if (0 == pSettings) return;
 		if (0 == Console) return;
@@ -667,10 +667,10 @@ static INT_PTR CALLBACK logDlgProc(HWND hw, UINT msg, WPARAM wp, LPARAM lp)
 extern "C"
 {
 	// https://docs.nvidia.com/gameworks/content/technologies/desktop/optimus.htm
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; // NVIDIA Optimus
+	DWORD NvOptimusEnablement = 0x00000001; // NVIDIA Optimus
 
 	// https://gpuopen.com/amdpowerxpressrequesthighperformance/
-	_declspec(dllexport) DWORD AmdPowerXpressRequestHighPerformance = 0x00000001; // PowerXpress or Hybrid Graphics
+	DWORD AmdPowerXpressRequestHighPerformance = 0x00000001; // PowerXpress or Hybrid Graphics
 }
 
 /*
@@ -897,7 +897,7 @@ ENGINE_API bool g_dedicated_server = false;
 
 #endif // DEDICATED_SERVER
 
-int APIENTRY WinMain_impl(HINSTANCE hInstance,
+int WinMain_impl(HINSTANCE hInstance,
                           HINSTANCE hPrevInstance,
                           char* lpCmdLine,
                           int nCmdShow)
@@ -942,7 +942,7 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance,
 #define STALKER_PRESENCE_MUTEX "Local\\STALKER-COP"
 
 	HANDLE hCheckPresenceMutex = INVALID_HANDLE_VALUE;
-	hCheckPresenceMutex = OpenMutex(READ_CONTROL, FALSE, STALKER_PRESENCE_MUTEX);
+	hCheckPresenceMutex ;//= OpenMutex(READ_CONTROL, FALSE, STALKER_PRESENCE_MUTEX);
 	if (hCheckPresenceMutex == NULL)
 	{
 		// New mutex
@@ -963,7 +963,8 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance,
 #endif // DEDICATED_SERVER
 
 	// Title window
-	logoWindow = CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
+	//FIXME:
+	logoWindow; //= CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
 
 	HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
 	RECT logoRect;
@@ -1121,8 +1122,9 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance,
 			ZeroMemory(&pi, sizeof(pi));
 			//We use CreateProcess to setup working folder
 			char const* temp_wf = (xr_strlen(g_sLaunchWorkingFolder) > 0) ? g_sLaunchWorkingFolder : NULL;
-			CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL,
-			              temp_wf, &si, &pi);
+			//FIXME:
+			// CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL,
+			//               temp_wf, &si, &pi);
 		}
 #ifndef DEDICATED_SERVER
 #ifdef NO_MULTI_INSTANCES
@@ -1162,8 +1164,8 @@ extern BOOL DllMainXrPhysics(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lp
 //extern BOOL DllMainXrRenderR2(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
 //extern BOOL DllMainXrRenderR3(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
 //extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
-
-int APIENTRY WinMain(HINSTANCE hInstance,
+int main(){}
+int WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      char* lpCmdLine,
                      int nCmdShow)
@@ -1178,13 +1180,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	DllMainXrCore(NULL, DLL_THREAD_ATTACH, NULL);
 #endif
 
-	__try
+	//__try
 	{
 		WinMain_impl(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 	}
-	__except (stack_overflow_exception_filter(GetExceptionCode()))
+	//__except (stack_overflow_exception_filter(GetExceptionCode()))
 	{
-		_resetstkoflw();
+		//_resetstkoflw();
 		FATAL("stack overflow");
 	}
 

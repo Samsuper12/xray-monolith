@@ -11,13 +11,12 @@ class ENGINE_API CCustomHUD;
 class CSE_Abstract;
 class NET_Packet;
 
-#include <ispatial.h>
-
-#include "isheduled.h"
-//#include "iinputreceiver.h"
-#include "irenderable.h"
-#include "icollidable.h"
-#include "engineapi.h"
+#include <ISpatial.h>
+#include "ISheduled.h"
+//#include "IInputReceiver.h"
+#include "IRenderable.h"
+#include "ICollidable.h"
+#include "EngineAPI.h"
 #include "device.h"
 
 //-----------------------------------------------------------------------------------------------------------
@@ -27,8 +26,8 @@ class NET_Packet;
 // CObject
 //-----------------------------------------------------------------------------------------------------------
 class IPhysicsShell;
-xr_pure_interface IObjectPhysicsCollision;
-#pragma pack(push,4)
+class IObjectPhysicsCollision;
+// #pragma pack(push,4)
 class ENGINE_API CObject :
 	public DLL_Pure,
 	public ISpatial,
@@ -247,6 +246,6 @@ public:
 	virtual Fvector get_last_local_point_on_mesh(Fvector const& last_point, u16 bone_id) const;
 };
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif //__XR_OBJECT_H__

@@ -11,7 +11,7 @@
 
 // TODO: remove this piece of shit
 #define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>
+//#include <dinput.h>
 
 class IInputReceiver;
 

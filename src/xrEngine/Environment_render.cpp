@@ -1,14 +1,14 @@
 
 #include "Environment.h"
 #ifndef _EDITOR
-#include "render.h"
+#include "Render.h"
 #endif
 #include "xr_efflensflare.h"
-#include "rain.h"
+#include "Rain.h"
 #include "thunderbolt.h"
 
 #ifndef _EDITOR
-# include "igame_level.h"
+# include "IGame_Level.h"
 #endif
 /*
 //////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ static u16 hbox_faces[20*3] =
 4, 6, 11
 };
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 struct v_skybox {
 Fvector3 p;
 u32 color;
@@ -79,7 +79,7 @@ intensity = _i;
 }
 };
 const u32 v_clouds_fvf = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR;
-#pragma pack(pop)
+// #pragma pack(pop)
 */
 
 //-----------------------------------------------------------------------------

@@ -6,9 +6,9 @@
 
 #include <fastdelegate.h>
 
-#include "FactoryPtr.h"
+#include "../Layers/xrRender/FactoryPtr.h"
 #include "pure.h"
-#include "UIShader.h"
+#include "../Layers/xrRender/UIShader.h"
 
 //refs
 class ENGINE_API CGameFont;

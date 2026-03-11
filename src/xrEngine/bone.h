@@ -24,7 +24,7 @@ typedef BoneCallbackFunction* BoneCallback;
 //typedef void (* BoneCallback) (CBoneInstance* P);
 
 //*** Bone Instance *******************************************************************************
-#pragma pack(push,8)
+// #pragma pack(push,8)
 class ENGINE_API CBoneInstance
 {
 public:
@@ -74,9 +74,9 @@ public:
 
 	u32 mem_usage() { return sizeof(*this); }
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
-#pragma pack( push,2 )
+// #pragma pack( push,2 )
 struct ENGINE_API vertBoned1W // (3+3+3+3+2+1)*4 = 15*4 = 60 bytes
 {
 	Fvector P;
@@ -140,9 +140,9 @@ struct ENGINE_API vertBoned4W //76 bytes
     u16 get_bone_id(u8 bone)const { VERIFY(bone < bones_count); return m[bone]; }
 #endif
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
-#pragma pack( push,1 )
+// #pragma pack( push,1 )
 enum EJointType
 {
 	jtRigid,
@@ -305,7 +305,7 @@ struct ECORE_API SJointIKData
 		return true;
 	}
 };
-#pragma pack( pop )
+// #pragma pack( pop )
 
 
 class IBoneData

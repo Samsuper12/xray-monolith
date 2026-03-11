@@ -42,7 +42,7 @@ class ENGINE_API CEngineAPI
 private:
 	//HMODULE hGame;
 	//HMODULE hRender;
-	HMODULE hTuner;
+	//HMODULE hTuner;
 public:
 	BENCH_SEC_SCRAMBLEMEMBER1
 	Factory_Create* pCreate;

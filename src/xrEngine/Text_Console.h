@@ -27,7 +27,7 @@ private:
 
 	HDC m_hDC_LogWnd;
 	HDC m_hDC_LogWnd_BackBuffer;
-	HBITMAP m_hBB_BM, m_hOld_BM;
+	//HBITMAP m_hBB_BM, m_hOld_BM;
 
 	bool m_bNeedUpdate;
 	u32 m_dwLastUpdateTime;
