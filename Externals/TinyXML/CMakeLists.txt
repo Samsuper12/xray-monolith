@@ -11,11 +11,13 @@ target_link_libraries(TinyXML
   PRIVATE
   FastDynamicCast
   robin_hood
+  fastdelegate
   
   XRay.Platform
 
   XRay.Core.Defines
   XRay.XMLParser.Defines
+  XRay.ServerEntities.Includes
   
   XRay.Core.Includes
   XRay.XMLParser.Includes
