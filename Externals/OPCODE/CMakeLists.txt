@@ -14,6 +14,7 @@ target_link_libraries(OPCODE
   PRIVATE
   FastDynamicCast
   robin_hood
+  fastdelegate
   
   XRay.Platform
 
