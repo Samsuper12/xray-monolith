@@ -20,7 +20,7 @@
 #define TYPELIST_INC_
 
 #include "static_check.h"
-#include "Nulltype.h"
+#include "NullType.h"
 #include "TypeManip.h"
 
 ////////////////////////////////////////////////////////////////////////////////
