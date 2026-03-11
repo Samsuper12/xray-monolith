@@ -9,6 +9,7 @@
 #pragma once
 
 #include "script_export_space.h"
+#include "ai_sounds.h"
 
 enum ESoundTypes;
 

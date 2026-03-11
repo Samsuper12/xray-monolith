@@ -336,43 +336,43 @@ CSE_ALifeItem::~CSE_ALifeItem()
 
 CSE_Abstract* CSE_ALifeItem::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 	return (base());
 }
 
 CSE_Abstract* CSE_ALifeItem::base()
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 const CSE_Abstract* CSE_ALifeItem::base() const
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 void CSE_ALifeItem::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 }
 
 void CSE_ALifeItem::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	if ((m_tClassID == CLSID_OBJECT_W_BINOCULAR) && (m_wVersion < 37))
 	{
 		tNetPacket.r_u16();
 		tNetPacket.r_u16();
 		tNetPacket.r_u8();
 	}
-	inherited2::STATE_Read(tNetPacket, size);
+	inherited2_::STATE_Read(tNetPacket, size);
 }
 
 void CSE_ALifeItem::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 
 #ifdef XRGAME_EXPORTS
 	m_last_update_time = Device.dwTimeGlobal;
@@ -381,8 +381,8 @@ void CSE_ALifeItem::UPDATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeItem::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 
 	m_physics_disabled = false;
 };
@@ -390,17 +390,17 @@ void CSE_ALifeItem::UPDATE_Read(NET_Packet& tNetPacket)
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeItem::FillProps				(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref,	 values);
-	inherited2::FillProps		(pref,	 values);
+	inherited1_::FillProps		(pref,	 values);
+	inherited2_::FillProps		(pref,	 values);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
 BOOL CSE_ALifeItem::Net_Relevant()
 {
-	if (inherited1::Net_Relevant())
+	if (inherited1_::Net_Relevant())
 		return (TRUE);
 
-	if (inherited2::Net_Relevant())
+	if (inherited2_::Net_Relevant())
 		return (TRUE);
 
 	if (attached())
@@ -419,7 +419,7 @@ BOOL CSE_ALifeItem::Net_Relevant()
 
 void CSE_ALifeItem::OnEvent(NET_Packet& tNetPacket, u16 type, u32 time, ClientID sender)
 {
-	inherited1::OnEvent(tNetPacket, type, time, sender);
+	inherited1_::OnEvent(tNetPacket, type, time, sender);
 
 	if (type != GE_FREEZE_OBJECT)
 		return;

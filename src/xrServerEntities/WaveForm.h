@@ -2,7 +2,7 @@
 #define WAVEFORM_H
 #pragma once
 
-#pragma pack(push,4)
+// // #pragma pack(push,4)
 struct WaveForm
 {
 	enum EFunction
@@ -63,5 +63,5 @@ public:
 	}
 };
 
-#pragma pack(pop)
+// // #pragma pack(pop)
 #endif

@@ -6,11 +6,11 @@
 //	Description : Server objects script export
 ////////////////////////////////////////////////////////////////////////////
 
-#include <net_server.h>
+#include <NET_Server.h>
 
 #include "pch_script.h"
 #include "xrServer_Objects.h"
-#include "phnetstate.h"
+#include "PHNetState.h"
 #include "xrServer_script_macroses.h"
 #include "script_ini_file.h"
 

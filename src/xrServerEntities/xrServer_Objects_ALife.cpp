@@ -25,7 +25,7 @@
 	LPCSTR GAME_CONFIG = "game.ltx";
 #else // XRGAME_EXPORTS
 #	include "../xrEngine/bone.h"
-#	include "../xrEngine/render.h"
+#	include "../xrEngine/Render.h"
 #endif // XRGAME_EXPORTS
 
 #ifdef XRSE_FACTORY_EXPORTS
@@ -56,11 +56,11 @@ struct logical_string_predicate {
 	bool operator()			(LPCSTR const& first, LPCSTR const& second) const
 	{
 		u32				buffer_size0 = (xr_strlen(first) + 1)*2;
-		LPCWSTR			buffer0 = (LPCWSTR)_alloca(buffer_size0);
+		LPCWSTR			buffer0 = (LPCWSTR)alloca(buffer_size0);
 		AnsiToUnicode	(first, (LPVOID)buffer0, buffer_size0);
 
 		u32				buffer_size1 = (xr_strlen(second) + 1)*2;
-		LPCWSTR			buffer1 = (LPCWSTR)_alloca(buffer_size1);
+		LPCWSTR			buffer1 = (LPCWSTR)alloca(buffer_size1);
 		AnsiToUnicode	(second, (LPVOID)buffer1, buffer_size1);
 
 		return			(StrCmpLogicalW(buffer0, buffer1) < 0);
@@ -69,11 +69,11 @@ struct logical_string_predicate {
 	bool operator()			(shared_str const& first, shared_str const& second) const
 	{
 		u32				buffer_size0 = (first.size() + 1)*2;
-		LPCWSTR			buffer0 = (LPCWSTR)_alloca(buffer_size0);
+		LPCWSTR			buffer0 = (LPCWSTR)alloca(buffer_size0);
 		AnsiToUnicode	(first.c_str(), (LPVOID)buffer0, buffer_size0);
 
 		u32				buffer_size1 = (second.size() + 1)*2;
-		LPCWSTR			buffer1 = (LPCWSTR)_alloca(buffer_size1);
+		LPCWSTR			buffer1 = (LPCWSTR)alloca(buffer_size1);
 		AnsiToUnicode	(second.c_str(), (LPVOID)buffer1, buffer_size1);
 
 		return			(StrCmpLogicalW(buffer0, buffer1) < 0);
@@ -733,32 +733,32 @@ CSE_Visual* CSE_ALifeDynamicObjectVisual::visual()
 
 void CSE_ALifeDynamicObjectVisual::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	visual_write(tNetPacket);
 }
 
 void CSE_ALifeDynamicObjectVisual::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	if (m_wVersion > 31)
 		visual_read(tNetPacket, m_wVersion);
 }
 
 void CSE_ALifeDynamicObjectVisual::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 };
 
 void CSE_ALifeDynamicObjectVisual::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 };
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeDynamicObjectVisual::FillProps	(LPCSTR pref, PropItemVec& items)
 {
-	inherited1::FillProps		(pref,items);
-	inherited2::FillProps		(pref,items);
+	inherited1_::FillProps		(pref,items);
+	inherited2_::FillProps		(pref,items);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
@@ -779,34 +779,34 @@ CSE_ALifePHSkeletonObject::~CSE_ALifePHSkeletonObject()
 
 void CSE_ALifePHSkeletonObject::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	if (m_wVersion >= 64)
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 }
 
 void CSE_ALifePHSkeletonObject::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 }
 
 
 void CSE_ALifePHSkeletonObject::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 void CSE_ALifePHSkeletonObject::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 };
 
 void CSE_ALifePHSkeletonObject::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 };
 
 bool CSE_ALifePHSkeletonObject::can_save() const
@@ -822,8 +822,8 @@ bool CSE_ALifePHSkeletonObject::used_ai_locations() const
 #ifndef XRGAME_EXPORTS
 void CSE_ALifePHSkeletonObject::FillProps(LPCSTR pref, PropItemVec& items)
 {
-	inherited1::FillProps			(pref,items);
-	inherited2::FillProps			(pref,items);
+	inherited1_::FillProps			(pref,items);
+	inherited2_::FillProps			(pref,items);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
@@ -860,7 +860,7 @@ ISE_Shape* CSE_ALifeSpaceRestrictor::shape()
 
 void CSE_ALifeSpaceRestrictor::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	cform_read(tNetPacket);
 	if (m_wVersion > 74)
 		m_space_restrictor_type = tNetPacket.r_u8();
@@ -868,19 +868,19 @@ void CSE_ALifeSpaceRestrictor::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeSpaceRestrictor::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	cform_write(tNetPacket);
 	tNetPacket.w_u8(m_space_restrictor_type);
 }
 
 void CSE_ALifeSpaceRestrictor::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeSpaceRestrictor::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 }
 
 xr_token defaul_retrictor_types[] = {
@@ -894,7 +894,7 @@ xr_token defaul_retrictor_types[] = {
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeSpaceRestrictor::FillProps		(LPCSTR pref, PropItemVec& items)
 {
-	inherited1::FillProps		(pref,items);
+	inherited1_::FillProps		(pref,items);
 	PHelper().CreateToken8		(items, PrepareKey(pref,*s_name,"restrictor type"),		&m_space_restrictor_type,	defaul_retrictor_types);
 	PHelper().CreateFlag32		(items,	PrepareKey(pref,*s_name,"check for separator"),	&m_flags,					flCheckForSeparator);
 }
@@ -1031,7 +1031,7 @@ void CSE_ALifeObjectPhysic::STATE_Read(NET_Packet& tNetPacket, u16 size)
 	if (m_wVersion >= 14)
 		if (m_wVersion >= 16)
 		{
-			inherited1::STATE_Read(tNetPacket, size);
+			inherited1_::STATE_Read(tNetPacket, size);
 			if (m_wVersion < 32)
 				visual_read(tNetPacket, m_wVersion);
 		}
@@ -1041,7 +1041,7 @@ void CSE_ALifeObjectPhysic::STATE_Read(NET_Packet& tNetPacket, u16 size)
 			visual_read(tNetPacket, m_wVersion);
 		}
 
-	if (m_wVersion >= 64) inherited2::STATE_Read(tNetPacket, size);
+	if (m_wVersion >= 64) inherited2_::STATE_Read(tNetPacket, size);
 
 	tNetPacket.r_u32(type);
 	tNetPacket.r_float(mass);
@@ -1070,8 +1070,8 @@ void CSE_ALifeObjectPhysic::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeObjectPhysic::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 	tNetPacket.w_u32(type);
 	tNetPacket.w_float(mass);
 	tNetPacket.w_stringZ(fixed_bones);
@@ -1121,8 +1121,8 @@ BOOL CSE_ALifeObjectPhysic::Net_Relevant()
 
 void CSE_ALifeObjectPhysic::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 
 	if (tNetPacket.r_eof()) //backward compatibility
 		return;
@@ -1213,8 +1213,8 @@ void CSE_ALifeObjectPhysic::UPDATE_Read(NET_Packet& tNetPacket)
 
 void CSE_ALifeObjectPhysic::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 	//////////////////////////////////////////////////////////////////////////
 	if (!m_u8NumItems)
 	{
@@ -1281,8 +1281,8 @@ void CSE_ALifeObjectPhysic::UPDATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeObjectPhysic::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 
@@ -1297,8 +1297,8 @@ xr_token po_types[] = {
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeObjectPhysic::FillProps		(LPCSTR pref, PropItemVec& values) 
 {
-	inherited1::FillProps		(pref,	 values);
-	inherited2::FillProps		(pref,	 values);
+	inherited1_::FillProps		(pref,	 values);
+	inherited2_::FillProps		(pref,	 values);
 
 	PHelper().CreateToken32		(values, PrepareKey(pref,*s_name,"Type"), &type,	po_types);
 	PHelper().CreateFloat		(values, PrepareKey(pref,*s_name,"Mass"), &mass, 0.1f, 10000.f);
@@ -1351,9 +1351,9 @@ CSE_ALifeObjectHangingLamp::~CSE_ALifeObjectHangingLamp()
 void CSE_ALifeObjectHangingLamp::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
 	if (m_wVersion > 20)
-		inherited1::STATE_Read(tNetPacket, size);
+		inherited1_::STATE_Read(tNetPacket, size);
 	if (m_wVersion >= 69)
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 	if (m_wVersion < 32)
 		visual_read(tNetPacket, m_wVersion);
 
@@ -1439,8 +1439,8 @@ void CSE_ALifeObjectHangingLamp::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeObjectHangingLamp::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 
 	// model
 	tNetPacket.w_u32(color);
@@ -1472,20 +1472,20 @@ void CSE_ALifeObjectHangingLamp::STATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeObjectHangingLamp::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeObjectHangingLamp::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 }
 
 void CSE_ALifeObjectHangingLamp::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 void CSE_ALifeObjectHangingLamp::OnChangeFlag(PropValue* sender)
@@ -1496,8 +1496,8 @@ void CSE_ALifeObjectHangingLamp::OnChangeFlag(PropValue* sender)
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeObjectHangingLamp::FillProps	(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref,values);
-	inherited2::FillProps		(pref,values);
+	inherited1_::FillProps		(pref,values);
+	inherited2_::FillProps		(pref,values);
 
     PropValue* P				= 0;
 	PHelper().CreateFlag16		(values, PrepareKey(pref,*s_name,"Flags\\Physic"),		&flags,			flPhysic);
@@ -1550,7 +1550,7 @@ void CSE_ALifeObjectHangingLamp::FillProps	(LPCSTR pref, PropItemVec& values)
 #define VIS_RADIUS 		0.25f
 void CSE_ALifeObjectHangingLamp::on_render(CDUInterface* du, ISE_AbstractLEOwner* owner, bool bSelected, const Fmatrix& parent,int priority, bool strictB2F)
 {
-	inherited1::on_render		(du,owner,bSelected,parent,priority,strictB2F);
+	inherited1_::on_render		(du,owner,bSelected,parent,priority,strictB2F);
 	if ((1==priority)&&(false==strictB2F)){
 		u32 clr					= bSelected?0x00FFFFFF:0x00FFFF00;
 		Fmatrix main_xform, ambient_xform;
@@ -1747,10 +1747,10 @@ CSE_Motion* CSE_ALifeHelicopter::motion()
 
 void CSE_ALifeHelicopter::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	CSE_Motion::motion_read(tNetPacket);
 	if (m_wVersion >= 69)
-		inherited3::STATE_Read(tNetPacket, size);
+		inherited3_::STATE_Read(tNetPacket, size);
 	tNetPacket.r_stringZ(startup_animation);
 	tNetPacket.r_stringZ(engine_sound);
 
@@ -1759,29 +1759,29 @@ void CSE_ALifeHelicopter::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeHelicopter::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	CSE_Motion::motion_write(tNetPacket);
-	inherited3::STATE_Write(tNetPacket);
+	inherited3_::STATE_Write(tNetPacket);
 	tNetPacket.w_stringZ(startup_animation);
 	tNetPacket.w_stringZ(engine_sound);
 }
 
 void CSE_ALifeHelicopter::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited3::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited3_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeHelicopter::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited3::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited3_::UPDATE_Write(tNetPacket);
 }
 
 void CSE_ALifeHelicopter::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited3::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited3_::load(tNetPacket);
 }
 
 bool CSE_ALifeHelicopter::can_save() const
@@ -1792,9 +1792,9 @@ bool CSE_ALifeHelicopter::can_save() const
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeHelicopter::FillProps(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref,	values);
-	inherited2::FillProps		(pref,	values);
-	inherited3::FillProps		(pref,	values);
+	inherited1_::FillProps		(pref,	values);
+	inherited2_::FillProps		(pref,	values);
+	inherited3_::FillProps		(pref,	values);
 
     PHelper().CreateChoose		(values,	PrepareKey(pref,*s_name,"Engine Sound"), &engine_sound, smSoundSource);
 }
@@ -1823,10 +1823,10 @@ CSE_ALifeCar::~CSE_ALifeCar()
 
 void CSE_ALifeCar::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 
 	if (m_wVersion > 65)
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 	if ((m_wVersion > 52) && (m_wVersion < 55))
 		tNetPacket.r_float();
 	if (m_wVersion > 92)
@@ -1836,21 +1836,21 @@ void CSE_ALifeCar::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeCar::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 	tNetPacket.w_float(health);
 }
 
 void CSE_ALifeCar::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeCar::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 }
 
 bool CSE_ALifeCar::used_ai_locations() const
@@ -1865,14 +1865,14 @@ bool CSE_ALifeCar::can_save() const
 
 void CSE_ALifeCar::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 void CSE_ALifeCar::data_load(NET_Packet& tNetPacket)
 {
-	//inherited1::data_load(tNetPacket);
-	inherited2::data_load(tNetPacket);
+	//inherited1_::data_load(tNetPacket);
+	inherited2_::data_load(tNetPacket);
 	//VERIFY(door_states.empty());
 
 	tNetPacket.r_vec3(o_Position);
@@ -1899,8 +1899,8 @@ void CSE_ALifeCar::data_load(NET_Packet& tNetPacket)
 
 void CSE_ALifeCar::data_save(NET_Packet& tNetPacket)
 {
-	//inherited1::data_save(tNetPacket);
-	inherited2::data_save(tNetPacket);
+	//inherited1_::data_save(tNetPacket);
+	inherited2_::data_save(tNetPacket);
 	tNetPacket.w_vec3(o_Position);
 	tNetPacket.w_vec3(o_Angle);
 	{
@@ -1949,8 +1949,8 @@ void CSE_ALifeCar::SWheelState::write(NET_Packet& P)
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeCar::FillProps				(LPCSTR pref, PropItemVec& values)
 {
-  	inherited1::FillProps			(pref,values);
-	inherited2::FillProps			(pref,values);
+  	inherited1_::FillProps			(pref,values);
+	inherited2_::FillProps			(pref,values);
 	PHelper().CreateFloat		(values, PrepareKey(pref,*s_name,"Health"),			&health,			0.f, 1.0f);
 }
 #endif // #ifndef XRGAME_EXPORTS
@@ -2031,11 +2031,11 @@ ISE_Shape* CSE_ALifeObjectClimable::shape()
 
 void CSE_ALifeObjectClimable::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	//inherited1::STATE_Read		(tNetPacket,size);
+	//inherited1_::STATE_Read		(tNetPacket,size);
 	if (m_wVersion == 99)
 		CSE_ALifeObject::STATE_Read(tNetPacket, size);
 	if (m_wVersion > 99)
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 	cform_read(tNetPacket);
 	if (m_wVersion > 126)
 		tNetPacket.r_stringZ(material);
@@ -2043,29 +2043,29 @@ void CSE_ALifeObjectClimable::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeObjectClimable::STATE_Write(NET_Packet& tNetPacket)
 {
-	//inherited1::STATE_Write		(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	//inherited1_::STATE_Write		(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 	cform_write(tNetPacket);
 	tNetPacket.w_stringZ(material);
 }
 
 void CSE_ALifeObjectClimable::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	//inherited1::UPDATE_Read		(tNetPacket);
-	//inherited2::UPDATE_Read		(tNetPacket);
+	//inherited1_::UPDATE_Read		(tNetPacket);
+	//inherited2_::UPDATE_Read		(tNetPacket);
 }
 
 void CSE_ALifeObjectClimable::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	//inherited1::UPDATE_Write		(tNetPacket);
-	//inherited2::UPDATE_Write		(tNetPacket);
+	//inherited1_::UPDATE_Write		(tNetPacket);
+	//inherited2_::UPDATE_Write		(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeObjectClimable::FillProps		(LPCSTR pref, PropItemVec& values)
 {
-	//inherited1::FillProps			(pref,values);
-	inherited2::FillProps			(pref,values);
+	//inherited1_::FillProps			(pref,values);
+	inherited2_::FillProps			(pref,values);
 	//PHelper().CreateFloat		(values, PrepareKey(pref,*s_name,"Health"),			&m_health,			0.f, 100.f);
 }
 
@@ -2143,8 +2143,8 @@ CSE_ALifeStationaryMgun::~CSE_ALifeStationaryMgun()
 void CSE_ALifeStationaryMgun::UPDATE_Read(NET_Packet& tNetPacket)
 {
 #ifdef STATIONARYMGUN_NEW
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 #else
 	inherited::UPDATE_Read(tNetPacket);
 #endif
@@ -2174,8 +2174,8 @@ void CSE_ALifeStationaryMgun::UPDATE_Read(NET_Packet& tNetPacket)
 void CSE_ALifeStationaryMgun::UPDATE_Write(NET_Packet& tNetPacket)
 {
 #ifdef STATIONARYMGUN_NEW
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 #else
 	inherited::UPDATE_Write(tNetPacket);
 #endif
@@ -2203,20 +2203,20 @@ bool CSE_ALifeStationaryMgun::can_save() const
 
 void CSE_ALifeStationaryMgun::load(NET_Packet &tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 void CSE_ALifeStationaryMgun::data_load(NET_Packet &tNetPacket)
 {
-	inherited2::data_load(tNetPacket);
+	inherited2_::data_load(tNetPacket);
 	tNetPacket.r_vec3(o_Position);
 	tNetPacket.r_vec3(o_Angle);
 }
 
 void CSE_ALifeStationaryMgun::data_save(NET_Packet &tNetPacket)
 {
-	inherited2::data_save(tNetPacket);
+	inherited2_::data_save(tNetPacket);
 	tNetPacket.w_vec3(o_Position);
 	tNetPacket.w_vec3(o_Angle);
 }
@@ -2225,8 +2225,8 @@ void CSE_ALifeStationaryMgun::data_save(NET_Packet &tNetPacket)
 void CSE_ALifeStationaryMgun::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
 #ifdef STATIONARYMGUN_NEW
-	inherited1::STATE_Read(tNetPacket, size);
-	inherited2::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
+	inherited2_::STATE_Read(tNetPacket, size);
 
 #ifdef STATIONARYMGUN_NEW
 	ammo_type = tNetPacket.r_u8();
@@ -2254,8 +2254,8 @@ void CSE_ALifeStationaryMgun::STATE_Read(NET_Packet& tNetPacket, u16 size)
 void CSE_ALifeStationaryMgun::STATE_Write(NET_Packet& tNetPacket)
 {
 #ifdef STATIONARYMGUN_NEW
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 
 #ifdef STATIONARYMGUN_NEW
 	tNetPacket.w_u8(ammo_type);
@@ -2277,8 +2277,8 @@ void CSE_ALifeStationaryMgun::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeStationaryMgun::FillProps			(LPCSTR pref, PropItemVec& values)
 {
 #ifdef STATIONARYMGUN_NEW
-	inherited1::FillProps			(pref,values);
-	inherited2::FillProps			(pref,values);
+	inherited1_::FillProps			(pref,values);
+	inherited2_::FillProps			(pref,values);
 #else
 	inherited::FillProps			(pref,values);
 #endif
@@ -2399,35 +2399,35 @@ const CSE_Abstract* CSE_ALifeSmartZone::base() const
 
 CSE_Abstract* CSE_ALifeSmartZone::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 	return (this);
 }
 
 void CSE_ALifeSmartZone::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 }
 
 void CSE_ALifeSmartZone::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 }
 
 void CSE_ALifeSmartZone::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeSmartZone::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeSmartZone::FillProps		(LPCSTR pref, PropItemVec& items)
 {
-	inherited1::FillProps		(pref,items);
+	inherited1_::FillProps		(pref,items);
 }
 #endif // #ifndef XRGAME_EXPORTS
 

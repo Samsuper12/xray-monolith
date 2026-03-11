@@ -6,10 +6,10 @@
 #include <xr_rtoken.h>
 #include <xr_trims.h>
 
-#include "WaveForm.H"
+#include "WaveForm.h"
 #include "gametype_chooser.h"
 
-#pragma pack(push, 8)
+// // #pragma pack(push, 8)
 
 //---------------------------------------------------------------------------
 enum EPropType
@@ -50,12 +50,14 @@ class PropItem;
 DEFINE_VECTOR(PropItem*, PropItemVec, PropItemIt);
 
 //------------------------------------------------------------------------------
-#include "../xrcore/ChooseTypes.H"
+#include "../xrCore/ChooseTypes.H"
 //------------------------------------------------------------------------------
 typedef fastdelegate::FastDelegate2<PropValue*, xr_string&> TOnDrawTextEvent;
 typedef fastdelegate::FastDelegate1<PropItem*> TOnClick;
 
 //------------------------------------------------------------------------------
+// Fucking MSVC. Stupid idiots.
+class TProperties;
 
 class PropValue
 {
@@ -709,16 +711,16 @@ public:
 		return draw_val;
 	}
 
-	virtual bool Equal(PropValue* val) { return !!value->equal(*((FlagValue<T>*)val)->value, mask); }
-	virtual const T& GetValue() { return *value; }
-	virtual void ResetValue() { value->set(mask, init_value.is(mask)); }
-	virtual bool GetValueEx() { return !!value->is(mask); }
+	virtual bool Equal(PropValue* val) { return !!this->value->equal(*((FlagValue<T>*)val)->value, mask); }
+	virtual const T& GetValue() { return *this->value; }
+	virtual void ResetValue() { this->value->set(mask, this->init_value.is(mask)); }
+	virtual bool GetValueEx() { return !!this->value->is(mask); }
 
 	bool ApplyValue(const T& val)
 	{
-		if (!val.equal(*value, mask))
+		if (!val.equal(*this->value, mask))
 		{
-			value->set(mask, val.is(mask));
+			this->value->set(mask, val.is(mask));
 			return true;
 		}
 		return false;
@@ -867,6 +869,6 @@ public:
 };
 
 //------------------------------------------------------------------------------
-#pragma pack( pop )
+// // #pragma pack( pop )
 
 #endif

@@ -722,10 +722,10 @@ bool CScriptStorage::load_buffer(lua_State* L, LPCSTR caBuffer, size_t tSize, LP
 		LPSTR script = 0;
 		bool dynamic_allocation = false;
 
-		__try
+		//__try
 		{
 			if (total_size < 768 * 1024)
-				script = (LPSTR)_alloca(total_size);
+				script = (LPSTR)alloca(total_size);
 			else
 			{
 #ifdef DEBUG
@@ -736,9 +736,9 @@ bool CScriptStorage::load_buffer(lua_State* L, LPCSTR caBuffer, size_t tSize, LP
 				dynamic_allocation = true;
 			}
 		}
-		__except (GetExceptionCode() == STATUS_STACK_OVERFLOW)
+		//__except (GetExceptionCode() == STATUS_STACK_OVERFLOW)
 		{
-			int errcode = _resetstkoflw();
+			int errcode = 0;// _resetstkoflw();
 			R_ASSERT2(errcode, "Could not reset the stack after \"Stack overflow\" exception!");
 #ifdef DEBUG
             script					= (LPSTR)Memory.mem_alloc(total_size, "lua script file (after exception)");

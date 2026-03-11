@@ -407,7 +407,7 @@ void CScriptDebugger::WaitForReply(bool bWaitForModalResult) //UINT nMsg)
 		while (true)
 		{
 			if (CheckMailslotMessage(m_mailSlot, msg)) break;
-			Sleep(10);
+			sleep(10);
 		};
 		R_ASSERT(msg.GetLen());
 

@@ -9,7 +9,7 @@
 #include <net_utils.h>
 
 #include "pch_script.h"
-#include "igame_level.h"
+#include "IGame_Level.h"
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "xrServer_script_macroses.h"
 #include "specific_character.h"

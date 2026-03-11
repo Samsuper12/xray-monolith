@@ -8,6 +8,9 @@
 
 #pragma once
 
+#include "../xrCore/FixedVector.h"
+
+
 template <typename P>
 struct CComparer
 {
@@ -58,8 +61,8 @@ struct CComparer
 		if (_1.size() != _2.size())
 			return (p());
 
-		svector<T, size>::const_iterator I = _1.begin(), J = _2.begin();
-		svector<T, size>::const_iterator E = _1.end();
+		typename svector<T, size>::const_iterator I = _1.begin(), J = _2.begin();
+		typename svector<T, size>::const_iterator E = _1.end();
 		for (; I != E; ++I, ++J)
 			if (!compare(*I, *J, p))
 				return (false);

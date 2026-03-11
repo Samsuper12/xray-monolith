@@ -4,7 +4,7 @@
 
 //---------------------------------------------------------------------------
 
-#pragma pack(push, 8)
+// // #pragma pack(push, 8)
 
 class ListItem
 {
@@ -55,5 +55,5 @@ public:
 
 DEFINE_VECTOR(ListItem*, ListItemsVec, ListItemsIt);
 //---------------------------------------------------------------------------
-#pragma pack(pop)
+// // #pragma pack(pop)
 #endif

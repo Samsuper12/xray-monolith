@@ -1,5 +1,5 @@
 
-#include "script_CallStack.h"
+#include "script_callStack.h"
 #include "script_debugger.h"
 
 CScriptCallStack::CScriptCallStack(CScriptDebugger* d)

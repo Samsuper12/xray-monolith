@@ -6,7 +6,7 @@
 //	Description : Server objects
 ////////////////////////////////////////////////////////////////////////////
 
-#pragma pack(push,4)
+// // #pragma pack(push,4)
 
 #include <net_utils.h>
 
@@ -129,4 +129,4 @@ void CSE_Motion::FillProps(		LPCSTR pref, PropItemVec &items)
 }
 #endif // #ifndef XRGAME_EXPORTS
 
-#pragma pack(pop,4)
+// // #pragma pack(pop,4)

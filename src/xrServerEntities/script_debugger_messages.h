@@ -68,6 +68,7 @@ struct SScriptThread
 
 #define DEBUGGER_MAIL_SLOT		"\\\\.\\mailslot\\script_debugger_mailslot"
 #define IDE_MAIL_SLOT			"\\\\.\\mailslot\\script_ide_mailslot"
+#define WM_USER 0x0400
 
 enum dbg_messages
 {

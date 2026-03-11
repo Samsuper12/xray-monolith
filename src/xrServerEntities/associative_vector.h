@@ -9,6 +9,8 @@
 #pragma once
 
 #include "associative_vector_compare_predicate.h"
+#include "../xrCore/_stl_extensions.h"
+#include <functional>
 
 template <
 	typename _key_type,

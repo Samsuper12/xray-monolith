@@ -9,7 +9,7 @@
 #ifndef xrServer_Objects_AbstractH
 #define xrServer_Objects_AbstractH
 
-#pragma pack(push,4)
+//// #pragma pack(push,4)
 #include "xrServer_Space.h"
 #	include "../xrCDB/xrCDB.h"
 #include "ShapeData.h"
@@ -112,13 +112,13 @@ struct ISE_AbstractLEOwner
 IC ISE_AbstractLEOwner::~ISE_AbstractLEOwner()
 {
 }
-#pragma pack(push,1)
+// // #pragma pack(push,1)
 struct visual_data
 {
 	Fmatrix matrix;
 	CSE_Visual* visual;
 }; // struct visual_data
-#pragma pack(pop)
+// // #pragma pack(pop)
 
 struct ISE_Abstract
 {
@@ -164,5 +164,5 @@ IC ISE_Abstract::~ISE_Abstract()
 }
 #pragma warning(pop)
 
-#pragma pack(pop)
+// // #pragma pack(pop)
 #endif // xrServer_Objects_AbstractH

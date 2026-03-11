@@ -14,6 +14,7 @@
 #include "script_debugger.h"
 #include "new_sds.h"
 #include "macros.h"
+#include "_math.h"
 
 using namespace luabind;
 

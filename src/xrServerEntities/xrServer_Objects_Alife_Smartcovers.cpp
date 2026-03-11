@@ -6,10 +6,10 @@
 //	Description : Server objects smartcovers for ALife simulator
 ////////////////////////////////////////////////////////////////////////////
 
-#include <net_server.h>
+#include <NET_Server.h>
 
 #include "pch_script.h"
-#include "xrServer_Objects_ALife_Smartcovers.h"
+#include "xrServer_Objects_Alife_Smartcovers.h"
 
 #ifndef AI_COMPILER
 #	include "character_info.h"
@@ -134,7 +134,7 @@ void CSE_SmartCover::set_available_loopholes(::luabind::object table)
 
 void CSE_SmartCover::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	cform_read(tNetPacket);
 	tNetPacket.r_stringZ(m_description);
 	m_hold_position_time = tNetPacket.r_float();
@@ -153,7 +153,7 @@ void CSE_SmartCover::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_SmartCover::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	cform_write(tNetPacket);
 	tNetPacket.w_stringZ(m_description);
 	tNetPacket.w_float(m_hold_position_time);
@@ -165,12 +165,12 @@ void CSE_SmartCover::STATE_Write(NET_Packet& tNetPacket)
 
 void CSE_SmartCover::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_SmartCover::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 }
 #ifndef XRGAME_EXPORTS
 void CSE_SmartCover::FillProps	(LPCSTR pref, PropItemVec& items)
@@ -556,7 +556,7 @@ void CSE_SmartCover::load_draw_data () {
 
 void CSE_SmartCover::on_render	(CDUInterface* du, ISE_AbstractLEOwner* owner, bool bSelected, const Fmatrix& parent,int priority, bool strictB2F)
 {
-	inherited1::on_render	(du, owner, bSelected, parent, priority, strictB2F);
+	inherited1_::on_render	(du, owner, bSelected, parent, priority, strictB2F);
 	if ( !((1==priority)&&(false==strictB2F)) )	
 		return;
 

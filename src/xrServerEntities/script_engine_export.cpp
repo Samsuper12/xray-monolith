@@ -20,7 +20,7 @@ struct Register
 
 	static void _Register(lua_State* L)
 	{
-		Register<TList::Tail>::_Register(L);
+		Register<typename TList::Tail>::_Register(L);
 #ifdef XRGAME_EXPORTS
 #	ifdef _DEBUG
 		Msg("Exporting %s",typeid(TList::Head).name());

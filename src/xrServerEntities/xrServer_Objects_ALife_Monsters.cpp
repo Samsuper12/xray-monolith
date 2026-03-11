@@ -32,7 +32,7 @@
 #	include "alife_simulator.h"
 #	include "alife_object_registry.h"
 #	include "date_time.h"
-#	include "custommonster.h"
+#	include "CustomMonster.h"
 #	include "movement_manager.h"
 #	include "location_manager.h"
 #endif
@@ -615,31 +615,31 @@ bool CSE_ALifeTrader::match_configuration	() const
 
 CSE_Abstract* CSE_ALifeTrader::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 	return (base());
 }
 
 CSE_Abstract* CSE_ALifeTrader::base()
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 const CSE_Abstract* CSE_ALifeTrader::base() const
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 void CSE_ALifeTrader::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 }
 
 void CSE_ALifeTrader::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
-	inherited2::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
+	inherited2_::STATE_Read(tNetPacket, size);
 	if ((m_wVersion > 35) && (m_wVersion < 118))
 		tNetPacket.r_u32();
 
@@ -676,14 +676,14 @@ void CSE_ALifeTrader::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeTrader::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 };
 
 void CSE_ALifeTrader::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 };
 
 bool CSE_ALifeTrader::interactive() const
@@ -694,8 +694,8 @@ bool CSE_ALifeTrader::interactive() const
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeTrader::FillProps				(LPCSTR _pref, PropItemVec& items)
 {
-	inherited1::FillProps		(_pref,items);
-	inherited2::FillProps		(_pref,items);
+	inherited1_::FillProps		(_pref,items);
+	inherited2_::FillProps		(_pref,items);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
@@ -925,32 +925,32 @@ CSE_Motion* CSE_ALifeTorridZone::motion()
 
 void CSE_ALifeTorridZone::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	CSE_Motion::motion_read(tNetPacket);
 	set_editor_flag(flMotionChange);
 }
 
 void CSE_ALifeTorridZone::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	CSE_Motion::motion_write(tNetPacket);
 }
 
 void CSE_ALifeTorridZone::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeTorridZone::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeTorridZone::FillProps(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref, values);
-	inherited2::FillProps		(pref, values);
+	inherited1_::FillProps		(pref, values);
+	inherited2_::FillProps		(pref, values);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
@@ -977,7 +977,7 @@ CSE_Visual* CSE_ALifeZoneVisual::visual()
 
 void CSE_ALifeZoneVisual::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	visual_read(tNetPacket, m_wVersion);
 	tNetPacket.r_stringZ(startup_animation);
 	tNetPacket.r_stringZ(attack_animation);
@@ -985,7 +985,7 @@ void CSE_ALifeZoneVisual::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeZoneVisual::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	visual_write(tNetPacket);
 	tNetPacket.w_stringZ(startup_animation);
 	tNetPacket.w_stringZ(attack_animation);
@@ -993,19 +993,19 @@ void CSE_ALifeZoneVisual::STATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeZoneVisual::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeZoneVisual::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeZoneVisual::FillProps(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref, values);
-	inherited2::FillProps		(pref, values);
+	inherited1_::FillProps		(pref, values);
+	inherited2_::FillProps		(pref, values);
 	ISE_Abstract* abstract		= smart_cast<ISE_Abstract*>(this); VERIFY(abstract);
 	PHelper().CreateChoose(values,	PrepareKey(pref,abstract->name(),"Attack animation"),	&attack_animation, smSkeletonAnims,0,(void*)*visual_name);
 }
@@ -1286,8 +1286,8 @@ CALifeMonsterBrain* CSE_ALifeMonsterAbstract::create_brain()
 
 CSE_Abstract* CSE_ALifeMonsterAbstract::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 
 	if (spawn_ini().section_exist("alife") && spawn_ini().line_exist("alife", "terrain"))
 		setup_location_types(m_tpaTerrain, &spawn_ini(), spawn_ini().r_string("alife", "terrain"));
@@ -1299,32 +1299,32 @@ CSE_Abstract* CSE_ALifeMonsterAbstract::init()
 
 CSE_Abstract* CSE_ALifeMonsterAbstract::base()
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 u32 CSE_ALifeMonsterAbstract::ef_creature_type() const
 {
-	return (inherited1::ef_creature_type());
+	return (inherited1_::ef_creature_type());
 }
 
 u32 CSE_ALifeMonsterAbstract::ef_weapon_type() const
 {
-	return (inherited1::ef_weapon_type());
+	return (inherited1_::ef_weapon_type());
 }
 
 u32 CSE_ALifeMonsterAbstract::ef_detector_type() const
 {
-	return (inherited1::ef_detector_type());
+	return (inherited1_::ef_detector_type());
 }
 
 const CSE_Abstract* CSE_ALifeMonsterAbstract::base() const
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 void CSE_ALifeMonsterAbstract::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	tNetPacket.w_stringZ(m_out_space_restrictors);
 	tNetPacket.w_stringZ(m_in_space_restrictors);
 	tNetPacket.w_u16(m_smart_terrain_id);
@@ -1337,7 +1337,7 @@ void CSE_ALifeMonsterAbstract::STATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeMonsterAbstract::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	if (m_wVersion > 72)
 	{
 		tNetPacket.r_stringZ(m_out_space_restrictors);
@@ -1363,7 +1363,7 @@ void CSE_ALifeMonsterAbstract::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeMonsterAbstract::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 
 	tNetPacket.w_u16(m_tNextGraphID);
 	tNetPacket.w_u16(m_tPrevGraphID);
@@ -1373,7 +1373,7 @@ void CSE_ALifeMonsterAbstract::UPDATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeMonsterAbstract::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 
 	tNetPacket.r_u16(m_tNextGraphID);
 	tNetPacket.r_u16(m_tPrevGraphID);
@@ -1384,7 +1384,7 @@ void CSE_ALifeMonsterAbstract::UPDATE_Read(NET_Packet& tNetPacket)
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeMonsterAbstract::FillProps		(LPCSTR pref, PropItemVec& items)
 {
-  	inherited1::FillProps		(pref,items);
+  	inherited1_::FillProps		(pref,items);
 	
 	PHelper().CreateFlag32		(items,	PrepareKey(pref,*s_name,"ALife\\No move in offline"),	&m_flags,			flOfflineNoMove);
 	PHelper().CreateFlag32		(items,	PrepareKey(pref,*s_name,"Use smart terrain tasks"),	&m_flags,			flUseSmartTerrains);
@@ -1455,19 +1455,19 @@ bool CSE_ALifeCreatureActor::match_configuration	() const
 
 CSE_Abstract* CSE_ALifeCreatureActor::init()
 {
-	inherited1::init();
-	inherited2::init();
-	return (inherited1::base());
+	inherited1_::init();
+	inherited2_::init();
+	return (inherited1_::base());
 }
 
 CSE_Abstract* CSE_ALifeCreatureActor::base()
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 const CSE_Abstract* CSE_ALifeCreatureActor::base() const
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 void CSE_ALifeCreatureActor::STATE_Read(NET_Packet& tNetPacket, u16 size)
@@ -1485,14 +1485,14 @@ void CSE_ALifeCreatureActor::STATE_Read(NET_Packet& tNetPacket, u16 size)
 	}
 	else
 	{
-		inherited1::STATE_Read(tNetPacket, size);
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited1_::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 		if (m_wVersion < 32)
 			visual_read(tNetPacket, m_wVersion);
 	}
 	if (m_wVersion > 91)
 	{
-		inherited3::STATE_Read(tNetPacket, size);
+		inherited3_::STATE_Read(tNetPacket, size);
 	}
 	if (m_wVersion > 88)
 	{
@@ -1502,16 +1502,16 @@ void CSE_ALifeCreatureActor::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeCreatureActor::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
-	inherited3::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
+	inherited3_::STATE_Write(tNetPacket);
 	tNetPacket.w_u16(m_holderID);
 };
 
 void CSE_ALifeCreatureActor::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited3::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited3_::load(tNetPacket);
 	m_holderID = tNetPacket.r_u16();
 }
 
@@ -1522,8 +1522,8 @@ BOOL CSE_ALifeCreatureActor::Net_Relevant()
 
 void CSE_ALifeCreatureActor::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 	tNetPacket.r_u16(mstate);
 	tNetPacket.r_sdir(accel);
 	tNetPacket.r_sdir(velocity);
@@ -1564,8 +1564,8 @@ void CSE_ALifeCreatureActor::UPDATE_Read(NET_Packet& tNetPacket)
 
 void CSE_ALifeCreatureActor::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 	tNetPacket.w_u16(mstate);
 	tNetPacket.w_sdir(accel);
 	tNetPacket.w_sdir(velocity);
@@ -1605,16 +1605,16 @@ void CSE_ALifeCreatureActor::UPDATE_Write(NET_Packet& tNetPacket)
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeCreatureActor::FillProps		(LPCSTR pref, PropItemVec& items)
 {
-  	inherited1::FillProps		(pref,items);
-  	inherited2::FillProps		(pref,items);
+  	inherited1_::FillProps		(pref,items);
+  	inherited2_::FillProps		(pref,items);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
 #ifdef XRGAME_EXPORTS
 void CSE_ALifeCreatureActor::spawn_supplies()
 {
-	inherited1::spawn_supplies();
-	inherited2::spawn_supplies();
+	inherited1_::spawn_supplies();
+	inherited2_::spawn_supplies();
 }
 #endif
 
@@ -1758,7 +1758,7 @@ CSE_ALifeMonsterRat::~CSE_ALifeMonsterRat()
 
 void CSE_ALifeMonsterRat::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	tNetPacket.r_float(fEyeFov);
 	tNetPacket.r_float(fEyeRange);
 	if (m_wVersion <= 5)
@@ -1784,12 +1784,12 @@ void CSE_ALifeMonsterRat::STATE_Read(NET_Packet& tNetPacket, u16 size)
 	tNetPacket.r_float(fAttackDistance);
 	tNetPacket.r_float(fAttackAngle);
 	tNetPacket.r_float(fAttackSuccessProbability);
-	inherited2::STATE_Read(tNetPacket, size);
+	inherited2_::STATE_Read(tNetPacket, size);
 }
 
 void CSE_ALifeMonsterRat::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 	tNetPacket.w_float(fEyeFov);
 	tNetPacket.w_float(fEyeRange);
 	tNetPacket.w_float(fMinSpeed);
@@ -1812,43 +1812,43 @@ void CSE_ALifeMonsterRat::STATE_Write(NET_Packet& tNetPacket)
 	tNetPacket.w_float(fAttackDistance);
 	tNetPacket.w_float(fAttackAngle);
 	tNetPacket.w_float(fAttackSuccessProbability);
-	inherited2::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 }
 
 void CSE_ALifeMonsterRat::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeMonsterRat::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 }
 
 CSE_Abstract* CSE_ALifeMonsterRat::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 	return (base());
 }
 
 CSE_Abstract* CSE_ALifeMonsterRat::base()
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 const CSE_Abstract* CSE_ALifeMonsterRat::base() const
 {
-	return (inherited1::base());
+	return (inherited1_::base());
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeMonsterRat::FillProps			(LPCSTR pref, PropItemVec& items)
 {
-	inherited1::FillProps		(pref, items);
-	inherited2::FillProps		(pref, items);
+	inherited1_::FillProps		(pref, items);
+	inherited2_::FillProps		(pref, items);
 	// personal characteristics
    	PHelper().CreateFloat			(items, PrepareKey(pref,*s_name,"Personal",	"Field of view" 		),&fEyeFov,							0,170,10);
    	PHelper().CreateFloat			(items, PrepareKey(pref,*s_name,"Personal",	"Eye range" 			),&fEyeRange,						0,300,10);
@@ -1994,9 +1994,9 @@ CSE_ALifeMonsterBase::~CSE_ALifeMonsterBase()
 
 void CSE_ALifeMonsterBase::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 	if (m_wVersion >= 68)
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 
 	if (m_wVersion >= 109)
 		tNetPacket.r_u16(m_spec_object_id);
@@ -2004,35 +2004,35 @@ void CSE_ALifeMonsterBase::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeMonsterBase::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 
 	tNetPacket.w_u16(m_spec_object_id);
 }
 
 void CSE_ALifeMonsterBase::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 }
 
 void CSE_ALifeMonsterBase::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 }
 
 void CSE_ALifeMonsterBase::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeMonsterBase::FillProps	(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps			(pref,values);
-	inherited2::FillProps			(pref,values);
+	inherited1_::FillProps			(pref,values);
+	inherited2_::FillProps			(pref,values);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
@@ -2094,33 +2094,33 @@ CALifeMonsterBrain* CSE_ALifeHumanAbstract::create_brain()
 
 CSE_Abstract* CSE_ALifeHumanAbstract::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 
 	return (base());
 }
 
 CSE_Abstract* CSE_ALifeHumanAbstract::base()
 {
-	return (inherited2::base());
+	return (inherited2_::base());
 }
 
 const CSE_Abstract* CSE_ALifeHumanAbstract::base() const
 {
-	return (inherited2::base());
+	return (inherited2_::base());
 }
 
 void CSE_ALifeHumanAbstract::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 	brain().on_state_write(tNetPacket);
 }
 
 void CSE_ALifeHumanAbstract::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
-	inherited2::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
+	inherited2_::STATE_Read(tNetPacket, size);
 	brain().on_state_read(tNetPacket);
 	if ((m_wVersion >= 110) && (m_wVersion < 112))
 		tNetPacket.r(&m_smart_terrain_id, sizeof(m_smart_terrain_id));
@@ -2128,14 +2128,14 @@ void CSE_ALifeHumanAbstract::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeHumanAbstract::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 };
 
 void CSE_ALifeHumanAbstract::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 
 	if (m_wVersion < 110)
 	{
@@ -2148,8 +2148,8 @@ void CSE_ALifeHumanAbstract::UPDATE_Read(NET_Packet& tNetPacket)
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeHumanAbstract::FillProps		(LPCSTR pref, PropItemVec& items)
 {
-  	inherited1::FillProps		(pref,items);
-  	inherited2::FillProps		(pref,items);
+  	inherited1_::FillProps		(pref,items);
+  	inherited2_::FillProps		(pref,items);
 	PHelper().CreateFlag32		(items,	PrepareKey(pref,*s_name,"Group behaviour"),			&m_flags,			flGroupBehaviour);
 }
 #endif // #ifndef XRGAME_EXPORTS
@@ -2170,16 +2170,16 @@ CSE_ALifeHumanStalker::~CSE_ALifeHumanStalker()
 
 void CSE_ALifeHumanStalker::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
-	inherited2::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
+	inherited2_::STATE_Write(tNetPacket);
 }
 
 void CSE_ALifeHumanStalker::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 
 	if (m_wVersion > 67)
-		inherited2::STATE_Read(tNetPacket, size);
+		inherited2_::STATE_Read(tNetPacket, size);
 
 	if ((m_wVersion > 90) && (m_wVersion < 111))
 		tNetPacket.r_u8();
@@ -2187,29 +2187,29 @@ void CSE_ALifeHumanStalker::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeHumanStalker::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
-	inherited2::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
+	inherited2_::UPDATE_Write(tNetPacket);
 	tNetPacket.w_stringZ(m_start_dialog);
 }
 
 void CSE_ALifeHumanStalker::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
-	inherited2::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
+	inherited2_::UPDATE_Read(tNetPacket);
 	tNetPacket.r_stringZ(m_start_dialog);
 }
 
 void CSE_ALifeHumanStalker::load(NET_Packet& tNetPacket)
 {
-	inherited1::load(tNetPacket);
-	inherited2::load(tNetPacket);
+	inherited1_::load(tNetPacket);
+	inherited2_::load(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeHumanStalker::FillProps		(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref,values);
-	inherited2::FillProps		(pref,values);
+	inherited1_::FillProps		(pref,values);
+	inherited2_::FillProps		(pref,values);
 }
 #endif // #ifndef XRGAME_EXPORTS
 
@@ -2234,8 +2234,8 @@ const CSE_Abstract* CSE_ALifeOnlineOfflineGroup::base() const
 
 CSE_Abstract* CSE_ALifeOnlineOfflineGroup::init()
 {
-	inherited1::init();
-	inherited2::init();
+	inherited1_::init();
+	inherited2_::init();
 
 #ifdef XRGAME_EXPORTS
 	m_brain = xr_new<CALifeOnlineOfflineGroupBrain>(this);
@@ -2267,7 +2267,7 @@ CALifeSmartTerrainTask* CSE_ALifeOnlineOfflineGroup::get_current_task()
 
 void CSE_ALifeOnlineOfflineGroup::STATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::STATE_Write(tNetPacket);
+	inherited1_::STATE_Write(tNetPacket);
 
 #if 1
 	tNetPacket.w_u32(m_members.size());
@@ -2281,7 +2281,7 @@ void CSE_ALifeOnlineOfflineGroup::STATE_Write(NET_Packet& tNetPacket)
 
 void CSE_ALifeOnlineOfflineGroup::STATE_Read(NET_Packet& tNetPacket, u16 size)
 {
-	inherited1::STATE_Read(tNetPacket, size);
+	inherited1_::STATE_Read(tNetPacket, size);
 
 #if 1
 	u32 container_size = tNetPacket.r_u32();
@@ -2297,17 +2297,17 @@ void CSE_ALifeOnlineOfflineGroup::STATE_Read(NET_Packet& tNetPacket, u16 size)
 
 void CSE_ALifeOnlineOfflineGroup::UPDATE_Write(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Write(tNetPacket);
+	inherited1_::UPDATE_Write(tNetPacket);
 }
 
 void CSE_ALifeOnlineOfflineGroup::UPDATE_Read(NET_Packet& tNetPacket)
 {
-	inherited1::UPDATE_Read(tNetPacket);
+	inherited1_::UPDATE_Read(tNetPacket);
 }
 
 #ifndef XRGAME_EXPORTS
 void CSE_ALifeOnlineOfflineGroup::FillProps					(LPCSTR pref, PropItemVec& values)
 {
-	inherited1::FillProps		(pref,values);
+	inherited1_::FillProps		(pref,values);
 }
 #endif // #ifndef XRGAME_EXPORTS

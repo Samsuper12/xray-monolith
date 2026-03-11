@@ -138,7 +138,7 @@ CSE_Abstract::CSE_Abstract(LPCSTR caSection)
 		if (config)
 		{
 			int size = config->length() * sizeof(char);
-			LPSTR temp = (LPSTR)_alloca(size + 1);
+			LPSTR temp = (LPSTR)alloca(size + 1);
 			CopyMemory(temp, config->pointer(), size);
 			temp[size] = 0;
 			m_ini_string = temp;

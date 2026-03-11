@@ -75,7 +75,7 @@ namespace GameGraph
 
 	typedef associative_vector<_LEVEL_ID, SLevel> LEVEL_MAP;
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 #ifdef AI_COMPILER
 	struct
 #else
@@ -148,7 +148,7 @@ namespace GameGraph
 		IC void save(IWriter* reader);
 		friend class CGameGraph;
 	};
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #ifdef AI_COMPILER
 	struct
