@@ -5,10 +5,10 @@
 #define ALSOFT_EMBED_HRTF_DATA
 
 /* Define if we have the posix_memalign function */
-/* #undef HAVE_POSIX_MEMALIGN */
+#define HAVE_POSIX_MEMALIGN
 
 /* Define if we have the _aligned_malloc function */
-#define HAVE__ALIGNED_MALLOC
+//#define HAVE__ALIGNED_MALLOC
 
 /* Define if we have the proc_pidpath function */
 /* #undef HAVE_PROC_PIDPATH */
@@ -29,13 +29,13 @@
 /* #undef HAVE_NEON */
 
 /* Define if we have the ALSA backend */
-/* #undef HAVE_ALSA */
+#define HAVE_ALSA
 
 /* Define if we have the OSS backend */
 /* #undef HAVE_OSS */
 
 /* Define if we have the PipeWire backend */
-/* #undef HAVE_PIPEWIRE */
+//#define HAVE_PIPEWIRE
 
 /* Define if we have the Solaris backend */
 /* #undef HAVE_SOLARIS */
@@ -44,19 +44,19 @@
 /* #undef HAVE_SNDIO */
 
 /* Define if we have the WASAPI backend */
-#define HAVE_WASAPI
+//#define HAVE_WASAPI
 
 /* Define if we have the DSound backend */
-#define HAVE_DSOUND
+//#undef HAVE_DSOUND
 
 /* Define if we have the Windows Multimedia backend */
-#define HAVE_WINMM
+//#define HAVE_WINMM
 
 /* Define if we have the PortAudio backend */
 /* #undef HAVE_PORTAUDIO */
 
 /* Define if we have the PulseAudio backend */
-/* #undef HAVE_PULSEAUDIO */
+#define HAVE_PULSEAUDIO
 
 /* Define if we have the JACK backend */
 /* #undef HAVE_JACK */
@@ -78,30 +78,33 @@
 
 /* Define if we have dlfcn.h */
 /* #undef HAVE_DLFCN_H */
+#define HAVE_DLFCN_H
 
 /* Define if we have pthread_np.h */
 /* #undef HAVE_PTHREAD_NP_H */
 
 /* Define if we have malloc.h */
-#define HAVE_MALLOC_H
+//#define HAVE_MALLOC_H
 
 /* Define if we have cpuid.h */
 /* #undef HAVE_CPUID_H */
+#define HAVE_CPUID_H
 
 /* Define if we have intrin.h */
-#define HAVE_INTRIN_H
+//#define HAVE_INTRIN_H
 
 /* Define if we have guiddef.h */
-#define HAVE_GUIDDEF_H
+//#define HAVE_GUIDDEF_H
 
 /* Define if we have initguid.h */
 /* #undef HAVE_INITGUID_H */
 
 /* Define if we have GCC's __get_cpuid() */
 /* #undef HAVE_GCC_GET_CPUID */
+#define HAVE_GCC_GET_CPUID
 
 /* Define if we have the __cpuid() intrinsic */
-#define HAVE_CPUID_INTRINSIC
+//#define HAVE_CPUID_INTRINSIC
 
 /* Define if we have SSE intrinsics */
 #define HAVE_SSE_INTRINSICS

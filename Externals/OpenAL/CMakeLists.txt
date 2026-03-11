@@ -28,6 +28,7 @@ target_compile_options(OpenAL
   $<$<CXX_COMPILER_ID:MSVC>:/wd4267>
   $<$<CXX_COMPILER_ID:MSVC>:/wd4324>
   $<$<CXX_COMPILER_ID:MSVC>:/wd5030>
+  $<$<CXX_COMPILER_ID:Clang>:-include cstdint>
 )
 
 target_include_directories(OpenAL
@@ -37,6 +38,9 @@ target_include_directories(OpenAL
   ${CMAKE_CURRENT_BINARY_DIR}/openal/common
   ${CMAKE_CURRENT_BINARY_DIR}/openal/include
 )
+
+set_target_properties(OpenAL PROPERTIES CXX_STANDARD 14)
+
 
 target_sources_sandboxed(OpenAL
   DIRECTORY openal
@@ -197,13 +201,19 @@ target_sources_sandboxed(OpenAL
   ${OPENAL_DIR}/alc/backends/loopback.h
   ${OPENAL_DIR}/alc/backends/null.cpp
   ${OPENAL_DIR}/alc/backends/null.h
-  ${OPENAL_DIR}/alc/backends/winmm.cpp
-  ${OPENAL_DIR}/alc/backends/winmm.h
-  ${OPENAL_DIR}/alc/backends/dsound.cpp
-  ${OPENAL_DIR}/alc/backends/dsound.h
-  ${OPENAL_DIR}/alc/backends/wasapi.cpp
-  ${OPENAL_DIR}/alc/backends/wasapi.h
+  # ${OPENAL_DIR}/alc/backends/winmm.cpp
+  # ${OPENAL_DIR}/alc/backends/winmm.h
+  # ${OPENAL_DIR}/alc/backends/dsound.cpp
+  # ${OPENAL_DIR}/alc/backends/dsound.h
+  # ${OPENAL_DIR}/alc/backends/wasapi.cpp
+  # ${OPENAL_DIR}/alc/backends/wasapi.h
   ${OPENAL_DIR}/alc/backends/wave.cpp
+  # ${OPENAL_DIR}/alc/backends/pipewire.cpp
+  # ${OPENAL_DIR}/alc/backends/pipewire.h
+  ${OPENAL_DIR}/alc/backends/alsa.cpp
+  ${OPENAL_DIR}/alc/backends/alsa.h 
+  ${OPENAL_DIR}/alc/backends/pulseaudio.h
+  ${OPENAL_DIR}/alc/backends/pulseaudio.cpp
   ${OPENAL_DIR}/alc/backends/wave.h
   ${OPENAL_DIR}/core/ambdec.cpp
   ${OPENAL_DIR}/core/ambdec.h
