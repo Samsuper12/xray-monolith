@@ -5,8 +5,9 @@ set(XRAY_COMPILER_FLAGS
   -Wno-implicit-function-declaration
   -Wno-shift-negative-value
   -Wno-register
-  
-  -DWIN32
+  -fpermissive
+  -fms-extensions
+  #-DWIN32
 )
 
 set(XRAY_COMPILER_FLAGS_DEBUG

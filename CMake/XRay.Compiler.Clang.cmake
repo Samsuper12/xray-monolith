@@ -2,6 +2,7 @@ include_guard()
 
 set(XRAY_COMPILER_FLAGS
   # Compatibility flags
+  -fpermissive
   -Wno-implicit-function-declaration
   -Wno-c++11-narrowing
   -Wno-invalid-token-paste
@@ -9,11 +10,15 @@ set(XRAY_COMPILER_FLAGS
   -Wno-shift-negative-value
   -Wno-address-of-temporary
   -Wno-register
-
+  -w
+  -fdelayed-template-parsing
   # Initialize to zero for MSVC equivalence
   -ftrivial-auto-var-init=zero
   # ...but warn about it
   -Wuninitialized
+  -ferror-limit=0
+  -fdeclspec
+  #-fms-extensions
 )
 
 # Explicitly state when we're compiling for Win32
@@ -23,21 +28,24 @@ endif()
 
 set(XRAY_COMPILER_FLAGS_DEBUG
   # Disable optimizations
-  -O0
+  -O2
+  
+  -DNDEBUG
+  
 
   # Generate full debug info
-  -g
+  #-g
 )
 
 set(XRAY_COMPILER_FLAGS_RELEASE
   # Enable aggressive optimizations
-  -O2
+  -O3
 
   # Optimize loop execution
  # -funroll-loops
   
   # Enable link-time optimization
-  #-flto=full
+  -flto=full
 
   # Disable iterator debugging
   -D_HAS_ITERATOR_DEBUGGING=0
@@ -52,5 +60,5 @@ set(XRAY_LINKER_FLAGS_RELEASE
   #-funroll-loops
 
   # Enable link-time optimization
-  #-flto=full
+  -flto=full
 )
