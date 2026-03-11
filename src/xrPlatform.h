@@ -20,10 +20,10 @@
 #define BENCH_SEC_SCRAMBLEMEMBER2
 #endif // BENCHMARK_BUILD
 
-#if !defined(_MT)
-// multithreading disabled
-#error Please enable multi-threaded library...
-#endif
+// #if !defined(_MT)
+// // multithreading disabled
+// #error Please enable multi-threaded library...
+// #endif
 
 // inline control - redefine to use compiler's heuristics ONLY
 // it seems "IC" is misused in many places which cause code-bloat
@@ -35,12 +35,16 @@
 #define _inline inline
 #define __inline inline
 #define IC inline
-#define ICF __forceinline // !!! this should be used only in critical places found by PROFILER
+// #define ICF __forceinline // !!! this should be used only in critical places found by PROFILER
 
 #ifdef _EDITOR
 # define ICN
 #else
+#ifdef WIN32
 # define ICN __declspec (noinline)
+#else
+#define ICN
+#endif
 #endif
 
 #define UNUSED(...) (void)(__VA_ARGS__)

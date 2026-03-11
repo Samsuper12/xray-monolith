@@ -41,7 +41,8 @@ target_compile_options(XRay.Platform
 )
 
 # Platform-specific submodules
-include(XRay.Platform.Windows)
+#include(XRay.Platform.Windows)
+include(XRay.Platform.Unix)
 
 # Link to all subsequent libraries, i.e. XRay.*
 # Externals will need to link XRay.Platform manually
