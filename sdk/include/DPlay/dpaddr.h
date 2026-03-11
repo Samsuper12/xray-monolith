@@ -9,7 +9,7 @@
 #ifndef __DIRECTPLAYADDRESS__
 #define __DIRECTPLAYADDRESS__
 
-#include <ole2.h>	   // for DECLARE_INTERFACE_ and HRESULT
+//#include <ole2.h>	   // for DECLARE_INTERFACE_ and HRESULT
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,7 +37,7 @@ DEFINE_GUID(CLSID_DirectPlay8Address,
  ****************************************************************************/
 
 
-typedef REFIID	DPNAREFIID;
+ typedef REFIID	DPNAREFIID;
 
 // {83783300-4063-4c8a-9DB3-82830A7FEB31}
 DEFINE_GUID(IID_IDirectPlay8Address,

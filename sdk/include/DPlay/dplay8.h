@@ -10,7 +10,55 @@
 #ifndef __DIRECTPLAY8_H__
 #define __DIRECTPLAY8_H__
 
-#include <ole2.h>	   // for DECLARE_INTERFACE_ and HRESULT
+//#include <ole2.h>	   // for DECLARE_INTERFACE_ and HRESULT
+
+#include <stdint.h>
+
+
+#define DEFINE_GUID(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) \
+      extern "C" inline const GUID name = \
+        { l, w1, w2, { b1, b2, b3, b4, b5, b6, b7, b8 } }
+
+#define MIDL_INTERFACE(x) struct
+
+#define DWORD uint32_t
+#define WCHAR wchar_t
+#define PVOID void*
+#define LPVOID void*
+#define CHAR char
+#define USHORT unsigned short
+#define BYTE unsigned char
+#define HRESULT long
+#define PWSTR wchar_t*
+#define PBYTE unsigned char*
+#define PDWORD unsigned long*
+#define FAR
+typedef const GUID* REFIID;
+typedef unsigned long ULONG;
+
+ #define MAKE_HRESULT(sev, fac, code) \
+    ((HRESULT)(((unsigned long)(sev) << 31) | \
+               ((unsigned long)(fac) << 16) | \
+               ((unsigned long)(code))))
+
+#define DECLARE_INTERFACE_(iface, baseiface)  struct iface : public baseiface
+#define STDMETHODCALLTYPE
+#define interface struct
+#define STDMETHOD_(ret, method)  ret method
+#define THIS_
+#define THIS   void
+#define PURE   	{}
+
+#define BEGIN_INTERFACE
+#define END_INTERFACE
+#define __C89_NAMELESS
+
+inline HRESULT StubMessageHandler(PVOID pvUserContext, DWORD dwMessageType, PVOID pMessage)
+{}
+
+typedef HRESULT (*PFNDPNMESSAGEHANDLER)(PVOID pvUserContext, DWORD dwMessageType, PVOID pMessage);
+
+
 
 #include "dpaddr.h"
 
@@ -154,7 +202,7 @@ typedef struct IDirectPlay8Address				IDirectPlay8Address;
 //
 // Callback Function Type Definition
 //
-typedef HRESULT (WINAPI *PFNDPNMESSAGEHANDLER)(PVOID,DWORD,PVOID);
+//typedef HRESULT (WINAPI *PFNDPNMESSAGEHANDLER)(PVOID,DWORD,PVOID);
 
 /****************************************************************************
  *
