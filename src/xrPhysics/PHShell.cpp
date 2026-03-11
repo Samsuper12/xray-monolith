@@ -8,7 +8,7 @@
 #include "PHJointDestroyInfo.h"
 #include "SpaceUtils.h"
 #include "MathUtils.h"
-#include "iPhysicsShellHolder.h"
+#include "IPhysicsShellHolder.h"
 #include "Kinematics.h"
 #include "PHCollideValidator.h"
 #include "bone.h"
@@ -33,7 +33,7 @@
 #include "PHCollideValidator.h"
 #include "PHElementInline.h"
 #include "PhysicsShellAnimator.h"
-#include "phshellbuildjoint.h"
+#include "PHShellBuildJoint.h"
 
 #ifdef DEBUG
 #include    "debug_output.h"
@@ -807,7 +807,7 @@ void CPHShell::AddElementRecursive(CPhysicsElement* root_e, u16 id, Fmatrix glob
 	fm_position.mulA_43(global_parent);
 	Flags64 mask;
 	mask.assign(m_pKinematics->LL_GetBonesVisible());
-	bool no_visible = !mask.is(1ui64 << (u64)id);
+	bool no_visible = !mask.is(1l << (u64)id);
 	bool lvis_check = false;
 	if (no_visible)
 	{
@@ -1029,7 +1029,7 @@ void CPHShell::ResetCallbacksRecursive(u16 id, u16 element, Flags64& mask)
 	const IBoneData& bone_data = m_pKinematics->GetBoneData(u16(id));
 	const SJointIKData& joint_data = bone_data.get_IK_data();
 
-	if (mask.is(1ui64 << (u64)id))
+	if (mask.is(1l << (u64)id))
 	{
 		if ((no_physics_shape(bone_data.get_shape()) || joint_data.type == jtRigid) && element != u16(-1))
 		{
@@ -1151,7 +1151,7 @@ void CPHShell::SetCallbacksRecursive(u16 id, u16 element)
 	const SJointIKData& joint_data = bone_data.get_IK_data();
 	Flags64 mask;
 	mask.assign(m_pKinematics->LL_GetBonesVisible());
-	if (mask.is(1ui64 << (u64)id))
+	if (mask.is(1l << (u64)id))
 	{
 		if ((no_physics_shape(bone_data.get_shape()) || joint_data.type == jtRigid) && element != u16(-1))
 		{
@@ -1532,7 +1532,7 @@ void CPHShell::PlaceBindToElFormsRecursive(Fmatrix parent, u16 id, u16 element, 
 	CBoneData& bone_data = m_pKinematics->LL_GetData(u16(id));
 	SJointIKData& joint_data = bone_data.IK_data;
 
-	if (mask.is(1ui64 << (u64)id))
+	if (mask.is(1l << (u64)id))
 	{
 		if (no_physics_shape(bone_data.shape) || joint_data.type == jtRigid && element != u16(-1))
 		{

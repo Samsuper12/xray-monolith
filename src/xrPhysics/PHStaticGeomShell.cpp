@@ -2,7 +2,7 @@
 #include "SpaceUtils.h"
 //#include "GameObject.h"
 #include "IPhysicsShellHolder.h"
-#include "phcharacter.h"
+#include "PHCharacter.h"
 #include "iclimableobject.h"
 
 #include "Kinematics.h"

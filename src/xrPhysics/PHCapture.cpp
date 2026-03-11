@@ -1,20 +1,20 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PHCapture.h"
-#include "phcharacter.h"
+#include "PHCharacter.h"
 #include "Physics.h"
 #include "ExtendedGeom.h"
 
 //#include "entity_alive.h"
-//#include "phmovementcontrol.h"
+//#include "PHMovementControl.h"
 #include "Kinematics.h"
-#include "iphysicsshellholder.h"
+#include "IPhysicsShellHolder.h"
 #include "bone.h"
 #include "device.h"
-#include "mathutilsode.h"
-#include "phelement.h"
+#include "MathUtilsOde.h"
+#include "PHElement.h"
 
-//#include "characterphysicssupport.h"
+//#include "CharacterPhysicsSupport.h"
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 IPHCapture* phcapture_create(CPHCharacter* ch, IPhysicsShellHolder* object, NearestToPointCallback* cb /*=0*/)

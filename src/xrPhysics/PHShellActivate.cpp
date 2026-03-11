@@ -6,7 +6,7 @@
 #include "PHJointDestroyInfo.h"
 #include "PHCollideValidator.h"
 //#include "Level.h"
-#include "iphysicsshellholder.h"
+#include "IPhysicsShellHolder.h"
 #include "PhysicsShellAnimator.h"
 #include "Kinematics.h"
 

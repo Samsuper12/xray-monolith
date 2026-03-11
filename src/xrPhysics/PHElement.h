@@ -3,9 +3,9 @@
 ///////////////////////////Implemetation//for//CPhysicsElement//////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #include "Geometry.h"
-#include "phdefs.h"
+#include "PHDefs.h"
 #include "PhysicsCommon.h"
-#include "../xrserverentities/PHSynchronize.h"
+#include "../xrServerEntities/PHSynchronize.h"
 #include "PHDisabling.h"
 #include "PHGeometryOwner.h"
 #include "PHInterpolation.h"

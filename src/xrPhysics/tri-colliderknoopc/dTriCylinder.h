@@ -1,6 +1,6 @@
 #ifndef D_TRI_CYLINDER_H
 #define D_TRI_CYLINDER_H
-#include "../dCylinder/dCylinder.h"
+#include "dcylinder/dCylinder.h"
 #include "TriPrimitiveCollideClassDef.h"
 #include "dcTriListCollider.h"
 

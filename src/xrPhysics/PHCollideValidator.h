@@ -2,7 +2,7 @@
 #define PH_COLLIDE_VALIDATOR
 
 
-#include "icollidevalidator.h"
+#include "ICollideValidator.h"
 typedef u32 CLClassBits;
 typedef u32 CLBits;
 class CPHObject;

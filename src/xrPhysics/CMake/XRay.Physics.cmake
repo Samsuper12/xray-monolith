@@ -5,7 +5,7 @@ add_module(XRay.Physics
   ${CMAKE_CURRENT_SOURCE_DIR}
 
   LINKS
-  dxsdk
+  #dxsdk
   fastdelegate
   FastDynamicCast
   loki

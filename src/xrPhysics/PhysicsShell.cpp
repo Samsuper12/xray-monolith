@@ -1,7 +1,7 @@
 #include <xr_ini.h>
 #include <xr_trims.h>
 
-#include "physicsshell.h"
+#include "PhysicsShell.h"
 #include "PHDynamicData.h"
 #include "Physics.h"
 #include "PHJoint.h"
@@ -10,10 +10,10 @@
 #include "PHJointDestroyInfo.h"
 #include "PHSplitedShell.h"
 
-//#include "gameobject.h"
-#include "iphysicsshellholder.h"
+//#include "GameObject.h"
+#include "IPhysicsShellHolder.h"
 
-//#include "objectdump.h"
+//#include "ObjectDump.h"
 #include "phvalide.h"
 
 #include "Kinematics.h"

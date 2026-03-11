@@ -1,8 +1,8 @@
 
 #include "phvalide.h"
-#include "mathutils.h"
-#include "iphysicsshellholder.h"
-//#include "objectdump.h"
+#include "MathUtils.h"
+#include "IPhysicsShellHolder.h"
+//#include "ObjectDump.h"
 
 
 extern Fbox phBoundaries;

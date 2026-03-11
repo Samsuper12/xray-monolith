@@ -1,6 +1,6 @@
-#include "physicsexternalcommon.h"
-#include "extendedgeom.h"
-#include "mathutilsode.h"
+#include "PhysicsExternalCommon.h"
+#include "ExtendedGeom.h"
+#include "MathUtilsOde.h"
 
 bool ContactShotMarkGetEffectPars(dContactGeom* c, dxGeomUserData* & data, float& vel_cret, bool& b_invert_normal)
 {

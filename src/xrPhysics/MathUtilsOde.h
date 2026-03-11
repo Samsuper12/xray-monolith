@@ -10,7 +10,7 @@
 #include "ode/collision.h"
 #include "ode/matrix.h"
 
-#include "mathutils.h"
+#include "MathUtils.h"
 #include "ode_redefine.h"
 
 static const dReal accurate_normalize_epsilon = 1.192092896e-05F;
@@ -49,7 +49,7 @@ ICF void accurate_normalize(float* a)
 			a2 /= aa1;
 			l = dRecipSqrt(a0*a0 + a2*a2 + 1);
 			a[0] = a0 * l;
-			a[1] = (float)_copysign(l, a1);
+			a[1] = (float)copysign(l, a1);
 			a[2] = a2 * l;
 		}
 	}
@@ -63,7 +63,7 @@ ICF void accurate_normalize(float* a)
 			l = dRecipSqrt(a0*a0 + a1*a1 + 1);
 			a[0] = a0 * l;
 			a[1] = a1 * l;
-			a[2] = (float)_copysign(l, a2);
+			a[2] = (float)copysign(l, a2);
 		}
 		else
 		{
@@ -79,7 +79,7 @@ ICF void accurate_normalize(float* a)
 			a1 /= aa0;
 			a2 /= aa0;
 			l = dRecipSqrt(a1*a1 + a2*a2 + 1);
-			a[0] = (float)_copysign(l, a0);
+			a[0] = (float)copysign(l, a0);
 			a[1] = a1 * l;
 			a[2] = a2 * l;
 		}

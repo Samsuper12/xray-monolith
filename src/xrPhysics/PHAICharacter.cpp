@@ -4,15 +4,15 @@
 #include "Physics.h"
 #include "ExtendedGeom.h"
 #include "../xrEngine/cl_intersect.h"
-#include "tri-colliderKNoOPC\__aabb_tri.h"
+#include "tri-colliderknoopc/__aabb_tri.h"
 
-#include "phaicharacter.h"
-#include "../xrengine/device.h"
+#include "PHAICharacter.h"
+#include "../xrEngine/device.h"
 
 #ifdef DEBUG
 //#	include "../xrEngine/StatGraph.h"
 #	include "debug_output.h"
-//#	include "level.h"
+//#	include "Level.h"
 //#	include "debug_renderer.h"
 #endif
 

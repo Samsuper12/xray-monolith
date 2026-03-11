@@ -1,6 +1,6 @@
 #include <xr_ini.h>
 
-#include "phcharacter.h"
+#include "PHCharacter.h"
 #include "Physics.h"
 #include "ExtendedGeom.h"
 #include "PHCapture.h"
@@ -10,7 +10,7 @@
 //#include "Actor.h"
 //#include "Inventory.h"
 //#include "CaptureBoneCallback.h"
-#include "iphysicsshellholder.h"
+#include "IPhysicsShellHolder.h"
 #include "bone.h"
 #include "device.h"
 
@@ -288,7 +288,7 @@ void CPHCapture::Release()
 	e_state = cstReleased;
 }
 
-#include "phelement.h"
+#include "PHElement.h"
 
 void CPHCapture::Deactivate()
 {

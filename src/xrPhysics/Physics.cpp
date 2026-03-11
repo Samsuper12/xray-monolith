@@ -1,11 +1,11 @@
-#include <gamemtllib.h>
+#include <GameMtlLib.h>
 
 #include "gm_library.h"
 #include "PHDynamicData.h"
 #include "Physics.h"
 #include "tri-colliderknoopc/dTriList.h"
 #include "PHContactBodyEffector.h"
-//#include "gameobject.h"
+//#include "GameObject.h"
 //#include "PhysicsShellHolder.h"
 #include "PHCollideValidator.h"
 #ifdef DEBUG

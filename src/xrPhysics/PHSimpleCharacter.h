@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gamemtllib.h>
+#include <GameMtlLib.h>
 
 #include "PHCharacter.h"
 #include "Physics.h"
@@ -23,6 +23,7 @@ class CPHSimpleCharacter :
 	ICollisionDamageInfo
 {
 	typedef CPHCharacter inherited;
+	using inherited::m_mass;
 private:
 
 	collide::rq_results RQR;

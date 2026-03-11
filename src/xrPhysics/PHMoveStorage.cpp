@@ -1,4 +1,4 @@
-#include "phmovestorage.h"
+#include "PHMoveStorage.h"
 #pragma warning(disable:4995)
 #pragma warning(disable:4267)
 #include "ode/src/collision_kernel.h"
@@ -15,7 +15,7 @@ struct dxGeomTransform : public dxGeom
 	dVector3 final_pos;
 	dMatrix3 final_R;
 
-	dxGeomTransform::dxGeomTransform(dSpaceID space) : dxGeom(space, 1)
+	dxGeomTransform(dSpaceID space) : dxGeom(space, 1)
 	{
 		type = dGeomTransformClass;
 		obj = 0;

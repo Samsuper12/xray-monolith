@@ -1,5 +1,5 @@
 #include "PHGeometryOwner.h"
-#include "phworld.h"
+#include "PHWorld.h"
 
 #include "Kinematics.h"
 #include "bone.h"

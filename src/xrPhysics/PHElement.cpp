@@ -15,7 +15,7 @@
 
 #ifdef DEBUG
 #	include "debug_output.h"
-//#	include "objectdump.h"
+//#	include "ObjectDump.h"
 #endif // DEBUG
 
 ///////////////////////////////////////////////////////////////

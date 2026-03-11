@@ -1,9 +1,9 @@
 #include "ElevatorState.h"
-#include "IClimableObject.h"
+#include "iclimableobject.h"
 #include "PHCharacter.h"
 #include "MathUtils.h"
 #include "PHWorld.h"
-#include "../xrengine/device.h"
+#include "../xrEngine/device.h"
 #ifdef DEBUG
 #include "../xrEngine/Statgraph.h"
 #include "debug_output.h"

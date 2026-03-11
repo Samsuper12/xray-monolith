@@ -1,7 +1,7 @@
 #include "PHDisabling.h"
 #include "PhysicsCommon.h"
 #include "Physics.h"
-#include "mathutilsode.h"
+#include "MathUtilsOde.h"
 #ifdef	DEBUG
 #include "debug_output.h"
 #endif

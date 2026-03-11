@@ -1,7 +1,7 @@
 #ifndef PH_GEOMETRY_OWNER_H
 #define PH_GEOMETRY_OWNER_H
 
-#include <gamemtllib.h>
+#include <GameMtlLib.h>
 #include <gm_library.h>
 
 #include "Geometry.h"

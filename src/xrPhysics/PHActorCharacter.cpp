@@ -1,12 +1,12 @@
-#include "phactorcharacter.h"
-#include "Extendedgeom.h"
+#include "PHActorCharacter.h"
+#include "ExtendedGeom.h"
 #include "PhysicsCommon.h"
 //#include "GameObject.h"
 #include "IPhysicsShellHolder.h"
 //#include "ai/stalker/ai_stalker.h"
 //#include "Actor.h"
-#include "../xrEngine/gamemtllib.h"
-//#include "level.h"
+#include "../xrEngine/GameMtlLib.h"
+//#include "Level.h"
 
 //const float JUMP_HIGHT=0.5;
 const float JUMP_UP_VELOCITY = 6.0f; //5.6f;

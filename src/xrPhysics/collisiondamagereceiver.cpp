@@ -1,11 +1,11 @@
 
 #include "icollisiondamagereceiver.h"
-#include "iphysicsshellholder.h"
+#include "IPhysicsShellHolder.h"
 
-#include "extendedgeom.h"
-#include "mathutilsode.h"
+#include "ExtendedGeom.h"
+#include "MathUtilsOde.h"
 
-#include "../xrengine/gamemtllib.h"
+#include "../xrEngine/GameMtlLib.h"
 
 
 void DamageReceiverCollisionCallback(bool& do_colide, bool bo1, dContact& c, SGameMtl* material_1, SGameMtl* material_2)

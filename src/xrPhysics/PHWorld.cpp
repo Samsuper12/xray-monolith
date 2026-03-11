@@ -4,9 +4,9 @@
 #include "PhysicsCommon.h"
 //#include "Level.h"
 #include "ExtendedGeom.h"
-#include "draymotions.h"
+#include "dRayMotions.h"
 #include "PHCollideValidator.h"
-#include "../xrEngine/gamemtllib.h"
+#include "../xrEngine/GameMtlLib.h"
 //#include "PhysicsGamePars.h"
 #include "params.h"
 #ifdef    DEBUG
@@ -14,14 +14,14 @@
 #endif
 //#include "PHCommander.h"
 //#include "PHSimpleCalls.h"
-#include "../xrserverentities/PHSynchronize.h"
-#include "../xrserverentities/phnetstate.h"
-#include "geometrybits.h"
+#include "../xrServerEntities/PHSynchronize.h"
+#include "../xrServerEntities/PHNetState.h"
+#include "GeometryBits.h"
 #include "console_vars.h"
-#include "../xrengine/device.h"
-#include "../xrengine/defines.h"
-#include "../xrcdb/xr_area.h"
-#include "../xrcore/fs_internal.h"
+#include "../xrEngine/device.h"
+#include "../xrEngine/defines.h"
+#include "../xrCDB/xr_area.h"
+#include "../xrCore/FS_internal.h"
 #ifdef	DEBUG
 //				void DBG_ObjAfterPhDataUpdate	( CPHObject *obj );
 //				void DBG_ObjBeforePhDataUpdate	( CPHObject *obj );

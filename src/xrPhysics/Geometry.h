@@ -2,8 +2,8 @@
 #define GEOMETRY_H 
 #include "PhysicsCommon.h"
 #include "ExtendedGeom.h"
-#include "mathutilsode.h"
-#include "../xrEngine/iphysicsgeometry.h"
+#include "MathUtilsOde.h"
+#include "../xrEngine/IPhysicsGeometry.h"
 
 //this is equivalent dMULTIPLYOP0_333 whith consequent transposion of A
 #define dMULTIPLYOP3_333(A,op,B,C)  \

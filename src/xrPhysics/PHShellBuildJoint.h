@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../xrengine/bone.h"
+#include "../xrEngine/bone.h"
 
 #include "PHJoint.h"
 //#include "PHElement.h"

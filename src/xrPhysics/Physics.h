@@ -2,11 +2,11 @@
 #define PHYSICS_H
 
 
-#include "dCylinder/dCylinder.h"
+#include "dcylinder/dCylinder.h"
 #include "PhysicsShell.h"
 #include "PHObject.h"
 #include "PHInterpolation.h"
-#include "../xrcore/_cylinder.h"
+#include "../xrCore/_cylinder.h"
 #include "BlockAllocator.h"
 #include "PhysicsCommon.h"
 #include "PHWorld.h"

@@ -4,7 +4,7 @@
 #include <_types.h>
 #include <_vector3d.h>
 
-#include "ielevatorstate.h"
+#include "IElevatorState.h"
 
 class CPHCharacter;
 struct dContact;

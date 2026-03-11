@@ -1,5 +1,5 @@
-#include	"extendedgeom.h"
-#include	"dcylinder/dcylinder.h"
+#include	"ExtendedGeom.h"
+#include	"dcylinder/dCylinder.h"
 
 bool IsCyliderContact(const dContact& c)
 {

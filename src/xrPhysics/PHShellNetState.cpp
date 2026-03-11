@@ -1,8 +1,8 @@
-#include "physicsshell.h"
-#include "phinterpolation.h"
-#include "phobject.h"
-#include "phworld.h"
-#include "phshell.h"
+#include "PhysicsShell.h"
+#include "PHInterpolation.h"
+#include "PHObject.h"
+#include "PHWorld.h"
+#include "PHShell.h"
 
 void CPHShell::net_Import(NET_Packet& P)
 {
