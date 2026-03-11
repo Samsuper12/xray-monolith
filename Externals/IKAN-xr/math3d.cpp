@@ -538,10 +538,10 @@ void find_normal_vector(float v[3], float n[3])
 	int min_i;
 
 	min_i = 0;
-	min = _abs(v[0]);
+	min = std::abs(v[0]);
 	num_zero = (min < 1e-8f);
 
-	temp = _abs(v[1]);
+	temp = std::abs(v[1]);
 	if (temp < 1e-8f)
 		num_zero++;
 	if (temp < min)
@@ -550,7 +550,7 @@ void find_normal_vector(float v[3], float n[3])
 		min_i = 1;
 	}
 
-	temp = _abs(v[2]);
+	temp = std::abs(v[2]);
 	if (temp < 1e-8)
 		num_zero++;
 	if (temp < min)

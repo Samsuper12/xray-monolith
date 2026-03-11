@@ -38,6 +38,7 @@
 
 #ifndef _TRIGH
 #define _TRIGH
+#include <cmath>
 
 
 inline float iszero(float x)
@@ -81,10 +82,10 @@ inline int law_of_cosines(float a, float b, float c, float& angle)
 {
 	float temp = (a * a + b * b - c * c) / (2 * a * b);
 
-	if (_abs(temp) > 1.0)
+	if (std::abs(temp) > 1.0)
 		return 0;
 	else
-		angle = (float)acos(temp);
+		angle = (float)std::acos(temp);
 
 	return 1;
 }
