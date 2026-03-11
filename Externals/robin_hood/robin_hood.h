@@ -38,6 +38,9 @@
 #define ROBIN_HOOD_VERSION_MINOR 11 // for adding functionality in a backwards-compatible manner
 #define ROBIN_HOOD_VERSION_PATCH 5  // for backwards-compatible bug fixes
 
+#ifdef __is_signed
+#undef __is_signed
+#endif
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
