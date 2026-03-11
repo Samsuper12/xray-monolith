@@ -75,7 +75,7 @@ void os_clipboard::update_clipboard(LPCSTR string)
 	int string_length = (int)strlen(string);
 	int buffer_size = (memory_length + string_length + 1) * sizeof(char);
 #ifndef _EDITOR
-	LPSTR buffer = (LPSTR)_alloca(buffer_size);
+	LPSTR buffer = (LPSTR)alloca(buffer_size);
 #else // #ifndef _EDITOR
     LPSTR buffer = (LPSTR)xr_alloc<char>( buffer_size );
 #endif // #ifndef _EDITOR

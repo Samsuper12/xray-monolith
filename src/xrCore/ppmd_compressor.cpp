@@ -1,5 +1,5 @@
 #include "ppmd_compressor.h"
-#include "ppmd.h"
+#include "PPMd.h"
 #include "xrDebug.h"
 
 const u32 suballocator_size = 32;
@@ -21,7 +21,7 @@ static inline void
 PPMd_Lock()
 {
 	while (::InterlockedExchange(&PPMd_Locked, 1))
-		::Sleep(0);
+		::sleep(0);
 }
 
 static inline void

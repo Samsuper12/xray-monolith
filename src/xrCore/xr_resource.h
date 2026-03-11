@@ -126,7 +126,7 @@ public:
 	}
 
 	// accessors
-	T& operator*() const { return *p_; }
+	T& operator*() const { return *C::p_; }
 	T* operator->() const { return inherited::p_; }
 
 	// unspecified bool type
@@ -137,8 +137,8 @@ public:
 	// fast swapping
 	void swap(self& rhs)
 	{
-		T* tmp = p_;
-		p_ = rhs.p_;
+		T* tmp = C::p_;
+		C::p_ = rhs.p_;
 		rhs.p_ = tmp;
 	}
 };

@@ -61,7 +61,7 @@ IC char* strconcat(int dest_sz, char* dest, const char* S1, const char* S2, cons
  xray::core::detail::string_tupples STRCONCAT_tupples_unique_identifier(__VA_ARGS__); \
  u32 STRCONCAT_buffer_size = STRCONCAT_tupples_unique_identifier.size(); \
  xray::core::detail::check_stack_overflow(STRCONCAT_buffer_size); \
- (dest) = (LPSTR)_alloca(STRCONCAT_buffer_size); \
+ (dest) = (LPSTR)alloca(STRCONCAT_buffer_size); \
  STRCONCAT_tupples_unique_identifier.concat (dest); \
   } while (0)
 
@@ -70,7 +70,7 @@ IC char* strconcat(int dest_sz, char* dest, const char* S1, const char* S2, cons
 #define STRCONCAT(dest, ...) \
  do { \
  xray::core::detail::string_tupples STRCONCAT_tupples_unique_identifier(__VA_ARGS__); \
- (dest) = (LPSTR)_alloca(STRCONCAT_tupples_unique_identifier.size()); \
+ (dest) = (LPSTR)alloca(STRCONCAT_tupples_unique_identifier.size()); \
  STRCONCAT_tupples_unique_identifier.concat (dest); \
   } while (0)
 

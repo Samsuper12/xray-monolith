@@ -1,11 +1,11 @@
 
 #ifndef _EDITOR
 
-#include "xrdebug.h"
+#include "xrDebug.h"
 #include "resource.h"
 #include "dbghelp.h"
 
-#include "dxerr.h"
+//#include "dxerr.h"
 
 static BOOL bException = FALSE;
 
@@ -318,7 +318,7 @@ void xrDebug::_initialize(const bool& dedicated)
 	_set_new_handler(_out_of_memory); // exception-handler for 'out of memory' condition
 	std::set_terminate(_terminate);
 	std::set_unexpected(_terminate);
-	::SetUnhandledExceptionFilter(UnhandledFilter); // exception handler to all "unhandled" exceptions
+	//::SetUnhandledExceptionFilter(UnhandledFilter); // exception handler to all "unhandled" exceptions
 }
 
 #endif

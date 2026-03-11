@@ -1,6 +1,8 @@
 #ifndef ChooseTypesH
 #define ChooseTypesH
 
+#include <fastdelegate/fastdelegate.h>
+
 enum EChooseMode
 {
 	smCustom = 0,
@@ -48,8 +50,9 @@ DEFINE_VECTOR(SChooseItem, ChooseItemVec, ChooseItemVecIt);
 // typedef
 typedef fastdelegate::FastDelegate2<ChooseItemVec&, void*> TOnChooseFillItems;
 typedef fastdelegate::FastDelegate2<SChooseItem*, PropItemVec&> TOnChooseSelectItem;
-typedef fastdelegate::FastDelegate3<LPCSTR, HDC, const Irect&> TOnDrawThumbnail;
 typedef fastdelegate::FastDelegate0<> TOnChooseClose;
+using TOnDrawThumbnail = fastdelegate::FastDelegate3<LPCSTR, int, const Irect&>;
+
 
 typedef void (*TOnChooseFillEvents)();
 

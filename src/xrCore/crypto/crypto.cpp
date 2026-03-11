@@ -12,15 +12,28 @@ static void unsafe_xr_free(void* ptr)
 {
 	xr_free(ptr);
 };
+static void* _malloc(size_t s)
+{
+	return xr_malloc(s);
+};
+static void* _realloc(void* ptr, size_t s)
+{
+	return xr_realloc(ptr, s);
+};
 
 static unsigned char rnd_seed[] = "S.T.A.L.K.E.R. 4ever Rulezz !!!";
 
 CRYPTO_API	void		xr_crypto_init	()
 {
 	string256 random_string;
-	xr_sprintf					(random_string, "%I64d_%s", CPU::QPC(), rnd_seed);
+	xr_sprintf					(random_string, "%ld_%s", CPU::QPC(), rnd_seed);
 	//sprintf_s					(random_string, "%s", rnd_seed);
-	CRYPTO_set_mem_functions	(xr_malloc, xr_realloc, unsafe_xr_free);
+
+    CRYPTO_set_mem_functions(
+        [](size_t s, const char*, int) -> void* { return xr_malloc(s); },
+        [](void* ptr, size_t s, const char*, int) -> void* { return xr_realloc(ptr, s); },
+        [](void* ptr, const char*, int) { xr_free(ptr); }
+    );
 	RAND_seed					(random_string, xr_strlen(random_string));
 	//unsigned int siglen;
 	//tmp_dsa_params->flags |= DSA_FLAG_NO_EXP_CONSTTIME;

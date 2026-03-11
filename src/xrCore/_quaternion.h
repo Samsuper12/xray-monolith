@@ -398,8 +398,8 @@ public:
 		T Scale0, Scale1, sign;
 
 #ifdef DEBUG
-        if (!((T(0) <= tm) && (tm <= T(1))))
-            Debug.fatal(DEBUG_INFO, "Quaternion::slerp - invalid 'tm' arrived: %f", tm);
+        // if (!((T(0) <= tm) && (tm <= T(1))))
+        //     Debug.fatal(DEBUG_INFO, "Quaternion::slerp - invalid 'tm' arrived: %f", tm);
 #endif
 
 		T cosom = (Q0.w * Q1.w) + (Q0.x * Q1.x) + (Q0.y * Q1.y) + (Q0.z * Q1.z);

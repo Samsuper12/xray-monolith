@@ -9,7 +9,7 @@
 #include "xrstring.h"
 #include "client_id.h"
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 
 const u32 NET_PacketSizeLimit = 16 * 1024;
 
@@ -359,6 +359,6 @@ public:
 	void r_clientID(ClientID& C);
 };
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif /*_INCDEF_NETUTILS_H_*/

@@ -4,6 +4,7 @@
 
 #include "xrstring.h"
 #include "log.h"
+#include <stdint.h>
 
 // ********************************************** The Core definition
 class XRCORE_API xrCore
@@ -15,7 +16,7 @@ public:
 	string64 UserName;
 	string64 CompName;
 	char* Params;
-	DWORD dwFrame;
+	uint32_t dwFrame;
 	bool april1;
 
 public:

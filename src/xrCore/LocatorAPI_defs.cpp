@@ -1,7 +1,7 @@
-#include <io.h>
-#include <direct.h>
-#include <fcntl.h>
-#include <sys\stat.h>
+// #include <io.h>
+// #include <direct.h>
+// #include <fcntl.h>
+#include <sys/stat.h>
 
 #include <string_concatenations.h>
 
@@ -63,7 +63,7 @@ FS_Path::~FS_Path()
 void FS_Path::_set(LPCSTR add)
 {
 	// m_Add
-	R_ASSERT(add);
+	//R_ASSERT(add);
 	xr_free(m_Add);
 	m_Add = xr_strlwr(xr_strdup(add));
 
@@ -92,8 +92,8 @@ void FS_Path::_set_root(LPCSTR root)
 
 LPCSTR FS_Path::_update(string_path& dest, LPCSTR src) const
 {
-	R_ASSERT(dest);
-	R_ASSERT(src);
+	//R_ASSERT(dest);
+	//R_ASSERT(src);
 	string_path temp;
 	xr_strcpy(temp, sizeof(temp), src);
 	strconcat(sizeof(dest), dest, m_Path, temp);

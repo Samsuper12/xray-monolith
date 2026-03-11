@@ -6,7 +6,6 @@
 #include "crypto_api_def.h"
 
 struct dsa_st;
-
 namespace crypto
 {
 

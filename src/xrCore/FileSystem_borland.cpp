@@ -6,12 +6,12 @@
 #include "FileSystem.h"
 #include "LocatorAPI.h"
 
-#include <io.h>
-#include <fcntl.h>
-#include <sys\stat.h>
+// #include <io.h>
+// #include <fcntl.h>
+#include <sys/stat.h>
 //#include "commdlg.h"
 
-#include <Shlobj.h>
+// #include <Shlobj.h>
 //#include "OSDialog.h"
 
 int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam,

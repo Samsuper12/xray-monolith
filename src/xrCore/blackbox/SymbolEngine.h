@@ -28,8 +28,8 @@ USE_BUGSLAYERUTIL - If defined, the class will have another
 #define _SYMBOLENGINE_H
 
 // You could include either IMAGEHLP.DLL or DBGHELP.DLL.
-#include "imagehlp.h"
-#include <tchar.h>
+//#include "imagehlp.h"
+//#include <tchar.h>
 
 // Include these in case the user forgets to link against them.
 #ifndef _EDITOR

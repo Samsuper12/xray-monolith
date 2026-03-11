@@ -17,13 +17,13 @@ add_module(XRay.Core
   PORTABLE_BUGSLAYERUTIL
 
   LINKS
-  DxErr
+  #DxErr
   fastdelegate
   LZO
   optick
   robin_hood
-  StackWalker
-  winmm
+  #StackWalker
+  #winmm
 
   XRay.Includes
   XRay.Render.API.Includes
@@ -51,6 +51,12 @@ add_module(XRay.Core
   xrCore.rc
 )
 
+target_link_libraries(XRay.Core PUBLIC safestring_shared)
+target_link_libraries(XRay.Includes INTERFACE safestring_shared)
+
+get_target_property(INC safestring_shared INTERFACE_INCLUDE_DIRECTORIES)
+message(STATUS "safestring_shared includes: ${INC}")
+
 target_compile_options(XRay.Core
   PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/wd4244>
@@ -58,16 +64,16 @@ target_compile_options(XRay.Core
 
 target_compile_definitions(XRay.Core
   PRIVATE
-  _STLP_DESIGNATED_DLL=1
-  _STLP_USE_DECLSPEC=1
+  $<$<CXX_COMPILER_ID:MSVC>:_STLP_DESIGNATED_DLL=1>
+  $<$<CXX_COMPILER_ID:MSVC>:_STLP_USE_DECLSPEC=1>
   XRCORE_EXPORTS
   MODULE_NAME="xrCore.dll"
 )
 
 target_compile_definitions(XRay.Core.Defines
   INTERFACE
-  _STLP_USE_DECLSPEC=1
-  xr_pure_interface=__interface
+  $<$<CXX_COMPILER_ID:MSVC>:_STLP_USE_DECLSPEC=1>
+  $<$<CXX_COMPILER_ID:MSVC>:xr_pure_interface=__interface>
 )
 
 if(XRCORE_STATIC)
@@ -109,7 +115,7 @@ include(XRay.Core.Compression.PPMD)
 include(XRay.Core.Compression.RT)
 include(XRay.Core.Crypto)
 include(XRay.Core.Debug)
-include(XRay.Core.Debug.BlackBox)
+#include(XRay.Core.Debug.BlackBox)
 include(XRay.Core.FS)
 include(XRay.Core.IntrusivePointer)
 include(XRay.Core.Math)

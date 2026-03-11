@@ -6,6 +6,9 @@
 #include "_vector4.h"
 #include "_quaternion.h"
 
+class CRenderDevice;
+extern ENGINE_API CRenderDevice Device;
+
 /*
 * DirectX-compliant, ie row-column order, ie m[Row][Col].
 * Same as:

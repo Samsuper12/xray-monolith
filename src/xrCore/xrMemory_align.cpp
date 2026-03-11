@@ -202,7 +202,8 @@ void* __stdcall xr_aligned_offset_realloc(void* memblock, size_t size, size_t al
 	diff = (uintptr_t)memblock - stptr;
 	/* Mov size is min of the size of data available and sizw requested.
 	*/
-	movsz = _msize((void*)stptr) - ((uintptr_t)memblock - stptr);
+	//FIXME:
+	//movsz = _msize((void*)stptr) - ((uintptr_t)memblock - stptr);
 	movsz = movsz > size ? size : movsz;
 	reqsz = PTR_SZ + gap + align + size;
 
@@ -296,5 +297,8 @@ u32 __stdcall xr_aligned_msize(void* memblock)
 
 	/* ptr is the pointer to the start of memory block*/
 	ptr = *((uintptr_t*)ptr);
-	return (u32)_msize((void*)ptr);
+	//FIXME:
+			stub_unix();
+
+	return 0;//(u32)_msize((void*)ptr);
 }

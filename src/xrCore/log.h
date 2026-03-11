@@ -1,9 +1,11 @@
 #ifndef logH
 #define logH
 
-#include <windows.h>
-
+#ifdef WIN32
+//#include <windows.h>
+#endif
 #include "xrstring.h"
+#include "_vector3d.h"
 
 #define VPUSH(a) ((a).x), ((a).y), ((a).z)
 

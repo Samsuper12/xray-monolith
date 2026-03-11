@@ -4,7 +4,6 @@ add_module(XRay.Core.Crypto
   LINKS
   fastdelegate
   FastDynamicCast
-  OpenSSL
   robin_hood
 
   XRay.Core.Defines
@@ -32,3 +31,6 @@ add_module(XRay.Core.Crypto
   crypto/xr_dsa_verifyer.cpp
   crypto/xr_dsa_verifyer.h
 )
+
+find_package(OpenSSL CONFIG REQUIRED)
+target_link_libraries(XRay.Core.Crypto PRIVATE OpenSSL::Crypto)

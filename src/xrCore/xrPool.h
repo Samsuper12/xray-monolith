@@ -2,6 +2,7 @@
 #define xrPoolH
 
 //#pragma once
+typedef void *LPVOID;
 
 template <class T, int granularity>
 class poolSS

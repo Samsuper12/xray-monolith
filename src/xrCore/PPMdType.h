@@ -19,9 +19,9 @@
 #endif /* defined(_WIN32_ENVIRONMENT_)+defined(_DOS32_ENVIRONMENT_)+defined(_POSIX_ENVIRONMENT_)+defined(_UNKNOWN_ENVIRONMENT_) != 1 */
 
 #if defined(_WIN32_ENVIRONMENT_)
-#include <windows.h>
+//#include <windows.h>
 #else /* _DOS32_ENVIRONMENT_ || _POSIX_ENVIRONMENT_ || _UNKNOWN_ENVIRONMENT_ */
-typedef int   BOOL;
+// typedef int   BOOL;
 #define FALSE 0
 #define TRUE  1
 typedef unsigned char  BYTE;
@@ -45,7 +45,7 @@ const int MAX_O = 16; /* maximum allowed model order  */
 
 #if defined(__GNUC__)
 #define _PACK_ATTR __attribute__ ((packed))
-#else /* "#pragma pack" is used for other compilers */
+#else /* "// #pragma pack" is used for other compilers */
 #define _PACK_ATTR
 #endif /* defined(__GNUC__) */
 

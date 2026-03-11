@@ -2,6 +2,15 @@
 #define TYPES_H
 
 #include <stdlib.h>
+#include <stdint.h>
+
+#define _stdcall 
+#define __cdecl 
+#define __stdcall
+
+#define XRCORE_API
+#define _cdecl 
+#define _MAX_PATH PATH_MAX
 
 // Type defs
 typedef signed char s8;
@@ -13,23 +22,18 @@ typedef unsigned short u16;
 typedef signed int s32;
 typedef unsigned int u32;
 
-typedef signed __int64 s64;
-typedef unsigned __int64 u64;
+typedef int64_t s64;
+typedef uint64_t u64;
 
 typedef float f32;
 typedef double f64;
 
-typedef char* pstr;
-typedef const char* pcstr;
+typedef char *pstr;
+typedef const char *pcstr;
+
+// typedef pcstr LPCSTR;
 
 // windoze stuff
-#ifndef _WINDOWS_
-typedef int BOOL;
-typedef pstr LPSTR;
-typedef pcstr LPCSTR;
-#define TRUE true
-#define FALSE false
-#endif
 
 // Type limits
 #define type_max(T) (std::numeric_limits<T>::max())
@@ -43,8 +47,8 @@ typedef pcstr LPCSTR;
 
 #define flt_max type_max(float)
 #define flt_min type_min(float)
-//#define flt_max 3.402823466e+38F /* max value */
-//#define FLT_MIN 1.175494351e-38F /* min positive value */
+// #define flt_max 3.402823466e+38F /* max value */
+// #define FLT_MIN 1.175494351e-38F /* min positive value */
 
 #define flt_zero type_zero(float)
 #define flt_eps type_epsilon(float)
@@ -65,5 +69,7 @@ typedef char string2048[2048];
 typedef char string4096[4096];
 
 typedef char string_path[2 * _MAX_PATH];
+
+
 
 #endif

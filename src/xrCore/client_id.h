@@ -4,7 +4,7 @@
 
 #include "_types.h"
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 class ClientID
 {
     u32 id;
@@ -19,6 +19,6 @@ public:
     bool operator != (const ClientID& other)const { return value() != other.value(); };
     bool operator < (const ClientID& other)const { return value() < other.value(); };
 };
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif

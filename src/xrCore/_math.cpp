@@ -1,4 +1,4 @@
-#include <process.h>
+// #include <process.h>
 
 // mmsystem.h
 #define MMNOSOUND
@@ -6,7 +6,7 @@
 #define MMNOAUX
 #define MMNOMIXER
 #define MMNOJOY
-#include <mmsystem.h>
+// #include <mmsystem.h>
 
 #include "_math.h"
 #include "_matrix.h"
@@ -69,9 +69,10 @@ namespace FPU
 #else
 u16 getFPUsw()
 {
-    u16 SW;
-    __asm fstcw SW;
-    return SW;
+	stub_unix();
+    // u16 SW;
+    // __asm fstcw SW;
+    // return SW;
 }
 
 namespace FPU
@@ -85,64 +86,78 @@ u16 _64r = 0;
 
 XRCORE_API void m24()
 {
-    u16 p = _24;
-    __asm fldcw p;
+		stub_unix();
+
+    // u16 p = _24;
+    // __asm fldcw p;
 }
 XRCORE_API void m24r()
 {
-    u16 p = _24r;
-    __asm fldcw p;
+		stub_unix();
+
+    // u16 p = _24r;
+    // __asm fldcw p;
 }
 XRCORE_API void m53()
 {
-    u16 p = _53;
-    __asm fldcw p;
+		stub_unix();
+
+    // u16 p = _53;
+    // __asm fldcw p;
 }
 XRCORE_API void m53r()
 {
-    u16 p = _53r;
-    __asm fldcw p;
+		stub_unix();
+
+    // u16 p = _53r;
+    // __asm fldcw p;
 }
 XRCORE_API void m64()
 {
-    u16 p = _64;
-    __asm fldcw p;
+		stub_unix();
+
+    // u16 p = _64;
+    // __asm fldcw p;
 }
 XRCORE_API void m64r()
 {
-    u16 p = _64r;
-    __asm fldcw p;
+		stub_unix();
+
+    // u16 p = _64r;
+    // __asm fldcw p;
 }
 
 void initialize()
 {
-    _clear87();
+		stub_unix();
 
-    _control87(_PC_24, MCW_PC);
-    _control87(_RC_CHOP, MCW_RC);
-    _24 = getFPUsw(); // 24, chop
-    _control87(_RC_NEAR, MCW_RC);
-    _24r = getFPUsw(); // 24, rounding
+//     _clear87();
 
-    _control87(_PC_53, MCW_PC);
-    _control87(_RC_CHOP, MCW_RC);
-    _53 = getFPUsw(); // 53, chop
-    _control87(_RC_NEAR, MCW_RC);
-    _53r = getFPUsw(); // 53, rounding
+//     _control87(_PC_24, MCW_PC);
+//     _control87(_RC_CHOP, MCW_RC);
+//     _24 = getFPUsw(); // 24, chop
+//     _control87(_RC_NEAR, MCW_RC);
+//     _24r = getFPUsw(); // 24, rounding
 
-    _control87(_PC_64, MCW_PC);
-    _control87(_RC_CHOP, MCW_RC);
-    _64 = getFPUsw(); // 64, chop
-    _control87(_RC_NEAR, MCW_RC);
-    _64r = getFPUsw(); // 64, rounding
+//     _control87(_PC_53, MCW_PC);
+//     _control87(_RC_CHOP, MCW_RC);
+//     _53 = getFPUsw(); // 53, chop
+//     _control87(_RC_NEAR, MCW_RC);
+//     _53r = getFPUsw(); // 53, rounding
 
-#ifndef XRCORE_STATIC
+//     _control87(_PC_64, MCW_PC);
+//     _control87(_RC_CHOP, MCW_RC);
+//     _64 = getFPUsw(); // 64, chop
+//     _control87(_RC_NEAR, MCW_RC);
+//     _64r = getFPUsw(); // 64, rounding
 
-    m24r();
+// #ifndef XRCORE_STATIC
 
-#endif //XRCORE_STATIC
+//     m24r();
 
-    ::Random.seed(u32(CPU::GetCLK() % (1i64 << 32i64)));
+// #endif //XRCORE_STATIC
+
+//     ::Random.seed(u32(CPU::GetCLK() % (1i64 << 32i64)));
 }
 };
 #endif
@@ -164,75 +179,79 @@ namespace CPU
 
 	XRCORE_API u64 QPC()
 	{
-		u64 _dest;
-		QueryPerformanceCounter((PLARGE_INTEGER)&_dest);
-		qpc_counter++;
-		return _dest;
+		stub_unix();
+
+		// u64 _dest;
+		// QueryPerformanceCounter((PLARGE_INTEGER)&_dest);
+		// qpc_counter++;
+		// return _dest;
 	}
 
 	void Detect()
 	{
-		// General CPU identification
-		if (!_cpuid(&ID))
-		{
-			// Core.Fatal ("Fatal error: can't detect CPU/FPU.");
-			abort();
-		}
+		stub_unix();
 
-		// Timers & frequency
-		u64 start, end;
-		u32 dwStart, dwTest;
+	// 	// General CPU identification
+	// 	if (!_cpuid(&ID))
+	// 	{
+	// 		// Core.Fatal ("Fatal error: can't detect CPU/FPU.");
+	// 		abort();
+	// 	}
 
-		SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS);
+	// 	// Timers & frequency
+	// 	u64 start, end;
+	// 	u32 dwStart, dwTest;
 
-		// Detect Freq
-		dwTest = timeGetTime();
-		do { dwStart = timeGetTime(); }
-		while (dwTest == dwStart);
-		start = GetCLK();
-		while (timeGetTime() - dwStart < 1000);
-		end = GetCLK();
-		clk_per_second = end - start;
+	// 	SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS);
 
-		// Detect RDTSC Overhead
-		clk_overhead = 0;
-		u64 dummy = 0;
-		for (int i = 0; i < 256; i++)
-		{
-			start = GetCLK();
-			clk_overhead += GetCLK() - start - dummy;
-		}
-		clk_overhead /= 256;
+	// 	// Detect Freq
+	// 	dwTest = timeGetTime();
+	// 	do { dwStart = timeGetTime(); }
+	// 	while (dwTest == dwStart);
+	// 	start = GetCLK();
+	// 	while (timeGetTime() - dwStart < 1000);
+	// 	end = GetCLK();
+	// 	clk_per_second = end - start;
 
-		// Detect QPC Overhead
-		QueryPerformanceFrequency((PLARGE_INTEGER)&qpc_freq);
-		qpc_overhead = 0;
-		for (int i = 0; i < 256; i++)
-		{
-			start = QPC();
-			qpc_overhead += QPC() - start - dummy;
-		}
-		qpc_overhead /= 256;
+	// 	// Detect RDTSC Overhead
+	// 	clk_overhead = 0;
+	// 	u64 dummy = 0;
+	// 	for (int i = 0; i < 256; i++)
+	// 	{
+	// 		start = GetCLK();
+	// 		clk_overhead += GetCLK() - start - dummy;
+	// 	}
+	// 	clk_overhead /= 256;
 
-		SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
+	// 	// Detect QPC Overhead
+	// 	//QueryPerformanceFrequency((PLARGE_INTEGER)&qpc_freq);
+	// 	qpc_overhead = 0;
+	// 	for (int i = 0; i < 256; i++)
+	// 	{
+	// 		start = QPC();
+	// 		qpc_overhead += QPC() - start - dummy;
+	// 	}
+	// 	qpc_overhead /= 256;
 
-		clk_per_second -= clk_overhead;
-		clk_per_milisec = clk_per_second / 1000;
-		clk_per_microsec = clk_per_milisec / 1000;
+	// 	//SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
 
-		_control87(_PC_64, MCW_PC);
-		// _control87 ( _RC_CHOP, MCW_RC );
-		double a, b;
-		a = 1;
-		b = double(clk_per_second);
-		clk_to_seconds = float(double(a / b));
-		a = 1000;
-		b = double(clk_per_second);
-		clk_to_milisec = float(double(a / b));
-		a = 1000000;
-		b = double(clk_per_second);
-		clk_to_microsec = float(double(a / b));
-	}
+	// 	clk_per_second -= clk_overhead;
+	// 	clk_per_milisec = clk_per_second / 1000;
+	// 	clk_per_microsec = clk_per_milisec / 1000;
+
+	// 	//_control87(_PC_64, MCW_PC);
+	// 	// _control87 ( _RC_CHOP, MCW_RC );
+	// 	double a, b;
+	// 	a = 1;
+	// 	b = double(clk_per_second);
+	// 	clk_to_seconds = float(double(a / b));
+	// 	a = 1000;
+	// 	b = double(clk_per_second);
+	// 	clk_to_milisec = float(double(a / b));
+	// 	a = 1000000;
+	// 	b = double(clk_per_second);
+	// 	clk_to_microsec = float(double(a / b));
+	 }
 };
 
 bool g_initialize_cpu_called = false;
@@ -286,7 +305,7 @@ void _initialize_cpu(void)
 }
 
 // per-thread initialization
-#include <xmmintrin.h>
+// #include <xmmintrin.h>
 #define _MM_DENORMALS_ZERO_MASK 0x0040
 #define _MM_DENORMALS_ZERO_ON 0x0040
 #define _MM_FLUSH_ZERO_MASK 0x8000
@@ -310,11 +329,11 @@ void _initialize_cpu_thread()
 		_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
 		if (_denormals_are_zero_supported)
 		{
-			__try
+			//__try
 			{
 				_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
 			}
-			__except (EXCEPTION_EXECUTE_HANDLER)
+			//__except (EXCEPTION_EXECUTE_HANDLER)
 			{
 				_denormals_are_zero_supported = FALSE;
 			}
@@ -322,7 +341,7 @@ void _initialize_cpu_thread()
 	}
 }
 // threading API
-#pragma pack(push,8)
+// #pragma pack(push,8)
 struct THREAD_NAME
 {
 	DWORD dwType;
@@ -338,15 +357,15 @@ void thread_name(const char* name)
 	tn.szName = name;
 	tn.dwThreadID = DWORD(-1);
 	tn.dwFlags = 0;
-	__try
+	//__try
 	{
 		RaiseException(0x406D1388, 0, sizeof(tn) / sizeof(DWORD), (ULONG_PTR *)&tn);
 	}
-	__except (EXCEPTION_CONTINUE_EXECUTION)
+	//__except (EXCEPTION_CONTINUE_EXECUTION)
 	{
 	}
 }
-#pragma pack(pop)
+// #pragma pack(pop)
 
 struct THREAD_STARTUP
 {

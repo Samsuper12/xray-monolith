@@ -39,7 +39,7 @@ inline TMP_TYPE CLAMP(const TMP_TYPE& X, const TMP_TYPE& LoX, const TMP_TYPE& Hi
 //==============================================================================
 // SEE-contexts for PPM-contexts with masked symbols
 
-#pragma pack(1)
+// #pragma pack(1)
 struct SEE2_CONTEXT
 {
 	WORD Summ;
@@ -109,7 +109,7 @@ struct
 };
 
 PPM_CONTEXT _PACK_ATTR* MaxContext;
-#pragma pack()
+// #pragma pack()
 
 static BYTE NS2BSIndx[256], QTable[260]; // constants
 static PPM_CONTEXT::STATE* FoundState; // found next state transition
@@ -706,7 +706,7 @@ static inline void UpdateModel(PPM_CONTEXT* MinContext)
 	{
 		FoundState->Successor = CreateSuccessors(TRUE, p, MinContext);
 		if (!FoundState->Successor)
-			goto RESTART_MODEL;
+			//FIXME: goto RESTART_MODEL;
 		MaxContext = FoundState->Successor;
 		return;
 	}

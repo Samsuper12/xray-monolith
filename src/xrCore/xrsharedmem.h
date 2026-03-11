@@ -5,7 +5,7 @@
 #include "_types.h"
 #include "_stl_extensions.h"
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 //////////////////////////////////////////////////////////////////////////
 #pragma warning(push)
 #pragma warning(disable : 4200)
@@ -168,6 +168,6 @@ IC bool operator >(ref_smem<T> const& a, ref_smem<T> const& b) { return a._get()
 template <class T>
 IC void swap(ref_smem<T>& lhs, ref_smem<T>& rhs) { lhs.swap(rhs); }
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif

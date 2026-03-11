@@ -1,12 +1,13 @@
 #ifndef _STD_EXT_internal
 #define _STD_EXT_internal
 
-#include <corecrt_math.h>
+//#include <corecrt_math.h>
 #include <float.h>
 #include <stdarg.h>
 #include <stdio.h>
 
 #include "_types.h"
+#include <cmath>
 
 #define BREAK_AT_STRCMP
 #ifndef DEBUG
@@ -118,16 +119,23 @@ template <class T>
 IC T _sqr(T a) { return a * a; }
 
 // float
-IC float _abs(float x) { return fabsf(x); }
-IC float _sqrt(float x) { return sqrtf(x); }
-IC float _sin(float x) { return sinf(x); }
-IC float _cos(float x) { return cosf(x); }
+IC float _abs(float x) { return std::fabsf(x); }
+IC float _sqrt(float x) { return std::sqrtf(x); }
+IC float _sin(float x) { return std::sinf(x); }
+IC float _cos(float x) { return std::cosf(x); }
 IC BOOL _valid(const float x)
 {
+	switch (std::fpclassify(x))
+    {
+        case FP_INFINITE:
+        case FP_NAN:
+        case FP_SUBNORMAL:
+            return false;
+    }
 	// check for: Signaling NaN, Quiet NaN, Negative infinity ( –INF), Positive infinity (+INF), Negative denormalized, Positive denormalized
-	int cls = _fpclass(double(x));
-	if (cls & (_FPCLASS_SNAN + _FPCLASS_QNAN + _FPCLASS_NINF + _FPCLASS_PINF + _FPCLASS_ND + _FPCLASS_PD))
-		return false;
+	// int cls = _fpclass(double(x));
+	// if (cls & (_FPCLASS_SNAN + _FPCLASS_QNAN + _FPCLASS_NINF + _FPCLASS_PINF + _FPCLASS_ND + _FPCLASS_PD))
+	// 	return false;
 
 	/* *****other cases are*****
 	_FPCLASS_NN Negative normalized non-zero
@@ -140,16 +148,24 @@ IC BOOL _valid(const float x)
 
 
 // double
-IC double _abs(double x) { return fabs(x); }
-IC double _sqrt(double x) { return sqrt(x); }
-IC double _sin(double x) { return sin(x); }
-IC double _cos(double x) { return cos(x); }
+IC double _abs(double x) { return std::fabs(x); }
+IC double _sqrt(double x) { return std::sqrt(x); }
+IC double _sin(double x) { return std::sin(x); }
+IC double _cos(double x) { return std::cos(x); }
 IC BOOL _valid(const double x)
 {
 	// check for: Signaling NaN, Quiet NaN, Negative infinity ( –INF), Positive infinity (+INF), Negative denormalized, Positive denormalized
-	int cls = _fpclass(x);
-	if (cls & (_FPCLASS_SNAN + _FPCLASS_QNAN + _FPCLASS_NINF + _FPCLASS_PINF + _FPCLASS_ND + _FPCLASS_PD))
-		return false;
+	switch (std::fpclassify(x))
+    {
+        case FP_INFINITE:
+        case FP_NAN:
+        case FP_SUBNORMAL:
+            return false;
+    }
+
+	// int cls = _fpclass(x);
+	// if (cls & (_FPCLASS_SNAN + _FPCLASS_QNAN + _FPCLASS_NINF + _FPCLASS_PINF + _FPCLASS_ND + _FPCLASS_PD))
+	// 	return false;
 
 	/* *****other cases are*****
 	_FPCLASS_NN Negative normalized non-zero
@@ -217,22 +233,21 @@ IC int xr_strcmp(const char* S1, const char* S2)
 
 #ifndef _EDITOR
 #ifndef MASTER_GOLD
-
 inline errno_t xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
 {
-    return strcpy_s(destination, destination_size, source);
+    //stub FIXME: return strcpy_s(destination, destination_size, source);
 }
 
 inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
 {
-    return strcat_s(destination, buffer_size, source);
+    //stub FIXME: return strcat_s(destination, buffer_size, source);
 }
 
 inline int __cdecl xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
 {
     va_list args;
     va_start(args, format_string);
-    return vsprintf_s(destination, buffer_size, format_string, args);
+    // FIXME: stub return vsprintf_s(destination, buffer_size, format_string, args);
 }
 
 template <int count>
@@ -240,13 +255,13 @@ inline int __cdecl xr_sprintf(char(&destination)[count], LPCSTR format_string, .
 {
     va_list args;
     va_start(args, format_string);
-    return vsprintf_s(destination, count, format_string, args);
+    //FIXME: return vsprintf_s(destination, count, format_string, args);
 }
 #else // #ifndef MASTER_GOLD
 
 inline errno_t xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
 {
-	return strncpy_s(destination, destination_size, source, destination_size);
+	//stub return strncpy_s(destination, destination_size, source, destination_size);
 }
 
 inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
@@ -268,7 +283,7 @@ inline int __cdecl xr_sprintf(LPSTR destination, size_t const buffer_size, LPCST
 {
 	va_list args;
 	va_start(args, format_string);
-	return vsnprintf_s(destination, buffer_size, buffer_size - 1, format_string, args);
+	//stub return vsnprintf_s(destination, buffer_size, buffer_size - 1, format_string, args);
 }
 
 template <int count>
@@ -276,7 +291,7 @@ inline int __cdecl xr_sprintf(char (&destination)[count], LPCSTR format_string, 
 {
 	va_list args;
 	va_start(args, format_string);
-	return vsnprintf_s(destination, count, count - 1, format_string, args);
+	//stub return vsnprintf_s(destination, count, count - 1, format_string, args);
 }
 #endif // #ifndef MASTER_GOLD
 

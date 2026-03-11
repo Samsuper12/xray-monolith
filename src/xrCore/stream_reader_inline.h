@@ -27,7 +27,8 @@ IC const HANDLE& CStreamReader::file_mapping_handle() const
 
 IC void CStreamReader::unmap()
 {
-	UnmapViewOfFile(m_current_map_view_of_file);
+	// FIXME:
+	//UnmapViewOfFile(this->m_current_map_view_of_file);
 }
 
 IC void CStreamReader::remap(const u32& new_offset)

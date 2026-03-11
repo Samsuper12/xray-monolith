@@ -2,9 +2,9 @@
 // file: FileSystem.cpp
 //----------------------------------------------------
 
-#include <cderr.h>
-#include <commdlg.h>
-#include <vfw.h>
+// #include <cderr.h>
+// #include <commdlg.h>
+// #include <vfw.h>
 
 #include <string_concatenations.h>
 #include <xr_trims.h>
@@ -122,11 +122,11 @@ void MakeFilter(string1024& dest, LPCSTR info, LPCSTR ext)
 //------------------------------------------------------------------------------
 
 // Vista uses this hook for old-style save dialog
-UINT_PTR CALLBACK OFNHookProcOldStyle(HWND, UINT, WPARAM, LPARAM)
-{
-	// let default hook work on this message
-	return 0;
-}
+// UINT_PTR CALLBACK OFNHookProcOldStyle(HWND, UINT, WPARAM, LPARAM)
+// {
+// 	// let default hook work on this message
+// 	return 0;
+// }
 
 bool EFS_Utils::GetOpenNameInternal(LPCSTR initial, LPSTR buffer, int sz_buf, bool bMulti, LPCSTR offset,
                                     int start_flt_ext)

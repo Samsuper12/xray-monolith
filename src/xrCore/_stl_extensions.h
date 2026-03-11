@@ -5,8 +5,8 @@
 #include <deque>
 #include <map>
 #include <set>
-#include <hash_map>
-#include <hash_set>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "_type_traits.h"
 #include "vector.h"
@@ -18,6 +18,7 @@ using std::swap;
 #include <unordered_map>
 #include <unordered_set>
 #include "_type_traits.h"
+#include <stdio.h>
 #ifdef _M_AMD64
 #define M_DONTDEFERCLEAR_EXT
 #endif
@@ -187,12 +188,12 @@ public:
 
 	void clear_and_reserve()
 	{
-		if (capacity() <= (size() + size() / 4)) clear_not_free();
+		if (inherited::capacity() <= (size() + size() / 4)) clear_not_free();
 		else
 		{
 			u32 old = size();
 			clear_and_free();
-			reserve(old);
+			inherited::reserve(old);
 		}
 	}
 
@@ -239,22 +240,24 @@ template <typename allocator>
 class xr_vector<bool, allocator> : public std::vector<bool, allocator>
 {
 private:
-	typedef std::vector<bool, allocator> inherited;
+	using inherited = std::vector<bool, allocator>;
+
 
 public:
 	u32 size() const { return (u32)inherited::size(); }
-	void clear() { erase(begin(), end()); }
+	void clear() { erase(inherited::begin(), inherited::end()); }
 };
 
 // deque
 template <typename T, typename allocator = xalloc<T>>
 class xr_deque : public std::deque<T, allocator>
 {
+	using inherited = std::deque<T, allocator>;
 public:
 	typedef allocator allocator_type;
 	typedef typename allocator_type::value_type value_type;
 	typedef typename allocator_type::size_type size_type;
-	u32 size() const { return (u32)__super::size(); }
+	u32 size() const { return (u32)inherited::size(); }
 };
 
 // stack
@@ -319,39 +322,45 @@ using xr_unordered_set = std::unordered_set<T, Hasher>;
 
 #endif //USE_ROBINHOOD
 
+#include <list>
 template <typename T, typename allocator = xalloc<T>>
 class xr_list : public std::list<T, allocator>
 {
+	using inherited = std::list<T, allocator>;
 public:
-	u32 size() const { return (u32)__super::size(); }
+	u32 size() const { return (u32)inherited::size(); }
 };
 
 template <typename K, class P = std::less<K>, typename allocator = xalloc<K>>
 class xr_set : public std::set<K, P, allocator>
 {
+	using inherited = std::set<K, P, allocator>;
 public:
-	u32 size() const { return (u32)__super::size(); }
+	u32 size() const { return (u32)inherited::size(); }
 };
 
 template <typename K, class P = std::less<K>, typename allocator = xalloc<K>>
 class xr_multiset : public std::multiset<K, P, allocator>
 {
+	using inherited = std::multiset<K, P, allocator>;
 public:
-	u32 size() const { return (u32)__super::size(); }
+	u32 size() const { return (u32)inherited::size(); }
 };
 
 template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<const K, V>>>
 class xr_map : public std::map<K, V, P, allocator>
 {
+	using inherited = std::map<K, V, P, allocator>;
 public:
-	u32 size() const { return (u32)__super::size(); }
+	u32 size() const { return (u32)inherited::size(); }
 };
 
 template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<const K, V>>>
 class xr_multimap : public std::multimap<K, V, P, allocator>
 {
+	using inherited = std::multimap<K, V, P, allocator>;
 public:
-	u32 size() const { return (u32)__super::size(); }
+	u32 size() const { return (u32)inherited::size(); }
 };
 
 #ifdef STLPORT
@@ -361,13 +370,20 @@ template <typename V, class _HashFcn = std::hash<V>, class _EqualKey = std::equa
 template <typename K, class V, class _HashFcn = std::hash<K>, class _EqualKey = std::equal_to<K>, typename allocator = xalloc<std::pair<const K, V> > > class xr_hash_map : public std::hash_map < K, V, _HashFcn, _EqualKey, allocator > { public: u32 size() const { return (u32)__super::size(); } };
 template <typename K, class V, class _HashFcn = std::hash<K>, class _EqualKey = std::equal_to<K>, typename allocator = xalloc<std::pair<const K, V> > > class xr_hash_multimap : public std::hash_multimap < K, V, _HashFcn, _EqualKey, allocator > { public: u32 size() const { return (u32)__super::size(); } };
 #else
-template <typename K, class V, class _Traits = stdext::hash_compare<K, std::less<K>>, typename allocator = xalloc<std::
-	          pair<const K, V>>>
-class xr_hash_map : public stdext::hash_map<K, V, _Traits, allocator>
-{
-public:
-	u32 size() const { return (u32)__super::size(); }
-};
+// template <typename K, class V, class _Traits = stdext::hash_compare<K, std::less<K>>, typename allocator = xalloc<std::
+// 	          pair<const K, V>>>
+template<
+    class K,
+    class V,
+    class Hash = std::hash<K>,
+    class KeyEqual = std::equal_to<K>,
+    class Allocator = xalloc<std::pair<const K, V>>>
+using xr_hash_map = std::unordered_map<K, V, Hash, KeyEqual, Allocator>;
+// class xr_hash_map : public std::unordered_map<K, V, Hash, KeyEqual, Allocator>
+// {
+// public:
+// 	u32 size() const { return (u32)__super::size(); }
+// };
 #endif // #ifdef STLPORT
 
 #endif

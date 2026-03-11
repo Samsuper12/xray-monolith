@@ -1,67 +1,73 @@
 #include "xr_dsa.h"
 #include "crypto.h"
 #include <openssl/dsa.h>
+#include <openssl/bn.h>
+
+
 
 namespace crypto
 {
 
 xr_dsa::xr_dsa(u8 const p[public_key_length],
-			   u8 const q[private_key_length],
-			   u8 const g[public_key_length])
+               u8 const q[private_key_length],
+               u8 const g[public_key_length])
 {
-	m_dsa			= DSA_new();
-	m_dsa->p		= BN_new();
-	m_dsa->q		= BN_new();
-	m_dsa->g		= BN_new();
-	m_dsa->priv_key	= BN_new();
-	m_dsa->pub_key	= BN_new();
+    m_dsa = DSA_new();
 
-	BN_bin2bn(p, public_key_length, m_dsa->p);
-	BN_bin2bn(q, private_key_length, m_dsa->q);
-	BN_bin2bn(g, public_key_length, m_dsa->g);
+    BIGNUM* bn_p = BN_bin2bn(p, public_key_length, nullptr);
+    BIGNUM* bn_q = BN_bin2bn(q, private_key_length, nullptr);
+    BIGNUM* bn_g = BN_bin2bn(g, public_key_length, nullptr);
+
+    DSA_set0_pqg(m_dsa, bn_p, bn_q, bn_g);
+
+    DSA_set0_key(m_dsa, BN_new(), BN_new());
 }
 
 xr_dsa::~xr_dsa()
 {
-	DSA_free	(m_dsa);
+    DSA_free(m_dsa);
 }
 
-shared_str const xr_dsa::sign		(private_key_t const & priv_key,
-									 u8 const* data,
-									 u32 const data_size)
+shared_str const xr_dsa::sign(private_key_t const & priv_key,
+                               u8 const* data,
+                               u32 const data_size)
 {
-	BN_bin2bn(priv_key.m_value, sizeof(priv_key.m_value), m_dsa->priv_key);
+    BIGNUM* priv_bn = BN_bin2bn(priv_key.m_value, sizeof(priv_key.m_value), nullptr);
+    DSA_set0_key(m_dsa, nullptr, priv_bn);
 
-	unsigned int	sign_size = DSA_size(m_dsa);
-	u8*				sign_dest = static_cast<u8*>(
-		_alloca(sign_size));
-	
-	BIGNUM			tmp_sign_res_bn;
-	BN_init			(&tmp_sign_res_bn);
-	
-	DSA_sign		(0, data, data_size, sign_dest, &sign_size, m_dsa);
-	BN_bin2bn		(sign_dest, sign_size, &tmp_sign_res_bn);
+    unsigned int sign_size = DSA_size(m_dsa);
+    u8* sign_dest = static_cast<u8*>(alloca(sign_size));
 
-	return			shared_str(BN_bn2hex(&tmp_sign_res_bn));
+    DSA_sign(0, data, data_size, sign_dest, &sign_size, m_dsa);
+
+    BIGNUM* tmp_sign_res_bn = BN_bin2bn(sign_dest, sign_size, nullptr);
+    char* hex = BN_bn2hex(tmp_sign_res_bn);
+    shared_str result(hex);
+    OPENSSL_free(hex);
+    BN_free(tmp_sign_res_bn);
+
+    return result;
 }
 
-bool		xr_dsa::verify				(public_key_t const & pub_key,
-										 u8 const * data,
-										 u32 const data_size,
-										 shared_str const & dsign)
+bool xr_dsa::verify(public_key_t const & pub_key,
+                     u8 const * data,
+                     u32 const data_size,
+                     shared_str const & dsign)
 {
-	BN_bin2bn(pub_key.m_value, sizeof(pub_key.m_value), m_dsa->pub_key);
+    BIGNUM* pub_bn = BN_bin2bn(pub_key.m_value, sizeof(pub_key.m_value), nullptr);
+    DSA_set0_key(m_dsa, pub_bn, nullptr);
 
-	BIGNUM*	tmp_bn			= NULL;
-	BN_hex2bn				(&tmp_bn, dsign.c_str());
-	int	sig_size			= tmp_bn->top * sizeof(unsigned long);
-	u8* sig_buff			= static_cast<u8*>(_alloca(sig_size));
-	VERIFY					(sig_size == DSA_size(m_dsa));
-	BN_bn2bin				(tmp_bn, sig_buff);
-		
-	bool ret = DSA_verify	(0, data, data_size, sig_buff, sig_size, m_dsa) == 1 ? true : false;
-	BN_free(tmp_bn);
-	return ret;
+    BIGNUM* tmp_bn = nullptr;
+    BN_hex2bn(&tmp_bn, dsign.c_str());
+
+    int sig_size = BN_num_bytes(tmp_bn);
+    u8* sig_buff = static_cast<u8*>(alloca(sig_size));
+    VERIFY(sig_size == DSA_size(m_dsa));
+    BN_bn2bin(tmp_bn, sig_buff);
+
+    bool ret = DSA_verify(0, data, data_size, sig_buff, sig_size, m_dsa) == 1;
+    BN_free(tmp_bn);
+    return ret;
 }
 
 
@@ -159,7 +165,7 @@ void xr_dsa::generate_params()
 	u8	debug_bad_digest[]	= "this as a test";
 
 	u32		siglen			= DSA_size(tmp_dsa_params);
-	u8*		sig				= static_cast<u8*>(_alloca(siglen));
+	u8*		sig				= static_cast<u8*>(alloca(siglen));
 
 	BIGNUM	bn_sign;
 	BN_init					(&bn_sign);

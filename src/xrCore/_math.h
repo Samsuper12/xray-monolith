@@ -1,7 +1,8 @@
 #ifndef __XR_MATH_H__
 #define __XR_MATH_H__
 
-#include <intrin.h>
+//#include <intrin.h>
+#include <x86intrin.h>
 
 #include "vector.h"
 #include "cpuid.h"
@@ -49,7 +50,15 @@ IC u64 GetCLK(void)
 		return __rdtsc();
 	}
 #endif
+
+#else
+	IC u64 GetCLK(void)
+	{
+		return __rdtsc();
+	}
+
 #endif
+
 };
 
 extern XRCORE_API void _initialize_cpu();

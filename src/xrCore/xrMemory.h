@@ -25,7 +25,7 @@ extern XRCORE_API void dump_phase ();
 #endif // DEBUG_MEMORY_MANAGER
 
 #include "xrMemory_pso.h"
-#include "xrMemory_POOL.h"
+#include "xrMEMORY_POOL.h"
 
 class XRCORE_API xrMemory
 {

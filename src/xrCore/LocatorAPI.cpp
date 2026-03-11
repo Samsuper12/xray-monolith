@@ -2,11 +2,12 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include <direct.h>
+// #include <direct.h>
 #include <experimental/filesystem>
-#include <fcntl.h>
+// #include <fcntl.h>
 #include <sys/stat.h>
-#include <sys/utime.h>
+// FIXME: 
+//#include <sys/utime.h>
 #include <malloc.h>
 
 #include <rt_compressor.h>
@@ -1339,7 +1340,7 @@ bool CLocatorAPI::check_for_file(LPCSTR path, LPCSTR _fname, string_path& fname,
 	return (true);
 }
 
-#include "..\xrGame\Actor_Flags.h"
+#include "../xrGame/Actor_Flags.h"
 
 template <typename T>
 T* CLocatorAPI::r_open_impl(LPCSTR path, LPCSTR _fname)
@@ -1438,8 +1439,10 @@ void CLocatorAPI::w_close(IWriter*& S)
 		if (bReg)
 		{
 			struct _stat st;
-			_stat(fname, &st);
-			Register(fname, 0xffffffff, 0, 0, st.st_size, st.st_size, (u32)st.st_mtime);
+			//FIXME:
+			{ stub_unix(); }
+//			_stat(fname, &st);
+		//	Register(fname, 0xffffffff, 0, 0, st.st_size, st.st_size, (u32)st.st_mtime);
 		}
 	}
 }
@@ -1605,7 +1608,7 @@ FS_Path* CLocatorAPI::get_path(LPCSTR path)
 
 LPCSTR CLocatorAPI::update_path(string_path& dest, LPCSTR initial, LPCSTR src)
 {
-	return get_path(initial)->_update(dest, src);
+	//return get_path(initial)->_update(dest, src);
 }
 
 /*
@@ -1635,7 +1638,9 @@ void CLocatorAPI::set_file_age(LPCSTR nm, u32 age)
 	int res = _utime(nm, &tm);
 	if (0 != res)
 	{
-		Msg("!Can't set file age: '%s'. Error: '%s'", nm, _sys_errlist[errno]);
+		//FIXME:
+	{ stub_unix(); }
+		//Msg("!Can't set file age: '%s'. Error: '%s'", nm, _sys_errlist[errno]);
 	}
 	else
 	{

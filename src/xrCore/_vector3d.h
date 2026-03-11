@@ -5,10 +5,10 @@
 #include <_std_extensions.h>
 #include "math_constants.h"
 
-// Inline call
-#ifndef IC
-#define IC __forceinline
-#endif
+class CRenderDevice;
+extern ENGINE_API CRenderDevice Device;
+
+
 
 template <class T>
 struct _vector3
@@ -780,7 +780,7 @@ IC BOOL exact_normalize(float* a)
 			a2 /= aa1;
 			l = rsqrt(a0 * a0 + a2 * a2 + 1);
 			a[0] = a0 * l;
-			a[1] = (double)_copysign(l, a1);
+			a[1] = (double)copysign(l, a1);
 			a[2] = a2 * l;
 		}
 	}
@@ -794,7 +794,7 @@ IC BOOL exact_normalize(float* a)
 			l = rsqrt(a0 * a0 + a1 * a1 + 1);
 			a[0] = a0 * l;
 			a[1] = a1 * l;
-			a[2] = (double)_copysign(l, a2);
+			a[2] = (double)copysign(l, a2);
 		}
 		else // aa0 is largest
 		{
@@ -809,7 +809,7 @@ IC BOOL exact_normalize(float* a)
 			a1 /= aa0;
 			a2 /= aa0;
 			l = rsqrt(a1 * a1 + a2 * a2 + 1);
-			a[0] = (double)_copysign(l, a0);
+			a[0] = (double)copysign(l, a0);
 			a[1] = a1 * l;
 			a[2] = a2 * l;
 		}

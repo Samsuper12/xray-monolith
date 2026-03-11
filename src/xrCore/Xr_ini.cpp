@@ -9,7 +9,7 @@
 #include <string_concatenations.h>
 #include <xr_trims.h>
 
-#include "fs_internal.h"
+#include "FS_internal.h"
 #include "LocatorAPI.h"
 #include "mezz_stringbuffer.h"
 

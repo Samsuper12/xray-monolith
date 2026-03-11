@@ -2,10 +2,10 @@
 #define FS_internalH
 #pragma once
 
-#include <io.h>
-#include <fcntl.h>
-#include <sys\stat.h>
-#include <share.h>
+// #include <io.h>
+// #include <fcntl.h>
+#include <sys/stat.h>
+//#include <share.h>
 
 #include "FS.h"
 #include "lzhuf.h"
@@ -27,16 +27,17 @@ public:
 		VerifyPath(*fName);
 		if (exclusive)
 		{
-			int handle = _sopen(*fName,_O_WRONLY | _O_TRUNC | _O_CREAT | _O_BINARY,SH_DENYWR);
-            if (handle==-1)
-                Msg("!Can't create file: '%s'. Error: '%s'.", *fName, _sys_errlist[errno]);
-			hf = _fdopen(handle, "wb");
+			{ stub_unix(); }
+			// int handle = _sopen(*fName,_O_WRONLY | _O_TRUNC | _O_CREAT | _O_BINARY,SH_DENYWR);
+            // if (handle==-1)
+            //     Msg("!Can't create file: '%s'. Error: '%s'.", *fName, _sys_errlist[errno]);
+			// hf = _fdopen(handle, "wb");
 		}
 		else
 		{
 			hf = fopen(*fName, "wb");
-			if (hf == 0)
-				Msg("!Can't write file: '%s'. Error: '%s'.", *fName, _sys_errlist[errno]);
+			//if (hf == 0)
+				//Msg("!Can't write file: '%s'. Error: '%s'.", *fName, _sys_errlist[errno]);
 		}
 	}
 
@@ -46,12 +47,13 @@ public:
 		{
 			fclose(hf);
 			// release RO attrib
-			DWORD dwAttr = GetFileAttributes(*fName);
-			if ((dwAttr != u32(-1)) && (dwAttr & FILE_ATTRIBUTE_READONLY))
-			{
-				dwAttr &= ~FILE_ATTRIBUTE_READONLY;
-				SetFileAttributes(*fName, dwAttr);
-			}
+			//FIXME: 
+			// DWORD dwAttr = GetFileAttributes(*fName);
+			// if ((dwAttr != u32(-1)) && (dwAttr & FILE_ATTRIBUTE_READONLY))
+			// {
+			// 	dwAttr &= ~FILE_ATTRIBUTE_READONLY;
+			// 	SetFileAttributes(*fName, dwAttr);
+			// }
 		}
 	}
 
@@ -66,12 +68,12 @@ public:
 			for (req_size = count; req_size > mb_sz; req_size -= mb_sz, ptr += mb_sz)
 			{
 				size_t W = fwrite(ptr, mb_sz, 1, hf);
-				R_ASSERT3(W == 1, "Can't write mem block to file. Disk maybe full.", _sys_errlist[errno]);
+				//R_ASSERT3(W == 1, "Can't write mem block to file. Disk maybe full.", _sys_errlist[errno]);
 			}
 			if (req_size)
 			{
 				size_t W = fwrite(ptr, req_size, 1, hf);
-				R_ASSERT3(W == 1, "Can't write mem block to file. Disk maybe full.", _sys_errlist[errno]);
+				//R_ASSERT3(W == 1, "Can't write mem block to file. Disk maybe full.", _sys_errlist[errno]);
 			}
 		}
 	};

@@ -1,4 +1,6 @@
 
+#include <string>
+#include <locale>
 #include <time.h>
 
 #include <string_concatenations.h>

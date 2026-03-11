@@ -1,7 +1,7 @@
-#include <sal.h>
-#include <dxerr.h>
+//#include <sal.h>
+//#include <dxerr.h>
 #include <malloc.h>
-#include <direct.h>
+// #include <direct.h>
 
 #include <build_config_defines.h>
 #include <LocatorAPI.h>
@@ -9,7 +9,7 @@
 #include "log.h"
 #include "os_clipboard.h"
 #include "xrCore.h"
-#include "xrdebug.h"
+#include "xrDebug.h"
 #include "xrsharedmem.h"
 
 extern bool shared_str_initialized;
@@ -24,13 +24,13 @@ static BOOL bException = FALSE;
 # include <exception>
 #endif
 
-#include <dbghelp.h> // MiniDump flags
+//#include <dbghelp.h> // MiniDump flags
 
 #ifdef USE_BUG_TRAP
 # include <BugTrap/source/BugTrap.h> // for BugTrap functionality
 #endif // USE_BUG_TRAP
 
-#include <new.h> // for _set_new_mode
+//#include <new.h> // for _set_new_mode
 #include <signal.h> // for signals
 
 #ifdef NO_BUG_TRAP //DEBUG
@@ -59,7 +59,9 @@ namespace crash_saving
 
 // demonized: print stack trace
 #include "mezz_stringbuffer.h"
-#include "StackWalker.h"
+
+#if 0
+//#include "StackWalker.h"
 class xr_StackWalker : public StackWalker {
 public:
     xr_StackWalker() : StackWalker(StackWalker::StackWalkOptions::RetrieveSymbol
@@ -633,108 +635,108 @@ typedef BOOL (WINAPI* MINIDUMPWRITEDUMP)(HANDLE hProcess, DWORD dwPid, HANDLE hF
 
 void save_mini_dump (_EXCEPTION_POINTERS* pExceptionInfo)
 {
-    // firstly see if dbghelp.dll is around and has the function we need
-// look next to the EXE first, as the one in System32 might be old
-    // (e.g. Windows 2000)
-    HMODULE hDll = NULL;
-    string_path szDbgHelpPath;
+//     // firstly see if dbghelp.dll is around and has the function we need
+// // look next to the EXE first, as the one in System32 might be old
+//     // (e.g. Windows 2000)
+//     HMODULE hDll = NULL;
+//     string_path szDbgHelpPath;
 
-    if (GetModuleFileName( NULL, szDbgHelpPath, _MAX_PATH ))
-    {
-        char* pSlash = strchr( szDbgHelpPath, '\\' );
-        if (pSlash)
-        {
-            xr_strcpy (pSlash+1, sizeof(szDbgHelpPath)-(pSlash - szDbgHelpPath), "DBGHELP.DLL" );
-            hDll = ::LoadLibrary( szDbgHelpPath );
-        }
-    }
+//     if (GetModuleFileName( NULL, szDbgHelpPath, _MAX_PATH ))
+//     {
+//         char* pSlash = strchr( szDbgHelpPath, '\\' );
+//         if (pSlash)
+//         {
+//             xr_strcpy (pSlash+1, sizeof(szDbgHelpPath)-(pSlash - szDbgHelpPath), "DBGHELP.DLL" );
+//             hDll = ::LoadLibrary( szDbgHelpPath );
+//         }
+//     }
 
-    if (hDll==NULL)
-    {
-        // load any version we can
-        hDll = ::LoadLibrary( "DBGHELP.DLL" );
-    }
+//     if (hDll==NULL)
+//     {
+//         // load any version we can
+//         hDll = ::LoadLibrary( "DBGHELP.DLL" );
+//     }
 
-    LPCTSTR szResult = NULL;
+//     LPCTSTR szResult = NULL;
 
-    if (hDll)
-    {
-        MINIDUMPWRITEDUMP pDump = (MINIDUMPWRITEDUMP)::GetProcAddress( hDll, "MiniDumpWriteDump" );
-        if (pDump)
-        {
-            string_path szDumpPath;
-            string_path szScratch;
-            string64 t_stemp;
+//     if (hDll)
+//     {
+//         //MINIDUMPWRITEDUMP pDump = (MINIDUMPWRITEDUMP)::GetProcAddress( hDll, "MiniDumpWriteDump" );
+//         if (pDump)
+//         {
+//             string_path szDumpPath;
+//             string_path szScratch;
+//             string64 t_stemp;
 
-            timestamp (t_stemp);
-            xr_strcpy ( szDumpPath, Core.ApplicationName);
-            xr_strcat ( szDumpPath, "_" );
-            xr_strcat ( szDumpPath, Core.UserName );
-            xr_strcat ( szDumpPath, "_" );
-            xr_strcat ( szDumpPath, t_stemp );
-            xr_strcat ( szDumpPath, ".mdmp" );
+//             timestamp (t_stemp);
+//             xr_strcpy ( szDumpPath, Core.ApplicationName);
+//             xr_strcat ( szDumpPath, "_" );
+//             xr_strcat ( szDumpPath, Core.UserName );
+//             xr_strcat ( szDumpPath, "_" );
+//             xr_strcat ( szDumpPath, t_stemp );
+//             xr_strcat ( szDumpPath, ".mdmp" );
 
-            __try
-            {
-                if (FS.path_exist("$logs$"))
-                    FS.update_path (szDumpPath,"$logs$",szDumpPath);
-            }
-            __except( EXCEPTION_EXECUTE_HANDLER )
-            {
-                string_path temp;
-                xr_strcpy (temp,szDumpPath);
-                xr_strcpy (szDumpPath,"logs/");
-                xr_strcat (szDumpPath,temp);
-            }
+//             __try
+//             {
+//                 if (FS.path_exist("$logs$"))
+//                     FS.update_path (szDumpPath,"$logs$",szDumpPath);
+//             }
+//             __except( EXCEPTION_EXECUTE_HANDLER )
+//             {
+//                 string_path temp;
+//                 xr_strcpy (temp,szDumpPath);
+//                 xr_strcpy (szDumpPath,"logs/");
+//                 xr_strcat (szDumpPath,temp);
+//             }
 
-            // create the file
-            HANDLE hFile = ::CreateFile( szDumpPath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
-            if (INVALID_HANDLE_VALUE==hFile)
-            {
-                // try to place into current directory
-                MoveMemory (szDumpPath,szDumpPath+5,strlen(szDumpPath));
-                hFile = ::CreateFile( szDumpPath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
-            }
-            if (hFile!=INVALID_HANDLE_VALUE)
-            {
-                _MINIDUMP_EXCEPTION_INFORMATION ExInfo;
+//             // create the file
+//             HANDLE hFile = ::CreateFile( szDumpPath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+//             if (INVALID_HANDLE_VALUE==hFile)
+//             {
+//                 // try to place into current directory
+//                 MoveMemory (szDumpPath,szDumpPath+5,strlen(szDumpPath));
+//                 hFile = ::CreateFile( szDumpPath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+//             }
+//             if (hFile!=INVALID_HANDLE_VALUE)
+//             {
+//                 _MINIDUMP_EXCEPTION_INFORMATION ExInfo;
 
-                ExInfo.ThreadId = ::GetCurrentThreadId();
-                ExInfo.ExceptionPointers = pExceptionInfo;
-                ExInfo.ClientPointers = NULL;
+//                 ExInfo.ThreadId = ::GetCurrentThreadId();
+//                 ExInfo.ExceptionPointers = pExceptionInfo;
+//                 ExInfo.ClientPointers = NULL;
 
-                // write the dump
-                MINIDUMP_TYPE dump_flags = MINIDUMP_TYPE(MiniDumpNormal | MiniDumpFilterMemory | MiniDumpScanMemory );
+//                 // write the dump
+//                 MINIDUMP_TYPE dump_flags = MINIDUMP_TYPE(MiniDumpNormal | MiniDumpFilterMemory | MiniDumpScanMemory );
 
-                BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, dump_flags, &ExInfo, NULL, NULL );
-                if (bOK)
-                {
-                    xr_sprintf( szScratch, "Saved dump file to '%s'", szDumpPath );
-                    szResult = szScratch;
-                    // retval = EXCEPTION_EXECUTE_HANDLER;
-                }
-                else
-                {
-                    xr_sprintf( szScratch, "Failed to save dump file to '%s' (error %d)", szDumpPath, GetLastError() );
-                    szResult = szScratch;
-                }
-                ::CloseHandle(hFile);
-            }
-            else
-            {
-                xr_sprintf( szScratch, "Failed to create dump file '%s' (error %d)", szDumpPath, GetLastError() );
-                szResult = szScratch;
-            }
-        }
-        else
-        {
-            szResult = "DBGHELP.DLL too old";
-        }
-    }
-    else
-    {
-        szResult = "DBGHELP.DLL not found";
-    }
+//                 BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, dump_flags, &ExInfo, NULL, NULL );
+//                 if (bOK)
+//                 {
+//                     xr_sprintf( szScratch, "Saved dump file to '%s'", szDumpPath );
+//                     szResult = szScratch;
+//                     // retval = EXCEPTION_EXECUTE_HANDLER;
+//                 }
+//                 else
+//                 {
+//                     xr_sprintf( szScratch, "Failed to save dump file to '%s' (error %d)", szDumpPath, GetLastError() );
+//                     szResult = szScratch;
+//                 }
+//                 ::CloseHandle(hFile);
+//             }
+//             else
+//             {
+//                 xr_sprintf( szScratch, "Failed to create dump file '%s' (error %d)", szDumpPath, GetLastError() );
+//                 szResult = szScratch;
+//             }
+//         }
+//         else
+//         {
+//             szResult = "DBGHELP.DLL too old";
+//         }
+//     }
+//     else
+//     {
+//         szResult = "DBGHELP.DLL not found";
+//     }
 }
 #endif //-USE_OWN_MINI_DUMP
 
@@ -754,7 +756,7 @@ void format_message(LPSTR buffer, const u32& buffer_size)
 		FORMAT_MESSAGE_FROM_SYSTEM,
 		NULL,
 		error_code,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		//MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		(LPSTR)&message,
 		0,
 		NULL
@@ -765,7 +767,7 @@ void format_message(LPSTR buffer, const u32& buffer_size)
 }
 
 #ifndef _EDITOR
-#include <errorrep.h>
+// #include <errorrep.h>
 #pragma comment( lib, "faultrep.lib" )
 #endif //-!_EDITOR
 
@@ -1103,22 +1105,22 @@ void debug_on_thread_spawn()
 	//std::set_terminate (_terminate);
 #endif // USE_BUG_TRAP
 
-	_set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
-	signal(SIGABRT, abort_handler);
-	signal(SIGABRT_COMPAT, abort_handler);
-	signal(SIGFPE, floating_point_handler);
-	signal(SIGILL, illegal_instruction_handler);
-	signal(SIGINT, 0);
-	// signal (SIGSEGV, storage_access_handler);
-	signal(SIGTERM, termination_handler);
+	// _set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
+	// signal(SIGABRT, abort_handler);
+	// signal(SIGABRT_COMPAT, abort_handler);
+	// signal(SIGFPE, floating_point_handler);
+	// signal(SIGILL, illegal_instruction_handler);
+	// signal(SIGINT, 0);
+	// // signal (SIGSEGV, storage_access_handler);
+	// signal(SIGTERM, termination_handler);
 
-	_set_invalid_parameter_handler(&invalid_parameter_handler);
+	// _set_invalid_parameter_handler(&invalid_parameter_handler);
 
-	_set_new_mode(1);
-	_set_new_handler(&out_of_memory_handler);
-	// std::set_new_handler (&std_out_of_memory_handler);
+	// _set_new_mode(1);
+	// _set_new_handler(&out_of_memory_handler);
+	// // std::set_new_handler (&std_out_of_memory_handler);
 
-	_set_purecall_handler(&pure_call_handler);
+	// _set_purecall_handler(&pure_call_handler);
 
 #if 0// should be if we use exceptions
     std::set_unexpected(_terminate);
@@ -1136,7 +1138,7 @@ void xrDebug::_initialize(const bool& dedicated)
 #ifdef USE_BUG_TRAP
     SetupExceptionHandler(is_dedicated);
 #endif // USE_BUG_TRAP
-	previous_filter = ::SetUnhandledExceptionFilter(UnhandledFilter); // exception handler to all "unhandled" exceptions
+//previous_filter = ::SetUnhandledExceptionFilter(UnhandledFilter); // exception handler to all "unhandled" exceptions
 
 #if 0
     struct foo
@@ -1155,3 +1157,4 @@ void xrDebug::_initialize(const bool& dedicated)
 #endif // 0
 }
 
+#endif

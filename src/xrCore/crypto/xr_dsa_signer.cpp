@@ -51,8 +51,8 @@ char const* current_time(string64& dest_time)
 	time_t tmp_curr_time;
 
 	dest_time[0] = 0;
-	_time64(&tmp_curr_time);
-	tm* tmp_tm = _localtime64(&tmp_curr_time);
+	std::time(&tmp_curr_time);
+	tm* tmp_tm = localtime(&tmp_curr_time);
 
 	xr_sprintf(dest_time, sizeof(dest_time),
 	           "%02d.%02d.%d_%02d:%02d:%02d",

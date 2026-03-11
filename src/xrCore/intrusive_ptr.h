@@ -14,7 +14,7 @@
 # include "../xrServerEntities/object_type_traits.h"
 #endif //XRGAME_EXPORTS
 
-#pragma pack(push,4)
+// #pragma pack(push,4)
 
 struct intrusive_base
 {
@@ -37,12 +37,12 @@ struct intrusive_base
 	}
 };
 
-template <typename object_type, typename base_type = intrusive_base>
+template <typename object_type1, typename base_type1 = intrusive_base>
 class intrusive_ptr
 {
 private:
-	typedef base_type base_type;
-	typedef object_type object_type;
+	using base_type = base_type1;
+	using object_type = object_type1;
 	typedef intrusive_ptr<object_type, base_type> self_type;
 	typedef const object_type* (intrusive_ptr::*unspecified_bool_type)() const;
 
@@ -100,4 +100,4 @@ IC void swap(intrusive_ptr<object_type, base_type>& lhs, intrusive_ptr<object_ty
 
 #include "intrusive_ptr_inline.h"
 
-#pragma pack(pop)
+// #pragma pack(pop)

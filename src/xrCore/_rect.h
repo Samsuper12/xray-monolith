@@ -2,6 +2,7 @@
 #define __FRECT
 
 #include "_vector2.h"
+#include <limits>
 
 template <class T>
 struct _rect
@@ -69,10 +70,10 @@ public:
 
 	IC SelfRef invalidate()
 	{
-		lt.x = type_max(T);
-		lt.y = type_max(T);
-		rb.x = type_min(T);
-		rb.y = type_min(T);
+		lt.x = std::numeric_limits<T>::max();
+		lt.y = std::numeric_limits<T>::max();
+		rb.x = std::numeric_limits<T>::min();
+		rb.y = std::numeric_limits<T>::min();
 		return *this;
 	};
 	IC bool valide() { return lt.x1 < rb.x && lt.y < rb.y; }
@@ -208,7 +209,7 @@ typedef _rect<int> Irect;
 template <class T>
 BOOL _valid(const _rect<T>& m)
 {
-	return lt._valid() && rb._valid();
+	return m.lt._valid() && m.rb._valid();
 }
 
 #endif

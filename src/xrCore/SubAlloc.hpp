@@ -15,7 +15,7 @@ enum
 	N_INDEXES=N1 + N2 + N3 + N4
 };
 
-#pragma pack(1)
+// #pragma pack(1)
 struct BLK_NODE
 {
 	DWORD Stamp;
@@ -45,7 +45,7 @@ struct MEM_BLK : public BLK_NODE
 {
 	DWORD NU;
 } _PACK_ATTR;
-#pragma pack()
+// #pragma pack()
 
 static BYTE Indx2Units[N_INDEXES], Units2Indx[128]; // constants
 static DWORD GlueCount, SubAllocatorSize = 0;

@@ -1,7 +1,7 @@
 #ifndef XR_SHORTCUT_H
 #define XR_SHORTCUT_H
 
-#pragma pack (push,1)
+// #pragma pack (push,1)
 struct XRCORE_API xr_shortcut
 {
 	enum
@@ -35,6 +35,6 @@ struct XRCORE_API xr_shortcut
 
 	bool similar(const xr_shortcut& v) const { return ext.equal(v.ext) && (key == v.key); }
 };
-#pragma pack (pop)
+// #pragma pack (pop)
 
 #endif

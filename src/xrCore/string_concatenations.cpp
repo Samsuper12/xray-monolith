@@ -11,7 +11,7 @@ namespace xray
 				void process(u32 const index, u32 const count, LPCSTR* strings)
 				{
 					u32 const max_string_size = 1024;
-					LPSTR temp = (LPSTR)_alloca((count * (max_string_size + 4) + 1) * sizeof(**strings));
+					LPSTR temp = (LPSTR)alloca((count * (max_string_size + 4) + 1) * sizeof(**strings));
 					LPSTR k = temp;
 					*k++ = '[';
 					for (u32 i = 0; i < count; ++i)
@@ -73,14 +73,14 @@ namespace xray
 
 			void check_stack_overflow(u32 stack_increment)
 			{
-				__try
+				//__try
 				{
-					void* p = _alloca(stack_increment);
+					void* p = alloca(stack_increment);
 					p;
 				}
-				__except (xray::core::detail::stack_overflow_exception_filter(GetExceptionCode()))
+				//__except (xray::core::detail::stack_overflow_exception_filter(GetExceptionCode()))
 				{
-					_resetstkoflw();
+					//_resetstkoflw();
 				}
 			}
 

@@ -1,9 +1,9 @@
-#include <io.h>
-#include <direct.h>
-#include <fcntl.h>
-#include <sys\stat.h>
+// #include <io.h>
+// #include <direct.h>
+// #include <fcntl.h>
+#include <sys/stat.h>
 
-#include "fs_internal.h"
+#include "FS_internal.h"
 #include "LocatorAPI.h"
 
 //typedef void DUMMY_STUFF (const void*,const u32&,void*);
@@ -88,7 +88,7 @@ bool file_handle_internal(LPCSTR file_name, u32& size, int& hFile)
     hFile = _open(file_name, O_RDONLY | O_BINARY | O_SEQUENTIAL);
     if (hFile <= 0)
     {
-        Sleep(1);
+        sleep(1);
         hFile = _open(file_name, O_RDONLY | O_BINARY | O_SEQUENTIAL);
         if (hFile <= 0)
             return (false);
@@ -115,7 +115,7 @@ bool file_handle_internal(LPCSTR file_name, u32& size, int& file_handle)
 {
 	if (open_internal(file_name, file_handle))
 	{
-		Sleep(1);
+		sleep(1);
 		if (open_internal(file_name, file_handle))
 			return (false);
 	}
@@ -176,8 +176,9 @@ void FileCompress(const char* fn, const char* sign, void* data, u32 size)
 {
 	MARK M;
 	mk_mark(M, sign);
-
-	int H = open(fn, O_BINARY | O_CREAT | O_WRONLY | O_TRUNC, S_IREAD | S_IWRITE);
+	//FIXME:
+	{ stub_unix(); }
+	int H =  0;//open(fn, O_BINARY | O_CREAT | O_WRONLY | O_TRUNC, S_IREAD | S_IWRITE);
 	R_ASSERT2(H > 0, fn);
 	_write(H, &M, 8);
 	_writeLZ(H, data, size);
@@ -188,8 +189,9 @@ void* FileDecompress(const char* fn, const char* sign, u32* size)
 {
 	MARK M, F;
 	mk_mark(M, sign);
-
-	int H = open(fn, O_BINARY | O_RDONLY);
+	//FIXME:
+	{ stub_unix(); }
+	int H = 0;// open(fn, O_BINARY | O_RDONLY);
 	R_ASSERT2(H > 0, fn);
 	_read(H, &F, 8);
 	if (strncmp(M, F, 8) != 0)

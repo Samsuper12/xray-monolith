@@ -1,9 +1,6 @@
 #ifndef _vector_included
 #define _vector_included
 
-ICF int iFloor(float x);
-ICF int iCeil(float x);
-
 #include "math_constants.h"
 
 // Define types and namespaces (CPU & FPU)
@@ -12,6 +9,9 @@ ICF int iCeil(float x);
 #include "_bitwise.h"
 #include "_std_extensions.h"
 #include "math_funcs_inline.h"
+
+ICF int iFloor(float x);
+ICF int iCeil(float x);
 
 // linear interpolation
 template <class T>
@@ -38,8 +38,8 @@ IC float _inertion(float _val_cur, float _val_trgt, float _friction)
 template <class T>
 struct _quaternion;
 
-#pragma pack(push)
-#pragma pack(1)
+// #pragma pack(push)
+// #pragma pack(1)
 
 #include "_random.h"
 
@@ -67,6 +67,6 @@ struct _quaternion;
 #ifdef DEBUG
 #include "dump_string.h"
 #endif
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif

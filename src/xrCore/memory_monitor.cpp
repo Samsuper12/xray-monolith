@@ -1,7 +1,7 @@
 
 #ifdef USE_MEMORY_MONITOR
 # include <time.h>
-# include <direct.h>
+// # include <direct.h>
 
 #define STATIC
 //#define STATIC static
@@ -25,10 +25,10 @@ LPCSTR inline file_name()
     {
         _mkdir(output_folder);
 
-        __time64_t long_time;
-        _time64(&long_time);
+        time64_t long_time;
+        std::time(&long_time);
         tm new_time;
-        new_time = *_localtime64(&long_time);
+        new_time = *localtime(&long_time);
         string256 file_name;
         strftime(file_name, sizeof(file_name), "%Y.%m.%d.%H.%M.%S", &new_time);
         strconcat(sizeof(file), file, output_folder, file_name, output_extension);

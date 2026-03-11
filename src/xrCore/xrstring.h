@@ -6,7 +6,7 @@
 #include "xrMemory.h"
 #include "xrSyncronize.h"
 
-#pragma pack(push,8)
+// #pragma pack(push,8)
 //////////////////////////////////////////////////////////////////////////
 typedef const char* str_c;
 
@@ -149,7 +149,7 @@ public:
 		string4096 buf;
 		va_list p;
 		va_start(p, format);
-		int vs_sz = _vsnprintf(buf, sizeof(buf) - 1, format, p);
+		int vs_sz = vsnprintf(buf, sizeof(buf) - 1, format, p);
 		buf[sizeof(buf) - 1] = 0;
 		va_end(p);
 		if (vs_sz) _set(buf);
@@ -244,23 +244,27 @@ IC bool IsUTF8(const char* string)
 
 IC xr_string UTF8_to_CP1251(xr_string const& utf8)
 {
-	if (!utf8.empty() && IsUTF8(utf8.data()))
-	{
-		int wchlen = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), (int)utf8.size(), nullptr, 0);
-		if (wchlen > 0 && wchlen != 0xFFFD)
-		{
-			xr_vector<wchar_t> wbuf(wchlen);
-			MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), (int)utf8.size(), &wbuf[0], wchlen);
-			xr_vector<char> buf(wchlen);
-			WideCharToMultiByte(1251, 0, &wbuf[0], wchlen, &buf[0], wchlen, 0, 0);
-
-			return xr_string(&buf[0], wchlen);
-		}
-	}
-
-	return utf8;
+#ifdef _WIN32
+    if (!utf8.empty() && IsUTF8(utf8.data()))
+    {
+        int wchlen = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), (int)utf8.size(), nullptr, 0);
+        if (wchlen > 0 && wchlen != 0xFFFD)
+        {
+            xr_vector<wchar_t> wbuf(wchlen);
+            MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), (int)utf8.size(), &wbuf[0], wchlen);
+            xr_vector<char> buf(wchlen);
+            WideCharToMultiByte(1251, 0, &wbuf[0], wchlen, &buf[0], wchlen, 0, 0);
+            return xr_string(&buf[0], wchlen);
+        }
+    }
+    return utf8;
+#else
+    // CP1251 conversion not supported on non-Windows platforms
+    // Return UTF-8 as-is, or implement via iconv if needed
+    return utf8;
+#endif
 }
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 #endif

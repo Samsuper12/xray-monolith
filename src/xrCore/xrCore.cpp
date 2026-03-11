@@ -4,8 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <mmsystem.h>
-#include <objbase.h>
+//#include <mmsystem.h>
+// #include <objbase.h>
 #ifdef DEBUG
 # include <malloc.h>
 #endif // DEBUG
@@ -114,6 +114,7 @@ void xrCore::_initialize(LPCSTR _ApplicationName, LogCallback cb, BOOL init_fs, 
 		std::ifstream cmdlineTxt;
 		char path_A[MAX_PATH];
 		strcpy(path_A, Core.ApplicationPath);
+		// FIXME: 
 		strcat(path_A, "\\..\\commandline.txt");
 		cmdlineTxt.open(path_A);
 		

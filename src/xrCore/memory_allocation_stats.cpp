@@ -32,7 +32,7 @@ void mem_alloc_gather_stats_frequency (const float& value)
 void mem_alloc_show_stats ()
 {
     u32 size = (u32)stats.size();
-    STATS_PAIR* strings = (STATS_PAIR*)_alloca(size*sizeof(STATS_PAIR));
+    STATS_PAIR* strings = (STATS_PAIR*)alloca(size*sizeof(STATS_PAIR));
     STATS_PAIR* e = strings + size;
     STATS_PAIR* i = strings;
 
@@ -91,7 +91,7 @@ void save_stack_trace ()
 
     u32 accumulator = 0;
     VERIFY (g_stackTraceCount > 2);
-    int* lengths = (int*)_alloca((g_stackTraceCount - 2)*sizeof(int));
+    int* lengths = (int*)alloca((g_stackTraceCount - 2)*sizeof(int));
     {
         int* I = lengths;
         for (int i=2; i<g_stackTraceCount; ++i, ++I)

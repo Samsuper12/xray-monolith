@@ -4,6 +4,7 @@
 
 #include <string>
 #include <stdarg.h>
+#include "_types.h"
 
 typedef void crashhandler(void);
 typedef void on_dialog(bool before);
