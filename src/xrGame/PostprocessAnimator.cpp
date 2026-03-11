@@ -1,6 +1,6 @@
 #include <LocatorAPI.h>
 
-#include "postprocessanimator.h"
+#include "PostprocessAnimator.h"
 #ifndef _PP_EDITOR_
 #include "ActorEffector.h"
 #endif

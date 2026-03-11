@@ -1,10 +1,10 @@
 #pragma once
 
-#include "feel_touch.h"
-#include "feel_sound.h"
-#include "iinputreceiver.h"
+#include "Feel_Touch.h"
+#include "Feel_Sound.h"
+#include "IInputReceiver.h"
 #include "KinematicsAnimated.h"
-#include "actor_flags.h"
+#include "Actor_Flags.h"
 #include "actor_defs.h"
 #include "fire_disp_controller.h"
 #include "entity_alive.h"

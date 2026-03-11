@@ -1,5 +1,5 @@
 #include <string_concatenations.h>
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 
 #include "ServerList.h"
 #include "UIXmlInit.h"

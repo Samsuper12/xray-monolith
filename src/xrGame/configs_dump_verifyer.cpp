@@ -3,6 +3,8 @@
 #include "configs_dump_verifyer.h"
 #include "configs_common.h"
 #include "configs_dumper.h"
+#include <safe_lib.h>
+
 
 namespace mp_anticheat
 {

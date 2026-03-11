@@ -1,6 +1,6 @@
 #pragma once
 #include "UIStatic.h"
-#include "..\alife_registry_wrappers.h"
+#include "../alife_registry_wrappers.h"
 
 struct GAME_NEWS_DATA;
 

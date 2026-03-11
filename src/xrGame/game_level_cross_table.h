@@ -32,7 +32,7 @@ class CGameLevelCrossTable
 #endif // AI_COMPILER
 
 public:
-#pragma pack(push,2)
+// #pragma pack(push,2)
 	class CHeader
 	{
 		u32 dwVersion;
@@ -70,7 +70,7 @@ public:
 		friend class CGameGraphBuilder;
 #endif // AI_COMPILER
 	};
-#pragma pack(pop)
+// #pragma pack(pop)
 
 private:
 	CHeader m_tCrossTableHeader;

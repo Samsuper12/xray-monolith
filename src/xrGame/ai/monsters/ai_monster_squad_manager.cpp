@@ -1,6 +1,6 @@
 #include "ai_monster_squad_manager.h"
 #include "ai_monster_squad.h"
-#include "../../entity.h"
+#include "../../Entity.h"
 
 //////////////////////////////////////////////////////////////////////////
 // SQUAD MANAGER Implementation

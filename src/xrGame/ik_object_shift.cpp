@@ -1,8 +1,8 @@
 #include "ik_object_shift.h"
 #include "pose_extrapolation.h"
-#include "../xrphysics/mathutils.h"
+#include "../xrPhysics/MathUtils.h"
 #ifdef	DEBUG
-#include "phdebug.h"
+#include "PHDebug.h"
 #endif
 #ifdef	DEBUG
 

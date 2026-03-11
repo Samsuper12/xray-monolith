@@ -1,6 +1,6 @@
 #include "xrServer_info.h"
-#include "level.h"
-#include "xrserver.h"
+#include "Level.h"
+#include "xrServer.h"
 
 #define SERVER_LOGO_FN	"server_logo.jpg"
 #define SERVER_RULES_FN "server_rules.txt"
@@ -125,7 +125,7 @@ void server_info_uploader::start_upload_info(IReader const* svlogo,
 	sndcb.bind(this, &server_info_uploader::upload_server_info_callback);
 
 	buffer_vector<mutable_buffer_t> tmp_bufvec(
-		_alloca(sizeof(mutable_buffer_t) * 2),
+		alloca(sizeof(mutable_buffer_t) * 2),
 		2
 	);
 

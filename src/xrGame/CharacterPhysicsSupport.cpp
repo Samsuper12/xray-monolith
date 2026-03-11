@@ -1,7 +1,7 @@
 
 #include "CharacterPhysicsSupport.h"
 #include "alife_space.h"
-#include "hit.h"
+#include "Hit.h"
 #include "PHDestroyable.h"
 #include "PHMovementControl.h"
 #include "CustomMonster.h"
@@ -11,8 +11,8 @@
 
 
 #include "PhysicsShell.h"
-#include "iActivationShape.h"
-#include "geometry.h"
+#include "IActivationShape.h"
+#include "Geometry.h"
 #include "IPHCapture.h"
 #include "IPHWorld.h"
 
@@ -28,9 +28,9 @@
 #include "xrServer_Object_Base.h"
 #include "interactive_animation.h"
 #include "stalker_animation_manager.h"
-#include "inventoryowner.h"
-#include "inventory.h"
-#include "activatingcharcollisiondelay.h"
+#include "InventoryOwner.h"
+#include "Inventory.h"
+#include "ActivatingCharCollisionDelay.h"
 #include "stalker_movement_manager_smart_cover.h"
 
 #include "../build_config_defines.h"
@@ -828,7 +828,7 @@ void reset_root_bone_start_pose( CPhysicsShell& shell )
 
 	//u16 anim_bones_number = K->LL_BoneCount();
 
-	//buffer_vector<u32>	anim_bones_bind_positions( _alloca(anim_bones_number*sizeof(u32)),
+	//buffer_vector<u32>	anim_bones_bind_positions( alloca(anim_bones_number*sizeof(u32)),
 	//												anim_bones_number
 	//											);
 #pragma todo("LL_GetBindTransform shoud use buffer_vector")

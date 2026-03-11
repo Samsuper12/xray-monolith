@@ -1,13 +1,13 @@
 #include "game_sv_teamdeathmatch.h"
-#include "xrserver_objects_alife_monsters.h"
-#include "xrserver.h"
+#include "xrServer_Objects_ALife_Monsters.h"
+#include "xrServer.h"
 #include "Level.h"
 #include "game_cl_mp.h"
 #include "string_table.h"
 #include "clsid_game.h"
 #include <functional>
 
-#include "ui\UIBuyWndShared.h"
+#include "ui/UIBuyWndShared.h"
 
 //-------------------------------------------------------
 extern s32 g_sv_dm_dwFragLimit;
@@ -545,7 +545,7 @@ void game_sv_TeamDeathmatch::Update()
 	};
 }
 
-extern INT g_sv_Skip_Winner_Waiting;
+extern int g_sv_Skip_Winner_Waiting;
 
 bool game_sv_TeamDeathmatch::HasChampion()
 {

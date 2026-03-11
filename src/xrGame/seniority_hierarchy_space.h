@@ -9,13 +9,15 @@
 #pragma once
 
 #define SQUAD_HIERARCHY_HOLDER_USE_LEADER
+#include <string>
 
 namespace SeniorityHierarchy
 {
 	IC shared_str to_string(u32 number)
 	{
 		string16 S;
-		_itoa(number, S, 10);
+		snprintf(S, 10, "%d", number);
+		//_itoa(number, S, 10);
 		return (shared_str(S));
 	}
 

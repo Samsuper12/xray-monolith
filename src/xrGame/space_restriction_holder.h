@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "../xrServerEntities/restriction_space.h"
 
 class CSpaceRestrictionBridge;
 class CSpaceRestrictor;

@@ -10,6 +10,7 @@
 
 #include "stalker_combat_action_base.h"
 #include "random32.h"
+#include "ai_monster_space.h"
 
 class CCoverPoint;
 

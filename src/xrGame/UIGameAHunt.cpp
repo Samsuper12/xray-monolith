@@ -1,8 +1,8 @@
 #include "UIGameAHunt.h"
 
 #include "team_base_zone.h"
-#include "level.h"
-#include "game_cl_ArtefactHunt.h"
+#include "Level.h"
+#include "game_cl_artefacthunt.h"
 #include "ui/UIStatic.h"
 #include "ui/UIXmlInit.h"
 #include "ui/UIMessageBoxEx.h"

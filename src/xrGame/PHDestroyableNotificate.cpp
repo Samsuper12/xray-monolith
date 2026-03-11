@@ -1,6 +1,6 @@
 #include "PHDestroyableNotificate.h"
 #include "alife_space.h"
-#include "hit.h"
+#include "Hit.h"
 #include "PHDestroyable.h"
 #include "Level.h"
 #include "xrServer_Object_Base.h"

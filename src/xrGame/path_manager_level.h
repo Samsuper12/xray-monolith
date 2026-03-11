@@ -41,20 +41,20 @@ class CPathManager<
 	>
 {
 protected:
-	typedef CLevelGraph _Graph;
-	typedef SBaseParameters<
+	using  _Graph = CLevelGraph ;
+	using _Parameters = SBaseParameters<
 		_dist_type,
 		_index_type,
 		_iteration_type
-	> _Parameters;
-	typedef CPathManagerGeneric<
+	> ;
+	using inherited = CPathManagerGeneric<
 		_Graph,
 		_DataStorage,
 		_Parameters,
 		_dist_type,
 		_index_type,
 		_iteration_type
-	> inherited;
+	> ;
 
 protected:
 	int x1;

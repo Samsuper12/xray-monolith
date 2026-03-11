@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
 #include "UIButton.h"
 #include "UI_IB_Static.h"

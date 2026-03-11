@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
 class CStalkerSoundData;
 

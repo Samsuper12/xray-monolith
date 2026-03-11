@@ -6,11 +6,11 @@
 #include "state_custom_action.h"
 #include "monster_state_eat_eat.h"
 #include "monster_state_eat_drag.h"
-#include "../../../../xrphysics/PhysicsShell.h"
+#include "../../../../xrPhysics/PhysicsShell.h"
 #include "../../../PHMovementControl.h"
 #include "../../../CharacterPhysicsSupport.h"
 #ifdef _DEBUG
-#	include "../../../level.h"
+#	include "../../../Level.h"
 #	include "../../../level_debug.h"
 #endif
 

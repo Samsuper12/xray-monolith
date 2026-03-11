@@ -11,8 +11,8 @@
 #include "ai/stalker/ai_stalker_space.h"
 #include "sound_player.h"
 #include "stalker_animation_data.h"
-#include "uigamesp.h"
-#include "ui/uitalkwnd.h"
+#include "UIGameSP.h"
+#include "ui/UITalkWnd.h"
 
 void CStalkerAnimationManager::head_play_callback(CBlend* blend)
 {

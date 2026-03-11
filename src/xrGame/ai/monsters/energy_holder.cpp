@@ -2,7 +2,7 @@
 #include <xr_ini.h>
 
 #include "energy_holder.h"
-#include "gameobject.h"
+#include "GameObject.h"
 
 CEnergyHolder::CEnergyHolder()
 {

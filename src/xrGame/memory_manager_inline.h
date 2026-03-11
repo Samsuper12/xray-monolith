@@ -7,6 +7,11 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+class CEntityAlive;
+
+#include "enemy_manager.h"
+#include "visual_memory_manager.h"
+
 
 template <typename T, typename _predicate>
 IC void CMemoryManager::fill_enemies(const xr_vector<T>& objects, const _predicate& predicate) const

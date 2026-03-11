@@ -1,5 +1,5 @@
-#include "uiscrollbox.h"
-#include "../uicursor.h"
+#include "UIScrollBox.h"
+#include "../UICursor.h"
 
 CUIScrollBox::CUIScrollBox()
 {

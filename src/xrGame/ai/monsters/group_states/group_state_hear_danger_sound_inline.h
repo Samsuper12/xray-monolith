@@ -4,7 +4,7 @@
 #include "../states/monster_state_home_point_danger.h"
 
 #include "../ai_monster_squad.h"
-#include "../../../entity.h"
+#include "../../../Entity.h"
 #include "../../../ai_object_location.h"
 
 #define TEMPLATE_SPECIALIZATION template <\

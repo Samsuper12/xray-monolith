@@ -6,7 +6,7 @@
 
 #include "IKLimb.h"
 #include "Kinematics.h"
-#include "gameobject.h"
+#include "GameObject.h"
 #include "game_object_space.h"
 #include "ik_anim_state.h"
 //#include "ode_include.h"
@@ -16,7 +16,7 @@
 #ifdef DEBUG
 #include "PHDebug.h"
 #endif
-
+#include <algorithm>
 
 extern int ik_allign_free_foot;
 
@@ -324,8 +324,8 @@ IC void set_limits(float& min, float& max, SJointLimit& l)
 	max = -l.limit.x;
 	min += M_PI;
 	max += M_PI;
-	clamp(min, 0.f, 2 * M_PI);
-	clamp(max, 0.f, 2 * M_PI);
+	std::clamp(min, 0.f, float(2 * M_PI));
+	std::clamp(max, 0.f, float(2 * M_PI));
 }
 
 IC void free_limits(float& min, float& max)
@@ -1080,7 +1080,7 @@ u16 CIKLimb::foot_matrix_predict(Fmatrix& foot, Fmatrix& toe, float time, IKinem
 {
 	//CBlend *control = 0;
 	u32 blends_count = K->LL_PartBlendsCount(0);
-	buffer_vector<CBlend> saved_blends(_alloca(blends_count * sizeof(CBlend)), blends_count);
+	buffer_vector<CBlend> saved_blends(alloca(blends_count * sizeof(CBlend)), blends_count);
 
 
 	for (u32 i = 0; i < blends_count; ++i)

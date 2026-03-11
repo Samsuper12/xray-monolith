@@ -8,13 +8,15 @@
 
 #ifndef STALKER_MOVEMENT_PARAMS_H_INCLUDED
 #define STALKER_MOVEMENT_PARAMS_H_INCLUDED
+#include "movement_manager_space.h"
+#include "ai_monster_space.h"
+#include "detail_path_manager_space.h"
 
 namespace MonsterSpace
 {
 	enum EBodyState;
 	enum EMovementType;
 	enum EMentalState;
-	enum EPathType;
 };
 
 namespace MovementManager

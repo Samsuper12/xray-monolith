@@ -1,7 +1,7 @@
 #pragma once
 
-#include <sound.h>
-#include <feel_touch.h>
+#include <Sound.h>
+#include <Feel_Touch.h>
 
 #include "space_restrictor.h"
 #include "script_export_space.h"

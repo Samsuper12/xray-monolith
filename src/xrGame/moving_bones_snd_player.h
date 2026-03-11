@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
 class IKinematics;
 class CInifile;

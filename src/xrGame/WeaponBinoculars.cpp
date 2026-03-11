@@ -2,12 +2,12 @@
 
 #include "xr_level_controller.h"
 
-#include "level.h"
-#include "ui\UIFrameWindow.h"
+#include "Level.h"
+#include "ui/UIFrameWindow.h"
 #include "WeaponBinocularsVision.h"
 #include "NewZoomFlag.h"
 #include "object_broker.h"
-#include "inventory.h"
+#include "Inventory.h"
 BOOL binoculars_dynamic_zoom_check = FALSE;
 BOOL useNewZoomDeltaAlgorithm = FALSE;
 extern float n_zoom_step_count;

@@ -1,6 +1,6 @@
-#include "game_sv_ArtefactHunt.h"
-#include "xrserver_objects_alife_monsters.h"
-#include "xrserver.h"
+#include "game_sv_artefacthunt.h"
+#include "xrServer_Objects_ALife_Monsters.h"
+#include "xrServer.h"
 #include "Level.h"
 #include "LevelGameDef.h"
 #include "Actor.h"
@@ -9,7 +9,7 @@
 #include "Artefact.h"
 #include "MPPlayersBag.h"
 #include "WeaponKnife.h"
-#include "ui\UIBuyWndShared.h"
+#include "ui/UIBuyWndShared.h"
 #include "game_cl_base_weapon_usage_statistic.h"
 
 BOOL g_SV_Force_Artefact_Spawn = FALSE;
@@ -1353,7 +1353,7 @@ void game_sv_ArtefactHunt::CheckForTeamElimination()
 	RemoveArtefact();
 }
 
-extern INT g_sv_Skip_Winner_Waiting;
+extern int g_sv_Skip_Winner_Waiting;
 
 void game_sv_ArtefactHunt::CheckForTeamWin()
 {

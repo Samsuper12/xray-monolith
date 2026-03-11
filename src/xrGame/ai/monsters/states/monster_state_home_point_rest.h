@@ -7,6 +7,13 @@ class CStateMonsterRestMoveToHomePoint : public CStateMove<_Object>
 protected:
 	typedef CStateMove<_Object> inherited;
 	typedef CStateMove<_Object>* state_ptr;
+	using inherited::object;
+	using inherited::add_state;
+	using inherited::get_state_current;
+	using inherited::select_state;
+	using inherited::current_substate;
+	using inherited::prev_substate;
+	using inherited::time_state_started; 
 
 	u32 m_target_node;
 

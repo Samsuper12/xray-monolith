@@ -1,7 +1,7 @@
-#include <dinput.h>
+//#include <dinput.h>
 
 #include <LocatorAPI.h>
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 #include "xr_sdl3_input.hpp"
 #include <xr_trims.h>
 #include <xr_ioc_cmd.h>

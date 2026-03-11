@@ -3,7 +3,7 @@
 #include "ui/TeamInfo.h"
 #include "game_cl_capture_the_artefact.h"
 #include "game_cl_capture_the_artefact_captions_manager.h"
-#include "actor.h"
+#include "Actor.h"
 
 CTAGameClCaptionsManager::CTAGameClCaptionsManager()
 {
@@ -113,7 +113,7 @@ void CTAGameClCaptionsManager::ShowScoreCaptions()
 	LPCSTR team_name = CTeamInfo::GetTeam_name(m_winner_team + 1);
 	u32 win_str_size = st.translate("mp_team_wins").size() +
 		xr_strlen(team_name) + 1;
-	char* win_str = static_cast<char*>(_alloca(win_str_size));
+	char* win_str = static_cast<char*>(alloca(win_str_size));
 	xr_sprintf(win_str, win_str_size,
 	           st.translate("mp_team_wins").c_str(),
 	           team_name

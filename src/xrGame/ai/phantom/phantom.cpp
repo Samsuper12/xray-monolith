@@ -1,6 +1,6 @@
 #include "phantom.h"
-#include "../../level.h"
-#include "../../../xrServerEntities/xrserver_objects_alife_monsters.h"
+#include "../../Level.h"
+#include "../../../xrServerEntities/xrServer_Objects_ALife_Monsters.h"
 #include "motion.h"
 #include "RenderVisual.h"
 #include "KinematicsAnimated.h"

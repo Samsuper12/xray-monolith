@@ -8,7 +8,7 @@
 #include "ui/UIMainIngameWnd.h"
 #include "ui/UIXmlInit.h"
 #include "Dosimeter.h"
-#include "ui\UIStatic.h"
+#include "ui/UIStatic.h"
 #include "Actor.h"
 
 #define MAX_RAD 5000.f

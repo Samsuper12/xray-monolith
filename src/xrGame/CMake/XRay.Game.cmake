@@ -13,7 +13,7 @@ add_module(XRay.Game
   
   LINKS
   DPlay
-  CxImage
+  #CxImage
   IKAN
 
   XRay.Core.Defines

@@ -1,5 +1,5 @@
 #include "ai_monster_utils.h"
-#include "entity.h"
+#include "Entity.h"
 #include "ai_object_location.h"
 #include "ai_space.h"
 #include "level_graph.h"

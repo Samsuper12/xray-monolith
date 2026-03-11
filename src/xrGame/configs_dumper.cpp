@@ -6,10 +6,10 @@
 #include "configs_common.h"
 
 #include "GameObject.h"
-#include "level.h"
+#include "Level.h"
 #include "actor_mp_client.h"
-#include "inventory.h"
-#include "weapon.h"
+#include "Inventory.h"
+#include "Weapon.h"
 #include "game_cl_mp.h"
 #include "profiler.h"
 
@@ -139,7 +139,7 @@ namespace mp_anticheat
 		}
 		CInifile active_params_dumper(NULL, FALSE, FALSE, FALSE);
 		active_objects_t active_objects(
-			_alloca(sizeof(active_objects_t::value_type) * max_active_objects),
+			alloca(sizeof(active_objects_t::value_type) * max_active_objects),
 			max_active_objects);
 		active_objects_t::size_type aobjs_count = get_active_objects(active_objects);
 		string16 tmp_strbuff;
@@ -299,7 +299,7 @@ namespace mp_anticheat
 	void __stdcall configs_dumper::switch_thread()
 	{
 		if (!SwitchToThread())
-			Sleep(10);
+			sleep(10);
 	}
 
 	void configs_dumper::realloc_compress_buffer(u32 need_size)

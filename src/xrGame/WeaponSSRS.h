@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rocketlauncher.h"
+#include "RocketLauncher.h"
 #include "WeaponMagazined.h"
 #include "script_export_space.h"
 #include "WeaponSSRS.h"

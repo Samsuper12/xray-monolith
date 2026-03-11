@@ -7,18 +7,18 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "pch_script.h"
-#include "physicsshell.h"
+#include "PhysicsShell.h"
 #include "phvalide.h"
 #include "ai_crow.h"
-#include "level.h"
+#include "Level.h"
 #include "RenderVisual.h"
 #include "Kinematics.h"
 #include "KinematicsAnimated.h"
-#include "actor.h"
+#include "Actor.h"
 #include "script_callback_ex.h"
 #include "game_object_space.h"
 #include "script_game_object.h"
-#include "hit.h"
+#include "Hit.h"
 #ifdef	DEBUG
 //#include "phvalide.h"
 #endif

@@ -3,10 +3,10 @@
 // класс, описывающий фразу (элемент диалога)
 ///////////////////////////////////////////////////////////////
 
-#include "phrase.h"
+#include "Phrase.h"
 
 #include "ai_space.h"
-#include "gameobject.h"
+#include "GameObject.h"
 #include "script_game_object.h"
 
 CPhrase::CPhrase()

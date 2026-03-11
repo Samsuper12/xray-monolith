@@ -70,7 +70,7 @@ namespace file_transfer
 			return;
 
 		buffer_vector<dst_src_pair_t> to_stop_transfers(
-			_alloca(m_transfers.size() * sizeof(dst_src_pair_t)),
+			alloca(m_transfers.size() * sizeof(dst_src_pair_t)),
 			m_transfers.size());
 
 		for (transfer_sessions_t::iterator ti = m_transfers.begin(),
@@ -166,7 +166,7 @@ namespace file_transfer
 	{
 		u32 current_time = Device.dwTimeGlobal;
 		buffer_vector<ClientID> to_stop_receivers(
-			_alloca(m_receivers.size() * sizeof(ClientID)),
+			alloca(m_receivers.size() * sizeof(ClientID)),
 			m_receivers.size());
 
 		for (receiving_sessions_t::iterator i = m_receivers.begin(),
@@ -624,7 +624,7 @@ namespace file_transfer
 	{
 		u32 current_time = Device.dwTimeGlobal;
 		buffer_vector<ClientID> to_stop_receivers(
-			_alloca(m_receivers.size() * sizeof(ClientID)),
+			alloca(m_receivers.size() * sizeof(ClientID)),
 			m_receivers.size());
 
 		for (receiving_sessions_t::iterator i = m_receivers.begin(),

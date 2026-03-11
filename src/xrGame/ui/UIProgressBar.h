@@ -1,7 +1,7 @@
 #pragma once
 
-#include "uiwindow.h"
-#include "uibutton.h"
+#include "UIWindow.h"
+#include "UIButton.h"
 #include "../../xrServerEntities/script_export_space.h"
 
 class CUIProgressBar : public CUIWindow

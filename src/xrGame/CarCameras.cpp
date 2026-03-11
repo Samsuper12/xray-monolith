@@ -1,18 +1,18 @@
 #ifdef DEBUG
-#include <iphworld.h>
+#include <IPHWorld.h>
 #include "PHDebug.h"
 #endif
 
-#include <cameramanager.h>
+#include <CameraManager.h>
 
 #include "alife_space.h"
-#include "hit.h"
+#include "Hit.h"
 #include "PHDestroyable.h"
-#include "car.h"
-#include "actor.h"
+#include "Car.h"
+#include "Actor.h"
 #include "cameralook.h"
-#include "camerafirsteye.h"
-#include "level.h"
+#include "CameraFirstEye.h"
+#include "Level.h"
 
 #ifdef CAR_NEW
 #include <Kinematics.h>

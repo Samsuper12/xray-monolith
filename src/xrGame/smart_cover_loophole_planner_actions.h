@@ -10,8 +10,9 @@
 
 #include "smart_cover_detail.h"
 #include "smart_cover_planner_actions.h"
-
+#include "object_handler_space.h"
 #include "xrServer_Space.h"
+#include "stalker_decision_space.h"
 
 class CAI_Stalker;
 class CPropertyStorage;

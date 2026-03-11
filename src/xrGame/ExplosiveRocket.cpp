@@ -5,8 +5,8 @@
 
 #include "Kinematics.h"
 #include "ExplosiveRocket.h"
-#include "physicsshellholder.h"
-#include "physicsshell.h"
+#include "PhysicsShellHolder.h"
+#include "PhysicsShell.h"
 
 
 CExplosiveRocket::CExplosiveRocket()

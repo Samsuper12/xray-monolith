@@ -6,11 +6,11 @@
 #include "UIXmlInit.h"
 #include "UI3tButton.h"
 #include "UIGameCustom.h"
-#include "../level.h"
+#include "../Level.h"
 #include "../game_cl_teamdeathmatch.h"
 #include "UIMapInfo.h"
 #include "../xr_level_controller.h"
-#include <dinput.h>
+//#include <dinput.h>
 
 #include "UIStatsPlayerList.h"
 

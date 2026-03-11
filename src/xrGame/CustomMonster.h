@@ -6,9 +6,9 @@
 
 #include "entity_alive.h"
 #include "script_entity.h"
-#include "feel_vision.h"
-#include "feel_sound.h"
-#include "feel_touch.h"
+#include "Feel_Vision.h"
+#include "Feel_Sound.h"
+#include "Feel_Touch.h"
 #include "Kinematics.h"
 #include "associative_vector.h"
 #include "trajectories.h"
@@ -359,4 +359,4 @@ public:
 #endif // #ifdef DEBUG
 };
 
-#include "custommonster_inline.h"
+#include "CustomMonster_inline.h"

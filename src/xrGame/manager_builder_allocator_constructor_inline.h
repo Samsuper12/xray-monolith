@@ -8,14 +8,16 @@
 
 #pragma once
 
+#include "data_storage_binary_heap.h"
+
 #define TEMPLATE_SPECIALIZATION \
 	template<\
 		typename _manager,\
 		typename _builder,\
 		typename _allocator,\
 		template <\
-			typename _builder,\
-			typename _allocator\
+			typename _builderType,\
+			typename _allocatorType\
 		>\
 		class	 _builder_allocator_constructor\
 	>\
@@ -49,12 +51,12 @@ IC void CConstructorManagerBuilderAllocator::init()
 	inherited::init();
 }
 
-TEMPLATE_SPECIALIZATION
-IC typename CConstructorManagerBuilderAllocator::CGraphVertex&CConstructorManagerBuilderAllocator::create_vertex(
-	const _index_type& vertex_id)
-{
-	return (inherited::create_vertex(inherited_allocator::create_vertex(), vertex_id));
-}
+// TEMPLATE_SPECIALIZATION
+// IC typename CConstructorManagerBuilderAllocator::CGraphVertex&CConstructorManagerBuilderAllocator::create_vertex(
+// 	const _index_type& vertex_id)
+// {
+// 	return (inherited::create_vertex(inherited_allocator::create_vertex(), vertex_id));
+// }
 
 #undef TEMPLATE_SPECIALIZATION
 #undef CConstructorManagerBuilderAllocator

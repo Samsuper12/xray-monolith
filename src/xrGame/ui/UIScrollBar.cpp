@@ -1,6 +1,6 @@
 #include <string_concatenations.h>
 
-#include "uiscrollbar.h"
+#include "UIScrollBar.h"
 #include "UI3tButton.h"
 #include "UIScrollBox.h"
 #include "UIXmlInit.h"
@@ -196,7 +196,7 @@ void CUIScrollBar::UpdateScrollBar()
 	ClampByViewRect();
 }
 
-#include "../uicursor.h"
+#include "../UICursor.h"
 u32 last_hold_time = 0;
 
 bool CUIScrollBar::OnKeyboardHold(int dik)

@@ -13,6 +13,7 @@ class CState
 {
 protected:
 	typedef CState<_Object> CSState;
+
 public:
 	CState(_Object* obj, void* data = 0);
 	virtual ~CState();
@@ -84,6 +85,14 @@ class CStateMove : public CState<_Object>
 {
 protected:
 	typedef CState<_Object> inherited;
+	using inherited::object;
+	using inherited::add_state;
+	using inherited::get_state_current;
+	using inherited::select_state;
+	using inherited::current_substate;
+	using inherited::prev_substate;
+	using inherited::time_state_started;
+	using inherited::get_state;
 public:
 	CStateMove(_Object* obj, void* data = 0) : inherited(obj, data)
 	{

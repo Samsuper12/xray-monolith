@@ -2,7 +2,7 @@
 #include <xr_ini.h>
 
 #include "Tracer.h"
-#include "render.h"
+#include "Render.h"
 
 #include "UIShader.h"
 #include "UIRender.h"

@@ -1,7 +1,7 @@
 #include <Engine.h>
 
 #include "screenshot_manager.h"
-#include "level.h"
+#include "Level.h"
 #include "game_cl_mp.h"
 #include "ppmd_compressor.h"
 #include "screenshots_writer.h"
@@ -10,9 +10,9 @@
 	#define CXIMAGE_AS_SHARED_LIBRARY
 #endif
 
-#include <ddraw.h>
-#include "ximage.h"
-#include "xmemfile.h"
+// #include <ddraw.h>
+// #include "ximage.h"
+// #include "xmemfile.h"
 #include "profiler.h"
 
 void* cxalloc(size_t size)
@@ -39,7 +39,7 @@ void jpeg_encode_callback(long progress)
 	if (progress % 5 == 0)
 	{
 		if (!SwitchToThread())
-			Sleep(10);
+			sleep(10);
 	}
 }*/
 
@@ -89,12 +89,12 @@ void screenshot_manager::realloc_jpeg_buffer(u32 new_size)
 //method get the pixel 
 void screenshot_manager::prepare_image()
 {
-#pragma pack(push, 1)
+// #pragma pack(push, 1)
 	struct rgb24color
 	{
 		u8 r, g, b;
 	};
-#pragma pack(pop)
+// #pragma pack(pop)
 	typedef rgb24color rgb24map[RESULT_HEIGHT][RESULT_WIDTH];
 	u32* sizes = reinterpret_cast<u32*>(m_result_writer.pointer());
 	u32* width = sizes; //first dword is width
@@ -127,24 +127,25 @@ void screenshot_manager::make_jpeg_file()
 	u32 height = *(++sizes);
 	u8* rgb24data = reinterpret_cast<u8*>(m_result_writer.pointer() + 2 * sizeof(u32));
 
-	CxImage jpg_image;
+	// FIXME: CxImage
+	// CxImage jpg_image;
 
-	jpg_image.CreateFromArray(
-		rgb24data,
-		width, //width
-		height, //height
-		24,
-		width * 3,
-		true);
+	// jpg_image.CreateFromArray(
+	// 	rgb24data,
+	// 	width, //width
+	// 	height, //height
+	// 	24,
+	// 	width * 3,
+	// 	true);
 
-	jpg_image.SetJpegQuality(30);
+	// jpg_image.SetJpegQuality(30);
 
-	realloc_jpeg_buffer(m_result_writer.size() + screenshots::writer::info_max_size);
+	// realloc_jpeg_buffer(m_result_writer.size() + screenshots::writer::info_max_size);
 
-	CxMemFile tmp_mem_file(m_jpeg_buffer, m_jpeg_buffer_capacity);
-	jpg_image.Encode(&tmp_mem_file, CXIMAGE_FORMAT_JPG);
+	// CxMemFile tmp_mem_file(m_jpeg_buffer, m_jpeg_buffer_capacity);
+	// jpg_image.Encode(&tmp_mem_file, CXIMAGE_FORMAT_JPG);
 
-	m_jpeg_buffer_size = static_cast<u32>(tmp_mem_file.Tell());
+	//m_jpeg_buffer_size = static_cast<u32>(tmp_mem_file.Tell());
 
 #ifdef DEBUG
 	Msg("* JPEG encoded to %d bytes", m_jpeg_buffer_size);
@@ -290,7 +291,7 @@ void __stdcall screenshot_manager::jpeg_compress_cb(long progress)
 	if (progress % 5 == 0)
 	{
 		if (!SwitchToThread())
-			Sleep(10);
+			sleep(10);
 	}
 }
 

@@ -38,6 +38,14 @@
 #include "BottleItem.h"
 #include "Missile.h"
 #include "WeaponKnife.h"
+#include "GameTaskDefs.h"
+#include "movement_manager_space.h"
+#include "detail_path_manager_space.h"
+#include "sight_manager_space.h"
+#include "patrol_path_manager_space.h"
+#include "ai_monster_space.h"
+#include "detail_path_manager.h"
+#include "movement_manager.h"
 
 enum EPdaMsg;
 enum ESoundTypes;
@@ -80,7 +88,7 @@ namespace MonsterSpace {
 	enum EScriptMonsterAnimAction;
 	enum EScriptMonsterGlobalAction;
 	enum EScriptSoundAnim;
-	enum EMonsterSounds;
+	//enum EMonsterSounds;
 	enum EMonsterHeadAnimType;
 	struct SBoneRotation;
 };

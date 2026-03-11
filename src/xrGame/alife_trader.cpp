@@ -13,8 +13,8 @@
 
 void CSE_ALifeTrader::spawn_supplies()
 {
-	inherited1::spawn_supplies();
-	inherited2::spawn_supplies();
+	inherited1_::spawn_supplies();
+	inherited2_::spawn_supplies();
 }
 
 u32 CSE_ALifeTrader::dwfGetItemCost(CSE_ALifeInventoryItem* tpALifeInventoryItem)

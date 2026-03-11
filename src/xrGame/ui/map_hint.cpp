@@ -3,9 +3,9 @@
 #include "UIXmlInit.h"
 #include "../map_location.h"
 #include "../map_spot.h"
-#include "../actor.h"
-#include "../gametaskmanager.h"
-#include "../gametask.h"
+#include "../Actor.h"
+#include "../GametaskManager.h"
+#include "../GameTask.h"
 #include "UIInventoryUtilities.h"
 #include "../string_table.h"
 

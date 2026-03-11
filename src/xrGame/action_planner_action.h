@@ -19,16 +19,16 @@ class CActionPlannerAction :
 	public CActionPlanner<_object_type>,
 	public CActionBase<_object_type>
 {
-protected:
-	typedef CActionPlanner<_object_type> inherited_planner;
-	typedef CActionBase<_object_type> inherited_action;
-	typedef typename inherited_action::_edge_value_type _edge_value_type;
-	typedef typename inherited_action::_condition_type _condition_type;
-	typedef typename inherited_action::_value_type _value_type;
-	using _world_operator = typename inherited_planner::_world_operator;
-
 public:
-	typedef typename inherited_action::COperatorCondition COperatorCondition;
+	using inherited_planner = CActionPlanner<_object_type>;
+	using inherited_action = CActionBase<_object_type>;
+	using typename inherited_action::_condition_type;
+	using typename inherited_action::_value_type;
+	using typename inherited_planner::_world_operator;
+	using typename inherited_action::_edge_value_type;
+	using typename inherited_action::COperatorCondition;
+	using inherited_action::effects;
+	using inherited_planner::set_target_state;
 
 #ifdef LOG_ACTION
 public:
@@ -44,8 +44,8 @@ public:
 	virtual void execute();
 	virtual void finalize();
 	virtual bool completed() const;
-	IC void add_condition(_world_operator* action, _condition_type condition_id, _value_type condition_value);
-	IC void add_effect(_world_operator* action, _condition_type condition_id, _value_type condition_value);
+	IC void add_condition(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value);
+	IC void add_effect(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value);
 
 	virtual void save(NET_Packet& packet)
 	{
@@ -62,7 +62,7 @@ public:
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };
 
-typedef CActionPlannerAction<CScriptGameObject> CScriptActionPlannerAction;
+using CScriptActionPlannerAction = CActionPlannerAction<CScriptGameObject>;
 add_to_type_list(CScriptActionPlannerAction)
 #undef script_type_list
 #define script_type_list save_type_list(CScriptActionPlannerAction)

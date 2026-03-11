@@ -12,7 +12,7 @@
 #include "action_base.h"
 #include "property_evaluator.h"
 #include "property_storage.h"
-#include "script_export_space.h"
+#include "../xrServerEntities/script_export_space.h"
 #include "ai_debug.h"
 
 class CScriptGameObject;
@@ -20,15 +20,15 @@ class CScriptGameObject;
 template <
 	typename _object_type,
 	bool _reverse_search = false,
-	typename _world_operator = CActionBase<_object_type>,
+	typename _world_operator1 = CActionBase<_object_type>,
 	typename _condition_evaluator = CPropertyEvaluator<_object_type>,
-	typename _world_operator_ptr = _world_operator*,
+	typename _world_operator_ptr = _world_operator1*,
 	typename _condition_evaluator_ptr = _condition_evaluator*>
 class CActionPlanner :
 	public CProblemSolver<
 		GraphEngineSpace::CWorldProperty,
 		GraphEngineSpace::CWorldState,
-		_world_operator,
+		_world_operator1,
 		_condition_evaluator,
 		u32,
 		_reverse_search,
@@ -37,17 +37,16 @@ class CActionPlanner :
 	>
 {
 public:
-	using CProblemSolver = CProblemSolver<
+	using inherited = CProblemSolver<
 		GraphEngineSpace::CWorldProperty,
 		GraphEngineSpace::CWorldState,
-		_world_operator,
+		_world_operator1,
 		_condition_evaluator,
 		u32,
 		_reverse_search,
 		_world_operator_ptr,
 		_condition_evaluator_ptr
 	>;
-	using inherited = CProblemSolver;
 	using _action_id_type = typename inherited::_edge_type;
 	using _condition_type = typename inherited::_condition_type;
 	using COperator = typename inherited::COperator;
@@ -55,10 +54,15 @@ public:
 	using _value_type = typename inherited::_value_type;
 	using _edge_type = typename inherited::_edge_type;
 	using _operator_ptr = typename inherited::_operator_ptr;
+	using inherited::m_evaluators;
+    using inherited::m_operators;
+	using inherited::get_operator;
+    using inherited::remove_operator;
+	using inherited::set_target_state;
 
 	typedef GraphEngineSpace::CWorldProperty CWorldProperty;
 	typedef GraphEngineSpace::CWorldState CWorldState;
-	typedef _world_operator _world_operator;
+	using _world_operator = _world_operator1;
 
 protected:
 	bool m_initialized;
@@ -75,7 +79,7 @@ public:
 
 public:
 	_object_type* m_object;
-	CPropertyStorage m_storage;
+	class CPropertyStorage m_storage;
 	bool m_loaded;
 	bool m_solving;
 

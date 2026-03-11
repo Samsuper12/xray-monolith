@@ -1,17 +1,17 @@
 #include <xr_ini.h>
 #include <motion.h>
-#include <mathutils.h>
+#include <MathUtils.h>
 
 #include "IKLimbsController.h"
 
-#include "IK/IKLimb.h"
-#include "physicsshellholder.h"
+#include "ik/IKLimb.h"
+#include "PhysicsShellHolder.h"
 
 #include "ik_anim_state.h"
 #include "RenderVisual.h"
 #include "Kinematics.h"
 //#include "ode_include.h"
-#include "characterphysicssupport.h"
+#include "CharacterPhysicsSupport.h"
 #ifdef DEBUG
 #	include "PHDebug.h"
 #endif // DEBUG

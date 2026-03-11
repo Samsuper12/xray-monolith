@@ -20,8 +20,8 @@ template <
 	typename _data_storage_base = CVertexPath<euclidian_heuristics>,
 	template <typename _T> class _vertex = CEmptyClassTemplate,
 	template <
-		typename _1,
-		typename _2
+		typename _1st,
+		typename _2nd
 	>
 	class _builder_allocator_constructor = CBuilderAllocatorConstructor,
 	template <
@@ -29,8 +29,8 @@ template <
 		typename _2,
 		typename _3,
 		template <
-			typename _1,
-			typename _2
+			typename _1st,
+			typename _2nd
 		>
 		class _4
 	>
@@ -40,23 +40,23 @@ template <
 		typename _manager,
 		typename _builder,
 		typename _allocator,
-		template <typename _T> class _vertex,
+		template <typename _T> class _vertex2,
 		template <
-			typename _1,
-			typename _2
+			typename _1st,
+			typename _2nd
 		>
-		class _builder_allocator_constructor = CBuilderAllocatorConstructor,
+		class _builder_allocator_constructor2 = CBuilderAllocatorConstructor,
 		template <
 			typename _1,
 			typename _2,
 			typename _3,
 			template <
-				typename _1,
-				typename _2
+				typename _1st,
+				typename _2nd
 			>
 			class _4
 		>
-		class _manager_builder_allocator_constructor = CManagerBuilderAllocatorConstructor
+		class _manager_builder_allocator_constructor2 = CManagerBuilderAllocatorConstructor
 	>
 	class _data_storage_constructor = CDataStorageConstructor,
 	typename _iteration_type = u32
@@ -67,7 +67,7 @@ public:
 	template <typename T1>
 	struct _Vertex : public _vertex<T1>
 	{
-		typedef _dist_type _dist_type;
+		//typedef _dist_type _dist_type;
 
 		_dist_type _f;
 		T1* _back;
@@ -101,7 +101,7 @@ public:
 
 protected:
 	typedef typename CDataStorage::CGraphVertex CGraphVertex;
-	typedef typename CGraphVertex::_dist_type _dist_type;
+	//typedef typename CGraphVertex::_dist_type _dist_type;
 	typedef typename CGraphVertex::_index_type _index_type;
 
 protected:

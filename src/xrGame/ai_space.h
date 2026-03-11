@@ -19,6 +19,7 @@ class CScriptEngine;
 class CPatrolPathStorage;
 class moving_objects;
 
+
 namespace doors
 {
 	class manager;
@@ -34,7 +35,7 @@ private:
 	friend class CLevel;
 
 private:
-	CGameGraph* m_game_graph;
+	class CGameGraph* m_game_graph;
 	CLevelGraph* m_level_graph;
 	CGraphEngine* m_graph_engine;
 	CEF_Storage* m_ef_storage;
@@ -82,4 +83,5 @@ IC CAI_Space& ai();
 
 extern CAI_Space* g_ai_space;
 
+#include "graph_engine.h"
 #include "ai_space_inline.h"

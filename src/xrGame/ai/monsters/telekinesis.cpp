@@ -1,6 +1,6 @@
 #include "telekinesis.h"
 #include "../../entity_alive.h"
-#include "../../../xrphysics/PhysicsShell.h"
+#include "../../../xrPhysics/PhysicsShell.h"
 
 CTelekinesis::CTelekinesis()
 {

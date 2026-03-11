@@ -3,14 +3,14 @@
 //	Created 	: 11.03.2004
 //  Modified 	: 01.12.2004
 //	Author		: Dmitriy Iassenev
-//	Description : Object handler action planner missile handling
+//	Description : Object handler action planner Missile.handling
 ////////////////////////////////////////////////////////////////////////////
 
 #include "object_handler_planner.h"
 #include "object_property_evaluators.h"
 #include "object_actions.h"
 #include "object_handler_space.h"
-#include "missile.h"
+#include "Missile.h"
 #include "object_handler_planner_impl.h"
 #include "ai/stalker/ai_stalker.h"
 

@@ -17,13 +17,13 @@
 #include "../../enemy_manager.h"
 #include "../../danger_manager.h"
 #include "../../item_manager.h"
-#include "../../actor.h"
+#include "../../Actor.h"
 #include "../../stalker_planner.h"
 #include "../../script_game_object.h"
 #include "../../stalker_animation_manager.h"
-#include "../../weapon.h"
+#include "../../Weapon.h"
 #include "../../sound_player.h"
-#include "../../inventory.h"
+#include "../../Inventory.h"
 #include "../../object_handler_planner.h"
 #include "../../stalker_movement_manager_smart_cover.h"
 #include "../../movement_manager_space.h"
@@ -33,7 +33,7 @@
 #include "../../detail_path_manager.h"
 #include "../../sight_manager.h"
 #include "../../ai_object_location.h"
-#include "../../entitycondition.h"
+#include "../../EntityCondition.h"
 #include "../ai_monsters_misc.h"
 #include "../../agent_manager.h"
 #include "../../agent_member_manager.h"
@@ -41,15 +41,15 @@
 #include "../../agent_corpse_manager.h"
 #include "../../agent_location_manager.h"
 #include "../../cover_point.h"
-#include "../../../xrEngine/camerabase.h"
+#include "../../../xrEngine/CameraBase.h"
 #include "../../mt_config.h"
-#include "../../weaponmagazined.h"
+#include "../../WeaponMagazined.h"
 #include "../../object_handler_space.h"
 #include "../../debug_renderer.h"
 #include "../../CharacterPhysicsSupport.h"
 #include "../../smart_cover_animation_selector.h"
 #include "../../animation_movement_controller.h"
-#include "../../phdebug.h"
+#include "../../PHDebug.h"
 #include "../../game_object_space.h"
 #include "../../aimers_weapon.h"
 #include "../../aimers_bone.h"
@@ -1278,7 +1278,7 @@ static void fill_bones				(CAI_Stalker& self, Fmatrix const& transform, IKinemat
 		start_transform					= controller->start_transform();
 
 	u32									buffer_size = u32(bone_count)*sizeof(Fmatrix);
-	Fmatrix*							buffer = (Fmatrix*)_alloca(buffer_size);
+	Fmatrix*							buffer = (Fmatrix*)alloca(buffer_size);
 	buffer_vector<Fmatrix>				bones(buffer, bone_count);
 	for (u16 i = 0; i<bone_count; ++i) {
 		Fmatrix							matrix;

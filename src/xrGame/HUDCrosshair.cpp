@@ -2,10 +2,10 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-#include <d3d9types.h>
+//#include <d3d9types.h>
 
 #include <CustomHUD.h>
-#include <igame_persistent.h>
+#include <IGame_Persistent.h>
 #include <xr_ini.h>
 
 #include "HUDCrosshair.h"

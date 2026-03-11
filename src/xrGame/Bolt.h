@@ -1,6 +1,6 @@
 #pragma once
-#include "missile.h"
-#include "../xrphysics/DamageSource.h"
+#include "Missile.h"
+#include "../xrPhysics/DamageSource.h"
 
 class CBolt :
 	public CMissile,

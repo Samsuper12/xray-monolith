@@ -15,7 +15,7 @@
 		template <typename _T> class _vertex\
 	>
 
-#define CSingleLinkedList	CDataStorageSingleLinkedList<sorted>::CDataStorage<_data_storage,_vertex>
+#define CSingleLinkedList	CDataStorageSingleLinkedList<sorted>::template CDataStorage<_data_storage,_vertex>
 
 TEMPLATE_SPECIALIZATION
 IC CSingleLinkedList::CDataStorage(const u32 vertex_count, const _dist_type _max_distance) :
@@ -74,8 +74,8 @@ IC void CSingleLinkedList::decrease_opened(CGraphVertex& vertex, const _dist_typ
 
 	if (!sorted)
 		return;
-
-	for (CGraphVertex* i = m_list_head; ; i = i->next())
+	CGraphVertex* i = m_list_head;
+	for (; ; i = i->next())
 		if (&vertex == i->next())
 		{
 			if (i->f() <= vertex.f())
@@ -122,7 +122,9 @@ IC typename CSingleLinkedList::CGraphVertex&CSingleLinkedList::get_best() const
 		return (*m_list_head->next());
 
 	_dist_type fmin = m_max_distance;
-	for (CGraphVertex *i = m_list_head, *best_prev = 0; i->next() != m_list_tail; i = i->next())
+	CGraphVertex *i = m_list_head;
+	CGraphVertex *best_prev = 0;
+	for (; i->next() != m_list_tail; i = i->next())
 		if (i->next()->f() < fmin)
 		{
 			fmin = i->next()->f();

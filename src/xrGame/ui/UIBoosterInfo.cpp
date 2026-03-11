@@ -4,7 +4,7 @@
 #include "UIStatic.h"
 #include "object_broker.h"
 #include "EntityCondition.h"
-#include "actor.h"
+#include "Actor.h"
 #include "ActorCondition.h"
 #include "UIXmlInit.h"
 #include "UIHelper.h"

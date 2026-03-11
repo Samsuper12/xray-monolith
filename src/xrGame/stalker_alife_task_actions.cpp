@@ -10,9 +10,9 @@
 #include "ai/stalker/ai_stalker.h"
 #include "ai/trader/ai_trader.h"
 #include "inventory_item.h"
-#include "weapon.h"
+#include "Weapon.h"
 #include "script_game_object.h"
-#include "inventory.h"
+#include "Inventory.h"
 #include "alife_simulator.h"
 #include "alife_object_registry.h"
 #include "stalker_decision_space.h"
@@ -42,7 +42,7 @@ using namespace StalkerDecisionSpace;
 #endif // #ifdef DEBUG
 
 #ifdef GRENADE_TEST
-#	include "actor.h"
+#	include "Actor.h"
 #endif // #ifdef GRENADE_TEST
 
 //////////////////////////////////////////////////////////////////////////

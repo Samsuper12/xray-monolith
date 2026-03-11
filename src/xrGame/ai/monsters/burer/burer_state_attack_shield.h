@@ -6,6 +6,8 @@ class CStateBurerShield : public CState<Object>
 {
 private:
 	typedef CState<Object> inherited;
+	using inherited::object;
+
 
 public:
 	CStateBurerShield(Object* obj);

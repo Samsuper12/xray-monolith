@@ -29,6 +29,9 @@ namespace inventory
 			template <typename return_type>
 			struct functor : public functor_base<return_type>
 			{
+				using inherited = functor_base<return_type>;
+				using inherited::functr;
+
 				IC return_type operator()() const
 				{
 					return functr(parameter);
@@ -39,10 +42,10 @@ namespace inventory
 			struct functor2 : public functor<return_type>
 			{
 				LPCSTR parameter2;
-
+				using functor<return_type>::functr;
 				IC return_type operator()() const
 				{
-					return functr(parameter, parameter2);
+					return functr(this->parameter, parameter2);
 				}
 			};
 
@@ -53,7 +56,7 @@ namespace inventory
 
 				IC return_type operator()() const
 				{
-					return functr(parameter, parameter2, parameter3);
+					return functr(this->parameter, this->parameter2, parameter3);
 				}
 			};
 

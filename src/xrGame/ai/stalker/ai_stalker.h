@@ -13,6 +13,9 @@
 #include "../../AI_PhraseDialogManager.h"
 #include "../../step_manager.h"
 #include "../../../xrServerEntities/script_export_space.h"
+#include "../../ai_monster_space.h"
+#include "ai_stalker_space.h"
+#include "../../stalker_animation_names.h"
 
 #ifdef DEBUG
 	template <typename _object_type>

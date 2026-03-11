@@ -2,7 +2,7 @@
 #include "Level.h"
 #include "Weapon.h"
 #include "alife_space.h"
-#include "hit.h"
+#include "Hit.h"
 #include "Actor.h"
 #include "ExplosiveItem.h"
 #include "xrServer.h"
@@ -370,9 +370,9 @@ void Player_Statistic::net_save(NET_Packet* P)
 	P->w_u32(aWeaponStats.size());
 
 	victims_table::victims_table_t vt_storage(
-		_alloca(sizeof(victims_table::victims_table_t::value_type) * 255), 255);
+		alloca(sizeof(victims_table::victims_table_t::value_type) * 255), 255);
 	bone_table::bone_table_t bt_storage(
-		_alloca(sizeof(bone_table::bone_table_t::value_type) * 65), 65);
+		alloca(sizeof(bone_table::bone_table_t::value_type) * 65), 65);
 
 	victims_table vict_table(vt_storage);
 	bone_table bone_table(bt_storage);
@@ -399,9 +399,9 @@ void Player_Statistic::net_load(NET_Packet* P)
 	u32 NumWeapons = P->r_u32();
 
 	victims_table::victims_table_t vt_storage(
-		_alloca(sizeof(victims_table::victims_table_t::value_type) * 255), 255);
+		alloca(sizeof(victims_table::victims_table_t::value_type) * 255), 255);
 	bone_table::bone_table_t bt_storage(
-		_alloca(sizeof(bone_table::bone_table_t::value_type) * 65), 65);
+		alloca(sizeof(bone_table::bone_table_t::value_type) * 65), 65);
 
 	victims_table vict_table(vt_storage);
 	bone_table bone_table(bt_storage);

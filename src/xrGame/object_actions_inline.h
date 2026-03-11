@@ -84,6 +84,6 @@ template <typename _item_type>
 void CObjectActionMember<_item_type>::execute()
 {
 	inherited::execute();
-	if (completed())
-		set_property(m_condition_id, m_value);
+	if (inherited::completed())
+		inherited::set_property(m_condition_id, m_value);
 }

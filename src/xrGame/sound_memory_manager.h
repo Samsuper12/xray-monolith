@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 #include "memory_space.h"
 
 #ifdef DEBUG

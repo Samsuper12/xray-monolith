@@ -1,4 +1,4 @@
-#include <d3d9types.h>
+//#include <d3d9types.h>
 
 #include <defines.h>
 #include <Engine.h>
@@ -19,13 +19,13 @@
 #include "ai_space.h"
 #include "ai_debug.h"
 #include "ShootingObject.h"
-#include "GameTaskManager.h"
+#include "GametaskManager.h"
 #include "Level_Bullet_Manager.h"
 #include "script_process.h"
 #include "script_engine.h"
 #include "script_engine_space.h"
 #include "team_base_zone.h"
-#include "infoportion.h"
+#include "InfoPortion.h"
 #include "patrol_path_storage.h"
 #include "date_time.h"
 #include "space_restriction_manager.h"
@@ -36,22 +36,22 @@
 #include "ClimableObject.h"
 #include "level_graph.h"
 #include "mt_config.h"
-#include "phcommander.h"
+#include "PHCommander.h"
 #include "map_manager.h"
 #include "CameraManager.h"
 #include "level_sounds.h"
-#include "car.h"
+#include "Car.h"
 #include "trade_parameters.h"
 #include "game_cl_base_weapon_usage_statistic.h"
 #include "MainMenu.h"
 #include "XR_IOConsole.h"
-#include "actor.h"
+#include "Actor.h"
 #include "player_hud.h"
-#include "UI/UIGameTutorial.h"
+#include "ui/UIGameTutorial.h"
 #include "file_transfer.h"
-#include "message_filter.h"
-#include "demoplay_control.h"
-#include "demoinfo.h"
+#include "Message_Filter.h"
+#include "DemoPlay_Control.h"
+#include "DemoInfo.h"
 #include "CustomDetector.h"
 #include "IPHWorld.h"
 #include "console_vars.h"
@@ -92,19 +92,19 @@ static HANDLE prefetch_thread_signal;
 static void unpausePrefetchThreadSignal()
 {
 	//if (spawn_antifreeze_debug) Msg("prefetch_thread_signal Set");
-	SetEvent(prefetch_thread_signal);
+	//SetEvent(prefetch_thread_signal);
 }
 
 static void pausePrefetchThreadSignal()
 {
 	//if (spawn_antifreeze_debug) Msg("prefetch_thread_signal Reset");
-	ResetEvent(prefetch_thread_signal);
+	//ResetEvent(prefetch_thread_signal);
 }
 
 static void closePrefetchThreadSignal()
 {
 	if (spawn_antifreeze_debug) Msg("prefetch_thread_signal Close");
-	CloseHandle(prefetch_thread_signal);
+	//CloseHandle(prefetch_thread_signal);
 }
 
 static void createPrefetchThreadSignal()
@@ -551,7 +551,7 @@ void CLevel::ProcessPrefetchEvents(void* args)
 
 	while (true)
 	{
-		WaitForSingleObject(prefetch_thread_signal, INFINITE); // wait for prefetch queue event to be signaled
+		//WaitForSingleObject(prefetch_thread_signal, INFINITE); // wait for prefetch queue event to be signaled
 
 		if (*closeSignal == true)
 		{

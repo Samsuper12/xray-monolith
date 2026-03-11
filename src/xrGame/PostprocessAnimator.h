@@ -5,7 +5,7 @@
 #ifndef _PP_EDITOR_
 #include "../xrEngine/envelope.h"
 #include "../xrEngine/EffectorPP.h"
-#include "../xrEngine/cameramanager.h"
+#include "../xrEngine/CameraManager.h"
 
 class CEffectorController;
 #else

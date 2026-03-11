@@ -4,12 +4,12 @@
 #include "../states/state_move_to_point.h"
 #include "../states/state_hide_from_point.h"
 #include "../states/state_custom_action.h"
-#include "../../../../xrphysics/PhysicsShell.h"
+#include "../../../../xrPhysics/PhysicsShell.h"
 #include "../../../PHMovementControl.h"
 #include "../../../CharacterPhysicsSupport.h"
 #include "group_state_eat_drag.h"
 #include "group_state_custom.h"
-#include "group_state_eat_eat.h "
+#include "group_state_eat_eat.h"
 
 
 #define TEMPLATE_SPECIALIZATION template <\

@@ -15,7 +15,7 @@
 template <
 	typename _data_type = Loki::EmptyType,
 	typename _edge_weight_type = float,
-	typename _vertex_id_type = u32,
+	typename _vertex_id_type1 = u32,
 	typename _edge_data_type = Loki::EmptyType
 >
 class CGraphAbstract
@@ -23,7 +23,7 @@ class CGraphAbstract
 public:
 	typedef CVertex<
 		_data_type,
-		_vertex_id_type,
+		_vertex_id_type1,
 		CGraphAbstract
 	> CVertex;
 
@@ -34,7 +34,7 @@ public:
 	> CEdge;
 
 public:
-	typedef xr_map<_vertex_id_type, CVertex*> VERTICES;
+	typedef xr_map<_vertex_id_type1, CVertex*> VERTICES;
 	typedef typename CVertex::EDGES EDGES;
 
 public:
@@ -42,7 +42,7 @@ public:
 	typedef typename VERTICES::iterator vertex_iterator;
 	typedef typename EDGES::const_iterator const_iterator;
 	typedef typename EDGES::iterator iterator;
-	typedef _vertex_id_type _vertex_id_type;
+	using _vertex_id_type =  _vertex_id_type1;
 
 private:
 	VERTICES m_vertices;

@@ -1,9 +1,13 @@
+
+#ifdef __is_signed
+#undef __is_signed
+#endif
 #include <random>
 #include <algorithm>
 
 #include <xr_ini.h>
 
-#include "level.h"
+#include "Level.h"
 #include "level_sounds.h"
 
 //-----------------------------------------------------------------------------

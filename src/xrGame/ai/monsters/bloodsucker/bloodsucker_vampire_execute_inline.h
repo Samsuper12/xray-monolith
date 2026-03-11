@@ -1,12 +1,12 @@
 #pragma once
 
 #include "KinematicsAnimated.h"
-#include "actor.h"
+#include "Actor.h"
 #include "CameraBase.h"
 
 // #include "CameraBase.h"
 //#include "ActorCondition.h"
-#include "HudManager.h"
+#include "HUDManager.h"
 
 #define TEMPLATE_SPECIALIZATION template <\
 	typename _Object\

@@ -189,7 +189,7 @@ void CCar::Fly_PhDataUpdate(float step)
 			m_pPhysicsShell->get_LinearVel(velocity);
 			if (velocity.magnitude() > EPS_L)
 			{
-				float force = mass * FlyWeightScale() * __min(velocity.magnitude(), m_control_neutral);
+				float force = mass * FlyWeightScale() * std::min(velocity.magnitude(), m_control_neutral);
 				Fvector vec = Fvector().invert(velocity).normalize_safe().mul(force);
 				m_pPhysicsShell->applyRelForce(vec.x, vec.y, vec.z);
 			}

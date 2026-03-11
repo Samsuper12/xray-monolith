@@ -2,8 +2,8 @@
 
 #include "game_sv_item_respawner.h"
 #include "game_sv_base.h"
-#include "level.h"
-#include "xrServer_Objects_Alife_Items.h"
+#include "Level.h"
+#include "xrServer_Objects_ALife_Items.h"
 #include <functional>
 
 item_respawn_manager::spawn_item::spawn_item()

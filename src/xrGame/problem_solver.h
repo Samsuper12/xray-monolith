@@ -8,7 +8,9 @@
 
 #pragma once
 
-#include "associative_vector.h"
+#include "../xrServerEntities/associative_vector.h"
+
+class CGraphEngine;
 
 template <
 	typename _operator_condition,
@@ -17,8 +19,8 @@ template <
 	typename _condition_evaluator,
 	typename _operator_id_type,
 	bool _reverse_search = false,
-	typename _operator_ptr = _operator*,
-	typename _condition_evaluator_ptr = _condition_evaluator*>
+	typename _operator_ptr1 = _operator*,
+	typename _condition_evaluator_ptr1 = _condition_evaluator*>
 class CProblemSolver
 {
 public:
@@ -35,8 +37,8 @@ private:
 		_condition_evaluator,
 		_operator_id_type,
 		_reverse_search,
-		_operator_ptr,
-		_condition_evaluator_ptr
+		_operator_ptr1,
+		_condition_evaluator_ptr1
 	> self_type;
 
 public:
@@ -44,8 +46,8 @@ public:
 	typedef _operator COperator;
 	typedef _condition_state CState;
 	typedef _condition_evaluator CConditionEvaluator;
-	typedef _operator_ptr _operator_ptr;
-	typedef _condition_evaluator_ptr _condition_evaluator_ptr;
+	using _operator_ptr = _operator_ptr1;
+	using _condition_evaluator_ptr = _condition_evaluator_ptr1;
 	typedef typename _operator_condition::_condition_type _condition_type;
 	typedef typename _operator_condition::_value_type _value_type;
 	typedef typename _operator::_edge_value_type _edge_value_type;
@@ -57,9 +59,9 @@ public:
 		_operator_id_type m_operator_id;
 		_operator_ptr m_operator;
 
-		IC SOperator(const _operator_id_type& operator_id, _operator_ptr _operator) :
+		SOperator(const _operator_id_type& operator_id, _operator_ptr _operator1) :
 			m_operator_id(operator_id),
-			m_operator(_operator)
+			m_operator(_operator1)
 		{
 		}
 
@@ -74,13 +76,12 @@ public:
 		}
 	};
 
-	typedef xr_vector<SOperator> OPERATOR_VECTOR;
+	using OPERATOR_VECTOR = xr_vector<SOperator> ;
 	typedef typename OPERATOR_VECTOR::const_iterator const_iterator;
-	typedef associative_vector<_condition_type, _condition_evaluator_ptr> EVALUATORS;
+	using EVALUATORS = associative_vector<_condition_type, _condition_evaluator_ptr> ;
 
-protected:
-	OPERATOR_VECTOR m_operators;
 	EVALUATORS m_evaluators;
+	OPERATOR_VECTOR m_operators;
 	xr_vector<_edge_type> m_solution;
 	CState m_target_state;
 	mutable CState m_current_state;
@@ -133,7 +134,7 @@ protected:
 
 public:
 	// common interface
-	IC CProblemSolver();
+	CProblemSolver();
 	virtual ~CProblemSolver();
 	void init();
 	virtual void setup();
@@ -149,7 +150,7 @@ public:
 	IC _edge_value_type estimate_edge_weight(const _index_type& vertex_index) const;
 
 	// operator interface
-	IC virtual void add_operator(const _edge_type& operator_id, _operator_ptr _operator);
+	IC virtual void add_operator(const _edge_type& operator_id, _operator_ptr _operator1);
 	IC virtual void remove_operator(const _edge_type& operator_id);
 	IC _operator_ptr get_operator(const _operator_id_type& operator_id);
 	IC const OPERATOR_VECTOR& operators() const;

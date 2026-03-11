@@ -1,4 +1,4 @@
-#include "simpledetector.h"
+#include "SimpleDetector.h"
 #include "ui/ArtefactDetectorUI.h"
 #include "Kinematics.h"
 #include "LightAnimLibrary.h"

@@ -23,26 +23,26 @@
 
 void CSE_ALifeMonsterAbstract::add_online(const bool& update_registries)
 {
-	inherited1::add_online(update_registries);
+	inherited1_::add_online(update_registries);
 	brain().on_switch_online();
 }
 
 void CSE_ALifeMonsterAbstract::add_offline(const xr_vector<ALife::_OBJECT_ID>& saved_children,
                                            const bool& update_registries)
 {
-	inherited1::add_offline(saved_children, update_registries);
+	inherited1_::add_offline(saved_children, update_registries);
 	brain().on_switch_offline();
 }
 
 void CSE_ALifeMonsterAbstract::on_register()
 {
-	inherited1::on_register();
+	inherited1_::on_register();
 	brain().on_register();
 }
 
 void CSE_ALifeMonsterAbstract::on_unregister()
 {
-	inherited1::on_unregister();
+	inherited1_::on_unregister();
 	RELATION_REGISTRY().ClearRelations(ID);
 	brain().on_unregister();
 	if (m_group_id != 0xffff)

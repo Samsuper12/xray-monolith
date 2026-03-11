@@ -445,14 +445,14 @@
     <ClInclude Include="..\..\xrServerEntities\WaveForm.h" />
     <ClInclude Include="..\..\xrServerEntities\xml_str_id_loader.h" />
     <ClInclude Include="..\..\xrServerEntities\xrEProps.h" />
-    <ClInclude Include="..\..\xrServerEntities\xrMessages.h" />
+    <ClInclude Include="..\..\xrServerEntities\" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Objects.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_Abstract.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_ALife.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_ALife_All.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_ALife_Items.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_ALife_Monsters.h" />
-    <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_Alife_Smartcovers.h" />
+    <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_ALife_Smartcovers.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Object_Base.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_script_macroses.h" />
     <ClInclude Include="..\..\xrServerEntities\xrServer_Space.h" />

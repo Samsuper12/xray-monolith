@@ -1,8 +1,9 @@
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
 #include "KinematicsAnimated.h"
+#include "../../ai_monster_space.h"
 
 class CAI_Trader;
 

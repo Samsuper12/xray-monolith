@@ -1,13 +1,13 @@
-#include "../xrEngine/xr_ioconsole.h"
+#include "../xrEngine/XR_IOConsole.h"
 #include "../xrEngine/xr_ioc_cmd.h"
-#include "level.h"
+#include "Level.h"
 #include "xrServer.h"
 #include "game_cl_base.h"
 #include "game_cl_mp.h"
-#include "actor.h"
-#include "xrServer_Object_base.h"
+#include "Actor.h"
+#include "xrServer_Object_Base.h"
 #include "RegistryFuncs.h"
-#include "gamepersistent.h"
+#include "GamePersistent.h"
 #include "MainMenu.h"
 #include "UIGameCustom.h"
 #include "game_sv_deathmatch.h"
@@ -18,6 +18,8 @@
 #include "string_table.h"
 #include "DemoPlay_Control.h"
 #include "account_manager_console.h"
+#include <safe_lib.h>
+
 
 EGameIDs ParseStringToGameType(LPCSTR str);
 LPCSTR GameTypeToString(EGameIDs gt, bool bShort);
@@ -1282,7 +1284,7 @@ public:
 					return;
 				ip_address Address;
 				DWORD dwPort = 0;
-				Level().Server->GetClientAddress(client->ID, Address, &dwPort);
+				//Level().Server->GetClientAddress(client->ID, Address, &dwPort);
 				string512 tmp_string;
 				xr_sprintf(tmp_string, "- (player session id : %u), (name : %s), (ip: %s), (ping: %u);",
 				           client->ID.value(),

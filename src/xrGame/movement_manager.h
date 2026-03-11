@@ -11,6 +11,34 @@
 #include "ai_monster_space.h"
 #include "graph_engine_space.h"
 #include "game_graph_space.h"
+#include "movement_manager_space.h"
+#include "detail_path_manager_space.h"
+
+namespace MonsterSpace {
+	enum EPathState
+	{
+		ePathStateSelectGameVertex = u32(0),
+		ePathStateBuildGamePath,
+		ePathStateContinueGamePath,
+
+		ePathStateSelectPatrolPoint,
+
+		ePathStateBuildLevelPath,
+		ePathStateContinueLevelPath,
+
+		ePathStateBuildDetailPath,
+
+		ePathStatePathVerification,
+
+		ePathStatePathCompleted,
+
+		ePathStateTeleport,
+
+		ePathStateDummy = u32(-1),
+	};
+};
+
+using namespace MonsterSpace;
 
 
 namespace MovementManager
@@ -131,27 +159,7 @@ protected:
 	> CLevelPathManager;
 
 private:
-	enum EPathState
-	{
-		ePathStateSelectGameVertex = u32(0),
-		ePathStateBuildGamePath,
-		ePathStateContinueGamePath,
-
-		ePathStateSelectPatrolPoint,
-
-		ePathStateBuildLevelPath,
-		ePathStateContinueLevelPath,
-
-		ePathStateBuildDetailPath,
-
-		ePathStatePathVerification,
-
-		ePathStatePathCompleted,
-
-		ePathStateTeleport,
-
-		ePathStateDummy = u32(-1),
-	};
+	
 
 protected:
 	typedef xr_vector<CObject*> NEAREST_OBJECTS;

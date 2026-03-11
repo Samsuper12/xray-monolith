@@ -1,13 +1,13 @@
-#include "climableobject.h"
+#include "ClimableObject.h"
 #include "IPHStaticGeomShell.h"
 #include "xrServer_Objects_ALife.h"
 #include "PHCharacter.h"
 #include "MathUtils.h"
-#include "extendedgeom.h"
-#include "gamemtllib.h"
+#include "ExtendedGeom.h"
+#include "GameMtlLib.h"
 #ifdef DEBUG
 #	include "debug_renderer.h"
-#	include "level.h"
+#	include "Level.h"
 #	include "PHDebug.h"
 #endif
 

@@ -13,7 +13,7 @@ typedef CUIMpTradeWnd BUY_WND_TYPE;
 
 
 #include "associative_vector.h"
-#include "restrictions.h"
+#include "Restrictions.h"
 
 struct string_lex_less
 {

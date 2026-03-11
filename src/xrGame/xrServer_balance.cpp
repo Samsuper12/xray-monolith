@@ -1,4 +1,4 @@
-#include "xrserver.h"
+#include "xrServer.h"
 
 class xrClientData;
 class CSE_Abstract;

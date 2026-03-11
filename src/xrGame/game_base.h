@@ -5,7 +5,7 @@
 #include "gametype_chooser.h"
 #include "player_account.h"
 
-#pragma pack(push,1)
+// #pragma pack(push,1)
 
 
 struct game_PlayerState; //fw
@@ -155,7 +155,7 @@ enum ETeam
 
 //--------------
 
-#pragma pack(pop)
+// #pragma pack(pop)
 
 class game_GameState : public DLL_Pure
 {

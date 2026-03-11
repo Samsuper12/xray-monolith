@@ -9,10 +9,10 @@
 #include "UIBtnHint.h"
 
 #include "../game_news.h"
-#include "../level.h"
-#include "../actor.h"
+#include "../Level.h"
+#include "../Actor.h"
 #include "../alife_registry_wrappers.h"
-#include "dinput.h"
+//#include "dinput.h"
 
 #define				TALK_XML				"talk.xml"
 

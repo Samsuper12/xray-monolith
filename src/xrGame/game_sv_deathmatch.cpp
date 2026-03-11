@@ -1,23 +1,23 @@
 #include "game_sv_deathmatch.h"
-#include "xrserver_objects_alife_monsters.h"
-#include "level.h"
-#include "xrserver.h"
+#include "xrServer_Objects_ALife_Monsters.h"
+#include "Level.h"
+#include "xrServer.h"
 #include "Inventory.h"
 #include "CustomZone.h"
-#include "../xrEngine/igame_persistent.h"
+#include "../xrEngine/IGame_Persistent.h"
 #include "Actor.h"
 #include "game_cl_base.h"
 #include "xr_level_controller.h"
-#include "hudItem.h"
-#include "weapon.h"
+#include "HudItem.h"
+#include "Weapon.h"
 #include "eatable_item_object.h"
 #include "Missile.h"
 #include "game_cl_base_weapon_usage_statistic.h"
 #include "clsid_game.h"
 
 //#define DELAYED_ROUND_TIME	7000
-#include "ui\UIBuyWndShared.h"
-#include "../xrEngine/xr_ioconsole.h"
+#include "ui/UIBuyWndShared.h"
+#include "../xrEngine/XR_IOConsole.h"
 
 #define UNBUYABLESLOT		20
 
@@ -500,8 +500,8 @@ void game_sv_Deathmatch::Update()
 	}
 }
 
-INT g_sv_Pending_Wait_Time = 10000;
-INT g_sv_Wait_For_Players_Ready = 1;
+int g_sv_Pending_Wait_Time = 10000;
+int g_sv_Wait_For_Players_Ready = 1;
 
 bool game_sv_Deathmatch::checkForRoundStart()
 {
@@ -1914,7 +1914,7 @@ void game_sv_Deathmatch::RespawnPlayer(ClientID id_who, bool NoSpectator)
 	SpawnWeapon4Actor(pA->ID, "mp_players_rukzak", 0, ps->pItemList);
 }
 
-INT G_DELAYED_ROUND_TIME = 7;
+int G_DELAYED_ROUND_TIME = 7;
 
 void game_sv_Deathmatch::OnDelayedRoundEnd(ERoundEnd_Result reason)
 {
@@ -1961,7 +1961,7 @@ void game_sv_Deathmatch::check_ForceRespawn()
 	m_server->ForEachClientDoSender(tmp_functor);
 };
 
-INT g_sv_Skip_Winner_Waiting = 0;
+int g_sv_Skip_Winner_Waiting = 0;
 
 bool game_sv_Deathmatch::HasChampion()
 {

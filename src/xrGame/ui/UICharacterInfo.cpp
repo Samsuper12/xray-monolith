@@ -1,9 +1,9 @@
 
 #include "UIInventoryUtilities.h"
 
-#include "uicharacterinfo.h"
-#include "../actor.h"
-#include "../level.h"
+#include "UICharacterInfo.h"
+#include "../Actor.h"
+#include "../Level.h"
 #include "../../xrServerEntities/character_info.h"
 #include "../string_table.h"
 #include "../relation_registry.h"
@@ -11,7 +11,7 @@
 #include "xrUIXmlParser.h"
 #include "UIXmlInit.h"
 
-#include "uistatic.h"
+#include "UIStatic.h"
 #include "UIScrollView.h"
 
 
@@ -362,8 +362,8 @@ bool CUICharacterInfo::get_actor_community(shared_str* our, shared_str* enemy)
 		return false;
 	}
 	u32 size_temp = (xr_strlen(vs_teams) + 1) * sizeof(char);
-	PSTR our_fract = (PSTR)_alloca(size_temp);
-	PSTR enemy_fract = (PSTR)_alloca(size_temp);
+	PSTR our_fract = (PSTR)alloca(size_temp);
+	PSTR enemy_fract = (PSTR)alloca(size_temp);
 	_GetItem(vs_teams, 0, our_fract, size_temp);
 	_GetItem(vs_teams, 1, enemy_fract, size_temp);
 

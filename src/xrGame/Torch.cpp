@@ -1,18 +1,18 @@
 #include <defines.h>
 
-#include "torch.h"
-#include "entity.h"
-#include "actor.h"
+#include "Torch.h"
+#include "Entity.h"
+#include "Actor.h"
 #include "LightAnimLibrary.h"
 #include "PhysicsShell.h"
-#include "xrserver_objects_alife_items.h"
+#include "xrServer_Objects_ALife_Items.h"
 #include "ai_sounds.h"
 
-#include "level.h"
+#include "Level.h"
 #include "Kinematics.h"
-#include "camerabase.h"
+#include "CameraBase.h"
 #include "xr_collide_form.h"
-#include "inventory.h"
+#include "Inventory.h"
 #include "game_base_space.h"
 
 #include "UIGameCustom.h"

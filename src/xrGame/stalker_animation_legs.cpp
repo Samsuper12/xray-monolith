@@ -12,9 +12,9 @@
 #include "stalker_movement_manager_smart_cover.h"
 #include "stalker_animation_data.h"
 
-#include "weapon.h"
-#include "missile.h"
-#include "inventory.h"
+#include "Weapon.h"
+#include "Missile.h"
+#include "Inventory.h"
 #include "stalker_animation_manager_impl.h"
 
 const float right_forward_angle = PI_DIV_4;

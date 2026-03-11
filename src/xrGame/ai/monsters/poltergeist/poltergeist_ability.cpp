@@ -1,6 +1,6 @@
 #include "poltergeist.h"
-#include "../../../../xrphysics/PhysicsShell.h"
-#include "../../../level.h"
+#include "../../../../xrPhysics/PhysicsShell.h"
+#include "../../../Level.h"
 #include "../../../material_manager.h"
 #include "../../../level_debug.h"
 #include "inventory_item.h"

@@ -1,14 +1,14 @@
 #include "pch_script.h"
 #include "game_cl_base.h"
-#include "level.h"
+#include "Level.h"
 #include "GamePersistent.h"
 #include "UIGameCustom.h"
 #include "script_engine.h"
-#include "xr_Level_controller.h"
+#include "xr_level_controller.h"
 #include "ui/UIMainIngameWnd.h"
-#include "UI/UIGameTutorial.h"
-#include "UI/UIMessagesWindow.h"
-#include "UI/UIDialogWnd.h"
+#include "ui/UIGameTutorial.h"
+#include "ui/UIMessagesWindow.h"
+#include "ui/UIDialogWnd.h"
 #include "string_table.h"
 #include "game_cl_base_weapon_usage_statistic.h"
 #include "game_sv_mp_vote_flags.h"
@@ -127,7 +127,7 @@ void game_cl_GameState::net_import_state(NET_Packet& P)
 	R_ASSERT(p_count <= MAX_PLAYERS_COUNT);
 
 	buffer_vector<ClientID> valid_players(
-		_alloca(sizeof(ClientID) * (p_count + 1)),
+		alloca(sizeof(ClientID) * (p_count + 1)),
 		(p_count + 1)
 	);
 

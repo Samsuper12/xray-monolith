@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Engine.h>
-#include <sound.h>
+#include <Sound.h>
 
 struct HUD_SOUND_ITEM
 {

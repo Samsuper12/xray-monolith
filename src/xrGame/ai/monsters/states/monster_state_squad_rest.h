@@ -7,6 +7,13 @@ class CStateMonsterSquadRest : public CState<_Object>
 {
 protected:
 	typedef CState<_Object> inherited;
+	using inherited::object;
+	using inherited::add_state;
+	using inherited::get_state_current;
+	using inherited::select_state;
+	using inherited::current_substate;
+	using inherited::prev_substate;
+	using inherited::time_state_started; 
 	typedef CState<_Object>* state_ptr;
 
 	u32 time_next_state_reselect;

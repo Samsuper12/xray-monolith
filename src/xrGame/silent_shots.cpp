@@ -1,8 +1,8 @@
 #include "silent_shots.h"
 #include "game_base.h"
 #include "game_state_accumulator.h"
-#include "weapon.h"
-#include "weaponknife.h"
+#include "Weapon.h"
+#include "WeaponKnife.h"
 
 namespace award_system
 {

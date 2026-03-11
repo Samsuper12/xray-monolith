@@ -1,5 +1,5 @@
 #include "weaponBM16.h"
-#include "entity.h"
+#include "Entity.h"
 #include "Actor.h"
 
 CWeaponBM16::~CWeaponBM16()

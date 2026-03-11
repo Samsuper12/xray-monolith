@@ -11,10 +11,10 @@
 #include "object_broker.h"
 #include "agent_manager.h"
 #include "agent_memory_manager.h"
-#include "explosive.h"
+#include "Explosive.h"
 #include "sound_player.h"
 #include "cover_point.h"
-#include "grenade.h"
+#include "Grenade.h"
 
 class CMemberPredicate2
 {

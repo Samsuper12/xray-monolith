@@ -18,11 +18,12 @@
 #include "alife_smart_terrain_registry.h"
 #include "alife_group_registry.h"
 #include "alife_registry_container.h"
-#include "xrserver.h"
+#include "xrServer.h"
 #include "level_graph.h"
 #include "inventory_upgrade_manager.h"
-#include "level.h"
-
+#include "Level.h"
+#include <stdio.h>
+#include "../xrCore/_std_extensions.h"
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
@@ -280,7 +281,7 @@ void CALifeSimulatorBase::release(CSE_Abstract* abstract, bool alife_query)
 	{
 		u32 children_count = object->children.size();
 		u32 bytes = children_count * sizeof(ALife::_OBJECT_ID);
-		ALife::_OBJECT_ID* children = (ALife::_OBJECT_ID*)_alloca(bytes);
+		ALife::_OBJECT_ID* children = (ALife::_OBJECT_ID*)alloca(bytes);
 		CopyMemory(children, &*object->children.begin(), bytes);
 
 		ALife::_OBJECT_ID* I = children;

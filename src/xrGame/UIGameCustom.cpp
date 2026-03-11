@@ -1,6 +1,6 @@
 #include "pch_script.h"
 #include "UIGameCustom.h"
-#include "level.h"
+#include "Level.h"
 #include "ui/UIXmlInit.h"
 #include "ui/UIStatic.h"
 #include "object_broker.h"
@@ -12,13 +12,13 @@
 #include "ui/UIMainIngameWnd.h"
 #include "ui/UIMessagesWindow.h"
 #include "ui/UIHudStatesWnd.h"
-#include "actor.h"
-#include "inventory.h"
+#include "Actor.h"
+#include "Inventory.h"
 #include "game_cl_base.h"
 
 #include "x_ray.h"
 
-#include "ui\UICellItem.h" //Alundaio
+#include "ui/UICellItem.h" //Alundaio
 //#include "script_game_object.h" //Alundaio
 
 EGameIDs ParseStringToGameType(const char* str);

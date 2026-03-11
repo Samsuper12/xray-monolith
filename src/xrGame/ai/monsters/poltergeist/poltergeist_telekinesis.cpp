@@ -1,8 +1,8 @@
 #include "poltergeist.h"
 #include "../../../PhysicsShellHolder.h"
-#include "../../../level.h"
-#include "../../../actor.h"
-#include "../../../../xrPhysics/icolisiondamageinfo.h"
+#include "../../../Level.h"
+#include "../../../Actor.h"
+#include "../../../../xrPhysics/IColisiondamageInfo.h"
 #include "inventory_item.h"
 
 CPolterTele::CPolterTele(CPoltergeist* polter) : inherited(polter), m_pmt_object_collision_damage(0.5f)

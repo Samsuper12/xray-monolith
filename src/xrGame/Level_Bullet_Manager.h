@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
-#include "weaponammo.h"
-#include "tracer.h"
+#include "WeaponAmmo.h"
+#include "Tracer.h"
 
 //коэфициенты и параметры патрона
 struct SBullet_Hit

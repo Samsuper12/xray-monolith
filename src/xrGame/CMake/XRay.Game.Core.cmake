@@ -2,8 +2,8 @@ add_module(XRay.Game.Core
   TYPE STATIC
 
   LINKS
-  CxImage
-  dxsdk
+  #CxImage
+  #dxsdk
   fastdelegate
   FastDynamicCast
   IKAN

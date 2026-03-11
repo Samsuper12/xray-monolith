@@ -1,6 +1,6 @@
 #include <time.h>
 
-#include <LocatorApi.h>
+#include <LocatorAPI.h>
 
 #include "pch_script.h"
 #include "fs_registrator.h"

@@ -7,6 +7,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "problem_solver.h"
+
 
 IC CGraphEngine::CGraphEngine(u32 max_vertex_count)
 {

@@ -2,7 +2,7 @@
 #define REWARD_MANAGER_INCLUDED
 
 #include <Engine.h>
-#include <sound.h>
+#include <Sound.h>
 
 #include "associative_vector.h"
 

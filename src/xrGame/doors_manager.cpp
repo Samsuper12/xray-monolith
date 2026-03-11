@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "doors_manager.h"
-#include "gameobject.h"
+#include "GameObject.h"
 #include "doors_door.h"
 #include "doors_actor.h"
 
@@ -23,7 +23,7 @@ manager::~manager()
 	VERIFY2(m_doors.empty(), make_string("there are %d still registered doors", m_doors.size()));
 }
 
-//#include "level.h"
+//#include "Level.h"
 //#include "script_game_object.h"
 //
 //void manager::check_bug_door		( ) const

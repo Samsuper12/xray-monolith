@@ -1,5 +1,5 @@
-#include "torridZone.h"
-#include "../xrEngine/objectanimator.h"
+#include "TorridZone.h"
+#include "../xrEngine/ObjectAnimator.h"
 #include "xrServer_Objects_ALife_Monsters.h"
 
 CTorridZone::CTorridZone()

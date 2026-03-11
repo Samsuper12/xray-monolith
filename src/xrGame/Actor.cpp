@@ -9,21 +9,21 @@
 
 #include "pch_script.h"
 #include "Actor_Flags.h"
-#include "hudmanager.h"
+#include "HUDManager.h"
 #include "alife_space.h"
-#include "hit.h"
+#include "Hit.h"
 #include "PHDestroyable.h"
 #include "Car.h"
-#include "xrserver_objects_alife_monsters.h"
-#include "CameraLook.h"
+#include "xrServer_Objects_ALife_Monsters.h"
+#include "cameralook.h"
 #include "CameraFirstEye.h"
-#include "effectorfall.h"
+#include "EffectorFall.h"
 #include "EffectorBobbing.h"
 #include "ActorEffector.h"
 #include "EffectorZoomInertion.h"
 #include "character_info.h"
 #include "CustomOutfit.h"
-#include "actorcondition.h"
+#include "ActorCondition.h"
 #include "UIGameCustom.h"
 #include "clsid_game.h"
 #include "game_cl_base_weapon_usage_statistic.h"
@@ -36,26 +36,26 @@
 #include "ai_sounds.h"
 #include "ai_space.h"
 #include "trade.h"
-#include "inventory.h"
-#include "level.h"
+#include "Inventory.h"
+#include "Level.h"
 #include "GamePersistent.h"
 #include "game_cl_base.h"
 #include "game_cl_single.h"
-#include "xrmessages.h"
+#include "xrMessages.h"
 #include "string_table.h"
-#include "usablescriptobject.h"
+#include "UsableScriptObject.h"
 #include "alife_registry_wrappers.h"
 #include "Kinematics.h"
-#include "artefact.h"
+#include "Artefact.h"
 #include "CharacterPhysicsSupport.h"
 #include "material_manager.h"
 #include "IColisiondamageInfo.h"
 #include "ui/UIMainIngameWnd.h"
 #include "map_manager.h"
-#include "GameTaskManager.h"
+#include "GametaskManager.h"
 #include "actor_memory.h"
-#include "Script_Game_Object.h"
-#include "Game_Object_Space.h"
+#include "script_game_object.h"
+#include "game_object_space.h"
 #include "script_callback_ex.h"
 #include "InventoryBox.h"
 #include "location_manager.h"
@@ -63,10 +63,10 @@
 #include "ai/monsters/basemonster/base_monster.h"
 #include "UIRender.h"
 #include "ai_object_location.h"
-#include "ui/uiMotionIcon.h"
+#include "ui/UIMotionIcon.h"
 #include "ui/UIActorMenu.h"
 #include "ActorHelmet.h"
-#include "UI/UIDragDropReferenceList.h"
+#include "ui/UIDragDropReferenceList.h"
 #include "ActorNightVision.h"
 #include "Flashlight.h"
 
@@ -971,7 +971,7 @@ void CActor::Die(CObject* who)
 		T.Start();
 
 		if (!SwitchToThread())
-		Sleep(2);
+		sleep(2);
 
 		while (true)
 		{
@@ -1109,7 +1109,7 @@ float CActor::currentFOV()
 	}
 }
 
-#include "UI\UIInventoryUtilities.h"
+#include "ui/UIInventoryUtilities.h"
 
 void CActor::UpdateCL()
 {
@@ -1459,7 +1459,7 @@ void CActor::RPC_UpdateReputation()
 	}
 }
 
-#include "../xrphysics/actorcameracollision.h"
+#include "../xrPhysics/ActorCameraCollision.h""
 
 #ifdef HOLDERCUSTOM_NEW
 bool CActor::use_HolderEx(CHolderCustom *object, bool bForce)

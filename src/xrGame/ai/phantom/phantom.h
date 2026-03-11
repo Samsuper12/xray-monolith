@@ -1,6 +1,6 @@
 #pragma once
 
-#include "entity.h"
+#include "Entity.h"
 #include "KinematicsAnimated.h"
 
 class CParticlesObject;

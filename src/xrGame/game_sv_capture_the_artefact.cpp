@@ -1,26 +1,26 @@
 #include "game_sv_capture_the_artefact.h"
-#include "xrserver_objects_alife_monsters.h"
-#include "level.h"
-#include "xrserver.h"
+#include "xrServer_Objects_ALife_Monsters.h"
+#include "Level.h"
+#include "xrServer.h"
 #include "Inventory.h"
 #include "CustomZone.h"
-#include "../xrEngine/igame_persistent.h"
+#include "../xrEngine/IGame_Persistent.h"
 #include "../xrEngine/CameraManager.h"
 #include "Actor.h"
 #include "Artefact.h"
 #include "game_cl_base.h"
 #include "xr_level_controller.h"
-#include "hudItem.h"
-#include "weapon.h"
+#include "HudItem.h"
+#include "Weapon.h"
 #include "eatable_item_object.h"
 #include "Missile.h"
 #include "game_cl_base_weapon_usage_statistic.h"
 #include "LevelGameDef.h"
 #include "clsid_game.h"
-#include "ui\UIBuyWndShared.h"
+#include "ui/UIBuyWndShared.h"
 #include "UIGameCTA.h"
 #include "string_table.h"
-#include "../xrEngine/xr_ioconsole.h"
+#include "../xrEngine/XR_IOConsole.h"
 
 //-------------------------------------------------------------
 u32 g_sv_cta_dwInvincibleTime = 5; //5 seconds
@@ -1046,7 +1046,7 @@ bool game_sv_CaptureTheArtefact::LoadAnomaliesItems(
 
 	u32 const str_size = xr_strlen(anomaly_string);
 	u32 const buffer_size = (str_size + 1) * sizeof(char);
-	PSTR temp_str = static_cast<PSTR>(_alloca(buffer_size));
+	PSTR temp_str = static_cast<PSTR>(alloca(buffer_size));
 	for (u32 i = 0; i < items_count; ++i)
 	{
 		_GetItem(anomaly_string, i, temp_str, buffer_size);

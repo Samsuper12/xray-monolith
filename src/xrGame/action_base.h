@@ -13,17 +13,19 @@
 #include "script_export_space.h"
 #include "operator_abstract.h"
 #include "alife_space.h"
+#include "graph_engine.h"
 
 class CScriptGameObject;
 
 template <typename _object_type>
 class CActionBase : public GraphEngineSpace::CWorldOperator
 {
-protected:
-	typedef GraphEngineSpace::CWorldOperator inherited;
-	typedef GraphEngineSpace::CWorldProperty COperatorCondition;
-	typedef GraphEngineSpace::_solver_condition_type _condition_type;
-	typedef GraphEngineSpace::_solver_value_type _value_type;
+public:
+	using inherited = GraphEngineSpace::CWorldOperator;
+	using COperatorCondition = GraphEngineSpace::CWorldProperty ;
+	using _condition_type = GraphEngineSpace::_solver_condition_type;
+	using _value_type = GraphEngineSpace::_solver_value_type;
+	using GraphEngineSpace::CWorldOperator::effects;
 
 protected:
 	enum EActionStates

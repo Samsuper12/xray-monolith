@@ -2,21 +2,21 @@
 #include "pseudodog_state_manager.h"
 #include "KinematicsAnimated.h"
 #include "sound_player.h"
-#include "level.h"
+#include "Level.h"
 #include "ai_monster_space.h"
 #include "../monster_velocity_space.h"
 #include "../control_animation_base.h"
 #include "../control_movement_base.h"
 
 #ifdef _DEBUG
-#	include <dinput.h>
+//#	include <dinput.h>
 #	include "../../../ai_object_location.h"
 #	include "../../../level_debug.h"
 #	include "../../../level_graph.h"
 #	include "../../../ai_space.h"
 #	include "../../../alife_simulator.h"
 #	include "../../../../xrServerEntities/xrServer_Object_Base.h"
-#	include "../../../xrserver.h"
+#	include "../../../xrServer.h"
 #endif
 
 CAI_PseudoDog::CAI_PseudoDog()

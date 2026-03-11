@@ -1,17 +1,19 @@
 #include <xr_ini.h>
 
-#include "ikfoot.h"
+#include "IKFoot.h"
 #include "ik_collide_data.h"
 #include "GameObject.h"
 //#include "ode_include.h"
 #include "MathUtils.h"
 #include "Kinematics.h"
 #include "bone.h"
-#include "ennumerateVertices.h"
+#include "EnnumerateVertices.h"
 
 #ifdef DEBUG
 #include "PHDebug.h"
 #endif
+
+#include <algorithm>
 
 CIKFoot::CIKFoot():
 	m_bind_b2_to_b3(Fidentity),
@@ -300,7 +302,7 @@ ik_goal_matrix::e_collide_state CIKFoot::rotate(Fmatrix& xm, const Fplane& p, co
 	clamp(s, 0.f, 1.f);
 	float angle = asinf(-s);
 	VERIFY(_valid( angle ));
-	clamp(angle, -M_PI / 6, M_PI / 6);
+	std::clamp(angle, float(-M_PI / 6), float(M_PI / 6));
 	ik_goal_matrix::e_collide_state cl_state = ik_goal_matrix::cl_undefined;
 	if (!fis_zero(s))
 	{

@@ -8,7 +8,7 @@
 
 #include "sound_player.h"
 #include "script_engine.h"
-#include "Script_Game_Object.h"
+#include "script_game_object.h"
 //#include "GameObject.h"
 #include "script_callback_ex.h"
 #include "ai/stalker/ai_stalker_space.h"

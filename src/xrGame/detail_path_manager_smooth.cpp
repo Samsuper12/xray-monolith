@@ -12,7 +12,7 @@
 #include "level_graph.h"
 
 #ifdef DEBUG
-#	include "custommonster.h"
+#	include "CustomMonster.h"
 	extern bool show_restrictions(CRestrictedObject *object);
 #endif
 

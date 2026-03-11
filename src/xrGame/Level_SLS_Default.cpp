@@ -1,5 +1,5 @@
-#include "level.h"
-#include "xrserver.h"
+#include "Level.h"
+#include "xrServer.h"
 
 void CLevel::SLS_Default() // Default/Editor Load
 {

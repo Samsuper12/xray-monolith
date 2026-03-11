@@ -31,11 +31,11 @@
 
 const float wounded_enemy_reached_distance = 3.f;
 
-const unsigned __int32 __c0 = 0x55555555;
-const unsigned __int32 __c1 = 0x33333333;
-const unsigned __int32 __c2 = 0x0f0f0f0f;
-const unsigned __int32 __c3 = 0x00ff00ff;
-const unsigned __int32 __c4 = 0x0000003f;
+const  uint32_t __c0 = 0x55555555;
+const  uint32_t __c1 = 0x33333333;
+const  uint32_t __c2 = 0x0f0f0f0f;
+const  uint32_t __c3 = 0x00ff00ff;
+const  uint32_t __c4 = 0x0000003f;
 
 IC u32 population(const u32& b)
 {
@@ -460,7 +460,7 @@ void CAgentEnemyManager::assign_wounded()
 #endif // DEBUG
 
 	u32 previous_wounded_count = m_wounded.size();
-	WOUNDED_ENEMY* previous_wounded = (WOUNDED_ENEMY*)_alloca(previous_wounded_count * sizeof(WOUNDED_ENEMY));
+	WOUNDED_ENEMY* previous_wounded = (WOUNDED_ENEMY*)alloca(previous_wounded_count * sizeof(WOUNDED_ENEMY));
 	std::copy(m_wounded.begin(), m_wounded.end(), previous_wounded);
 	m_wounded.clear();
 

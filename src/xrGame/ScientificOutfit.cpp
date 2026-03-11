@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "scientificoutfit.h"
+#include "ScientificOutfit.h"
 
 CScientificOutfit::CScientificOutfit()
 {

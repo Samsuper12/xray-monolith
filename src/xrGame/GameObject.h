@@ -6,7 +6,7 @@
 #define AFX_GAMEOBJECT_H__3DA72D03_C759_4688_AEBB_89FA812AA873__INCLUDED_
 #pragma once
 
-#include <DPlay/dplay8.h>
+//#include <DPlay/dplay8.h>
 #include <xr_object.h>
 #include <Engine.h>
 #include "xrServer_Space.h"
@@ -15,6 +15,9 @@
 #include "script_binder.h"
 #include "Hit.h"
 #include "game_object_space.h"
+#include "macros.h"
+
+#define DPNSEND_GUARANTEED						0x0008
 
 class CPhysicsShell;
 class CSE_Abstract;

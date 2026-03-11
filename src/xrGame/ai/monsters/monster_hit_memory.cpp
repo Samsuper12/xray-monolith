@@ -1,5 +1,5 @@
 #include "monster_hit_memory.h"
-#include "BaseMonster/base_monster.h"
+#include "basemonster/base_monster.h"
 
 CMonsterHitMemory::CMonsterHitMemory()
 {

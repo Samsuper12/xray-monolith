@@ -6,14 +6,14 @@
 #include "script_game_object.h"
 #include "script_game_object_impl.h"
 #include "InventoryOwner.h"
-#include "Pda.h"
+#include "PDA.h"
 #include "xrMessages.h"
 #include "character_info.h"
-#include "gametask.h"
-#include "actor.h"
-#include "level.h"
+#include "GameTask.h"
+#include "Actor.h"
+#include "Level.h"
 #include "date_time.h"
-#include "uigamesp.h"
+#include "UIGameSP.h"
 #include "restricted_object.h"
 #include "script_engine.h"
 #include "attachable_item.h"
@@ -21,16 +21,16 @@
 #include "string_table.h"
 #include "alife_registry_wrappers.h"
 #include "relation_registry.h"
-#include "custommonster.h"
-#include "entitycondition.h"
-#include "actorcondition.h"
+#include "CustomMonster.h"
+#include "EntityCondition.h"
+#include "ActorCondition.h"
 #include "level_graph.h"
-#include "huditem.h"
-#include "ui/UItalkWnd.h"
-#include "inventory.h"
-#include "infoportion.h"
-#include "AI/Monsters/BaseMonster/base_monster.h"
-#include "weaponmagazined.h"
+#include "HudItem.h"
+#include "ui/UITalkWnd.h"
+#include "Inventory.h"
+#include "InfoPortion.h"
+#include "ai/monsters/basemonster/base_monster.h"
+#include "WeaponMagazined.h"
 #include "ai/stalker/ai_stalker.h"
 #include "agent_manager.h"
 #include "agent_member_manager.h"
@@ -43,19 +43,19 @@
 #include "ai/stalker/ai_stalker_impl.h"
 #include "smart_cover_object.h"
 #include "smart_cover.h"
-#include "customdetector.h"
+#include "CustomDetector.h"
 #include "doors_manager.h"
 #include "doors_door.h"
 #include "Torch.h"
-#include "physicobject.h"
-#include "customoutfit.h"
+#include "PhysicObject.h"
+#include "CustomOutfit.h"
 #include "InventoryBox.h"
 //Alundaio
 #include "inventory_upgrade_manager.h"
 #include "inventory_upgrade_root.h"
 #include "inventory_item.h"
 #include "inventory_item_impl.h"
-#include "xrserver_objects_alife_items.h"
+#include "xrServer_Objects_ALife_Items.h"
 #include "inventory_space.h"
 #include "ai_space.h"
 #include "ActorBackpack.h"
@@ -1055,7 +1055,7 @@ LPCSTR CScriptGameObject::sound_voice_prefix() const
 	return pInventoryOwner->SpecificCharacter().sound_voice_prefix();
 }
 
-#include "GameTaskManager.h"
+#include "GametaskManager.h"
 
 ETaskState CScriptGameObject::GetGameTaskState(LPCSTR task_id)
 {
@@ -1906,7 +1906,7 @@ LPCSTR CScriptGameObject::aim_bone_id() const
 	{
 		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError,
 		                                "CAI_Stalker : cannot access class member aim_bone_id!");
-		return (false);
+		return nullptr;
 	}
 
 	return (stalker->aim_bone_id().c_str());

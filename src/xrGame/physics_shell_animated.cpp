@@ -1,6 +1,6 @@
 #include "physics_shell_animated.h"
 
-#include	"../xrphysics/physicsshell.h"
+#include	"../xrPhysics/PhysicsShell.h"
 
 //Hrust: fix volumetric fog
 #include "PhysicsShellHolder.h"

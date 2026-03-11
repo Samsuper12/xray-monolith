@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////
 
 #include "MercuryBall.h"
-#include "../xrphysics/PhysicsShell.h"
+#include "../xrPhysics/PhysicsShell.h"
 
 
 CMercuryBall::CMercuryBall(void)

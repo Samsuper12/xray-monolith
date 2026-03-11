@@ -6,7 +6,7 @@
 #include "ui/UICDkey.h"
 #include "secure_messaging.h"
 
-#include <shellapi.h>
+//#include <shellapi.h>
 
 namespace gamespy_gp
 {
@@ -395,7 +395,7 @@ namespace gamespy_gp
 		//key_t			pass_key;
 		//generate_key	(pass_key_seed, pass_key);
 		//u32		buffer_size = xr_strlen(password) + 1;
-		//u8 *	buffer = static_cast<u8*>(_alloca(buffer_size));
+		//u8 *	buffer = static_cast<u8*>(alloca(buffer_size));
 		//xr_strcpy	((char*)buffer, buffer_size, password);
 		//buffer[buffer_size - 1] = 0;
 		//encrypt(buffer, buffer_size, pass_key);

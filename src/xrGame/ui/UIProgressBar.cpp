@@ -1,4 +1,4 @@
-#include "uiprogressbar.h"
+#include "UIProgressBar.h"
 
 CUIProgressBar::CUIProgressBar(void)
 {

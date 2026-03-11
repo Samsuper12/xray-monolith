@@ -1,25 +1,25 @@
-#include "phmovementcontrol.h"
+#include "PHMovementControl.h"
 
 #include "../xrEngine/cl_intersect.h"
-#include "../xrserverentities/alife_space.h"
+#include "../xrServerEntities/alife_space.h"
 
-#include "phCharacter.h"
+#include "PHCharacter.h"
 #include "IPHCapture.h"
-#include "iphysicsshellholder.h"
+#include "IPhysicsShellHolder.h"
 #include "ElevatorState.h"
 #include "CalculateTriangle.h"
-#include "Icolisiondamageinfo.h"
+#include "IColisiondamageInfo.h"
 #include "phvalide.h"
-#include "physicsshell.h"
-#include "iphworld.h"
+#include "PhysicsShell.h"
+#include "IPHWorld.h"
 #include "detail_path_manager.h"
-#include "gamemtllib.h"
+#include "GameMtlLib.h"
 #include "xr_object.h"
 #include "CaptureBoneCallback.h"
 #include "Level.h"
-#include "physicsshellholder.h"
+#include "PhysicsShellHolder.h"
 #ifdef DEBUG
-#include "phdebug.h"
+#include "PHDebug.h"
 #endif
 
 //#include	"KinematicsAnimated.h"
@@ -1123,7 +1123,7 @@ void CPHMovementControl::UnFreeze()
 		m_character->UnFreeze();
 }
 
-void CPHMovementControl::ActivateBox(DWORD id, BOOL Check)
+void CPHMovementControl::ActivateBox(DWORD id, bool Check)
 {
 	if (Check && (m_dwCurBox == id)) 
 		return;

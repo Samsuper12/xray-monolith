@@ -9,6 +9,8 @@
 #pragma once
 
 #include "action_planner.h"
+#include "ai_monster_space.h"
+#include "object_handler_space.h"
 
 class CAI_Stalker;
 class CInventoryItem;

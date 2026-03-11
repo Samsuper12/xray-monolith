@@ -10,7 +10,7 @@
 
 template <
 	typename _path_id_type,
-	typename _index_type,
+	typename _index_type1,
 	unsigned long hash_size,
 	unsigned long fix_size
 >
@@ -22,7 +22,7 @@ struct CVertexManagerHashFixed
 		template <typename T2>
 		struct _vertex : public T1<T2>
 		{
-			typedef _index_type _index_type;
+			using _index_type = _index_type1;
 			_index_type _index;
 			bool _opened;
 
@@ -62,19 +62,19 @@ struct CVertexManagerHashFixed
 		typedef typename inherited::CGraphVertex CGraphVertex;
 		typedef typename CGraphVertex::_index_type _index_type;
 
-#pragma pack(push,1)
-		template <typename _path_id_type>
-		struct SGraphIndexVertex : public _index_vertex<CGraphVertex, SGraphIndexVertex<_path_id_type>>
+// #pragma pack(push,1)
+		template <typename _path_id_type2>
+		struct SGraphIndexVertex : public _index_vertex<CGraphVertex, SGraphIndexVertex<_path_id_type2>>
 		{
 			CGraphVertex* m_vertex;
 			SGraphIndexVertex* m_next;
 			SGraphIndexVertex* m_prev;
 			u32 m_hash;
-			_path_id_type m_path_id;
+			_path_id_type2 m_path_id;
 		};
-#pragma pack(pop)
+// #pragma pack(pop)
 
-		typedef _path_id_type _path_id_type;
+		//typedef _path_id_type _path_id_type;
 		typedef SGraphIndexVertex<_path_id_type> CGraphIndexVertex;
 
 	protected:

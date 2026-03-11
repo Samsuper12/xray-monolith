@@ -13,7 +13,7 @@
 
 void CSE_ALifeMonsterBase::on_spawn()
 {
-	inherited1::on_spawn();
+	inherited1_::on_spawn();
 
 	if (!pSettings->line_exist(s_name, "Spawn_Inventory_Item_Section"))
 		return;

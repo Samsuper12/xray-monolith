@@ -42,13 +42,13 @@ class CPathManager<
 	>
 {
 protected:
-	typedef CGameGraph _Graph;
-	typedef SGameLevel<
+	using _Graph =  CGameGraph ;
+	using _Parameters = SGameLevel<
 		_dist_type,
 		_index_type,
 		_iteration_type
-	> _Parameters;
-	typedef typename CPathManager<
+	> ;
+	using inherited = CPathManager<
 		_Graph,
 		_DataStorage,
 		SBaseParameters<
@@ -59,7 +59,7 @@ protected:
 		_dist_type,
 		_index_type,
 		_iteration_type
-	> inherited;
+	> ;
 
 protected:
 	_Parameters* m_evaluator;

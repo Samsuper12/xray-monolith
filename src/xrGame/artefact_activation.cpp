@@ -14,11 +14,11 @@
 #include "Kinematics.h"
 #include "KinematicsAnimated.h"
 
-#include "inventory.h"
-#include "level.h"
+#include "Inventory.h"
+#include "Level.h"
 #include "ai_object_location.h"
 #include "xrServer_Objects_ALife_Monsters.h"
-#include "iphworld.h"
+#include "IPHWorld.h"
 #include "restriction_space.h"
 #include "IGame_Persistent.h"
 

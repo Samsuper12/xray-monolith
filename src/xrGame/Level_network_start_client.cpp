@@ -1,18 +1,18 @@
 #include <defines.h>
-#include <igame_persistent.h>
-#include <iphworld.h>
+#include <IGame_Persistent.h>
+#include <IPHWorld.h>
 #include <x_ray.h>
 
-#include "level.h"
+#include "Level.h"
 #include "ai_space.h"
 #include "game_cl_base.h"
 #include "NET_Queue.h"
 #include "file_transfer.h"
-#include "hudmanager.h"
+#include "HUDManager.h"
 
 
 
-#include "phcommander.h"
+#include "PHCommander.h"
 #include "physics_game.h"
 extern pureFrame* g_pNetProcessor;
 
@@ -30,7 +30,8 @@ bool CLevel::net_start_client1()
 	string64 name_of_server = "";
 	//	xr_strcpy						(name_of_server,*m_caClientOptions);
 	if (strchr(*m_caClientOptions, '/'))
-		strncpy_s(name_of_server, *m_caClientOptions, strchr(*m_caClientOptions, '/') - *m_caClientOptions);
+		strncpy_s(name_of_server, sizeof(name_of_server), *m_caClientOptions, strchr(*m_caClientOptions, '/') - *m_caClientOptions);
+
 
 	if (strchr(name_of_server, '/')) *strchr(name_of_server, '/') = 0;
 
@@ -166,12 +167,12 @@ bool CLevel::net_start_client4()
 			// Waiting for connection/configuration completition
 			CTimer timer_sync;
 			timer_sync.Start();
-			while (!net_isCompleted_Connect()) Sleep(5);
+			while (!net_isCompleted_Connect()) sleep(5);
 			Msg("* connection sync: %d ms", timer_sync.GetElapsed_ms());
 			while (!net_isCompleted_Sync())
 			{
 				ClientReceive();
-				Sleep(5);
+				sleep(5);
 			}
 		}
 		/*
@@ -180,7 +181,7 @@ bool CLevel::net_start_client4()
 					ClientReceive(); 
 					if(Server)
 							Server->Update()	;
-					Sleep(5);
+					sleep(5);
 				}else
 		
 					while(!game_configured)			
@@ -188,7 +189,7 @@ bool CLevel::net_start_client4()
 						ClientReceive(); 
 						if(Server)
 							Server->Update()	;
-						Sleep(5); 
+						sleep(5); 
 					}
 		*/
 	}

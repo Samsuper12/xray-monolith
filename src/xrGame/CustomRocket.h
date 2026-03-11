@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 #include <PHUpdateObject.h>
 
 #include "physic_item.h"

@@ -5,7 +5,7 @@
 
 #include <xrCore.h>
 
-#include "customoutfit.h"
+#include "CustomOutfit.h"
 #include "PhysicsShell.h"
 #include "inventory_space.h"
 #include "Inventory.h"
@@ -270,7 +270,7 @@ BOOL CCustomOutfit::BonePassBullet(int boneID)
 	return m_boneProtection->getBonePassBullet(s16(boneID));
 }
 
-#include "torch.h"
+#include "Torch.h"
 
 void CCustomOutfit::OnMoveToSlot(const SInvItemPlace& prev)
 {

@@ -5,7 +5,7 @@
 #include "../EntityCondition.h"
 #include "../CustomOutfit.h"
 #include "../ActorHelmet.h"
-#include "../inventory.h"
+#include "../Inventory.h"
 #include "../RadioactiveZone.h"
 
 #include "UIStatic.h"

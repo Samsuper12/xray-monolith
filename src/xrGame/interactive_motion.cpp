@@ -1,7 +1,7 @@
 
 #include "interactive_motion.h"
 
-#include "physicsshell.h"
+#include "PhysicsShell.h"
 #include "PhysicsShellHolder.h"
 
 #include "Kinematics.h"

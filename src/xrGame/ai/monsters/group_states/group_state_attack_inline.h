@@ -4,14 +4,14 @@
 #include "../states/monster_state_attack_run_attack.h"
 #include "../states/state_hide_from_point.h"
 #include "../states/monster_state_find_enemy.h"
-#include "group_state_squad_move_to_radius.h "
+#include "group_state_squad_move_to_radius.h"
 #include "group_state_home_point_attack.h"
 #include "group_state_custom.h"
 #include "../ai_monster_squad.h"
 #include "../ai_monster_squad_manager.h"
 #include "group_state_attack_run.h"
 #include "../../../entity_alive.h"
-#include "../../../actor.h"
+#include "../../../Actor.h"
 
 #define TEMPLATE_SPECIALIZATION template <\
 	typename _Object\

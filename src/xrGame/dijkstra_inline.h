@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "macros.h"
 
 #define TEMPLATE_SPECIALIZATION \
 	template <\
@@ -27,8 +28,8 @@
 			typename _2,\
 			typename _3,\
 			template <\
-				typename _1,\
-				typename _2\
+				typename _1st,\
+				typename _2nd\
 			>\
 			class	 _4\
 		>\
@@ -38,23 +39,23 @@
 			typename _manager,\
 			typename _builder,\
 			typename _allocator,\
-			template <typename _T> class _vertex,\
+			template <typename _T> class _vertex2,\
 			template <\
 				typename _1,\
 				typename _2\
 			>\
-			class	 _builder_allocator_constructor,\
+			class	 _builder_allocator_constructor2,\
 			template <\
 				typename _1,\
 				typename _2,\
 				typename _3,\
 				template <\
-					typename _1,\
-					typename _2\
+					typename _1st,\
+					typename _2nd\
 				>\
 				class	 _4\
 			>\
-			class	 _manager_builder_allocator_constructor\
+			class	 _manager_builder_allocator_constructor2\
 		>\
 		class _data_storage_constructor,\
 		typename _iteration_type\
@@ -156,8 +157,8 @@ IC bool CSDijkstra::step(_PathManager& path_manager)
 	data_storage().remove_best_opened();
 
 	// iterating on the best node neighbours
-	_PathManager::const_iterator i;
-	_PathManager::const_iterator e;
+	typename _PathManager::const_iterator i;
+	typename _PathManager::const_iterator e;
 	path_manager.begin(best.index(), i, e);
 	for (; i != e; ++i)
 	{

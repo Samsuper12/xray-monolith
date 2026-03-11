@@ -11,7 +11,7 @@
 #include "PhysicsShell.h"
 #include "game_graph.h"
 #include "game_level_cross_table.h"
-#include "xrserver_objects_alife_monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 
 #include "ai_rat_space.h"
 #include "KinematicsAnimated.h"

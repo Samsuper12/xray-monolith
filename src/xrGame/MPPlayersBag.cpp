@@ -50,7 +50,7 @@ void CMPPlayersBag::OnEvent(NET_Packet& P, u16 type)
 	}
 }
 
-extern INT g_iWeaponRemove;
+extern int g_iWeaponRemove;
 
 bool CMPPlayersBag::NeedToDestroyObject() const
 {

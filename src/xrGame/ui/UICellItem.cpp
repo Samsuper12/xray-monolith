@@ -4,13 +4,13 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "UICellItem.h"
-#include "uicursor.h"
+#include "UICursor.h"
 #include "../inventory_item.h"
 #include "../eatable_item.h"
 #include "UIDragDropListEx.h"
 #include "../xr_level_controller.h"
 #include "../../xrEngine/xr_sdl3_input.hpp"
-#include "../level.h"
+#include "../Level.h"
 #include "object_broker.h"
 #include "UIXmlInit.h"
 #include "UIProgressBar.h"

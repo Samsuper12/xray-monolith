@@ -8,19 +8,19 @@
 
 #pragma once
 
-#include <loki/typelist.h>
-#include <loki/hierarchygenerators.h>
+#include <loki/Typelist.h>
+#include <loki/HierarchyGenerators.h>
 
-#include <ispatial.h>
-#include <engineapi.h>
-#include <isheduled.h>
-#include <irenderable.h>
-#include <icollidable.h>
+#include <ISpatial.h>
+#include <EngineAPI.h>
+#include <ISheduled.h>
+#include <IRenderable.h>
+#include <ICollidable.h>
 #include <xr_object.h>
 
 #include "script_export_space.h"
 #include "base_client_classes.h"
-#include "entity.h"
+#include "Entity.h"
 #include "ai_space.h"
 #include "script_engine.h"
 #include "xrServer_Object_Base.h"

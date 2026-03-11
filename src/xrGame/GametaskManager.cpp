@@ -2,16 +2,16 @@
 #include <x_ray.h>
 
 #include "pch_script.h"
-#include "GameTaskManager.h"
+#include "GametaskManager.h"
 #include "alife_registry_wrappers.h"
 #include "ui/xrUIXmlParser.h"
 #include "GameTask.h"
 #include "Level.h"
 #include "map_manager.h"
 #include "map_location.h"
-#include "actor.h"
+#include "Actor.h"
 #include "UIGameSP.h"
-#include "ui/UIPDAWnd.h"
+#include "ui/UIPdaWnd.h"
 #include "encyclopedia_article.h"
 #include "ui/UIMapWnd.h"
 #include "string_table.h"
@@ -172,7 +172,7 @@ void CGameTaskManager::UpdateTasks()
 	{
 		typedef buffer_vector<SGameTaskKey> Tasks;
 		Tasks tasks(
-			_alloca(task_count * sizeof(SGameTaskKey)),
+			alloca(task_count * sizeof(SGameTaskKey)),
 			task_count,
 			GetGameTasks().begin(),
 			GetGameTasks().end()

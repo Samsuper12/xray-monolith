@@ -9,7 +9,7 @@ class CUIWindow;
 
 #include "actor_defs.h"
 #include "inventory_space.h"
-#include "hudsound.h"
+#include "HudSound.h"
 #include "HUDManager.h"
 
 #define TENDTO_SPEED         1.0f     // Модификатор силы инерции (больше - чувствительней)
@@ -227,9 +227,10 @@ public:
 	virtual bool render_item_3d_ui_query() { return true; }
 
 	virtual bool CheckCompatibility(CHudItem*) { return true; }
+	IC void SetPending(bool H) { m_huditem_flags.set(fl_pending, H); }
+
 protected:
 
-	IC void SetPending(bool H) { m_huditem_flags.set(fl_pending, H); }
 	shared_str hud_sect;
 
 	//êàäðû ìîìåíòà ïåðåñ÷åòà XFORM è FirePos

@@ -224,8 +224,8 @@ void clientdata_proxy::download_screenshot_callback(file_transfer::receiving_sta
 			Msg("* download screenshot aborted by peer [%u]", m_chearer_id);
 			LPCSTR error_msg;
 			char bufforint[16];
-			STRCONCAT(error_msg, "download screenshot terminated by peer [",
-			          _ultoa(m_chearer_id.value(), bufforint, 10), "]");
+			//STRCONCAT(error_msg, "download screenshot terminated by peer [",
+			          //FIXME: _ultoa(m_chearer_id.value(), bufforint, 10), "]");
 			notify_admin(e_screenshot_error_notif, error_msg);
 		}
 		break;
@@ -300,8 +300,8 @@ void clientdata_proxy::download_config_callback(file_transfer::receiving_status_
 			Msg("* download config aborted by peer [%u]", m_chearer_id);
 			LPCSTR error_msg;
 			char bufforint[16];
-			STRCONCAT(error_msg, "download config terminated by peer [",
-			          _ultoa(m_chearer_id.value(), bufforint, 10), "]");
+			//STRCONCAT(error_msg, "download config terminated by peer [",
+			          //FIXME: _ultoa(m_chearer_id.value(), bufforint, 10), "]");
 			notify_admin(e_configs_error_notif, error_msg);
 		}
 		break;

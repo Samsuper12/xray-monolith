@@ -1,10 +1,10 @@
 #include "PHCommander.h"
 
-#include "phsimplecalls.h"
+#include "PHSimpleCalls.h"
 #ifdef DEBUG
-//#include "phworld.h"
+//#include "PHWorld.h"
 //extern CPHWorld	*ph_world;
-#include "../xrphysics/IPHWorld.h"
+#include "../xrPhysics/IPHWorld.h"
 #endif
 
 CPHCall::CPHCall(CPHCondition* condition, CPHAction* action)

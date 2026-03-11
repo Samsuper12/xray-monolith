@@ -31,6 +31,15 @@ private:
 	float calculate_min_run_distance() const;
 
 	typedef CState<Object> inherited;
+	using inherited::object;
+	using inherited::add_state;
+	using inherited::get_state_current;
+	using inherited::select_state;
+	using inherited::current_substate;
+	using inherited::prev_substate;
+	using inherited::time_state_started;
+	using inherited::get_state;
+	
 	virtual void remove_links(CObject* object) { inherited::remove_links(object); }
 
 	CControl_Com* m_capturer;

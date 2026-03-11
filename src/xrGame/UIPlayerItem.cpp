@@ -99,7 +99,7 @@ void UIPlayerItem::InitIconParams(CUIXml& uiXml)
 void UIPlayerItem::UpdateTextParams(game_PlayerState const* ps)
 {
 	buffer_vector<char> value_store(
-		_alloca(512), 512, 512, char(0));
+		alloca(512), 512, 512, char(0));
 	TMapStrToUIText::iterator ie = m_text_params.end();
 	for (TMapStrToUIText::iterator i = m_text_params.begin(); i != ie; ++i)
 	{
@@ -113,7 +113,7 @@ void UIPlayerItem::UpdateTextParams(game_PlayerState const* ps)
 void UIPlayerItem::UpdateIconParams(game_PlayerState const* ps)
 {
 	buffer_vector<char> value_store(
-		_alloca(512), 512, 512, char(0));
+		alloca(512), 512, 512, char(0));
 	TMapStrToUIStatic::iterator ie = m_icon_params.end();
 	for (TMapStrToUIStatic::iterator i = m_icon_params.begin(); i != ie; ++i)
 	{

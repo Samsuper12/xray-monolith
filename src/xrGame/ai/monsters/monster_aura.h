@@ -1,7 +1,7 @@
 #ifndef MONSTER_AURA_H_INCLUDED
 #define MONSTER_AURA_H_INCLUDED
 
-#include <sound.h>
+#include <Sound.h>
 
 class CBaseMonster;
 class CIniFile;

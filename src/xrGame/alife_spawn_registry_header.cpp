@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <FS.h>
-#include <xrlevel.h>
+#include <xrLevel.h>
 
 #include "alife_spawn_registry_header.h"
 #include "alife_space.h"

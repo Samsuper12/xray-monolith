@@ -15,6 +15,8 @@
 #include "../../../squad_hierarchy_holder.h"
 #include "../../../group_hierarchy_holder.h"
 #include "../../../../xrServerEntities/game_graph_space.h"
+#include "../../../../xrServerEntities/ai_sounds.h"
+
 
 class CBlend;
 class CPatrolPath;

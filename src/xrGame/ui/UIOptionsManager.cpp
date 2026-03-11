@@ -1,6 +1,6 @@
 #include "UIOptionsManager.h"
 #include "UIOptionsItem.h"
-#include "../../xrEngine/xr_ioconsole.h"
+#include "../../xrEngine/XR_IOConsole.h"
 
 CUIOptionsManager::CUIOptionsManager()
 	: m_restart_flags(0)

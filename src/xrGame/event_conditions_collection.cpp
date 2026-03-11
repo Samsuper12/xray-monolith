@@ -1,7 +1,7 @@
 #include "event_conditions_collection.h"
 #include "object_broker.h"
 #include "game_state_accumulator.h"
-#include "level.h"
+#include "Level.h"
 #include "game_cl_base.h"
 
 namespace award_system
@@ -228,7 +228,7 @@ namespace award_system
 	event_condition_t* event_conditions_collection::add_and_condition(event_condition_t* left, event_condition_t* right)
 	{
 		buffer_vector<event_argument_type> args_buffer(
-			_alloca(sizeof(event_argument_type) * 2),
+			alloca(sizeof(event_argument_type) * 2),
 			2
 		);
 		event_argument_type tmp_arg;
@@ -245,7 +245,7 @@ namespace award_system
 	event_condition_t* event_conditions_collection::add_or_condition(event_condition_t* left, event_condition_t* right)
 	{
 		buffer_vector<event_argument_type> args_buffer(
-			_alloca(sizeof(event_argument_type) * 2),
+			alloca(sizeof(event_argument_type) * 2),
 			2
 		);
 		event_argument_type tmp_arg;
@@ -266,7 +266,7 @@ namespace award_system
 	                                                                       float distanse)
 	{
 		buffer_vector<event_argument_type> args_buffer(
-			_alloca(sizeof(event_argument_type) * hpa_args_count),
+			alloca(sizeof(event_argument_type) * hpa_args_count),
 			hpa_args_count
 		);
 		event_argument_type tmp_arg;
@@ -300,7 +300,7 @@ namespace award_system
 	                                                                        u32 time_period)
 	{
 		buffer_vector<event_argument_type> args_buffer(
-			_alloca(sizeof(event_argument_type) * kpa_args_count),
+			alloca(sizeof(event_argument_type) * kpa_args_count),
 			kpa_args_count
 		);
 		event_argument_type tmp_arg;
@@ -332,7 +332,7 @@ namespace award_system
 	                                                                           float argument)
 	{
 		buffer_vector<event_argument_type> args_buffer(
-			_alloca(sizeof(event_argument_type) * cpa_args_count),
+			alloca(sizeof(event_argument_type) * cpa_args_count),
 			cpa_args_count
 		);
 		event_argument_type tmp_arg;
@@ -356,7 +356,7 @@ namespace award_system
 		u16 param_id, u32_binary_function* fbfunc, u32 argument)
 	{
 		buffer_vector<event_argument_type> args_buffer(
-			_alloca(sizeof(event_argument_type) * cpa_args_count),
+			alloca(sizeof(event_argument_type) * cpa_args_count),
 			cpa_args_count
 		);
 		event_argument_type tmp_arg;

@@ -10,18 +10,18 @@
 
 #define TEMPLATE_SPECIALIZATION template <\
 	typename _data_type,\
-	typename _vertex_id_type,\
+	typename _vertex_id_type1,\
 	typename _graph_type\
 >
 
 #define CSGraphVertex CVertex<\
 	_data_type,\
-	_vertex_id_type,\
+	_vertex_id_type1,\
 	_graph_type\
 >
 
 TEMPLATE_SPECIALIZATION
-IC CSGraphVertex::CVertex(const _data_type& data, const _vertex_id_type& vertex_id, size_t* edge_count)
+CSGraphVertex::CVertex(const _data_type& data, const _vertex_id_type1& vertex_id, size_t* edge_count)
 {
 	m_data = data;
 	m_vertex_id = vertex_id;
@@ -30,7 +30,7 @@ IC CSGraphVertex::CVertex(const _data_type& data, const _vertex_id_type& vertex_
 }
 
 TEMPLATE_SPECIALIZATION
-IC CSGraphVertex::~CVertex()
+CSGraphVertex::~CVertex()
 {
 	while (!edges().empty())
 		remove_edge(edges().back().vertex_id());
@@ -48,7 +48,7 @@ IC CSGraphVertex::~CVertex()
 }
 
 TEMPLATE_SPECIALIZATION
-IC const typename CSGraphVertex::_edge_type*CSGraphVertex::edge(const _vertex_id_type& vertex_id) const
+IC const typename CSGraphVertex::_edge_type*CSGraphVertex::edge(const _vertex_id_type1& vertex_id) const
 {
 	auto I = std::find(edges().begin(), edges().end(), vertex_id);
 	if (m_edges.end() == I)
@@ -57,7 +57,7 @@ IC const typename CSGraphVertex::_edge_type*CSGraphVertex::edge(const _vertex_id
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CSGraphVertex::_edge_type*CSGraphVertex::edge(const _vertex_id_type& vertex_id)
+IC typename CSGraphVertex::_edge_type*CSGraphVertex::edge(const _vertex_id_type1& vertex_id)
 {
 	auto I = std::find(m_edges.begin(), m_edges.end(), vertex_id);
 	if (m_edges.end() == I)
@@ -76,7 +76,7 @@ IC void CSGraphVertex::add_edge(CVertex* vertex, const _edge_weight_type& edge_w
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSGraphVertex::remove_edge(const _vertex_id_type& vertex_id)
+IC void CSGraphVertex::remove_edge(const _vertex_id_type1& vertex_id)
 {
 	typename EDGES::iterator I = std::find(m_edges.begin(), m_edges.end(), vertex_id);
 	VERIFY(m_edges.end() != I);
@@ -103,7 +103,7 @@ IC void CSGraphVertex::on_edge_removal(const CVertex* vertex)
 }
 
 TEMPLATE_SPECIALIZATION
-IC const _vertex_id_type&CSGraphVertex::vertex_id() const
+IC const _vertex_id_type1&CSGraphVertex::vertex_id() const
 {
 	return (m_vertex_id);
 }

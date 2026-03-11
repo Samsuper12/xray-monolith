@@ -1,10 +1,10 @@
 // exxZERO Time Stamp AddIn. Document modified at : Thursday, March 07, 2002 14:12:50 , by user : Oles , from computer : OLES
 #include "HitMarker.h"
-#include "render.h"
+#include "Render.h"
 #include "LightAnimLibrary.h"
 #include "UIStaticItem.h"
 
-#include "grenade.h"
+#include "Grenade.h"
 
 #include "UIRender.h"
 #include "UIShader.h"

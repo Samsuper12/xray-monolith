@@ -93,7 +93,7 @@ void CUIVotingCategory::SendMessage(CUIWindow* pWnd, s16 msg, void* pData)
 	}
 }
 
-#include <dinput.h>
+//#include <dinput.h>
 
 bool CUIVotingCategory::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 {
@@ -114,7 +114,7 @@ bool CUIVotingCategory::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 	return false;
 }
 
-#include "../../xrEngine/xr_ioconsole.h"
+#include "../../xrEngine/XR_IOConsole.h"
 
 void CUIVotingCategory::OnBtn(int i)
 {

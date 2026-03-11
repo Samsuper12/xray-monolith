@@ -4,7 +4,7 @@
 ///////////////////////////////////////////////////////////////
 
 #include "FadedBall.h"
-#include "../xrphysics/PhysicsShell.h"
+#include "../xrPhysics/PhysicsShell.h"
 
 
 CFadedBall::CFadedBall(void)

@@ -1,5 +1,5 @@
 #pragma once
-#include "hudsound.h"
+#include "HudSound.h"
 
 class CNightVisionEffector
 {

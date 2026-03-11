@@ -1,6 +1,6 @@
 #include "imotion_velocity.h"
 
-#include "../xrphysics/physicsshell.h"
+#include "../xrPhysics/PhysicsShell.h"
 
 void imotion_velocity::state_start()
 {

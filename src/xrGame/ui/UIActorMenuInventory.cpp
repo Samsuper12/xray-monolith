@@ -1,6 +1,6 @@
 #include "UIActorMenu.h"
-#include "../inventory.h"
-#include "../inventoryOwner.h"
+#include "../Inventory.h"
+#include "../InventoryOwner.h"
 #include "UIInventoryUtilities.h"
 #include "UIItemInfo.h"
 #include "../Level.h"
@@ -16,15 +16,15 @@
 #include "UIGameCustom.h"
 #include "eatable_item_object.h"
 
-#include "../silencer.h"
-#include "../scope.h"
-#include "../grenadelauncher.h"
+#include "../Silencer.h"
+#include "../Scope.h"
+#include "../GrenadeLauncher.h"
 #include "../Artefact.h"
 #include "../eatable_item.h"
 #include "../BottleItem.h"
 #include "../WeaponMagazined.h"
-#include "../Medkit.h"
-#include "../Antirad.h"
+#include "../medkit.h"
+#include "../antirad.h"
 #include "../CustomOutfit.h"
 #include "../ActorHelmet.h"
 #include "../UICursor.h"
@@ -509,7 +509,7 @@ void CUIActorMenu::InitInventoryContents(CUIDragDropListEx* pBagList)
 	m_pQuickSlot->ReloadReferences(m_pActorInvOwner);
 }
 
-#include "ui\UI3tButton.h"
+#include "ui/UI3tButton.h"
 
 void CUIActorMenu::FilterActorBagList(int mode)
 {

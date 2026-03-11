@@ -1,6 +1,6 @@
 #include "pch_script.h"
 #include "PhysicsShellHolder.h"
-#include "../xrphysics/PhysicsShell.h"
+#include "../xrPhysics/PhysicsShell.h"
 #include "xrMessages.h"
 #include "ph_shell_interface.h"
 #include "Kinematics.h"
@@ -11,17 +11,17 @@
 #include "CustomRocket.h"
 #include "Grenade.h"
 
-//#include "phactivationshape.h"
-#include "../xrphysics/iphworld.h"
-#include "../xrphysics/iActivationShape.h"
-//#include "../xrphysics/phvalide.h"
-#include "characterphysicssupport.h"
-#include "phmovementcontrol.h"
+//#include "PHActivationShape.h"
+#include "../xrPhysics/IPHWorld.h"
+#include "../xrPhysics/IActivationShape.h"
+//#include "../xrPhysics/phvalide.h"
+#include "CharacterPhysicsSupport.h"
+#include "PHMovementControl.h"
 #include "physics_shell_animated.h"
-#include "phcollisiondamagereceiver.h"
-#include "../xrEngine/iphysicsshell.h"
+#include "PHCollisionDamageReceiver.h"
+#include "../xrEngine/IPhysicsShell.h"
 #ifdef	DEBUG
-#include "../xrengine/objectdump.h"
+#include "../xrEngine/ObjectDump.h"
 #endif
 CPhysicsShellHolder::CPhysicsShellHolder()
 {

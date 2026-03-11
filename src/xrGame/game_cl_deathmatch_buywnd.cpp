@@ -1,9 +1,9 @@
 #include "game_cl_deathmatch.h"
-#include "level.h"
-#include "actor.h"
-#include "inventory.h"
+#include "Level.h"
+#include "Actor.h"
+#include "Inventory.h"
 #include "xrServer_Objects_ALife_Items.h"
-#include "weapon.h"
+#include "Weapon.h"
 #include "WeaponMagazinedWGrenade.h"
 #include "WeaponKnife.h"
 #include "xr_level_controller.h"
@@ -143,7 +143,7 @@ void game_cl_Deathmatch::SetBuyMenuItems(PRESET_ITEMS* pItems, BOOL OnlyPreset)
 		//defusing all weapons
 		u32 max_addammo_count = pCurActor->inventory().m_all.size();
 		aditional_ammo_t add_ammo(
-			_alloca(
+			alloca(
 				sizeof(aditional_ammo_t::value_type) * (max_addammo_count * 2)
 			),
 			(max_addammo_count * 2)

@@ -11,7 +11,7 @@
 template <bool bEuclidianHeuristics = true>
 struct CVertexPath
 {
-#pragma pack(push,1)
+// #pragma pack(push,1)
 	template <template <typename _T> class T1>
 	struct DataStoragePath
 	{
@@ -19,7 +19,7 @@ struct CVertexPath
 		{
 		};
 	};
-#pragma pack(pop)
+// #pragma pack(pop)
 
 	template <template <typename _T> class _vertex>
 	class CDataStorage

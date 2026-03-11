@@ -3,9 +3,9 @@
 #include "PHDebug.h"
 #endif
 #include "alife_space.h"
-#include "hit.h"
+#include "Hit.h"
 #include "PHDestroyable.h"
-#include "car.h"
+#include "Car.h"
 #include "Kinematics.h"
 #include "MathUtils.h"
 #include "game_object_space.h"

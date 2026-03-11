@@ -15,7 +15,7 @@
 namespace AStar
 {
 	template <
-		typename _dist_type,
+		typename _dist_type1,
 		template <typename _T> class T1
 	>
 	struct _Vertex
@@ -23,7 +23,7 @@ namespace AStar
 		template <typename T2>
 		struct _vertex : public T1<T2>
 		{
-			typedef _dist_type _dist_type;
+			using _dist_type = _dist_type1;
 
 			_dist_type _g;
 			_dist_type _h;
@@ -42,7 +42,7 @@ namespace AStar
 }
 
 template <
-	typename _dist_type,
+	typename _dist_type1,
 	typename _priority_queue,
 	typename _vertex_manager,
 	typename _vertex_allocator,
@@ -59,8 +59,8 @@ template <
 		typename _2,
 		typename _3,
 		template <
-			typename _1,
-			typename _2
+			typename _A,
+			typename _B
 		>
 		class _4
 	>
@@ -70,35 +70,35 @@ template <
 		typename _manager,
 		typename _builder,
 		typename _allocator,
-		template <typename _T> class _vertex,
+		template <typename _T> class _vertex2,
 		template <
 			typename _1,
 			typename _2
 		>
-		class _builder_allocator_constructor = CBuilderAllocatorConstructor,
+		class _builderAllocatorConstructor = CBuilderAllocatorConstructor,
 		template <
 			typename _1,
 			typename _2,
 			typename _3,
 			template <
-				typename _1,
-				typename _2
+				typename _X,
+				typename _Y
 			>
 			class _4
 		>
-		class _manager_builder_allocator_constructor = CManagerBuilderAllocatorConstructor
+		class _managerBuilderAllocatorConstructor = CManagerBuilderAllocatorConstructor
 	>
 	class _data_storage_constructor = CDataStorageConstructor,
 	typename _iteration_type = u32
 >
 class CAStar : public CDijkstra<
-		_dist_type,
+		_dist_type1,
 		_priority_queue,
 		_vertex_manager,
 		_vertex_allocator,
 		euclidian_heuristics,
 		_data_storage_base,
-		AStar::_Vertex<_dist_type, _vertex>::template _vertex,
+		AStar::_Vertex<_dist_type1, _vertex>::template _vertex,
 		_builder_allocator_constructor,
 		_manager_builder_allocator_constructor,
 		_data_storage_constructor,
@@ -107,13 +107,13 @@ class CAStar : public CDijkstra<
 {
 protected:
 	typedef CDijkstra<
-		_dist_type,
+		_dist_type1,
 		_priority_queue,
 		_vertex_manager,
 		_vertex_allocator,
 		euclidian_heuristics,
 		_data_storage_base,
-		AStar::_Vertex<_dist_type, _vertex>::template _vertex,
+		AStar::_Vertex<_dist_type1, _vertex>::template _vertex,
 		_builder_allocator_constructor,
 		_manager_builder_allocator_constructor,
 		_data_storage_constructor,
@@ -134,7 +134,7 @@ protected:
 	IC bool step(_PathManager& path_manager);
 
 public:
-	IC CAStar(const u32 max_vertex_count);
+	CAStar(const u32 max_vertex_count);
 	virtual ~CAStar();
 	template <typename _PathManager>
 	IC bool find(_PathManager& path_manager);

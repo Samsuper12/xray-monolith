@@ -1,12 +1,12 @@
 #include <PhysicsShell.h>
 #include <xr_ini.h>
 
-#include "telewhirlwind.h"
+#include "TeleWhirlwind.h"
 #include "PhysicsShellHolder.h"
-#include "level.h"
-#include "hit.h"
-#include "phdestroyable.h"
-#include "xrmessages.h"
+#include "Level.h"
+#include "Hit.h"
+#include "PHDestroyable.h"
+#include "xrMessages.h"
 #include "Kinematics.h"
 #include "KinematicsAnimated.h"
 #include "entity_alive.h"
@@ -52,7 +52,7 @@ void CTeleWhirlwind::Load(LPCSTR section)
 
 	if (pSettings->line_exist(section, "tele_height_fixed"))
 	{
-		m_bHeightFixed = (boolean)pSettings->r_bool(section, "tele_height_fixed");
+		m_bHeightFixed = (bool)pSettings->r_bool(section, "tele_height_fixed");
 	}
 
 	if (pSettings->line_exist(section, "tele_time"))
@@ -67,7 +67,7 @@ void CTeleWhirlwind::Load(LPCSTR section)
 
 	if (pSettings->line_exist(section, "spawn_skeleton"))
 	{
-		m_bSpawnSkeleton = (boolean)pSettings->r_bool(section, "spawn_skeleton");
+		m_bSpawnSkeleton = (bool)pSettings->r_bool(section, "spawn_skeleton");
 	}
 
 	m_pTearingSound.create(pSettings->r_string(section, "body_tearing_sound"), st_Effect, sg_SourceType);

@@ -1,5 +1,6 @@
 #pragma once
 #include "pseudodog.h"
+#include "psy_dog_aura.h"
 #include "../../../../xrServerEntities/script_export_space.h"
 
 class CPsyDogPhantom;

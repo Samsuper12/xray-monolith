@@ -3,8 +3,8 @@
 
 #ifdef STATIONARYMGUN_NEW
 #include "Actor.h"
-#include "level.h"
-#include "camerafirsteye.h"
+#include "Level.h"
+#include "CameraFirstEye.h"
 #endif
 
 void CWeaponStatMgun::OnMouseMove(int dx, int dy)

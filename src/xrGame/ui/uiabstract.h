@@ -6,7 +6,7 @@
 #include "../ui_base.h"
 
 #include "ui_base.h"
-#include "gamefont.h"
+#include "GameFont.h"
 
 typedef CGameFont::EAligment ETextAlignment;
 

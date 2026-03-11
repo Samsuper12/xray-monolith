@@ -4,12 +4,13 @@
 #include "GameTaskDefs.h"
 #include "script_export_space.h"
 #include <luabind/functor.hpp>
+#include "xrstring.h"
 
 class CGameTaskManager;
 class CMapLocation;
 class CGameTask;
 
-typedef xr_vector<::luabind::functor<bool>> task_state_functors;
+using task_state_functors = xr_vector<::luabind::functor<bool>>;
 
 class SScriptTaskHelper : public IPureSerializeObject<IReader, IWriter>
 {

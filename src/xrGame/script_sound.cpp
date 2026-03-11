@@ -8,7 +8,7 @@
 
 #include "script_sound.h"
 #include "script_game_object.h"
-#include "gameobject.h"
+#include "GameObject.h"
 #include "ai_space.h"
 #include "script_engine.h"
 #include "macros.h"

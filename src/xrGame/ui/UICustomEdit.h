@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UIStatic.h"
-
+#include "../../xrEngine/line_edit_control.h"
 namespace text_editor
 {
 	class ENGINE_API line_edit_control;

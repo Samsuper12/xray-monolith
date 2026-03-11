@@ -1,6 +1,6 @@
-#include "xrserver.h"
-#include "xrserver_objects.h"
-#include "xrserver_objects_alife_monsters.h"
+#include "xrServer.h"
+#include "xrServer_Objects.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "xrServer_svclient_validation.h"
 
 void ReplaceOwnershipHeader(NET_Packet& P)

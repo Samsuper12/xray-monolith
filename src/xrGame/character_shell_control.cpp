@@ -8,8 +8,8 @@
 //#include "Physics.h"
 #include "ExtendedGeom.h"
 #include "PhysicsShell.h"
-//#include "hit.h"
-#include "level.h"
+//#include "Hit.h"
+#include "Level.h"
 #include "CustomZone.h"
 
 #ifdef DEBUG

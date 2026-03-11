@@ -342,8 +342,8 @@ namespace gamespy_profile
 
 	bool stats_submitter::create_award_inc_report()
 	{
-		__time32_t tmp_time = 0;
-		_time32(&tmp_time);
+		time_t tmp_time = 0;
+		std::time(&tmp_time);
 
 		//SCResult tmp_res = m_atlas_obj->ReportAddIntValue(
 		//	m_atlas_report,
@@ -434,7 +434,7 @@ namespace gamespy_profile
 		//all_awards_t::iterator award_iter = tmp_awards.find(award_id);
 		//R_ASSERT(award_iter != tmp_awards.end());
 		//++award_iter->second.m_count;
-		//__time32_t tmp_time		= 0;
+		//time_t tmp_time		= 0;
 		//_time32					(&tmp_time);
 		//award_iter->second.m_last_reward_date = static_cast<u32>(tmp_time);
 		//save_file(profile);
@@ -491,7 +491,7 @@ namespace gamespy_profile
 		//	ltx_to_write.w_u32(tmp_bs_name, best_score_value_line, i->second);
 		//}
 
-		//__time32_t tmp_time	= 0;
+		//time_t tmp_time	= 0;
 		//_time32				(&tmp_time);
 		//
 		//ltx_to_write.w_s32(profile_data_section, profile_id_line, profile->m_profile_id);

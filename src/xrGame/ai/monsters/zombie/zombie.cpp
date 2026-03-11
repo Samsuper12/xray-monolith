@@ -2,14 +2,14 @@
 #include "zombie_state_manager.h"
 #include "profiler.h"
 #include "KinematicsAnimated.h"
-#include "entitycondition.h"
+#include "EntityCondition.h"
 #include "../monster_velocity_space.h"
 
 #include "../control_animation_base.h"
 #include "../control_movement_base.h"
 
 #ifdef _DEBUG
-#include <dinput.h>
+//#include <dinput.h>
 #endif
 
 

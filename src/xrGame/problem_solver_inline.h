@@ -15,8 +15,8 @@
 	typename _condition_evaluator,\
 	typename _operator_id_type,\
 	bool	 _reverse_search,\
-	typename _operator_ptr,\
-	typename _condition_evaluator_ptr\
+	typename _operator_ptr1,\
+	typename _condition_evaluator_ptr1\
 >
 
 #define CProblemSolverAbstract \
@@ -27,12 +27,12 @@
 		_condition_evaluator,\
 		_operator_id_type,\
 		_reverse_search,\
-		_operator_ptr,\
-		_condition_evaluator_ptr\
+		_operator_ptr1,\
+		_condition_evaluator_ptr1\
 	>
 
 TEMPLATE_SPECIALIZATION
-IC CProblemSolverAbstract::CProblemSolver()
+CProblemSolverAbstract::CProblemSolver()
 {
 	init();
 }
@@ -94,7 +94,7 @@ IC bool CProblemSolverAbstract::actual() const
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CProblemSolverAbstract::add_operator(const _edge_type& operator_id, _operator_ptr _operator)
+IC void CProblemSolverAbstract::add_operator(const _edge_type& operator_id, _operator_ptr1 _operator1)
 {
 	typename OPERATOR_VECTOR::iterator I = std::lower_bound(m_operators.begin(), m_operators.end(), operator_id);
 	THROW((I == m_operators.end()) || ((*I).m_operator_id != operator_id));
@@ -103,7 +103,7 @@ IC void CProblemSolverAbstract::add_operator(const _edge_type& operator_id, _ope
 	validate_properties			(_operator->effects());
 #endif
 	m_actuality = false;
-	m_operators.insert(I, SOperator(operator_id, _operator));
+	m_operators.insert(I, SOperator(operator_id, _operator1));
 }
 
 #ifdef DEBUG
@@ -165,7 +165,7 @@ IC const typename CProblemSolverAbstract::CState&CProblemSolverAbstract::target_
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CProblemSolverAbstract::add_evaluator(const _condition_type& condition_id, _condition_evaluator_ptr evaluator)
+IC void CProblemSolverAbstract::add_evaluator(const _condition_type& condition_id, _condition_evaluator_ptr1 evaluator)
 {
 	THROW(evaluators().end() == evaluators().find(condition_id));
 	m_evaluators.insert(std::make_pair(condition_id, evaluator));
@@ -373,6 +373,7 @@ IC typename CProblemSolverAbstract::_operator_ptr CProblemSolverAbstract::get_op
 	THROW(m_operators.end() != I);
 	return ((*I).get_operator());
 }
+
 
 TEMPLATE_SPECIALIZATION
 IC void CProblemSolverAbstract::solve()

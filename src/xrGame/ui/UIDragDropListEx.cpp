@@ -1,5 +1,5 @@
 #include <defines.h>
-#include <dinput.h>
+//#include <dinput.h>
 
 #include "UIDragDropListEx.h"
 #include "UIScrollBar.h"

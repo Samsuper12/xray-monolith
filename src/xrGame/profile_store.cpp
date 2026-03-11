@@ -298,10 +298,10 @@ static u32 const actuality_update_time = 120;
 		if (!m_awards_store->is_sake_equal_to_file() ||
 			!m_best_scores_store->is_sake_equal_to_file())
 		{
-			__time32_t current_time;
-			_time32(&current_time);
+			time_t current_time;
+			std::time(&current_time);
 
-			__time32_t last_submit_time = static_cast<__time32_t>(
+			time_t last_submit_time = static_cast<time_t>(
 				m_dsigned_reader.get_ltx().r_u32(
 					profile_data_section,
 					profile_last_submit_time

@@ -2,6 +2,7 @@
 
 #include "interactive_motion.h"
 #include "Kinematics.h"
+#include "../xrPhysics/PhysicsShell.h"
 class imotion_position;
 enum motion_history_state;
 

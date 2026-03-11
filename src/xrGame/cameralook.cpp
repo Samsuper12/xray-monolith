@@ -1,8 +1,8 @@
 
-#include "CameraLook.h"
-#include "../xrEngine/Cameramanager.h"
+#include "cameralook.h"
+#include "../xrEngine/CameraManager.h"
 #include "xr_level_controller.h"
-#include "actor.h"
+#include "Actor.h"
 
 #include "object_broker.h"
 

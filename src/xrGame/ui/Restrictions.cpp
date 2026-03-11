@@ -2,7 +2,7 @@
 #include <xr_trims.h>
 
 #ifdef DEBUG
-#	include <xr_ioconsole.h>
+#	include <XR_IOConsole.h>
 #	include <xr_ioc_cmd.h>
 #endif //#ifdef DEBUG
 

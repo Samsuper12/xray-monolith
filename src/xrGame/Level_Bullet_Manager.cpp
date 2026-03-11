@@ -6,7 +6,7 @@
 #include "Level_Bullet_Manager.h"
 #include "game_cl_base.h"
 #include "Actor.h"
-#include "gamepersistent.h"
+#include "GamePersistent.h"
 #include "mt_config.h"
 #include "game_cl_base_weapon_usage_statistic.h"
 #include "game_cl_mp.h"

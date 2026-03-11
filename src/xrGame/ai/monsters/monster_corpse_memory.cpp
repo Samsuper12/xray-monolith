@@ -1,5 +1,5 @@
 #include "monster_corpse_memory.h"
-#include "BaseMonster/base_monster.h"
+#include "basemonster/base_monster.h"
 #include "../../memory_manager.h"
 #include "../../visual_memory_manager.h"
 #include "../../item_manager.h"

@@ -18,7 +18,7 @@ add_module(XRay.Game.AI
   XRay.Render.API.Includes
   XRay.Render.Common.Includes
   XRay.ServerEntities.Includes
-
+  XRay.Engine.Interfaces.Scheduler
   XRay.Game.AI.Navigation.PatrolPaths.Point
   
   SOURCES

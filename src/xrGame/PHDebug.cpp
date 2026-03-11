@@ -1,26 +1,26 @@
 #ifdef DEBUG
-//#include "physics.h"
+//#include "Physics.h"
 //#include "MathUtils.h"
 #include "../xrEngine/StatGraph.h"
 #include "PHDebug.h"
-//#include "physics.h"
-#include "../xrphysics/MathUtils.h"
+//#include "Physics.h"
+#include "../xrPhysics/MathUtils.h"
 //#include "PHObject.h"
-#include "../xrphysics/ExtendedGeom.h"
-#include "../xrphysics/iphworld.h"
-#include "../xrphysics/physicsshell.h"
+#include "../xrPhysics/ExtendedGeom.h"
+#include "../xrPhysics/IPHWorld.h"
+#include "../xrPhysics/PhysicsShell.h"
 
 
 #include "Level.h"
 
 #include "debug_renderer.h"
-#include "physicsshellholder.h"
+#include "PhysicsShellHolder.h"
 
 #include "../Include/xrRender/Kinematics.h"
 #include "../Include/xrRender/KinematicsAnimated.h"
 #include "../xrEngine/bone.h"
-#include "../xrEngine/iphdebug.h"
-//#include "phelement.h"
+#include "../xrEngine/IPHdebug.h"
+//#include "PHElement.h"
 #include "ui_base.h"
 
 Flags32		ph_dbg_draw_mask						;

@@ -12,13 +12,13 @@
 
 template <
 	typename _data_type,
-	typename _vertex_id_type,
+	typename _vertex_id_type1,
 	typename _graph_type
 >
 class CVertex
 {
 public:
-	typedef _vertex_id_type _vertex_id_type;
+	using _vertex_id_type =  _vertex_id_type1;
 	typedef typename _graph_type::CEdge _edge_type;
 	typedef typename _edge_type::_edge_weight_type _edge_weight_type;
 	typedef xr_vector<_edge_type> EDGES;
@@ -35,8 +35,8 @@ private:
 	size_t* m_edge_count;
 
 public:
-	IC CVertex(const _data_type& data, const _vertex_id_type& vertex_id, size_t* edge_count);
-	IC ~CVertex();
+	CVertex(const _data_type& data, const _vertex_id_type& vertex_id, size_t* edge_count);
+	~CVertex();
 	IC bool operator==(const CVertex& obj) const;
 	IC void add_edge(CVertex* vertex, const _edge_weight_type& edge_weight);
 	IC void remove_edge(const _vertex_id_type& vertex_id);

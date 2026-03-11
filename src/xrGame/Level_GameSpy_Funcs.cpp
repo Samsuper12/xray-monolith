@@ -3,7 +3,7 @@
 #include "../xrEngine/x_ray.h"
 
 
-#include "../xrEngine/igame_persistent.h"
+#include "../xrEngine/IGame_Persistent.h"
 
 void CLevel::OnGameSpyChallenge(NET_Packet* P)
 {

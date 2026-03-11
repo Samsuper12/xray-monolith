@@ -4,24 +4,24 @@
 #include "../UIZoneMap.h"
 
 
-#include <dinput.h>
-#include "../actor.h"
+//#include <dinput.h>
+#include "../Actor.h"
 #include "../ActorCondition.h"
 #include "../EntityCondition.h"
 #include "../CustomOutfit.h"
 #include "../ActorHelmet.h"
 #include "../PDA.h"
 #include "../xrServerEntities/character_info.h"
-#include "../inventory.h"
+#include "../Inventory.h"
 #include "../UIGameSP.h"
-#include "../weaponmagazined.h"
-#include "../missile.h"
+#include "../WeaponMagazined.h"
+#include "../Missile.h"
 #include "../Grenade.h"
-#include "../xrServerEntities/xrServer_objects_ALife.h"
+#include "../xrServerEntities/xrServer_Objects_ALife.h"
 #include "../alife_simulator.h"
 #include "../alife_object_registry.h"
 #include "../game_cl_base.h"
-#include "../level.h"
+#include "../Level.h"
 #include "../seniority_hierarchy_holder.h"
 
 #include "../date_time.h"

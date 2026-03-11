@@ -1,15 +1,15 @@
 #include <defines.h>
-#include <physicscommon.h>
+#include <PhysicsCommon.h>
 #include <NET_AuthCheck.h>
 
 #include "pch_script.h"
 #include "Level.h"
 #include "Level_Bullet_Manager.h"
-#include "xrserver.h"
-#include "xrmessages.h"
+#include "xrServer.h"
+#include "xrMessages.h"
 #include "game_cl_base.h"
 #include "PHCommander.h"
-#include "net_queue.h"
+#include "NET_Queue.h"
 #include "MainMenu.h"
 #include "space_restriction_manager.h"
 #include "ai_space.h"
@@ -20,7 +20,7 @@
 #include "UIGameCustom.h"
 #include "string_table.h"
 #include "file_transfer.h"
-#include "UI/UIGameTutorial.h"
+#include "ui/UIGameTutorial.h"
 #include "ui/UIPdaWnd.h"
 
 extern ENGINE_API bool g_dedicated_server;
@@ -368,7 +368,7 @@ bool CLevel::Connect2Server(const char* options)
 	while (!m_bConnectResultReceived)
 	{
 		ClientReceive();
-		Sleep(5);
+		sleep(5);
 		if (Server)
 			Server->Update();
 		//-----------------------------------------
@@ -415,7 +415,7 @@ bool CLevel::Connect2Server(const char* options)
 
 	while (!net_IsSyncronised())
 	{
-		Sleep(1);
+		sleep(1);
 		if (net_Disconnected)
 		{
 			OnConnectRejected();

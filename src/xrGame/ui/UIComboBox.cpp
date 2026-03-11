@@ -1,7 +1,7 @@
 #include "UIComboBox.h"
 #include "UITextureMaster.h"
 #include "UIScrollBar.h"
-#include "uilistboxitem.h"
+#include "UIListBoxItem.h"
 #include "../string_table.h"
 
 #define CB_HEIGHT 20.0f

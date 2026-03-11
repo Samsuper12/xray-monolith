@@ -1,23 +1,23 @@
-﻿#include "missile.h"
+﻿#include "Missile.h"
 //.#include "WeaponHUD.h"
 #include "PhysicsShell.h"
-#include "actor.h"
+#include "Actor.h"
 #include "CameraBase.h"
-#include "xrserver_objects_alife.h"
+#include "xrServer_Objects_ALife.h"
 #include "ActorEffector.h"
-#include "level.h"
+#include "Level.h"
 #include "xr_level_controller.h"
 #include "Kinematics.h"
 #include "ai_object_location.h"
 #include "ExtendedGeom.h"
 #include "MathUtils.h"
-#include "characterphysicssupport.h"
-#include "inventory.h"
+#include "CharacterPhysicsSupport.h"
+#include "Inventory.h"
 #include "IGame_Persistent.h"
 #include "../xrServerEntities/ai_sounds.h"
 #include "player_hud.h"
 #ifdef DEBUG
-#	include "phdebug.h"
+#	include "PHDebug.h"
 #endif
 
 
@@ -25,7 +25,7 @@
 
 #include "ui/UIProgressShape.h"
 #include "ui/UIXmlInit.h"
-#include "physicsshellholder.h"
+#include "PhysicsShellHolder.h"
 
 CUIProgressShape* g_MissileForceShape = NULL;
 

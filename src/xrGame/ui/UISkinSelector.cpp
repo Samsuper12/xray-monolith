@@ -1,14 +1,14 @@
-#include <dinput.h>
+//#include <dinput.h>
 #include "UISkinSelector.h"
 #include "UIXmlInit.h"
 #include "UIAnimatedStatic.h"
 #include "UI3tButton.h"
 #include "UIStatix.h"
-#include "uicursor.h"
+#include "UICursor.h"
 #include "../UIGameCustom.h"
 #include "../game_cl_deathmatch.h"
 #include "../xr_level_controller.h"
-#include "../level.h"
+#include "../Level.h"
 
 #include "object_broker.h"
 

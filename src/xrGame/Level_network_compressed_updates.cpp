@@ -1,6 +1,6 @@
 #include "Level.h"
 #include "../xrCore/ppmd_compressor.h"
-#include "../xrphysics/iphworld.h"
+#include "../xrPhysics/IPHWorld.h"
 #include "xrServer_updates_compressor.h"
 
 void CLevel::ProcessCompressedUpdate(NET_Packet& P, u8 const compress_type)

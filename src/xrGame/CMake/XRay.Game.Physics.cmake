@@ -2,7 +2,7 @@ add_module(XRay.Game.Physics
   TYPE STATIC
 
   LINKS
-  dxsdk
+  #dxsdk
   fastdelegate
   FastDynamicCast
   IKAN

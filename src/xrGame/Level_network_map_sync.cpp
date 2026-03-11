@@ -1,14 +1,14 @@
-#include "level.h"
+#include "Level.h"
 #include "xrServerMapSync.h"
 #include "../xrCore/stream_reader.h"
 #include "MainMenu.h"
 #include "string_table.h"
-#include "../xrEngine/xr_ioconsole.h"
+#include "../xrEngine/XR_IOConsole.h"
 
 static const u32 r_buffer_size = 131072; //128 Kb
 void CLevel::CalculateLevelCrc32()
 {
-	void* read_buffer = _alloca(r_buffer_size);
+	void* read_buffer = alloca(r_buffer_size);
 	Msg("* calculating checksum of level.geom");
 	CStreamReader* geom = FS.rs_open("$level$", "level.geom");
 	R_ASSERT2(geom, "failed to open level.geom file");
@@ -63,7 +63,7 @@ bool CLevel::synchronize_map_data()
 
 	if (!map_data.m_map_sync_received)
 	{
-		Sleep(5);
+		sleep(5);
 		++map_data.m_wait_map_time;
 		return false;
 	}
@@ -108,7 +108,7 @@ bool CLevel::synchronize_client()
 		ClientReceive();
 		Server->Update();
 	} // if OnClient ClientReceive method called in upper invokation
-	//Sleep(5); 
+	//sleep(5); 
 	return !!game_configured;
 }
 

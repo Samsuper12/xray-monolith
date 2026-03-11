@@ -91,13 +91,13 @@ public:
 			if (m_use_delay_after_fail)
 				m_next_retry_time = Device.dwTimeGlobal + Random.randI(time_to_wait_after_fail_min, time_to_wait_after_fail_max);
 
-			m_object->m_path_state = CMovementManager::ePathStateBuildLevelPath;
+			m_object->m_path_state = EPathState::ePathStateBuildLevelPath;
 			return;
 		}
 
 		m_object->level_path().select_intermediate_vertex();
 
-		m_object->m_path_state = CMovementManager::ePathStateBuildDetailPath;
+		m_object->m_path_state = EPathState::ePathStateBuildDetailPath;
 
 		m_object->detail().set_state_patrol_path(m_extrapolate_path);
 		m_object->detail().set_start_position(m_object->object().Position());

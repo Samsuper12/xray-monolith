@@ -20,14 +20,14 @@
 		template <typename _T> class _vertex\
 	>
 
-#define CBucketList CDataStorageBucketList<_path_id_type,_bucket_id_type,bucket_count,clear_buckets>::CDataStorage<_data_storage,_vertex>
+#define CBucketList CDataStorageBucketList<_path_id_type,_bucket_id_type,bucket_count,clear_buckets>::template CDataStorage<_data_storage,_vertex>
 
 TEMPLATE_SPECIALIZATION
 IC CBucketList::CDataStorage(const u32 vertex_count) :
 	inherited(vertex_count)
 {
-	m_min_bucket_value = _dist_type(0);
-	m_max_bucket_value = _dist_type(1000);
+	this->m_min_bucket_value = _dist_type(0);
+	this->m_max_bucket_value = _dist_type(1000);
 	ZeroMemory(m_buckets, bucket_count*sizeof(CGraphVertex*));
 }
 
@@ -40,7 +40,7 @@ TEMPLATE_SPECIALIZATION
 IC void CBucketList::init()
 {
 	inherited::init();
-	m_min_bucket_id = bucket_count;
+	this->m_min_bucket_id = bucket_count;
 	if (clear_buckets)
 		ZeroMemory(m_buckets, bucket_count*sizeof(CGraphVertex*));
 }
@@ -48,20 +48,20 @@ IC void CBucketList::init()
 TEMPLATE_SPECIALIZATION
 IC void CBucketList::add_best_closed()
 {
-	VERIFY(!is_opened_empty());
+	VERIFY(!this->is_opened_empty());
 	inherited_base::add_closed(*m_buckets[m_min_bucket_id]);
 }
 
 TEMPLATE_SPECIALIZATION
 IC bool CBucketList::is_opened_empty()
 {
-	if (m_min_bucket_id == bucket_count)
+	if (this->m_min_bucket_id == bucket_count)
 		return (true);
-	if (!m_buckets[m_min_bucket_id])
+	if (!this->m_buckets[this->m_min_bucket_id])
 	{
 		if (!clear_buckets)
 			for (++m_min_bucket_id; (m_min_bucket_id < bucket_count) && (!m_buckets[m_min_bucket_id] || (m_buckets[
-				     m_min_bucket_id]->m_path_id != current_path_id()) || (m_buckets[m_min_bucket_id]->m_bucket_id !=
+				     m_min_bucket_id]->m_path_id != this->current_path_id()) || (m_buckets[m_min_bucket_id]->m_bucket_id !=
 				     m_min_bucket_id)); ++m_min_bucket_id);
 		else
 			for (++m_min_bucket_id; (m_min_bucket_id < bucket_count) && !m_buckets[m_min_bucket_id]; ++m_min_bucket_id);
@@ -115,10 +115,10 @@ IC void CBucketList::add_to_bucket(CGraphVertex& vertex, u32 m_bucket_id)
 		m_min_bucket_id = m_bucket_id;
 
 	CGraphVertex* i = m_buckets[m_bucket_id];
-	if (!i || (!clear_buckets && ((i->m_path_id != current_path_id()) || (i->m_bucket_id != m_bucket_id))))
+	if (!i || (!clear_buckets && ((i->m_path_id != this->current_path_id()) || (i->m_bucket_id != m_bucket_id))))
 	{
 		vertex.m_bucket_id = m_bucket_id;
-		vertex.m_path_id = current_path_id();
+		vertex.m_path_id = this->current_path_id();
 		m_buckets[m_bucket_id] = &vertex;
 		vertex.next() = vertex.prev() = 0;
 		verify_buckets();
@@ -126,7 +126,7 @@ IC void CBucketList::add_to_bucket(CGraphVertex& vertex, u32 m_bucket_id)
 	}
 
 	vertex.m_bucket_id = m_bucket_id;
-	vertex.m_path_id = current_path_id();
+	vertex.m_path_id = this->current_path_id();
 
 	if (i->f() >= vertex.f())
 	{

@@ -29,8 +29,8 @@
 			typename _2,\
 			typename _3,\
 			template <\
-				typename _1,\
-				typename _2\
+				typename _A,\
+				typename _B\
 			>\
 			class	 _4\
 		>\
@@ -40,23 +40,23 @@
 			typename _manager,\
 			typename _builder,\
 			typename _allocator,\
-			template <typename _T> class _vertex,\
+			template <typename _T> class _vertex2,\
 			template <\
 				typename _1,\
 				typename _2\
 			>\
-			class	 _builder_allocator_constructor,\
+			class	 _builder_allocator_constructor2,\
 			template <\
 				typename _1,\
 				typename _2,\
 				typename _3,\
 				template <\
-					typename _1,\
-					typename _2\
+					typename _C,\
+					typename _D\
 				>\
 				class	 _4\
 			>\
-			class	 _manager_builder_allocator_constructor\
+			class	 _manager_builder_allocator_constructor2\
 		>\
 		class _data_storage_constructor,\
 		typename _iteration_type\
@@ -91,16 +91,16 @@ TEMPLATE_SPECIALIZATION
 template <typename _PathManager>
 IC void CSAStar::initialize(_PathManager& path_manager)
 {
-	THROW2(!m_search_started, "Recursive graph engine usage is not allowed!");
-	m_search_started = true;
+	THROW2(!this->m_search_started, "Recursive graph engine usage is not allowed!");
+	this->m_search_started = true;
 	// initialize data structures before we started path search
-	data_storage().init();
+	this->data_storage().init();
 
 	// initialize path manager before we started path search
 	path_manager.init();
 
 	// create a node
-	CGraphVertex& start = data_storage().create_vertex(path_manager.start_node());
+	CGraphVertex& start = this->data_storage().create_vertex(path_manager.start_node());
 
 	// assign correspoding values to the created node
 	start.g() = _dist_type(0);
@@ -108,10 +108,10 @@ IC void CSAStar::initialize(_PathManager& path_manager)
 	start.f() = start.g() + start.h();
 
 	// assign null parent to the start node
-	data_storage().assign_parent(start, 0);
+	this->data_storage().assign_parent(start, 0);
 
 	// add start node to the opened list
-	data_storage().add_opened(start);
+	this->data_storage().add_opened(start);
 }
 
 TEMPLATE_SPECIALIZATION
@@ -119,7 +119,7 @@ template <typename _PathManager>
 IC bool CSAStar::step(_PathManager& path_manager)
 {
 	// get the best node, i.e. a node with the minimum 'f'
-	CGraphVertex& best = data_storage().get_best();
+	CGraphVertex& best = this->data_storage().get_best();
 
 	// check if this node is the one we are searching for
 	if (path_manager.is_goal_reached(best.index()))
@@ -132,9 +132,9 @@ IC bool CSAStar::step(_PathManager& path_manager)
 	}
 
 	// put best node to the closed list
-	data_storage().add_best_closed();
+	this->data_storage().add_best_closed();
 	// and remove this node from the opened one
-	data_storage().remove_best_opened();
+	this->data_storage().remove_best_opened();
 
 	// iterating on the best node neighbours
 	typename _PathManager::const_iterator i;
@@ -148,13 +148,13 @@ IC bool CSAStar::step(_PathManager& path_manager)
 			continue;
 		// check if neighbour is visited, i.e. is in the opened or 
 		// closed lists
-		if (data_storage().is_visited(neighbour_index))
+		if (this->data_storage().is_visited(neighbour_index))
 		{
 			// so, this neighbour node has been already visited
 			// therefore get the pointer to this node
-			CGraphVertex& neighbour = data_storage().get_node(neighbour_index);
+			CGraphVertex& neighbour = this->data_storage().get_node(neighbour_index);
 			// check if this node is in the opened list
-			if (data_storage().is_opened(neighbour))
+			if (this->data_storage().is_opened(neighbour))
 			{
 				// compute 'g' for the node
 				_dist_type g = best.g() + path_manager.evaluate(best.index(), neighbour_index, i);
@@ -168,9 +168,9 @@ IC bool CSAStar::step(_PathManager& path_manager)
 					neighbour.f() = neighbour.g() + neighbour.h();
 					// assign correct parent to the node to be able
 					// to retreive a path
-					data_storage().assign_parent(neighbour, &best, path_manager.edge(i));
+					this->data_storage().assign_parent(neighbour, &best, path_manager.edge(i));
 					// notify data storage about node decreasing value
-					data_storage().decrease_opened(neighbour, d);
+					this->data_storage().decrease_opened(neighbour, d);
 					// continue iterating on neighbours
 					continue;
 				}
@@ -206,10 +206,10 @@ IC bool CSAStar::step(_PathManager& path_manager)
 					neighbour.f() = neighbour.g() + neighbour.h();
 					// assign correct parent to the node to be able
 					// to retreive a path
-					data_storage().assign_parent(neighbour, &best, path_manager.edge(i));
+					this->data_storage().assign_parent(neighbour, &best, path_manager.edge(i));
 					// notify data storage about node decreasing value
 					// to make it modify all the node successors
-					data_storage().update_successors(neighbour);
+					this->data_storage().update_successors(neighbour);
 					// continue iterating on neighbours
 					continue;
 				}
@@ -224,15 +224,15 @@ IC bool CSAStar::step(_PathManager& path_manager)
 		{
 			// so, this neighbour node is not in the opened or closed lists
 			// put neighbour node to the opened list
-			CGraphVertex& neighbour = data_storage().create_vertex(neighbour_index);
+			CGraphVertex& neighbour = this->data_storage().create_vertex(neighbour_index);
 			// fill the corresponding node parameters 
 			neighbour.g() = best.g() + path_manager.evaluate(best.index(), neighbour_index, i);
 			neighbour.h() = path_manager.estimate(neighbour.index());
 			neighbour.f() = neighbour.g() + neighbour.h();
 			// assign best node as its parent
-			data_storage().assign_parent(neighbour, &best, path_manager.edge(i));
+			this->data_storage().assign_parent(neighbour, &best, path_manager.edge(i));
 			// add start node to the opened list
-			data_storage().add_opened(neighbour);
+			this->data_storage().add_opened(neighbour);
 			// continue iterating on neighbours
 			continue;
 		}
@@ -249,13 +249,13 @@ IC bool CSAStar::find(_PathManager& path_manager)
 	// initialize data structures with new search
 	initialize(path_manager);
 	// iterate while opened list is not empty
-	for (_iteration_type i = _iteration_type(0); !data_storage().is_opened_empty(); ++i)
+	for (_iteration_type i = _iteration_type(0); !this->data_storage().is_opened_empty(); ++i)
 	{
 		// check if we reached limit
 		if (path_manager.is_limit_reached(i))
 		{
 			// so we reached limit, return failure
-			finalize(path_manager);
+			inherited::finalize(path_manager);
 			return (false);
 		}
 
@@ -264,13 +264,13 @@ IC bool CSAStar::find(_PathManager& path_manager)
 		if (step(path_manager))
 		{
 			// so this step reached the goal, return success
-			finalize(path_manager);
+			inherited::finalize(path_manager);
 			return (true);
 		}
 	}
 
 	// so, opened list is empty, return failure
-	finalize(path_manager);
+	inherited::finalize(path_manager);
 	return (false);
 }
 

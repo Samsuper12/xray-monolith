@@ -5,7 +5,7 @@
 #include <net_utils.h>
 #include <bone.h>
 
-#include "wound.h"
+#include "Wound.h"
 
 CWound::CWound(u16 bone_num)
 {

@@ -39,7 +39,7 @@ namespace inventory
 		void UpgradeBase::add_dependent_groups(LPCSTR groups_str, Manager& manager_r)
 		{
 			u32 const buffer_size = (xr_strlen(groups_str) + 1) * sizeof(char);
-			PSTR temp = (PSTR)_alloca(buffer_size);
+			PSTR temp = (PSTR)alloca(buffer_size);
 
 			for (int n = _GetItemCount(groups_str), i = 0; i < n; ++i)
 			{

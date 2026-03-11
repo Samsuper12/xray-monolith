@@ -1,12 +1,12 @@
 #include "WeaponRG6.h"
-#include "entity.h"
-#include "level.h"
-#include "actor.h"
+#include "Entity.h"
+#include "Level.h"
+#include "Actor.h"
 #include "ExplosiveRocket.h"
 #include "WeaponGrenadeLauncher.h"
 
 #ifdef DEBUG
-#	include "phdebug.h"
+#	include "PHDebug.h"
 #endif
 
 
@@ -49,8 +49,8 @@ void CWeaponRG6::Load(LPCSTR section)
 	inheritedSG::Load(section);
 }
 
-#include "inventory.h"
-#include "inventoryOwner.h"
+#include "Inventory.h"
+#include "InventoryOwner.h"
 
 void CWeaponRG6::FireStart()
 {

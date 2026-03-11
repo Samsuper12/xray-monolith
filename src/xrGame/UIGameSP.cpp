@@ -1,19 +1,19 @@
 #include "pch_script.h"
-#include "uigamesp.h"
-#include "actor.h"
-#include "level.h"
+#include "UIGameSP.h"
+#include "Actor.h"
+#include "Level.h"
 #include "../xrEngine/xr_sdl3_input.hpp"
 
 #ifdef DEBUG
 #include "attachable_item.h"
 #endif
 
-#include "game_cl_Single.h"
+#include "game_cl_single.h"
 #include "xr_level_controller.h"
-#include "actorcondition.h"
-#include "../xrEngine/xr_ioconsole.h"
+#include "ActorCondition.h"
+#include "../xrEngine/XR_IOConsole.h"
 #include "object_broker.h"
-#include "GameTaskManager.h"
+#include "GametaskManager.h"
 #include "GameTask.h"
 
 #include "ui/UIActorMenu.h"

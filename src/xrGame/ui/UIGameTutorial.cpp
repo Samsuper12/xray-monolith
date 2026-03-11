@@ -1,6 +1,6 @@
 #include <script_engine.h>
 #include "xr_sdl3_input.hpp"
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 #include <xrCore.h>
 
 #include "pch_script.h"

@@ -6,7 +6,7 @@
 
 #include "pch_script.h"
 #include "doors_door.h"
-#include "physicobject.h"
+#include "PhysicObject.h"
 #include "script_callback_ex.h"
 #include "script_game_object.h"
 #include "doors.h"
@@ -287,7 +287,7 @@ shared_str door::get_initiators_ids	( ) const
 	for ( ; i != e; ++i )
 		buffer_size				+= xr_strlen((*i)->get_name()) + 2;
 
-	LPSTR const result			= (LPSTR)_alloca(buffer_size);
+	LPSTR const result			= (LPSTR)alloca(buffer_size);
 	*result						= 0;
 	LPSTR j						= result;
 	u32 left_size				= buffer_size;

@@ -5,10 +5,10 @@
 #include "Kinematics.h"
 #include "bone.h"
 
-#include "gameobject.h"
+#include "GameObject.h"
 #include "matrix_utils.h"
 #ifdef DEBUG
-#include "phdebug.h"
+#include "PHDebug.h"
 #endif
 
 moving_bones_snd_player::moving_bones_snd_player(IKinematics* K, CInifile* ini, LPCSTR section, const Fmatrix& object):

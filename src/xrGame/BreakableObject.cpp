@@ -1,11 +1,11 @@
 #include <net_utils.h>
 
 #include "BreakableObject.h"
-#include "xrserver_objects_alife.h"
+#include "xrServer_Objects_ALife.h"
 #include "IPHStaticGeomShell.h"
 #include "PhysicsShell.h"
-//#include "extendedgeom.h"
-//#include "mathutilsode.h"
+//#include "ExtendedGeom.h"
+//#include "MathUtilsOde.h"
 //#include "Physics.h"
 #include "xr_collide_form.h"
 #include "Kinematics.h"

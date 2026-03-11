@@ -7,13 +7,13 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "ai_stalker.h"
-#include "../../pda.h"
-#include "../../inventory.h"
-#include "../../../xrServerEntities/xrmessages.h"
-#include "../../shootingobject.h"
-#include "../../level.h"
+#include "../../PDA.h"
+#include "../../Inventory.h"
+#include "../../../xrServerEntities/xrMessages.h"
+#include "../../ShootingObject.h"
+#include "../../Level.h"
 #include "../../ai_monster_space.h"
-#include "../../characterphysicssupport.h"
+#include "../../CharacterPhysicsSupport.h"
 #include "CustomZone.h"
 #include "script_game_object.h"
 

@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <rt_compressor.h>
-#include <igame_persistent.h>
+#include <IGame_Persistent.h>
 #include <x_ray.h>
 
 #include "alife_storage_manager.h"
@@ -18,8 +18,8 @@
 #include "alife_graph_registry.h"
 #include "alife_group_registry.h"
 #include "alife_registry_container.h"
-#include "xrserver.h"
-#include "level.h"
+#include "xrServer.h"
+#include "Level.h"
 #include "saved_game_wrapper.h"
 #include "string_table.h"
 #include "autosave_manager.h"

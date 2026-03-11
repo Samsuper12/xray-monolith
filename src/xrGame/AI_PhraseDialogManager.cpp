@@ -7,9 +7,9 @@
 
 #include "AI_PhraseDialogManager.h"
 #include "PhraseDialog.h"
-#include "inventoryowner.h"
+#include "InventoryOwner.h"
 #include "character_info.h"
-#include "gameobject.h"
+#include "GameObject.h"
 #include "relation_registry.h"
 #include "macros.h"
 
@@ -29,9 +29,9 @@ void CAI_PhraseDialogManager::ReceivePhrase(DIALOG_SHARED_PTR& phrase_dialog)
 	CPhraseDialogManager::ReceivePhrase(phrase_dialog);
 }
 
-#include "uigamesp.h"
-#include "level.h"
-#include "ui/UItalkWnd.h"
+#include "UIGameSP.h"
+#include "Level.h"
+#include "ui/UITalkWnd.h"
 
 void CAI_PhraseDialogManager::AnswerPhrase(DIALOG_SHARED_PTR& phrase_dialog)
 {

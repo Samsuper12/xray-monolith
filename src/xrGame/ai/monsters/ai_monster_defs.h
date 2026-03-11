@@ -4,7 +4,7 @@
 #include <xr_trims.h>
 
 #include "KinematicsAnimated.h"
-#include "cameramanager.h"
+#include "CameraManager.h"
 
 typedef u32 TTime;
 

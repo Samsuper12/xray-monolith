@@ -1,4 +1,4 @@
-#include "uicursor.h"
+#include "UICursor.h"
 
 #include "ui/UIStatic.h"
 #include "ui/UIBtnHint.h"

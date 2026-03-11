@@ -10,6 +10,7 @@
 #include "script_action_planner_action_wrapper.h"
 #include "script_game_object.h"
 
+
 void CScriptActionPlannerActionWrapper::setup(CScriptGameObject* object, CPropertyStorage* storage)
 {
 	::luabind::call_member<void>(this, "setup", object, storage);
@@ -54,7 +55,7 @@ void CScriptActionPlannerActionWrapper::finalize_static(CScriptActionPlannerActi
 CScriptActionPlannerActionWrapper::_edge_value_type CScriptActionPlannerActionWrapper::weight(
 	const CSConditionState& condition0, const CSConditionState& condition1) const
 {
-	return (::luabind::call_member<_edge_value_type>(const_cast<CScriptActionPlannerActionWrapper*>(this), "weight",
+	return (::luabind::call_member<inherited::_edge_value_type>(const_cast<CScriptActionPlannerActionWrapper*>(this), "weight",
 	                                               condition0, condition1));
 }
 

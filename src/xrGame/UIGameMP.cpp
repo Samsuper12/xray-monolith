@@ -31,7 +31,7 @@ void UIGameMP::ShowDemoPlayControl()
 	GetUICursor().SetUICursorPosition(m_pDemoPlayControl->GetLastCursorPos());
 }
 
-#include <dinput.h>
+//#include <dinput.h>
 
 bool UIGameMP::IR_UIOnKeyboardPress(int dik)
 {

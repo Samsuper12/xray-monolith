@@ -1,7 +1,7 @@
 #include "UIMpTradeWnd.h"
 #include "UIDragDropListEx.h"
 #include "UICellItem.h"
-#include "../weaponmagazinedwgrenade.h"
+#include "../WeaponMagazinedWGrenade.h"
 #include "../../xrEngine/xr_sdl3_input.hpp"
 #include "UIMpItemsStoreWnd.h"
 

@@ -409,14 +409,14 @@ IC const typename CAbstractOperator::CSConditionState&CAbstractOperator::apply(
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CAbstractOperator::_edge_value_type CAbstractOperator::weight(
+IC _edge_value_type CAbstractOperator::weight(
 	const CSConditionState& condition0, const CSConditionState& condition1) const
 {
 	return (min_weight());
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CAbstractOperator::_edge_value_type CAbstractOperator::min_weight() const
+IC _edge_value_type CAbstractOperator::min_weight() const
 {
 	if (m_weight_actual)
 		return (m_min_weight);

@@ -9,12 +9,14 @@
 #pragma once
 
 #include "action_planner_action.h"
+#include "condition_state.h"
 
 class CScriptGameObject;
 
+
 class CScriptActionPlannerActionWrapper : public CScriptActionPlannerAction, public ::luabind::wrap_base
 {
-	typedef CScriptActionPlannerAction inherited;
+	using inherited = CScriptActionPlannerAction;
 public:
 	IC CScriptActionPlannerActionWrapper(CScriptGameObject* object = 0, LPCSTR action_name = "");
 	virtual void setup(CScriptGameObject* object, CPropertyStorage* storage);
@@ -25,8 +27,8 @@ public:
 	static void execute_static(CScriptActionPlannerAction* action);
 	virtual void finalize();
 	static void finalize_static(CScriptActionPlannerAction* action);
-	virtual _edge_value_type weight(const CSConditionState& condition0, const CSConditionState& condition1) const;
-	static _edge_value_type weight_static(CScriptActionPlannerAction* action, const CSConditionState& condition0,
+	virtual typename inherited::_edge_value_type weight(const CSConditionState& condition0, const CSConditionState& condition1) const;
+	static typename inherited::_edge_value_type weight_static(CScriptActionPlannerAction* action, const CSConditionState& condition0,
 	                                      const CSConditionState& condition1);
 };
 

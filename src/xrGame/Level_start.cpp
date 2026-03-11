@@ -4,18 +4,19 @@
 #include <x_ray.h>
 #include <device.h>
 #include <IGame_Persistent.h>
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 
-#include "level.h"
+#include "Level.h"
 #include "Level_Bullet_Manager.h"
-#include "xrserver.h"
+#include "xrServer.h"
 #include "game_cl_base.h"
-#include "xrmessages.h"
+#include "xrMessages.h"
 #include "xrGameSpyServer.h"
 #include "MainMenu.h"
 #include "string_table.h"
 #include "UIGameCustom.h"
 #include "ui/UICDkey.h"
+#include <safe_lib.h>
 
 int g_cl_save_demo = 0;
 extern XRCORE_API bool g_allow_heap_min;
@@ -195,7 +196,7 @@ bool CLevel::net_start3()
 			string64 PasswordStr = "";
 			const char* PSW = strstr(m_caServerOptions.c_str(), "psw=") + 4;
 			if (strchr(PSW, '/'))
-				strncpy_s(PasswordStr, PSW, strchr(PSW, '/') - PSW);
+				strncpy_s(PasswordStr, sizeof(PasswordStr), PSW, strchr(PSW, '/') - PSW);
 			else
 				xr_strcpy(PasswordStr, PSW);
 

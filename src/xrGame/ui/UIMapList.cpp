@@ -1,5 +1,5 @@
 #include <xrCore.h>
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 
 #include "UIMapList.h"
 #include "UIListBox.h"
@@ -315,7 +315,7 @@ void CUIMapList::SetServerParams(LPCSTR params)
 	m_srv_params = params;
 }
 
-#include "uilistboxitem.h"
+#include "UIListBoxItem.h"
 
 void CUIMapList::AddWeather(const shared_str& WeatherType, const shared_str& WeatherTime, u32 _id)
 {
@@ -365,7 +365,7 @@ void CUIMapList::UpdateMapList(EGameIDs GameType)
 		return;
 	}
 
-	MapList map_list(_alloca(sizeof(shared_str) * list_size), list_size);
+	MapList map_list(alloca(sizeof(shared_str) * list_size), list_size);
 
 	for (u32 i = 0; i < list_size; ++i)
 	{

@@ -1,7 +1,7 @@
 #include "player_state_params.h"
 #include "game_cl_base.h"
 #include "game_state_accumulator.h"
-#include "actor.h"
+#include "Actor.h"
 
 namespace award_system
 {

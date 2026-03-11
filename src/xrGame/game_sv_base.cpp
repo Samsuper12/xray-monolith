@@ -7,8 +7,8 @@
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "script_engine.h"
 #include "script_engine_space.h"
-#include "level.h"
-#include "xrserver.h"
+#include "Level.h"
+#include "xrServer.h"
 #include "ai_space.h"
 #include "game_sv_event_queue.h"
 #include "string_table.h"
@@ -1359,7 +1359,7 @@ void game_sv_GameState::CheckPlayerName(xrClientData* CL)
 
 	u32 new_name_dest_size = current_name_length + 16;
 	char* new_name_dest = static_cast<char*>(
-		_alloca(new_name_dest_size));
+		alloca(new_name_dest_size));
 
 	while (FindPlayerName(current_name, CL))
 	{

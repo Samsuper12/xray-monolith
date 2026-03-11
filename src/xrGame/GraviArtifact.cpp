@@ -6,8 +6,8 @@
 
 #include "GraviArtifact.h"
 #include "PhysicsShell.h"
-#include "level.h"
-#include "xrmessages.h"
+#include "Level.h"
+#include "xrMessages.h"
 #include "game_cl_base.h"
 #include "Kinematics.h"
 #include "IPHWorld.h"

@@ -1,5 +1,5 @@
 #include "psy_aura.h"
-#include "BaseMonster/base_monster.h"
+#include "basemonster/base_monster.h"
 
 CPsyAura::CPsyAura()
 {

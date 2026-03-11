@@ -25,6 +25,18 @@
 #	include "operator_abstract.h"
 #endif // AI_COMPILER
 
+
+template <
+	typename _operator_condition,
+	typename _condition_state,
+	typename _operator,
+	typename _condition_evaluator,
+	typename _operator_id_type,
+	bool _reverse_search,
+	typename _operator_ptr1 ,
+	typename _condition_evaluator_ptr1>
+class CProblemSolver;
+
 namespace hash_fixed_vertex_manager
 {
 	IC u32 to_u32(GraphEngineSpace::CWorldState const& other)

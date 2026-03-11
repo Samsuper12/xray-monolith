@@ -2,7 +2,7 @@ add_module(XRay.Game.AI.Life
   TYPE STATIC
   
   LINKS
-  dxsdk
+  #dxsdk
   fastdelegate
   FastDynamicCast
   luabind

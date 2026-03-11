@@ -7,10 +7,10 @@
 #include "UIListBoxItem.h"
 #include "UISpinNum.h"
 #include "UIGameCustom.h"
-#include "../level.h"
+#include "../Level.h"
 #include "../game_cl_base.h"
 #include "../game_cl_teamdeathmatch.h"
-#include "../../xrEngine/xr_ioconsole.h"
+#include "../../xrEngine/XR_IOConsole.h"
 
 CUIKickPlayer::CUIKickPlayer()
 {
@@ -82,7 +82,7 @@ void CUIKickPlayer::InitKick(CUIXml& xml_doc)
 	m_ban_sec_label->Show(false);
 }
 
-#include <dinput.h>
+//#include <dinput.h>
 
 bool CUIKickPlayer::OnKeyboardAction(int dik, EUIMessages keyboard_action)
 {

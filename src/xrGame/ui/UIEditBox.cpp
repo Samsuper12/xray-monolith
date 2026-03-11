@@ -2,8 +2,8 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-#include <dinput.h>
-#include "uieditbox.h"
+//#include <dinput.h>
+#include "UIEditBox.h"
 #include "UIFrameLineWnd.h"
 
 

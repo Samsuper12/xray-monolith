@@ -20,7 +20,7 @@ bool disk_file_reader::make_data_packet(NET_Packet& packet, u32 chunk_size)
 {
 	u32 size_to_write = (static_cast<u32>(m_reader->elapsed()) >= chunk_size) ? chunk_size : m_reader->elapsed();
 
-	void* pointer = _alloca(size_to_write);
+	void* pointer = alloca(size_to_write);
 
 	R_ASSERT(size_to_write < (NET_PacketSizeLimit - packet.w_tell()));
 
@@ -65,7 +65,7 @@ bool memory_reader::make_data_packet(NET_Packet& packet, u32 chunk_size)
 {
 	u32 size_to_write = (static_cast<u32>(m_reader->elapsed()) >= chunk_size) ? chunk_size : m_reader->elapsed();
 
-	void* pointer = _alloca(size_to_write);
+	void* pointer = alloca(size_to_write);
 
 	R_ASSERT(size_to_write < (NET_PacketSizeLimit - packet.w_tell()));
 

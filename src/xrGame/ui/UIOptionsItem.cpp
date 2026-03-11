@@ -1,6 +1,6 @@
 #include "UIOptionsItem.h"
 #include "UIOptionsManager.h"
-#include "../../xrEngine/xr_ioconsole.h"
+#include "../../xrEngine/XR_IOConsole.h"
 
 CUIOptionsManager CUIOptionsItem::m_optionsManager;
 

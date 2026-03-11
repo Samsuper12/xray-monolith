@@ -1,12 +1,12 @@
-#include <d3d9types.h>
+//#include <d3d9types.h>
 
 #include "game_cl_mp.h"
 #include "xr_level_controller.h"
 #include "xrMessages.h"
 #include "Actor.h"
 #include "ExplosiveItem.h"
-#include "level.h"
-#include <dinput.h>
+#include "Level.h"
+//#include <dinput.h>
 #include "CustomZone.h"
 #include "game_base_kill_type.h"
 #include "game_base_menu_events.h"
@@ -28,7 +28,7 @@
 
 #include "string_table.h"
 #include "clsid_game.h"
-#include "mainmenu.h"
+#include "MainMenu.h"
 #include "WeaponKnife.h"
 #include "RegistryFuncs.h"
 #include "screenshot_server.h"
@@ -1997,7 +1997,7 @@ void game_cl_mp::extract_server_info(u8* data_ptr, u32 data_size)
 	}
 	using namespace file_transfer;
 	buffer_vector<const_buffer_t> tmp_vector(
-		_alloca(sizeof(const_buffer_t) * 2),
+		alloca(sizeof(const_buffer_t) * 2),
 		2
 	);
 	split_received_to_buffers(data_ptr, data_size, tmp_vector);

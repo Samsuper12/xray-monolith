@@ -1,13 +1,13 @@
 #include "pch_script.h"
 #include "InventoryBox.h"
-#include "level.h"
-#include "actor.h"
+#include "Level.h"
+#include "Actor.h"
 #include "game_object_space.h"
 
 #include "script_callback_ex.h"
 #include "script_game_object.h"
 #include "ui/UIActorMenu.h"
-#include "uigamecustom.h"
+#include "UIGameCustom.h"
 #include "inventory_item.h"
 
 CInventoryBox::CInventoryBox()
@@ -89,7 +89,7 @@ void CInventoryBox::net_Destroy()
 	inherited::net_Destroy();
 }
 
-#include "../xrServerEntities/xrServer_Objects_Alife.h"
+#include "../xrServerEntities/xrServer_Objects_ALife.h"
 
 BOOL CInventoryBox::net_Spawn(CSE_Abstract* DC)
 {

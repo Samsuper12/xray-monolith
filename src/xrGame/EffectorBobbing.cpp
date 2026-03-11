@@ -1,7 +1,7 @@
 #include "EffectorBobbing.h"
 
 
-#include "actor.h"
+#include "Actor.h"
 #include "actor_defs.h"
 
 

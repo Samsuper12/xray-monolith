@@ -5,14 +5,14 @@
 #pragma once
 
 #include "../xrEngine/Render.h"
-#include "../xrEngine/feel_touch.h"
+#include "../xrEngine/Feel_Touch.h"
 #include "inventory_item.h"
 #include "ai_sounds.h"
 #include "script_export_space.h"
-#include "../xrphysics/DamageSource.h"
+#include "../xrPhysics/DamageSource.h"
 #include "wallmark_manager.h"
 #include "ParticlesObject.h"
-#include "hudsound.h"
+#include "HudSound.h"
 
 // GhenTuong: on_explode callback
 #ifndef CEXPLOSIVE_CHANGE

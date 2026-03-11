@@ -1,9 +1,9 @@
 #include	"interactive_animation.h"
 
-#include	"physicsshell.h"
+#include	"PhysicsShell.h"
 #include	"ExtendedGeom.h"
-#include	"mathutils.h"
-//#include	"phobject.h"
+#include	"MathUtils.h"
+//#include	"PHObject.h"
 
 #include	"KinematicsAnimated.h"
 

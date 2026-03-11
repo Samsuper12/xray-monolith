@@ -1,9 +1,9 @@
 #pragma once
 
 #include "UILanimController.h"
-#include "../uistaticitem.h"
+#include "../UIStaticItem.h"
 #include "../../xrServerEntities/script_export_space.h"
-#include "uilines.h"
+#include "UILines.h"
 
 class CUIFrameWindow;
 class CLAItem;

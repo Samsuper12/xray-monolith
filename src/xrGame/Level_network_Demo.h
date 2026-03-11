@@ -10,7 +10,7 @@ private:
 	message_filter* m_msg_filter = nullptr;
 	demoplay_control* m_demoplay_control = nullptr;
 public:
-#pragma pack(push, 1)
+// #pragma pack(push, 1)
 	struct DemoHeader
 	{
 		u32 m_time_global;
@@ -26,7 +26,7 @@ public:
 		u32 m_packet_size;
 		//here will be body of NET_Packet ...
 	};
-#pragma pack(pop)
+// #pragma pack(pop)
 
 	void SetDemoSpectator(CObject* spectator);
 	CObject* GetDemoSpectator();

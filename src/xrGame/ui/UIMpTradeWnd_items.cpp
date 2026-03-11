@@ -932,7 +932,7 @@ void CUIMpTradeWnd::DumpPreset(ETradePreset idx)
 #endif // #ifndef MASTER_GOLD
 }
 
-#include <dinput.h>
+//#include <dinput.h>
 
 void CUICellItemTradeMenuDraw::OnDraw(CUICellItem* cell)
 {

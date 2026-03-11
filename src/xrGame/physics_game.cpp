@@ -1,24 +1,24 @@
 #include "ParticlesObject.h"
-#include "gamemtllib.h"
-#include "level.h"
-#include "gamepersistent.h"
-#include "Extendedgeom.h"
+#include "GameMtlLib.h"
+#include "Level.h"
+#include "GamePersistent.h"
+#include "ExtendedGeom.h"
 #include "PhysicsGamePars.h"
 //#include "PhysicsCommon.h"
 #include "PhysicsExternalCommon.h"
-#include "PhSoundPlayer.h"
+#include "PHSoundPlayer.h"
 #include "PhysicsShellHolder.h"
 #include "PHCommander.h"
 #include "MathUtils.h"
-#include "iPHWorld.h"
-//#include "../xrphysics/physicsshell.h"
+#include "IPHWorld.h"
+//#include "../xrPhysics/PhysicsShell.h"
 
-#include "phreqcomparer.h"
+#include "PHReqComparer.h"
 
 #include "FactoryPtr.h"
 #include "WallMarkArray.h"
 //#ifdef	DEBUG
-//#include "phdebug.h"
+//#include "PHDebug.h"
 //#endif
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -2,7 +2,7 @@
 #include <xr_trims.h>
 
 #include "UIBuyWndShared.h"
-#include "UIMPTradeWnd.h"
+#include "UIMpTradeWnd.h"
 
 extern LPCSTR _list_names[];
 

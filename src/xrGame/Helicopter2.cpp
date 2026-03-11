@@ -1,6 +1,6 @@
 #include "pch_script.h"
 #include "helicopter.h"
-//#include "level.h"
+//#include "Level.h"
 #include "script_game_object.h"
 //#include "game_object_space.h"
 #include "Kinematics.h"
@@ -11,7 +11,7 @@
 #include "CustomZone.h"
 #include "MathUtils.h"
 
-#include "actor.h"
+#include "Actor.h"
 #include "physics_game.h"
 
 bool CHelicopter::isObjectVisible(CObject* O)
@@ -269,7 +269,7 @@ void CHelicopter::PHHit(SHit& H)
 #include "team_hierarchy_holder.h"
 #include "squad_hierarchy_holder.h"
 
-#include "../xrphysics/extendedgeom.h"
+#include "../xrPhysics/ExtendedGeom.h"
 
 void CollisionCallbackDead(bool& do_colide, bool bo1, dContact& c, SGameMtl* material_1, SGameMtl* material_2)
 {

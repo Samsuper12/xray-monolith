@@ -20,7 +20,7 @@
 		typename _data_storage\
 	>
 
-#define CFixedVertexManager	CVertexManagerFixed<_path_id_type,_index_type,mask>::CDataStorage<_vertex,_index_vertex,_data_storage>
+#define CFixedVertexManager	CVertexManagerFixed<_path_id_type,_index_type,mask>::template CDataStorage<_vertex,_index_vertex,_data_storage>
 
 TEMPLATE_SPECIALIZATION
 IC CFixedVertexManager::CDataStorage(const u32 vertex_count) :
@@ -107,7 +107,7 @@ IC void CFixedVertexManager::add_closed(CGraphVertex& vertex)
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CFixedVertexManager::_path_id_type CFixedVertexManager::current_path_id() const
+IC _path_id_type CFixedVertexManager::current_path_id() const
 {
 	return (m_current_path_id);
 }

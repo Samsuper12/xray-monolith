@@ -1,7 +1,7 @@
 #include <FS.h>
 
-#include "xrserver.h"
-#include "xrmessages.h"
+#include "xrServer.h"
+#include "xrMessages.h"
 
 void xrServer::SLS_Load(IReader& fs)
 {

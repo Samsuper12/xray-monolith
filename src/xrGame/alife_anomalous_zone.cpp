@@ -76,7 +76,7 @@ void CSE_ALifeAnomalousZone::spawn_artefacts				()
 	typedef std::pair<shared_str,float>	Weight;
 	typedef buffer_vector<Weight>		Weights;
 	Weights weights			(
-		_alloca(n*sizeof(Weight)),
+		alloca(n*sizeof(Weight)),
 		n
 	);
 

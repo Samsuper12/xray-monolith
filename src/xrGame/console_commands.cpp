@@ -1,30 +1,30 @@
 #include <defines.h>
 #include <xrCore.h>
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 #include <xr_ioc_cmd.h>
-#include <customhud.h>
-#include <fdemorecord.h>
-#include <fdemoplay.h>
-#include <iphworld.h>
+#include <CustomHUD.h>
+#include <FDemoRecord.h>
+#include <FDemoPlay.h>
+#include <IPHWorld.h>
 #include <console_vars.h>
 #include <LocatorAPI.h>
 #include <x_ray.h>
 
 #include "pch_script.h"
 #include "xrMessages.h"
-#include "xrserver.h"
-#include "level.h"
+#include "xrServer.h"
+#include "Level.h"
 #include "script_debugger.h"
 #include "ai_debug.h"
 #include "alife_simulator.h"
 #include "game_cl_base.h"
 #include "game_cl_single.h"
 #include "game_sv_single.h"
-#include "hit.h"
+#include "Hit.h"
 #include "PHDestroyable.h"
-#include "actor.h"
+#include "Actor.h"
 #include "Actor_Flags.h"
-#include "customzone.h"
+#include "CustomZone.h"
 #include "script_engine.h"
 #include "script_engine_space.h"
 #include "script_process.h"
@@ -33,7 +33,7 @@
 #include "string_table.h"
 #include "autosave_manager.h"
 #include "ai_space.h"
-#include "ai/monsters/BaseMonster/base_monster.h"
+#include "ai/monsters/basemonster/base_monster.h"
 #include "date_time.h"
 #include "mt_config.h"
 #include "ui/UIOptConCom.h"
@@ -57,6 +57,9 @@
 #	include "game_graph.h"
 #	include "CharacterPhysicsSupport.h"
 #endif // DEBUG
+
+#include "stdio.h"
+#include <safe_lib.h>
 
 
 
@@ -182,8 +185,8 @@ extern CrosshairSettings g_crosshair_weapon_far;
 extern CrosshairSettings g_crosshair_device_near;
 extern CrosshairSettings g_crosshair_device_far;
 
-#define Concat2(a, b) #a ## b
-#define Concat3(a, b, c) #a ## b ## #c
+#define Concat2(a, b)    #a b
+#define Concat3(a, b, c) #a b #c
 
 #define CrosshairBaseCommands(crosshair, suffix) \
 	CMD3(CCC_Mask, Concat2(g_crosshair_, suffix), &crosshair.flags, CROSSHAIR_SHOW); \

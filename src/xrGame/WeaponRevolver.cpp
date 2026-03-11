@@ -1,6 +1,6 @@
-#include "weaponrevolver.h"
+#include "WeaponRevolver.h"
 #include "ParticlesObject.h"
-#include "actor.h"
+#include "Actor.h"
 
 CWeaponRevolver::CWeaponRevolver()
 {

@@ -10,7 +10,7 @@
 #include "UISequenceVideoItem.h"
 #include "UIShader.h"
 #include "UIRender.h"
-#include "uicursor.h"
+#include "UICursor.h"
 
 extern ENGINE_API BOOL bShowPauseString;
 

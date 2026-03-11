@@ -1,7 +1,7 @@
 #include "pch_script.h"
-#include "gameobject.h"
+#include "GameObject.h"
 #include "script_game_object.h"
-#include "../xrcdb/xr_collide_defs.h"
+#include "../xrCDB/xr_collide_defs.h"
 #include "material_manager.h"
 
 struct script_rq_result

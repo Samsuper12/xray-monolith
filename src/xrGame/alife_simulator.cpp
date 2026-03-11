@@ -9,14 +9,14 @@
 #include <IGame_Persistent.h>
 #include <LocatorAPI.h>
 #include <xrCore.h>
-#include <xr_ioconsole.h>
+#include <XR_IOConsole.h>
 
 #include "pch_script.h"
 #include "alife_simulator.h"
 #include "xrServer_Objects_ALife.h"
 #include "ai_space.h"
 #include "script_engine.h"
-#include "mainmenu.h"
+#include "MainMenu.h"
 #include "object_factory.h"
 #include "alife_object_registry.h"
 

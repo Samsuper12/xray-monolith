@@ -5,6 +5,8 @@ template <typename _Object>
 class CStateBurerAttackGravi : public CState<_Object>
 {
 	typedef CState<_Object> inherited;
+	using inherited::object;
+
 public:
 	CStateBurerAttackGravi(_Object* obj);
 

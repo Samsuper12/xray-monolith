@@ -3,7 +3,7 @@
 #include "script_game_object.h"
 #include "script_light_inline.h"
 
-#include "../xrcdb/ispatial.h"
+#include "../xrCDB/ISpatial.h"
 #include "../xrEngine/IRenderable.h"
 
 enum script_attachment_type

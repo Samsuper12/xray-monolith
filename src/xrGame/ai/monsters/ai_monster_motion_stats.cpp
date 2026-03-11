@@ -1,5 +1,5 @@
 #include "ai_monster_motion_stats.h"
-#include "BaseMonster/base_monster.h"
+#include "basemonster/base_monster.h"
 
 void CMotionStats::update()
 {

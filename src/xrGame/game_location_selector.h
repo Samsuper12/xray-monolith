@@ -35,12 +35,12 @@ class
 		_vertex_id_type
 	>
 {
-	typedef CGameGraph _Graph;
-	typedef CAbstractLocationSelector<
+	using _Graph =  CGameGraph ;
+	using inherited = CAbstractLocationSelector<
 		CGameGraph,
 		_VertexEvaluator,
 		_vertex_id_type
-	> inherited;
+	> ;
 private:
 	ESelectionType m_selection_type;
 	GameGraph::_GRAPH_ID m_previous_vertex_id;

@@ -14,7 +14,7 @@
 #include "ai/ai_monsters_anims.h"
 #include "animation_movement_controller.h"
 #ifdef	DEBUG
-#include "phdebug.h"
+#include "PHDebug.h"
 #endif
 #pragma warning(push)
 #pragma warning(disable:4995)
@@ -283,7 +283,7 @@ void CStalkerAnimationPair::on_animation_end()
 	u32 callback_count = m_callbacks.size();
 	typedef buffer_vector<CALLBACK_ID> Callbacks;
 	Callbacks callbacks(
-		_alloca(callback_count * sizeof(Callbacks::value_type)),
+		alloca(callback_count * sizeof(Callbacks::value_type)),
 		callback_count,
 		m_callbacks.begin(),
 		m_callbacks.end()

@@ -9,6 +9,7 @@
 #define SMART_COVER_TRANSITION_HPP_INCLUDED
 
 #include "debug_make_final.hpp"
+#include "ai_monster_space.h"
 
 namespace MonsterSpace
 {

@@ -1,12 +1,12 @@
 #include "controller.h"
 #include "controller_state_manager.h"
 #include "../controlled_entity.h"
-#include "actor.h"
+#include "Actor.h"
 #include "ActorEffector.h"
 #include "ActorCondition.h"
 #include "../ai_monster_effector.h"
 #include "KinematicsAnimated.h"
-#include "level.h"
+#include "Level.h"
 #include "sound_player.h"
 #include "ai_monster_space.h"
 #include "UIGameCustom.h"
@@ -41,7 +41,7 @@
 //#include "controller_psy_aura.h"
 
 #ifdef _DEBUG
-#	include <dinput.h>
+//#	include <dinput.h>
 #endif
 
 const u32 _pmt_psy_attack_delay = 2000;

@@ -2,8 +2,8 @@ add_module(XRay.Game.UI
   TYPE STATIC
 
   LINKS
-  CxImage
-  dxsdk
+  #CxImage
+  #dxsdk
   fastdelegate
   FastDynamicCast
   luabind

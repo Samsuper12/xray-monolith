@@ -1,5 +1,5 @@
 #pragma once
-#include "weaponcustomauto.h"
+#include "WeaponCustomAuto.h"
 
 class CWeaponPistol :
 	public CWeaponAutoPistol

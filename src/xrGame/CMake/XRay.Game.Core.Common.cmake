@@ -47,7 +47,7 @@ add_module(XRay.Game.Core.Common.DLLProcessDetach
 
 add_module(XRay.Game.Core.Common.NETShared
   SOURCES
-  ../xrServerEntities/xrMessages.h
+  ../xrServerEntities/
   
   NET_Queue.h
   traffic_optimization.cpp
@@ -130,7 +130,7 @@ add_module(XRay.Game.Core.Common.Random.Weighted
 
 add_module(XRay.Game.Core.Common.Registry
   SOURCES
-  RegistryFuncs.cpp
+  #RegistryFuncs.cpp
   RegistryFuncs.h
 )
 

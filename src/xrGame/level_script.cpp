@@ -8,7 +8,7 @@
 
 #include <defines.h>
 #include <xrCore.h>
-#include <igame_persistent.h>
+#include <IGame_Persistent.h>
 #include <xr_collide_defs.h>
 #include <Rain.h>
 #include <xr_efflensflare.h>
@@ -17,15 +17,15 @@
 #include "xr_sdl3_input.hpp"
 
 #include "pch_script.h"
-#include "level.h"
-#include "actor.h"
+#include "Level.h"
+#include "Actor.h"
 #include "script_game_object.h"
 #include "patrol_path_storage.h"
 #include "xrServer.h"
 #include "client_spawn_manager.h"
 #include "game_cl_base.h"
 #include "UIGameCustom.h"
-#include "UI/UIDialogWnd.h"
+#include "ui/UIDialogWnd.h"
 #include "date_time.h"
 #include "ai_space.h"
 #include "level_graph.h"
@@ -40,14 +40,14 @@
 #include "physics_world_scripted.h"
 #include "alife_simulator.h"
 #include "alife_time_manager.h"
-#include "UI/UIGameTutorial.h"
+#include "ui/UIGameTutorial.h"
 #include "string_table.h"
 #include "ui/UIInventoryUtilities.h"
 #include "alife_object_registry.h"
 #include "xrServer_Objects_ALife_Monsters.h"
-#include "hudmanager.h"
-#include "ui\UIMainIngameWnd.h"
-#include "ui\UIHudStatesWnd.h"
+#include "HUDManager.h"
+#include "ui/UIMainIngameWnd.h"
+#include "ui/UIHudStatesWnd.h"
 #include "raypick.h"
 #include "Level_Bullet_Manager.h"
 #include "GametaskManager.h"
@@ -57,8 +57,8 @@
 #include "LevelDebugScript.h"
 #include "script_attachment_manager.h"
 
-#include "ui\UIPdaMsgListItem.h"
-#include "ui\UILogsWnd.h"
+#include "ui/UIPdaMsgListItem.h"
+#include "ui/UILogsWnd.h"
 #include "game_news.h"
 #include "alife_registry_wrappers.h"
 
@@ -657,7 +657,7 @@ void iterate_sounds2(LPCSTR prefix, u32 max_count, ::luabind::object object, ::l
 	iterate_sounds(prefix, max_count, temp);
 }
 
-#include "actoreffector.h"
+#include "ActorEffector.h"
 
 float add_cam_effector(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func)
 {
@@ -910,7 +910,7 @@ void remove_complex_effector(int id)
 	RemoveEffector(Actor(), id);
 }
 
-#include "postprocessanimator.h"
+#include "PostprocessAnimator.h"
 
 void add_pp_effector(LPCSTR fn, int id, bool cyclic)
 {

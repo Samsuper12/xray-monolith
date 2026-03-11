@@ -1,5 +1,5 @@
 #pragma once
-#include "customdevice.h"
+#include "CustomDevice.h"
 
 class CLAItem;
 

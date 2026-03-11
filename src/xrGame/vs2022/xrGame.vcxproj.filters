@@ -6090,7 +6090,7 @@
     <ClInclude Include="..\traffic_optimization.h">
       <Filter>Core\Common\NET Shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\xrServerEntities\xrMessages.h">
+    <ClInclude Include="..\..\xrServerEntities\">
       <Filter>Core\Common\NET Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\secure_messaging.h">
@@ -6612,7 +6612,7 @@
     <ClInclude Include="..\..\xrServerEntities\script_value_container_impl.h">
       <Filter>Core\Server\ServerEntities\script_value_container</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_Alife_Smartcovers.h">
+    <ClInclude Include="..\..\xrServerEntities\xrServer_Objects_ALife_Smartcovers.h">
       <Filter>Core\Server\ServerEntities\objects_alife_smartcover</Filter>
     </ClInclude>
     <ClInclude Include="..\xrServer_svclient_validation.h">

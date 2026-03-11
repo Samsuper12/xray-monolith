@@ -11,7 +11,7 @@
 #include "autosave_manager.h"
 #include "date_time.h"
 #include "ai_space.h"
-#include "level.h"
+#include "Level.h"
 #include "xrMessages.h"
 #include "UIGameCustom.h"
 #include "Actor.h"
@@ -81,7 +81,7 @@ void CAutosaveManager::shedule_Update(u32 dt)
 
 	MainMenu()->Screenshot(IRender_interface::SM_FOR_GAMESAVE, S1);
 
-	SetFileAttributes(S1, FILE_ATTRIBUTE_HIDDEN);
+	//FIXME: SetFileAttributes(S1, FILE_ATTRIBUTE_HIDDEN);
 
 	CurrentGameUI()->AddCustomStatic("autosave", true);
 }

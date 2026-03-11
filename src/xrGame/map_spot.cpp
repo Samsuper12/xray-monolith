@@ -2,8 +2,8 @@
 #include "map_location.h"
 
 #include "ui/UIXmlInit.h"
-#include "ui/UIMApWnd.h"
-#include "level.h"
+#include "ui/UIMapWnd.h"
+#include "Level.h"
 #include "ui/UIInventoryUtilities.h"
 #include "xr_object.h"
 #include "object_broker.h"
@@ -11,8 +11,8 @@
 #include "ui/UIHelper.h"
 
 #include "UIShader.h"
-#include "gametaskmanager.h"
-#include "gametask.h"
+#include "GametaskManager.h"
+#include "GameTask.h"
 
 CMapSpot::CMapSpot(CMapLocation* ml)
 	: m_map_location(ml)

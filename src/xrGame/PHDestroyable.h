@@ -3,7 +3,7 @@
 
 #include <Engine.h>
 
-#include "hit.h"
+#include "Hit.h"
 
 class CPhysicsShellHolder;
 class CSE_Abstract;

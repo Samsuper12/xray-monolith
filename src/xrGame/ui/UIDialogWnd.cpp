@@ -1,4 +1,4 @@
-#include "uidialogwnd.h"
+#include "UIDialogWnd.h"
 #include "UICursor.h"
 
 CUIDialogWnd::CUIDialogWnd()

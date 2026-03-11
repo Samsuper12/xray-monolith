@@ -10,7 +10,7 @@
 #include "attachable_item.h"
 #include "Kinematics.h"
 #include "inventory_item.h"
-#include "physicsshellholder.h"
+#include "PhysicsShellHolder.h"
 
 CAttachmentOwner::~CAttachmentOwner()
 {

@@ -12,17 +12,15 @@
 
 template <
 	typename _world_property,
-	typename _edge_value_type
+	typename _edge_value_type1
 >
 class COperatorAbstract
 {
 public:
-	typedef _edge_value_type _edge_value_type;
-
-protected:
-	typedef CConditionState<_world_property> inherited;
-	typedef inherited CSConditionState;
-	typedef _world_property COperatorCondition;
+	using inherited = CConditionState<_world_property>;
+	using CSConditionState = inherited ;
+	using  _edge_value_type = _edge_value_type1;
+	using COperatorCondition = _world_property;
 
 protected:
 	CSConditionState m_conditions;
@@ -35,8 +33,8 @@ protected:
 	IC void actual(bool value);
 
 public:
-	IC COperatorAbstract();
-	IC COperatorAbstract(const CSConditionState& conditions, const CSConditionState& effects);
+	COperatorAbstract();
+	COperatorAbstract(const CSConditionState& conditions, const CSConditionState& effects);
 	virtual ~COperatorAbstract();
 	virtual void Load(LPCSTR section);
 	virtual void setup(bool* actuality);

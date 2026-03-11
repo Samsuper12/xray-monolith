@@ -188,7 +188,7 @@ void CSE_ALifeOnlineOfflineGroup::try_switch_online()
 
 	if (!can_switch_offline())
 	{
-		inherited1::try_switch_online();
+		inherited1_::try_switch_online();
 		return;
 	}
 	MEMBERS::iterator I = m_members.begin();
@@ -207,7 +207,7 @@ void CSE_ALifeOnlineOfflineGroup::try_switch_online()
 		{
 			continue;
 		}
-		inherited1::try_switch_online();
+		inherited1_::try_switch_online();
 		return;
 	}
 	on_failed_switch_online();
@@ -317,7 +317,7 @@ void CSE_ALifeOnlineOfflineGroup::on_after_game_load()
 	if (m_members.empty())
 		return;
 
-	ALife::_OBJECT_ID* temp = (ALife::_OBJECT_ID*)_alloca(m_members.size() * sizeof(ALife::_OBJECT_ID));
+	ALife::_OBJECT_ID* temp = (ALife::_OBJECT_ID*)alloca(m_members.size() * sizeof(ALife::_OBJECT_ID));
 	ALife::_OBJECT_ID *i = temp, *e = temp + m_members.size();
 
 	{

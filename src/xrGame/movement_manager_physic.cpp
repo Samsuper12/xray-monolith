@@ -9,9 +9,9 @@
 #include "movement_manager.h"
 #include "PHMovementControl.h"
 #include "detail_path_manager.h"
-#include "level.h"
-#include "custommonster.h"
-#include "../xrphysics/IColisiondamageInfo.h"
+#include "Level.h"
+#include "CustomMonster.h"
+#include "../xrPhysics/IColisiondamageInfo.h"
 
 #include "profiler.h"
 

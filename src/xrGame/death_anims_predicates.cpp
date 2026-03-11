@@ -1,12 +1,12 @@
 #include	"death_anims.h"
 
-#include	"actor.h"
+#include	"Actor.h"
 #include	"ai/stalker/ai_stalker.h"
 #include	"stalker_movement_manager_smart_cover.h"
-#include	"weaponshotgun.h"
+#include	"WeaponShotgun.h"
 #include	"WeaponAutomaticShotgun.h"
-#include	"explosive.h"
-#include	"weaponmagazined.h"
+#include	"Explosive.h"
+#include	"WeaponMagazined.h"
 #include	"CharacterPhysicsSupport.h"
 #include	"animation_utils.h"
 #ifdef	DEBUG

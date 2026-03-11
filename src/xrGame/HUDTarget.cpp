@@ -1,10 +1,10 @@
-#include <d3d9types.h>
+//#include <d3d9types.h>
 
 #include "HUDTarget.h"
 
 #include "player_hud.h"
 #include "HUDManager.h"
-#include "HUDItem.h"
+#include "HudItem.h"
 #include "Actor.h"
 #include "Weapon.h"
 

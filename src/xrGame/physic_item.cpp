@@ -7,8 +7,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "physic_item.h"
-#include "physicsshell.h"
-#include "xrserver_objects.h"
+#include "PhysicsShell.h"
+#include "xrServer_Objects.h"
 #include "RenderVisual.h"
 #include "KinematicsAnimated.h"
 #include "Kinematics.h"

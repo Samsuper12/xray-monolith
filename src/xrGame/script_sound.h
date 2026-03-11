@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
 #include "script_export_space.h"
 #include "ai_sounds.h"

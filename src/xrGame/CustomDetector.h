@@ -1,9 +1,9 @@
 #pragma once
-#include "customdevice.h"
-#include "../xrEngine/feel_touch.h"
-#include "hudsound.h"
-#include "customzone.h"
-#include "artefact.h"
+#include "CustomDevice.h"
+#include "../xrEngine/Feel_Touch.h"
+#include "HudSound.h"
+#include "CustomZone.h"
+#include "Artefact.h"
 #include "ai_sounds.h"
 //#include "ui/ArtefactDetectorUI.h"
 

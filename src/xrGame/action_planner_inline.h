@@ -14,7 +14,7 @@
 	template <\
 		typename _object_type,\
 		bool	 _reverse_search,\
-		typename _world_operator,\
+		typename _world_operator1,\
 		typename _condition_evaluator,\
 		typename _world_operator_ptr,\
 		typename _condition_evaluator_ptr\
@@ -24,7 +24,7 @@
 	CActionPlanner <\
 		_object_type,\
 		_reverse_search,\
-		_world_operator,\
+		_world_operator1,\
 		_condition_evaluator,\
 		_world_operator_ptr,\
 		_condition_evaluator_ptr\
@@ -69,7 +69,7 @@ TEMPLATE_SPECIALIZATION
 void CPlanner::update()
 {
 	m_solving = true;
-	solve();
+	this->solve();
 	m_solving = false;
 
 #ifdef LOG_ACTION
@@ -97,23 +97,23 @@ void CPlanner::update()
 		show_target_world_state		();
 	}
 #else
-	if (bDbgAct && m_failed && current_action().m_action_name)
+	if (bDbgAct && this->m_failed && current_action().m_action_name)
 		Msg("!ERROR: there is no action sequence, which can transfer current world state to the target one. action[%s]",
 		    current_action().m_action_name);
 #endif
 
 	THROW(!solution().empty());
 	//Alundaio:
-	if (solution().empty())
+	if (this->solution().empty())
 		return;
 	//-Alundaio
 
 	if (initialized())
 	{
-		if (current_action_id() != solution().front())
+		if (current_action_id() != this->solution().front())
 		{
 			current_action().finalize();
-			m_current_action_id = solution().front();
+			m_current_action_id = this->solution().front();
 			//Alundaio: More detailed logging for initializing action
 			if (bDbgAct == true)
 				Msg("DEBUG: Action [%s] initializing", current_action().m_action_name);
@@ -123,7 +123,7 @@ void CPlanner::update()
 	else
 	{
 		m_initialized = true;
-		m_current_action_id = solution().front();
+		m_current_action_id = this->solution().front();
 		//Alundaio: More detailed logging for initializing action
 		if (bDbgAct == true)
 			Msg("DEBUG: Action [%s] initializing", current_action().m_action_name);
@@ -147,13 +147,13 @@ IC void CPlanner::finalize()
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CPlanner::COperator&CPlanner::action(const _action_id_type& action_id)
+IC  CPlanner::COperator& CPlanner::action(const _action_id_type& action_id)
 {
 	return (*get_operator(action_id));
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CPlanner::CConditionEvaluator&CPlanner::evaluator(const _condition_type& evaluator_id)
+IC  CPlanner::CConditionEvaluator&CPlanner::evaluator(const _condition_type& evaluator_id)
 {
 	return (*inherited::evaluator(evaluator_id));
 }
@@ -167,7 +167,7 @@ IC typename CPlanner::_action_id_type CPlanner::current_action_id() const
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CPlanner::COperator&CPlanner::current_action()
+IC CPlanner::COperator& CPlanner::current_action()
 {
 	return (action(current_action_id()));
 }
@@ -244,14 +244,14 @@ IC void CPlanner::add_operator(const _edge_type& operator_id, _operator_ptr _ope
 	);
 #endif
 	inherited::add_operator(operator_id, _operator);
-	_operator->setup(m_object, &m_storage);
+	_operator->setup(m_object, &this->m_storage);
 #ifdef LOG_ACTION
 	_operator->set_use_log	(m_use_log);
 #endif
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPlanner::remove_operator(const _edge_type& operator_id)
+void CPlanner::remove_operator(const _edge_type& operator_id)
 {
 #ifdef DEBUG
 	VERIFY2(
@@ -385,15 +385,15 @@ TEMPLATE_SPECIALIZATION
 IC void CPlanner::save(NET_Packet& packet)
 {
 	{
-		typename EVALUATORS::iterator I = m_evaluators.begin();
-		typename EVALUATORS::iterator E = m_evaluators.end();
+		auto I = this->m_evaluators.begin();
+		auto E = this->m_evaluators.end();
 		for (; I != E; ++I)
 			(*I).second->save(packet);
 	}
 
 	{
-		typename OPERATOR_VECTOR::iterator I = m_operators.begin();
-		typename OPERATOR_VECTOR::iterator E = m_operators.end();
+		auto I = this->m_operators.begin();
+		auto E = this->m_operators.end();
 		for (; I != E; ++I)
 			(*I).m_operator->save(packet);
 	}
@@ -415,15 +415,15 @@ TEMPLATE_SPECIALIZATION
 IC void CPlanner::load(IReader& packet)
 {
 	{
-		typename EVALUATORS::iterator I = m_evaluators.begin();
-		typename EVALUATORS::iterator E = m_evaluators.end();
+		auto I = this->m_evaluators.begin();
+		auto E = this->m_evaluators.end();
 		for (; I != E; ++I)
 			(*I).second->load(packet);
 	}
 
 	{
-		typename OPERATOR_VECTOR::iterator I = m_operators.begin();
-		typename OPERATOR_VECTOR::iterator E = m_operators.end();
+		auto I = this->m_operators.begin();
+		auto E = this->m_operators.end();
 		for (; I != E; ++I)
 			(*I).m_operator->load(packet);
 	}

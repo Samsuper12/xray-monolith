@@ -2,7 +2,7 @@
 // с галочкой и без
 //////////////////////////////////////////////////////////////////////
 
-#include ".\uicheckbutton.h"
+#include "UICheckButton.h"
 #include "UIXmlInit.h"
 #include "UIHint.h"
 #include "../../xrEngine/xr_sdl3_input.hpp"

@@ -1,14 +1,14 @@
-#include <shellapi.h>
+//#include <shellapi.h>
 
 #include <Engine.h>
 #include <CameraManager.h>
-#include <dinput.h>
+//#include <dinput.h>
 #include <IGame_Level.h>
 #include <LocatorAPI.h>
 #include <os_clipboard.h>
 #include <string_concatenations.h>
 #include <xr_input.h>
-#include <xr_IOConsole.h>
+#include <XR_IOConsole.h>
 
 #include "ui/UICDkey.h"
 #include "ui/UIDialogWnd.h"
@@ -21,7 +21,7 @@
 #include "MainMenu.h"
 #include "string_table.h"
 #include "UICursor.h"
-#include "xr_Level_controller.h"
+#include "xr_level_controller.h"
 
 #include "DemoInfo.h"
 #include "DemoInfo_Loader.h"
@@ -173,7 +173,7 @@ void CMainMenu::ReadTextureInfo()
 extern ENGINE_API BOOL bShowPauseString;
 extern bool IsGameTypeSingle();
 
-#include "..\..\xrEngine\x_ray.h"
+#include "../../xrEngine/x_ray.h"
 
 void CMainMenu::Activate(bool bActivate)
 {

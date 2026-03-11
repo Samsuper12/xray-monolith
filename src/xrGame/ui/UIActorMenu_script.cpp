@@ -15,7 +15,7 @@
 #include "UIDragDropReferenceList.h"
 #include "UICellCustomItems.h"
 
-#include "../actor.h"
+#include "../Actor.h"
 #include "../inventory_item.h"
 #include "UICellItem.h"
 #include "../ai_space.h"

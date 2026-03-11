@@ -4,7 +4,7 @@
 #include "../game_cl_teamdeathmatch.h"
 #include "UIKickPlayer.h"
 #include "UIChangeMap.h"
-#include <dinput.h>
+//#include <dinput.h>
 #include "XR_IOConsole.h"
 #include "UIMapList.h"
 #include "../UIGameCustom.h"

@@ -1,11 +1,11 @@
 #include <Engine.h>
 
-#include "entity.h"
-#include "xrserver_objects.h"
-#include "level.h"
-#include "xrmessages.h"
+#include "Entity.h"
+#include "xrServer_Objects.h"
+#include "Level.h"
+#include "xrMessages.h"
 #include "game_cl_base.h"
-#include "net_queue.h"
+#include "NET_Queue.h"
 //#include "Physics.h"
 #include "xrServer.h"
 #include "Actor.h"
@@ -15,8 +15,8 @@
 #include "saved_game_wrapper.h"
 #include "level_graph.h"
 #include "file_transfer.h"
-#include "message_filter.h"
-#include "../xrphysics/iphworld.h"
+#include "Message_Filter.h"
+#include "../xrPhysics/IPHWorld.h"
 
 extern LPCSTR map_ver_string;
 
@@ -414,7 +414,7 @@ void CLevel::ClientReceive()
 
 					u32 temp_str_size = str_end - str_start;
 					R_ASSERT2(temp_str_size < 256, "level name too big");
-					LevelName = static_cast<char*>(_alloca(temp_str_size + 1));
+					LevelName = static_cast<char*>(alloca(temp_str_size + 1));
 					P->r_seek(str_start);
 					P->r_stringZ(LevelName);
 
@@ -424,7 +424,7 @@ void CLevel::ClientReceive()
 					str_end = P->r_tell();
 					temp_str_size = str_end - str_start;
 					R_ASSERT2(temp_str_size < 256, "incorect game type");
-					GameType = static_cast<char*>(_alloca(temp_str_size + 1));
+					GameType = static_cast<char*>(alloca(temp_str_size + 1));
 					P->r_seek(str_start);
 					P->r_stringZ(GameType);*/
 

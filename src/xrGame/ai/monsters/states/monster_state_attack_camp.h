@@ -7,6 +7,13 @@ class CStateMonsterAttackCamp : public CState<_Object>
 {
 	typedef CState<_Object> inherited;
 	typedef CState<_Object>* state_ptr;
+	using inherited::object;
+	using inherited::current_substate;
+	using inherited::get_state_current;
+	using inherited::select_state;
+	using inherited::prev_substate;
+	using inherited::add_state;
+	using inherited::get_state;
 
 	u32 m_target_node;
 public:

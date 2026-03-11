@@ -1,14 +1,14 @@
 
-#include <camerabase.h>
+#include <CameraBase.h>
 #include <defines.h>
 #include <LightAnimLibrary.h>
 #include <xr_collide_form.h>
 
 #include "Flashlight.h"
-#include "inventory.h"
+#include "Inventory.h"
 #include "player_hud.h"
-#include "weapon.h"
-#include "hudsound.h"
+#include "Weapon.h"
+#include "HudSound.h"
 #include "ai_sounds.h"
 #include "Level.h"
 #include "Actor.h"

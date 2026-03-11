@@ -7,8 +7,8 @@
 
 #include "InfoDocument.h"
 #include "PDA.h"
-#include "inventoryowner.h"
-#include "xrserver_objects_alife_items.h"
+#include "InventoryOwner.h"
+#include "xrServer_Objects_ALife_Items.h"
 
 CInfoDocument::CInfoDocument(void)
 {

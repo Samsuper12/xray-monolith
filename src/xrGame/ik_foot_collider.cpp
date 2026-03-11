@@ -1,6 +1,6 @@
 #include	"ik_foot_collider.h"
 
-#include "gamemtllib.h"
+#include "GameMtlLib.h"
 #include "cl_intersect.h"
 #include "Kinematics.h"
 
@@ -9,7 +9,7 @@
 #include "entity_alive.h"
 
 //#include "ode_include.h"
-#include "../xrphysics/MathUtils.h"
+#include "../xrPhysics/MathUtils.h"
 
 #include "ik_collide_data.h"
 

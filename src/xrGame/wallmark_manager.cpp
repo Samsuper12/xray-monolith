@@ -1,12 +1,12 @@
 #include <CalculateTriangle.h>
-#include <gamemtllib.h>
+#include <GameMtlLib.h>
 #include <xr_ini.h>
 
 #include "wallmark_manager.h"
 #include "Level.h"
 #include "profiler.h"
 #ifdef DEBUG
-#include "phdebug.h"
+#include "PHDebug.h"
 #endif
 
 CWalmarkManager::CWalmarkManager()

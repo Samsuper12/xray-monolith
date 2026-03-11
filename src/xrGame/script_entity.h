@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <sound.h>
+#include <Sound.h>
 
 #include "script_entity_space.h"
 #include "KinematicsAnimated.h"

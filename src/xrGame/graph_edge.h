@@ -8,17 +8,17 @@
 
 #pragma once
 
-#include <loki/emptytype.h>
+#include <loki/EmptyType.h>
 
 template <
-	typename _edge_weight_type,
-	typename _vertex_type
+	typename _edge_weight_type1,
+	typename _vertex_type1
 >
 class CEdgeBase
 {
 public:
-	typedef _edge_weight_type _edge_weight_type;
-	typedef _vertex_type _vertex_type;
+	using _edge_weight_type = _edge_weight_type1;
+	using _vertex_type = _vertex_type1;
 	typedef typename _vertex_type::_vertex_id_type _vertex_id_type;
 
 private:

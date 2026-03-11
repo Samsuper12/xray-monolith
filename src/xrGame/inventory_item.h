@@ -14,8 +14,8 @@
 #include "inventory_space.h"
 #include "hit_immunity.h"
 #include "attachable_item.h"
-#include "xrserver_objects_alife.h"
-#include "xrserver_objects_alife_items.h"
+#include "xrServer_Objects_ALife.h"
+#include "xrServer_Objects_ALife_Items.h"
 #include "script_export_space.h"
 
 enum EHandDependence

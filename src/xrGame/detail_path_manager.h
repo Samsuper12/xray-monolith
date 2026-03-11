@@ -14,6 +14,27 @@
 
 using namespace DetailPathManager;
 
+namespace MonsterSpace {
+	enum EDirectionType
+	{
+		eDirectionTypeFP = u32(0),
+		eDirectionTypeFN = u32(1),
+		eDirectionTypeSP = u32(0),
+		eDirectionTypeSN = u32(2),
+		eDirectionTypePP = eDirectionTypeFP | eDirectionTypeSP,
+		// both linear velocities are positive
+		eDirectionTypeNN = eDirectionTypeFN | eDirectionTypeSN,
+		// both linear velocities are negative
+		eDirectionTypePN = eDirectionTypeFP | eDirectionTypeSN,
+		// the first linear velocity is positive, the second one - negative
+		eDirectionTypeNP = eDirectionTypeFN | eDirectionTypeSP,
+		// the first linear velocity is negative, the second one - positive
+	};
+}
+
+using namespace MonsterSpace;
+
+
 class CDetailPathManager
 {
 public:
@@ -100,21 +121,6 @@ protected:
 	u32 m_current_travel_point;
 
 private:
-	enum EDirectionType
-	{
-		eDirectionTypeFP = u32(0),
-		eDirectionTypeFN = u32(1),
-		eDirectionTypeSP = u32(0),
-		eDirectionTypeSN = u32(2),
-		eDirectionTypePP = eDirectionTypeFP | eDirectionTypeSP,
-		// both linear velocities are positive
-		eDirectionTypeNN = eDirectionTypeFN | eDirectionTypeSN,
-		// both linear velocities are negative
-		eDirectionTypePN = eDirectionTypeFP | eDirectionTypeSN,
-		// the first linear velocity is positive, the second one - negative
-		eDirectionTypeNP = eDirectionTypeFN | eDirectionTypeSP,
-		// the first linear velocity is negative, the second one - positive
-	};
 
 private:
 	bool m_actuality;

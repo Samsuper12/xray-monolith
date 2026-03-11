@@ -4,7 +4,7 @@
 #include "Kinematics.h"
 #include "object_broker.h"
 #include "ai_sounds.h"
-#include "weaponAmmo.h"
+#include "WeaponAmmo.h"
 #include "xr_level_controller.h"
 #include "game_object_space.h"
 #include "holder_custom.h"

@@ -52,9 +52,9 @@ public:
 		m_object->on_build_path();
 
 		if (m_object->detail().failed())
-			m_object->m_path_state = CMovementManager::ePathStateBuildLevelPath;
+			m_object->m_path_state = EPathState::ePathStateBuildLevelPath;
 		else
-			m_object->m_path_state = CMovementManager::ePathStatePathVerification;
+			m_object->m_path_state = EPathState::ePathStatePathVerification;
 	}
 
 	void __stdcall process()

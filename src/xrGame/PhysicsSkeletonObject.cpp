@@ -1,8 +1,8 @@
-#include "physicsskeletonobject.h"
+#include "PhysicsSkeletonObject.h"
 //#include "PhysicsShell.h"
-#include "physicsshell.h"
-#include "phsynchronize.h"
-#include "xrserver_objects_alife.h"
+#include "PhysicsShell.h"
+#include "PHSynchronize.h"
+#include "xrServer_Objects_ALife.h"
 #include "Kinematics.h"
 #include "xr_collide_form.h"
 

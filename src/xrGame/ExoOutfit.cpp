@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "exooutfit.h"
+#include "ExoOutfit.h"
 
 CExoOutfit::CExoOutfit()
 {

@@ -1,9 +1,9 @@
-#include	"../xrphysics/physicsshell.h"
-#include	"phsimplecalls.h"
-//#include	"phobject.h"
+#include	"../xrPhysics/PhysicsShell.h"
+#include	"PHSimpleCalls.h"
+//#include	"PHObject.h"
 //#include	"PHWorld.h"
 //extern		CPHWorld			*ph_world;
-#include "../xrphysics/IPHWorld.h"
+#include "../xrPhysics/IPHWorld.h"
 
 CPHCallOnStepCondition::CPHCallOnStepCondition()
 {

@@ -2,10 +2,10 @@
 #ifndef CPHMOVEMENT_CONTROL_H
 #define CPHMOVEMENT_CONTROL_H
 
-#include "../xrphysics/physicsexternalcommon.h"
-#include "../xrphysics/mathutils.h"
-#include "../xrphysics/movementboxdynamicactivate.h"
-
+#include "../xrPhysics/PhysicsExternalCommon.h"
+#include "../xrPhysics/MathUtils.h"
+#include "../xrPhysics/MovementBoxDynamicActivate.h"
+#include "../xrServerEntities/alife_space.h"
 namespace ALife
 {
 	enum EHitType;
@@ -211,7 +211,7 @@ public:
 	void CalcMaximumVelocity(float& /*dest**/, float /*accel**/, float /*friction**/)
 	{};
 
-	void ActivateBox(DWORD id, BOOL Check = false);
+	void ActivateBox(DWORD id, bool Check = false);
 	bool ActivateBoxDynamic(DWORD id, int num_it = 9, int num_steps = 5, float resolve_depth = 0.01f);
 	void InterpolateBox(DWORD id, float k);
 	EEnvironment Environment() { return eEnvironment; }
@@ -269,7 +269,7 @@ public:
 	void EnableCharacter();
 	void SetOjectContactCallback(ObjectContactCallbackFun* callback);
 	void SetFootCallBack(ObjectContactCallbackFun* callback);
-	static BOOL CPHMovementControl::BorderTraceCallback(collide::rq_result& result, LPVOID params);
+	static BOOL BorderTraceCallback(collide::rq_result& result, LPVOID params);
 	ObjectContactCallbackFun* ObjectContactCallback();
 	u16 ContactBone();
 	const ICollisionDamageInfo* CollisionDamageInfo() const;

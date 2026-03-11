@@ -1,6 +1,6 @@
 #include "UIGameCTA.h"
 
-#include <dinput.h>
+//#include <dinput.h>
 
 #include "UITeamPanels.h"
 
@@ -8,19 +8,19 @@
 #include "game_cl_capture_the_artefact.h"
 #include "game_cl_mp.h"
 
-#include "level.h"
-#include "actor.h"
-#include "artefact.h"
-#include "inventory.h"
+#include "Level.h"
+#include "Actor.h"
+#include "Artefact.h"
+#include "Inventory.h"
 #include "xrServer_Objects_ALife_Items.h"
-#include "weapon.h"
+#include "Weapon.h"
 #include "WeaponMagazinedWGrenade.h"
 #include "WeaponKnife.h"
 #include "xr_level_controller.h"
 
 #include "object_broker.h"
 //#include "clsid_game.h"
-#include "weaponknife.h"
+#include "WeaponKnife.h"
 
 #include "ui/UISkinSelector.h"
 //.#include "ui/UIInventoryWnd.h"
@@ -578,7 +578,7 @@ void CUIGameCTA::SetPlayerItemsToBuyMenu()
 		auto& inventory = actor->inventory();
 		u32 max_addammo_count = actor->inventory().m_all.size();
 		aditional_ammo_t add_ammo(
-			_alloca(
+			alloca(
 				sizeof(aditional_ammo_t::value_type) * (max_addammo_count * 2)
 			),
 			max_addammo_count * 2
@@ -828,7 +828,7 @@ void CUIGameCTA::ShowBuySpawn(s32 spawn_cost)
 	LPCSTR format_str = st.translate("mp_press_yes2pay").c_str();
 	VERIFY(format_str);
 	size_t pay_frm_size = xr_strlen(format_str) * sizeof(char) + 64;
-	PSTR pay_frm_str = static_cast<char*>(_alloca(pay_frm_size));
+	PSTR pay_frm_str = static_cast<char*>(alloca(pay_frm_size));
 
 	xr_sprintf(
 		pay_frm_str,

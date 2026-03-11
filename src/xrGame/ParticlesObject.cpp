@@ -6,9 +6,9 @@
 #include "defines.h"
 #include "RenderVisual.h"
 #include "ParticleCustom.h"
-#include "render.h"
+#include "Render.h"
 #include "IGame_Persistent.h"
-#include "environment.h"
+#include "Environment.h"
 
 const Fvector zero_vel = {0.f, 0.f, 0.f};
 

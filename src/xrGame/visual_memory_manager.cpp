@@ -14,14 +14,14 @@
 #include "ai_object_location.h"
 #include "level_graph.h"
 #include "stalker_movement_manager_smart_cover.h"
-#include "gamemtllib.h"
+#include "GameMtlLib.h"
 #include "agent_manager.h"
 #include "agent_member_manager.h"
 #include "ai_space.h"
 #include "profiler.h"
-#include "actor.h"
-#include "camerabase.h"
-#include "gamepersistent.h"
+#include "Actor.h"
+#include "CameraBase.h"
+#include "GamePersistent.h"
 #include "actor_memory.h"
 #include "client_spawn_manager.h"
 #include "client_spawn_manager.h"
@@ -29,7 +29,7 @@
 #include "ai/monsters/basemonster/base_monster.h"
 
 #ifndef MASTER_GOLD
-#	include "actor.h"
+#	include "Actor.h"
 #	include "ai_debug.h"
 #endif // MASTER_GOLD
 

@@ -3,11 +3,11 @@
 
 #include "GameObject.h"
 #include "ParticlesPlayer.h"
-#include "../xrEngine/iobjectphysicscollision.h"
-#include "../xrphysics/iphysicsshellholder.h"
+#include "../xrEngine/IObjectPhysicsCollision.h"
+#include "../xrPhysics/IPhysicsShellHolder.h"
 
 #if 1
-#include "../xrphysics/ExtendedGeom.h"
+#include "../xrPhysics/ExtendedGeom.h"
 #endif
 
 class CPHDestroyable;

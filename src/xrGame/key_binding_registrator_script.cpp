@@ -1,5 +1,5 @@
 #include "pch_script.h"
-#include <dinput.h>
+//#include <dinput.h>
 #include "key_binding_registrator.h"
 #include "xr_level_controller.h"
 #include "xr_sdl3_input.hpp"
@@ -202,10 +202,10 @@ void key_binding_registrator::script_register(lua_State* L)
 			value("DIK_F14", int(SDL_SCANCODE_F14)),
 		//	value("DIK_KANA", int(SDL_SCANCODE_KANA)),
 		//	value("DIK_NOCONVERT", int(DIK_NOCONVERT)),
-			value("DIK_NUMPADEQUALS", int(DIK_NUMPADEQUALS)),
+			//FIXME: value("DIK_NUMPADEQUALS", int(DIK_NUMPADEQUALS)),
 			// value("DIK_AT", int(DIK_AT)),
 			// value("DIK_UNDERLINE", int(DIK_UNDERLINE)),
-			value("DIK_STOP", int(DIK_STOP)),
+			//FIXME: value("DIK_STOP", int(DIK_STOP)),
 			// value("DIK_UNLABELED", int(DIK_UNLABELED)),
 			value("DIK_RCONTROL", int(SDL_SCANCODE_RCTRL)),
 			value("DIK_DIVIDE", int(SDL_SCANCODE_KP_DIVIDE)),

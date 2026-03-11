@@ -4,23 +4,23 @@
 
 #include "HudItem.h"
 #include "physic_item.h"
-#include "actor.h"
-#include "actoreffector.h"
+#include "Actor.h"
+#include "ActorEffector.h"
 #include "Missile.h"
-#include "xrmessages.h"
-#include "level.h"
-#include "inventory.h"
+#include "xrMessages.h"
+#include "Level.h"
+#include "Inventory.h"
 #include "player_hud.h"
 
 #include "build_config_defines.h"
 #include "ui_base.h"
-#include "ui\UIScriptWnd.h"
+#include "ui/UIScriptWnd.h"
 
 #include "script_callback_ex.h"
 #include "script_game_object.h"
 #include "Flashlight.h"
 #include "clsid_game.h"
-#include "weaponpistol.h"
+#include "WeaponPistol.h"
 #include "HUDManager.h"
 
 ENGINE_API extern float psHUD_FOV_def;
@@ -912,7 +912,7 @@ void CHudItem::PlayAnimIdleMoving()
 	PlayHUDMotion("anm_idle_moving", TRUE, NULL, GetState(), isActorAccelerated(Actor()->MovingState(), false) ? 1.f : .75f);
 }
 
-#include "weapon.h"
+#include "Weapon.h"
 #include "../xrEngine/SkeletonMotions.h"
 
 void CHudItem::PlayAnimIdleSprint()

@@ -14,12 +14,12 @@
 #include "alife_object_registry.h"
 #include "alife_schedule_registry.h"
 #include "game_level_cross_table.h"
-#include "xrserver.h"
+#include "xrServer.h"
 #include "ai_space.h"
 #include "level_graph.h"
 
 #ifdef DEBUG
-#	include "level.h"
+#	include "Level.h"
 #endif // DEBUG
 
 using namespace ALife;
@@ -138,7 +138,7 @@ bool CALifeSwitchManager::synchronize_location(CSE_ALifeDynamicObject* I)
 	VERIFY3					(ai().level_graph().level_id() == ai().game_graph().vertex(I->m_tGraphID)->level_id(),*I->s_name,I->name_replace());
 	if (!I->children.empty()) {
 		u32					size = I->children.size();
-		ALife::_OBJECT_ID	*test = (ALife::_OBJECT_ID*)_alloca(size*sizeof(ALife::_OBJECT_ID));
+		ALife::_OBJECT_ID	*test = (ALife::_OBJECT_ID*)alloca(size*sizeof(ALife::_OBJECT_ID));
 		Memory.mem_copy		(test,&*I->children.begin(),size*sizeof(ALife::_OBJECT_ID));
 		std::sort			(test,test + size);
 		for (u32 i=1; i<size; ++i) {

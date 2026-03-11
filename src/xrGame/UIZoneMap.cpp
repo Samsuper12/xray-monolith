@@ -1,13 +1,13 @@
-#include "uizonemap.h"
+#include "UIZoneMap.h"
 
 #include "InfoPortion.h"
-#include "Pda.h"
+#include "PDA.h"
 
 #include "Grenade.h"
-#include "level.h"
+#include "Level.h"
 #include "game_cl_base.h"
 
-#include "actor.h"
+#include "Actor.h"
 #include "ai_space.h"
 #include "game_graph.h"
 

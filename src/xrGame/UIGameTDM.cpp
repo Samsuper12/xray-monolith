@@ -2,10 +2,10 @@
 
 #include "game_cl_base.h"
 
-#include "game_cl_TeamDeathmatch.h"
+#include "game_cl_teamdeathmatch.h"
 
 #include "ui/TeamInfo.h"
-#include <dinput.h>
+//#include <dinput.h>
 
 #include "object_broker.h"
 

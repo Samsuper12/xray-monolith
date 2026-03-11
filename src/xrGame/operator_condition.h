@@ -9,14 +9,14 @@
 #pragma once
 
 template <
-	typename _condition_type,
-	typename _value_type
+	typename _condition_type1,
+	typename _value_type1
 >
 class COperatorConditionAbstract
 {
 public:
-	typedef _condition_type _condition_type;
-	typedef _value_type _value_type;
+	using _condition_type  = _condition_type1;
+	using _value_type = _value_type1;
 
 protected:
 	typedef COperatorConditionAbstract<_condition_type, _value_type> COperatorCondition;

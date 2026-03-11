@@ -2,12 +2,12 @@
 #include "WeaponKnife.h"
 #include "Entity.h"
 #include "Actor.h"
-#include "level.h"
+#include "Level.h"
 #include "xr_level_controller.h"
 #include "game_cl_base.h"
 #include "Kinematics.h"
-#include "gamemtllib.h"
-#include "level_bullet_manager.h"
+#include "GameMtlLib.h"
+#include "Level_Bullet_Manager.h"
 #include "ai_sounds.h"
 #include "game_cl_single.h"
 #include "SkeletonMotions.h"
@@ -135,7 +135,7 @@ void CWeaponKnife::KnifeStrike(const Fvector& pos, const Fvector& dir)
 	}
 
 
-	shot_targets_t dest_hits(_alloca(sizeof(Fvector) * m_hits_count), m_hits_count);
+	shot_targets_t dest_hits(alloca(sizeof(Fvector) * m_hits_count), m_hits_count);
 
 	if (SelectHitsToShot(dest_hits, pos))
 	{
@@ -749,7 +749,7 @@ u32 CWeaponKnife::SelectHitsToShot(shot_targets_t& dst_dirs, Fvector const& f_po
 		return 0;
 
 	victims_list_t tmp_victims_list(
-		_alloca(m_spartial_query_res.size() * sizeof(CEntityAlive*)),
+		alloca(m_spartial_query_res.size() * sizeof(CEntityAlive*)),
 		m_spartial_query_res.size());
 
 	create_victims_list(m_spartial_query_res, tmp_victims_list);
@@ -761,7 +761,7 @@ u32 CWeaponKnife::SelectHitsToShot(shot_targets_t& dst_dirs, Fvector const& f_po
 		summ_shapes_count += get_entity_bones_count(*i);
 	}
 	victims_shapes_list_t tmp_shapes_list(
-		_alloca(summ_shapes_count * sizeof(victims_shapes_list_t::value_type)),
+		alloca(summ_shapes_count * sizeof(victims_shapes_list_t::value_type)),
 		summ_shapes_count);
 
 	Fvector basis_vector;

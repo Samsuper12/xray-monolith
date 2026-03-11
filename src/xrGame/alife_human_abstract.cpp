@@ -6,12 +6,13 @@
 //	Description : ALife human abstract class
 ////////////////////////////////////////////////////////////////////////////
 
-#include "xrServer_objects_ALife_Monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "alife_human_brain.h"
 #include "alife_human_object_handler.h"
 #include "ai_space.h"
 #include "alife_simulator.h"
 #include "relation_registry.h"
+#include "../xrCore/_std_extensions.h"
 
 void CSE_ALifeHumanAbstract::update()
 {
@@ -64,21 +65,21 @@ CSE_ALifeItemWeapon* CSE_ALifeHumanAbstract::tpfGetBestWeapon(ALife::EHitType& t
 
 void CSE_ALifeHumanAbstract::on_register()
 {
-	inherited2::on_register();
+	inherited2_::on_register();
 	// because we need to load profile to setup graph vertex masks
 	specific_character();
 }
 
 void CSE_ALifeHumanAbstract::on_unregister()
 {
-	inherited2::on_unregister();
+	inherited2_::on_unregister();
 }
 
 void CSE_ALifeHumanAbstract::spawn_supplies()
 {
 	specific_character();
-	inherited1::spawn_supplies();
-	inherited2::spawn_supplies();
+	inherited1_::spawn_supplies();
+	inherited2_::spawn_supplies();
 }
 
 void CSE_ALifeHumanAbstract::add_online(const bool& update_registries)

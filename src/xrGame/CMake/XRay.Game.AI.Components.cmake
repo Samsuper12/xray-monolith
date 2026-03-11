@@ -2,7 +2,7 @@ add_module(XRay.Game.AI.Components
   TYPE STATIC
 
   LINKS
-  dxsdk
+  #dxsdk
   fastdelegate
   FastDynamicCast
   ode

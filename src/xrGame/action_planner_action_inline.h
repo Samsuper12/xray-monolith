@@ -62,17 +62,17 @@ TEMPLATE_SPECIALIZATION
 void CPlanner::execute()
 {
 	inherited_action::execute();
-	update();
+	this->update();
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPlanner::add_condition(_world_operator* action, _condition_type condition_id, _value_type condition_value)
+IC void CPlanner::add_condition(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value)
 {
 	inherited_planner::add_condition(action, condition_id, condition_value);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPlanner::add_effect(_world_operator* action, _condition_type condition_id, _value_type condition_value)
+IC void CPlanner::add_effect(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value)
 {
 	inherited_planner::add_effect(action, condition_id, condition_value);
 }

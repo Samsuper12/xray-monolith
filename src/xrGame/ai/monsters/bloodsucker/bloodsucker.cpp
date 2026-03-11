@@ -1,15 +1,15 @@
 #include "bloodsucker.h"
 #include "bloodsucker_state_manager.h"
-#include "actor.h"
+#include "Actor.h"
 #include "ActorEffector.h"
 #include "KinematicsAnimated.h"
-#include "level.h"
+#include "Level.h"
 #include "material_manager.h"
 #include "bloodsucker_vampire_effector.h"
 #include "detail_path_manager.h"
 #include "level_debug.h"
 #include "../monster_velocity_space.h"
-#include "gamepersistent.h"
+#include "GamePersistent.h"
 #include "game_object_space.h"
 
 #include "../control_animation_base.h"
@@ -17,7 +17,7 @@
 #include "../control_rotation_jump.h"
 
 #include "sound_player.h"
-#include "camerabase.h"
+#include "CameraBase.h"
 #include "xr_level_controller.h"
 #include "ActorCondition.h"
 
@@ -25,7 +25,7 @@
 #include "CharacterPhysicsSupport.h"
 
 #ifdef DEBUG
-#	include <dinput.h>
+//#	include <dinput.h>
 #endif // DEBUG
 
 

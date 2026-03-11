@@ -1,18 +1,18 @@
 
 #include "imotion_position.h"
 
-#include "physicsshell.h"
+#include "PhysicsShell.h"
 #include "MathUtils.h"
-#include "extendedgeom.h"
+#include "ExtendedGeom.h"
 
 #include "Kinematics.h"
 ///////////////////////////////////////////////////////////////////////////////////////
-#include "physicsshellholder.h"
+#include "PhysicsShellHolder.h"
 
 #include "game_object_space.h"
 #include "animation_utils.h"
 #ifdef	DEBUG
-#include "phdebug.h"
+#include "PHDebug.h"
 #endif
 
 #ifdef	DEBUG
@@ -515,7 +515,7 @@ static void restore_blends(buffer_vector<sblend_save>& buffer)
 void imotion_position::collide_not_move(IKinematicsAnimated& KA)
 {
 	u32 sv_blends_num = blends_num(KA);
-	buffer_vector<sblend_save> saved_blends(_alloca(sv_blends_num * sizeof(sblend_save)), sv_blends_num);
+	buffer_vector<sblend_save> saved_blends(alloca(sv_blends_num * sizeof(sblend_save)), sv_blends_num);
 	save_blends(saved_blends, KA);
 	motion_collide(0.5f * max_collide_timedelta, KA);
 	restore_blends(saved_blends);
@@ -541,7 +541,7 @@ float imotion_position::move(float dt, IKinematicsAnimated& KA)
 	{
 		float ad = 0.f;
 		u32 sv_blends_num = blends_num(KA);
-		buffer_vector<sblend_save> saved_blends(_alloca(sv_blends_num * sizeof(sblend_save)), sv_blends_num);
+		buffer_vector<sblend_save> saved_blends(alloca(sv_blends_num * sizeof(sblend_save)), sv_blends_num);
 
 		if (!flags.test(fl_switch_dm_toragdoll))
 		{
@@ -602,7 +602,7 @@ float imotion_position::motion_collide(float dt, IKinematicsAnimated& KA)
 		}
 #endif
 		u32 sv_blends_num = blends_num(KA);
-		buffer_vector<sblend_save> saved_blends(_alloca(sv_blends_num * sizeof(sblend_save)), sv_blends_num);
+		buffer_vector<sblend_save> saved_blends(alloca(sv_blends_num * sizeof(sblend_save)), sv_blends_num);
 		save_blends(saved_blends, KA); //		sv1
 		float depth0 = depth;
 		advance_time += collide_animation(collide_adwance_delta, KA);

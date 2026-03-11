@@ -5,9 +5,15 @@
 template <typename _Object>
 class CStateMonsterHearHelpSound : public CState<_Object>
 {
-protected:
+public:
 	typedef CState<_Object> inherited;
 	typedef CState<_Object>* state_ptr;
+	using inherited::object;
+	using inherited::add_state;
+	using inherited::current_substate;
+	using inherited::prev_substate;
+	using inherited::get_state_current;
+	using inherited::select_state;
 
 public:
 	CStateMonsterHearHelpSound(_Object* obj);
