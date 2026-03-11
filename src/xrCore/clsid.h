@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 
 //***** CLASS ID type
 typedef u64 CLASS_ID;

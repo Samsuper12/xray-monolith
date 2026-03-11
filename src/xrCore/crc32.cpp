@@ -1,4 +1,4 @@
-#include "_types.h"
+#include "_types_own.h"
 
 static BOOL crc32_ready = FALSE;
 static u32 crc32_table[256]; // Lookup table array

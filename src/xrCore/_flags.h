@@ -1,7 +1,7 @@
 #ifndef __FLAGS_H__
 #define __FLAGS_H__
 
-#include "_types.h"
+#include "_types_own.h"
 
 template <class T>
 struct _flags

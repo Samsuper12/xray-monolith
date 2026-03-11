@@ -4,7 +4,7 @@
 ////#include <d3d9types.h>
 //#include <d3dx9mesh.h>
 
-#include <_types.h>
+#include <_types_own.h>
 #include <_color.h>
 #include <_vector3d.h>
 #include <light.h>

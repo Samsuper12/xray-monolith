@@ -4,7 +4,7 @@
 
 //#include <d3d9types.h>
 
-#include <_types.h>
+#include <_types_own.h>
 
 #define	CAP_VERSION(a,b)	(u32(a)*10 + u32(b))
 

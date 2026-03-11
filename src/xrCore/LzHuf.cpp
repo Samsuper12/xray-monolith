@@ -6,7 +6,7 @@
 // #include <fcntl.h>
 #include <sys/stat.h>
 
-#include "_types.h"
+#include "_types_own.h"
 #include "xrMemory.h"
 
 #define MODULE

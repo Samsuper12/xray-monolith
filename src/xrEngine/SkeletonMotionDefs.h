@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 #include "vector.h"
 
 const u32 MAX_PARTS = 4;

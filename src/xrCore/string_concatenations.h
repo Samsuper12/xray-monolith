@@ -1,7 +1,7 @@
 #ifndef STRING_CONCATENATIONS_H
 #define STRING_CONCATENATIONS_H
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_stl_extensions.h"
 
 class shared_str;

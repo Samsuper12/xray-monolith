@@ -5,7 +5,7 @@
 #include <AL/alc.h>
 #include <AL/efx.h>
 
-#include <_types.h>
+#include <_types_own.h>
 #include <xrstring.h>
 
 #define AL_GENERIC_HARDWARE "Generic Hardware"

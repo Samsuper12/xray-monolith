@@ -2,7 +2,7 @@
 #define GameFontH
 #pragma once
 
-#include <_types.h>
+#include <_types_own.h>
 #include <_vector3d.h>
 #include <xrstring.h>
 

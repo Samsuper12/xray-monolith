@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-#include "_types.h"
+#include "_types_own.h"
 #include "vector.h"
 
 // float values defines

@@ -2,7 +2,7 @@
 #define xrMemory_POOLh
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 #include "xrSyncronize.h"
 
 class xrMemory;

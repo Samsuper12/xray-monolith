@@ -4,7 +4,7 @@
 #include "math_constants.h"
 
 // Define types and namespaces (CPU & FPU)
-#include "_types.h"
+#include "_types_own.h"
 #include "_math.h"
 #include "_bitwise.h"
 #include "_std_extensions.h"

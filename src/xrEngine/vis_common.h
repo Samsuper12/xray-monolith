@@ -2,7 +2,7 @@
 #define vis_commonH
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_sphere.h"
 #include "_fbox.h"
 

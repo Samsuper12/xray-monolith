@@ -3,7 +3,7 @@
 #ifndef _INCDEF_TARGASAVER_H_
 #define _INCDEF_TARGASAVER_H_
 
-#include "_types.h"
+#include "_types_own.h"
 
 class IWriter;
 

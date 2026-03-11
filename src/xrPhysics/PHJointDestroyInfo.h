@@ -2,7 +2,7 @@
 #define PHJOINT_DESTROY_INFO_H
 
 #include <ode/common.h>
-#include <_types.h>
+#include <_types_own.h>
 
 class CPHJointDestroyInfo
 {

@@ -1,7 +1,7 @@
 #ifndef _PURE_H_AAA_
 #define _PURE_H_AAA_
 
-#include <_types.h>
+#include <_types_own.h>
 #include <_stl_extensions.h>
 #include "_std_extensions.h"
 #include <resource.h>

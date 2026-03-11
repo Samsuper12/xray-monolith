@@ -3,7 +3,7 @@
 #pragma once
 
 #include <cpuid.h>
-#include <_types.h>
+#include <_types_own.h>
 #include <_vector3d.h>
 
 // Forward references

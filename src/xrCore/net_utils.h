@@ -2,7 +2,7 @@
 #define _INCDEF_NETUTILS_H_
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 #include "math_constants.h"
 #include "_vector3d.h"
 #include "_vector4.h"

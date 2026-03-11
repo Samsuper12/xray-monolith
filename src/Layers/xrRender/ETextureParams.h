@@ -1,7 +1,7 @@
 #ifndef ETextureParamsH
 #define ETextureParamsH
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_flags.h"
 #include <xrstring.h>
 

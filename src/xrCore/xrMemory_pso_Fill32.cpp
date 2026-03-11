@@ -1,4 +1,4 @@
-#include "_types.h"
+#include "_types_own.h"
 
 void __stdcall xrMemFill32_x86(LPVOID dest, u32 value, u32 count)
 {

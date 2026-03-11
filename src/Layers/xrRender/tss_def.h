@@ -2,7 +2,7 @@
 #define TSS_DEF_H
 
 //#include <d3d9.h>
-#include <_types.h>
+#include <_types_own.h>
 #include <_stl_extensions.h>
 
 #pragma once

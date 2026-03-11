@@ -1,7 +1,7 @@
 #pragma once
 #include <fast_dynamic_cast.h>
 
-#include "_types.h"
+#include "_types_own.h"
 #include "xrstring.h"
 
 // resource itself, the base class for all derived resources

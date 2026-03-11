@@ -5,7 +5,7 @@
 #ifndef FileSystemH
 #define FileSystemH
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_std_extensions.h"
 #include "xrstring.h"
 

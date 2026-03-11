@@ -1,7 +1,7 @@
 #ifndef DefinesH
 #define DefinesH
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_flags.h"
 
 #ifdef DEBUG

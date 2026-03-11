@@ -2,7 +2,7 @@
 #define _FIXEDMAP_H
 #pragma once
 
-#include <_types.h>
+#include <_types_own.h>
 #include <_stl_extensions.h>
 
 template <class K, class T, class allocator = xr_allocator>

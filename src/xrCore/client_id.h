@@ -2,7 +2,7 @@
 #define client_idH
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 
 // #pragma pack(push,1)
 class ClientID

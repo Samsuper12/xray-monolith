@@ -3,7 +3,7 @@
 #pragma once
 //==============================================================================
 
-#include <_types.h>
+#include <_types_own.h>
 #include "NET_Shared.h"
 
 struct GameDescriptionData

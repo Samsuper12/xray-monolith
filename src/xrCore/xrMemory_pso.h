@@ -2,7 +2,7 @@
 #define xrMemory_psoH
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 
 typedef void __stdcall pso_MemFill(void* dest, int value, u32 count);
 typedef void __stdcall pso_MemFill32(void* dest, u32 value, u32 count);

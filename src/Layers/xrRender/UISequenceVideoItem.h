@@ -2,7 +2,7 @@
 #define	UISequenceVideoItem_included
 #pragma once
 
-#include <_types.h>
+#include <_types_own.h>
 
 class IUISequenceVideoItem
 {

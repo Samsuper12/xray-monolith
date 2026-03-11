@@ -1,4 +1,4 @@
-#include "_types.h"
+#include "_types_own.h"
 #include "rt_lzo1x.h"
 #include "xrDebug.h"
 

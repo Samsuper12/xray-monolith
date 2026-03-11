@@ -9,7 +9,7 @@
 #ifndef OS_CLIPBOARD_H_INCLUDED
 #define OS_CLIPBOARD_H_INCLUDED
 
-#include "_types.h"
+#include "_types_own.h"
 
 namespace os_clipboard
 {

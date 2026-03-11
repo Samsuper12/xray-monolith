@@ -2,7 +2,7 @@
 #define xrsharedmemH
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_stl_extensions.h"
 
 // #pragma pack(push,4)

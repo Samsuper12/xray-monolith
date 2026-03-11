@@ -6,7 +6,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include "_types.h"
+#include "_types_own.h"
 #include <cmath>
 
 #define BREAK_AT_STRCMP

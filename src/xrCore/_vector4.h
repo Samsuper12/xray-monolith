@@ -2,7 +2,7 @@
 #define _VECTOR4_H
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 
 template <class T>
 struct _vector4

@@ -2,7 +2,7 @@
 #define	UIRender_included
 #pragma once
 
-#include "_types.h"
+#include "_types_own.h"
 #include "_matrix.h"
 #include "_rect.h"
 

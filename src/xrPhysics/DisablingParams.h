@@ -1,7 +1,7 @@
 #ifndef DISABLING_PARAMS_H
 #define DISABLING_PARAMS_H
 
-#include "_types.h"
+#include "_types_own.h"
 #include "xrPhysics.h"
 
 class CInifile;
