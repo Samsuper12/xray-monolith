@@ -22,7 +22,8 @@ target_sources_sandboxed(luasocket
   ${LUASOCKET_DIR}/src/tcp.c
   ${LUASOCKET_DIR}/src/timeout.c
   ${LUASOCKET_DIR}/src/udp.c
-  ${LUASOCKET_DIR}/src/wsocket.c
+ # ${LUASOCKET_DIR}/src/wsocket.c
+  ${LUASOCKET_DIR}/src/usocket.c
   ${LUASOCKET_DIR}/src/auxiliar.h
 
   ${LUASOCKET_DIR}/src/buffer.h
@@ -39,7 +40,9 @@ target_sources_sandboxed(luasocket
   ${LUASOCKET_DIR}/src/tcp.h
   ${LUASOCKET_DIR}/src/timeout.h
   ${LUASOCKET_DIR}/src/udp.h
-  ${LUASOCKET_DIR}/src/wsocket.h
+  #${LUASOCKET_DIR}/src/wsocket.h
+  ${LUASOCKET_DIR}/src/usocket.h
+
 )
 
 target_include_directories(luasocket
