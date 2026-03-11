@@ -94,13 +94,14 @@ extern "C" {
 
 /* floating point data type, vector, matrix and quaternion types */
 
-#if defined(dSINGLE)
+//#if defined(dSINGLE)
+#define dSINGLE
 typedef float dReal;
-#elif defined(dDOUBLE)
-typedef double dReal;
-#else
-#error You must #define dSINGLE or dDOUBLE
-#endif
+// #elif defined(dDOUBLE)
+// typedef double dReal;
+// #else
+// #error You must #define dSINGLE or dDOUBLE
+// #endif
 
 
 /* round an integer up to a multiple of 4, except that 0 and 1 are unmodified

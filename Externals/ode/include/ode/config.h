@@ -41,8 +41,15 @@ extern "C" {
 
 #include <stdarg.h>
 
+#ifdef __unix__
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+#define _cdecl
+#define __forceinline inline __attribute__((always_inline))
+#else
 #include <malloc.h>		// for alloca under windows
-
+#endif 
 #include <string.h>
 
 #include <math.h>
