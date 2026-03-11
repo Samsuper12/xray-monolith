@@ -87,6 +87,9 @@ target_sources_sandboxed(libvorbis
 target_include_directories(libvorbis
   PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}
+  PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/${LIBVORBIS_DIR}/lib
+  ${CMAKE_CURRENT_SOURCE_DIR}/${LIBVORBIS_DIR}/include
 )
 
 target_compile_options(libvorbis
