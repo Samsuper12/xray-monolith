@@ -562,6 +562,9 @@ typedef CustomValue<Fcolor> ColorValue;
 template <class T>
 class NumericValue : public CustomValue<T>
 {
+	using inherited = CustomValue<T>;
+	using inherited::value;
+	using inherited::init_value;
 public:
 	T lim_mn;
 	T lim_mx;
@@ -570,8 +573,8 @@ public:
 public:
 	NumericValue(T* val): CustomValue<T>(val)
 	{
-		CustomValue<T>::value = val;
-		CustomValue<T>::init_value = *CustomValue<T>::value;
+		inherited::value = val;
+		inherited::init_value = *CustomValue<T>::value;
 		dec = 0;
 	};
 
@@ -579,8 +582,8 @@ public:
 	                                                       dec(decim)
 	{
 		clamp(*val, lim_mn, lim_mx);
-		value = val;
-		init_value = *value;
+		inherited::value = val;
+		inherited::init_value = *value;
 	};
 
 	bool ApplyValue(const T& _val)
@@ -756,7 +759,7 @@ public:
 	{
 		xr_string draw_val;
 		if (!OnDrawText.empty()) OnDrawText(this, draw_val);
-		else for (int i = 0; token[i].name; i++) if (token[i].id == (int)GetValue()) return token[i].name;
+		else for (int i = 0; token[i].name; i++) if (token[i].id == (int)this->GetValue()) return token[i].name;
 		return draw_val;
 	}
 };
@@ -788,7 +791,7 @@ public:
 	{
 		xr_string draw_val;
 		if (!OnDrawText.empty()) OnDrawText(this, draw_val);
-		else for (u32 k = 0; k < token_count; k++) if ((T)token[k].id == GetValue()) return *token[k].name;
+		else for (u32 k = 0; k < token_count; k++) if ((T)token[k].id == this->GetValue()) return *token[k].name;
 		return draw_val;
 	}
 };

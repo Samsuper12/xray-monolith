@@ -57,8 +57,8 @@ struct DynamicCast
 
 		static void Register(lua_State* L)
 		{
-			Helper2<TList::Tail, T>::Register(L);
-			declare<Loki::SuperSubclassStrict<Head, T>::value>();
+			Helper2<typename TList::Tail, T>::Register(L);
+			declare<typename Loki::SuperSubclassStrict<Head, T>::value>();
 		}
 
 		template <bool _1>
@@ -86,8 +86,8 @@ struct DynamicCast
 	{
 		static void Register(lua_State* L)
 		{
-			Helper<TList::Tail>::Register(L);
-			Helper2<TFullList, TList::Head>::Register(L);
+			Helper<typename TList::Tail>::Register(L);
+			Helper2<TFullList, typename TList::Head>::Register(L);
 		}
 	};
 

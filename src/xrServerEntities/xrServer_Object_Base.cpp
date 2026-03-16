@@ -15,10 +15,12 @@
 #include "script_value_container_impl.h"
 #include "clsid_game.h"
 
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 #ifndef AI_COMPILER
 #	include "object_factory.h"

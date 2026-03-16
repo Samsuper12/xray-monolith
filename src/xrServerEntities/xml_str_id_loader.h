@@ -8,6 +8,9 @@
 #endif // XRGAME_EXPORTS
 
 
+#include "../xrCore/xr_trims.h"
+#include "object_destroyer.h"
+
 //T_ID    - уникальный текстовый идентификатор (аттрибут id в XML файле)
 //T_INDEX - уникальный числовой индекс 
 //T_INIT -  класс где определена статическая InitXmlIdToIndex

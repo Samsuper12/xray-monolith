@@ -126,4 +126,9 @@ add_to_type_list(CScriptEngine)
 #undef script_type_list
 #define script_type_list save_type_list(CScriptEngine)
 
+#include "pch_script.h"
+#include "ai_space.h"
+#include "object_factory.h"
+#include "script_process.h"
+#include "script_storage.h"
 #include "script_engine_inline.h"

@@ -44,6 +44,7 @@ public:
 };
 #endif // NO_XR_GAME
 
+#include "../xrGame/Level.h"
 #include "object_item_client_server_inline.h"
 
 #endif
