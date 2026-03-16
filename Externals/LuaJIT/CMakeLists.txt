@@ -10,8 +10,8 @@ project(LuaJIT C CXX ASM)
 
 # Version
 set(MAJVER 2)
-set(MINVER 0)
-set(RELVER 5)
+set(MINVER 1)
+set(RELVER 0)
 set(ABIVER 5.1)
 set(NODOTABIVER 51)
 
@@ -28,7 +28,7 @@ option(LUA_USE_RELATIVE_LOADLIB "Use modified loadlib.c with support for relativ
 option(LUAJIT_DISABLE_FFI "Disable the FFI extension to reduce the size of the LuaJIT executable. But please consider that the FFI library is compiled-in, but NOT loaded by default. It only allocates any memory, if you actually make use of it" OFF)
 option(LUAJIT_ENABLE_LUA52COMPAT "Features from Lua 5.2 that are unlikely to break existing code are enabled by default. Some other features that *might* break some existing code (e.g. __pairs or os.execute() return values) can be enabled here. Note: this does not provide full compatibility with Lua 5.2 at this time" OFF)
 option(LUAJIT_DISABLE_JIT "Disable the JIT compiler, i.e. turn LuaJIT into a pure interpreter" OFF)
-option(LUAJIT_DISABLE_GC64 "Disable LJ_GC64 mode for x64" OFF)
+option(LUAJIT_DISABLE_GC64 "Disable LJ_GC64 mode for x64/arm64" OFF)
 option(LUAJIT_USE_SYSMALLOC "Use the system provided memory allocator (realloc) instead of the bundled memory allocator. This is slower, but sometimes helpful for debugging. It's helpful for Valgrind's memcheck tool, too. This option cannot be enabled on x64, since the built-in allocator is mandatory" OFF)
 option(LUAJIT_USE_VALGRIND "This option is required to run LuaJIT under Valgrind. The Valgrind header files must be installed. You should enable debug information, too." OFF)
 option(LUAJIT_USE_GDBJIT "This is the client for the GDB JIT API. GDB 7.0 or higher is required to make use of it. See lj_gdbjit.c for details. Enabling this causes a non-negligible overhead, even when not running under GDB" OFF)
@@ -208,7 +208,7 @@ elseif ("${TESTARCH_OUTPUT}" MATCHES "LJ_TARGET_E2K")
   string(APPEND TARGET_XCFLAGS " -fexceptions")
 else()
   message("${TESTARCH_OUTPUT}")
-  message(FATAL_ERROR "Unsupported luajit target architecture (see output above)")
+  #message(FATAL_ERROR "Unsupported luajit target architecture (see output above)")
 endif()
 
 string(APPEND TARGET_ARCH "-DLUAJIT_TARGET=LUAJIT_ARCH_${TARGET_LJARCH}")
@@ -233,7 +233,7 @@ if (WIN32)
   set(LJVM_MODE peobj)
 elseif (APPLE)
   if (CMAKE_OSX_DEPLOYMENT_TARGET STREQUAL "")
-    #message(FATAL_ERROR "Missing export MACOSX_DEPLOYMENT_TARGET=XX.YY")
+    message(FATAL_ERROR "Missing export MACOSX_DEPLOYMENT_TARGET=XX.YY")
   endif()
 
   #string(APPEND TARGET_STRIP "-x")
@@ -244,6 +244,7 @@ elseif (APPLE)
   if (${TARGET_LJARCH} STREQUAL "x64")
     string(APPEND TARGET_XLDFLAGS " -pagezero_size 10000 -image_base 100000000 -image_base 7fff04c4a000")
   elseif (${TARGET_LJARCH} STREQUAL "arm64")
+    # arm64 on Apple Silicon: frame pointer required, no pagezero manipulation needed
     string(APPEND TARGET_XCFLAGS " -fno-omit-frame-pointer")
   endif()
 
@@ -317,6 +318,11 @@ if (TARGET_LJARCH STREQUAL "x64")
   if (NOT "${TESTARCH_OUTPUT}" MATCHES "LJ_FR2 1")
     set(DASM_ARCH "x86")
   endif()
+elseif (TARGET_LJARCH STREQUAL "arm64")
+  # 2.1: arm64 uses its own dasc, no remapping needed
+  if (APPLE)
+    list(APPEND DASM_FLAGS "-D IOS")
+  endif()
 elseif (TARGET_LJARCH STREQUAL "arm")
   if (APPLE)
     list(APPEND DASM_FLAGS "-D IOS")
@@ -388,6 +394,8 @@ list(APPEND LJLIB_C
   "${LUAJIT_DIR}/lib_os.c"
   "${LUAJIT_DIR}/lib_string.c"
   "${LUAJIT_DIR}/lib_table.c"
+  "${LUAJIT_DIR}/lj_def.h"
+  "${LUAJIT_DIR}/lib_buffer.c"   # new in 2.1
 )
 
 if (LUA_USE_RELATIVE_LOADLIB)
@@ -452,22 +460,17 @@ else()
     SOURCES
     ${LJLIB_C}
 
-    luajit.h
-
-    lj_alloc.c
-
-    xr_alloc.c
-    xr_alloc.h
 
     "${LUAJIT_DIR}/host/buildvm_asm.c"
     "${LUAJIT_DIR}/host/buildvm_fold.c"
     "${LUAJIT_DIR}/host/buildvm_lib.c"
-    #"${LUAJIT_DIR}/host/buildvm_libbc.h"
+    "${LUAJIT_DIR}/host/buildvm_libbc.h"
     "${LUAJIT_DIR}/host/buildvm_peobj.c"
     "${LUAJIT_DIR}/host/buildvm.c"
     "${LUAJIT_DIR}/host/buildvm.h"
-      
+
     "${LUAJIT_DIR}/../dynasm/dasm_arm.h"
+    "${LUAJIT_DIR}/../dynasm/dasm_arm64.h"  # new in 2.1
     "${LUAJIT_DIR}/../dynasm/dasm_ppc.h"
     "${LUAJIT_DIR}/../dynasm/dasm_x86.h"
     "${LUAJIT_DIR}/../dynasm/dasm_mips.h"
@@ -481,18 +484,23 @@ else()
     "${LUAJIT_DIR}/lj_asm.c"
     "${LUAJIT_DIR}/lj_asm.h"
     "${LUAJIT_DIR}/lj_asm_arm.h"
+    "${LUAJIT_DIR}/lj_asm_arm64.h"         # new in 2.1
     "${LUAJIT_DIR}/lj_asm_ppc.h"
     "${LUAJIT_DIR}/lj_asm_x86.h"
     "${LUAJIT_DIR}/lj_asm_mips.h"
-    #"${LUAJIT_DIR}/lj_assert.c"
+    "${LUAJIT_DIR}/lj_assert.c"             # new in 2.1
     "${LUAJIT_DIR}/lj_arch.h"
     "${LUAJIT_DIR}/lj_bc.c"
     "${LUAJIT_DIR}/lj_bc.h"
     "${LUAJIT_DIR}/lj_bcdump.h"
     "${LUAJIT_DIR}/lj_bcread.c"
     "${LUAJIT_DIR}/lj_bcwrite.c"
-    #"${LUAJIT_DIR}/lj_buf.c"
-    #"${LUAJIT_DIR}/lj_buf.h"
+    "${LUAJIT_DIR}/lj_buf.c"               # new in 2.1
+    "${LUAJIT_DIR}/lj_buf.h"               # new in 2.1
+    "${LUAJIT_DIR}/lj_serialize.h"
+    "${LUAJIT_DIR}/lj_serialize.c"         # new in 2.1
+    "${LUAJIT_DIR}/lj_carith.c"
+    "${LUAJIT_DIR}/lj_serialize.h"
     "${LUAJIT_DIR}/lj_carith.c"
     "${LUAJIT_DIR}/lj_carith.h"
     "${LUAJIT_DIR}/lj_ccall.c"
@@ -521,6 +529,7 @@ else()
     "${LUAJIT_DIR}/lj_err.h"
     "${LUAJIT_DIR}/lj_errmsg.h"
     "${LUAJIT_DIR}/lj_emit_arm.h"
+    "${LUAJIT_DIR}/lj_emit_arm64.h"        # new in 2.1
     "${LUAJIT_DIR}/lj_emit_ppc.h"
     "${LUAJIT_DIR}/lj_emit_x86.h"
     "${LUAJIT_DIR}/lj_emit_mips.h"
@@ -559,10 +568,10 @@ else()
     "${LUAJIT_DIR}/lj_opt_split.c"
     "${LUAJIT_DIR}/lj_parse.c"
     "${LUAJIT_DIR}/lj_parse.h"
-    #"${LUAJIT_DIR}/lj_prng.c"
-    #"${LUAJIT_DIR}/lj_prng.h"
-    #"${LUAJIT_DIR}/lj_profile.c"
-    #"${LUAJIT_DIR}/lj_profile.h"
+    "${LUAJIT_DIR}/lj_prng.c"              # new in 2.1
+    "${LUAJIT_DIR}/lj_prng.h"              # new in 2.1
+    "${LUAJIT_DIR}/lj_profile.c"           # new in 2.1
+    "${LUAJIT_DIR}/lj_profile.h"           # new in 2.1
     "${LUAJIT_DIR}/lj_record.c"
     "${LUAJIT_DIR}/lj_record.h"
     "${LUAJIT_DIR}/lj_snap.c"
@@ -571,15 +580,16 @@ else()
     "${LUAJIT_DIR}/lj_state.h"
     "${LUAJIT_DIR}/lj_str.c"
     "${LUAJIT_DIR}/lj_str.h"
-    #"${LUAJIT_DIR}/lj_strfmt.c"
-    #"${LUAJIT_DIR}/lj_strfmt.h"
-    #"${LUAJIT_DIR}/lj_strfmt_num.c"
+    "${LUAJIT_DIR}/lj_strfmt.c"            # new in 2.1
+    "${LUAJIT_DIR}/lj_strfmt.h"            # new in 2.1
+    "${LUAJIT_DIR}/lj_strfmt_num.c"        # new in 2.1
     "${LUAJIT_DIR}/lj_strscan.c"
     "${LUAJIT_DIR}/lj_strscan.h"
     "${LUAJIT_DIR}/lj_tab.c"
     "${LUAJIT_DIR}/lj_tab.h"
     "${LUAJIT_DIR}/lj_target.h"
     "${LUAJIT_DIR}/lj_target_arm.h"
+    "${LUAJIT_DIR}/lj_target_arm64.h"      # new in 2.1
     "${LUAJIT_DIR}/lj_target_ppc.h"
     "${LUAJIT_DIR}/lj_target_x86.h"
     "${LUAJIT_DIR}/lj_target_mips.h"
@@ -596,6 +606,13 @@ else()
     "${LUAJIT_DIR}/lua.hpp"
     "${LUAJIT_DIR}/luaconf.h"
     "${LUAJIT_DIR}/lualib.h"
+
+    luajit.h
+
+    lj_alloc.c
+
+    xr_alloc.c
+    xr_alloc.h
   )
 endif()
 

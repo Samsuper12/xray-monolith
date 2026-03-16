@@ -24,6 +24,7 @@ target_sources(lua-marshal
   PRIVATE
   ${CMAKE_CURRENT_BINARY_DIR}/lmarshal.c
 )
+target_compile_definitions(lua-marshal PRIVATE luaL_reg=luaL_Reg)
 
 target_compile_options(lua-marshal
   PRIVATE

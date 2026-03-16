@@ -1147,8 +1147,8 @@ static void *tmalloc_small(mstate m, size_t nb)
 }
 
 /* ----------------------------------------------------------------------- */
-
-void *lj_alloc_create(void)
+//FIXME: PRNGState *rs
+void *lj_alloc_create(PRNGState *rs)
 {
   size_t tsize = DEFAULT_GRANULARITY;
   char *tbase;

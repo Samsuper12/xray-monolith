@@ -27,6 +27,8 @@ target_compile_options(lua-extensions
   $<$<CXX_COMPILER_ID:Clang>:-Wno-deprecated-declarations>
 )
 
+target_compile_definitions(lua-extensions PRIVATE luaL_reg=luaL_Reg)
+
 target_compile_definitions(lua-extensions
   PRIVATE
   _CRT_SECURE_NO_WARNINGS
