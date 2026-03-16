@@ -75,8 +75,8 @@ public:
 	IC void for_each(const _Predicate& pred)
 	{
 		if (! current_block) return;
-		xr_vector<T*>::iterator i = blocks.begin();
-		xr_vector<T*>::iterator e = blocks.begin() + block_count;
+		auto i = blocks.begin();
+		auto e = blocks.begin() + block_count;
 		u32 j;
 		for (; i != e; ++i)
 		{

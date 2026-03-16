@@ -1,11 +1,13 @@
 #include "noise.h"
 
 #ifndef _EDITOR
+#ifndef __APPLE__
 #include <xmmintrin.h>
+#endif
 
 __forceinline int iFloor_SSE(float const x)
 {
-	return _mm_cvtt_ss2si(_mm_set_ss(x));
+	//FIXME: return _mm_cvtt_ss2si(_mm_set_ss(x));
 }
 #endif
 

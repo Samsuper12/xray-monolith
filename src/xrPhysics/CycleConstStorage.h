@@ -1,5 +1,6 @@
 #ifndef CYCLE_CONST_STORAGE_H
 #define CYCLE_CONST_STORAGE_H
+#include <algorithm>
 
 template <class T, int size>
 class CCycleConstStorage

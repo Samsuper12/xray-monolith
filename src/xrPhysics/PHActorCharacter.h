@@ -1,6 +1,8 @@
 #pragma once
 #include "PHSimpleCharacter.h"
 #include "PHActorCharacterInline.h"
+#include "ExtendedGeom.h"
+#include <ode/collision.h>
 
 class CPhysicShellHolder;
 
