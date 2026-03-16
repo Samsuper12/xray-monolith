@@ -13,7 +13,7 @@ class CStateMonsterRestIdle : public CState<_Object>
 	using inherited::select_state;
 	using inherited::current_substate;
 	using inherited::prev_substate;
-	using inherited::time_state_started; 
+	using inherited::time_state_started;
 
 	u32 m_target_node;
 
@@ -27,5 +27,6 @@ public:
 	virtual void reselect_state();
 	virtual void setup_substates();
 };
-
+#include "../ai_monster_squad.h"
+#include "../ai_monster_squad_manager.h"
 #include "monster_state_rest_idle_inline.h"

@@ -24,10 +24,12 @@
 #include "enemy_manager.h"
 #include "memory_space_impl.h"
 
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 const float wounded_enemy_reached_distance = 3.f;
 

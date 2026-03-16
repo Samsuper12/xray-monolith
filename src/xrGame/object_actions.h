@@ -15,6 +15,7 @@ class CInventoryItem;
 class CFoodItem;
 class CWeaponMagazined;
 class CWeapon;
+class CHudItem;
 
 //////////////////////////////////////////////////////////////////////////
 // CObjectActionBase
@@ -394,4 +395,6 @@ public:
 	virtual void execute();
 };
 
+#include "HudItem.h"
+#include "object_handler_space.h"
 #include "object_actions_inline.h"

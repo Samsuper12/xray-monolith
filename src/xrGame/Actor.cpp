@@ -237,7 +237,7 @@ CActor::CActor() : CEntityAlive(), current_ik_cam_shift(0)
 	m_bNightVisionOn = false;
 
 	//Discord
-	discord_gameinfo.ingame = true;
+	//discord_gameinfo.ingame = true;
 
 	//Safemode (lower weapon)
 	m_bSafemode = false;
@@ -277,7 +277,7 @@ CActor::~CActor()
 	xr_delete(m_night_vision);
 
 	//Discord
-	discord_gameinfo.ingame = false;
+	//discord_gameinfo.ingame = false;
 }
 
 void CActor::reinit()
@@ -1280,104 +1280,104 @@ void CActor::UpdateCL()
 	if (psActorFlags.test(AF_MULTI_ITEM_PICKUP))
 		m_bPickupMode = false;
 
-	//Discord
-	if (psDeviceFlags2.test(rsDiscord))
-	{
-		//God
-		bool isGodmode = psActorFlags.test(AF_GODMODE);
-		discord_gameinfo.godmode = isGodmode;
+	//FIXME: Discord
+	// if (psDeviceFlags2.test(rsDiscord))
+	// {
+	// 	//God
+	// 	bool isGodmode = psActorFlags.test(AF_GODMODE);
+	// 	discord_gameinfo.godmode = isGodmode;
 
-		if (!isGodmode)
-		{
-			int disc_cur_health = (int)roundf(GetfHealth() * 100);
-			if (disc_cur_health <= 0)
-				discord_gameinfo.health = NULL;
-			else
-				discord_gameinfo.health = disc_cur_health;
-		}
+	// 	if (!isGodmode)
+	// 	{
+	// 		int disc_cur_health = (int)roundf(GetfHealth() * 100);
+	// 		if (disc_cur_health <= 0)
+	// 			discord_gameinfo.health = NULL;
+	// 		else
+	// 			discord_gameinfo.health = disc_cur_health;
+	// 	}
 
-		//Current Time
-		str_c current_time = InventoryUtilities::GetGameTimeAsString(InventoryUtilities::etpTimeToMinutes).c_str();
-		discord_gameinfo.currenttime = current_time;
+	// 	//Current Time
+	// 	str_c current_time = InventoryUtilities::GetGameTimeAsString(InventoryUtilities::etpTimeToMinutes).c_str();
+	// 	discord_gameinfo.currenttime = current_time;
 
-		// Update once after a loadscreen
-		if (!discord_gameinfo.loadscreen && discord_gameinfo.ex_update)
-		{
-			//Update Iron Man state and lives
-			::luabind::functor<bool> ironman_enabled;
-			if (ai().script_engine().functor("_g.IsHardcoreMode", ironman_enabled))
-			{
-				if (ironman_enabled && ironman_enabled())
-					discord_gameinfo.ironman = true;
-				else
-					discord_gameinfo.ironman = false;
-			}
+	// 	// Update once after a loadscreen
+	// 	if (!discord_gameinfo.loadscreen && discord_gameinfo.ex_update)
+	// 	{
+	// 		//Update Iron Man state and lives
+	// 		::luabind::functor<bool> ironman_enabled;
+	// 		if (ai().script_engine().functor("_g.IsHardcoreMode", ironman_enabled))
+	// 		{
+	// 			if (ironman_enabled && ironman_enabled())
+	// 				discord_gameinfo.ironman = true;
+	// 			else
+	// 				discord_gameinfo.ironman = false;
+	// 		}
 
-			if (discord_gameinfo.ironman)
-			{
-				//Lives left
-				::luabind::functor<int> ironman_lives;
-				if (ai().script_engine().functor("ironman_manager.get_lives_left", ironman_lives))
-				{
-					if (ironman_lives)
-					{
-						int lives_left = ironman_lives();
-						discord_gameinfo.lives_left = lives_left;
-					}
-				}
-			}
+	// 		if (discord_gameinfo.ironman)
+	// 		{
+	// 			//Lives left
+	// 			::luabind::functor<int> ironman_lives;
+	// 			if (ai().script_engine().functor("ironman_manager.get_lives_left", ironman_lives))
+	// 			{
+	// 				if (ironman_lives)
+	// 				{
+	// 					int lives_left = ironman_lives();
+	// 					discord_gameinfo.lives_left = lives_left;
+	// 				}
+	// 			}
+	// 		}
 
-			//Level
-			if (g_pGameLevel && g_pGameLevel->name() != NULL)
-			{
-				snprintf(discord_gameinfo.level_name, 128, xr_ToUTF8(*CStringTable().translate(g_pGameLevel->name())));
-				srand((unsigned int)time(0));
-				int level_icon_id = rand() % 3 + 1;
-				discord_gameinfo.level_icon_index = level_icon_id;
-				discord_gameinfo.level = g_pGameLevel->name().c_str();
-			}
+	// 		//Level
+	// 		if (g_pGameLevel && g_pGameLevel->name() != NULL)
+	// 		{
+	// 			snprintf(discord_gameinfo.level_name, 128, xr_ToUTF8(*CStringTable().translate(g_pGameLevel->name())));
+	// 			srand((unsigned int)time(0));
+	// 			int level_icon_id = rand() % 3 + 1;
+	// 			discord_gameinfo.level_icon_index = level_icon_id;
+	// 			discord_gameinfo.level = g_pGameLevel->name().c_str();
+	// 		}
 
-			//Story Mode
-			::luabind::functor<bool> game_mode;
-			if (ai().script_engine().functor("_g.IsStoryMode", game_mode) && game_mode())
-				snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_story")));
+	// 		//Story Mode
+	// 		::luabind::functor<bool> game_mode;
+	// 		if (ai().script_engine().functor("_g.IsStoryMode", game_mode) && game_mode())
+	// 			snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_story")));
 
-			//Warfare
-			else if (ai().script_engine().functor("_g.IsWarfare", game_mode) && game_mode())
-				snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_warfare")));
+	// 		//Warfare
+	// 		else if (ai().script_engine().functor("_g.IsWarfare", game_mode) && game_mode())
+	// 			snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_warfare")));
 
-			//Azazel Mode
-			else if (ai().script_engine().functor("_g.IsAzazelMode", game_mode) && game_mode())
-			{
-				snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_azazel_mode")));
+	// 		//Azazel Mode
+	// 		else if (ai().script_engine().functor("_g.IsAzazelMode", game_mode) && game_mode())
+	// 		{
+	// 			snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_azazel_mode")));
 
-				::luabind::functor<int> possessed_lives;
-				if (ai().script_engine().functor("azazel_mode.get_possessed_lives", possessed_lives))
-				{
-					int lives_possessed = possessed_lives();
-					discord_gameinfo.possessed_lives = lives_possessed;
-				}
-			}
+	// 			::luabind::functor<int> possessed_lives;
+	// 			if (ai().script_engine().functor("azazel_mode.get_possessed_lives", possessed_lives))
+	// 			{
+	// 				int lives_possessed = possessed_lives();
+	// 				discord_gameinfo.possessed_lives = lives_possessed;
+	// 			}
+	// 		}
 
-			//Survival Mode
-			else if (ai().script_engine().functor("_g.IsSurvivalMode", game_mode) && game_mode())
-				snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_survival")));
+	// 		//Survival Mode
+	// 		else if (ai().script_engine().functor("_g.IsSurvivalMode", game_mode) && game_mode())
+	// 			snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_survival")));
 			
-			//Freeplay Mode
-			else
-				snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_freeplay")));
+	// 		//Freeplay Mode
+	// 		else
+	// 			snprintf(discord_gameinfo.gamemode, 128, xr_ToUTF8(*CStringTable().translate("st_cap_check_freeplay")));
 
-			//Update Active Task
-			Level().GameTaskManager().RPC_UpdateTaskName();
+	// 		//Update Active Task
+	// 		Level().GameTaskManager().RPC_UpdateTaskName();
 
-			//Update Faction, Rank and Reputation
-			RPC_UpdateFaction();
-			RPC_UpdateRank();
-			RPC_UpdateReputation();
+	// 		//Update Faction, Rank and Reputation
+	// 		RPC_UpdateFaction();
+	// 		RPC_UpdateRank();
+	// 		RPC_UpdateReputation();
 
-			discord_gameinfo.ex_update = false;
-		}
-	}
+	// 		discord_gameinfo.ex_update = false;
+	// 	}
+	// }
 
 	//for LV shaders
 	g_pGamePersistent->actor_data.health = GetfHealth();
@@ -1411,11 +1411,12 @@ void CActor::RPC_UpdateFaction()
 	{
 		if (real_faction)
 		{
-			LPCSTR faction_name = real_faction();
-			discord_gameinfo.faction = faction_name;
-			char buffer[128];
-			sprintf(buffer, "st_faction_%s", faction_name);
-			snprintf(discord_gameinfo.faction_name, 128, xr_ToUTF8(*CStringTable().translate(buffer)));
+			//FIXME:
+			// LPCSTR faction_name = real_faction();
+			// discord_gameinfo.faction = faction_name;
+			// char buffer[128];
+			// sprintf(buffer, "st_faction_%s", faction_name);
+			// snprintf(discord_gameinfo.faction_name, 128, xr_ToUTF8(*CStringTable().translate(buffer)));
 		}
 	}
 }
@@ -1431,7 +1432,7 @@ void CActor::RPC_UpdateRank()
 			LPCSTR rank = actor_rank();
 			char rank_name[100];
 			sprintf(rank_name, "st_rank_%s", rank);
-			snprintf(discord_gameinfo.rank_name, 128, xr_ToUTF8(*CStringTable().translate(rank_name)));
+			//FIXME: snprintf(discord_gameinfo.rank_name, 128, xr_ToUTF8(*CStringTable().translate(rank_name)));
 		}
 	}
 }
@@ -1451,8 +1452,9 @@ void CActor::RPC_UpdateReputation()
 				if (actor_rep)
 				{
 					LPCSTR reputation_name = actor_rep(reputation);
-					if (reputation_name)
-						snprintf(discord_gameinfo.reputation, 128, xr_ToUTF8(*CStringTable().translate(reputation_name)));
+					//FIXME:
+					// if (reputation_name)
+					// 	snprintf(discord_gameinfo.reputation, 128, xr_ToUTF8(*CStringTable().translate(reputation_name)));
 				}
 			}
 		}

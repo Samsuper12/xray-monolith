@@ -18,10 +18,12 @@
 #include "alife_monster_movement_manager.h"
 #include "alife_monster_detail_path_manager.h"
 
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 extern void setup_location_types_line(GameGraph::TERRAIN_VECTOR& m_vertex_types, LPCSTR string);
 

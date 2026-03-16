@@ -16,10 +16,13 @@
 #include "level_graph.h"
 #include "graph_engine.h"
 
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
+
 
 #ifdef DEBUG
 #	include "Level.h"

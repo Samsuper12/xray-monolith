@@ -16,9 +16,13 @@
 TEMPLATE_SPECIALIZATION
 IC CBaseAction::CActionBase(const xr_vector<COperatorCondition>& conditions,
                             const xr_vector<COperatorCondition>& effects, _object_type* object, LPCSTR action_name) :
-	inherited(conditions, effects)
+	inherited()
 {
-	init(object, action_name);
+	for (auto& c : conditions)
+        m_conditions.add_condition(m_conditions.conditions().end(), c);
+    for (auto& e : effects)
+        m_effects.add_condition(m_effects.conditions().end(), e);
+    init(object, action_name);
 }
 
 TEMPLATE_SPECIALIZATION

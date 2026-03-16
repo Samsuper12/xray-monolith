@@ -6,7 +6,9 @@
 //	Description : Space restriction holder
 ////////////////////////////////////////////////////////////////////////////
 
+#ifndef __APPLE__
 #include <malloc.h>
+#endif
 
 #include <string_concatenations.h>
 #include <xr_trims.h>

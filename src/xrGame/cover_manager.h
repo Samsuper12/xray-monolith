@@ -86,4 +86,6 @@ public:
 	Cover* smart_cover(shared_str const& cover_id) const;
 };
 
+#include "cover_point.h"
+
 #include "cover_manager_inline.h"

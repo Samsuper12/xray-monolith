@@ -14,10 +14,12 @@
 #include "magic_box3.h"
 #include "ai_obstacle.h"
 
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 #if 0
 #	define MSG(...) Msg(__VA_ARGS__)

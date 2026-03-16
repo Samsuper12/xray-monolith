@@ -8,14 +8,13 @@
 
 #pragma once
 
-#include "a_star.h"
-#include "edge_path.h"
 #include "vertex_manager_fixed.h"
 #include "vertex_manager_hash_fixed.h"
+#include "a_star.h"
+#include "edge_path.h"
 #include "vertex_allocator_fixed.h"
 #include "data_storage_bucket_list.h"
 #include "data_storage_binary_heap.h"
-#include "path_manager.h"
 #include "graph_engine_space.h"
 #include "profiler.h"
 
@@ -36,6 +35,22 @@ template <
 	typename _operator_ptr1 ,
 	typename _condition_evaluator_ptr1>
 class CProblemSolver;
+
+template <
+	typename _path_id_type,
+	typename _index_type1,
+	unsigned long hash_size,
+	unsigned long fix_size
+>
+struct CVertexManagerHashFixed;
+
+template <
+	typename _path_id_type1,
+	typename _index_type1,
+	unsigned char mask
+>
+struct CVertexManagerFixed;
+
 
 namespace hash_fixed_vertex_manager
 {
@@ -204,4 +219,5 @@ public:
 #endif // AI_COMPILER
 };
 
+#include "path_manager.h"
 #include "graph_engine_inline.h"

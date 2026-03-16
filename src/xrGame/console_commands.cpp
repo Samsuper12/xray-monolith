@@ -59,7 +59,7 @@
 #endif // DEBUG
 
 #include "stdio.h"
-#include <safe_lib.h>
+//#include <safe_lib.h>
 
 
 
@@ -1895,12 +1895,12 @@ public:
 		if (EQ(args, "on") || EQ(args, "1"))
 		{
 			value->set(mask, TRUE);
-			discord_gameinfo.ex_update = true;
+			//FIXME: discord_gameinfo.ex_update = true;
 		}
 		else if (EQ(args, "off") || EQ(args, "0"))
 		{
 			value->set(mask, FALSE);
-			clearDiscordPresence();
+			//FIXME: clearDiscordPresence();
 		}
 		else InvalidSyntax();
 	}
@@ -2915,10 +2915,10 @@ void CCC_RegisterCommands()
 	psDeviceFlags2.set(rsKeypress, TRUE);
 	CMD3(CCC_Mask, "keypress_on_start", &psDeviceFlags2, rsKeypress);
 
-	//Discord
-	psDeviceFlags2.set(rsDiscord, TRUE);
-	CMD3(CCC_DiscordStatus, "discord_status", &psDeviceFlags2, rsDiscord);
-	CMD4(CCC_Float, "discord_update_rate", &discord_update_rate, .5f, 5.f);
+	//FIXME: Discord
+	// psDeviceFlags2.set(rsDiscord, TRUE);
+	// CMD3(CCC_DiscordStatus, "discord_status", &psDeviceFlags2, rsDiscord);
+	// CMD4(CCC_Float, "discord_update_rate", &discord_update_rate, .5f, 5.f);
 
 	psActorFlags.set(rsCODPickup, TRUE);
 	CMD3(CCC_Mask, "cl_cod_pickup_mode", &psDeviceFlags2, rsCODPickup);

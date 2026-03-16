@@ -43,5 +43,8 @@ public:
 	template <typename T>
 	IC const xr_vector<u32>& accessible_neighbour_border(T& restriction, bool out_restriction);
 };
-
+#include "space_restriction_base.h"
+#include "ai_space.h"
+#include "level_graph.h"
+#include "profiler.h"
 #include "space_restriction_bridge_inline.h"

@@ -1,6 +1,6 @@
 #pragma once
 #include "../xr_level_controller.h"
-
+#include <memory>
 class UIHint;
 class CScriptXmlInit;
 class CUIWindow;
@@ -10,89 +10,89 @@ struct _12b
 	DWORD _[3];
 };
 
-extern poolSS<_12b, 128> ui_allocator;
+// extern poolSS<_12b, 128> ui_allocator;
 
 
-template <class T>
-class uialloc
-{
-public:
-	typedef size_t size_type;
-	typedef ptrdiff_t difference_type;
-	typedef T* pointer;
-	typedef const T* const_pointer;
-	typedef T& reference;
-	typedef const T& const_reference;
-	typedef T value_type;
+// template <class T>
+// class uialloc
+// {
+// public:
+// 	typedef size_t size_type;
+// 	typedef ptrdiff_t difference_type;
+// 	typedef T* pointer;
+// 	typedef const T* const_pointer;
+// 	typedef T& reference;
+// 	typedef const T& const_reference;
+// 	typedef T value_type;
 
-public:
-	template <class _Other>
-	struct rebind
-	{
-		typedef uialloc<_Other> other;
-	};
+// public:
+// 	template <class _Other>
+// 	struct rebind
+// 	{
+// 		typedef uialloc<_Other> other;
+// 	};
 
-public:
-	pointer address(reference _Val) const { return (&_Val); }
-	const_pointer address(const_reference _Val) const { return (&_Val); }
+// public:
+// 	pointer address(reference _Val) const { return (&_Val); }
+// 	const_pointer address(const_reference _Val) const { return (&_Val); }
 
-	uialloc()
-	{
-	}
+// 	uialloc()
+// 	{
+// 	}
 
-	uialloc(const uialloc<T>&)
-	{
-	}
+// 	uialloc(const uialloc<T>&)
+// 	{
+// 	}
 
-	template <class _Other>
-	uialloc(const uialloc<_Other>&)
-	{
-	}
+// 	template <class _Other>
+// 	uialloc(const uialloc<_Other>&)
+// 	{
+// 	}
 
-	template <class _Other>
-	uialloc<T>& operator=(const uialloc<_Other>&) { return (*this); }
+// 	template <class _Other>
+// 	uialloc<T>& operator=(const uialloc<_Other>&) { return (*this); }
 
-	pointer allocate(size_type n, const void* p = 0) const
-	{
-		VERIFY(1==n);
-		return (pointer)ui_allocator.create();
-	};
+// 	pointer allocate(size_type n, const void* p = 0) const
+// 	{
+// 		VERIFY(1==n);
+// 		return (pointer)ui_allocator.create();
+// 	};
 
-	char* __charalloc(size_type n)
-	{
-		VERIFY(1==n);
-		return (char*)ui_allocator.create();
-	};
+// 	char* __charalloc(size_type n)
+// 	{
+// 		VERIFY(1==n);
+// 		return (char*)ui_allocator.create();
+// 	};
 
-	void deallocate(pointer p, size_type n) const
-	{
-		VERIFY(1==n);
-		_12b* p_ = (_12b*)p;
-		ui_allocator.destroy(p_);
-	}
+// 	void deallocate(pointer p, size_type n) const
+// 	{
+// 		VERIFY(1==n);
+// 		_12b* p_ = (_12b*)p;
+// 		ui_allocator.destroy(p_);
+// 	}
 
-	void deallocate(void* p, size_type n) const
-	{
-		VERIFY(1==n);
-		_12b* p_ = (_12b*)p;
-		ui_allocator.destroy(p_);
-	}
+// 	void deallocate(void* p, size_type n) const
+// 	{
+// 		VERIFY(1==n);
+// 		_12b* p_ = (_12b*)p;
+// 		ui_allocator.destroy(p_);
+// 	}
 
-	void construct(pointer p, const T& _Val) { std::_Construct(p, _Val); }
-	void destroy(pointer p) { std::_Destroy(p); }
+// 	void construct(pointer p, const T& _Val) { std::construct(p, _Val); }
+// 	void destroy(pointer p) { std::destroy(p); }
 
-	size_type max_size() const
-	{
-		size_type _Count = (size_type)(-1) / sizeof(T);
-		return (0 < _Count ? _Count : 1);
-	}
-};
+// 	size_type max_size() const
+// 	{
+// 		size_type _Count = (size_type)(-1) / sizeof(T);
+// 		return (0 < _Count ? _Count : 1);
+// 	}
+// };
 
-template <class _Ty, class _Other>
-inline bool operator==(const uialloc<_Ty>&, const uialloc<_Other>&) { return (true); }
+// template <class _Ty, class _Other>
+// inline bool operator==(const uialloc<_Ty>&, const uialloc<_Other>&) { return (true); }
 
-template <class _Ty, class _Other>
-inline bool operator!=(const uialloc<_Ty>&, const uialloc<_Other>&) { return (false); }
+// template <class _Ty, class _Other>
+// inline bool operator!=(const uialloc<_Ty>&, const uialloc<_Other>&) { return (false); }
 
 //. template<typename T>	
 //. class	ui_list 		: public std::list<T,uialloc<T> >{ public: u32 size() const {return (u32)__super::size(); } };

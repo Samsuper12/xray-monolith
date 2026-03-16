@@ -13,6 +13,7 @@
 
 #include "Actor.h"
 #include "physics_game.h"
+#include "../xrEngine/defines.h"
 
 bool CHelicopter::isObjectVisible(CObject* O)
 {

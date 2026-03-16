@@ -13,7 +13,8 @@ protected:
 	using inherited::select_state;
 	using inherited::current_substate;
 	using inherited::prev_substate;
-	using inherited::time_state_started; 
+	using inherited::time_state_started;
+	using inherited::data; 
 
 	enum
 	{

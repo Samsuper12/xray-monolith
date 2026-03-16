@@ -1454,11 +1454,11 @@ void game_sv_mp::OnPlayerKilled(NET_Packet P)
 
 	if (!ps_killed)
 	{
-#ifndef MASTER_GOLD
-		Msg("! ERROR:  killed entity is null ! (entitty [%d][%s]), killer id [%d][%s], Frame [%d]",
-			KilledID, entity ? entity->cName().c_str() : "unknown",
-			KillerID, ps_killer ? ps_killer->getName() : "unknown",
-			Device.dwFrame);
+#ifndef MASTER_GOLD 
+		// Msg("! ERROR:  killed entity is null ! (entitty [%d][%s]), killer id [%d][%s], Frame [%d]",
+		// 	KilledID, entity ? entity->cName().c_str() : "unknown",
+		// 	KillerID, ps_killer ? ps_killer->getName() : "unknown",
+		// 	Device.dwFrame);
 #endif // #ifndef MASTER_GOLD
 		return;
 	}

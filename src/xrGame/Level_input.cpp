@@ -319,7 +319,7 @@ void CLevel::IR_OnKeyboardPress(int key)
                      Send						(net_packet,net_flags(TRUE));
                      return;
     }
-    case SDL_SCANCODE_DIVIDE: {
+    case SDL_SCANCODE_KP_DIVIDE: {
                          if (!Server)
                              break;
 
@@ -334,7 +334,7 @@ void CLevel::IR_OnKeyboardPress(int key)
 
                          break;
     }
-    case SDL_SCANCODE_MULTIPLY: {
+    case SDL_SCANCODE_KP_MULTIPLY: {
                            if (!Server)
                                break;
 

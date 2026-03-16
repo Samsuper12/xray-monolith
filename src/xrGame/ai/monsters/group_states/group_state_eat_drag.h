@@ -1,9 +1,10 @@
 #pragma once
-
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 template <typename _Object>
 class CStateGroupDrag : public CState<_Object>

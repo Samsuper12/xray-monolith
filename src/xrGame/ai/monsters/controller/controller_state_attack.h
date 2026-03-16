@@ -4,6 +4,15 @@
 #include "../../../ai_debug.h"
 
 template <typename _Object>
+class CStateMonsterAttackMoveToHomePoint;
+
+template <typename _Object>
+class CStateMonsterAttackRun;
+
+template <typename _Object>
+class CStateMonsterAttackMelee;
+
+template <typename _Object>
 class CStateControllerAttack : public CState<_Object>
 {
 protected:

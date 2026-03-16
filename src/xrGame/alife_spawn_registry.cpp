@@ -5,9 +5,9 @@
 //	Author		: Dmitriy Iassenev
 //	Description : ALife spawn registry
 ////////////////////////////////////////////////////////////////////////////
-
+#ifndef __APPLE__
 #include <malloc.h>
-
+#endif
 #include <xrCore.h>
 #include <LocatorAPI.h>
 

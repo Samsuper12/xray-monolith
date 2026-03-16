@@ -14,7 +14,6 @@
 #include "FoodItem.h"
 #include "Weapon.h"
 #include "WeaponMagazined.h"
-#include "object_handler_space.h"
 #include "stalker_animation_manager.h"
 #include "object_handler_planner.h"
 

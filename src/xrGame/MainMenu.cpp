@@ -189,7 +189,7 @@ void CMainMenu::Activate(bool bActivate)
 	if (g_dedicated_server && bActivate) return;
 
 	//Discord
-	discord_gameinfo.mainmenu = bActivate;
+	//FIXME: discord_gameinfo.mainmenu = bActivate;
 
 	// demonized: handled in separate thread
 	/*if (bActivate && psDeviceFlags2.test(rsDiscord))

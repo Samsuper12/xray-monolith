@@ -134,4 +134,14 @@ private:
 	static CRelationRegistryWrapper* m_relation_registry;
 };
 
+#include "alife_registry_wrappers.h"
+
+#include "character_community.h"
+#include "character_reputation.h"
+#include "character_rank.h"
+
+#include "alife_object_registry.h"
+#include "xrServer_Objects_ALife_Monsters.h"
+#include "script_engine.h"
+
 #include "relation_registry_inline.h"

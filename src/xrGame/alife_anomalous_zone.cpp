@@ -12,11 +12,12 @@
 #include "alife_time_manager.h"
 #include "alife_spawn_registry.h"
 #include "alife_graph_registry.h"
-
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 CSE_ALifeItemWeapon* CSE_ALifeAnomalousZone::tpfGetBestWeapon(ALife::EHitType& tHitType, float& fHitPower)
 {

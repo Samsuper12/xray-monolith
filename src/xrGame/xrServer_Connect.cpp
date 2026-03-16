@@ -13,10 +13,12 @@
 #include "file_transfer.h"
 #include "screenshot_server.h"
 #include "../xrNetServer/NET_AuthCheck.h"
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 LPCSTR xrServer::get_map_download_url(LPCSTR level_name, LPCSTR level_version)
 {

@@ -37,7 +37,8 @@ struct CManagerBuilderAllocatorConstructor
 		>
 	{
 	public:
-		typedef typename _manager::template CDataStorage<
+
+	typedef typename _manager::template CDataStorage<
 			_vertex,
 			_index_vertex,
 			_builder_allocator_constructor<

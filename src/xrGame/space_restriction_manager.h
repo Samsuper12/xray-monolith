@@ -82,4 +82,6 @@ public:
 #endif
 };
 
+#include "space_restriction.h"
+
 #include "space_restriction_manager_inline.h"

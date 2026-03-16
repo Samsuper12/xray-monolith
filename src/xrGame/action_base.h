@@ -13,9 +13,9 @@
 #include "script_export_space.h"
 #include "operator_abstract.h"
 #include "alife_space.h"
-#include "graph_engine.h"
 
 class CScriptGameObject;
+class CHudItem;
 
 template <typename _object_type>
 class CActionBase : public GraphEngineSpace::CWorldOperator

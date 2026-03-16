@@ -61,4 +61,8 @@ public:
 	IC void select_location(const _vertex_id_type start_vertex_id, _vertex_id_type& dest_vertex_id);
 };
 
+#ifndef AI_COMPILER
+#	include "ai_space.h"
+#endif
+
 #include "game_location_selector_inline.h"

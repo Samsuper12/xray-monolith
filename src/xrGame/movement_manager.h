@@ -307,4 +307,5 @@ public:
 	Fvector target_position() const;
 };
 
+#include "restricted_object.h"
 #include "movement_manager_inline.h"

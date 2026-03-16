@@ -16,8 +16,13 @@
 //T_INIT		-	класс где определена статическая InitIdToIndex
 //					функция инициализации section_name и line_name
 
+#include "../xrCore/xr_trims.h"
+#include "../xrCore/xr_ini.h"
+
 #define TEMPLATE_SPECIALIZATION		template<u32 ITEM_REC_NUM, typename ITEM_DATA, typename T_ID, typename T_INDEX, typename T_INIT>
 #define CSINI_IdToIndex CIni_IdToIndex	<ITEM_REC_NUM, ITEM_DATA, T_ID, T_INDEX, T_INIT>
+
+template<bool> struct CompileTimeError;
 
 TEMPLATE_SPECIALIZATION
 class CIni_IdToIndex
@@ -33,7 +38,7 @@ protected:
 	template <u32 NUM>
 	static void LoadItemData(u32, LPCSTR)
 	{
-		STATIC_CHECK(false, Specialization_for_LoadItemData_in_CIni_IdToIndex_not_found);
+    	static_assert(false, "Specialization for LoadItemData in CIni_IdToIndex not found");
 		NODEFAULT;
 	}
 

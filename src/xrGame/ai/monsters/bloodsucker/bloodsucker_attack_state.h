@@ -5,6 +5,22 @@ template <typename _Object>
 class CBloodsuckerStateAttack : public CStateMonsterAttack<_Object>
 {
 	typedef CStateMonsterAttack<_Object> inherited_attack;
+	using inherited_attack::object;
+	using inherited_attack::add_state;
+	using inherited_attack::get_state_current;
+	using inherited_attack::select_state;
+	using inherited_attack::current_substate;
+	using inherited_attack::prev_substate;
+	using inherited_attack::time_state_started;
+	using inherited_attack::get_state;
+	typedef CState<_Object>* state_ptr;
+	using inherited_attack::check_home_point;
+	using inherited_attack::check_steal_state;
+	using inherited_attack::check_camp_state;
+	using inherited_attack::check_find_enemy_state;
+	using inherited_attack::check_run_attack_state;
+	using inherited_attack::m_time_start_check_behinder;
+
 
 	u32 m_time_stop_invis;
 	Fvector m_dir_point;
@@ -31,6 +47,14 @@ template <typename _Object>
 class CStateMonsterBackstubEnemy : public CState<_Object>
 {
 	typedef CState<_Object> inherited;
+	using inherited::object;
+	using inherited::add_state;
+	using inherited::get_state_current;
+	using inherited::select_state;
+	using inherited::current_substate;
+	using inherited::prev_substate;
+	using inherited::time_state_started;
+	
 public:
 	struct StateParams : SStateDataMoveToPointEx
 	{

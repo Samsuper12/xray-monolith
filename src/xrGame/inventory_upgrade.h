@@ -31,6 +31,7 @@ namespace inventory
 			{
 				using inherited = functor_base<return_type>;
 				using inherited::functr;
+				using inherited::parameter;
 
 				IC return_type operator()() const
 				{

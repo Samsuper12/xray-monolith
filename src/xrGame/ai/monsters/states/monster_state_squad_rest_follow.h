@@ -2,6 +2,8 @@
 
 #include "../state.h"
 
+struct SSquadCommand;
+
 template <typename _Object>
 class CStateMonsterSquadRestFollow : public CState<_Object>
 {
@@ -28,4 +30,6 @@ public:
 	virtual void remove_links(CObject* object) { inherited::remove_links(object); }
 };
 
+#include "../ai_monster_squad.h"
+#include "../ai_monster_squad_manager.h"
 #include "monster_state_squad_rest_follow_inline.h"

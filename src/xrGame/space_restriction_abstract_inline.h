@@ -8,8 +8,6 @@
 
 #pragma once
 
-#include "macros.h"
-
 IC CSpaceRestrictionAbstract::CSpaceRestrictionAbstract()
 {
 	m_initialized = false;

@@ -3,6 +3,9 @@
 #include "../state.h"
 
 template <typename _Object>
+class CStateMonsterMoveToPoint;
+
+template <typename _Object>
 class CStateMonsterHearInterestingSound : public CState<_Object>
 {
 protected:

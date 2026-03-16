@@ -53,6 +53,10 @@ public:
 	IC void set_dest_vertex(_vertex_id_type& vertex_id);
 };
 
+#ifndef AI_COMPILER
+#	include "ai_space.h"
+#endif
+
 #include "abstract_location_selector_inline.h"
 
 template <

@@ -34,11 +34,12 @@
 #include "script_attachment_manager.h"
 #include "player_hud.h"
 extern MagicBox3 MagicMinBox(int iQuantity, const Fvector* akPoint);
-
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 #ifdef DEBUG
 #	include "debug_renderer.h"

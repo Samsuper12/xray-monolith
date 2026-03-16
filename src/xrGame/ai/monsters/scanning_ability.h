@@ -63,4 +63,6 @@ public:
 #endif
 };
 
+#include "../../Actor.h"
+#include "../../CharacterPhysicsSupport.h"
 #include "scanning_ability_inline.h"

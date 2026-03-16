@@ -42,4 +42,7 @@ public:
 	virtual shared_str name() const = 0;
 };
 
+#include "macros.h"
+#include "ai_space.h"
+
 #include "space_restriction_abstract_inline.h"

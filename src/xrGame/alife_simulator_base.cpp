@@ -24,10 +24,12 @@
 #include "Level.h"
 #include <stdio.h>
 #include "../xrCore/_std_extensions.h"
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
-#include <malloc.h>
+#include <>
 #pragma warning(pop)
+#endif
 
 using namespace ALife;
 

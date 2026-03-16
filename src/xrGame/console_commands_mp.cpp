@@ -18,7 +18,7 @@
 #include "string_table.h"
 #include "DemoPlay_Control.h"
 #include "account_manager_console.h"
-#include <safe_lib.h>
+//#include <safe_lib.h>
 
 
 EGameIDs ParseStringToGameType(LPCSTR str);

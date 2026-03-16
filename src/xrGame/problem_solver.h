@@ -9,8 +9,8 @@
 #pragma once
 
 #include "../xrServerEntities/associative_vector.h"
-
-class CGraphEngine;
+#include "graph_engine.h"
+#include "graph_engine_space.h"
 
 template <
 	typename _operator_condition,
@@ -179,7 +179,6 @@ public:
 #	include "ai_space.h"
 #endif
 
-#include "graph_engine.h"
 #include "object_broker.h"
 
 #include "problem_solver_inline.h"

@@ -24,7 +24,7 @@ CBloodsuckerStateAttackAbstract::~CBloodsuckerStateAttack()
 TEMPLATE_SPECIALIZATION
 void CBloodsuckerStateAttackAbstract::initialize()
 {
-	inherited::initialize();
+	inherited_attack::initialize();
 	m_time_stop_invis = 0;
 	m_last_health = object->conditions().GetHealth();
 }
@@ -32,14 +32,14 @@ void CBloodsuckerStateAttackAbstract::initialize()
 TEMPLATE_SPECIALIZATION
 void CBloodsuckerStateAttackAbstract::finalize()
 {
-	inherited::finalize();
+	inherited_attack::finalize();
 	object->start_invisible_predator();
 }
 
 TEMPLATE_SPECIALIZATION
 void CBloodsuckerStateAttackAbstract::critical_finalize()
 {
-	inherited::critical_finalize();
+	inherited_attack::critical_finalize();
 	object->start_invisible_predator();
 }
 
@@ -180,20 +180,20 @@ void CBloodsuckerStateAttackAbstract::setup_substates()
 
 	if (current_substate == eStateAttack_Hide)
 	{
-		CStateMonsterBackstubEnemy<_Object>::StateParams data;
+		typename CStateMonsterBackstubEnemy<_Object>::StateParams state_params;
 
-		data.action.action = ACT_RUN;
-		data.action.time_out = 0;
-		data.completion_dist = 1.f; // get exactly to the point
-		data.time_to_rebuild = 200;
-		data.accelerated = true;
-		data.braking = false;
-		data.accel_type = eAT_Aggressive;
-		data.action.sound_type = MonsterSound::eMonsterSoundIdle;
-		data.action.sound_delay = object->db().m_dwIdleSndDelay;
-		data.start_with_encircle = m_start_with_encircle;
+		state_params.action.action = ACT_RUN;
+		state_params.action.time_out = 0;
+		state_params.completion_dist = 1.f; // get exactly to the point
+		state_params.time_to_rebuild = 200;
+		state_params.accelerated = true;
+		state_params.braking = false;
+		state_params.accel_type = eAT_Aggressive;
+		state_params.action.sound_type = MonsterSound::eMonsterSoundIdle;
+		state_params.action.sound_delay = object->db().m_dwIdleSndDelay;
+		state_params.start_with_encircle = m_start_with_encircle;
 
-		state->fill_data_with(&data, sizeof(CStateMonsterBackstubEnemy<_Object>::StateParams));
+		state->fill_data_with(&state_params, sizeof(CStateMonsterBackstubEnemy<_Object>::StateParams));
 		return;
 	}
 }

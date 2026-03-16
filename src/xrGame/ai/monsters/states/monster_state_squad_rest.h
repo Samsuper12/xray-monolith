@@ -13,7 +13,8 @@ protected:
 	using inherited::select_state;
 	using inherited::current_substate;
 	using inherited::prev_substate;
-	using inherited::time_state_started; 
+	using inherited::time_state_started;
+
 	typedef CState<_Object>* state_ptr;
 
 	u32 time_next_state_reselect;
@@ -27,4 +28,6 @@ public:
 	virtual void remove_links(CObject* object) { inherited::remove_links(object); }
 };
 
+#include "../ai_monster_squad.h"
+#include "../ai_monster_squad_manager.h"
 #include "monster_state_squad_rest_inline.h"

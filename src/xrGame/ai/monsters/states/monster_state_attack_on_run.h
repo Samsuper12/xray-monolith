@@ -5,9 +5,6 @@
 
 #include "../../weighted_random.h"
 
-inline
-TTime current_time() { return Device.dwTimeGlobal; }
-
 template <typename _Object>
 class CStateMonsterAttackOnRun : public CState<_Object>
 {
@@ -84,6 +81,7 @@ private:
 inline
 bool is_valid_point_to_move(Fvector const& point);
 
+#include "../../../ai_object_location.h"
 #include "monster_state_attack_on_run_inline.h"
 
 #endif // MONSTER_STATE_ATTACK_ON_RUN_H

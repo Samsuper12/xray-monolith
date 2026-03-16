@@ -192,7 +192,7 @@ void xrServer::Process_event(NET_Packet& P, ClientID sender)
 #ifndef MASTER_GOLD
 			if ((game->Type() != eGameIDSingle) && l_pC && l_pC->owner)
 			{
-				Msg					("* [%2d] killed by [%2d] - sended by [0x%08x]", id_dest, id_src, l_pC->ID.value());
+				//Msg					("* [%2d] killed by [%2d] - sended by [0x%08x]", id_dest, id_src, l_pC->ID.value());
 			}
 #endif // #ifndef MASTER_GOLD
 
@@ -202,8 +202,8 @@ void xrServer::Process_event(NET_Packet& P, ClientID sender)
 				break;
 
 #ifndef MASTER_GOLD
-			if (game->Type() != eGameIDSingle)
-				Msg				("* [%2d] is [%s:%s]", id_dest, *e_dest->s_name, e_dest->name_replace());
+			//if (game->Type() != eGameIDSingle)
+			//	Msg				("* [%2d] is [%s:%s]", id_dest, *e_dest->s_name, e_dest->name_replace());
 #endif // #ifndef MASTER_GOLD
 
 			CSE_Abstract* e_src = game->get_entity_from_eid(id_src); // кто убил

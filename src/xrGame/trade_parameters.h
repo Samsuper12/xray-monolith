@@ -80,5 +80,6 @@ public:
 };
 
 IC CTradeParameters& default_trade_parameters();
-
+#include <xr_ini.h>
+#include "../xrCore/xr_trims.h"
 #include "trade_parameters_inline.h"

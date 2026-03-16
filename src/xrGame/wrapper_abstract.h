@@ -68,4 +68,5 @@ public:
 	IC _object_type& object() const;
 };
 
+#include "script_game_object.h"
 #include "wrapper_abstract_inline.h"

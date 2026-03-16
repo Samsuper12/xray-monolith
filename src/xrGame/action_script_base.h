@@ -30,4 +30,5 @@ public:
 	virtual void setup(CScriptGameObject* object, CPropertyStorage* storage);
 };
 
+#include "script_game_object.h"
 #include "action_script_base_inline.h"

@@ -7,9 +7,6 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "aimers_base.h"
-#include "GameObject.h"
-#include "Kinematics.h"
-#include "animation_movement_controller.h"
 
 using aimers::base;
 

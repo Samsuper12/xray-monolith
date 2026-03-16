@@ -1027,15 +1027,15 @@ void refresh_npc_names()
 			}
 		}
 	}
+	//FIXME:
+	// if (psDeviceFlags2.test(rsDiscord))
+	// {
+	// 	Actor()->RPC_UpdateFaction();
+	// 	Actor()->RPC_UpdateRank();
+	// 	Actor()->RPC_UpdateReputation();
 
-	if (psDeviceFlags2.test(rsDiscord))
-	{
-		Actor()->RPC_UpdateFaction();
-		Actor()->RPC_UpdateRank();
-		Actor()->RPC_UpdateReputation();
-
-		Level().GameTaskManager().RPC_UpdateTaskName();
-	}
+	// 	Level().GameTaskManager().RPC_UpdateTaskName();
+	// }
 }
 
 

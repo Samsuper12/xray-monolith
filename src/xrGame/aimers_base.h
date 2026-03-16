@@ -61,6 +61,9 @@ namespace aimers
 	}; // class position_bone_aimer
 } // namespace aimers
 
+#include "GameObject.h"
+#include "Kinematics.h"
+#include "animation_movement_controller.h"
 #include "aimers_base_inline.h"
 
 #endif // #ifndef AIMERS_BASE_H_INCLUDED

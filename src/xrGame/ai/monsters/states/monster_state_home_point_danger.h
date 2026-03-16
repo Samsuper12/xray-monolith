@@ -35,4 +35,6 @@ private:
 	Fvector& get_most_danger_pos();
 };
 
+#include "../ai_monster_squad.h"
+#include "../ai_monster_squad_manager.h"
 #include "monster_state_home_point_danger_inline.h"

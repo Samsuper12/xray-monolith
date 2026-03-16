@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "graph_engine_space.h"
 
 template <
 	typename _path_id_type,
@@ -98,5 +99,12 @@ struct CVertexManagerHashFixed
 		IC u32 hash_index(const _index_type& vertex_id) const;
 	};
 };
+
+namespace hash_fixed_vertex_manager
+{
+    IC u32 to_u32(GraphEngineSpace::CWorldState const& other);
+	IC u32 to_u32(shared_str const& string);
+
+}
 
 #include "vertex_manager_hash_fixed_inline.h"

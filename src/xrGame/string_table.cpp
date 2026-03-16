@@ -88,19 +88,19 @@ void CStringTable::Init()
 	//---
 	ReparseKeyBindings();
 
-	//Discord
-	snprintf(discord_strings.mainmenu, 128, xr_ToUTF8(*CStringTable().translate("st_main_menu")));
-	snprintf(discord_strings.paused, 128, xr_ToUTF8(*CStringTable().translate("st_pause_menu")));
-	snprintf(discord_strings.loading, 128, xr_ToUTF8(*CStringTable().translate("st_loading")));
-	snprintf(discord_strings.health, 128, xr_ToUTF8(*CStringTable().translate("st_ui_health_sensor")));
-	snprintf(discord_strings.dead, 128, xr_ToUTF8(*CStringTable().translate("st_player_dead")));
-	snprintf(discord_strings.livesleft, 128, xr_ToUTF8(*CStringTable().translate("st_hardcore_lives_left")));
-	snprintf(discord_strings.livesleftsingle, 128, xr_ToUTF8(*CStringTable().translate("st_hardcore_lives_left_single")));
-	snprintf(discord_strings.livespossessed, 128, xr_ToUTF8(*CStringTable().translate("st_azazel_lives_possessed")));
-	snprintf(discord_strings.livespossessedsingle, 128, xr_ToUTF8(*CStringTable().translate("st_azazel_lives_possessed_single")));
-	snprintf(discord_strings.godmode, 128, xr_ToUTF8(*CStringTable().translate("st_godmode")));
+	//FIXME: Discord
+	// snprintf(discord_strings.mainmenu, 128, xr_ToUTF8(*CStringTable().translate("st_main_menu")));
+	// snprintf(discord_strings.paused, 128, xr_ToUTF8(*CStringTable().translate("st_pause_menu")));
+	// snprintf(discord_strings.loading, 128, xr_ToUTF8(*CStringTable().translate("st_loading")));
+	// snprintf(discord_strings.health, 128, xr_ToUTF8(*CStringTable().translate("st_ui_health_sensor")));
+	// snprintf(discord_strings.dead, 128, xr_ToUTF8(*CStringTable().translate("st_player_dead")));
+	// snprintf(discord_strings.livesleft, 128, xr_ToUTF8(*CStringTable().translate("st_hardcore_lives_left")));
+	// snprintf(discord_strings.livesleftsingle, 128, xr_ToUTF8(*CStringTable().translate("st_hardcore_lives_left_single")));
+	// snprintf(discord_strings.livespossessed, 128, xr_ToUTF8(*CStringTable().translate("st_azazel_lives_possessed")));
+	// snprintf(discord_strings.livespossessedsingle, 128, xr_ToUTF8(*CStringTable().translate("st_azazel_lives_possessed_single")));
+	// snprintf(discord_strings.godmode, 128, xr_ToUTF8(*CStringTable().translate("st_godmode")));
 
-	discord_gameinfo.ex_update = true;
+	// discord_gameinfo.ex_update = true;
 }
 
 void CStringTable::Load(LPCSTR xml_file_full, LPCSTR lang_in)

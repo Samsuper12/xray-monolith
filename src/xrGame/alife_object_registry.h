@@ -11,10 +11,12 @@
 #include "xrServer_Objects_ALife.h"
 #include "profiler.h"
 
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 class CALifeObjectRegistry
 {

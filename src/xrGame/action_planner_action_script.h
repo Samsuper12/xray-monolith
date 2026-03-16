@@ -32,4 +32,5 @@ public:
 	IC _object_type& object() const;
 };
 
+#include "script_game_object.h"
 #include "action_planner_action_script_inline.h"
