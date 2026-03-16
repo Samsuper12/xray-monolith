@@ -71,11 +71,12 @@ namespace CDB
 		T.dummy = dummy;
 		faces.push_back(T);
 	}
-
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 // #pragma pack(push,1)
 	struct edge

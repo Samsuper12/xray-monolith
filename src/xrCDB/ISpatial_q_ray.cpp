@@ -150,52 +150,53 @@ static const float _MM_ALIGN16
 
 ICF BOOL isect_sse(const aabb_t& box, const ray_t& ray, float& dist)
 {
+	//FIXME:
 	// you may already have those values hanging around somewhere
-	const __m128
-		plus_inf = loadps(ps_cst_plus_inf),
-		minus_inf = loadps(ps_cst_minus_inf);
+	// const __m128
+	// 	plus_inf = loadps(ps_cst_plus_inf),
+	// 	minus_inf = loadps(ps_cst_minus_inf);
 
-	// use whatever's apropriate to load.
-	const __m128
-		box_min = loadps(&box.min),
-		box_max = loadps(&box.max),
-		pos = loadps(&ray.pos),
-		inv_dir = loadps(&ray.inv_dir);
+	// // use whatever's apropriate to load.
+	// const __m128
+	// 	box_min = loadps(&box.min),
+	// 	box_max = loadps(&box.max),
+	// 	pos = loadps(&ray.pos),
+	// 	inv_dir = loadps(&ray.inv_dir);
 
-	// use a div if inverted directions aren't available
-	const __m128 l1 = mulps(subps(box_min, pos), inv_dir);
-	const __m128 l2 = mulps(subps(box_max, pos), inv_dir);
+	// // use a div if inverted directions aren't available
+	// const __m128 l1 = mulps(subps(box_min, pos), inv_dir);
+	// const __m128 l2 = mulps(subps(box_max, pos), inv_dir);
 
-	// the order we use for those min/max is vital to filter out
-	// NaNs that happens when an inv_dir is +/- inf and
-	// (box_min - pos) is 0. inf * 0 = NaN
-	const __m128 filtered_l1a = minps(l1, plus_inf);
-	const __m128 filtered_l2a = minps(l2, plus_inf);
+	// // the order we use for those min/max is vital to filter out
+	// // NaNs that happens when an inv_dir is +/- inf and
+	// // (box_min - pos) is 0. inf * 0 = NaN
+	// const __m128 filtered_l1a = minps(l1, plus_inf);
+	// const __m128 filtered_l2a = minps(l2, plus_inf);
 
-	const __m128 filtered_l1b = maxps(l1, minus_inf);
-	const __m128 filtered_l2b = maxps(l2, minus_inf);
+	// const __m128 filtered_l1b = maxps(l1, minus_inf);
+	// const __m128 filtered_l2b = maxps(l2, minus_inf);
 
-	// now that we're back on our feet, test those slabs.
-	__m128 lmax = maxps(filtered_l1a, filtered_l2a);
-	__m128 lmin = minps(filtered_l1b, filtered_l2b);
+	// // now that we're back on our feet, test those slabs.
+	// __m128 lmax = maxps(filtered_l1a, filtered_l2a);
+	// __m128 lmin = minps(filtered_l1b, filtered_l2b);
 
-	// unfold back. try to hide the latency of the shufps & co.
-	const __m128 lmax0 = rotatelps(lmax);
-	const __m128 lmin0 = rotatelps(lmin);
-	lmax = minss(lmax, lmax0);
-	lmin = maxss(lmin, lmin0);
+	// // unfold back. try to hide the latency of the shufps & co.
+	// const __m128 lmax0 = rotatelps(lmax);
+	// const __m128 lmin0 = rotatelps(lmin);
+	// lmax = minss(lmax, lmax0);
+	// lmin = maxss(lmin, lmin0);
 
-	const __m128 lmax1 = muxhps(lmax, lmax);
-	const __m128 lmin1 = muxhps(lmin, lmin);
-	lmax = minss(lmax, lmax1);
-	lmin = maxss(lmin, lmin1);
+	// const __m128 lmax1 = muxhps(lmax, lmax);
+	// const __m128 lmin1 = muxhps(lmin, lmin);
+	// lmax = minss(lmax, lmax1);
+	// lmin = maxss(lmin, lmin1);
 
-	const BOOL ret = _mm_comige_ss(lmax, _mm_setzero_ps()) & _mm_comige_ss(lmax, lmin);
+	// const BOOL ret = _mm_comige_ss(lmax, _mm_setzero_ps()) & _mm_comige_ss(lmax, lmin);
 
-	storess(lmin, &dist);
-	//storess	(lmax, &rs.t_far);
+	// storess(lmin, &dist);
+	// //storess	(lmax, &rs.t_far);
 
-	return ret;
+	// return ret;
 }
 
 extern Fvector c_spatial_offset[8];
@@ -250,22 +251,23 @@ public:
 	// sse
 	ICF BOOL _box_sse(const Fvector& n_C, const float n_R, float& dist)
 	{
-		aabb_t box;
-		/*
-			float		n_vR	=		2*n_R;
-			box.min.set	(n_C.x-n_vR, n_C.y-n_vR, n_C.z-n_vR);	box.min.pad = 0;
-			box.max.set	(n_C.x+n_vR, n_C.y+n_vR, n_C.z+n_vR);	box.max.pad = 0;
-		*/
-		__m128 NR = _mm_load_ss((float*)&n_R);
-		__m128 NC = _mm_unpacklo_ps(_mm_load_ss((float*)&n_C.x), _mm_load_ss((float*)&n_C.y));
-		NR = _mm_add_ss(NR, NR);
-		NC = _mm_movelh_ps(NC, _mm_load_ss((float*)&n_C.z));
-		NR = _mm_shuffle_ps(NR, NR, _MM_SHUFFLE(1, 0, 0, 0));
+		//FIXME:
+		// aabb_t box;
+		// /*
+		// 	float		n_vR	=		2*n_R;
+		// 	box.min.set	(n_C.x-n_vR, n_C.y-n_vR, n_C.z-n_vR);	box.min.pad = 0;
+		// 	box.max.set	(n_C.x+n_vR, n_C.y+n_vR, n_C.z+n_vR);	box.max.pad = 0;
+		// */
+		// __m128 NR = _mm_load_ss((float*)&n_R);
+		// __m128 NC = _mm_unpacklo_ps(_mm_load_ss((float*)&n_C.x), _mm_load_ss((float*)&n_C.y));
+		// NR = _mm_add_ss(NR, NR);
+		// NC = _mm_movelh_ps(NC, _mm_load_ss((float*)&n_C.z));
+		// NR = _mm_shuffle_ps(NR, NR, _MM_SHUFFLE(1, 0, 0, 0));
 
-		_mm_store_ps((float*)&box.min, _mm_sub_ps(NC, NR));
-		_mm_store_ps((float*)&box.max, _mm_add_ps(NC, NR));
+		// _mm_store_ps((float*)&box.min, _mm_sub_ps(NC, NR));
+		// _mm_store_ps((float*)&box.max, _mm_add_ps(NC, NR));
 
-		return isect_sse(box, ray, dist);
+		// return isect_sse(box, ray, dist);
 	}
 
 	void walk(ISpatial_NODE* N, Fvector& n_C, float n_R)

@@ -1,5 +1,7 @@
-#include <xmmintrin.h>
 
+#ifndef __APPLE__
+#include <xmmintrin.h>
+#endif
 #include <Opcode.h>
 
 #include "xrCDB.h"
@@ -153,52 +155,53 @@ static const float _MM_ALIGN16
 
 ICF BOOL isect_sse(const aabb_t& box, const ray_t& ray, float& dist)
 {
-	// you may already have those values hanging around somewhere
-	const __m128
-		plus_inf = loadps(ps_cst_plus_inf),
-		minus_inf = loadps(ps_cst_minus_inf);
+	//FIXME:
+	// // you may already have those values hanging around somewhere
+	// const __m128
+	// 	plus_inf = loadps(ps_cst_plus_inf),
+	// 	minus_inf = loadps(ps_cst_minus_inf);
 
-	// use whatever's apropriate to load.
-	const __m128
-		box_min = loadps(&box.min),
-		box_max = loadps(&box.max),
-		pos = loadps(&ray.pos),
-		inv_dir = loadps(&ray.inv_dir);
+	// // use whatever's apropriate to load.
+	// const __m128
+	// 	box_min = loadps(&box.min),
+	// 	box_max = loadps(&box.max),
+	// 	pos = loadps(&ray.pos),
+	// 	inv_dir = loadps(&ray.inv_dir);
 
-	// use a div if inverted directions aren't available
-	const __m128 l1 = mulps(subps(box_min, pos), inv_dir);
-	const __m128 l2 = mulps(subps(box_max, pos), inv_dir);
+	// // use a div if inverted directions aren't available
+	// const __m128 l1 = mulps(subps(box_min, pos), inv_dir);
+	// const __m128 l2 = mulps(subps(box_max, pos), inv_dir);
 
-	// the order we use for those min/max is vital to filter out
-	// NaNs that happens when an inv_dir is +/- inf and
-	// (box_min - pos) is 0. inf * 0 = NaN
-	const __m128 filtered_l1a = minps(l1, plus_inf);
-	const __m128 filtered_l2a = minps(l2, plus_inf);
+	// // the order we use for those min/max is vital to filter out
+	// // NaNs that happens when an inv_dir is +/- inf and
+	// // (box_min - pos) is 0. inf * 0 = NaN
+	// const __m128 filtered_l1a = minps(l1, plus_inf);
+	// const __m128 filtered_l2a = minps(l2, plus_inf);
 
-	const __m128 filtered_l1b = maxps(l1, minus_inf);
-	const __m128 filtered_l2b = maxps(l2, minus_inf);
+	// const __m128 filtered_l1b = maxps(l1, minus_inf);
+	// const __m128 filtered_l2b = maxps(l2, minus_inf);
 
-	// now that we're back on our feet, test those slabs.
-	__m128 lmax = maxps(filtered_l1a, filtered_l2a);
-	__m128 lmin = minps(filtered_l1b, filtered_l2b);
+	// // now that we're back on our feet, test those slabs.
+	// __m128 lmax = maxps(filtered_l1a, filtered_l2a);
+	// __m128 lmin = minps(filtered_l1b, filtered_l2b);
 
-	// unfold back. try to hide the latency of the shufps & co.
-	const __m128 lmax0 = rotatelps(lmax);
-	const __m128 lmin0 = rotatelps(lmin);
-	lmax = minss(lmax, lmax0);
-	lmin = maxss(lmin, lmin0);
+	// // unfold back. try to hide the latency of the shufps & co.
+	// const __m128 lmax0 = rotatelps(lmax);
+	// const __m128 lmin0 = rotatelps(lmin);
+	// lmax = minss(lmax, lmax0);
+	// lmin = maxss(lmin, lmin0);
 
-	const __m128 lmax1 = muxhps(lmax, lmax);
-	const __m128 lmin1 = muxhps(lmin, lmin);
-	lmax = minss(lmax, lmax1);
-	lmin = maxss(lmin, lmin1);
+	// const __m128 lmax1 = muxhps(lmax, lmax);
+	// const __m128 lmin1 = muxhps(lmin, lmin);
+	// lmax = minss(lmax, lmax1);
+	// lmin = maxss(lmin, lmin1);
 
-	const BOOL ret = _mm_comige_ss(lmax, _mm_setzero_ps()) & _mm_comige_ss(lmax, lmin);
+	// const BOOL ret = _mm_comige_ss(lmax, _mm_setzero_ps()) & _mm_comige_ss(lmax, lmin);
 
-	storess(lmin, &dist);
-	//storess	(lmax, &rs.t_far);
+	// storess(lmin, &dist);
+	// //storess	(lmax, &rs.t_far);
 
-	return ret;
+	// return ret;
 }
 
 template <bool bUseSSE, bool bCull, bool bFirst, bool bNearest>
@@ -253,20 +256,21 @@ public:
 	// sse
 	ICF BOOL _box_sse(const Fvector& bCenter, const Fvector& bExtents, float& dist)
 	{
-		aabb_t box;
-		/*
-			box.min.sub (bCenter,bExtents);	box.min.pad = 0;
-			box.max.add	(bCenter,bExtents); box.max.pad = 0;
-		*/
-		__m128 CN = _mm_unpacklo_ps(_mm_load_ss((float*)&bCenter.x), _mm_load_ss((float*)&bCenter.y));
-		CN = _mm_movelh_ps(CN, _mm_load_ss((float*)&bCenter.z));
-		__m128 EX = _mm_unpacklo_ps(_mm_load_ss((float*)&bExtents.x), _mm_load_ss((float*)&bExtents.y));
-		EX = _mm_movelh_ps(EX, _mm_load_ss((float*)&bExtents.z));
+		//FIXME:
+		// aabb_t box;
+		// /*
+		// 	box.min.sub (bCenter,bExtents);	box.min.pad = 0;
+		// 	box.max.add	(bCenter,bExtents); box.max.pad = 0;
+		// */
+		// __m128 CN = _mm_unpacklo_ps(_mm_load_ss((float*)&bCenter.x), _mm_load_ss((float*)&bCenter.y));
+		// CN = _mm_movelh_ps(CN, _mm_load_ss((float*)&bCenter.z));
+		// __m128 EX = _mm_unpacklo_ps(_mm_load_ss((float*)&bExtents.x), _mm_load_ss((float*)&bExtents.y));
+		// EX = _mm_movelh_ps(EX, _mm_load_ss((float*)&bExtents.z));
 
-		_mm_store_ps((float*)&box.min, _mm_sub_ps(CN, EX));
-		_mm_store_ps((float*)&box.max, _mm_add_ps(CN, EX));
+		// _mm_store_ps((float*)&box.min, _mm_sub_ps(CN, EX));
+		// _mm_store_ps((float*)&box.max, _mm_add_ps(CN, EX));
 
-		return isect_sse(box, ray, dist);
+		// return isect_sse(box, ray, dist);
 	}
 
 	IC bool _tri(u32* p, float& u, float& v, float& range)
@@ -370,35 +374,36 @@ public:
 
 	void _stab(const AABBNoLeafNode* node)
 	{
+		//FIXME:
 		// Should help
-		_mm_prefetch((char *)node->GetNeg(), _MM_HINT_NTA);
+		// _mm_prefetch((char *)node->GetNeg(), _MM_HINT_NTA);
 
-		// Actual ray/aabb test
-		if (bUseSSE)
-		{
-			// use SSE
-			float d;
-			if (!_box_sse((Fvector&)node->mAABB.mCenter, (Fvector&)node->mAABB.mExtents, d)) return;
-			if (d > rRange) return;
-		}
-		else
-		{
-			// use FPU
-			Fvector P;
-			if (!_box_fpu((Fvector&)node->mAABB.mCenter, (Fvector&)node->mAABB.mExtents, P)) return;
-			if (P.distance_to_sqr(ray.pos) > rRange2) return;
-		}
+		// // Actual ray/aabb test
+		// if (bUseSSE)
+		// {
+		// 	// use SSE
+		// 	float d;
+		// 	if (!_box_sse((Fvector&)node->mAABB.mCenter, (Fvector&)node->mAABB.mExtents, d)) return;
+		// 	if (d > rRange) return;
+		// }
+		// else
+		// {
+		// 	// use FPU
+		// 	Fvector P;
+		// 	if (!_box_fpu((Fvector&)node->mAABB.mCenter, (Fvector&)node->mAABB.mExtents, P)) return;
+		// 	if (P.distance_to_sqr(ray.pos) > rRange2) return;
+		// }
 
-		// 1st chield
-		if (node->HasLeaf()) _prim(node->GetPrimitive());
-		else _stab(node->GetPos());
+		// // 1st chield
+		// if (node->HasLeaf()) _prim(node->GetPrimitive());
+		// else _stab(node->GetPos());
 
-		// Early exit for "only first"
-		if (bFirst && dest->r_count()) return;
+		// // Early exit for "only first"
+		// if (bFirst && dest->r_count()) return;
 
-		// 2nd chield
-		if (node->HasLeaf2()) _prim(node->GetPrimitive2());
-		else _stab(node->GetNeg());
+		// // 2nd chield
+		// if (node->HasLeaf2()) _prim(node->GetPrimitive2());
+		// else _stab(node->GetNeg());
 	}
 };
 
