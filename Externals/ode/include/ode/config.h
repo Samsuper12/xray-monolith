@@ -41,7 +41,7 @@ extern "C" {
 
 #include <stdarg.h>
 
-#ifdef __unix__
+#if defined(__unix__) || defined(__APPLE__)
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
