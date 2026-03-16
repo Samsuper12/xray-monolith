@@ -1,5 +1,5 @@
 #add_subdirectory(cximage)
-add_subdirectory(discord)
+#add_subdirectory(discord)
 #add_subdirectory(DxErr)
 add_subdirectory(fastdelegate)
 add_subdirectory(FastDynamicCast)
