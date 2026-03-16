@@ -1,6 +1,8 @@
 #include <functional>
 #include <time.h>
+#ifndef __APPLE__
 #include <malloc.h>
+#endif
 
 //#include <dxerr.h>
 #include <LocatorAPI.h>

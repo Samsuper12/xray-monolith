@@ -1,5 +1,7 @@
-#include <malloc.h>
 
+#ifndef __APPLE__
+#include <malloc.h>
+#endif
 #include <xrCore.h>
 //#include <dxerr.h>
 #include <profiler.h>
