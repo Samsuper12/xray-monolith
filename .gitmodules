@@ -40,9 +40,6 @@
 [submodule "src/3rd party/optick-git"]
 	path = Externals/optick-git
 	url = https://github.com/bombomby/optick.git
-[submodule "Externals/StackWalker-git"]
-	path = Externals/StackWalker-git
-	url = https://github.com/JochenKalmbach/StackWalker.git
 [submodule "Externals/optick-git"]
 	path = Externals/optick-git
 	url = https://github.com/bombomby/optick.git
