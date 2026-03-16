@@ -36,13 +36,16 @@ add_module(XRay.Platform
 target_compile_options(XRay.Platform
   INTERFACE
   $<$<CXX_COMPILER_ID:MSVC>:/FI${XRPLATFORM_H}>
+  $<$<CXX_COMPILER_ID:AppleClang>:-include${XRPLATFORM_H}>
   $<$<CXX_COMPILER_ID:Clang>:-include${XRPLATFORM_H}>
   $<$<CXX_COMPILER_ID:GNU>:-include${XRPLATFORM_H}>
 )
 
 # Platform-specific submodules
 #include(XRay.Platform.Windows)
-include(XRay.Platform.Unix)
+#include(XRay.Platform.Unix)
+include(XRay.Platform.Darwin)
+
 
 # Link to all subsequent libraries, i.e. XRay.*
 # Externals will need to link XRay.Platform manually

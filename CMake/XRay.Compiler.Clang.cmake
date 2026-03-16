@@ -11,14 +11,12 @@ set(XRAY_COMPILER_FLAGS
   -Wno-address-of-temporary
   -Wno-register
   -w
-  -fdelayed-template-parsing
   # Initialize to zero for MSVC equivalence
   -ftrivial-auto-var-init=zero
   # ...but warn about it
   -Wuninitialized
   -ferror-limit=0
   -fdeclspec
-  #-fms-extensions
 )
 
 # Explicitly state when we're compiling for Win32
@@ -27,38 +25,27 @@ if(WIN32)
 endif()
 
 set(XRAY_COMPILER_FLAGS_DEBUG
-  # Disable optimizations
-  -O2
-  
-  -DNDEBUG
-  
-
-  # Generate full debug info
-  #-g
+  -O0
+  -g
 )
 
 set(XRAY_COMPILER_FLAGS_RELEASE
-  # Enable aggressive optimizations
-  -O3
-
-  # Optimize loop execution
+  -O2
  # -funroll-loops
-  
-  # Enable link-time optimization
   -flto=full
+  -D_HAS_ITERATOR_DEBUGGING=0
+  -D_SECURE_SCL=0
+)
 
-  # Disable iterator debugging
+set(XRAY_COMPILER_FLAGS_RELWITHDEBINFO
+  -O2
+  -g
+  #-flto=thin
   -D_HAS_ITERATOR_DEBUGGING=0
   -D_SECURE_SCL=0
 )
 
 set(XRAY_LINKER_FLAGS_RELEASE
-  # Enable aggressive optimizations
   -O2
-
-  # Optimize loop execution
-  #-funroll-loops
-
-  # Enable link-time optimization
   -flto=full
 )

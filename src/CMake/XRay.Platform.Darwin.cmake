@@ -1,0 +1,40 @@
+set(XRPLATFORM_DARWIN_H ${CMAKE_CURRENT_SOURCE_DIR}/xrPlatform_Unix.h)
+
+# Windows-specific definitions
+add_module(XRay.Platform.Darwin
+  INCLUDES
+  ${CMAKE_CURRENT_SOURCE_DIR}
+
+  DEFINES
+  _CRT_SECURE_NO_DEPRECATE
+
+  NOGDICAPMASKS
+  NOMENUS
+  NOICONS
+  NOKEYSTATES
+  NODRAWTEXT
+  NOMEMMGR
+  NOMETAFILE
+  NOSERVICE
+  NOCOMM
+  NOHELP
+  NOPROFILER
+  NOMCX
+  NOMINMAX
+  #_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+
+  SOURCES
+  ${XRPLATFORM_DARWIN_H}
+)
+
+target_compile_options(XRay.Platform.Darwin
+  INTERFACE
+  $<$<CXX_COMPILER_ID:AppleClang>:-include;${XRPLATFORM_DARWIN_H}>
+  $<$<CXX_COMPILER_ID:Clang>:-include;${XRPLATFORM_DARWIN_H}>
+  $<$<CXX_COMPILER_ID:GNU>:-include;${XRPLATFORM_DARWIN_H}>
+)
+
+target_link_libraries(XRay.Platform
+  INTERFACE
+  $<$<PLATFORM_ID:Darwin>:XRay.Platform.Darwin>
+)

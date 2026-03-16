@@ -1,9 +1,23 @@
 #pragma once
 
+
+#include <sys/_types.h>
+#include <machine/_types.h> 
+#include <sys/syslimits.h>
+
+// Must be defined before ANY includes — SDK headers pull in _types.h
+// which uses PATH_MAX before we get a chance to define it otherwise
+#ifndef PATH_MAX
+#  define PATH_MAX 260
+#endif
+#ifndef _MAX_PATH
+#  define _MAX_PATH PATH_MAX
+#endif
+
+
 #include <ctype.h>
 #include <limits.h>
 #include <pthread.h>
-#include <safe_lib.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -11,7 +25,8 @@
 #include <strings.h>
 #include <time.h>
 #include <unistd.h>
-
+#include <stdbool.h>
+#include <unistd.h>
 #define IC inline
 #define ICF inline
 
@@ -177,10 +192,12 @@ typedef intptr_t LRESULT;
 #define SC_SIZE 0
 #define SC_MAXIMIZE 0
 #define SC_MONITORPOWER 0
-
+#define _MAX_PATH 250
+#define PATH_MAX 250
 #define HFONT void *
 #define HBRUSH void *
 #define HBITMAP void *
+#define ICN 
 
 #define WM_PAINT 0
 #define WM_ERASEBKGND 0
@@ -606,6 +623,8 @@ typedef struct _GUID {
   unsigned short Data3;
   unsigned char Data4[8];
 } GUID;
+#define GUID_DEFINED
+
 
 struct WAVEFORMATEX {
   WORD wFormatTag;
@@ -920,6 +939,12 @@ inline HANDLE CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes,
                           LPCSTR lpName) {
   stub_unix();
 }
+
+inline uint64_t __rdtsc() {
+  stub_unix();
+}
+
+
 inline bool GetMailslotInfo(HANDLE hMailslot, LPDWORD lpMaxMessageSize,
                             LPDWORD lpNextSize, LPDWORD lpMessageCount,
                             LPDWORD lpReadTimeout) {
@@ -1319,7 +1344,7 @@ inline char *_strlwr(char *s) {
 
 inline int _strupr_s(char *str, size_t size) {
   if (!str || size == 0)
-    return EINVAL;
+    return -1;
   for (char *p = str; *p; p++)
     *p = toupper((unsigned char)*p);
   return 0;
@@ -1356,25 +1381,15 @@ inline int sscanf_s(const char *buffer, const char *format, Args... args) {
   return sscanf(buffer, format, args...);
 }
 
-#include <filesystem>
 
 inline void _splitpath(const char *path, char *drive, char *dir, char *fname,
                        char *ext) {
-  if (drive)
-    drive[0] = '\0';
+            stub_unix();
+}
 
-  std::filesystem::path p(path);
-
-  if (dir) {
-    std::string parent = p.parent_path().string() + "/";
-    strncpy(dir, parent.c_str(), 256);
-  }
-
-  if (fname)
-    strncpy(fname, p.stem().string().c_str(), 256);
-
-  if (ext)
-    strncpy(ext, p.extension().string().c_str(), 256);
+inline void strncat_s(char* dest, size_t destSize, const char* src, size_t count)
+{
+  stub_unix();
 }
 
 inline char *_itoa(int i, char *s, int dummy_radix) {
@@ -1382,7 +1397,7 @@ inline char *_itoa(int i, char *s, int dummy_radix) {
   return s;
 }
 
-#include <unistd.h>
+
 
 inline DWORD GetCurrentProcessId() { return (DWORD)getpid(); }
 
