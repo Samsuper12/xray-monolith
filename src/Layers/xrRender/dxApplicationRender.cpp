@@ -57,7 +57,7 @@ void dxApplicationRender::KillHW()
 
 u32 calc_progress_color(u32, u32, int, int);
 extern bool use_reshade;
-extern void render_reshade_effects();
+// extern void render_reshade_effects();
 
 void dxApplicationRender::load_draw_internal(CApplication& owner)
 {

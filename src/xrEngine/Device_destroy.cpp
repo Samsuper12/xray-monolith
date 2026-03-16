@@ -56,15 +56,15 @@ void CRenderDevice::Destroy(void)
 #include "IGame_Level.h"
 #include "CustomHUD.h"
 extern bool use_reshade;
-extern bool init_reshade();
-extern void unregister_reshade();
+//extern bool init_reshade();
+// extern void unregister_reshade();
 extern u32 g_screenmode;
 extern void GetMonitorResolution(u32& horizontal, u32& vertical);
 
 void CRenderDevice::Reset(bool precache)
 {
-	if (use_reshade)
-		unregister_reshade();
+	// if (use_reshade)
+		// unregister_reshade();
 
 	use_reshade = false;
 
@@ -114,5 +114,5 @@ void CRenderDevice::Reset(bool precache)
 #endif
 
 	m_imgui.OnDeviceResetEnd();
-	use_reshade = init_reshade();
+	//use_reshade = init_reshade();
 }

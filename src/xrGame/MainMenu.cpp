@@ -420,7 +420,7 @@ bool CMainMenu::OnRenderPPUI_query()
 
 extern void draw_wnds_rects();
 extern bool use_reshade;
-extern void render_reshade_effects();
+// extern void render_reshade_effects();
 
 void CMainMenu::OnRender()
 {
@@ -430,8 +430,8 @@ void CMainMenu::OnRender()
 	if (g_pGameLevel)
 		Render->Calculate();
 
-	if (use_reshade)
-		render_reshade_effects();
+	// if (use_reshade)
+	// 	render_reshade_effects();
 
 	Render->Render();
 
@@ -450,8 +450,8 @@ void CMainMenu::OnRenderPPUI_main()
 	if (m_Flags.test(flGameSaveScreenshot))
 		return;
 
-	if (use_reshade)
-		render_reshade_effects();
+	// if (use_reshade)
+	// 	render_reshade_effects();
 
 	UI().pp_start();
 
