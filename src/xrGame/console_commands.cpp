@@ -353,7 +353,7 @@ public:
 	CCC_MemStats(LPCSTR N) : IConsole_Command(N)
 	{
 		bEmptyArgsHandled = TRUE;
-		g_full_memory_stats_callback = &full_memory_stats;
+		//g_full_memory_stats_callback = &full_memory_stats;
 	};
 
 	virtual void Execute(LPCSTR args)

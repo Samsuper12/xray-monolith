@@ -13,14 +13,14 @@ namespace soundSmoothingParams {
 	float power = 1.8f;
 	int steps = 15;
 	float alpha = getAlpha();
-	IC float getAlpha() {
+	float getAlpha() {
 		return 2.0f / (steps + 1);
 	}
-	IC float getTimeDeltaSmoothing() {
+	float getTimeDeltaSmoothing() {
 		return alpha;
 		//return min(1.0f, alpha * (Device.fTimeDelta / steps));
 	}
-	IC float getSmoothedValue(float target, float current, float smoothing = getTimeDeltaSmoothing()) {
+	float getSmoothedValue(float target, float current, float smoothing = getTimeDeltaSmoothing()) {
 		return current + smoothing * (target - current);
 	}
 };

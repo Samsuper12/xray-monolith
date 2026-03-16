@@ -6,10 +6,13 @@
 // AlexMX - Alexander Maksimchuk
 //-----------------------------------------------------------------------------
 
+#include <cstring>
 #include <defines.h>
 //#include <discord.h>
 // #include <process.h>
+#include <exception>
 #include <locale.h>
+#include <string_view>
 #include <time.h>
 #include <unicode/unistr.h>
 #include <unicode/ucnv.h>
@@ -64,10 +67,12 @@ static int64_t StartTime;
 // rpc_strings discord_strings;
 // float discord_update_rate = .5f;
 
+
 //Reshade
 bool use_reshade = false;
-extern bool init_reshade();
-extern void unregister_reshade();
+// extern bool init_reshade();
+// extern void unregister_reshade();
+extern bool DllMainXrPhysics();
 
 static LPSTR month_id[12] =
 {
@@ -149,10 +154,6 @@ void doBenchmark(LPCSTR name);
 ENGINE_API bool g_bBenchmark = false;
 string512 g_sBenchmarkName;
 
-
-ENGINE_API string512 g_sLaunchOnExit_params;
-ENGINE_API string512 g_sLaunchOnExit_app;
-ENGINE_API string_path g_sLaunchWorkingFolder;
 // -------------------------------------------
 // startup point
 void InitEngine()
@@ -673,73 +674,7 @@ extern "C"
 	DWORD AmdPowerXpressRequestHighPerformance = 0x00000001; // PowerXpress or Hybrid Graphics
 }
 
-/*
-void test_rtc ()
-{
-CStatTimer tMc,tM,tC,tD;
-u32 bytes=0;
-tMc.FrameStart ();
-tM.FrameStart ();
-tC.FrameStart ();
-tD.FrameStart ();
-::Random.seed (0x12071980);
-for (u32 test=0; test<10000; test++)
-{
-u32 in_size = ::Random.randI(1024,256*1024);
-u32 out_size_max = rtc_csize (in_size);
-u8* p_in = xr_alloc<u8> (in_size);
-u8* p_in_tst = xr_alloc<u8> (in_size);
-u8* p_out = xr_alloc<u8> (out_size_max);
-for (u32 git=0; git<in_size; git++) p_in[git] = (u8)::Random.randI (8); // garbage
-bytes += in_size;
 
-tMc.Begin ();
-memcpy (p_in_tst,p_in,in_size);
-tMc.End ();
-
-tM.Begin ();
-CopyMemory(p_in_tst,p_in,in_size);
-tM.End ();
-
-tC.Begin ();
-u32 out_size = rtc_compress (p_out,out_size_max,p_in,in_size);
-tC.End ();
-
-tD.Begin ();
-u32 in_size_tst = rtc_decompress(p_in_tst,in_size,p_out,out_size);
-tD.End ();
-
-// sanity check
-R_ASSERT (in_size == in_size_tst);
-for (u32 tit=0; tit<in_size; tit++) R_ASSERT(p_in[tit] == p_in_tst[tit]); // garbage
-
-xr_free (p_out);
-xr_free (p_in_tst);
-xr_free (p_in);
-}
-tMc.FrameEnd (); float rMc = 1000.f*(float(bytes)/tMc.result)/(1024.f*1024.f);
-tM.FrameEnd (); float rM = 1000.f*(float(bytes)/tM.result)/(1024.f*1024.f);
-tC.FrameEnd (); float rC = 1000.f*(float(bytes)/tC.result)/(1024.f*1024.f);
-tD.FrameEnd (); float rD = 1000.f*(float(bytes)/tD.result)/(1024.f*1024.f);
-Msg ("* memcpy: %5.2f M/s (%3.1f%%)",rMc,100.f*rMc/rMc);
-Msg ("* mm-memcpy: %5.2f M/s (%3.1f%%)",rM,100.f*rM/rMc);
-Msg ("* compression: %5.2f M/s (%3.1f%%)",rC,100.f*rC/rMc);
-Msg ("* decompression: %5.2f M/s (%3.1f%%)",rD,100.f*rD/rMc);
-}
-*/
-extern void testbed(void);
-
-// video
-/*
-static HINSTANCE g_hInstance ;
-static HINSTANCE g_hPrevInstance ;
-static int g_nCmdShow ;
-void __cdecl intro_dshow_x (void*)
-{
-IntroDSHOW_wnd (g_hInstance,g_hPrevInstance,"GameData\\Stalker_Intro.avi",g_nCmdShow);
-g_bIntroFinished = TRUE ;
-}
-*/
 #define dwStickyKeysStructSize sizeof( STICKYKEYS )
 #define dwFilterKeysStructSize sizeof( FILTERKEYS )
 #define dwToggleKeysStructSize sizeof( TOGGLEKEYS )
@@ -893,250 +828,6 @@ void foo()
 
 ENGINE_API bool g_dedicated_server = false;
 
-#ifndef DEDICATED_SERVER
-
-#endif // DEDICATED_SERVER
-
-int WinMain_impl(HINSTANCE hInstance,
-                          HINSTANCE hPrevInstance,
-                          char* lpCmdLine,
-                          int nCmdShow)
-{
-#ifdef DEDICATED_SERVER
-    Debug._initialize(true);
-#else // DEDICATED_SERVER
-	Debug._initialize(false);
-#endif // DEDICATED_SERVER
-
-	if (!IsDebuggerPresent())
-	{
-		HMODULE const kernel32 = LoadLibrary("kernel32.dll");
-		R_ASSERT(kernel32);
-
-		typedef BOOL (__stdcall*HeapSetInformation_type)(HANDLE, HEAP_INFORMATION_CLASS, PVOID, SIZE_T);
-		HeapSetInformation_type const heap_set_information =
-			(HeapSetInformation_type)GetProcAddress(kernel32, "HeapSetInformation");
-		if (heap_set_information)
-		{
-			ULONG HeapFragValue = 2;
-#ifdef DEBUG
-            BOOL const result =
-#endif // #ifdef DEBUG
-			heap_set_information(
-				GetProcessHeap(),
-				HeapCompatibilityInformation,
-				&HeapFragValue,
-				sizeof(HeapFragValue)
-			);
-#ifdef DEBUG
-			VERIFY2(result, "can't set process heap low fragmentation");
-#endif
-		}
-	}
-
-	// foo();
-#ifndef DEDICATED_SERVER
-
-	// Check for another instance
-#ifdef NO_MULTI_INSTANCES
-#define STALKER_PRESENCE_MUTEX "Local\\STALKER-COP"
-
-	HANDLE hCheckPresenceMutex = INVALID_HANDLE_VALUE;
-	hCheckPresenceMutex ;//= OpenMutex(READ_CONTROL, FALSE, STALKER_PRESENCE_MUTEX);
-	if (hCheckPresenceMutex == NULL)
-	{
-		// New mutex
-		hCheckPresenceMutex = CreateMutex(NULL, FALSE, STALKER_PRESENCE_MUTEX);
-		if (hCheckPresenceMutex == NULL)
-			// Shit happens
-			return 2;
-	}
-	else
-	{
-		// Already running
-		CloseHandle(hCheckPresenceMutex);
-		return 1;
-	}
-#endif
-#else // DEDICATED_SERVER
-    g_dedicated_server = true;
-#endif // DEDICATED_SERVER
-
-	// Title window
-	//FIXME:
-	logoWindow; //= CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
-
-	HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
-	RECT logoRect;
-	GetWindowRect(logoPicture, &logoRect);
-
-	SetWindowPos(
-		logoWindow,
-#ifndef DEBUG
-		HWND_TOPMOST,
-#else
-        HWND_NOTOPMOST,
-#endif // NDEBUG
-		0,
-		0,
-		logoRect.right - logoRect.left,
-		logoRect.bottom - logoRect.top,
-		SWP_NOMOVE | SWP_SHOWWINDOW // | SWP_NOSIZE
-	);
-
-	UpdateWindow(logoWindow);
-
-	// AVI
-	g_bIntroFinished = TRUE;
-
-	g_sLaunchOnExit_app[0] = NULL;
-	g_sLaunchOnExit_params[0] = NULL;
-
-	LPCSTR fsgame_ltx_name = "-fsltx ";
-	string_path fsgame = "";
-	//MessageBox(0, lpCmdLine, "my cmd string", MB_OK);
-	if (strstr(lpCmdLine, fsgame_ltx_name))
-	{
-		int sz = xr_strlen(fsgame_ltx_name);
-		sscanf(strstr(lpCmdLine, fsgame_ltx_name) + sz, "%[^ ] ", fsgame);
-		//MessageBox(0, fsgame, "using fsltx", MB_OK);
-	}
-
-	// g_temporary_stuff = &trivial_encryptor::decode;
-
-	compute_build_id();
-	Core._initialize("xray", NULL, TRUE, fsgame[0] ? fsgame : NULL);
-
-	InitSettings();
-	Msg(XRAY_MONOLITH_VERSION);
-
-	{
-		FS_FileSet fset;
-		FS.file_list(fset, "$game_data$", FS_ListFiles, "*");
-
-		// list all files in gamedata folder
-		u32 count = 0;
-		for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
-		{
-			// skip virtual files from .db? archives, only interested in loose files
-			if ((*it).attrib != 0) continue;
-			Msg("gamedata: '%s'", (*it).name.c_str());
-
-			const u32 cutoff = 100;
-			if (++count >= cutoff)
-			{
-				u32 total = fset.size();
-				if (total > cutoff)
-				{
-					Msg("gamedata: ... %d more ...", total - cutoff);
-				}
-				break;
-			}
-		}
-	}
-
-	// Adjust player & computer name for Asian
-	if (pSettings->line_exist("string_table", "no_native_input"))
-	{
-		xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
-		xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
-	}
-
-#ifndef DEDICATED_SERVER
-	{
-		damn_keys_filter filter;
-		(void)filter;
-#endif // DEDICATED_SERVER
-
-		FPU::m24r();
-		InitEngine();
-
-		InitInput();
-
-		InitConsole();
-
-		Engine.External.CreateRendererList();
-
-		LPCSTR benchName = "-batch_benchmark ";
-		if (strstr(lpCmdLine, benchName))
-		{
-			int sz = xr_strlen(benchName);
-			string64 b_name;
-			sscanf(strstr(Core.Params, benchName) + sz, "%[^ ] ", b_name);
-			doBenchmark(b_name);
-			return 0;
-		}
-
-		extern bool ignore_verify;
-		ignore_verify = !strstr(Core.Params, "-dbgdev");
-
-		Msg("command line %s", Core.Params);
-		LPCSTR sashName = "-openautomate ";
-		if (strstr(lpCmdLine, sashName))
-		{
-			int sz = xr_strlen(sashName);
-			string512 sash_arg;
-			sscanf(strstr(Core.Params, sashName) + sz, "%[^ ] ", sash_arg);
-			//doBenchmark (sash_arg);
-			g_SASH.Init(sash_arg);
-			g_SASH.MainLoop();
-			return 0;
-		}
-
-		if (strstr(lpCmdLine, "-launcher"))
-		{
-			int l_res = doLauncher();
-			if (l_res != 0)
-				return 0;
-		};
-
-#ifndef DEDICATED_SERVER
-		if (strstr(Core.Params, "-r2a"))
-			Console->Execute("renderer renderer_r2a");
-		else if (strstr(Core.Params, "-r2"))
-			Console->Execute("renderer renderer_r2");
-		else
-		{
-			CCC_LoadCFG_custom* pTmp = xr_new<CCC_LoadCFG_custom>("renderer ");
-			pTmp->Execute(Console->ConfigFile);
-			xr_delete(pTmp);
-		}
-#else
-        Console->Execute("renderer renderer_r1");
-#endif
-		//. InitInput ( );
-		Engine.External.Initialize();
-		Console->Execute("stat_memory");
-
-		Startup();
-		Core._destroy();
-
-		// check for need to execute something external
-		if (/*xr_strlen(g_sLaunchOnExit_params) && */xr_strlen(g_sLaunchOnExit_app))
-		{
-			//CreateProcess need to return results to next two structures
-			STARTUPINFO si;
-			PROCESS_INFORMATION pi;
-			ZeroMemory(&si, sizeof(si));
-			si.cb = sizeof(si);
-			ZeroMemory(&pi, sizeof(pi));
-			//We use CreateProcess to setup working folder
-			char const* temp_wf = (xr_strlen(g_sLaunchWorkingFolder) > 0) ? g_sLaunchWorkingFolder : NULL;
-			//FIXME:
-			// CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL,
-			//               temp_wf, &si, &pi);
-		}
-#ifndef DEDICATED_SERVER
-#ifdef NO_MULTI_INSTANCES
-		// Delete application presence mutex
-		CloseHandle(hCheckPresenceMutex);
-#endif
-	}
-	// here damn_keys_filter class instanse will be destroyed
-#endif // DEDICATED_SERVER
-
-	return 0;
-}
 
 int stack_overflow_exception_filter(int exception_code)
 {
@@ -1154,9 +845,8 @@ int stack_overflow_exception_filter(int exception_code)
 
 //extern BOOL DllMainOpenAL32(HANDLE module, DWORD reason, LPVOID reserved);
 #ifndef XRCORE_STATIC
-extern BOOL DllMainXrCore(HANDLE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved);
+// extern BOOL DllMainXrCore(HANDLE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved);
 #endif
-extern BOOL DllMainXrPhysics(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
 
 //extern BOOL DllMainXrGame(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved);
 //
@@ -1164,40 +854,6 @@ extern BOOL DllMainXrPhysics(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lp
 //extern BOOL DllMainXrRenderR2(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
 //extern BOOL DllMainXrRenderR3(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
 //extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
-int main(){}
-int WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     char* lpCmdLine,
-                     int nCmdShow)
-{
-	//DllMainOpenAL32(NULL, DLL_PROCESS_ATTACH, NULL);
-#ifndef XRCORE_STATIC
-	DllMainXrCore(NULL, DLL_PROCESS_ATTACH, NULL);
-#endif
-	DllMainXrPhysics(NULL, DLL_PROCESS_ATTACH, NULL);
-
-#ifndef XRCORE_STATIC
-	DllMainXrCore(NULL, DLL_THREAD_ATTACH, NULL);
-#endif
-
-	//__try
-	{
-		WinMain_impl(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-	}
-	//__except (stack_overflow_exception_filter(GetExceptionCode()))
-	{
-		//_resetstkoflw();
-		FATAL("stack overflow");
-	}
-
-	DllMainXrPhysics(NULL, DLL_PROCESS_DETACH, NULL);
-#ifndef XRCORE_STATIC
-	DllMainXrCore(NULL, DLL_PROCESS_DETACH, NULL);
-#endif
-	//DllMainOpenAL32(NULL, DLL_PROCESS_DETACH, NULL);
-
-	return (0);
-}
 
 LPCSTR _GetFontTexName(LPCSTR section)
 {
@@ -1753,30 +1409,6 @@ void FreeLauncher()
 
 int doLauncher()
 {
-	/*
-	execUserScript();
-	InitLauncher();
-	int res = pLauncher(0);
-	FreeLauncher();
-	if(res == 1) // do benchmark
-	g_bBenchmark = true;
-
-	if(g_bBenchmark){ //perform benchmark cycle
-	doBenchmark();
-
-	// InitLauncher ();
-	// pLauncher (2); //show results
-	// FreeLauncher ();
-
-	Core._destroy ();
-	return (1);
-
-	};
-	if(res==8){//Quit
-	Core._destroy ();
-	return (1);
-	}
-	*/
 	return 0;
 }
 
@@ -1827,123 +1459,161 @@ void doBenchmark(LPCSTR name)
 void CApplication::load_draw_internal()
 {
 	m_pRender->load_draw_internal(*this);
-	/*
-	if(!sh_progress){
-	CHK_DX (HW.pDevice->Clear(0,0,D3DCLEAR_TARGET,D3DCOLOR_ARGB(0,0,0,0),1,0));
-	return;
-	}
-	// Draw logo
-	u32 Offset;
-	u32 C = 0xffffffff;
-	u32 _w = Device.dwWidth;
-	u32 _h = Device.dwHeight;
-	FVF::TL* pv = NULL;
-
-	//progress
-	float bw = 1024.0f;
-	float bh = 768.0f;
-	Fvector2 k; k.set(float(_w)/bw, float(_h)/bh);
-
-	RCache.set_Shader (sh_progress);
-	CTexture* T = RCache.get_ActiveTexture(0);
-	Fvector2 tsz;
-	tsz.set ((float)T->get_Width(),(float)T->get_Height());
-	Frect back_text_coords;
-	Frect back_coords;
-	Fvector2 back_size;
-
-	//progress background
-	static float offs = -0.5f;
-
-	back_size.set (1024,768);
-	back_text_coords.lt.set (0,0);back_text_coords.rb.add(back_text_coords.lt,back_size);
-	back_coords.lt.set (offs, offs); back_coords.rb.add(back_coords.lt,back_size);
-
-	back_coords.lt.mul (k);back_coords.rb.mul(k);
-
-	back_text_coords.lt.x/=tsz.x; back_text_coords.lt.y/=tsz.y; back_text_coords.rb.x/=tsz.x; back_text_coords.rb.y/=tsz.y;
-	pv = (FVF::TL*) RCache.Vertex.Lock(4,ll_hGeom.stride(),Offset);
-	pv->set (back_coords.lt.x, back_coords.rb.y, C,back_text_coords.lt.x, back_text_coords.rb.y); pv++;
-	pv->set (back_coords.lt.x, back_coords.lt.y, C,back_text_coords.lt.x, back_text_coords.lt.y); pv++;
-	pv->set (back_coords.rb.x, back_coords.rb.y, C,back_text_coords.rb.x, back_text_coords.rb.y); pv++;
-	pv->set (back_coords.rb.x, back_coords.lt.y, C,back_text_coords.rb.x, back_text_coords.lt.y); pv++;
-	RCache.Vertex.Unlock (4,ll_hGeom.stride());
-
-	RCache.set_Geometry (ll_hGeom);
-	RCache.Render (D3DPT_TRIANGLELIST,Offset,0,4,0,2);
-
-	//progress bar
-	back_size.set (268,37);
-	back_text_coords.lt.set (0,768);back_text_coords.rb.add(back_text_coords.lt,back_size);
-	back_coords.lt.set (379 ,726);back_coords.rb.add(back_coords.lt,back_size);
-
-	back_coords.lt.mul (k);back_coords.rb.mul(k);
-
-	back_text_coords.lt.x/=tsz.x; back_text_coords.lt.y/=tsz.y; back_text_coords.rb.x/=tsz.x; back_text_coords.rb.y/=tsz.y;
-
-
-
-	u32 v_cnt = 40;
-	pv = (FVF::TL*)RCache.Vertex.Lock (2*(v_cnt+1),ll_hGeom2.stride(),Offset);
-	FVF::TL* _pv = pv;
-	float pos_delta = back_coords.width()/v_cnt;
-	float tc_delta = back_text_coords.width()/v_cnt;
-	u32 clr = C;
-
-	for(u32 idx=0; idx<v_cnt+1; ++idx){
-	clr = calc_progress_color(idx,v_cnt,load_stage,max_load_stage);
-	pv->set (back_coords.lt.x+pos_delta*idx+offs, back_coords.rb.y+offs, 0+EPS_S, 1, clr, back_text_coords.lt.x+tc_delta*idx, back_text_coords.rb.y); pv++;
-	pv->set (back_coords.lt.x+pos_delta*idx+offs, back_coords.lt.y+offs, 0+EPS_S, 1, clr, back_text_coords.lt.x+tc_delta*idx, back_text_coords.lt.y); pv++;
-	}
-	VERIFY (u32(pv-_pv)==2*(v_cnt+1));
-	RCache.Vertex.Unlock (2*(v_cnt+1),ll_hGeom2.stride());
-
-	RCache.set_Geometry (ll_hGeom2);
-	RCache.Render (D3DPT_TRIANGLESTRIP, Offset, 2*v_cnt);
-
-
-	// Draw title
-	VERIFY (pFontSystem);
-	pFontSystem->Clear ();
-	pFontSystem->SetColor (color_rgba(157,140,120,255));
-	pFontSystem->SetAligment (CGameFont::alCenter);
-	pFontSystem->OutI (0.f,0.815f,app_title);
-	pFontSystem->OnRender ();
-
-
-	//draw level-specific screenshot
-	if(hLevelLogo){
-	Frect r;
-	r.lt.set (257,369);
-	r.lt.x += offs;
-	r.lt.y += offs;
-	r.rb.add (r.lt,Fvector2().set(512,256));
-	r.lt.mul (k);
-	r.rb.mul (k);
-	pv = (FVF::TL*) RCache.Vertex.Lock(4,ll_hGeom.stride(),Offset);
-	pv->set (r.lt.x, r.rb.y, C, 0, 1); pv++;
-	pv->set (r.lt.x, r.lt.y, C, 0, 0); pv++;
-	pv->set (r.rb.x, r.rb.y, C, 1, 1); pv++;
-	pv->set (r.rb.x, r.lt.y, C, 1, 0); pv++;
-	RCache.Vertex.Unlock (4,ll_hGeom.stride());
-
-	RCache.set_Shader (hLevelLogo);
-	RCache.set_Geometry (ll_hGeom);
-	RCache.Render (D3DPT_TRIANGLELIST,Offset,0,4,0,2);
-	}
-	*/
 }
 
-/*
-u32 calc_progress_color(u32 idx, u32 total, int stage, int max_stage)
+void main_impl(int argc, char* argv[])
 {
-if(idx>(total/2))
-idx = total-idx;
+	auto findArg = [argc, argv] (const char* arg) -> bool {
+		for (size_t i = 0; i < argc; ++i) {
+			if (strcmp(argv[i], arg) == 0)
+				return true;
+		}
+		return false;
+	};
+
+	Debug._initialize(false);
+
+	// Title window
+	//FIXME:
+	logoWindow; //= CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
+
+	HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
+	RECT logoRect;
+	GetWindowRect(logoPicture, &logoRect);
+
+	SetWindowPos(
+		logoWindow,
+#ifndef DEBUG
+		HWND_TOPMOST,
+#else
+        HWND_NOTOPMOST,
+#endif // NDEBUG
+		0,
+		0,
+		logoRect.right - logoRect.left,
+		logoRect.bottom - logoRect.top,
+		SWP_NOMOVE | SWP_SHOWWINDOW // | SWP_NOSIZE
+	);
+
+	UpdateWindow(logoWindow);
+
+	// AVI
+	g_bIntroFinished = TRUE;
+
+	LPCSTR fsgame_ltx_name = "-fsltx ";
+	string_path fsgame = "";
+	//MessageBox(0, lpCmdLine, "my cmd string", MB_OK);
+	if (findArg("-fsltx"))
+	{
+		// TODO:
+		//int sz = xr_strlen(fsgame_ltx_name);
+		//sscanf(strstr(argv, fsgame_ltx_name) + sz, "%[^ ] ", fsgame);
+		//MessageBox(0, fsgame, "using fsltx", MB_OK);
+	}
+
+	// g_temporary_stuff = &trivial_encryptor::decode;
+
+	compute_build_id();
+	Core._initialize("xray", NULL, TRUE, fsgame[0] ? fsgame : NULL);
+
+	InitSettings();
+	Msg(XRAY_MONOLITH_VERSION);
+
+	{
+		FS_FileSet fset;
+		FS.file_list(fset, "$game_data$", FS_ListFiles, "*");
+
+		// list all files in gamedata folder
+		u32 count = 0;
+		for (auto it = fset.begin(); it != fset.end(); it++)
+		{
+			// skip virtual files from .db? archives, only interested in loose files
+			if ((*it).attrib != 0) continue;
+			Msg("gamedata: '%s'", (*it).name.c_str());
+
+			const u32 cutoff = 100;
+			if (++count >= cutoff)
+			{
+				u32 total = fset.size();
+				if (total > cutoff)
+				{
+					Msg("gamedata: ... %d more ...", total - cutoff);
+				}
+				break;
+			}
+		}
+	}
+
+	// Adjust player & computer name for Asian
+	if (pSettings->line_exist("string_table", "no_native_input"))
+	{
+		xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
+		xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
+	}
+
+	{
+		damn_keys_filter filter;
+		(void)filter;
+
+		FPU::m24r();
+		InitEngine();
+
+		InitInput();
+
+		InitConsole();
+
+		Engine.External.CreateRendererList();
+
+		LPCSTR benchName = " ";
+		if (findArg("-batch_benchmark"))
+		{
+			// int sz = xr_strlen(benchName);
+			// string64 b_name;
+			// sscanf(strstr(Core.Params, benchName) + sz, "%[^ ] ", b_name);
+			// doBenchmark(b_name);
+			// return 0;
+		}
+
+		Msg("command line %s", Core.Params);
+		if (findArg("-openautomate"))
+		{
+			// int sz = xr_strlen(sashName);
+			// string512 sash_arg;
+			// sscanf(strstr(Core.Params, sashName) + sz, "%[^ ] ", sash_arg);
+			// //doBenchmark (sash_arg);
+			// g_SASH.Init(sash_arg);
+			// g_SASH.MainLoop();
+			// return 0;
+		}
+
+		if (findArg("-launcher"))
+		{
+			int l_res = doLauncher();
+			if (l_res != 0)
+				return;
+		};
 
 
-float kk = (float(stage+1)/float(max_stage))*(total/2.0f);
-float f = 1/(exp((float(idx)-kk)*0.5f)+1.0f);
+		CCC_LoadCFG_custom* pTmp = xr_new<CCC_LoadCFG_custom>("renderer ");
+		pTmp->Execute(Console->ConfigFile);
+		xr_delete(pTmp);
 
-return color_argb_f (f,1.0f,1.0f,1.0f);
+		//. InitInput ( );
+		Engine.External.Initialize();
+		Console->Execute("stat_memory");
+
+		Startup();
+		Core._destroy();
+	}
 }
-*/
+
+int main(int argc, char* argv[])
+{
+	DllMainXrPhysics();
+	try {
+		main_impl(argc, argv);
+	} catch (std::exception& e) {
+		// stacktrace?
+	}
+	return 0;
+}

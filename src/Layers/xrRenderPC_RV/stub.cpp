@@ -14,7 +14,7 @@
 #include "rv.hpp"
 
 void __cdecl dxRenderFactory::DestroyApplicationRender(class IApplicationRender *) { stub(); }
-int __cdecl DllMainXrRenderRV(void *, unsigned long, void *) { stub(); }
+bool DllMainXrRenderRV() { stub(); }
 void __cdecl xrRender_initconsole(void) { stub(); }
 void __cdecl dxRenderFactory::DestroyUIShader(class IUIShader *) { stub(); }
 IUIShader *__cdecl dxRenderFactory::CreateUIShader(void) { stub(); }

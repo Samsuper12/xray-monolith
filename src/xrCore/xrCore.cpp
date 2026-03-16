@@ -210,36 +210,36 @@ void xrCore::_destroy()
 //. why ???
 #ifdef _EDITOR
 BOOL WINAPI DllEntryPoint(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved)
-#else
-//BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved)
-BOOL DllMainXrCore(HANDLE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved)
 #endif
-{
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-		{
-			_clear87();
-			_control87(_PC_53, MCW_PC);
-			_control87(_RC_CHOP, MCW_RC);
-			_control87(_RC_NEAR, MCW_RC);
-			_control87(_MCW_EM, MCW_EM);
-		}
-		//. LogFile.reserve (256);
-		break;
-	case DLL_THREAD_ATTACH:
-		if (!strstr(GetCommandLine(), "-editor"))
-			CoInitializeEx(NULL, COINIT_MULTITHREADED);
-		timeBeginPeriod(1);
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-#ifdef USE_MEMORY_MONITOR
-        memory_monitor::flush_each_time(true);
-#endif // USE_MEMORY_MONITOR
-		break;
-	}
-	return TRUE;
+//BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved)
+// BOOL DllMainXrCore(HANDLE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved)
+// #endif
+// {
+// 	switch (ul_reason_for_call)
+// 	{
+// 	case DLL_PROCESS_ATTACH:
+// 		{
+// 			_clear87();
+// 			_control87(_PC_53, MCW_PC);
+// 			_control87(_RC_CHOP, MCW_RC);
+// 			_control87(_RC_NEAR, MCW_RC);
+// 			_control87(_MCW_EM, MCW_EM);
+// 		}
+// 		//. LogFile.reserve (256);
+// 		break;
+// 	case DLL_THREAD_ATTACH:
+// 		if (!strstr(GetCommandLine(), "-editor"))
+// 			CoInitializeEx(NULL, COINIT_MULTITHREADED);
+// 		timeBeginPeriod(1);
+// 		break;
+// 	case DLL_THREAD_DETACH:
+// 		break;
+// 	case DLL_PROCESS_DETACH:
+// #ifdef USE_MEMORY_MONITOR
+//         memory_monitor::flush_each_time(true);
+// #endif // USE_MEMORY_MONITOR
+// 		break;
+// 	}
+// 	return TRUE;
 }
 #endif // XRCORE_STATIC

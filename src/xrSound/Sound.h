@@ -20,6 +20,18 @@ class IReader;
 #define SNDENV_FILENAME				"sEnvironment.xr"
 #define OGG_COMMENT_VERSION 		0x0003
 
+namespace soundSmoothingParams {
+	extern float pitchVariationPower;
+	extern float distanceBasedDelayPower;
+	extern float distanceBasedDelayMinDistance;
+	extern float power;
+	extern int steps;
+	extern float alpha;
+	extern float getAlpha();
+	extern float getTimeDeltaSmoothing();
+	extern float getSmoothedValue(float, float, float);
+};
+
 // refs
 class CObject;
 class XRSOUND_API CSound_params;
@@ -211,17 +223,7 @@ class XRSOUND_API CSound_environment
 public:
 };
 
-namespace soundSmoothingParams {
-	extern float pitchVariationPower;
-	extern float distanceBasedDelayPower;
-	extern float distanceBasedDelayMinDistance;
-	extern float power;
-	extern int steps;
-	extern float alpha;
-	extern float getAlpha();
-	extern float getTimeDeltaSmoothing();
-	extern float getSmoothedValue(float, float, float);
-};
+
 
 /// definition (Sound Params)
 class XRSOUND_API CSound_params

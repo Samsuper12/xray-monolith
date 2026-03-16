@@ -51,12 +51,14 @@ IC void CConstructorManagerBuilderAllocator::init()
 	inherited::init();
 }
 
-// TEMPLATE_SPECIALIZATION
-// IC typename CConstructorManagerBuilderAllocator::CGraphVertex&CConstructorManagerBuilderAllocator::create_vertex(
-// 	const _index_type& vertex_id)
-// {
-// 	return (inherited::create_vertex(inherited_allocator::create_vertex(), vertex_id));
-// }
+TEMPLATE_SPECIALIZATION
+IC typename CManagerBuilderAllocatorConstructor<_manager, _builder, _allocator, _builder_allocator_constructor>
+    ::template CDataStorage<_vertex, _index_vertex>::CGraphVertex&
+    CManagerBuilderAllocatorConstructor<_manager, _builder, _allocator, _builder_allocator_constructor>
+    ::template CDataStorage<_vertex, _index_vertex>::create_vertex(const _index_type& vertex_id)
+{
+    return (inherited::create_vertex(inherited_allocator::create_vertex(), vertex_id));
+}
 
 #undef TEMPLATE_SPECIALIZATION
 #undef CConstructorManagerBuilderAllocator

@@ -59,7 +59,7 @@ extern BOOL DllMainXrRenderR1(HANDLE hModule, DWORD ul_reason_for_call, LPVOID l
 extern BOOL DllMainXrRenderR2(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
 extern BOOL DllMainXrRenderR3(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
 extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
-extern BOOL DllMainXrRenderRV(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
+extern bool DllMainXrRenderRV();
 
 
 #ifdef STATIC_RENDERER_R1
@@ -90,7 +90,7 @@ void CEngineAPI::InitializeNotDedicated()
 		psDeviceFlags.set(rsR4, FALSE);
 
 		Log("Loading DLL:", rv_name);
-		DllMainXrRenderRV(NULL, DLL_PROCESS_ATTACH, NULL);
+		DllMainXrRenderRV();
         //hRender = LoadLibrary(r4_name);
 	//if (0 == hRender)
 	//{
@@ -242,7 +242,7 @@ void CEngineAPI::Destroy(void)
 	//if (hGame) { FreeLibrary(hGame); hGame = 0; }
 	DllMainXrGame(NULL, DLL_PROCESS_DETACH, NULL);
 	//if (hRender) { FreeLibrary(hRender); hRender = 0; }
-	DLL_MAIN_RENDERER(NULL, DLL_PROCESS_DETACH, NULL);
+	DLL_MAIN_RENDERER();
 	pCreate = 0;
 	pDestroy = 0;
 	Engine.Event._destroy();
@@ -364,7 +364,7 @@ void CEngineAPI::CreateRendererList()
 #ifdef STATIC_RENDERER_RV
 		LPCSTR rv_name = "xrRender_RV.dll";
         Log("Loading DLL:", rv_name);
-		DllMainXrRenderRV(NULL, DLL_PROCESS_ATTACH, NULL);
+		DllMainXrRenderRV();
         {
             //SupportsDX11RenderingREF* test_dx11_rendering = (SupportsDX11RenderingREF*)GetProcAddress(hRender, "SupportsDX11Rendering");
             SupportsDX11RenderingREF* test_vulkan_rendering = SupportsVulkanRendering;

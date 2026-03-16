@@ -1150,43 +1150,12 @@ static void termination_handler(int signal)
 	handler_base("termination with exit code 3");
 }
 
-void debug_on_thread_spawn()
-{
-#ifdef USE_BUG_TRAP
-    BT_SetTerminate();
-#else // USE_BUG_TRAP
-	//std::set_terminate (_terminate);
-#endif // USE_BUG_TRAP
-
-	// _set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
-	// signal(SIGABRT, abort_handler);
-	// signal(SIGABRT_COMPAT, abort_handler);
-	// signal(SIGFPE, floating_point_handler);
-	// signal(SIGILL, illegal_instruction_handler);
-	// signal(SIGINT, 0);
-	// // signal (SIGSEGV, storage_access_handler);
-	// signal(SIGTERM, termination_handler);
-
-	// _set_invalid_parameter_handler(&invalid_parameter_handler);
-
-	// _set_new_mode(1);
-	// _set_new_handler(&out_of_memory_handler);
-	// // std::set_new_handler (&std_out_of_memory_handler);
-
-	// _set_purecall_handler(&pure_call_handler);
-
-#if 0// should be if we use exceptions
-    std::set_unexpected(_terminate);
-#endif
-}
 
 void xrDebug::_initialize(const bool& dedicated)
 {
 	static bool is_dedicated = dedicated;
 
 	*g_bug_report_file = 0;
-
-	debug_on_thread_spawn();
 
 #ifdef USE_BUG_TRAP
     SetupExceptionHandler(is_dedicated);

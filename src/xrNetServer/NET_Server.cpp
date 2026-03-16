@@ -604,9 +604,10 @@ void IPureServer::Flush_Clients_Buffers()
 // 		LocalSenderFunctor::FlushBuffer
 // 	);
 // }
+}
 
-// void IPureServer::SendTo_Buf(ClientID id, void* data, u32 size, u32 dwFlags, u32 dwTimeout)
-// {
+void IPureServer::SendTo_Buf(ClientID id, void* data, u32 size, u32 dwFlags, u32 dwTimeout)
+{
 // 	IClient* tmp_client = net_players.GetFoundClient(
 // 		ClientIdSearchPredicate(id));
 // 	VERIFY(tmp_client);
