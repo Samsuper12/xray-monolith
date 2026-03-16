@@ -1,4 +1,6 @@
+#ifndef __APPLE__
 #include <malloc.h>
+#endif
 #include <errno.h>
 
 #include "log.h"

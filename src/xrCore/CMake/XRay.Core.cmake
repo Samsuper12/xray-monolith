@@ -51,11 +51,6 @@ add_module(XRay.Core
   xrCore.rc
 )
 
-target_link_libraries(XRay.Core PUBLIC safestring_shared)
-target_link_libraries(XRay.Includes INTERFACE safestring_shared)
-
-get_target_property(INC safestring_shared INTERFACE_INCLUDE_DIRECTORIES)
-message(STATUS "safestring_shared includes: ${INC}")
 
 target_compile_options(XRay.Core
   PRIVATE

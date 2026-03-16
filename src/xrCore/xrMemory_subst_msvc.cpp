@@ -53,7 +53,11 @@ void* xrMemory::mem_alloc(size_t size
 	if (g_use_pure_alloc)
 	{
 		//void* result = malloc(size);
-		void* result = _aligned_malloc(size, PURE_MEMORY_ALIGNMENT);
+		#ifdef _WIN32
+                void* result = _aligned_malloc(size, PURE_MEMORY_ALIGNMENT);
+		#else
+                void* result = aligned_alloc(PURE_MEMORY_ALIGNMENT, size);
+		#endif
 #ifdef PURE_MEMORY_FILL_ZERO
 		if (result)
 			memset(result, 0, size);
@@ -141,7 +145,11 @@ void xrMemory::mem_free(void* P)
 	if (g_use_pure_alloc)
 	{
 		//free(P);
-		_aligned_free(P);
+		#ifdef _WIN32
+                _aligned_free(P);
+		#else
+                free(P);
+		#endif
 		return;
 	}
 #endif // PURE_ALLOC

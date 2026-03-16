@@ -77,6 +77,7 @@ IC char* strconcat(int dest_sz, char* dest, const char* S1, const char* S2, cons
 #endif //#ifdef STRCONCAT_STACKOVERFLOW_CHECK
 
 #endif //_EDITOR
+#include "xrstring.h"
 #include "string_concatenations_inline.h"
 
 // Giperion XRay Oxygen - ultimate version of strconcat

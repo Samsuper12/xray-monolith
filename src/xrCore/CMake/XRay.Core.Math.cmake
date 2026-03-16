@@ -60,7 +60,7 @@ add_module(XRay.Core.Math
   _random.h
   _rect.h
   _sphere.h
-  _types.h
+  _types_own.h
   _vector2.h
   _vector3d.h
   _vector3d_ext.h

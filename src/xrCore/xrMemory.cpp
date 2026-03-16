@@ -1,5 +1,6 @@
+#ifndef __APPLE__
 #include <malloc.h>
-
+#endif
 #include "xrMemory.h"
 #include "xrMemory_pure.h"
 #include "xrsharedmem.h"

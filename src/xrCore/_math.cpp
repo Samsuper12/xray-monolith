@@ -323,22 +323,23 @@ void _initialize_cpu_thread()
 	// fpu & sse
 	FPU::m24r();
 #endif // XRCORE_STATIC
-	if (CPU::ID.feature & _CPU_FEATURE_SSE)
-	{
-		//_mm_setcsr ( _mm_getcsr() | (_MM_FLUSH_ZERO_ON+_MM_DENORMALS_ZERO_ON) );
-		_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
-		if (_denormals_are_zero_supported)
-		{
-			//__try
-			{
-				_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
-			}
-			//__except (EXCEPTION_EXECUTE_HANDLER)
-			{
-				_denormals_are_zero_supported = FALSE;
-			}
-		}
-	}
+	//FIXME:
+	// if (CPU::ID.feature & _CPU_FEATURE_SSE)
+	// {
+	// 	//_mm_setcsr ( _mm_getcsr() | (_MM_FLUSH_ZERO_ON+_MM_DENORMALS_ZERO_ON) );
+	// 	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+	// 	if (_denormals_are_zero_supported)
+	// 	{
+	// 		//__try
+	// 		{
+	// 			_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
+	// 		}
+	// 		//__except (EXCEPTION_EXECUTE_HANDLER)
+	// 		{
+	// 			_denormals_are_zero_supported = FALSE;
+	// 		}
+	// 	}
+	// }
 }
 // threading API
 // #pragma pack(push,8)

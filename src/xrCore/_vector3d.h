@@ -4,6 +4,7 @@
 #include <_random.h>
 #include <_std_extensions.h>
 #include "math_constants.h"
+#include "math_funcs_inline.h"
 
 class CRenderDevice;
 extern ENGINE_API CRenderDevice Device;
@@ -301,9 +302,9 @@ public:
 	// Clamp vector3
 	IC SelfRef clamp(const Self& min, const Self& max)
 	{
-		::clamp(x, min.x, max.x);
-		::clamp(y, min.y, max.y);
-		::clamp(z, min.z, max.z);
+		std::clamp(x, min.x, max.x);
+		std::clamp(y, min.y, max.y);
+		std::clamp(z, min.z, max.z);
 		return *this;
 	}
 
@@ -313,9 +314,9 @@ public:
 		v.x = _abs(_v.x);
 		v.y = _abs(_v.y);
 		v.z = _abs(_v.z);
-		::clamp(x, -v.x, v.x);
-		::clamp(y, -v.y, v.y);
-		::clamp(z, -v.z, v.z);
+		std::clamp(x, -v.x, v.x);
+		std::clamp(y, -v.y, v.y);
+		std::clamp(z, -v.z, v.z);
 		return *this;
 	}
 
@@ -710,29 +711,29 @@ public:
 		}
 	}
 
-	IC SelfRef hud_to_world()
-	{
-		Device.hud_to_world(*this);
-		return *this;
-	}
+	// IC SelfRef hud_to_world()
+	// {
+	// 	Device.hud_to_world(*this);
+	// 	return *this;
+	// }
 
-	IC SelfRef world_to_hud()
-	{
-		Device.world_to_hud(*this);
-		return *this;
-	}
+	// IC SelfRef world_to_hud()
+	// {
+	// 	Device.world_to_hud(*this);
+	// 	return *this;
+	// }
 
-	IC SelfRef hud_to_world_dir()
-	{
-		Device.hud_to_world_dir(*this);
-		return *this;
-	}
+	// IC SelfRef hud_to_world_dir()
+	// {
+	// 	Device.hud_to_world_dir(*this);
+	// 	return *this;
+	// }
 
-	IC SelfRef world_to_hud_dir()
-	{
-		Device.world_to_hud_dir(*this);
-		return *this;
-	}
+	// IC SelfRef world_to_hud_dir()
+	// {
+	// 	Device.world_to_hud_dir(*this);
+	// 	return *this;
+	// }
 };
 
 typedef _vector3<float> Fvector;

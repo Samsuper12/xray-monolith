@@ -1,6 +1,8 @@
 #ifndef _STL_EXT_internal
 #define _STL_EXT_internal
 
+extern XRCORE_API BOOL mem_initialized;
+
 #include <functional>
 #include <deque>
 #include <map>
@@ -109,10 +111,26 @@ public:
 	template <class _Other>
 	xalloc<T>& operator=(const xalloc<_Other>&) { return (*this); }
 
-	pointer allocate(size_type n, const void* p = 0) const { return xr_alloc<T>((u32)n); }
+	pointer allocate(size_type n, const void* p = 0) const
+	{
+		if (!mem_initialized)
+			return (pointer)malloc(n * sizeof(T));
+		return xr_alloc<T>((u32)n);
+	}
+
+	void deallocate(pointer p, size_type n) const
+	{
+		if (!mem_initialized) { free(p); return; }
+		xr_free(p);
+	}
+
+	void deallocate(void* p, size_type n) const
+	{
+		if (!mem_initialized) { free(p); return; }
+		xr_free(p);
+	}
+
 	char* _charalloc(size_type n) { return (char*)allocate(n); }
-	void deallocate(pointer p, size_type n) const { xr_free(p); }
-	void deallocate(void* p, size_type n) const { xr_free(p); }
 	void construct(pointer p, const T& _Val) { ::new((void*)p) T(_Val); }
 	void destroy(pointer p) { p->~value_type(); }
 

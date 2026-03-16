@@ -2,7 +2,9 @@
 #define __XR_MATH_H__
 
 //#include <intrin.h>
+#ifndef __APPLE__
 #include <x86intrin.h>
+#endif
 
 #include "vector.h"
 #include "cpuid.h"

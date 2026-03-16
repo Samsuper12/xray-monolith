@@ -1,7 +1,8 @@
 
 #include <errno.h>
+#ifndef __APPLE__
 #include <malloc.h>
-
+#endif
 #include "xrMemory_align.h"
 
 /***

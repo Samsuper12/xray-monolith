@@ -20,9 +20,9 @@ void xrMemory::dbg_check()
 //# define MEMORY_LEAK_DESCRIPTION "class ::luabind::functor<bool>"
 # define MEMORY_LEAK_SIZE 12
 # endif
-
+#ifndef __APPLE__
 #include <malloc.h>
-
+#endif
 bool pred_mdbg(const xrMemory::mdbg& A)
 {
     return (0 == A._p && 0 == A._size);

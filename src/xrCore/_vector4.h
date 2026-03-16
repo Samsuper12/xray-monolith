@@ -218,10 +218,10 @@ public:
 	// Clamp vector3
 	IC SelfRef clamp(const Self& min, const Self& max)
 	{
-		::clamp(x, min.x, max.x);
-		::clamp(y, min.y, max.y);
-		::clamp(z, min.z, max.z);
-		::clamp(w, min.w, max.w);
+		std::clamp(x, min.x, max.x);
+		std::clamp(y, min.y, max.y);
+		std::clamp(z, min.z, max.z);
+		std::clamp(w, min.w, max.w);
 		return *this;
 	}
 
@@ -232,10 +232,10 @@ public:
 		v.y = _abs(_v.y);
 		v.z = _abs(_v.z);
 		v.z = _abs(_v.w);
-		::clamp(x, -v.x, v.x);
-		::clamp(y, -v.y, v.y);
-		::clamp(z, -v.z, v.z);
-		::clamp(w, -v.w, v.w);
+		std::clamp(x, -v.x, v.x);
+		std::clamp(y, -v.y, v.y);
+		std::clamp(z, -v.z, v.z);
+		std::clamp(w, -v.w, v.w);
 		return *this;
 	}
 
