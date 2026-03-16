@@ -15,7 +15,7 @@
 
 inline void stub() {
 	Msg("Stub");
-	std::runtime_error("stub!");
+	//std::runtime_error("stub!");
 }
 
 class CRender : public R_dsgraph_structure

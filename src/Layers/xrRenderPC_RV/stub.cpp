@@ -11,6 +11,7 @@
 // }
 
 #include "dxRenderFactory.h"
+#include "rv.hpp"
 
 void __cdecl dxRenderFactory::DestroyApplicationRender(class IApplicationRender *) { stub(); }
 int __cdecl DllMainXrRenderRV(void *, unsigned long, void *) { stub(); }

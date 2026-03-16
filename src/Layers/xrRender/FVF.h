@@ -2,7 +2,7 @@
 #define _FVF_H_
 #pragma once
 
-//#include <d3d9types.h>
+#include <../xrRenderDX10/d3d9types.h>
 
 //-----------------------------------------------------------------------------
 // #pragma pack(push,4)

@@ -20,7 +20,7 @@ void dxApplicationRender::LoadBegin()
 	ll_hGeom2.create(FVF::F_TL, RCache.Vertex.Buffer(),NULL);
 
 	//Discord
-	discord_gameinfo.loadscreen = true;
+	//FIXME: discord_gameinfo.loadscreen = true;
 
 	// demonized: handled in separate thread
 	/*if (psDeviceFlags2.test(rsDiscord))
@@ -34,8 +34,8 @@ void dxApplicationRender::destroy_loading_shaders()
 	hLevelLogo_Add.destroy();
 
 	//Discord
-	discord_gameinfo.loadscreen = false;
-	discord_gameinfo.ex_update = true;
+	// discord_gameinfo.loadscreen = false;
+	// discord_gameinfo.ex_update = true;
 
 	// demonized: handled in separate thread
 	/*if (psDeviceFlags2.test(rsDiscord))

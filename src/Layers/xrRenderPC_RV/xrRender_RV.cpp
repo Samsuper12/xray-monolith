@@ -3,7 +3,7 @@
 #include "../xrRender/dxRenderFactory.h"
 #include "../xrRender/dxUIRender.h"
 #include "../xrRender/dxDebugRender.h"
-
+#include "rv.hpp"
 //BOOL APIENTRY DllMain( HANDLE hModule,
 BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
