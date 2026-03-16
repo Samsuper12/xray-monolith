@@ -34,9 +34,6 @@
 [submodule "Externals/luasocket-git"]
 	path = Externals/luasocket-git
 	url = https://github.com/lunarmodules/luasocket.git
-[submodule "Externals/OpenAL-git"]
-	path = Externals/OpenAL-git
-	url = https://github.com/kcat/openal-soft.git
 [submodule "src/3rd party/optick-git"]
 	path = Externals/optick-git
 	url = https://github.com/bombomby/optick.git
