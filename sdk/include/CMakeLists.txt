@@ -1,7 +1,6 @@
 add_subdirectory(cs)
 add_subdirectory(DPlay)
 add_subdirectory(loki)
-#add_subdirectory(nvapi)
 #add_subdirectory(reshade)
 add_subdirectory(serial)
 add_subdirectory(sm_boost)
