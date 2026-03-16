@@ -1400,4 +1400,10 @@ void *lj_alloc_f(void *msp, void *ptr, size_t osize, size_t nsize)
   }
 }
 
+void lj_alloc_setprng(void *msp, PRNGState *rs)
+{
+    (void)msp;
+    (void)rs;
+}
+
 #endif
