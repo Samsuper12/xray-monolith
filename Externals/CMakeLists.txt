@@ -1,5 +1,3 @@
-#add_subdirectory(discord)
-#add_subdirectory(DxErr)
 add_subdirectory(fastdelegate)
 add_subdirectory(FastDynamicCast)
 add_subdirectory(IKAN)

@@ -1,9 +1,6 @@
 [submodule "Externals/WindowsToolchain"]
 	path = Externals/WindowsToolchain
 	url = https://github.com/MarkSchofield/WindowsToolchain.git
-[submodule "Externals/DxErr-git"]
-	path = Externals/DxErr-git
-	url = https://github.com/rbeesley/DxErr.git
 [submodule "Externals/IconFontCppHeaders-git"]
 	path = Externals/IconFontCppHeaders-git
 	url = https://github.com/juliettef/IconFontCppHeaders.git
