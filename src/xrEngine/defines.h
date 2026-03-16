@@ -61,7 +61,7 @@ enum
 	rsGrassShadow = (1 << 2),
 	rsNoScale = (1 << 3),
 	rsFxaa = (1 << 4),
-	rsDiscord = (1 << 5),
+	//rsDiscord = (1 << 5),
 	rsKeypress = (1 << 6),
 	rsCODPickup = (1 << 7),
 	rsFeelGrenade = (1 << 8),

@@ -19,7 +19,7 @@
 #pragma warning(default:4995)
 
 #include "x_ray.h"
-#include "discord.h"
+//#include "discord.h"
 #include "Render.h"
 #include <chrono>
 
@@ -44,8 +44,8 @@ ENGINE_API BOOL g_bRendering = FALSE;
 BOOL g_bLoaded = FALSE;
 ref_light precache_light = 0;
 
-extern discord::Core* discord_core;
-extern bool use_discord;
+// extern discord::Core* discord_core;
+// extern bool use_discord;
 
 extern Fvector4 ps_ssfx_grass_interactive;
 
@@ -545,31 +545,31 @@ void CRenderDevice::message_loop()
 	}
 }
 
-void mt_DiscordThread(void*)
-{
-	while (true)
-	{
-		if (!pApp)
-		{
-			Msg("[Discord] pApp destroyed, killing thread");
-			return;
-		}
+// void mt_DiscordThread(void*)
+// {
+// 	while (true)
+// 	{
+// 		if (!pApp)
+// 		{
+// 			Msg("[Discord] pApp destroyed, killing thread");
+// 			return;
+// 		}
 
-		//Discord
-		if (use_discord && psDeviceFlags2.test(rsDiscord))
-		{
-			START_PROFILE("Discord");
-			discord_core->RunCallbacks();
-			updateDiscordPresence();
-			STOP_PROFILE;
-			sleep(int(discord_update_rate * 1000));
-		}
-		else
-		{
-			sleep(1000); // Sleep for 1 second if Discord is not used or disabled
-		}
-	}
-}
+// 		//Discord
+// 		if (use_discord && psDeviceFlags2.test(rsDiscord))
+// 		{
+// 			START_PROFILE("Discord");
+// 			discord_core->RunCallbacks();
+// 			updateDiscordPresence();
+// 			STOP_PROFILE;
+// 			sleep(int(discord_update_rate * 1000));
+// 		}
+// 		else
+// 		{
+// 			sleep(1000); // Sleep for 1 second if Discord is not used or disabled
+// 		}
+// 	}
+// }
 
 void CRenderDevice::Run()
 {
@@ -596,7 +596,7 @@ void CRenderDevice::Run()
 	OnWM_Activate(NULL, NULL);
 	thread_spawn(mt_FreezeThread, "Freeze detecting thread", 0, 0);
 	thread_spawn(mt_Thread, "X-RAY Secondary thread", 0, this);
-	thread_spawn(mt_DiscordThread, "X-RAY Discord thread", 0, 0);
+	//thread_spawn(mt_DiscordThread, "X-RAY Discord thread", 0, 0);
 	// Message cycle
 	seqAppStart.Process(rp_AppStart);
 

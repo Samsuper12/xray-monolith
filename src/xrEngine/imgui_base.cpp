@@ -27,31 +27,32 @@ namespace xr_imgui
     ide::ide()
         : keyboard_code_page(CP_ACP), m_backend_data(nullptr), m_input(false), m_render(nullptr), m_shown(false), firstframe(true)
     {
-        ImGui::SetAllocatorFunctions(
-            [](size_t size, void* /*user_data*/)
-            {
-                return xr_malloc(size);
-            },
-            [](void* ptr, void* /*user_data*/)
-            {
-                xr_free(ptr);
-            }
-        );
+        //FIXME:
+        // ImGui::SetAllocatorFunctions(
+        //     [](size_t size, void* /*user_data*/)
+        //     {
+        //         return xr_malloc(size);
+        //     },
+        //     [](void* ptr, void* /*user_data*/)
+        //     {
+        //         xr_free(ptr);
+        //     }
+        // );
 
-        m_context = ImGui::CreateContext();
-        ImGuiIO& io = ImGui::GetIO();
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;
-        io.BackendPlatformName = "imgui_impl_xray";
-        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+        // m_context = ImGui::CreateContext();
+        // ImGuiIO& io = ImGui::GetIO();
+        // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;
+        // io.BackendPlatformName = "imgui_impl_xray";
+        // io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
-        ImGui::GetPlatformIO().Platform_OpenInShellFn = xrayOpenInShellFn_Disabled;
-        ImGui::SetColorEditOptions(ImGuiColorEditFlags_Float | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar);
-        Device.seqResolutionChanged.Add(this);
+        // ImGui::GetPlatformIO().Platform_OpenInShellFn = xrayOpenInShellFn_Disabled;
+        // ImGui::SetColorEditOptions(ImGuiColorEditFlags_Float | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar);
+        // Device.seqResolutionChanged.Add(this);
     }
 
     ide::~ide()
     {
-        ImGui::DestroyContext(m_context);
+       // ImGui::DestroyContext(m_context);
     }
 
     void ide::OnDeviceCreate()

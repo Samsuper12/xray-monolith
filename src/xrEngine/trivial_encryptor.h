@@ -5,11 +5,12 @@
 // you should define at least one of the following macro:
 // #define TRIVIAL_ENCRYPTOR_ENCODER
 // #define TRIVIAL_ENCRYPTOR_DECODER
-
+#ifndef __APPLE__
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+#endif
 
 //#define trivial_encryptor temp_stuff
 

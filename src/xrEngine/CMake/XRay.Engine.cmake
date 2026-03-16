@@ -14,7 +14,7 @@ add_module(XRay.Engine
 
   LINKS
   #dxsdk
-  discord
+  #discord
   #dinput8
   imgui
   libogg
