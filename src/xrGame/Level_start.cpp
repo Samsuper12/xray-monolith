@@ -43,7 +43,7 @@ bool CLevel::net_Start(const char* op_server, const char* op_client)
 
 	if (xr_strlen(player_name) == 0)
 	{
-		xr_strcpy(player_name, xr_strlen(Core.UserName) ? Core.UserName : Core.CompName);
+		xr_strcpy(player_name, xr_strlen(Core.UserName.c_str()) ? Core.UserName.c_str() : Core.CompName.c_str());
 	}
 	VERIFY(xr_strlen(player_name));
 
@@ -261,13 +261,14 @@ bool CLevel::net_start6()
 
 	if (net_start_result_total)
 	{
-		if (strstr(Core.Params, "-$"))
-		{
-			string256 buf, cmd, param;
-			sscanf(strstr(Core.Params, "-$") + 2, "%[^ ] %[^ ] ", cmd, param);
-			strconcat(sizeof(buf), buf, cmd, " ", param);
-			Console->Execute(buf);
-		}
+		// MAYBE:
+		// if (strstr(Core.Params, "-$"))
+		// {
+		// 	string256 buf, cmd, param;
+		// 	sscanf(strstr(Core.Params, "-$") + 2, "%[^ ] %[^ ] ", cmd, param);
+		// 	strconcat(sizeof(buf), buf, cmd, " ", param);
+		// 	Console->Execute(buf);
+		// }
 	}
 	else
 	{

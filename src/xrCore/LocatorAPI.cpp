@@ -495,7 +495,7 @@ void CLocatorAPI::ProcessArchive(LPCSTR _path)
 	}
 	// g_temporary_stuff = g_temporary_stuff_subst;
 
-	if (bProcessArchiveLoading || strstr(Core.Params, "-auto_load_arch"))
+	if (bProcessArchiveLoading || Core.Params.auto_load_arch)
 		LoadArchive(A);
 	else
 		A.close();
@@ -708,7 +708,7 @@ static void searchForFsltx(const char* fs_name, string_path& fsltxPath)
 	if (tryPathFunc(Core.ApplicationPath, fsltxPath)) return;
 
 	//parent directory again
-	std::filesystem::path test_path;
+	std::fs::path test_path;
 	test_path.assign(Core.ApplicationPath);
 	test_path.append("../");
 
@@ -766,7 +766,7 @@ void CLocatorAPI::_initialize(u32 flags, LPCSTR target_folder, LPCSTR fs_name)
 
 	// append application path
 	if (m_Flags.is(flScanAppRoot))
-		append_path("$app_root$", Core.ApplicationPath, nullptr, FALSE);
+		append_path("$app_root$", Core.ApplicationPath.c_str(), nullptr, FALSE);
 
 
 	//-----------------------------------------------------------
@@ -854,18 +854,17 @@ void CLocatorAPI::_initialize(u32 flags, LPCSTR target_folder, LPCSTR fs_name)
 
 	Msg("Init FileSystem %f sec", t.GetElapsed_sec());
 	//-----------------------------------------------------------
-	if (strstr(Core.Params, "-overlaypath"))
+	if (Core.Params.overlaypath)
 	{
-		string1024 c_newAppPathRoot;
-		sscanf(strstr(Core.Params, "-overlaypath ") + 13, "%[^ ] ", c_newAppPathRoot);
+		auto c_newAppPathRoot = args::get(Core.Params.overlaypath);
 		FS_Path* pLogsPath = FS.get_path("$logs$");
 		FS_Path* pAppdataPath = FS.get_path("$app_data_root$");
 
 
-		if (pLogsPath) pLogsPath->_set_root(c_newAppPathRoot);
+		if (pLogsPath) pLogsPath->_set_root(c_newAppPathRoot.c_str());
 		if (pAppdataPath)
 		{
-			pAppdataPath->_set_root(c_newAppPathRoot);
+			pAppdataPath->_set_root(c_newAppPathRoot.c_str());
 			rescan_path(pAppdataPath->m_Path, pAppdataPath->m_Flags.is(FS_Path::flRecurse));
 		}
 	}
@@ -873,7 +872,7 @@ void CLocatorAPI::_initialize(u32 flags, LPCSTR target_folder, LPCSTR fs_name)
 	rec_files.clear();
 	//-----------------------------------------------------------
 
-	CreateLog(0 != strstr(Core.Params, "-nolog"));
+	CreateLog(Core.Params.nolog);
 }
 
 void CLocatorAPI::_destroy()

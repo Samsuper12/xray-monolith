@@ -30,7 +30,7 @@ extern void destroy_lua_wpn_params();
 
 void restart_all()
 {
-	if (strstr(Core.Params, "-keep_lua"))
+	if (Core.Params.keep_lua)
 		return;
 
 	destroy_lua_wpn_params();

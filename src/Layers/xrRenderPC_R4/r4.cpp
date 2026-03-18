@@ -299,7 +299,7 @@ void CRender::create()
 	o.fp16_blend = true;
 
 	// search for ATI formats
-	if (!o.HW_smap && (0 == strstr(Core.Params, "-nodf24")))
+	if (!o.HW_smap && !Core.Params.nodf24)
 	{
 		o.HW_smap = HW.support((D3DFORMAT)(MAKEFOURCC('D', 'F', '2', '4')), D3DRTYPE_TEXTURE,D3DUSAGE_DEPTHSTENCIL);
 		if (o.HW_smap)
@@ -312,7 +312,7 @@ void CRender::create()
 	}
 
 	// emulate ATI-R4xx series
-	if (strstr(Core.Params, "-r4xx"))
+	if (Core.Params.r4xx)
 	{
 		o.mrtmixdepth = FALSE;
 		o.HW_smap = FALSE;
@@ -329,7 +329,7 @@ void CRender::create()
 	// nvstencil on NV40 and up
 	o.nvstencil = FALSE;
 	//if ((HW.Caps.id_vendor==0x10DE)&&(HW.Caps.id_device>=0x40))	o.nvstencil = TRUE;
-	if (strstr(Core.Params, "-nonvs")) o.nvstencil = FALSE;
+	if (Core.Params.nonvs) o.nvstencil = FALSE;
 
 	// nv-dbt
 	//	DX10 disabled
@@ -337,46 +337,45 @@ void CRender::create()
 	o.nvdbt = false;
 	if (o.nvdbt) Msg("* NV-DBT supported and used");
 
-	o.no_ram_textures = (strstr(Core.Params, "-noramtex")) ? TRUE : ps_r__common_flags.test(RFLAG_NO_RAM_TEXTURES);
+	o.no_ram_textures = (Core.Params.noramtex) ? true : ps_r__common_flags.test(RFLAG_NO_RAM_TEXTURES);
 	if (o.no_ram_textures)
 		Msg("* Managed textures disabled");
 	else
 		Msg("* Managed textures enabled");
 
 	// options (smap-pool-size)
-	if (strstr(Core.Params, "-smap1536")) o.smapsize = 1536;
-	if (strstr(Core.Params, "-smap2048")) o.smapsize = 2048;
-	if (strstr(Core.Params, "-smap2560")) o.smapsize = 2560;
-	if (strstr(Core.Params, "-smap3072")) o.smapsize = 3072;
-	if (strstr(Core.Params, "-smap4096")) o.smapsize = 4096;
+	if (Core.Params.smap1536) o.smapsize = 1536;
+	if (Core.Params.smap2048) o.smapsize = 2048;
+	if (Core.Params.smap2560) o.smapsize = 2560;
+	if (Core.Params.smap3072) o.smapsize = 3072;
+	if (Core.Params.smap4096) o.smapsize = 4096;
 
 	// gloss
-	char* g = strstr(Core.Params, "-gloss ");
-	o.forcegloss = g ? TRUE : FALSE;
-	if (g)
+	if (Core.Params.gloss)
 	{
-		o.forcegloss_v = float(atoi(g + xr_strlen("-gloss "))) / 255.f;
+		o.forcegloss = true;
+		o.forcegloss_v = float(args::get(Core.Params.gloss)) / 255.f;
 	}
 
 	// options
-	o.bug = (strstr(Core.Params, "-bug")) ? TRUE : FALSE;
-	o.sunfilter = (strstr(Core.Params, "-sunfilter")) ? TRUE : FALSE;
-	//.	o.sunstatic			= (strstr(Core.Params,"-sunstatic"))?	TRUE	:FALSE	;
+	o.bug = Core.Params.bug.
+	o.sunfilter = Core.Params.sunfilter
+	//.	o.sunstatic			= Core.Params.sunstatic;
 	o.sunstatic = r2_sun_static;
 	o.advancedpp = r2_advanced_pp;
 	o.volumetricfog = ps_r2_ls_flags.test(R3FLAG_VOLUMETRIC_SMOKE);
-	o.sjitter = (strstr(Core.Params, "-sjitter")) ? TRUE : FALSE;
-	o.depth16 = (strstr(Core.Params, "-depth16")) ? TRUE : FALSE;
-	if (strstr(Core.Params, "-noshadows") || strstr(Core.Params, "-r4_dev"))
+	o.sjitter = Core.Params.sjitter
+	o.depth16 = Core.Params.depth16;
+	if (Core.Params.noshadows ||Core.Params.r4_dev)
 		o.noshadows = TRUE;
 	else
 		o.noshadows = FALSE;
-	o.Tshadows = (strstr(Core.Params, "-tsh")) ? TRUE : FALSE;
+	o.Tshadows = Core.Params.tsh;
 
-	o.distortion_enabled = (strstr(Core.Params, "-nodistort")) ? FALSE : TRUE;
+	o.distortion_enabled = Core.Params.nodistort;
 	o.distortion = o.distortion_enabled;
-	o.disasm = (strstr(Core.Params, "-disasm")) ? TRUE : FALSE;
-	o.forceskinw = (strstr(Core.Params, "-skinw")) ? TRUE : FALSE;
+	o.disasm = Core.Params.disasm;
+	o.forceskinw = Core.Params.skinw;
 
 	o.ssao_blur_on = ps_r2_ls_flags_ext.test(R2FLAGEXT_SSAO_BLUR) && (ps_r_ssao != 0);
 	o.ssao_opt_data = ps_r2_ls_flags_ext.test(R2FLAGEXT_SSAO_OPT_DATA) && (ps_r_ssao != 0);

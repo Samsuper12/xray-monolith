@@ -11,7 +11,9 @@
 //#include <discord.h>
 // #include <process.h>
 #include <exception>
+#include <filesystem>
 #include <locale.h>
+#include <sstream>
 #include <string_view>
 #include <time.h>
 #include <unicode/unistr.h>
@@ -149,7 +151,6 @@ struct _SoundProcessor : public pureFrame
 ENGINE_API CApplication* pApp = NULL;
 static HWND logoWindow = NULL;
 
-int doLauncher();
 void doBenchmark(LPCSTR name);
 ENGINE_API bool g_bBenchmark = false;
 string512 g_sBenchmarkName;
@@ -235,21 +236,17 @@ PROTECT_API void InitConsole()
 	Console->Initialize();
 
 	xr_strcpy(Console->ConfigFile, "user.ltx");
-	if (strstr(Core.Params, "-ltx "))
+	if (Core.Params.ltx)
 	{
-		string64 c_name;
-		sscanf(strstr(Core.Params, "-ltx ") + 5, "%[^ ] ", c_name);
-		xr_strcpy(Console->ConfigFile, c_name);
+		xr_strcpy(Console->ConfigFile, args::get(Core.Params.ltx).c_str());
 	}
-
-	////SECUROM_MARKER_SECURITY_OFF(5)
 }
 
 PROTECT_API void InitInput()
 {
-	//BOOL bCaptureInput = FALSE; // !strstr(Core.Params, "-i");
-	//pInput = xr_new<CInput>(bCaptureInput);
 	pSDL3Input = xr_new<SDL3Input>();
+	//TODO:
+	//pSDL3Input.capture_input = Core.Params.capture_input;
 }
 
 void destroyInput()
@@ -321,11 +318,11 @@ void slowdownthread(void*)
 void CheckPrivilegySlowdown()
 {
 #ifdef DEBUG
-    if (strstr(Core.Params, "-slowdown"))
+    if (Core.Params.slowdown)
     {
         thread_spawn(slowdownthread, "slowdown", 0, 0);
     }
-    if (strstr(Core.Params, "-slowdown2x"))
+    if (Core.Params.slowdown2x)
     {
         thread_spawn(slowdownthread, "slowdown", 0, 0);
         thread_spawn(slowdownthread, "slowdown", 0, 0);
@@ -570,15 +567,11 @@ void Startup()
 	InitSound2();
 
 	// ...command line for auto start
-	{
-		LPCSTR pStartup = strstr(Core.Params, "-start ");
-		if (pStartup) Console->Execute(pStartup + 1);
-	}
-	{
-		LPCSTR pStartup = strstr(Core.Params, "-load ");
-		if (pStartup) Console->Execute(pStartup + 1);
-	}
-
+	
+	if (Core.Params.start) Console->Execute(args::get(Core.Params.start).c_str());
+	
+	if (Core.Params.load) Console->Execute(args::get(Core.Params.load).c_str());
+	
 	// Initialize APP
 	ShowWindow(Device.m_hWnd, SW_SHOWNORMAL);
 	Device.Create();
@@ -1407,16 +1400,11 @@ void FreeLauncher()
 	};
 }
 
-int doLauncher()
-{
-	return 0;
-}
-
-void doBenchmark(LPCSTR name)
+void doBenchmark(std::string name)
 {
 	g_bBenchmark = true;
 	string_path in_file;
-	FS.update_path(in_file, "$app_data_root$", name);
+	FS.update_path(in_file, "$app_data_root$", name.c_str());
 	CInifile ini(in_file);
 	int test_count = ini.line_count("benchmark");
 	LPCSTR test_name, t;
@@ -1426,30 +1414,15 @@ void doBenchmark(LPCSTR name)
 		ini.r_line("benchmark", i, &test_name, &t);
 		xr_strcpy(g_sBenchmarkName, test_name);
 
-		test_command = ini.r_string_wb("benchmark", test_name);
-		u32 cmdSize = test_command.size() + 1;
-		Core.Params = (char*)xr_realloc(Core.Params, cmdSize);
-		xr_strcpy(Core.Params, cmdSize, test_command.c_str());
-		xr_strlwr(Core.Params);
-
 		InitInput();
 		if (i)
-		{
-			//ZeroMemory(&HW,sizeof(CHW));
-			// TODO: KILL HW here!
-			// pApp->m_pRender->KillHW();
 			InitEngine();
-		}
-
 
 		Engine.External.Initialize();
 
 		xr_strcpy(Console->ConfigFile, "user.ltx");
-		if (strstr(Core.Params, "-ltx "))
-		{
-			string64 c_name;
-			sscanf(strstr(Core.Params, "-ltx ") + 5, "%[^ ] ", c_name);
-			xr_strcpy(Console->ConfigFile, c_name);
+		if (Core.Params.ltx) {
+			xr_strcpy(Console->ConfigFile, args::get(Core.Params.ltx).c_str());
 		}
 
 		Startup();
@@ -1461,64 +1434,47 @@ void CApplication::load_draw_internal()
 	m_pRender->load_draw_internal(*this);
 }
 
-void main_impl(int argc, char* argv[])
+void main_impl()
 {
-	auto findArg = [argc, argv] (const char* arg) -> bool {
-		for (size_t i = 0; i < argc; ++i) {
-			if (strcmp(argv[i], arg) == 0)
-				return true;
-		}
-		return false;
-	};
+	DllMainXrPhysics();
 
 	Debug._initialize(false);
 
-	// Title window
-	//FIXME:
-	logoWindow; //= CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
+	{// Title window
+		//FIXME:
+		logoWindow; //= CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
 
-	HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
-	RECT logoRect;
-	GetWindowRect(logoPicture, &logoRect);
+		HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
+		RECT logoRect;
+		GetWindowRect(logoPicture, &logoRect);
 
-	SetWindowPos(
-		logoWindow,
-#ifndef DEBUG
-		HWND_TOPMOST,
-#else
-        HWND_NOTOPMOST,
-#endif // NDEBUG
-		0,
-		0,
-		logoRect.right - logoRect.left,
-		logoRect.bottom - logoRect.top,
-		SWP_NOMOVE | SWP_SHOWWINDOW // | SWP_NOSIZE
-	);
+		SetWindowPos(
+			logoWindow,
+	#ifndef DEBUG
+			HWND_TOPMOST,
+	#else
+			HWND_NOTOPMOST,
+	#endif // NDEBUG
+			0,
+			0,
+			logoRect.right - logoRect.left,
+			logoRect.bottom - logoRect.top,
+			SWP_NOMOVE | SWP_SHOWWINDOW // | SWP_NOSIZE
+		);
 
-	UpdateWindow(logoWindow);
+		UpdateWindow(logoWindow);
 
-	// AVI
-	g_bIntroFinished = TRUE;
-
-	LPCSTR fsgame_ltx_name = "-fsltx ";
-	string_path fsgame = "";
-	//MessageBox(0, lpCmdLine, "my cmd string", MB_OK);
-	if (findArg("-fsltx"))
-	{
-		// TODO:
-		//int sz = xr_strlen(fsgame_ltx_name);
-		//sscanf(strstr(argv, fsgame_ltx_name) + sz, "%[^ ] ", fsgame);
-		//MessageBox(0, fsgame, "using fsltx", MB_OK);
+		// AVI
+		g_bIntroFinished = TRUE;
 	}
 
 	// g_temporary_stuff = &trivial_encryptor::decode;
 
 	compute_build_id();
-	Core._initialize("xray", NULL, TRUE, fsgame[0] ? fsgame : NULL);
+	Core._initialize("xray");
 
 	InitSettings();
 	Msg(XRAY_MONOLITH_VERSION);
-
 	{
 		FS_FileSet fset;
 		FS.file_list(fset, "$game_data$", FS_ListFiles, "*");
@@ -1545,10 +1501,9 @@ void main_impl(int argc, char* argv[])
 	}
 
 	// Adjust player & computer name for Asian
-	if (pSettings->line_exist("string_table", "no_native_input"))
-	{
-		xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
-		xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
+	if (pSettings->line_exist("string_table", "no_native_input")) {
+		Core.UserName.append("Player");
+		Core.CompName.append("Computer");
 	}
 
 	{
@@ -1563,36 +1518,16 @@ void main_impl(int argc, char* argv[])
 		InitConsole();
 
 		Engine.External.CreateRendererList();
-
-		LPCSTR benchName = " ";
-		if (findArg("-batch_benchmark"))
-		{
-			// int sz = xr_strlen(benchName);
-			// string64 b_name;
-			// sscanf(strstr(Core.Params, benchName) + sz, "%[^ ] ", b_name);
-			// doBenchmark(b_name);
-			// return 0;
+		if (Core.Params.benchmark) {
+			doBenchmark(args::get(Core.Params.benchmark));
+			return;
 		}
-
-		Msg("command line %s", Core.Params);
-		if (findArg("-openautomate"))
-		{
-			// int sz = xr_strlen(sashName);
-			// string512 sash_arg;
-			// sscanf(strstr(Core.Params, sashName) + sz, "%[^ ] ", sash_arg);
-			// //doBenchmark (sash_arg);
-			// g_SASH.Init(sash_arg);
-			// g_SASH.MainLoop();
-			// return 0;
+		if (Core.Params.openautomate) {
+			doBenchmark (args::get(Core.Params.openautomate));
+			g_SASH.Init("sash_arg");
+			g_SASH.MainLoop();
+			return;
 		}
-
-		if (findArg("-launcher"))
-		{
-			int l_res = doLauncher();
-			if (l_res != 0)
-				return;
-		};
-
 
 		CCC_LoadCFG_custom* pTmp = xr_new<CCC_LoadCFG_custom>("renderer ");
 		pTmp->Execute(Console->ConfigFile);
@@ -1607,13 +1542,14 @@ void main_impl(int argc, char* argv[])
 	}
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
-	DllMainXrPhysics();
+	Core.ParseArgs(argc, argv);
+
 	try {
-		main_impl(argc, argv);
+		main_impl();
 	} catch (std::exception& e) {
-		// stacktrace?
+		std::cerr << e.what() << std::endl;
 	}
 	return 0;
 }

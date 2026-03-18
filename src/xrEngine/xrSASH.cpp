@@ -133,17 +133,10 @@ void xrSASH::LoopNative()
 		LPCSTR test_name, t;
 		shared_str test_command;
 
+		//FIXME:
 		for (int i = 0; i < test_count; ++i)
 		{
 			ini.r_line("benchmark", i, &test_name, &t);
-			//xr_strcpy(g_sBenchmarkName, test_name);
-
-			test_command = ini.r_string_wb("benchmark", test_name);
-			u32 cmdSize = test_command.size() + 1;
-			Core.Params = (char*)xr_realloc(Core.Params, cmdSize);
-			xr_strcpy(Core.Params, cmdSize, test_command.c_str());
-			xr_strlwr(Core.Params);
-
 			RunBenchmark(test_name);
 
 			// Output results
@@ -457,16 +450,14 @@ void xrSASH::TryInitEngine(bool bNoRun)
 	}
 
 	xr_strcpy(Console->ConfigFile, "user.ltx");
-	if (strstr(Core.Params, "-ltx "))
+	if (Core.Params.ltx)
 	{
-		string64 c_name;
-		sscanf(strstr(Core.Params, "-ltx ") + 5, "%[^ ] ", c_name);
-		xr_strcpy(Console->ConfigFile, c_name);
+		xr_strcpy(Console->ConfigFile, args::get(Core.Params.ltx).c_str());
 	}
 
-	if (strstr(Core.Params, "-r2a"))
+	if (Core.Params.r2a)
 		Console->Execute("renderer renderer_r2a");
-	else if (strstr(Core.Params, "-r2"))
+	else if (Core.Params.r2)
 		Console->Execute("renderer renderer_r2");
 	else
 	{

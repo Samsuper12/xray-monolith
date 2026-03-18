@@ -477,17 +477,10 @@ void game_sv_GameState::Create(shared_str& options)
 	//	pTmp->Execute				(Console->ConfigFile);
 	//	xr_delete					(pTmp);
 	//---------------------------------------------------------------------
-	LPCSTR svcfg_ltx_name = "-svcfg ";
-	if (strstr(Core.Params, svcfg_ltx_name))
-	{
-		string_path svcfg_name = "";
-		int sz = xr_strlen(svcfg_ltx_name);
-		sscanf(strstr(Core.Params, svcfg_ltx_name) + sz, "%[^ ] ", svcfg_name);
-		//		if (FS.exist(svcfg_name))
-		{
-			Console->ExecuteScript(svcfg_name);
-		}
-	};
+
+	//TODO: check path
+	if (Core.Params.svcfg && std::fs::exists(args::get(Core.Params.svcfg)))
+		Console->ExecuteScript(args::get(Core.Params.svcfg).c_str());
 	//---------------------------------------------------------------------
 	ReadOptions(options);
 }

@@ -294,7 +294,7 @@ void CEngineAPI::CreateRendererList()
 	bool bSupports_r4 = false;
 	bool bSupports_rv = true;
 
-	if (strstr(Core.Params, "-perfhud_hack"))
+	if (Core.Params.perfhud_hack)
 	{
 		bSupports_r2 = true;
 		bSupports_r2_5 = true;

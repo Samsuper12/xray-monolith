@@ -36,7 +36,7 @@ IGame_Level::IGame_Level()
 
 IGame_Level::~IGame_Level()
 {
-	if (strstr(Core.Params, "-nes_texture_storing"))
+	if (Core.Params.nes_texture_storing)
 		//Device.Resources->StoreNecessaryTextures();
 		Device.m_pRender->ResourcesStoreNecessaryTextures();
 	xr_delete(pLevel);

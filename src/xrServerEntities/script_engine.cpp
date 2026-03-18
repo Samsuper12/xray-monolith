@@ -356,7 +356,7 @@ void CScriptEngine::init()
 	CScriptStorage::reinit();
 
 #ifdef USE_LUA_STUDIO
-    if (m_lua_studio_world || strstr(Core.Params, "-lua_studio")) {
+    if (m_lua_studio_world || Core.Params.lua_studio) {
         if (!lua_studio_connected)
             try_connect_to_debugger		();
         else {
@@ -479,7 +479,7 @@ void CScriptEngine::process_file_if_exists(LPCSTR file_name, bool warn_if_not_ex
 			return;
 		}
 		//#ifndef MASTER_GOLD
-		if (strstr(Core.Params, "-dbg"))
+		if (Core.Params.dbg)
 			Msg("* loading script %s", S1);
 		//#endif // MASTER_GOLD
 		m_reload_modules = false;

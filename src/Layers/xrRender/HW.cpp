@@ -545,7 +545,7 @@ u32 CHW::selectGPU()
 
 u32 CHW::selectRefresh(u32 dwWidth, u32 dwHeight, D3DFORMAT fmt)
 {
-	if (psDeviceFlags.is(rsRefresh60hz) || strstr(Core.Params, "-60hz"))
+	if (psDeviceFlags.is(rsRefresh60hz) || Core.Params.fps60)
 	{
 		refresh_rate = 1.f / 60.f;
 		return D3DPRESENT_RATE_DEFAULT;
@@ -598,7 +598,7 @@ void CHW::updateWindowProps(HWND m_hWnd)
 		if (m_move_window)
 		{
 			dwWindowStyle = WS_BORDER | WS_VISIBLE;
-			if (!strstr(Core.Params, "-no_dialog_header"))
+			if (!Core.Params.no_dialog_header)
 				dwWindowStyle |= WS_DLGFRAME | WS_SYSMENU | WS_MINIMIZEBOX;
 			SetWindowLong(m_hWnd, GWL_STYLE, dwWindowStyle);
 			// When moving from fullscreen to windowed mode, it is important to

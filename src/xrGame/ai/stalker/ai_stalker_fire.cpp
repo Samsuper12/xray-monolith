@@ -274,7 +274,7 @@ void CAI_Stalker::Hit(SHit* pHDS)
 
 	float hit_power = HDS.power * m_fRankImmunity;
 
-	if (strstr(Core.Params, "-dbgbullet"))
+	if (Core.Params.dbgbullet)
 		Msg("CAI_Stalker::Hit hit_type=%d | hit_power(%f)*m_fRankImmunity(%f) = %f", (u32)HDS.hit_type, HDS.power,
 		    m_fRankImmunity, hit_power);
 
@@ -292,7 +292,7 @@ void CAI_Stalker::Hit(SHit* pHDS)
 				hit_power *= d_hit_power;
 				VERIFY(hit_power>=0.0f);
 
-				if (strstr(Core.Params, "-dbgbullet"))
+				if (Core.Params.dbgbullet)
 					Msg("CAI_Stalker::Hit AP(%f) > BoneArmor(%f) [HitFracNpc=%f] modified hit_power=%f", ap, BoneArmor,
 					    m_boneHitProtection->m_fHitFracNpc, hit_power);
 			}
@@ -301,7 +301,7 @@ void CAI_Stalker::Hit(SHit* pHDS)
 				hit_power *= m_boneHitProtection->m_fHitFracNpc;
 				//HDS.add_wound = false;
 
-				if (strstr(Core.Params, "-dbgbullet"))
+				if (Core.Params.dbgbullet)
 					Msg("CAI_Stalker::Hit AP(%f) > BoneArmor(%f) [HitFracNpc=%f] modified hit_power=%f", ap, BoneArmor,
 					    m_boneHitProtection->m_fHitFracNpc, hit_power);
 			}

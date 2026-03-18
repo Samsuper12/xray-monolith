@@ -49,7 +49,7 @@ void CLocatorAPI::auth_runtime(void* params)
 	m_auth_code = crc32(writer.pointer(), writer.size());
 
 #ifdef DEBUG
-    if (strstr(Core.Params, "auth_debug"))
+    if (Core.Params.auth_debug)
     {
         string_path tmp_path;
         update_path(tmp_path, "$app_data_root$", "auth_psettings.ltx");
@@ -96,7 +96,7 @@ void CLocatorAPI::auth_runtime(void* params)
 					u32 crc = crc32(r->pointer(), r->length());
 
 #ifdef DEBUG
-                    if (strstr(Core.Params, "auth_debug"))
+                    if (Core.Params.auth_debug)
                         Msg("auth %s = 0x%08x", f.name, crc);
 #endif // DEBUG
 

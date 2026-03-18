@@ -765,7 +765,7 @@ public:
 	{
 		//fill_render_mode_list ();
 		tokens = vid_quality_token;
-		if (!strstr(Core.Params, "-r2"))
+		if (!Core.Params.r2)
 		{
 			inherited::Save(F);
 		}
@@ -1122,7 +1122,7 @@ void CCC_Register()
 	CMD2(CCC_Color, "g_crosshair_color", &g_crosshair_color);
 	CMD4(CCC_Float, "mouse_sens_aim", &g_AimLookFactor, 0.01f, 5.0f);
 
-	if (strstr(Core.Params, "-dbgdev"))
+	if (Core.Params.dbgdev)
 		CMD4(CCC_Float, "g_freelook_z_offset_factor", &g_freelook_z_offset, -3.f, 3.f);
 
 	CMD4(CCC_Float, "g_ironsights_zoom_factor", &g_ironsights_factor, 1.f, 2.f);

@@ -120,7 +120,7 @@ int bit_not(int i)
 
 LPCSTR user_name()
 {
-	return (Core.UserName);
+	return (Core.UserName.c_str());
 }
 
 void prefetch_module(LPCSTR file_name)

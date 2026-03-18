@@ -65,10 +65,12 @@ add_module(XRay.Engine
 
 find_package(SDL3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
+find_package(args CONFIG REQUIRED)
 
 target_link_libraries(XRay.Engine.Includes INTERFACE 
   SDL3::SDL3
   glm::glm-header-only
+  taywee::args
 )
 
 # you must define ENGINE_BUILD then building the engine itself

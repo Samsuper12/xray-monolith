@@ -268,7 +268,7 @@ void _initialize_cpu(void)
 
 	// DUMP_PHASE;
 
-	if (strstr(Core.Params, "-x86"))
+	if (Core.Params.x86)
 	{
 		CPU::ID.feature &= ~_CPU_FEATURE_MMX;
 		CPU::ID.feature &= ~_CPU_FEATURE_3DNOW;

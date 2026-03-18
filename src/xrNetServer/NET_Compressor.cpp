@@ -343,7 +343,7 @@ u16 NET_Compressor::Compress(BYTE* dest, const u32& dest_size, BYTE* src, const 
 	VERIFY(count);
 
 #if 1//def DEBUG
-	if (strstr(Core.Params, "-dump_traffic"))
+	if (Core.Params.dump_traffic)
 	{
 		//		fwrite( src,count,1,OriginalTrafficDump );
 		//		fflush( OriginalTrafficDump );

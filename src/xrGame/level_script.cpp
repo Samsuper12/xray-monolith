@@ -71,7 +71,7 @@ bool g_actor_allow_ladder = true;
 
 LPCSTR command_line()
 {
-	return (Core.Params);
+	return Core.RawArgs.c_str();
 }
 
 bool IsDynamicMusic()

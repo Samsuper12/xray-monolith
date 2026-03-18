@@ -953,7 +953,7 @@ public:
 #endif
 		if (!xr_strlen(S))
 		{
-			strconcat(sizeof(S), S, Core.UserName, " - ", "quicksave");
+			strconcat(sizeof(S), S, Core.UserName.c_str(), " - ", "quicksave");
 			NET_Packet net_packet;
 			net_packet.w_begin(M_SAVE_GAME);
 			net_packet.w_stringZ(S);
@@ -1831,7 +1831,7 @@ public:
 		float time_factor = (float)atof(args);
 		clamp(time_factor, EPS, 1000.f);
 		Device.time_factor(time_factor);
-		if (!strstr(Core.Params, "-sound_constant_speed"))
+		if (!Core.Params.sound_constant_speed)
 			psSpeedOfSound = time_factor;
 	}
 
@@ -2564,7 +2564,7 @@ void CCC_RegisterCommands()
 	/* AVO: changing restriction to -dbg key instead of DEBUG */
 	//#ifndef MASTER_GOLD
 #ifdef MASTER_GOLD
-	if (0 != strstr(Core.Params, "-dbg"))
+	if (Core.Params.dbg)
 	{
 		CMD1(CCC_JumpToLevel, "jump_to_level");
 		CMD3(CCC_Mask, "g_god", &psActorFlags, AF_GODMODE);
@@ -2982,7 +2982,7 @@ void CCC_RegisterCommands()
 	// New zoom delta algorithm
 	CMD4(CCC_Integer, "new_zoom_delta_algorithm", &useNewZoomDeltaAlgorithm, 0, 1);
 
-	if (strstr(Core.Params, "-dbgdev"))
+	if (Core.Params.dbgdev)
 		CMD4(CCC_Float, "g_streff", &streff, -10.f, 10.f);
 	//No need for server commands in a singleplayer-only mod
 	//register_mp_console_commands();

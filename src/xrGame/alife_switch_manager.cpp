@@ -65,7 +65,7 @@ void CALifeSwitchManager::add_online(CSE_ALifeDynamicObject* object, bool update
 		object->s_flags._and(u16(-1) ^ M_SPAWN_UPDATE);
 
 		//Alundaio: Knowing last object to spawn can be very useful to debugging
-		if (strstr(Core.Params, "-dbg"))
+		if (Core.Params.dbg)
 			Msg("[LSS] Spawning object [%s][%s][%d]", object->name_replace(), *object->s_name, object->ID);
 
 		//Alundaio: Workaround for crash with corpses that end up outside AI map

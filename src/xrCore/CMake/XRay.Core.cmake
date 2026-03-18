@@ -51,6 +51,11 @@ add_module(XRay.Core
   xrCore.rc
 )
 
+find_package(args CONFIG REQUIRED)
+target_link_libraries(XRay.Core.Includes INTERFACE 
+  taywee::args
+)
+
 
 target_compile_options(XRay.Core
   PRIVATE

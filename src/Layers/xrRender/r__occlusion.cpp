@@ -18,7 +18,7 @@ R_occlusion::~R_occlusion(void)
 
 void R_occlusion::occq_create(u32 limit)
 {
-	enabled = strstr(Core.Params, "-no_occq") ? FALSE : TRUE;
+	enabled = !Core.Params.no_occq;
 	pool.reserve(limit);
 	used.reserve(limit);
 	fids.reserve(limit);

@@ -1,5 +1,6 @@
 #include <defines.h>
 #include <Engine.h>
+#include <filesystem>
 #include <xrCore.h>
 #include <xr_input.h>
 #include <xrSASH.h>
@@ -89,15 +90,12 @@ CGamePersistent::CGamePersistent(void)
 	//dSetFreeHandler				(ode_free		);
 
 	// 
-	BOOL bDemoMode = (0 != strstr(Core.Params, "-demomode "));
-	if (bDemoMode)
+	if (Core.Params.demomode)
 	{
-		string256 fname;
-		LPCSTR name = strstr(Core.Params, "-demomode ") + 10;
-		sscanf(name, "%s", fname);
-		R_ASSERT2(fname[0], "Missing filename for 'demomode'");
-		Msg("- playing in demo mode '%s'", fname);
-		pDemoFile = FS.r_open(fname);
+		auto fname = args::get(Core.Params.demomode);
+		R_ASSERT2(std::fs::exists(fname), "Missing filename for 'demomode'");
+		Msg("- playing in demo mode '%s'", fname.c_str());
+		pDemoFile = FS.r_open(fname.c_str());
 		Device.seqFrame.Add(this);
 		eDemoStart = Engine.Event.Handler_Attach("GAME:demo", this);
 		uTime2Change = 0;
@@ -324,7 +322,7 @@ void CGamePersistent::WeathersUpdate()
 					snd.play_at_pos(0, pos);
 
 #ifdef DEBUG
-                    if (!snd._handle() && strstr(Core.Params, "-nosound"))
+                    if (!snd._handle() && Core.Params.nosound)
                         continue;
 #endif // DEBUG
 
@@ -467,7 +465,7 @@ bool allow_intro()
 #ifdef MASTER_GOLD
 	if (g_SASH.IsRunning())
 #else	// #ifdef MASTER_GOLD
-    if ((0 != strstr(Core.Params, "-nointro")) || g_SASH.IsRunning())
+    if (Core.Params.nointro || g_SASH.IsRunning())
 #endif	// #ifdef MASTER_GOLD
 	{
 		return false;
@@ -478,14 +476,7 @@ bool allow_intro()
 
 bool allow_logo() // AVO: skip NVIDIA and other logos at load time
 {
-	if (0 != strstr(Core.Params, "-skiplogo"))
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+	return !Core.Params.skiplogo;
 }
 
 void CGamePersistent::start_logo_intro()

@@ -609,7 +609,7 @@ CSE_ALifeTrader::~CSE_ALifeTrader()
 #ifdef DEBUG
 bool CSE_ALifeTrader::match_configuration	() const
 {
-	return						(!strstr(Core.Params,"-designer"));
+	return	!Core.Params.designer;
 }
 #endif
 
@@ -1040,7 +1040,7 @@ CSE_ALifeCreatureAbstract::~CSE_ALifeCreatureAbstract()
 #ifdef DEBUG
 bool CSE_ALifeCreatureAbstract::match_configuration	() const
 {
-	return						(!strstr(Core.Params,"-designer"));
+	return !Core.Params.designer;
 }
 #endif
 

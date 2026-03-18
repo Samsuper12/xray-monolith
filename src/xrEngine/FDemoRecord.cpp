@@ -570,7 +570,7 @@ void CDemoRecord::IR_OnKeyboardPress(int dik)
 		//#ifndef MASTER_GOLD
 		if (dik == SDL_SCANCODE_BACKSPACE)
 		{
-			if (strstr(Core.Params, "-dbg"))
+			if (Core.Params.dbg)
 			{
 				if (g_pGameLevel->CurrentEntity())
 				{

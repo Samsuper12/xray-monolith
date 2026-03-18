@@ -340,7 +340,7 @@ ID3DBaseTexture* CRender::texture_load(LPCSTR fRName, u32& ret_msize)
 	{
 		if (!FS.exist(fn, "$game_textures$", fname, ".dds"))
 			goto _BUMP_from_base;
-		else if (strstr(Core.Params, "-no_bump_mode2"))
+		else if (Core.Params.no_bump_mode2)
 		{
 			if (strstr(fname, "_bump#"))
 			{
@@ -359,7 +359,7 @@ ID3DBaseTexture* CRender::texture_load(LPCSTR fRName, u32& ret_msize)
 			img_size = S->length();
 			goto _DDS_2D;
 		}
-		else if (strstr(Core.Params, "-no_bump_mode1") && strstr(fname, "_bump#"))
+		else if (Core.Params.no_bump_mode1 && strstr(fname, "_bump#"))
 		{
 			R_ASSERT2(FS.exist(fn,"$game_textures$", "ed\\ed_dummy_bump#", ".dds"), "ed_dummy_bump#");
 			S = FS.r_open(fn);

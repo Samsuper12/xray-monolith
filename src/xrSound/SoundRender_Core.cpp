@@ -81,7 +81,7 @@ void CSoundRender_Core::_initialize(int stage)
 
 	bReady = TRUE;
 
-	if (strstr(Core.Params, "-prefetch_sounds"))
+	if (Core.Params.prefetch_sounds)
 	{
 		i_create_all_sources();
 	}
