@@ -1,8 +1,6 @@
 #ifndef _STL_EXT_internal
 #define _STL_EXT_internal
 
-extern XRCORE_API BOOL mem_initialized;
-
 #include <functional>
 #include <deque>
 #include <map>
@@ -113,21 +111,18 @@ public:
 
 	pointer allocate(size_type n, const void* p = 0) const
 	{
-		if (!mem_initialized)
-			return (pointer)malloc(n * sizeof(T));
-		return xr_alloc<T>((u32)n);
+		return (pointer)malloc(n * sizeof(T));
 	}
 
 	void deallocate(pointer p, size_type n) const
 	{
-		if (!mem_initialized) { free(p); return; }
-		xr_free(p);
+		free(p); return;
+
 	}
 
 	void deallocate(void* p, size_type n) const
 	{
-		if (!mem_initialized) { free(p); return; }
-		xr_free(p);
+		free(p); return;
 	}
 
 	char* _charalloc(size_type n) { return (char*)allocate(n); }

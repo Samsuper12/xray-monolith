@@ -3,80 +3,33 @@
 #pragma once
 
 #include "_types_own.h"
-#include "memory_monitor.h"
-
-#ifdef USE_MEMORY_MONITOR
-# define DEBUG_MEMORY_NAME
-#endif // USE_MEMORY_MONITOR
-
-# if 0//def DEBUG
-# define DEBUG_MEMORY_MANAGER
-# endif // DEBUG
-
-#ifdef DEBUG_MEMORY_MANAGER
-XRCORE_API extern BOOL g_bMEMO;
-# ifndef DEBUG_MEMORY_NAME
-# define DEBUG_MEMORY_NAME
-# endif // DEBUG_MEMORY_NAME
-extern XRCORE_API void dump_phase ();
-# define DUMP_PHASE do {dump_phase();} while (0)
-#else // DEBUG_MEMORY_MANAGER
-# define DUMP_PHASE do {} while (0)
-#endif // DEBUG_MEMORY_MANAGER
-
-#include "xrMemory_pso.h"
-#include "xrMEMORY_POOL.h"
+#include <_type_traits.h>
+#include <fast_dynamic_cast.h>
+#include <cstdlib>
+#include <algorithm>
 
 class XRCORE_API xrMemory
 {
 public:
-	struct mdbg
-	{
-		void* _p;
-		size_t _size;
-		const char* _name;
-		u32 _dummy;
-	};
-
-public:
 	xrMemory();
 	void _initialize(BOOL _debug_mode = FALSE);
 	void _destroy();
-
-#ifdef DEBUG_MEMORY_MANAGER
-    BOOL debug_mode;
-    xrCriticalSection debug_cs;
-    std::vector<mdbg> debug_info;
-    u32 debug_info_update;
-    u32 stat_strcmp ;
-    u32 stat_strdock ;
-#endif // DEBUG_MEMORY_MANAGER
-
+	
 	u32 stat_calls;
-	s32 stat_counter;
 public:
-	void dbg_register(void* _p, size_t _size, const char* _name);
-	void dbg_unregister(void* _p);
-	void dbg_check();
-
+	void log_vminfo();
 	size_t mem_usage();
 	void mem_compact();
-	void mem_counter_set(u32 _val) { stat_counter = _val; }
-	u32 mem_counter_get() { return stat_counter; }
-
-#ifdef DEBUG_MEMORY_NAME
-    void mem_statistic(LPCSTR fn);
-    void* mem_alloc(size_t size, const char* _name);
-    void* mem_realloc(void* p, size_t size, const char* _name);
-#else // DEBUG_MEMORY_NAME
 	void* mem_alloc(size_t size);
 	void* mem_realloc(void* p, size_t size);
-#endif // DEBUG_MEMORY_NAME
 	void mem_free(void* p);
-
-	pso_MemCopy* mem_copy;
-	pso_MemFill* mem_fill;
-	pso_MemFill32* mem_fill32;
+	inline void mem_fill(void* dest, int value, u32 count) { memset(dest, int(value), count); }
+	inline void mem_fill32(void* dest, u32 value, u32 count) {
+		uint32_t* ptr = static_cast<uint32_t*>(dest);
+		std::fill(ptr, ptr + count, value);
+	}
+	inline void mem_copy(void* dest, const void* src, u32 n) { memcpy(dest, src, n); }
+	
 };
 
 extern XRCORE_API xrMemory Memory;
@@ -88,46 +41,65 @@ extern XRCORE_API xrMemory Memory;
 #define CopyMemory(a,b,c) memcpy(a,b,c) //. CopyMemory(a,b,c)
 #define FillMemory(a,b,c) Memory.mem_fill(a,c,b)
 
-#include "xrMemory_subst_msvc.h"
-
-// generic "C"-like allocations/deallocations
-#ifdef DEBUG_MEMORY_NAME
-#include "typeinfo"
-
-template <class T>
-IC T* xr_alloc(u32 count) { return (T*)Memory.mem_alloc(count*sizeof(T), typeid(T).name()); }
-template <class T>
-IC void xr_free(T*& P) { if (P) { Memory.mem_free((void*)P); P = NULL; }; }
-IC void* xr_malloc(size_t size) { return Memory.mem_alloc(size, "xr_malloc"); }
-IC void* xr_realloc(void* P, size_t size) { return Memory.mem_realloc(P, size, "xr_realloc"); }
-#else // DEBUG_MEMORY_NAME
-template <class T>
-IC T* xr_alloc(u32 count) { return (T*)Memory.mem_alloc(count * sizeof(T)); }
-
-template <class T>
-IC void xr_free(T*& P)
+template <class T, class... Args>
+inline T* xr_new(Args&&... args)
 {
-	if (P)
-	{
+	T* ptr = (T*)Memory.mem_alloc(sizeof(T));
+	return new(ptr)T(std::forward<Args>(args)...);
+}
+
+
+template <bool _is_pm, typename T>
+struct xr_special_free
+{
+	inline void operator()(T*& ptr) {
+		void* _real_ptr = fast_dynamic_cast<void*>(ptr);
+		ptr->~T();
+		Memory.mem_free(_real_ptr);
+	}
+};
+
+template <typename T>
+struct xr_special_free<false, T>
+{
+	inline void operator()(T*& ptr) {
+		ptr->~T();
+		Memory.mem_free(ptr);
+	}
+};
+
+template <class T>
+inline void xr_delete(T*& ptr)
+{
+	if (ptr) {
+		xr_special_free<is_polymorphic<T>::result, T>()(ptr);
+		ptr = nullptr;
+	}
+}
+
+template <class T>
+inline void xr_delete(T* const& ptr)
+{
+	if (ptr) {
+		xr_special_free<is_polymorphic<T>::result, T> (ptr);
+		const_cast<T*&>(ptr) = nullptr;
+	}
+}
+
+template <class T>
+inline T* xr_alloc(u32 count) { return (T*)Memory.mem_alloc(count * sizeof(T)); }
+
+template <class T>
+inline void xr_free(T*& P)
+{
+	if (P) {
 		Memory.mem_free((void*)P);
 		P = NULL;
 	};
 }
 
-IC void* xr_malloc(size_t size) { return Memory.mem_alloc(size); }
-IC void* xr_realloc(void* P, size_t size) { return Memory.mem_realloc(P, size); }
-#endif // DEBUG_MEMORY_NAME
+inline void* xr_malloc(size_t size) { return Memory.mem_alloc(size); }
+inline void* xr_realloc(void* P, size_t size) { return Memory.mem_realloc(P, size); }
 
-XRCORE_API char* xr_strdup(const char* string);
-
-// POOL-ing
-const u32 mem_pools_count = 64;
-const u32 mem_pools_ebase = 32;
-const u32 mem_generic = mem_pools_count + 1;
-extern MEMPOOL mem_pools[mem_pools_count];
-extern BOOL mem_initialized;
-
-XRCORE_API void vminfo(size_t* _free, size_t* reserved, size_t* committed);
-XRCORE_API void log_vminfo();
-
+char* xr_strdup(const char* string);
 #endif // xrMemoryH

@@ -76,8 +76,6 @@ void xrCore::_initialize(const std::string& ApplicationName)
 
 		Memory._initialize(Params.mem_debug);
 
-		DUMP_PHASE;
-
 		InitLog();
 		_initialize_cpu();
 

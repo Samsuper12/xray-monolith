@@ -14,8 +14,6 @@
 #include "xrDebug.h"
 #include "xrsharedmem.h"
 
-extern bool shared_str_initialized;
-
 #ifndef NO_BUG_TRAP
 # define USE_BUG_TRAP
 #endif //-!NO_BUG_TRAP

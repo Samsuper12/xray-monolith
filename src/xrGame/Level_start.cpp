@@ -19,7 +19,6 @@
 //#include <safe_lib.h>
 
 int g_cl_save_demo = 0;
-extern XRCORE_API bool g_allow_heap_min;
 
 shared_str CLevel::OpenDemoFile(const char* demo_file_name)
 {
@@ -124,7 +123,6 @@ bool CLevel::net_start1()
 		}
 		else
 		{
-			g_allow_heap_min = false;
 			Server = xr_new<xrGameSpyServer>();
 		}
 
@@ -149,7 +147,6 @@ bool CLevel::net_start1()
 	}
 	else
 	{
-		g_allow_heap_min = false;
 	}
 	return true;
 }

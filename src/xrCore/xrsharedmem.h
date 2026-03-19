@@ -4,6 +4,7 @@
 
 #include "_types_own.h"
 #include "_stl_extensions.h"
+#include "xrSyncronize.h"
 
 // #pragma pack(push,4)
 //////////////////////////////////////////////////////////////////////////

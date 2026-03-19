@@ -328,7 +328,7 @@ static void full_memory_stats()
 	//	Resource check moved to m_pRender
 	if (Device.m_pRender) Device.m_pRender->ResourcesGetMemoryUsage(m_base, c_base, m_lmaps, c_lmaps);
 
-	log_vminfo();
+	Memory.log_vminfo();
 
 	Msg("* [ D3D ]: textures[%d K]", (m_base + m_lmaps) / 1024);
 

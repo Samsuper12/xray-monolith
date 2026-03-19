@@ -1191,7 +1191,6 @@ inline int _heapwalk(_HEAPINFO *) {
 inline void *_aligned_malloc(size_t, size_t) { stub_unix(); }
 inline void _aligned_free(void *) { stub_unix(); }
 inline size_t _aligned_msize(void *, size_t, size_t) { stub_unix(); }
-inline void *_aligned_realloc(void *, size_t, size_t) { stub_unix(); }
 inline void *_msize(void *) { stub_unix(); }
 inline void *_expand(void *, size_t) { stub_unix(); }
 inline void InitializeCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
