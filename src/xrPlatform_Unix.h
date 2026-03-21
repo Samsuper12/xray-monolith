@@ -904,27 +904,11 @@ inline bool WriteFile(HANDLE hFile, LPCVOID lpBuffer,
   stub_unix();
 }
 
-inline BOOL SystemParametersInfo(UINT uiAction, UINT uiParam, PVOID pvParam,
-                           UINT fWinIni) {
-  stub_unix();
-}
-
-inline HANDLE OpenMutex(DWORD   dwDesiredAccess,BOOL    bInheritHandle,LPCWSTR lpName
-){
-  stub_unix();
-}
-
-inline HANDLE GetProcessHeap() { stub_unix(); }
 inline HANDLE CreateMutex(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner,
                     LPCSTR lpName) {
   stub_unix();
 }
 inline HWND GetDlgItem(HWND hDlg, int nIDDlgItem) { stub_unix(); }
-inline BOOL HeapSetInformation(HANDLE HeapHandle,
-                        HEAP_INFORMATION_CLASS HeapInformationClass,
-                        PVOID HeapInformation, SIZE_T HeapInformationLength) {
-  stub_unix();
-}
 
 inline VOID PostQuitMessage(int nExitCode) { stub_unix(); }
 inline BOOL FreeLibrary(HMODULE hLibModule) { stub_unix(); }
@@ -1188,11 +1172,6 @@ inline int _heapwalk(_HEAPINFO *) {
   stub_unix();
   return 0;
 }
-inline void *_aligned_malloc(size_t, size_t) { stub_unix(); }
-inline void _aligned_free(void *) { stub_unix(); }
-inline size_t _aligned_msize(void *, size_t, size_t) { stub_unix(); }
-inline void *_msize(void *) { stub_unix(); }
-inline void *_expand(void *, size_t) { stub_unix(); }
 inline void InitializeCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
 inline void DeleteCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
 inline void EnterCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
@@ -1207,23 +1186,14 @@ inline bool SetWindowPos(void *hWnd, void *hWndInsertAfter, int X, int Y, int cx
   stub_unix();
 }
 
-inline void DisableProcessWindowsGhosting(void) { stub_unix(); }
 
 inline void *SetActiveWindow(void *hWnd) { stub_unix(); }
-
-inline void *_create_locale(int category, const char *locale) { stub_unix(); }
-
-inline void *CreateCompatibleDC(void *hdc) { stub_unix(); }
-
-inline void *CreateCompatibleBitmap(void *hdc, int cx, int cy) { stub_unix(); }
 
 inline void *SelectObject(void *hdc, void *h) { stub_unix(); }
 
 inline unsigned int SetTextColor(void *hdc, unsigned int color) { stub_unix(); }
 
 inline unsigned int SetBkColor(void *hdc, unsigned int color) { stub_unix(); }
-
-inline bool DeleteObject(void *ho) { stub_unix(); }
 
 inline void *MonitorFromWindow(void *hwnd, unsigned int dwFlags) { stub_unix(); }
 
@@ -1249,10 +1219,6 @@ inline bool InvalidateRect(void *hWnd, const void *lpRect, bool bErase) {
   stub_unix();
 }
 
-inline int GetLocaleInfoA(void *Locale, unsigned int LCType, char *lpLCData,
-                   int cchData) {
-  stub_unix();
-}
 
 inline bool GetWindowInfo(void *hwnd, WINDOWINFO *pwi) { stub_unix(); }
 

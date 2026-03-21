@@ -196,8 +196,6 @@ PROTECT_API void CRenderDevice::Create()
 		SetWindowPos(Device.m_hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
 	}
 
-	DisableProcessWindowsGhosting();
-
 	RECT winRect;
 	GetClientRect(m_hWnd, &winRect);
 	MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
