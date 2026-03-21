@@ -27,6 +27,8 @@ endif()
 set(XRAY_COMPILER_FLAGS_DEBUG
   -O0
   -g
+  -fkeep-inline-functions
+  -fsanitize=address
 )
 
 set(XRAY_COMPILER_FLAGS_RELEASE
@@ -38,9 +40,9 @@ set(XRAY_COMPILER_FLAGS_RELEASE
 )
 
 set(XRAY_COMPILER_FLAGS_RELWITHDEBINFO
-  -O2
+  -O0
   -g
-  #-flto=thin
+  -fkeep-inline-functions
   -D_HAS_ITERATOR_DEBUGGING=0
   -D_SECURE_SCL=0
 )

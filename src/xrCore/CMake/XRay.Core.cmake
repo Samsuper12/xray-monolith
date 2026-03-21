@@ -52,8 +52,12 @@ add_module(XRay.Core
 )
 
 find_package(args CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+
 target_link_libraries(XRay.Core.Includes INTERFACE 
   taywee::args
+  fmt::fmt-header-only
+  Boost::stacktrace_basic
 )
 
 
