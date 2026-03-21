@@ -1,7 +1,7 @@
 #ifndef _STD_EXT_internal
 #define _STD_EXT_internal
 
-//#include <corecrt_math.h>
+#include <cstdio>
 #include <float.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -132,17 +132,6 @@ IC BOOL _valid(const float x)
         case FP_SUBNORMAL:
             return false;
     }
-	// check for: Signaling NaN, Quiet NaN, Negative infinity ( –INF), Positive infinity (+INF), Negative denormalized, Positive denormalized
-	// int cls = _fpclass(double(x));
-	// if (cls & (_FPCLASS_SNAN + _FPCLASS_QNAN + _FPCLASS_NINF + _FPCLASS_PINF + _FPCLASS_ND + _FPCLASS_PD))
-	// 	return false;
-
-	/* *****other cases are*****
-	_FPCLASS_NN Negative normalized non-zero
-	_FPCLASS_NZ Negative zero ( – 0)
-	_FPCLASS_PZ Positive 0 (+0)
-	_FPCLASS_PN Positive normalized non-zero
-	*/
 	return true;
 }
 
@@ -233,35 +222,37 @@ IC int xr_strcmp(const char* S1, const char* S2)
 
 #ifndef _EDITOR
 #ifndef MASTER_GOLD
-inline errno_t xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
+inline void xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
 {
-    //stub FIXME: return strcpy_s(destination, destination_size, source);
+    snprintf(destination, destination_size, "%s", source);
 }
 
-inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
+inline void xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
 {
-    //stub FIXME: return strcat_s(destination, buffer_size, source);
+    size_t dst_len = strlen(destination);
+    if (dst_len < buffer_size)
+        snprintf(destination + dst_len, buffer_size - dst_len, "%s", source);
 }
 
-inline int __cdecl xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
+inline int xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
 {
     va_list args;
     va_start(args, format_string);
-    // FIXME: stub return vsprintf_s(destination, buffer_size, format_string, args);
+    return vsprintf(destination, buffer_size, format_string, args);
 }
 
 template <int count>
-inline int __cdecl xr_sprintf(char(&destination)[count], LPCSTR format_string, ...)
+inline int xr_sprintf(char(&destination)[count], LPCSTR format_string, ...)
 {
     va_list args;
     va_start(args, format_string);
-    //FIXME: return vsprintf_s(destination, count, format_string, args);
+    return vsprintf(destination, count, format_string, args);
 }
 #else // #ifndef MASTER_GOLD
 
-inline errno_t xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
+inline void xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
 {
-	//stub return strncpy_s(destination, destination_size, source, destination_size);
+	snprintf(destination, destination_size, "%s", source);
 }
 
 inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
@@ -279,26 +270,26 @@ inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR sou
 	return 0;
 }
 
-inline int __cdecl xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
+inline int xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
 {
 	va_list args;
 	va_start(args, format_string);
-	//stub return vsnprintf_s(destination, buffer_size, buffer_size - 1, format_string, args);
+	return vsnprintf(destination, buffer_size, format_string, args);
 }
 
 template <int count>
-inline int __cdecl xr_sprintf(char (&destination)[count], LPCSTR format_string, ...)
+inline int xr_sprintf(char (&destination)[count], LPCSTR format_string, ...)
 {
 	va_list args;
 	va_start(args, format_string);
-	//stub return vsnprintf_s(destination, count, count - 1, format_string, args);
+	return vsnprintf(destination, count, format_string, args);
 }
 #endif // #ifndef MASTER_GOLD
 
 template <int count>
-inline errno_t xr_strcpy(char (&destination)[count], LPCSTR source)
+inline void xr_strcpy(char (&destination)[count], LPCSTR source)
 {
-	return xr_strcpy(destination, count, source);
+	xr_strcpy(destination, count, source);
 }
 
 template <int count>
