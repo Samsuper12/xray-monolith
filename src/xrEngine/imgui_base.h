@@ -72,7 +72,7 @@ namespace xr_imgui
         void UpdateInputLang();
 
         ImFont* GetFont(LPCSTR name);
-        ImFontConfig LoadImGuiFontConfig(string_path path, LPCSTR name);
+        ImFontConfig LoadImGuiFontConfig(const char* path, LPCSTR name);
         void LoadImGuiFont(string_path path, LPCSTR name);
 
     private:

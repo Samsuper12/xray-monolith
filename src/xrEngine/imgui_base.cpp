@@ -57,12 +57,16 @@ namespace xr_imgui
 
     void ide::OnDeviceCreate()
     {
+                return; // FIXME: imgui
+
         m_render = RenderFactory->CreateImGuiRender();
         m_render->OnDeviceCreate(m_context);
     }
 
     void ide::OnDeviceDestroy()
     {
+                return; // FIXME: imgui
+
         m_render->OnDeviceDestroy();
         RenderFactory->DestroyImGuiRender(m_render);
         m_render = nullptr;
@@ -70,16 +74,22 @@ namespace xr_imgui
 
     void ide::OnDeviceResetBegin() const
     {
+                return; // FIXME: imgui
+
         m_render->OnDeviceResetBegin();
     }
 
     void ide::OnDeviceResetEnd() const
     {
+                return; // FIXME: imgui
+
         m_render->OnDeviceResetEnd();
     }
 
     void ide::OnAppStart()
     {
+        return; // FIXME: imgui
+        
         ImGuiIO& io = ImGui::GetIO();
 
         std::filesystem::path fName;
@@ -111,17 +121,18 @@ namespace xr_imgui
         io.Fonts->AddFontFromMemoryCompressedTTF(ttf_compressed_icons, ttf_compressed_size, xrImGuiFontSize, &IconConfig, icons_ranges);
 
         // load fonts from gamedata/textures/fonts/
-        string_path fontPath;
-        if (FS.exist(fontPath, "$game_textures$", "fonts\\"))
+        std::filesystem::path fontPath;
+        if (FS.exist(fontPath, "$game_textures$", "fonts/"))
         {
             FS_FileSet fset;
-            FS.file_list(fset, fontPath, FS_ListFiles, "*.ttf,*.otf");
+            NeedAttention("Regex");
+            FS.file_list(fset, fontPath.c_str(), FS_ListFiles, {std::regex("*\.ttf"), std::regex("*\.otf")});
 
             for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
             {
                 LPCSTR _name = it->name.c_str();
                 string_path _fn;
-                strconcat(sizeof(_fn), _fn, fontPath, _name);
+                strconcat(sizeof(_fn), _fn, fontPath.c_str(), _name);
                 *strext(_name) = 0;
                 LoadImGuiFont(_fn, _name);
             }
@@ -133,6 +144,8 @@ namespace xr_imgui
 
     void ide::OnAppEnd()
     {
+        return; // FIXME: imgui
+
         ImGuiIO& io = ImGui::GetIO();
         xr_free(io.IniFilename);
         xr_free(io.LogFilename);
@@ -149,6 +162,8 @@ namespace xr_imgui
 
     void ide::OnFrame()
     {
+        return; // FIXME: imgui
+
         if (!!!Device.b_is_Active) return;
 
         const float frametime = m_timer.GetElapsed_sec();
@@ -189,6 +204,8 @@ namespace xr_imgui
 
     void ide::OnRender()
     {
+                return; // FIXME: imgui
+
         ImGui::Render();
         m_render->Render(ImGui::GetDrawData());
 
@@ -203,6 +220,8 @@ namespace xr_imgui
 
     void ide::ShowMain()
     {
+                return; // FIXME: imgui
+
         if (ImGui::BeginMainMenuBar())
         {
             if (ImGui::BeginMenu("File"))
@@ -262,6 +281,8 @@ namespace xr_imgui
 
     void ide::Show(bool bShow)
     {
+                return; // FIXME: imgui
+
         if (m_shown == bShow) return;
 
         m_shown = bShow;
@@ -283,7 +304,7 @@ namespace xr_imgui
         return nullptr;
     }
 
-    ImFontConfig ide::LoadImGuiFontConfig(string_path path, LPCSTR name)
+    ImFontConfig ide::LoadImGuiFontConfig(const char* path, LPCSTR name)
     {
         ImFontConfig FontConfig = {};
         xr_strcpy(FontConfig.Name, sizeof(FontConfig.Name), name);
