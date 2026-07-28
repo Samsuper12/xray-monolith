@@ -51,7 +51,7 @@ namespace award_system
 		template <enum_accumulative_player_values ValueId, typename T>
 		struct accumulative_pair_t
 		{
-			static enum_accumulative_player_values const value_id = ValueId;
+			static constexpr enum_accumulative_player_values const value_id = ValueId;
 			typedef T value_type;
 		}; //struct accumulative_pair_t
 	} //namespace detail
