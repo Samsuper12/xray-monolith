@@ -51,36 +51,32 @@ void CStringTable::Init()
 	if (use_english_text_for_missing_translations && xr_strcmp(pData->m_sLanguage, "eng") != 0) {
 		FS_FileSet fset;
 		string_path files_mask;
-		xr_sprintf(files_mask, "text\\%s\\*.xml", "eng");
-		FS.file_list(fset, "$game_config$", FS_ListFiles, files_mask);
+		xr_sprintf(files_mask, "text/%s/*\.xml", "eng");
+		NeedAttention("Regex");
+		FS.file_list(fset, "$game_config$", FS_ListFiles, {std::regex(files_mask)});
 		FS_FileSetIt fit = fset.begin();
 		FS_FileSetIt fit_e = fset.end();
 
 		for (; fit != fit_e; ++fit)
 		{
-			string_path fn, ext;
-			_splitpath((*fit).name.c_str(), 0, 0, fn, ext);
-			xr_strcat(fn, ext);
-
-			Load(fn, "eng");
+			std::filesystem::path fn((*fit).name.c_str());
+			Load(fn.filename().c_str(), "eng");
 		}
 	}
 
 	//---
 	FS_FileSet fset;
 	string_path files_mask;
-	xr_sprintf(files_mask, "text\\%s\\*.xml", pData->m_sLanguage.c_str());
-	FS.file_list(fset, "$game_config$", FS_ListFiles, files_mask);
+	xr_sprintf(files_mask, "text/%s/*\.xml", pData->m_sLanguage.c_str());
+	NeedAttention("Regex");
+	FS.file_list(fset, "$game_config$", FS_ListFiles, {std::regex(files_mask)});
 	FS_FileSetIt fit = fset.begin();
 	FS_FileSetIt fit_e = fset.end();
 
 	for (; fit != fit_e; ++fit)
 	{
-		string_path fn, ext;
-		_splitpath((*fit).name.c_str(), 0, 0, fn, ext);
-		xr_strcat(fn, ext);
-
-		Load(fn);
+		std::filesystem::path fn((*fit).name.c_str());
+		Load(fn.filename().c_str());
 	}
 #ifdef DEBUG
 	Msg("StringTable: loaded %d files", fset.size());

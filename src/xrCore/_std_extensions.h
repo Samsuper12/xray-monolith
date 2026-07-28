@@ -1,6 +1,7 @@
 #ifndef _STD_EXT_internal
 #define _STD_EXT_internal
 
+#include <algorithm>
 #include <cstdio>
 #include <float.h>
 #include <stdarg.h>
@@ -209,6 +210,14 @@ IC u32 xr_strlen(const char* S)
 IC char* xr_strlwr(char* S)
 {
 	return _strlwr(S);
+}
+
+inline std::filesystem::path& xr_pathlwr(std::filesystem::path& p) {
+
+	auto str = p.string();
+	std::transform(str.begin(), str.end(), str.begin(), [] (unsigned char c) { return std::tolower(c);});
+	p = str;
+	return p;
 }
 
 #ifdef BREAK_AT_STRCMP

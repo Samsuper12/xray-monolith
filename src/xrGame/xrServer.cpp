@@ -771,11 +771,11 @@ u32 xrServer::OnMessage(NET_Packet& P, ClientID sender) // Non-Zero means broadc
 bool xrServer::CheckAdminRights(const shared_str& user, const shared_str& pass, string512& reason)
 {
 	bool res = false;
-	string_path fn;
+	std::filesystem::path fn;
 	FS.update_path(fn, "$app_data_root$", "radmins.ltx");
 	if (FS.exist(fn))
 	{
-		CInifile ini(fn);
+		CInifile ini(fn.c_str());
 		if (ini.line_exist("radmins", user.c_str()))
 		{
 			if (ini.r_string("radmins", user.c_str()) == pass)

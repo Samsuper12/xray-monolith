@@ -2,16 +2,13 @@
 #define FS_internalH
 #pragma once
 
-// #include <io.h>
-// #include <fcntl.h>
 #include <sys/stat.h>
-//#include <share.h>
 
 #include "FS.h"
 #include "lzhuf.h"
 #include "log.h"
 
-void* FileDownload(LPCSTR fn, u32* pdwSize = NULL);
+void* FileDownload(std::fs::path fn, int& size);
 void FileCompress(const char* fn, const char* sign, void* data, u32 size);
 void* FileDecompress(const char* fn, const char* sign, u32* size = NULL);
 
@@ -25,36 +22,17 @@ public:
 		R_ASSERT(name && name[0]);
 		fName = name;
 		VerifyPath(*fName);
-		if (exclusive)
-		{
-			{ stub_unix(); }
-			// int handle = _sopen(*fName,_O_WRONLY | _O_TRUNC | _O_CREAT | _O_BINARY,SH_DENYWR);
-            // if (handle==-1)
-            //     Msg("!Can't create file: '%s'. Error: '%s'.", *fName, _sys_errlist[errno]);
-			// hf = _fdopen(handle, "wb");
-		}
-		else
-		{
-			hf = fopen(*fName, "wb");
-			//if (hf == 0)
-				//Msg("!Can't write file: '%s'. Error: '%s'.", *fName, _sys_errlist[errno]);
-		}
+
+		hf = fopen(*fName, "wb");
+		if (hf == nullptr)
+			Msg("!Can't write file: '%s'.", *fName);
+		
 	}
 
 	virtual ~CFileWriter()
 	{
-		if (0 != hf)
-		{
+		if (nullptr != hf)
 			fclose(hf);
-			// release RO attrib
-			//FIXME: 
-			// DWORD dwAttr = GetFileAttributes(*fName);
-			// if ((dwAttr != u32(-1)) && (dwAttr & FILE_ATTRIBUTE_READONLY))
-			// {
-			// 	dwAttr &= ~FILE_ATTRIBUTE_READONLY;
-			// 	SetFileAttributes(*fName, dwAttr);
-			// }
-		}
 	}
 
 	// kernel
@@ -92,14 +70,6 @@ public:
 	}
 
 	virtual ~CTempReader();
-};
-
-class CPackReader : public IReader
-{
-	void* base_address;
-public:
-	CPackReader(void* _base, void* _data, int _size) : IReader(_data, _size) { base_address = _base; }
-	virtual ~CPackReader();
 };
 
 class XRCORE_API CFileReader : public IReader

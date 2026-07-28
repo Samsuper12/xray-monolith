@@ -23,13 +23,13 @@ CLevelGraph::CLevelGraph()
 #ifdef DEBUG
 	sh_debug->create				("debug\\ai_nodes","$null");
 #endif
-	string_path file_name;
+	std::filesystem::path file_name;
 	FS.update_path(file_name, "$level$", LEVEL_GRAPH_NAME);
 #else
 	string256					file_name;
 	strconcat					(sizeof(file_name), file_name, filename, LEVEL_GRAPH_NAME);
 #endif
-	m_reader = FS.r_open(file_name);
+	m_reader = FS.r_open(file_name.c_str());
 
 	// m_header & data
 	m_header = (CHeader*)m_reader->pointer();

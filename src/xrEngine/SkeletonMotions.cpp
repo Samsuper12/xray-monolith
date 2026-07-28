@@ -23,7 +23,9 @@ u16 CPartition::part_id(const shared_str& name) const
 
 void CPartition::load(IKinematics* V, LPCSTR model_name)
 {
-	string_path fn, fn_full;
+	string_path fn;
+
+	std::filesystem::path fn_full;
 	xr_strcpy(fn, sizeof(fn), model_name);
 	if (strext(fn))
 		*strext(fn) = 0;
@@ -31,7 +33,7 @@ void CPartition::load(IKinematics* V, LPCSTR model_name)
 
 	FS.update_path(fn_full, "$game_meshes$", fn);
 
-	CInifile ini(fn_full, TRUE, TRUE, FALSE);
+	CInifile ini(fn_full.c_str(), TRUE, TRUE, FALSE);
 
 	if (ini.sections().size() == 0) return;
 	shared_str part_name = "partition_name";

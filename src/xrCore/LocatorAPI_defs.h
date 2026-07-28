@@ -3,6 +3,11 @@
 
 #pragma once
 
+#include <filesystem>
+namespace std {
+	namespace fs = std::filesystem;
+}
+
 enum FS_List
 {
 	FS_ListFiles = (1 << 0),
@@ -23,20 +28,20 @@ public:
 	};
 
 public:
-	LPSTR m_Path;
-	LPSTR m_Root;
-	LPSTR m_Add;
-	LPSTR m_DefExt;
-	LPSTR m_FilterCaption;
+	std::fs::path m_Path;
+	std::fs::path m_Root;
+	std::string m_Add;
+	std::string m_DefExt;
+	std::string m_FilterCaption;
 	Flags32 m_Flags;
 public:
 	FS_Path(LPCSTR _Root, LPCSTR _Add, LPCSTR _DefExt = 0, LPCSTR _FilterString = 0, u32 flags = 0);
 	~FS_Path();
-	LPCSTR _update(string_path& dest, LPCSTR src) const;
-	void _set(LPCSTR add);
-	void _set_root(LPCSTR root);
+	std::fs::path _update(std::fs::path& dest, std::fs::path src) const;
+	void _set(std::string_view add);
+	void _set_root(std::fs::path root);
 
-	void __stdcall rescan_path_cb();
+	void rescan_path_cb();
 };
 
 #ifdef _EDITOR

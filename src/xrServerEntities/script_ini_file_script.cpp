@@ -29,9 +29,9 @@ CScriptIniFile* get_system_ini()
 CScriptIniFile* reload_system_ini()
 {
 	pSettings->Destroy(const_cast<CInifile*>(pSettings));
-	string_path fname;
+	std::filesystem::path fname;
 	FS.update_path(fname, "$game_config$", "system.ltx");
-	pSettings = xr_new<CInifile>(fname);
+	pSettings = xr_new<CInifile>(fname.c_str());
 	return ((CScriptIniFile*)pSettings);
 }
 

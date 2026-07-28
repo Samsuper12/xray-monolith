@@ -168,12 +168,11 @@ void Script::vfExportToLua(CLuaVirtualMachine* tpLuaVM)
 
 bool Script::bfLoadFile(CLuaVirtualMachine* tpLuaVM, LPCSTR caScriptName, bool bCall)
 {
-    string256 l_caNamespaceName;
-    _splitpath(caScriptName, 0, 0, l_caNamespaceName, 0);
-    if (!xr_strlen(l_caNamespaceName))
+	std::filesystem::path f(caScriptName);
+    if (!xr_strlen(f.c_str()))
         return (bfLoadFileIntoNamespace(tpLuaVM, caScriptName, "_G", bCall));
     else
-        return (bfLoadFileIntoNamespace(tpLuaVM, caScriptName, l_caNamespaceName, bCall));
+        return (bfLoadFileIntoNamespace(tpLuaVM, caScriptName, f.stem().c_str(), bCall));
 }
 #endif
 

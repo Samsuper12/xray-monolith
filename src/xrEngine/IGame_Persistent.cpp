@@ -191,16 +191,14 @@ void IGame_Persistent::Prefetch()
 	Render->models_Prefetch();
 	Log("Loading textures...");
 	
-	const auto loadFileFolder = [&](LPCSTR _folder)
+	const auto loadFileFolder = [&](std::fs::path _folder)
 	{
-		string_path folder;
-		strconcat(sizeof(folder), folder, _folder, "\\*.dds");
+		NeedAttention("Regex");
+		auto files = FS.file_list_open(_folder, FS_ListFiles, {std::regex(R"(.*[.]dds$)")});
 
-		FS_FileSet fset;
-		FS.file_list(fset, "$game_textures$", FS_ListFiles, folder);
-
-		for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
-			Device.m_pRender->ResourcesPrefetchCreateTexture(it->name.c_str());
+		for(auto& file : files) {
+			Device.m_pRender->ResourcesPrefetchCreateTexture(file.c_str());
+		}
 	};
 
 	if (m_textures_prefetch_config->section_exist("prefetch_folders"))
@@ -212,25 +210,15 @@ void IGame_Persistent::Prefetch()
 			{
 				string_path folder;
 				FS.update_path(folder, "$game_textures$", *I->first);
-				xr_strcat(folder, sizeof(folder), "\\");
+				//xr_strcat(folder, sizeof(folder), "/");
+				NeedAttention("/");
+				auto subfolders = FS.file_list_open(folder, FS_ListFolders);
 
-				xr_vector<LPSTR> *subfolders = FS.file_list_open(folder, FS_ListFolders);
-
-				if (subfolders == nullptr)
-				{
-					FS.file_list_close(subfolders);
+				if (subfolders.empty())
 					continue;
-				}
 
-				for (LPSTR subfolder : *subfolders)
-				{
-					string_path path;
-					strconcat(sizeof(path), path, folder, subfolder);
-
-					loadFileFolder(path);
-				}
-
-				FS.file_list_close(subfolders);
+				for (auto subfolder : subfolders)
+					loadFileFolder(subfolder);
 			}
 
 			loadFileFolder(*I->first);

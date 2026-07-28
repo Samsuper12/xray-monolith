@@ -82,16 +82,16 @@ namespace xr_imgui
     {
         ImGuiIO& io = ImGui::GetIO();
 
-        string_path fName;
+        std::filesystem::path fName;
         FS.update_path(fName, "$app_data_root$", io.IniFilename);
-        io.IniFilename = xr_strdup(fName);
+        io.IniFilename = fName.c_str();
 
         FS.update_path(fName, "$logs$", io.LogFilename);
-        io.LogFilename = xr_strdup(fName);
+        io.LogFilename = fName.c_str();
 
-        string_path configPath;
-        FS.update_path(configPath, "$game_textures$", "fonts\\$default.ltx");
-        ImFontConfig FontConfig = LoadImGuiFontConfig(configPath, "$default");
+        std::filesystem::path configPath;
+        FS.update_path(configPath, "$game_textures$", "fonts/$default.ltx");
+        ImFontConfig FontConfig = LoadImGuiFontConfig(configPath.c_str(), "$default");
 
         // load default font Hack-Regular
         int ttf_compressed_size = 0;

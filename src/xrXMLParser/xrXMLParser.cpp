@@ -41,7 +41,8 @@ void ParseFile(LPCSTR path, CMemoryWriter& W, IReader* F, CXml* xml)
 				if (strstr(inc_name, "*.xml"))
 				{
 					FS_FileSet fset;
-					FS.file_list(fset, path, FS_ListFiles, inc_name);
+					NeedAttention("Regex");
+					FS.file_list(fset, path, FS_ListFiles, {std::regex(inc_name)});
 
 					for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
 					{

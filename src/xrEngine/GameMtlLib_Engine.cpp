@@ -37,9 +37,10 @@ void CreateSounds(SoundVec& lst, LPCSTR buf)
 
 		if (strstr(tmp, "*"))
 		{
-			xr_strcat(tmp, ".ogg");
+			xr_strcat(tmp, "\.ogg");
 			FS_FileSet fset;
-			FS.file_list(fset, "$game_sounds$", FS_ListFiles, tmp);
+			NeedAttention("Regex");
+			FS.file_list(fset, "$game_sounds$", FS_ListFiles, {std::regex(tmp)});
 
 			for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
 			{

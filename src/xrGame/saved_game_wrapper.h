@@ -12,6 +12,8 @@
 #include "game_graph_space.h"
 #include "script_export_space.h"
 
+#include <filesystem>
+
 class CSavedGameWrapper
 {
 public:
@@ -26,7 +28,7 @@ private:
 
 public:
 	CSavedGameWrapper(LPCSTR saved_game_name);
-	static LPCSTR saved_game_full_name(LPCSTR saved_game_name, string_path& result);
+	static std::filesystem::path saved_game_full_name(LPCSTR saved_game_name, std::filesystem::path& result);
 	static bool saved_game_exist(LPCSTR saved_game_name);
 	static bool valid_saved_game(IReader& stream);
 	static bool valid_saved_game(LPCSTR saved_game_name);

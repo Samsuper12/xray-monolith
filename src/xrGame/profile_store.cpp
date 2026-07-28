@@ -129,7 +129,7 @@ namespace gamespy_profile
 			m_progress_indicator = progress_indicator_cb;
 		}
 
-		string_path tmp_path;
+		std::filesystem::path tmp_path;
 		FS.update_path(tmp_path, "$app_data_root$", profile_store_file_name);
 		IReader* tmp_reader = NULL;
 		m_valid_ltx = false;

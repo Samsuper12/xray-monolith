@@ -5,23 +5,84 @@
 #ifndef fsH
 #define fsH
 
+#include <tuple>
 #include <xrstring.h>
 #include <xrMemory.h>
+#include <filesystem>
+#include "log.h"
+
+namespace std {
+	namespace fs = std::filesystem;
+};
+
+namespace vfs {
+		inline bool is_directory(const std::fs::path& path) {
+			return path.string().back() == std::fs::path::preferred_separator;
+		}
+
+		inline bool is_regular_file(const std::fs::path& path) {
+			return !vfs::is_directory(path);
+		}
+
+		inline std::fs::path decay(const std::fs::path& path) {
+			return vfs::is_directory(path) ? path.parent_path() : path;
+		}
+
+		inline std::fs::path parent_path(const std::fs::path& path) {
+			return ((vfs::is_directory(path) ? vfs::decay(path).parent_path() : path.parent_path()) += std::fs::path::preferred_separator);
+		}
+	};
+
+// On Posix fucking fs::path.make_preferred doesn't work.
+inline void normalize_path(char* str) {
+	for (auto i = 0; i < strlen(str); ++i) {
+		if (str[i] == '\\')
+			str[i] = '/';
+	}
+}
+
+inline std::string normalize_path(const char* s) {
+	std::string str = s;
+	for (auto i = 0; i < str.size(); ++i) {
+		if (str[i] == '\\')
+			str[i] = '/';
+	}
+	return str;
+}
+
+inline void normalize_path(std::string& str) {
+	for (auto i = 0; i < str.size(); ++i) {
+		if (str[i] == '\\')
+			str[i] = '/';
+	}
+}
+
+inline void normalize_path(std::fs::path& path) {
+	auto str = path.string();
+	normalize_path(str);
+	path = str;
+}
+
 
 #define CFS_CompressMark (1ul << 31ul)
 #define CFS_HeaderChunkID (666)
 
-XRCORE_API void VerifyPath(LPCSTR path);
+inline void VerifyPath(std::fs::path path) {
+	std::fs::create_directories(path.parent_path());
+}
 
-//#define FS_DEBUG
+// [size:last_modif]
+inline std::tuple<uint32_t, time_t> GetFileStat(std::fs::path path) {
+	auto fsize = std::fs::file_size(path);
+	auto ftime = std::fs::last_write_time(path);
 
-#ifdef FS_DEBUG
-XRCORE_API extern u32 g_file_mapped_memory;
-XRCORE_API extern u32 g_file_mapped_count;
-XRCORE_API void dump_file_mappings();
-extern void register_file_mapping(void* address, const u32& size, LPCSTR file_name);
-extern void unregister_file_mapping(void* address, const u32& size);
-#endif // DEBUG
+	auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(
+				ftime - decltype(ftime)::clock::now()
+				+ std::chrono::system_clock::now()
+			);
+	return {fsize, std::chrono::system_clock::to_time_t(sctp)};
+}
+
 
 //------------------------------------------------------------------------------------
 // Write
@@ -178,17 +239,6 @@ public:
 
 // Uncomment following line to try other implementations in FS_impl.h
 //#define TESTING_IREADER
-
-#ifdef TESTING_IREADER
-struct IReaderBase_Test;
-
-struct XRCORE_API IReaderTestPolicy
-{
-    IReaderBase_Test* m_test;
-    IReaderTestPolicy() { m_test = NULL; }
-    ~IReaderTestPolicy(); // defined in FS.cpp
-};
-#endif // TESTING_IREADER
 
 template <typename implementation_type>
 class IReaderBase
@@ -432,15 +482,6 @@ public:
 
 private:
 	typedef IReaderBase<IReader> inherited;
-};
-
-class XRCORE_API CVirtualFileRW : public IReader
-{
-private:
-	void *hSrcFile, *hSrcMap;
-public:
-	CVirtualFileRW(const char* cFileName);
-	virtual ~CVirtualFileRW();
 };
 
 #endif // fsH

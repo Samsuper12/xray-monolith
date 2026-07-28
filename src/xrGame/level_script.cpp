@@ -2062,7 +2062,7 @@ CScriptIniFile* GetVisualUserdata(LPCSTR visual)
 	IReader* UD = data->open_chunk(17); //OGF_S_USERDATA
 	if (!UD) return nullptr;
 
-	CScriptIniFile* ini = xr_new<CScriptIniFile>(UD, FS.get_path("$game_config$")->m_Path);
+	CScriptIniFile* ini = xr_new<CScriptIniFile>(UD, FS.get_path("$game_config$")->m_Path.c_str());
 	FS.r_close(data);
 	UD->close();
 

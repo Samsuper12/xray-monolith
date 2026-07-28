@@ -260,19 +260,19 @@ void CUIMapList::LoadMapList()
 
 void CUIMapList::SaveMapList()
 {
-	string_path temp;
+	std::filesystem::path temp;
 	FS.update_path(temp, "$app_data_root$", MAP_ROTATION_LIST);
 
 	if (m_pList2->GetSize() <= 1)
 	{
-		FS.file_delete(temp);
+		FS.file_delete(temp.c_str());
 		return;
 	}
 
-	IWriter* pW = FS.w_open(temp);
+	IWriter* pW = FS.w_open(temp.c_str());
 	if (!pW)
 	{
-		Msg("! Cant create map rotation file [%s]", temp);
+		Msg("! Cant create map rotation file [%s]", temp.c_str());
 		return;
 	}
 

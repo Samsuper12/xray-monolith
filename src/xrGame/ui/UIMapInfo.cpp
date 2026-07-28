@@ -59,15 +59,15 @@ void CUIMapInfo::InitMap(LPCSTR map_name, LPCSTR map_ver)
 
 	CUITextWnd* st;
 	// try to find file with info
-	xr_string info_path = "text\\map_desc\\";
+	xr_string info_path = "text/map_desc/";
 	info_path += map_name;
 	info_path += ".ltx";
 
 	if (FS.exist("$game_config$", info_path.c_str()))
 	{
-		string_path ltxPath;
+		std::filesystem::path ltxPath;
 		FS.update_path(ltxPath, CONFIG_PATH, info_path.c_str());
-		CInifile ltx(ltxPath);
+		CInifile ltx(ltxPath.c_str());
 		xr_string text;
 
 

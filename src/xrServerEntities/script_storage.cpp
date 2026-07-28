@@ -739,7 +739,7 @@ bool CScriptStorage::load_buffer(lua_State* L, LPCSTR caBuffer, size_t tSize, LP
 		//__except (GetExceptionCode() == STATUS_STACK_OVERFLOW)
 		{
 			int errcode = 0;// _resetstkoflw();
-			R_ASSERT2(errcode, "Could not reset the stack after \"Stack overflow\" exception!");
+			//R_ASSERT2(errcode, "Could not reset the stack after \"Stack overflow\" exception!");
 #ifdef DEBUG
             script					= (LPSTR)Memory.mem_alloc(total_size, "lua script file (after exception)");
 #else //#ifdef DEBUG
@@ -812,57 +812,37 @@ static bool unlocalRegex(std::set<std::string>& unlocals, std::string& s, const 
 bool CScriptStorage::do_file(LPCSTR caScriptName, LPCSTR caNameSpaceName)
 {
 	if (!unlocalizerPassed) {
-		auto file_list = FS.file_list_open("$game_config$", "unlocalizers\\", FS_RootOnly | FS_ListFiles);
-		if (!file_list) {
+		auto file_list = FS.file_list_open("$game_config$", "unlocalizers", FS_RootOnly | FS_ListFiles);
+		if (file_list.empty()) {
 			unlocalizerPassed = true;
 		} else {
-			xr_string id;
-			auto i = file_list->begin();
-			auto e = file_list->end();
-			for (; i != e; ++i)
-			{
-				u32 length = xr_strlen(*i);
-
-				if (!((length >= 4) &&
-					((*i)[length - 4] == '.') &&
-					((*i)[length - 3] == 'l') &&
-					((*i)[length - 2] == 't') &&
-					((*i)[length - 1] == 'x')))
+			for(const auto& f : file_list) {
+				if (f.extension() != ".ltx")
 					continue;
 
-				id.assign(*i, length - 4);
+				std::fs::path file_name;
+				NeedAttention("std::fs::path(unlocalizers) / f. It can grep anything");
+				FS.update_path(file_name, "$game_config$", std::fs::path("unlocalizers") / f);
 
-				string_path file_name;
-				FS.update_path(file_name, "$game_config$", (xr_string("unlocalizers\\") + id).c_str());
-				xr_strcat(file_name, ".ltx");
+				Msg("opening file %s", file_name.c_str());
+				auto config = xr_new<CInifile>(file_name.c_str());
 
-				Msg("opening file %s", file_name);
-				auto config = xr_new<CInifile>(file_name);
-
-				typedef CInifile::Root sections_type;
-				sections_type& sections = config->sections();
-
-				sections_type::const_iterator i = sections.begin();
-				sections_type::const_iterator e = sections.end();
-				for (; i != e; ++i)
-				{
-					auto sectionName = std::string((*i)->Name.c_str());
+				for(const auto& s: config->sections()) {
+					auto sectionName = std::string(s->Name.c_str());
 					toLowerCase(sectionName);
 					if (unlocalizers.find(sectionName) == unlocalizers.end()) {
-
 						// construct set that contains top level variables to delocalize by section name
 						unlocalizers[sectionName].clear();
 						Msg("creating unlocalizer for script %s", sectionName.c_str());
 					}
-					auto& data = (*i)->Data;
-					for (auto& item : data) {
+					
+					for (auto& item : s->Data) {
 						unlocalizers[sectionName].insert(std::string(item.first.c_str()));
 						Msg("adding variable %s for unlocalizer for script %s", item.first.c_str(), sectionName.c_str());
 					}
 				}
 				xr_delete(config);
 			}
-			FS.file_list_close(file_list);
 			unlocalizerPassed = true;
 		}
 	}

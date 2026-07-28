@@ -169,9 +169,9 @@ void CDemoPlay::stat_Stop()
 		else
 			xr_strcpy(fname, sizeof(fname), "benchmark.result");
 
-
-		FS.update_path(fname, "$app_data_root$", fname);
-		CInifile res(fname, FALSE, FALSE, TRUE);
+		std::filesystem::path P1;
+		FS.update_path(P1, "$app_data_root$", fname);
+		CInifile res(P1.c_str(), FALSE, FALSE, TRUE);
 		res.w_float("general", "renderer", float(::Render->get_generation()) / 10.f, "dx-level required");
 		res.w_float("general", "min", rfps_min, "absolute minimum");
 		res.w_float("general", "max", rfps_max, "absolute maximum");

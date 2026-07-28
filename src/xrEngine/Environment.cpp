@@ -101,14 +101,14 @@ CEnvironment::CEnvironment() :
 	// tsky0 = Device.Resources->_CreateTexture("$user$sky0");
 	// tsky1 = Device.Resources->_CreateTexture("$user$sky1");
 
-	string_path file_name;
+	std::filesystem::path file_name;
 	m_ambients_config =
 		xr_new<CInifile>(
 			FS.update_path(
 				file_name,
 				"$game_config$",
 				"environment\\ambients.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -119,7 +119,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\sound_channels.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -130,7 +130,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\effects.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -141,7 +141,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\suns.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -152,7 +152,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\sun_positions.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -163,7 +163,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\thunderbolt_collections.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -174,7 +174,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\thunderbolts.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE
@@ -186,7 +186,7 @@ CEnvironment::CEnvironment() :
 				file_name,
 				"$game_config$",
 				"environment\\environment.ltx"
-			),
+			).c_str(),
 			TRUE,
 			TRUE,
 			FALSE

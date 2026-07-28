@@ -16,7 +16,7 @@ void CLevel::PrepareToSaveDemo()
 {
 	R_ASSERT(!m_DemoPlay);
 	string_path demo_name = "";
-	string_path demo_path;
+	std::filesystem::path demo_path;
 	SYSTEMTIME Time;
 	GetLocalTime(&Time);
 	xr_sprintf(demo_name, "xray_%02d-%02d-%02d_%02d-%02d-%02d.demo",
@@ -29,7 +29,7 @@ void CLevel::PrepareToSaveDemo()
 	);
 	Msg("Demo would be stored in - %s", demo_name);
 	FS.update_path(demo_path, "$logs$", demo_name);
-	m_writer = FS.w_open(demo_path);
+	m_writer = FS.w_open(demo_path.c_str());
 	m_DemoSave = TRUE;
 }
 

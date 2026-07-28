@@ -7,6 +7,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include <LocatorAPI.h>
+#include <_string.h>
+#include <filesystem>
 
 #include "ef_pattern.h"
 #include "ef_primary.h"
@@ -111,8 +113,7 @@ void CPatternFunction::vfLoadEF(LPCSTR caFileName)
 
 	ef_storage().m_fpaBaseFunctions[m_dwFunctionType] = this;
 
-	_splitpath(caPath, 0, 0, m_caName, 0);
-
+	strcpy(m_caName, std::filesystem::path(caPath).stem().c_str());
 	// Msg			("* Evaluation function \"%s\" is successfully loaded",m_caName);
 }
 

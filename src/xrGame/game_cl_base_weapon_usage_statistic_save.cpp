@@ -84,7 +84,10 @@ void WeaponUsageStatistic::SaveData()
 
 
 	//---------------------------------------------------------
-	FS.update_path(mFileName, "$logs$", mFileName);
+	//FIXME: 
+	std::filesystem::path tmp;
+	FS.update_path(tmp, "$logs$", mFileName);
+	std::strcpy(mFileName, tmp.c_str());
 	FILE* SFile = fopen(mFileName, "wb");
 	if (!SFile) return;
 	//---------------------------------------------------------

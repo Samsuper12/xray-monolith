@@ -136,12 +136,12 @@ IReader const* CALifeSimulator::get_config(shared_str config) const
 		return temp.second;
 	}
 
-	string_path file_name;
+	std::filesystem::path file_name;
 	FS.update_path(file_name, "$game_config$", config.c_str());
 	if (!FS.exist(file_name))
 		return 0;
 
-	m_configs_lru.insert(m_configs_lru.begin(), std::make_pair(config, FS.r_open(file_name)));
+	m_configs_lru.insert(m_configs_lru.begin(), std::make_pair(config, FS.r_open(file_name.c_str())));
 	return m_configs_lru.front().second;
 }
 

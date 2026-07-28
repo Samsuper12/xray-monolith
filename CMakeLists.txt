@@ -107,30 +107,32 @@ file(
 )
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
+set(BOOST_INCLUDE_LIBRARIES "stacktrace;interprocess;system;container;intrusive;move")
+
+CPMAddPackage("gh:charles-lunarg/vk-bootstrap#v1.4.350")
 #CPMAddPackage("gh:libsdl-org/SDL#release-3.4.2")
 CPMAddPackage("gh:fmtlib/fmt#12.1.0")
-# CPMAddPackage("gh:GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator#v3.3.0")
-#CPMAddPackage("gh:KhronosGroup/Vulkan-Headers@1.4.344")
+CPMAddPackage("gh:GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator#v3.4.0")
+CPMAddPackage("gh:KhronosGroup/Vulkan-Headers#vulkan-sdk-1.4.341.0")
 CPMAddPackage("gh:g-truc/glm#1.0.3")
 CPMAddPackage("gh:kcat/openal-soft#1.24.3")
 CPMAddPackage("gh:uxlfoundation/oneTBB#v2022.3.0")
 CPMAddPackage("gh:Taywee/args#6.4.8")
 CPMAddPackage(
   NAME Boost
-  VERSION 1.87.0
+  VERSION 1.90.0
   URL "https://github.com/boostorg/boost/releases/download/boost-1.90.0/boost-1.90.0-cmake.7z"
   OPTIONS
     "BOOST_ENABLE_CMAKE ON"
-    "BOOST_INCLUDE_LIBRARIES stacktrace"
     "BOOST_STACKTRACE_USE_BACKTRACE OFF"
     "BOOST_STACKTRACE_USE_ADDR2LINE OFF"
     "BOOST_STACKTRACE_USE_NOOP      OFF"
+    "BOOST_DATE_TIME_NO_LIB ON"
 )
 
 # CPMAddPackage("gh:ocornut/imgui#v1.92.6")
-# CPMAddPackage("gh:spnda/fastgltf#v0.9.0")
-# CPMAddPackage("gh:nothings/stb#f1c79c0")
-#CPMAddPackage("gh:zeux/volk#vulkan-sdk-1.4.341.0")
+CPMAddPackage("gh:nothings/stb#f1c79c0")
+CPMAddPackage("gh:zeux/volk#vulkan-sdk-1.4.350.1")
 
 message(STATUS)
 message(STATUS "S.T.A.L.K.E.R. Anomaly")

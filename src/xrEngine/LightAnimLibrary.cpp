@@ -221,9 +221,9 @@ void ELightAnimLibrary::Unload()
 //__declspec(dllexport)
 void ELightAnimLibrary::Load()
 {
-	string_path fn;
+	std::filesystem::path fn;
 	FS.update_path(fn, _game_data_, "lanims.xr");
-	IReader* fs = FS.r_open(fn);
+	IReader* fs = FS.r_open(fn.c_str());
 	if (fs)
 	{
 		u16 version = 0;
@@ -271,11 +271,11 @@ void ELightAnimLibrary::Save()
 	}
 	F.close_chunk();
 
-	string_path fn;
+	std::filesystem::path fn;
 	FS.update_path(fn, _game_data_, "lanims.xr");
 
-	if (!F.save_to(fn))
-		Log("!Can't save color animations:", fn);
+	if (!F.save_to(fn.c_str()))
+		Log("!Can't save color animations:", fn.c_str());
 }
 
 void ELightAnimLibrary::Reload()

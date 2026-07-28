@@ -156,17 +156,15 @@ CMainMenu::~CMainMenu()
 void CMainMenu::ReadTextureInfo()
 {
 	FS_FileSet fset;
-	FS.file_list(fset, "$game_config$", FS_ListFiles, "ui\\textures_descr\\*.xml");
+	NeedAttention("Regex");
+	FS.file_list(fset, "$game_config$", FS_ListFiles, {std::regex("ui/textures_descr/*\.xml")});
 	FS_FileSetIt fit = fset.begin();
 	FS_FileSetIt fit_e = fset.end();
 
 	for (; fit != fit_e; ++fit)
 	{
-		string_path fn1, fn2, fn3;
-		_splitpath((*fit).name.c_str(), fn1, fn2, fn3, 0);
-		xr_strcat(fn3, ".xml");
-
-		CUITextureMaster::ParseShTexInfo(fn3);
+		std::fs::path f((*fit).name.c_str());
+		CUITextureMaster::ParseShTexInfo(f.filename().c_str());
 	}
 }
 

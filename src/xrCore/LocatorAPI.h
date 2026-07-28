@@ -4,12 +4,18 @@
 
 #ifndef LocatorAPIH
 #define LocatorAPIH
+#include "log.h"
+#include <memory>
+#include <unordered_map>
 #pragma once
-
-//#include "io.h"
 
 #include "FS.h"
 #include "LocatorAPI_defs.h"
+#include <chrono>
+#include <filesystem>
+#include <regex>
+#include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/mapped_region.hpp>
 
 class XRCORE_API CStreamReader;
 class CInifile;
@@ -20,24 +26,29 @@ class XRCORE_API CLocatorAPI
 public:
 	struct file
 	{
-		LPCSTR name; // low-case name
+		std::fs::path name; // low-case name
 		u32 vfs; // 0xffffffff - standart file
 		u32 crc; // contents CRC
 		u32 ptr; // pointer inside vfs
 		u32 size_real; //
 		u32 size_compressed; // if (size_real==size_compressed) - uncompressed
-		u32 modif; // for editor
+		time_t modif; // for editor
+
+		bool operator<(const file& other) const {
+			return name < other.name;
+		}
 	};
 
 	struct archive
 	{
-		shared_str path;
+		std::fs::path path;
 		void *hSrcFile, *hSrcMap;
+		std::shared_ptr<boost::interprocess::file_mapping> fileMapping;
 		u32 size;
 		CInifile* header;
 		u32 vfs_idx;
 
-		archive() : hSrcFile(NULL), hSrcMap(NULL), header(NULL), size(0), vfs_idx(u32(-1))
+		archive() : hSrcFile(NULL), hSrcMap(NULL), fileMapping(nullptr), header(NULL), size(0), vfs_idx(u32(-1))
 		{
 		}
 
@@ -50,35 +61,21 @@ public:
 	void LoadArchive(archive& A, LPCSTR entrypoint = NULL);
 
 private:
-	struct file_pred
-	{
-		IC bool operator()(const file& x, const file& y) const
-		{
-			return xr_strcmp(x.name, y.name) < 0;
-		}
-	};
-
 	DEFINE_MAP_PRED(LPCSTR, FS_Path*, PathMap, PathPairIt, pred_str);
 	PathMap pathes;
 
-	DEFINE_SET_PRED(file, files_set, files_it, file_pred);
-
-	DEFINE_VECTOR(_finddata_t, FFVec, FFIt);
-	FFVec rec_files;
-
 	int m_iLockRescan;
-	void check_pathes();
-
-	files_set m_files;
+	std::set<file> m_files;
+	using files_it = std::set<file>::iterator;
 	BOOL bNoRecurse;
 
 	xrCriticalSection m_auth_lock;
 	u64 m_auth_code;
 
-	void Register(LPCSTR name, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, u32 modif);
-	void ProcessArchive(LPCSTR path);
-	void ProcessOne(LPCSTR path, const _finddata_t& entry);
-	bool Recurse(LPCSTR path);
+	void check_pathes();
+	void Register(std::fs::path path, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, time_t modif);
+	void ProcessArchive(std::fs::path path);
+	bool Recurse(std::fs::path path);
 
 	files_it file_find_it(LPCSTR n);
 public:
@@ -127,6 +124,7 @@ private:
 	void setup_fs_path(LPCSTR fs_name);
 	IReader* setup_fs_ltx(LPCSTR fs_name);
 
+	std::vector<CLocatorAPI::file> file_list_open_impl(const std::string& path, uint32_t flags = FS_ListFiles, std::initializer_list<std::regex> patterns = {});
 public:
 	CLocatorAPI();
 	~CLocatorAPI();
@@ -145,10 +143,19 @@ public:
 	IC IWriter* w_open_ex(LPCSTR N) { return w_open_ex(0, N); }
 	void w_close(IWriter*& S);
 
+	const file* exist(std::filesystem::path N);
 	const file* exist(LPCSTR N);
 	const file* exist(LPCSTR path, LPCSTR name);
 	const file* exist(string_path& fn, LPCSTR path, LPCSTR name);
+	const file* exist(std::fs::path& fn, LPCSTR path, LPCSTR name);
 	const file* exist(string_path& fn, LPCSTR path, LPCSTR name, LPCSTR ext);
+	inline const file* exist(std::fs::path& fn, LPCSTR path, LPCSTR name, LPCSTR ext) {
+		std::fs::path nm = name;
+		nm.replace_extension(ext);
+		update_path(fn, path, nm);
+		return exist(fn);
+	}
+
 
 	BOOL can_write_to_folder(LPCSTR path);
 	BOOL can_write_to_alias(LPCSTR path);
@@ -166,16 +173,42 @@ public:
 	u32 get_file_age(LPCSTR nm);
 	void set_file_age(LPCSTR nm, u32 age);
 
-	xr_vector<LPSTR>* file_list_open(LPCSTR initial, LPCSTR folder, u32 flags = FS_ListFiles);
-	xr_vector<LPSTR>* file_list_open(LPCSTR path, u32 flags = FS_ListFiles);
-	void file_list_close(xr_vector<LPSTR>*& lst);
+	inline std::vector<std::fs::path> file_list_open(const std::string& path, uint32_t flags = FS_ListFiles, std::initializer_list<std::regex> patterns = {}) {
+		auto files = file_list_open_impl(path, flags, patterns);
+		std::vector<std::fs::path> ret;
+		ret.reserve(files.size());
+
+		for (const auto& f : files)
+			ret.push_back(f.name);
+
+		return ret;
+	}
+	inline std::vector<std::fs::path> file_list_open(const std::string& initial, const std::string& folder, uint32_t flags = FS_ListFiles, std::initializer_list<std::regex> patterns = {}) {
+		std::fs::path N;
+		R_ASSERT(!initial.empty());
+		update_path(N, initial.c_str(), folder.c_str());
+		return file_list_open(N.c_str(), flags, patterns);
+	}
+
+	inline int file_list(FS_FileSet& dest, LPCSTR path, u32 flags = FS_ListFiles, std::initializer_list<std::regex> patterns = {}) {
+		auto files = file_list_open_impl(path, flags, patterns);
+
+		NeedAttention("f.vfs");
+		//(entry.vfs != 0xffffffff ? FS_File::flVFS : 0)
+		//u32 fl = FS_File::flSubDir | (entry.vfs ? FS_File::flVFS : 0);
+
+		for (const auto& f : files)
+			dest.insert(FS_File(f.name.c_str(), f.size_real, f.modif, (f.vfs != 0xffffffff ? FS_File::flVFS : 0)));
+
+		return dest.size();
+	}
 
 	bool path_exist(LPCSTR path);
 	FS_Path* get_path(LPCSTR path);
 	FS_Path* append_path(LPCSTR path_alias, LPCSTR root, LPCSTR add, BOOL recursive);
+	std::fs::path update_path(std::fs::path& dest, LPCSTR initial, std::fs::path src);
 	LPCSTR update_path(string_path& dest, LPCSTR initial, LPCSTR src);
 
-	int file_list(FS_FileSet& dest, LPCSTR path, u32 flags = FS_ListFiles, LPCSTR mask = 0);
 
 	bool load_all_unloaded_archives();
 	void unload_archive(archive& A);
@@ -184,7 +217,7 @@ public:
 	u64 auth_get();
 	void auth_runtime(void*);
 
-	void rescan_path(LPCSTR full_path, BOOL bRecurse);
+	void rescan_path(std::fs::path full_path, BOOL bRecurse);
 	// editor functions
 	void rescan_pathes();
 	void lock_rescan();

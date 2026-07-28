@@ -167,11 +167,12 @@ namespace crash_saving {
 
 		std::string path = "fatal_ctd_save_";
 		std::string path_mask(path);
-		std::string path_ext = ".scop";
+		std::string path_ext = "\.scop";
 		path_mask.append("*").append(path_ext);
 
 		FS_FileSet fset_temp;
-		FS.file_list(fset_temp, "$game_saves$", FS_ListFiles | FS_RootOnly, path_mask.c_str());
+		NeedAttention("Regex");
+		FS.file_list(fset_temp, "$game_saves$", FS_ListFiles | FS_RootOnly, {std::regex(path_mask)});
 
 		std::vector<FS_File> fset(fset_temp.begin(), fset_temp.end());
 		struct {

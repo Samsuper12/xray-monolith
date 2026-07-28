@@ -7,11 +7,11 @@ namespace compression
 	void init_ppmd_trained_stream(ppmd_trained_stream* & dest)
 	{
 		VERIFY(dest == NULL);
-		string_path file_name;
-		FS.update_path(file_name, "$game_config$", "mp\\ppmd_updates.mdl");
-		R_ASSERT2(FS.exist(file_name), "can't find configs\\mp\\ppmd_updates.mdl");
+		std::filesystem::path file_name;
+		FS.update_path(file_name, "$game_config$", "mp/ppmd_updates.mdl");
+		R_ASSERT2(FS.exist(file_name), "can't find configs/mp/ppmd_updates.mdl");
 
-		IReader* reader = FS.r_open(file_name);
+		IReader* reader = FS.r_open(file_name.c_str());
 		R_ASSERT(reader);
 		u32 buffer_size = reader->length();
 		u8* buffer = (u8*)xr_malloc(buffer_size);
@@ -37,10 +37,10 @@ namespace compression
 		// buffer must be alligned to 16 bytes
 		dest_wm = (u8*)(size_t(wm_buffer + 16) & ~0xf);
 
-		string_path file_name;
-		FS.update_path(file_name, "$game_config$", "mp\\lzo_updates.dic");
-		R_ASSERT2(FS.exist(file_name), "can't find configs\\mp\\lzo_updates.dic");
-		IReader* reader = FS.r_open(file_name);
+		std::filesystem::path file_name;
+		FS.update_path(file_name, "$game_config$", "mp/lzo_updates.dic");
+		R_ASSERT2(FS.exist(file_name), "can't find configs/mp/lzo_updates.dic");
+		IReader* reader = FS.r_open(file_name.c_str());
 		u32 buffer_size = reader->length();
 		u8* buffer = (u8*)xr_malloc(buffer_size);
 		reader->r(buffer, buffer_size);

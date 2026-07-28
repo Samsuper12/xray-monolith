@@ -530,21 +530,14 @@ bool CScriptDebugger::TranslateIdeMessage(CMailSlotMsg* msg)
 
 bool CScriptDebugger::HasBreakPoint(const char* fileName, s32 lineNum)
 {
-	string256 sFileName;
-	char drive[_MAX_DRIVE];
-	char dir[_MAX_DIR];
-	char ext[_MAX_EXT];
-
-	_splitpath(fileName, drive, dir, sFileName, ext);
-
-
+	std::filesystem::path f(fileName);
 	for (u32 i = 0; i < m_breakPoints.size(); ++i)
 	{
 		SBreakPoint bp(m_breakPoints[i]);
 		if (bp.nLine == lineNum)
-			if (xr_strlen(bp.fileName) == xr_strlen(sFileName))
+			if (xr_strlen(bp.fileName) == xr_strlen(f.stem().c_str()))
 			{
-				if (_stricmp(*bp.fileName, sFileName) == 0)
+				if (_stricmp(*bp.fileName, f.stem().c_str()) == 0)
 					return true;
 			}
 	}

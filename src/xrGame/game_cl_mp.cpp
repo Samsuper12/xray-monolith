@@ -1854,11 +1854,11 @@ void game_cl_mp::decompress_and_save_screenshot(LPCSTR file_name, u8* data, u32 
 	{
 		Msg("! WARNING: original and downloaded file size are different !");
 	}
-	string_path screen_shot_path;
+	std::filesystem::path screen_shot_path;
 	FS.update_path(screen_shot_path, "$screenshots$", file_name);
-	xr_strcat(screen_shot_path, ".jpg");
+	screen_shot_path.replace_extension(".jpg");
 
-	IWriter* ftosave = FS.w_open(screen_shot_path);
+	IWriter* ftosave = FS.w_open(screen_shot_path.c_str());
 	if (!ftosave)
 	{
 		Msg("! ERROR: failed to create file [%s]", file_name);
@@ -1891,11 +1891,11 @@ void game_cl_mp::decompress_and_process_config(LPCSTR file_name, u8* data, u32 d
 	{
 		Msg("! WARNING: original and downloaded file size are different !");
 	}
-	string_path screen_shot_path;
+	std::filesystem::path screen_shot_path;
 	FS.update_path(screen_shot_path, "$screenshots$", file_name);
-	xr_strcat(screen_shot_path, ".ltx");
+	screen_shot_path.replace_extension(".ltx");
 
-	IWriter* ftosave = FS.w_open(screen_shot_path);
+	IWriter* ftosave = FS.w_open(screen_shot_path.c_str());
 	if (!ftosave)
 	{
 		Msg("! ERROR: failed to create file [%s]", file_name);

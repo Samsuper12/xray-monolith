@@ -131,10 +131,10 @@ CSE_Abstract::CSE_Abstract(LPCSTR caSection)
 		else
 #endif // #ifdef XRGAME_EXPORTS
 		{
-			string_path file_name;
+			std::filesystem::path file_name;
 			FS.update_path(file_name, "$game_config$", raw_file_name);
 			if (FS.exist(file_name))
-				config = FS.r_open(file_name);
+				config = FS.r_open(file_name.c_str());
 		}
 
 		if (config)

@@ -462,10 +462,10 @@ public:
 	virtual void Execute(const char* args)
 	{
 		CCC_UnBindAll::Execute(args);
-		string_path _cfg;
+		std::filesystem::path _cfg;
 		string_path cmd;
 		FS.update_path(_cfg, "$game_config$", "default_controls.ltx");
-		strconcat(sizeof(cmd), cmd, "cfg_load", " ", _cfg);
+		strconcat(sizeof(cmd), cmd, "cfg_load", " ", _cfg.c_str());
 		Console->Execute("bind editor kF11"); //Lucy : ImGui default key
 		Console->Execute(cmd);
 	}

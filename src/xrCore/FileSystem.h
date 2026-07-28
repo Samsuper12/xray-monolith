@@ -9,13 +9,16 @@
 #include "_std_extensions.h"
 #include "xrstring.h"
 
+#include <tuple>
+#include <filesystem>
+
 #define BACKUP_FILE_LEVEL 5
 
 class XRCORE_API EFS_Utils
 {
 protected:
-	bool GetOpenNameInternal(LPCSTR initial, LPSTR buffer, int sz_buf, bool bMulti = false, LPCSTR offset = 0,
-	                         int start_flt_ext = -1);
+	// bool GetOpenNameInternal(LPCSTR initial, LPSTR buffer, int sz_buf, bool bMulti = false, LPCSTR offset = 0,
+	//                          int start_flt_ext = -1);
 public:
 	EFS_Utils();
 	virtual ~EFS_Utils();
@@ -35,7 +38,7 @@ public:
 	bool GetOpenName(LPCSTR initial, xr_string& buf, bool bMulti = false, LPCSTR offset = 0, int start_flt_ext = -1);
 
 	bool GetSaveName(LPCSTR initial, string_path& buffer, LPCSTR offset = 0, int start_flt_ext = -1);
-	bool GetSaveName(LPCSTR initial, xr_string& buf, LPCSTR offset = 0, int start_flt_ext = -1);
+//	bool GetSaveName(LPCSTR initial, xr_string& buf, LPCSTR offset = 0, int start_flt_ext = -1);
 
 	void MarkFile(LPCSTR fn, bool bDeleteSource);
 

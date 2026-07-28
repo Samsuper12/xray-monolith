@@ -297,9 +297,9 @@ void server_updates_compressor::end_updates(send_ready_updates_t::const_iterator
 
 void server_updates_compressor::create_update_bin_writer()
 {
-	string_path bin_name;
+	std::filesystem::path bin_name;
 	FS.update_path(bin_name, "$logs$", "updates.bins");
-	dbg_update_bins_writer = FS.w_open(bin_name);
+	dbg_update_bins_writer = FS.w_open(bin_name.c_str());
 	VERIFY(dbg_update_bins_writer);
 
 	static u8 const header[] = {'B', 'I', 'N', 'S'};

@@ -9,6 +9,10 @@ class IReader;
 
 struct xr_token;
 
+namespace std {
+	namespace fs = std::filesystem;
+}
+
 
 class XRCORE_API CInifile
 {
@@ -62,7 +66,8 @@ public:
 private:
 	string_path m_file_name;
 	Root DATA;
-	void Load(IReader* F, LPCSTR path
+	// FIXME: don't pass by pointer
+	void Load(IReader* F, std::fs::path path
 #ifndef _EDITOR
 	          , allow_include_func_t allow_include_func = NULL
 #endif
@@ -72,7 +77,7 @@ public:
 
 	Flags8 m_flags;
 	CInifile(IReader* F,
-	         LPCSTR path = 0
+	         std::optional<std::fs::path> path = std::nullopt
 #ifndef _EDITOR
 	         , allow_include_func_t allow_include_func = NULL
 #endif

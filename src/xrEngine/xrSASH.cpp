@@ -119,12 +119,12 @@ void xrSASH::LoopOA()
 
 void xrSASH::LoopNative()
 {
-	string_path in_file;
+	std::filesystem::path in_file;
 	FS.update_path(in_file, "$app_data_root$", m_strBenchCfgName);
 
-	CInifile ini(in_file);
+	CInifile ini(in_file.c_str());
 
-	IReader* R = FS.r_open(in_file);
+	IReader* R = FS.r_open(in_file.c_str());
 	if (R)
 	{
 		FS.r_close(R);
@@ -144,17 +144,17 @@ void xrSASH::LoopNative()
 		}
 	}
 	else
-		Msg("oa:: Native path can't find \"%s\" config file.", in_file);
+		Msg("oa:: Native path can't find \"%s\" config file.", in_file.c_str());
 
 	FlushLog();
 }
 
 void xrSASH::ReportNative(LPCSTR pszTestName)
 {
-	string_path fname;
-	xr_sprintf(fname, sizeof(fname), "%s.result", pszTestName);
+	std::filesystem::path fname = pszTestName;
+	fname.replace_extension(".result");
 	FS.update_path(fname, "$app_data_root$", fname);
-	CInifile res(fname, FALSE, FALSE, TRUE);
+	CInifile res(fname.c_str(), FALSE, FALSE, TRUE);
 
 	// min/max/average
 	float fMinFps = flt_max;

@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <functional>
 #include <regex>
 #include <unordered_map>
@@ -9,6 +10,7 @@
 #include <string_concatenations.h>
 #include <xr_trims.h>
 
+#include "FS.h"
 #include "FS_internal.h"
 #include "LocatorAPI.h"
 #include "mezz_stringbuffer.h"
@@ -115,7 +117,7 @@ BOOL CInifile::Sect::line_exist(LPCSTR L, LPCSTR* val)
 
 //------------------------------------------------------------------------------
 
-CInifile::CInifile(IReader* F, LPCSTR path
+CInifile::CInifile(IReader* F, std::optional<std::fs::path> path
 #ifndef _EDITOR
                    , allow_include_func_t allow_include_func
 #endif
@@ -126,7 +128,7 @@ CInifile::CInifile(IReader* F, LPCSTR path
 	m_flags.set(eSaveAtEnd, FALSE);
 	m_flags.set(eReadOnly, TRUE);
 	m_flags.set(eOverrideNames, FALSE);
-	Load(F, path
+	Load(F, path ? path.value() : ""
 #ifndef _EDITOR
 	     , allow_include_func
 #endif
@@ -157,15 +159,13 @@ CInifile::CInifile(LPCSTR szFileName,
 
 	if (bLoad)
 	{
-		string_path path, folder;
-		_splitpath(m_file_name, path, folder, 0, 0);
-		xr_strcat(path, sizeof(path), folder);
+		auto folder = std::fs::path(m_file_name).parent_path();
 		IReader* R = FS.r_open(szFileName);
 		if (R)
 		{
 			if (sect_count)
 				DATA.reserve(sect_count);
-			Load(R, path
+			Load(R, folder.c_str()
 #ifndef _EDITOR
 			     , allow_include_func
 #endif
@@ -227,7 +227,7 @@ IC BOOL is_empty_line_now(IReader* F)
 	return (*a0 == 13) && (*a1 == 10) && (*a2 == 13) && (*a3 == 10);
 };
 
-void CInifile::Load(IReader* F, LPCSTR path
+void CInifile::Load(IReader* F, std::fs::path path
 #ifndef _EDITOR
                     , allow_include_func_t allow_include_func
 #endif
@@ -237,25 +237,25 @@ void CInifile::Load(IReader* F, LPCSTR path
 
 	std::string DLTX_DELETE = "DLTX_DELETE";
 
-	std::function<void(std::vector<std::string>*, std::vector<std::string>*, bool)> MergeParentSet = [](std::vector<std::string>* ParentsBase, std::vector<std::string>* ParentsOverride, bool bIncludeRemovers)
+	auto MergeParentSet = [](std::vector<std::string>& ParentsBase, const std::vector<std::string>& ParentsOverride, bool bIncludeRemovers)
 	{
-		for (std::string CurrentParent : *ParentsOverride)
+		for (std::string CurrentParent : ParentsOverride)
 		{
 			bool bIsParentRemoval = CurrentParent[0] == '!';
 
 			std::string StaleParentString = (!bIsParentRemoval ? "!" : "") + CurrentParent.substr(1);
 
-			for (auto It = ParentsBase->rbegin(); It != ParentsBase->rend(); It++)
+			for (auto It = ParentsBase.rbegin(); It != ParentsBase.rend(); It++)
 			{
 				if (*It == StaleParentString)
 				{
-					ParentsBase->erase(std::next(It).base());
+					ParentsBase.erase(std::next(It).base());
 				}
 			}
 
 			if (bIncludeRemovers || !bIsParentRemoval)
 			{
-				ParentsBase->insert(ParentsBase->end(), CurrentParent);
+				ParentsBase.insert(ParentsBase.end(), CurrentParent);
 			}
 		}
 	};
@@ -277,7 +277,7 @@ void CInifile::Load(IReader* F, LPCSTR path
 	> LTXLoad = [&]
 		(
 		IReader* F,
-		LPCSTR path,
+		std::fs::path path,
 		std::unordered_map<std::string, Sect>* OutputData,
 		std::unordered_map<std::string, std::vector<std::string>>* ParentDataMap,
 		BOOL bOverridesOnly,
@@ -343,7 +343,7 @@ void CInifile::Load(IReader* F, LPCSTR path
 			return std::regex_match(InputString, std::regex(PatternString));
 		};
 
-		const auto loadFile = [&, LTXLoad](std::string _fn, std::string inc_path, std::string name)
+		const auto loadFile = [&, LTXLoad](std::fs::path _fn, std::fs::path inc_path, std::string name)
 		{
 			if (!allow_include_func || allow_include_func(_fn.c_str()))
 			{
@@ -409,23 +409,15 @@ void CInifile::Load(IReader* F, LPCSTR path
 					continue;
 				}
 
-				//Assemble paths and filename
-				MezzStringBuffer split_drive;
-				MezzStringBuffer split_dir;
-				MezzStringBuffer split_name;
-
-				_splitpath_s(m_file_name, split_drive, split_drive.GetSize(), split_dir, split_dir.GetSize(), split_name, split_name.GetSize(), NULL, 0);
-
-				std::string FilePath = std::string(split_drive) + std::string(split_dir);
-				std::string FileName = split_name.GetBuffer();
+				auto FilePath = std::fs::path(m_file_name);
 
 				//Collect all files that could potentially be confused as a root file by our mod files
 				FS_FileSet AmbiguousFiles;
-				FS.file_list(AmbiguousFiles, FilePath.c_str(), FS_ListFiles, (FileName + "_*.ltx").c_str());
+				FS.file_list(AmbiguousFiles, FilePath.parent_path().c_str(), FS_ListFiles, {std::regex((std::string(FilePath.stem()) + "_*\.ltx$"))}); 
 
 				//Collect all matching mod files
 				FS_FileSet ModFiles;
-				FS.file_list(ModFiles, FilePath.c_str(), FS_ListFiles, ("mod_" + FileName + "_*.ltx").c_str());
+				FS.file_list(ModFiles, FilePath.c_str(), FS_ListFiles, {std::regex(("mod_" + std::string(FilePath.stem()) + "_*\.ltx$"))});
 
 				for (auto It = ModFiles.begin(); It != ModFiles.end(); ++It)
 				{
@@ -453,7 +445,7 @@ void CInifile::Load(IReader* F, LPCSTR path
 						continue;
 					}
 
-					loadFile((FilePath + ModFileName).c_str(), FilePath.c_str(), ModFileName.c_str());
+					loadFile((std::string(FilePath.parent_path()) + ModFileName).c_str(), FilePath.parent_path().c_str(), ModFileName.c_str());
 				}
 
 				continue;
@@ -510,25 +502,26 @@ void CInifile::Load(IReader* F, LPCSTR path
 			if (str[0] && (str[0] == '#') && strstr(str, "#include")) //handle includes
 			{
 				string_path inc_name;
-				R_ASSERT(path && path[0]);
+				R_ASSERT(!path.empty());
 				if (_GetItem(str, 1, inc_name, '"'))
 				{
-					string_path fn, inc_path, folder;
-					strconcat(sizeof(fn), fn, path, inc_name);
-					_splitpath(fn, inc_path, folder, 0, 0);
-					xr_strcat(inc_path, sizeof(inc_path), folder);
-
-
+					normalize_path(path);
+					normalize_path(inc_name);
+					std::fs::path fn = path / inc_name;
+					std::fs::path inc_path = fn.parent_path();
+		
+					
 					if (strstr(inc_name, "*.ltx"))
 					{
 						FS_FileSet fset;
-						FS.file_list(fset, inc_path, FS_ListFiles, inc_name);
+						// TODO:
+						FS.file_list(fset, inc_path.c_str(), FS_ListFiles, {std::regex(inc_name)});
 
-						for (FS_FileSet::iterator it = fset.begin(); it != fset.end(); it++)
+						for (auto it = fset.begin(); it != fset.end(); it++)
 						{
-							LPCSTR _name = it->name.c_str();
-							string_path _fn;
-							strconcat(sizeof(_fn), _fn, inc_path, _name);
+							auto _name = it->name.c_str();
+							std::fs::path _fn = inc_path / _name;
+							normalize_path(_fn);
 							loadFile(_fn, inc_path, _name);
 						}
 					}
@@ -606,7 +599,7 @@ void CInifile::Load(IReader* F, LPCSTR path
 						std::vector<std::string> CurrentParents = GetParentsSetFromString(inherited_names);
 						std::vector<std::string>* SectionParents = GetParentStrings(Current->Name.c_str());
 
-						MergeParentSet(SectionParents, &CurrentParents, true);
+						MergeParentSet(*SectionParents, CurrentParents, true);
 					}
 				}
 
@@ -728,12 +721,13 @@ void CInifile::Load(IReader* F, LPCSTR path
 
 		PreviousEvaluations->insert(PreviousEvaluations->end(), SectionName);
 
-		std::vector<std::string>* BaseParents = &BaseParentDataMap.find(SectionName)->second;
-		std::vector<std::string>* OverrideParents = &OverrideParentDataMap.find(SectionName)->second;
+		std::vector<std::string>* BaseParents = BaseParentDataMap.find(SectionName) != BaseParentDataMap.end() ? &BaseParentDataMap.find(SectionName)->second : nullptr;
+		std::vector<std::string>* OverrideParents = OverrideParentDataMap.find(SectionName) != OverrideParentDataMap.end() ? &OverrideParentDataMap.find(SectionName)->second : nullptr;
 
 		BOOL bDeleteSectionIfEmpty = FALSE;
 
-		MergeParentSet(BaseParents, OverrideParents, false);
+		if (BaseParents && OverrideParents)
+			MergeParentSet(*BaseParents, *OverrideParents, false);
 
 		std::pair<std::string, Sect> CurrentSecPair = std::pair<std::string, Sect>(SectionName, Sect());
 		Sect* CurrentSect = &CurrentSecPair.second;
@@ -807,32 +801,35 @@ void CInifile::Load(IReader* F, LPCSTR path
 		InsertData(&BaseData, true);
 
 		//Insert variables from parents
-		for (auto BaseParentIt = BaseParents->rbegin(); BaseParentIt != BaseParents->rend(); ++BaseParentIt)
+		if (BaseParents)
 		{
-			std::string ParentSectionName = *(BaseParentIt.base() - 1);
-
-			for (auto PrevEvalIt = PreviousEvaluations->begin(); PrevEvalIt != PreviousEvaluations->end(); ++PrevEvalIt)
+			for (auto BaseParentIt = BaseParents->rbegin(); BaseParentIt != BaseParents->rend(); ++BaseParentIt)
 			{
-				if (ParentSectionName == *PrevEvalIt)
+				std::string ParentSectionName = *(BaseParentIt.base() - 1);
+
+				for (auto PrevEvalIt = PreviousEvaluations->begin(); PrevEvalIt != PreviousEvaluations->end(); ++PrevEvalIt)
 				{
-					Debug.fatal(DEBUG_INFO, "Section '%s' has cyclical dependencies. Ensure that sections with parents don't inherit in a loop. Check this file and its DLTX mods: %s, mod file %s", ParentSectionName.c_str(), m_file_name, currentFileName);
+					if (ParentSectionName == *PrevEvalIt)
+					{
+						Debug.fatal(DEBUG_INFO, "Section '%s' has cyclical dependencies. Ensure that sections with parents don't inherit in a loop. Check this file and its DLTX mods: %s, mod file %s", ParentSectionName.c_str(), m_file_name, currentFileName);
+					}
 				}
-			}
 
-			EvaluateSection(ParentSectionName, PreviousEvaluations);
+				EvaluateSection(ParentSectionName, PreviousEvaluations);
 
-			auto ParentIt = FinalData.find(ParentSectionName);
+				auto ParentIt = FinalData.find(ParentSectionName);
 
-			if (ParentIt == FinalData.end())
-			{
-				Debug.fatal(DEBUG_INFO, "Section '%s' inherits from non-existent section '%s'. Check this file and its DLTX mods: %s, mod file %s", SectionName.c_str(), ParentSectionName.c_str(), m_file_name, currentFileName);
-			}
+				if (ParentIt == FinalData.end())
+				{
+					Debug.fatal(DEBUG_INFO, "Section '%s' inherits from non-existent section '%s'. Check this file and its DLTX mods: %s, mod file %s", SectionName.c_str(), ParentSectionName.c_str(), m_file_name, currentFileName);
+				}
 
-			Sect* ParentSec = &ParentIt->second;
+				Sect* ParentSec = &ParentIt->second;
 
-			for (Item CurrentItem : ParentSec->Data)
-			{
-				InsertItemWithDelete(CurrentItem, Parent);
+				for (Item CurrentItem : ParentSec->Data)
+				{
+					InsertItemWithDelete(CurrentItem, Parent);
+				}
 			}
 		}
 
@@ -953,9 +950,9 @@ void CInifile::Load(IReader* F, LPCSTR path
 	};
 
 	//Read contents of root file
-	LTXLoad(F, path, &OverrideData, &OverrideParentDataMap, true, true);
+	LTXLoad(F, path.c_str(), &OverrideData, &OverrideParentDataMap, true, true);
 	F->seek(0);
-	LTXLoad(F, path, &BaseData, &BaseParentDataMap, false, true);
+	LTXLoad(F, path.c_str(), &BaseData, &BaseParentDataMap, false, true);
 
 	//Merge base and override data together
 	std::vector<std::string> PreviousEvaluations = std::vector<std::string>();

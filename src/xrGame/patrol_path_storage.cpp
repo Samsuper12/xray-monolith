@@ -92,11 +92,11 @@ void CPatrolPathStorage::load(IReader& stream)
 void CPatrolPathStorage::load_from_config()
 {
 	// Open patrol_paths.ltx
-	string_path fname;
+	std::filesystem::path fname;
 	FS.update_path(fname, "$game_config$", "patrol_paths.ltx");
-	CInifile* ini_paths = xr_new<CInifile>(fname, TRUE);
+	CInifile* ini_paths = xr_new<CInifile>(fname.c_str(), TRUE);
 
-	Msg("[PP] %s initialized", fname);
+	Msg("[PP] %s initialized", fname.c_str());
 
 	// Iterate sections. Each section is a unique patrol path
 	CInifile::Root& paths = ini_paths->sections();

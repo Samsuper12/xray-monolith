@@ -206,9 +206,9 @@ u32 item_respawn_manager::load_section_items(CInifile& ini, const char* section_
 item_respawn_manager::respawn_section_iter
 item_respawn_manager::load_respawn_section(shared_str const& section_name)
 {
-	string_path fn;
-	FS.update_path(fn, "$game_config$", "mp\\respawn_items.ltx");
-	CInifile ini(fn);
+	std::filesystem::path fn;
+	FS.update_path(fn, "$game_config$", "mp/respawn_items.ltx");
+	CInifile ini(fn.c_str());
 
 	u32 sections_count = _GetItemCount(section_name.c_str());
 	string256 temp_section_name;

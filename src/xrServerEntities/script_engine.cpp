@@ -421,9 +421,9 @@ void CScriptEngine::load_common_scripts()
 #ifdef DBG_DISABLE_SCRIPTS
     return;
 #endif
-	string_path S;
+	std::filesystem::path S;
 	FS.update_path(S, "$game_config$", "script.ltx");
-	CInifile* l_tpIniFile = xr_new<CInifile>(S);
+	CInifile* l_tpIniFile = xr_new<CInifile>(S.c_str());
 	R_ASSERT(l_tpIniFile);
 	if (!l_tpIniFile->section_exist("common"))
 	{
@@ -459,10 +459,15 @@ void CScriptEngine::process_file_if_exists(LPCSTR file_name, bool warn_if_not_ex
 	if (!warn_if_not_exist && no_file_exists(file_name, string_length))
 		return;
 
-	string_path S, S1;
+	std::filesystem::path S;
+
+	std::filesystem::path S1 = file_name;
+	S1.replace_extension(".script");
+
+
 	if (m_reload_modules || (*file_name && !namespace_loaded(file_name)))
 	{
-		FS.update_path(S, "$game_scripts$", strconcat(sizeof(S1), S1, file_name, ".script"));
+		FS.update_path(S, "$game_scripts$", S1);
 		if (!warn_if_not_exist && !FS.exist(S))
 		{
 #ifdef DEBUG
@@ -471,7 +476,7 @@ void CScriptEngine::process_file_if_exists(LPCSTR file_name, bool warn_if_not_ex
 #	endif
             {
                 print_stack			();
-                Msg					("* trying to access variable %s, which doesn't exist, or to load script %s, which doesn't exist too",file_name,S);
+                Msg					("* trying to access variable %s, which doesn't exist, or to load script %s, which doesn't exist too",file_name,S.c_str());
                 m_stack_is_ready	= true;
             }
 #endif
@@ -480,10 +485,10 @@ void CScriptEngine::process_file_if_exists(LPCSTR file_name, bool warn_if_not_ex
 		}
 		//#ifndef MASTER_GOLD
 		if (Core.Params.dbg)
-			Msg("* loading script %s", S1);
+			Msg("* loading script %s", S1.c_str());
 		//#endif // MASTER_GOLD
 		m_reload_modules = false;
-		load_file_into_namespace(S, *file_name ? file_name : "_G");
+		load_file_into_namespace(S.c_str(), *file_name ? file_name : "_G");
 	}
 }
 
@@ -504,9 +509,9 @@ void CScriptEngine::register_script_classes()
 #ifdef DBG_DISABLE_SCRIPTS
     return;
 #endif
-	string_path S;
+	std::filesystem::path S;
 	FS.update_path(S, "$game_config$", "script.ltx");
-	CInifile* l_tpIniFile = xr_new<CInifile>(S);
+	CInifile* l_tpIniFile = xr_new<CInifile>(S.c_str());
 	R_ASSERT(l_tpIniFile);
 
 	if (!l_tpIniFile->section_exist("common"))

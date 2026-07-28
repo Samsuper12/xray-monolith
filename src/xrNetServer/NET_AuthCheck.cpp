@@ -6,7 +6,7 @@ void XRNETSERVER_API fill_auth_check_params(xr_auth_strings_t& ignore,
                                             xr_auth_strings_t& check)
 {
 	string_path config;
-	LPCSTR pth = FS.get_path("$app_data_root$")->m_Path;
+	LPCSTR pth = FS.get_path("$app_data_root$")->m_Path.c_str();
 	ignore.push_back(shared_str(pth));
 	ignore.push_back(shared_str(FS.update_path(config, "$game_config$", "localization.ltx")));
 	ignore.push_back(shared_str(FS.update_path(config, "$game_config$", "fonts.ltx")));

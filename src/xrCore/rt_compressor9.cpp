@@ -27,13 +27,13 @@ rtc9_initialize()
 
 	VERIFY(lzo_init() == LZO_E_OK);
 
-	string_path file_name;
+	std::filesystem::path file_name;
 
-	FS.update_path(file_name, "$game_config$", "mp\\lzo-dict.bin");
+	FS.update_path(file_name, "$game_config$", "mp/lzo-dict.bin");
 
 	if (FS.exist(file_name))
 	{
-		IReader* reader = FS.r_open(file_name);
+		IReader* reader = FS.r_open(file_name.c_str());
 
 		R_ASSERT(reader);
 
@@ -43,11 +43,11 @@ rtc9_initialize()
 		reader->r(_LZO_Dictionary, _LZO_DictionarySize);
 		FS.r_close(reader);
 
-		Msg("using LZO-dictionary \"%s\"", file_name);
+		Msg("using LZO-dictionary \"%s\"", file_name.c_str());
 	}
 	else
 	{
-		Msg("\"%s\" not found", file_name);
+		Msg("\"%s\" not found", file_name.c_str());
 	}
 
 	initialized = true;

@@ -616,10 +616,10 @@ public:
 
 		LPSTR fn_;
 		STRCONCAT(fn_, args, ".xrdemo");
-		string_path fn;
+		std::filesystem::path fn;
 		FS.update_path(fn, "$game_saves$", fn_);
 
-		auto pDemoRecord = xr_new<CDemoRecord>(fn, &pDemoRecords);
+		auto pDemoRecord = xr_new<CDemoRecord>(fn.c_str(), &pDemoRecords);
 		g_pGameLevel->Cameras().AddCamEffector(pDemoRecord);
 	}
 };
@@ -662,10 +662,10 @@ public:
 		}
 		LPSTR fn_;
 		STRCONCAT(fn_, arg1.c_str(), ".xrdemo");
-		string_path fn;
+		std::filesystem::path fn;
 		FS.update_path(fn, "$game_saves$", fn_);
 		float life_time = 60 * 60 * 1000;
-		auto pDemoRecord = xr_new<CDemoRecord>(fn, &pDemoRecords, FALSE, life_time, TRUE);
+		auto pDemoRecord = xr_new<CDemoRecord>(fn.c_str(), &pDemoRecords, FALSE, life_time, TRUE);
 		pDemoRecord->SetCameraBoundary(boundary);
 		g_pGameLevel->Cameras().AddCamEffector(pDemoRecord);
 	}
@@ -692,10 +692,10 @@ public:
 
 		LPSTR fn_;
 		STRCONCAT(fn_, args, ".xrdemo");
-		string_path fn;
+		std::filesystem::path fn;
 		FS.update_path(fn, "$game_saves$", fn_);
 
-		auto pDemoRecord = xr_new<CDemoRecord>(fn, &pDemoRecords, TRUE);
+		auto pDemoRecord = xr_new<CDemoRecord>(fn.c_str(), &pDemoRecords, TRUE);
 		g_pGameLevel->Cameras().AddCamEffector(pDemoRecord);
 	}
 };
@@ -801,7 +801,7 @@ public:
 		else
 		{
 			Console->Hide();
-			string_path fn;
+			std::filesystem::path fn;
 			u32 loops = 0;
 			LPSTR comma = strchr(const_cast<LPSTR>(args), ',');
 			if (comma)
@@ -809,9 +809,10 @@ public:
 				loops = atoi(comma + 1);
 				*comma = 0; //. :)
 			}
-			strconcat(sizeof(fn), fn, args, ".xrdemo");
-			FS.update_path(fn, "$game_saves$", fn);
-			g_pGameLevel->Cameras().AddCamEffector(xr_new<CDemoPlay>(fn, 1.0f, loops));
+			std::filesystem::path tmp = args;
+			tmp.replace_extension(".xrdemo");
+			FS.update_path(fn, "$game_saves$", tmp);
+			g_pGameLevel->Cameras().AddCamEffector(xr_new<CDemoPlay>(fn.c_str(), 1.0f, loops));
 		}
 	}
 };
@@ -895,10 +896,12 @@ void get_files_list(xr_vector<shared_str>& files, LPCSTR dir, LPCSTR file_ext)
 	FS.rescan_pathes();
 
 	LPCSTR fext;
+	//TODO: debug *
 	STRCONCAT(fext, "*", file_ext);
 
 	FS_FileSet files_set;
-	FS.file_list(files_set, dir, FS_ListFiles, fext);
+	NeedAttention("Regex");
+	FS.file_list(files_set, dir, FS_ListFiles, {std::regex(fext)});
 	u32 len_str_ext = xr_strlen(file_ext);
 
 	FS_FileSetIt itb = files_set.begin();
@@ -943,7 +946,7 @@ public:
 
 		Console->Execute("stat_memory");
 
-		string_path S, S1;
+		string_path S;
 		S[0] = 0;
 		strncpy_s(S, sizeof(S), args, _MAX_PATH - 1);
 
@@ -983,12 +986,13 @@ public:
 		_s->wnd()->TextItemControl()->SetText(save_name);
 
 		xr_strcat(S, ".dds");
+		std::filesystem::path S1;
 		FS.update_path(S1, "$game_saves$", S);
 
 #ifdef DEBUG
 		timer.Start();
 #endif
-		MainMenu()->Screenshot(IRender_interface::SM_FOR_GAMESAVE, S1);
+		MainMenu()->Screenshot(IRender_interface::SM_FOR_GAMESAVE, S1.c_str());
 
 #ifdef DEBUG
 		Msg("Screenshot overhead : %f milliseconds", timer.GetElapsed_sec()*1000.f);

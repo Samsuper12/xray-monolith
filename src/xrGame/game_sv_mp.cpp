@@ -1924,15 +1924,14 @@ void game_sv_mp::DumpOnlineStatistic()
 {
 	xrGameSpyServer* srv = smart_cast<xrGameSpyServer*>(m_server);
 
-	string_path fn;
-	FS.update_path(fn, "$logs$", "mp_stats\\");
-	xr_strcat(fn, srv->HostName.c_str());
-	xr_strcat(fn, "\\online_dump.ltx");
+	std::filesystem::path fn;
+	FS.update_path(fn, "$logs$", "mp_stats/");
+	fn = fn / srv->HostName.c_str() / "online_dump.ltx";
 
 	string64 t_stamp;
 	timestamp(t_stamp);
 
-	CInifile ini(fn, FALSE, FALSE, TRUE);
+	CInifile ini(fn.c_str(), FALSE, FALSE, TRUE);
 	shared_str current_section = "global";
 	string256 str_buff;
 

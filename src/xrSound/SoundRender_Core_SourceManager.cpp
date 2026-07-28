@@ -38,7 +38,8 @@ void CSoundRender_Core::i_create_all_sources()
 	T.Start();
 
 	FS_FileSet flist;
-	FS.file_list(flist, "$game_sounds$", FS_ListFiles, "*.ogg");
+	NeedAttention("Regex");
+	FS.file_list(flist, "$game_sounds$", FS_ListFiles, {std::regex("*\.ogg")});
 	const size_t sizeBefore = s_sources.size();
 
 	Lock lock;

@@ -66,7 +66,7 @@ void CLocatorAPI::auth_runtime(void* params)
     if (!b_extern_auth)
 #endif // DEBUG
 	{
-		for (files_it it = m_files.begin(); it != m_files.end(); ++it)
+		for (auto it = m_files.begin(); it != m_files.end(); ++it)
 		{
 			const file& f = *it;
 
@@ -74,7 +74,7 @@ void CLocatorAPI::auth_runtime(void* params)
 			BOOL bSkip = FALSE;
 			for (u32 s = 0; s < _o->ignore.size(); s++)
 			{
-				if (strstr(f.name, _o->ignore[s].c_str()))
+				if (strstr(f.name.c_str(), _o->ignore[s].c_str()))
 					bSkip = TRUE;
 			}
 
@@ -84,10 +84,10 @@ void CLocatorAPI::auth_runtime(void* params)
 			// test for important
 			for (u32 s = 0; s < _o->important.size(); s++)
 			{
-				if ((f.size_real != 0) && strstr(f.name, _o->important[s].c_str()))
+				if ((f.size_real != 0) && strstr(f.name.c_str(), _o->important[s].c_str()))
 				{
 					// crc for file
-					IReader* r = FS.r_open(f.name);
+					IReader* r = FS.r_open(f.name.c_str());
 					if (!r)
 					{
 						do_break = true;

@@ -411,9 +411,9 @@ void CMapListHelper::LoadMapInfo(const char* cfgName, const xr_string& levelName
 
 void CMapListHelper::Load()
 {
-	string_path cfgFileName;
-	FS.update_path(cfgFileName, "$game_config$", "mp\\map_list.ltx");
-	CInifile maplistCfg(cfgFileName);
+	std::filesystem::path cfgFileName;
+	FS.update_path(cfgFileName, "$game_config$", "mp/map_list.ltx");
+	CInifile maplistCfg(cfgFileName.c_str());
 	//read weathers set
 	CInifile::Sect weatherCfg = maplistCfg.r_section("weather");
 	m_weathers.reserve(weatherCfg.Data.size());
@@ -426,27 +426,29 @@ void CMapListHelper::Load()
 	}
 	// scan for additional maps
 	FS_FileSet levelCfgs;
-	FS.file_list(levelCfgs, "$game_levels$", FS_ListFiles, "*level.ltx");
+	NeedAttention("Regex");
+	FS.file_list(levelCfgs, "$game_levels$", FS_ListFiles, {std::regex("*level.ltx")});
 	for (const FS_File& cfg : levelCfgs)
 	{
 		FS.update_path(cfgFileName, "$game_levels$", cfg.name.c_str());
-		LoadMapInfo(cfgFileName, cfg.name);
+		LoadMapInfo(cfgFileName.c_str(), cfg.name);
 	}
 	//scan all not loaded archieves
 	LPCSTR tempRoot = "temporary_gamedata\\";
 	FS_Path* levelsPath = FS.get_path("$game_levels$");
-	xr_string prevRoot = levelsPath->m_Root;
+	xr_string prevRoot = levelsPath->m_Root.c_str();
 	levelsPath->_set_root(tempRoot);
 	for (CLocatorAPI::archive& arch : FS.m_archives)
 	{
-		if (arch.hSrcFile)
+		if (arch.fileMapping)
 			continue; // skip if loaded
 		const char* levelName = arch.header->r_string("header", "level_name");
 		const char* levelVersion = arch.header->r_string("header", "level_ver");
 		FS.LoadArchive(arch, tempRoot);
 		FS.update_path(cfgFileName, "$game_levels$", levelName);
-		xr_strcat(cfgFileName, "\\level.ltx");
-		LoadMapInfo(cfgFileName, levelName, levelVersion);
+		cfgFileName.replace_extension("level.ltx");
+
+		LoadMapInfo(cfgFileName.c_str(), levelName, levelVersion);
 		FS.unload_archive(arch);
 	}
 	levelsPath->_set_root(prevRoot.c_str());

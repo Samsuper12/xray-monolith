@@ -4,7 +4,7 @@
 
 #include "pch_script.h"
 #include "fs_registrator.h"
-
+#include <filesystem>
 using namespace luabind;
 
 LPCSTR get_file_age_str(CLocatorAPI* fs, LPCSTR nm);
@@ -14,14 +14,11 @@ CLocatorAPI* getFS()
 	return &FS;
 }
 
-
 LPCSTR update_path_script(CLocatorAPI* fs, LPCSTR initial, LPCSTR src)
 {
-	string_path temp;
-	shared_str temp_2;
+	static std::filesystem::path temp;
 	fs->update_path(temp, initial, src);
-	temp_2 = temp;
-	return *temp_2;
+	return temp.c_str();
 }
 
 //Alundaio: Set flag to rescan all files in path
@@ -39,19 +36,15 @@ void rescan_pathes_script(CLocatorAPI* fs)
 
 class FS_file_list
 {
-	xr_vector<LPSTR>* m_p;
+	std::vector<std::fs::path> m_p;
 public :
-	FS_file_list(xr_vector<LPSTR>* p): m_p(p)
-	{
-	}
 
-	u32 Size() { return m_p->size(); }
-	LPCSTR GetAt(u32 idx) { return m_p->at(idx); }
+	FS_file_list(const std::vector<std::filesystem::path>& p) : m_p(p){}
 
-	void Free()
-	{
-		FS.file_list_close(m_p);
-	};
+	u32 Size() { return m_p.size(); }
+	const char* GetAt(u32 idx) { return m_p.at(idx).c_str(); }
+
+	void Free() {};
 };
 
 struct FS_item
@@ -139,7 +132,8 @@ FS_file_list_ex::FS_file_list_ex(LPCSTR path, u32 flags, LPCSTR mask)
 	FS.rescan_pathes();
 
 	FS_FileSet files;
-	FS.file_list(files, path, flags, mask);
+	NeedAttention("Regex");
+	FS.file_list(files, path, flags, {std::regex(mask)});
 
 	for (FS_FileSetIt it = files.begin(); it != files.end(); ++it)
 	{

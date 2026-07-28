@@ -47,7 +47,7 @@ CALifeStorageManager::~CALifeStorageManager()
 void CALifeStorageManager::save(LPCSTR save_name_no_check, bool update_name)
 {
 	PROF_EVENT();
-	LPCSTR game_saves_path = FS.get_path("$game_saves$")->m_Path;
+	LPCSTR game_saves_path = FS.get_path("$game_saves$")->m_Path.c_str();
 
 	string_path save_name;
 	strncpy_s(save_name, sizeof(save_name), save_name_no_check,
@@ -96,9 +96,9 @@ void CALifeStorageManager::save(LPCSTR save_name_no_check, bool update_name)
 		dest_count = rtc_compress(dest_data, dest_count, source_data, source_count);
 	}
 
-	string_path temp;
+	std::filesystem::path temp;
 	FS.update_path(temp, "$game_saves$", m_save_name);
-	IWriter* writer = FS.w_open(temp);
+	IWriter* writer = FS.w_open(temp.c_str());
 	writer->w_u32(u32(-1));
 	writer->w_u32(ALIFE_VERSION);
 
@@ -109,7 +109,7 @@ void CALifeStorageManager::save(LPCSTR save_name_no_check, bool update_name)
 #ifdef DEBUG
 	Msg							("* Game %s is successfully saved to file '%s' (%d bytes compressed to %d)",m_save_name,temp,source_count,dest_count + 4);
 #else // DEBUG
-	Msg("* Game %s is successfully saved to file '%s'", m_save_name, temp);
+	Msg("* Game %s is successfully saved to file '%s'", m_save_name, temp.c_str());
 #endif // DEBUG
 
 	//Alundaio: To get the savegame fname to make our own custom save states
@@ -169,7 +169,7 @@ void CALifeStorageManager::load(void* buffer, const u32& buffer_size, LPCSTR fil
 
 bool CALifeStorageManager::load(LPCSTR save_name_no_check)
 {
-	LPCSTR game_saves_path = FS.get_path("$game_saves$")->m_Path;
+	LPCSTR game_saves_path = FS.get_path("$game_saves$")->m_Path.c_str();
 
 	string_path save_name;
 	strncpy_s(save_name, sizeof(save_name), save_name_no_check,
@@ -189,23 +189,23 @@ bool CALifeStorageManager::load(LPCSTR save_name_no_check)
 	{
 		strconcat(sizeof(m_save_name), m_save_name, save_name, SAVE_EXTENSION);
 	}
-	string_path file_name;
+	std::filesystem::path file_name;
 	FS.update_path(file_name, "$game_saves$", m_save_name);
 
 	xr_strcpy(g_last_saved_game, save_name);
-	xr_strcpy(g_bug_report_file, file_name);
+	//xr_strcpy(g_bug_report_file, file_name);
 
 	IReader* stream;
-	stream = FS.r_open(file_name);
+	stream = FS.r_open(file_name.c_str());
 	if (!stream)
 	{
-		Msg("* Cannot find saved game %s", file_name);
+		Msg("* Cannot find saved game %s", file_name.c_str());
 		xr_strcpy(m_save_name, save);
 		return (false);
 	}
 
 	CHECK_OR_EXIT(CSavedGameWrapper::valid_saved_game(*stream),
-	              make_string("%s\nSaved game version mismatch or saved game is corrupted",file_name));
+	              make_string("%s\nSaved game version mismatch or saved game is corrupted",file_name.c_str()));
 	/*
 		string512					temp;
 		strconcat					(sizeof(temp),temp,CStringTable().translate("st_loading_saved_game").c_str()," \"",save_name,SAVE_EXTENSION,"\"");
@@ -220,14 +220,14 @@ bool CALifeStorageManager::load(LPCSTR save_name_no_check)
 	void* source_data = xr_malloc(source_count);
 	rtc_decompress(source_data, source_count, stream->pointer(), stream->length() - 3 * sizeof(u32));
 	FS.r_close(stream);
-	load(source_data, source_count, file_name);
+	load(source_data, source_count, file_name.c_str());
 	xr_free(source_data);
 
 	groups().on_after_game_load();
 
 	VERIFY(graph().actor());
 
-	Msg("* Game %s is successfully loaded from file '%s' (%.3fs)", save_name, file_name, timer.GetElapsed_sec());
+	Msg("* Game %s is successfully loaded from file '%s' (%.3fs)", save_name, file_name.c_str(), timer.GetElapsed_sec());
 
 	return (true);
 }

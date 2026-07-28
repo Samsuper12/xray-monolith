@@ -1,6 +1,7 @@
 #ifndef xrSASH_included
 #define xrSASH_included
 #pragma once
+#include <FTimer.h>
 
 class ENGINE_API xrSASH
 {
