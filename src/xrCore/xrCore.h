@@ -32,6 +32,9 @@ public:
 		args::ValueFlag<std::fs::path> ltx{p, "ltx path", "", {"-ltx"}};
 		args::ValueFlag<std::fs::path> demomode{p, "demomode", "", {"-demomode"}};
 		args::ValueFlag<std::fs::path> svcfg{p, "svcfg path", "", {"-svcfg"}};
+		args::ValueFlag<std::fs::path> extractDBFiles {p, "path to files that should be extracted", "", {"-extract_db_files"}};
+		args::ValueFlag<std::fs::path> extractOneDBFile {p, "path to the file that should be extracted", "", {"-extract_one_db"}};
+
 
 
 		args::ValueFlag<std::string> start{p, "start", "", {"-start"}};

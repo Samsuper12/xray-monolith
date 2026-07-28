@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <locale.h>
 #include <sstream>
+#include <stdexcept>
 #include <string_view>
 #include <time.h>
 #include <unicode/unistr.h>
@@ -30,6 +31,7 @@
 #include "IGame_Persistent.h"
 #include "dedicated_server_only.h"
 #include "no_single.h"
+#include "resources/splash_xrcs_en_bmp.h"
 #include "xr_sdl3_input.hpp"
 #include "XR_IOConsole.h"
 #include "x_ray.h"
@@ -40,6 +42,11 @@
 #include "profiler.h"
 #include "xrSASH.h"
 //#include "securom_api.h"
+
+
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+#include "resources/splash_xrcs_en_bmp.h"
 
 //---------------------------------------------------------------------
 #define XRAY_MONOLITH_VERSION "X-Ray Monolith v1.5.3"
@@ -148,7 +155,7 @@ struct _SoundProcessor : public pureFrame
 //////////////////////////////////////////////////////////////////////////
 // global variables
 ENGINE_API CApplication* pApp = NULL;
-static HWND logoWindow = NULL;
+
 
 void doBenchmark(LPCSTR name);
 ENGINE_API bool g_bBenchmark = false;
@@ -161,6 +168,38 @@ void InitEngine()
 	Engine.Initialize();
 	while (!g_bIntroFinished) sleep(100);
 	Device.Initialize();
+}
+
+void showLogoWindow(bool create) {
+
+	static SDL_Window* logoWindow = nullptr;
+	static SDL_Renderer* renderer = nullptr;
+	static SDL_Texture* texture = nullptr;
+
+	if (create) {
+		logoWindow = SDL_CreateWindow("logo", 500, 268, SDL_WINDOW_BORDERLESS | SDL_WINDOW_NOT_FOCUSABLE | SDL_WINDOW_ALWAYS_ON_TOP);
+
+		if (!logoWindow) {
+			std::runtime_error("Cannot create SDL window for logo!");
+		}
+		renderer = SDL_CreateRenderer(logoWindow, nullptr);
+		SDL_IOStream* io = SDL_IOFromConstMem(__splash_xrcs_en_bmp, __splash_xrcs_en_bmp_len);
+		SDL_Surface* surface = SDL_LoadBMP_IO(io, true);
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+		SDL_DestroySurface(surface);
+
+		SDL_RenderClear(renderer);
+		SDL_RenderTexture(renderer, texture, nullptr, nullptr);
+		SDL_RenderPresent(renderer);
+	} else {
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyTexture(texture);
+		SDL_DestroyWindow(logoWindow);
+
+	}
+	SDL_Event event;
+	while(SDL_PollEvent(&event)) {};
 }
 
 struct path_excluder_predicate
@@ -580,9 +619,7 @@ void Startup()
 	g_SpatialSpacePhysic = xr_new<ISpatial_DB>();
 
 	// Destroy LOGO
-	DestroyWindow(logoWindow);
-	logoWindow = NULL;
-
+	showLogoWindow(false);
 	//Discord Rich Presence - Rezy
 	//Init_Discord();
 
@@ -1089,13 +1126,12 @@ void CApplication::Level_Scan()
 	Levels.clear();
 
 
-	xr_vector<char*>* folder = FS.file_list_open("$game_levels$", FS_ListFolders | FS_RootOnly);
+	auto folders = FS.file_list_open("$game_levels$", FS_ListFolders | FS_RootOnly);
 	//. R_ASSERT (folder&&folder->size());
 
-	for (u32 i = 0; i < folder->size(); ++i)
-		Level_Append((*folder)[i]);
-
-	FS.file_list_close(folder);
+	for (auto& f : folders) {
+		Level_Append(f.c_str());
+	}
 
 	//SECUROM_MARKER_PERFORMANCE_OFF(8)
 }
@@ -1171,7 +1207,7 @@ int CApplication::Level_ID(LPCSTR name, LPCSTR ver, bool bSet)
 	for (; it != it_e; ++it)
 	{
 		CLocatorAPI::archive& A = *it;
-		if (A.hSrcFile == NULL)
+		if (!A.fileMapping)
 		{
 			LPCSTR ln = A.header->r_string("header", "level_name");
 			LPCSTR lv = A.header->r_string("header", "level_ver");
@@ -1307,48 +1343,51 @@ void CApplication::load_draw_internal()
 
 void main_impl()
 {
+	if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMEPAD)) {
+		std::runtime_error("Cannot initialize SDL!");
+	}
 	DllMainXrPhysics();
 
-	Debug._initialize(false);
+	showLogoWindow(true);
 
-	{// Title window
-		//FIXME:
-		logoWindow; //= CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_STARTUP), 0, logDlgProc);
-
-		HWND logoPicture = GetDlgItem(logoWindow, IDC_STATIC_LOGO);
-		RECT logoRect;
-		GetWindowRect(logoPicture, &logoRect);
-
-		SetWindowPos(
-			logoWindow,
-	#ifndef DEBUG
-			HWND_TOPMOST,
-	#else
-			HWND_NOTOPMOST,
-	#endif // NDEBUG
-			0,
-			0,
-			logoRect.right - logoRect.left,
-			logoRect.bottom - logoRect.top,
-			SWP_NOMOVE | SWP_SHOWWINDOW // | SWP_NOSIZE
-		);
-
-		UpdateWindow(logoWindow);
-
-		// AVI
-		g_bIntroFinished = TRUE;
-	}
-
-	// g_temporary_stuff = &trivial_encryptor::decode;
+	g_bIntroFinished = TRUE;
 
 	compute_build_id();
 	Core._initialize("xray");
+
+	if (Core.Params.extractDBFiles) {
+		auto path = args::get(Core.Params.extractDBFiles);
+	}
+
+	if (Core.Params.extractOneDBFile) {
+		auto path = args::get(Core.Params.extractOneDBFile);
+
+		// auto file_list = open_chunk(path, 0);  // chunk ID 0
+		// if (!file_list) return;
+
+		// IReader& r = file_list.value();
+		// while (!r.eof()) {
+		// 	u32 offset    = r.r_u32();
+		// 	u32 size_real = r.r_u32();
+		// 	u32 size_compr= r.r_u32();
+		// 	u32 name_len  = r.r_u32();
+
+		// 	char name[MAX_PATH];
+		// 	r.r_string(name, name_len + 1);  // reads name_len bytes + null
+
+		// 	// entry.name = name
+		// 	// entry.offset = offset
+		// 	// entry.size_real = size_real
+		// 	// entry.size_compressed = size_compr
+		// 	// compressed? size_compr != size_real
+		// }
+	}
 
 	InitSettings();
 	Msg(XRAY_MONOLITH_VERSION);
 	{
 		FS_FileSet fset;
-		FS.file_list(fset, "$game_data$", FS_ListFiles, "*");
+		FS.file_list(fset, "$game_data$", FS_ListFiles);
 
 		// list all files in gamedata folder
 		u32 count = 0;
@@ -1378,7 +1417,6 @@ void main_impl()
 	}
 
 	{
-		FPU::m24r();
 		InitEngine();
 
 		InitInput();
