@@ -97,12 +97,12 @@ template <class T, typename C>
 class resptr_core : public C
 {
 protected:
-	typedef C inherited;
-	typedef resptr_core this_type;
-	typedef resptr_core<T, C> self;
+	using inherited = C;
+	using this_type = resptr_core;
+	using self = resptr_core<T, C>;
 public:
 	// construction
-	resptr_core() { C::p_ = 0; }
+	resptr_core() { C::p_ = nullptr; }
 
 	resptr_core(T* p, bool add_ref = true)
 	{
@@ -132,7 +132,7 @@ public:
 	// unspecified bool type
 	typedef T* (resptr_core::*unspecified_bool_type)() const;
 	operator unspecified_bool_type() const { return inherited::p_ == 0 ? 0 : &resptr_core::_get; }
-	bool operator!() const { return inherited::p_ == 0; }
+	bool operator!() const { return inherited::p_ == nullptr; }
 
 	// fast swapping
 	void swap(self& rhs)
