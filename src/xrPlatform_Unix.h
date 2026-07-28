@@ -669,9 +669,12 @@ typedef const GUID *REFGUID;
 
 #ifdef __cplusplus
 
-inline void stub_unix() {
-  // todo:
+static inline void stub_unix(const char* f) {
+
+  fprintf(stderr, "function: %s\n", f);
+  fprintf(stderr, "stub");
 }
+
 typedef LONG SCODE;
 typedef unsigned long long ULONGLONG;
 typedef short VARIANT_BOOL;
@@ -799,23 +802,23 @@ typedef const PROPVARIANT &REFPROPVARIANT;
 
 struct IPropertyStore {
   STDMETHOD(GetCount)(DWORD *cProps) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(GetAt)(DWORD iProp, PROPERTYKEY *pkey) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(GetValue)(REFPROPERTYKEY key, PROPVARIANT *pv) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(SetValue)(REFPROPERTYKEY key, REFPROPVARIANT propvar) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(Commit)() {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
 };
@@ -823,56 +826,56 @@ struct IPropertyStore {
 struct IMMDevice {
   STDMETHOD(Activate)(REFIID iid, DWORD dwClsCtx,
                       PROPVARIANT *pActivationParams, void **ppInterface) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(OpenPropertyStore)(DWORD stgmAccess,
                                IPropertyStore **ppProperties) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(GetId)(LPWSTR *ppstrId) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(GetState)(DWORD *pdwState) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
 };
 
 struct IMMNotificationClient {
   STDMETHOD(OnDeviceStateChanged)(LPCWSTR pwstrDeviceId, DWORD dwNewState) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(OnDeviceAdded)(LPCWSTR pwstrDeviceId) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(OnDeviceRemoved)(LPCWSTR pwstrDeviceId) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(OnDefaultDeviceChanged)(EDataFlow flow, ERole role,
                                     LPCWSTR pwstrDefaultDeviceId) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(OnPropertyValueChanged)(LPCWSTR pwstrDeviceId,
                                     const PROPERTYKEY key) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
 };
 
 struct IMMDeviceCollection {
   STDMETHOD(GetCount)(UINT *pcDevices) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
   STDMETHOD(Item)(UINT nDevice, IMMDevice **ppDevice) {
-    stub_unix();
+    stub_unix(__func__);
     return S_OK;
   }
 };
@@ -880,396 +883,370 @@ struct IMMDeviceCollection {
 struct IMMDeviceEnumerator {
   STDMETHOD(EnumAudioEndpoints)(EDataFlow dataFlow, DWORD dwStateMask,
                                 IMMDeviceCollection **ppDevices) {
-    stub_unix();
+    stub_unix(__func__);
   }
   STDMETHOD(GetDefaultAudioEndpoint)(EDataFlow dataFlow, ERole role,
                                      IMMDevice **ppEndpoint) {
-    stub_unix();
+    stub_unix(__func__);
   }
-  STDMETHOD(GetDevice)(LPCWSTR pwstrId, IMMDevice **ppEndpoint) { stub_unix(); }
+  STDMETHOD(GetDevice)(LPCWSTR pwstrId, IMMDevice **ppEndpoint) { stub_unix(__func__); }
   STDMETHOD(RegisterEndpointNotificationCallback)(
       IMMNotificationClient *pClient) {
-    stub_unix();
+    stub_unix(__func__);
   }
   STDMETHOD(UnregisterEndpointNotificationCallback)(
       IMMNotificationClient *pClient) {
-    stub_unix();
+    stub_unix(__func__);
   }
 };
 
-inline bool WriteFile(HANDLE hFile, LPCVOID lpBuffer,
-                      DWORD nNumberOfBytesToWrite,
-                      LPDWORD lpNumberOfBytesWritten,
-                      LPOVERLAPPED lpOverlapped) {
-  stub_unix();
+
+inline bool ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead,
+                     LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped) {
+  stub_unix(__func__);
 }
 
 inline HANDLE CreateMutex(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner,
                     LPCSTR lpName) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline HWND GetDlgItem(HWND hDlg, int nIDDlgItem) { stub_unix(); }
+inline HWND GetDlgItem(HWND hDlg, int nIDDlgItem) { stub_unix(__func__); }
 
-inline VOID PostQuitMessage(int nExitCode) { stub_unix(); }
-inline BOOL FreeLibrary(HMODULE hLibModule) { stub_unix(); }
+inline VOID PostQuitMessage(int nExitCode) { stub_unix(__func__); }
+inline BOOL FreeLibrary(HMODULE hLibModule) { stub_unix(__func__); }
 
-inline bool ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead,
-                     LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped) {
-  stub_unix();
-}
-inline bool CloseHandle(HANDLE hObject) { stub_unix(); }
+
+inline bool CloseHandle(HANDLE hObject) { stub_unix(__func__); }
 inline HANDLE CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes,
                           bool bManualReset, bool bInitialState,
                           LPCSTR lpName) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline uint64_t __rdtsc() {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 
-inline bool GetMailslotInfo(HANDLE hMailslot, LPDWORD lpMaxMessageSize,
-                            LPDWORD lpNextSize, LPDWORD lpMessageCount,
-                            LPDWORD lpReadTimeout) {
-  stub_unix();
-}
 inline HANDLE CreateFile(LPCSTR lpFileName, DWORD dwDesiredAccess,
                          DWORD dwShareMode,
                          LPSECURITY_ATTRIBUTES lpSecurityAttributes,
                          DWORD dwCreationDisposition,
                          DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline bool GetProcessAffinityMask(HANDLE hProcess, PDWORD_PTR lpProcessAffinityMask,
                             PDWORD_PTR lpSystemAffinityMask) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline void GetSystemTime(SYSTEMTIME *st) { stub_unix(); }
-inline void GetLocalTime(SYSTEMTIME *st) { stub_unix(); }
-inline bool SetEvent(HANDLE hEvent) { stub_unix(); }
+inline void GetSystemTime(SYSTEMTIME *st) { stub_unix(__func__); }
+inline void GetLocalTime(SYSTEMTIME *st) { stub_unix(__func__); }
+inline bool SetEvent(HANDLE hEvent) { stub_unix(__func__); }
 inline DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline bool SwitchToThread() { stub_unix(); }
-inline bool GetComputerName(LPSTR lpBuffer, LPDWORD nSize) { stub_unix(); }
-inline bool GetClientRect(HWND hWnd, LPRECT lpRect) { stub_unix(); }
-inline bool ClipCursor(const RECT *lpRect = nullptr) { stub_unix(); }
-inline int GetSystemMetrics(int nIndex) { stub_unix(); }
-inline bool UpdateWindow(HWND hWnd) { stub_unix(); }
-inline bool ShowWindow(HWND hWnd, int nCmdShow) { stub_unix(); }
-inline bool DestroyWindow(HWND hWnd) { stub_unix(); }
+inline bool SwitchToThread() { stub_unix(__func__); }
+inline bool ClipCursor(const RECT *lpRect = nullptr) { stub_unix(__func__); }
+inline bool UpdateWindow(HWND hWnd) { stub_unix(__func__); }
+inline bool ShowWindow(HWND hWnd, int nCmdShow) { stub_unix(__func__); }
+inline bool DestroyWindow(HWND hWnd) { stub_unix(__func__); }
 inline int MapWindowPoints(HWND hWndFrom, HWND hWndTo, LPPOINT lpPoints,
                     unsigned int cPoints) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline HINSTANCE ShellExecute(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile,
                        LPCSTR lpParameters, LPCSTR lpDirectory, int nShowCmd) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline DWORD GetModuleFileName(HMODULE hModule, LPSTR lpFilename, DWORD nSize) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline DWORD GetFullPathName(LPCSTR lpFileName, DWORD nBufferLength, LPSTR lpBuffer,
                       LPSTR *lpFilePart) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline HWND GetForegroundWindow() { stub_unix(); }
-inline DWORD CommDlgExtendedError() { stub_unix(); }
-inline BOOL IsDebuggerPresent() { stub_unix(); }
-inline LPSTR GetCommandLine() { stub_unix(); }
-inline unsigned int _clear87(void) { stub_unix(); }
-inline HWND GetActiveWindow() { stub_unix(); }
-inline HMODULE LoadLibrary(LPCSTR lpLibFileName) { stub_unix(); }
-inline int ShowCursor(BOOL bShow) { stub_unix(); }
-inline LONG InterlockedExchange(LONG volatile *Target, LONG Value) { stub_unix(); }
-inline DWORD GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh) { stub_unix(); }
+inline HWND GetForegroundWindow() { stub_unix(__func__); }
+inline DWORD CommDlgExtendedError() { stub_unix(__func__); }
+inline BOOL IsDebuggerPresent() { stub_unix(__func__); }
+inline LPSTR GetCommandLine() { stub_unix(__func__); }
+inline unsigned int _clear87(void) { stub_unix(__func__); }
+inline HWND GetActiveWindow() { stub_unix(__func__); }
+inline HMODULE LoadLibrary(LPCSTR lpLibFileName) { stub_unix(__func__); }
+inline LONG InterlockedExchange(LONG volatile *Target, LONG Value) { stub_unix(__func__); }
+inline DWORD GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh) { stub_unix(__func__); }
 inline void MoveMemory(PVOID Destination, const void *Source, SIZE_T Length) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline HMODULE GetModuleHandle(LPCSTR lpModuleName) { stub_unix(); }
-inline DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer) { stub_unix(); }
-inline BOOL GetUserName(LPSTR lpBuffer, LPDWORD pcbBuffer) { stub_unix(); }
-inline BOOL TerminateProcess(HANDLE hProcess, UINT uExitCode) { stub_unix(); }
-inline unsigned int _control87(unsigned int n, unsigned int mask) { stub_unix(); }
-inline unsigned int _controlfp(unsigned int n, unsigned int mask) { stub_unix(); }
+inline HMODULE GetModuleHandle(LPCSTR lpModuleName) { stub_unix(__func__); }
+inline DWORD GetCurrentDirectory(DWORD nBufferLength, LPTSTR lpBuffer) { stub_unix(__func__); }
+inline BOOL GetUserName(LPSTR lpBuffer, LPDWORD pcbBuffer) { stub_unix(__func__); }
+inline BOOL TerminateProcess(HANDLE hProcess, UINT uExitCode) { stub_unix(__func__); }
+inline unsigned int _control87(unsigned int n, unsigned int mask) { stub_unix(__func__); }
+inline unsigned int _controlfp(unsigned int n, unsigned int mask) { stub_unix(__func__); }
 inline int __control87_2(unsigned int n, unsigned int mask, unsigned int *x86_cw,
                   unsigned int *sse2_cw) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline int _read(int const fd, void *const buffer, unsigned const buffer_size) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline int _write(int fd, const void *buffer, unsigned int count) { stub_unix(); }
-inline void GetSystemInfo(SYSTEM_INFO *si) { stub_unix(); }
-inline BOOL GetOpenFileName(OPENFILENAME *ofn) { stub_unix(); }
-inline BOOL GetSaveFileName(OPENFILENAME *ofn) { stub_unix(); }
+inline int _write(int fd, const void *buffer, unsigned int count) { stub_unix(__func__); }
+inline BOOL GetOpenFileName(OPENFILENAME *ofn) { stub_unix(__func__); }
+inline BOOL GetSaveFileName(OPENFILENAME *ofn) { stub_unix(__func__); }
 inline void MessageBox(HWND hWnd, const char *text, const char *caption,
                        uint32_t type) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline DWORD GetLastError() { stub_unix(); }
-inline void LocalFree(void *mem) { stub_unix(); }
-inline void CoInitializeEx(void *, uint32_t) { stub_unix(); }
+inline DWORD GetLastError() { stub_unix(__func__); }
+inline void LocalFree(void *mem) { stub_unix(__func__); }
+inline void CoInitializeEx(void *, uint32_t) { stub_unix(__func__); }
 inline void DXGetErrorDescription(uint32_t code, char *buf, size_t size) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline void FormatMessage(uint32_t flags, void *, uint32_t, uint32_t, char *buf,
                           size_t size, void *) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline HWND GetTopWindow(HWND hWnd) { stub_unix(); }
+inline HWND GetTopWindow(HWND hWnd) { stub_unix(__func__); }
 inline void *MapViewOfFile(HANDLE hMap, uint32_t access, uint32_t offHigh,
                            uint32_t offLow, size_t sz) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline BOOL UnmapViewOfFile(void *addr) { stub_unix(); }
+inline BOOL UnmapViewOfFile(void *addr) { stub_unix(__func__); }
 inline HANDLE CreateFileMapping(HANDLE h, void *, uint32_t protect,
                                 uint32_t sizeHigh, uint32_t sizeLow,
                                 const char *name) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline DWORD GetProcAddress(HANDLE hModule, const char *name) { stub_unix(); }
-inline const char *_sys_errlist_get(int idx) { stub_unix(); }
+inline DWORD GetProcAddress(HANDLE hModule, const char *name) { stub_unix(__func__); }
+inline const char *_sys_errlist_get(int idx) { stub_unix(__func__); }
 inline intptr_t _findfirst64i32(const char *filespec,
                                 _finddata64i32_t *fileinfo) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline int _findnext64i32(intptr_t handle, _finddata64i32_t *fileinfo) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline int _findclose(intptr_t handle) { stub_unix(); }
+inline int _findclose(intptr_t handle) { stub_unix(__func__); }
 inline int _sopen(const char *path, int oflag, int shflag, ...) {
-  stub_unix();
+  stub_unix(__func__);
   return -1;
 }
 inline int _sopen_s(...) {
-  stub_unix();
+  stub_unix(__func__);
   return -1;
 }
-inline long _filelength(int fd) {
-  stub_unix();
-  return 0;
-}
 inline long filelength(int fd) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline uint32_t SetFilePointer(HANDLE h, int32_t dist, void *,
                                uint32_t method) {
-  stub_unix();
-  return 0;
-}
-inline BOOL IsBadReadPtr(void *, size_t) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline void RaiseException(uint32_t, uint32_t, uint32_t, uintptr_t *) {
-  stub_unix();
+  stub_unix(__func__);
 }
 inline BOOL SetPriorityClass(HANDLE, uint32_t) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline uint32_t timeGetTime() {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline BOOL QueryPerformanceCounter(PLARGE_INTEGER *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline BOOL QueryPerformanceFrequency(PLARGE_INTEGER *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline uintptr_t _beginthread(void (*)(void *), uint32_t, void *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline int vsprintf_s(char *, const char *, va_list) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline int _utime(const char *, struct _utimbuf *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
-inline void SendMessage(HWND, uint32_t, BOOL, LPARAM) { stub_unix(); }
+inline void SendMessage(HWND, uint32_t, BOOL, LPARAM) { stub_unix(__func__); }
 inline intptr_t _findfirst(const char *, void *) {
-  stub_unix();
+  stub_unix(__func__);
   return -1;
 }
 inline int _findnext(intptr_t, void *) {
-  stub_unix();
+  stub_unix(__func__);
   return -1;
 }
 inline int _set_new_mode(int) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 
 inline FILE *_fdopen(int fd, const char *mode) {
-  stub_unix();
+  stub_unix(__func__);
   return nullptr;
 }
 inline int _vsnprintf(char *, size_t, const char *, ...) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline int _mkdir(const char *path) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline int _rmdir(const char *path) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
-inline void _tzset() { stub_unix(); }
+inline void _tzset() { stub_unix(__func__); }
 inline int _close(int fd) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline uint64_t _strtoui64(const char *, char **, int) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline int64_t _atoi64(const char *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 
-inline BOOL GetCursorPos(LPPOINT lpPoint) { stub_unix(); }
+inline BOOL GetCursorPos(LPPOINT lpPoint) { stub_unix(__func__); }
 
 inline BOOL TryEnterCriticalSection(CRITICAL_SECTION *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
-inline HGLOBAL GlobalAlloc(uint32_t, size_t) { stub_unix(); }
-inline void *GlobalLock(HGLOBAL) { stub_unix(); }
+inline HGLOBAL GlobalAlloc(uint32_t, size_t) { stub_unix(__func__); }
+inline void *GlobalLock(HGLOBAL) { stub_unix(__func__); }
 inline BOOL GlobalUnlock(HGLOBAL) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
-inline HGLOBAL GetClipboardData(uint32_t) { stub_unix(); }
+inline HGLOBAL GetClipboardData(uint32_t) { stub_unix(__func__); }
 inline BOOL SetClipboardData(uint32_t, HGLOBAL) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline BOOL OpenClipboard(HWND) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline BOOL CloseClipboard() {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline BOOL EmptyClipboard() {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
 inline int _heapwalk(_HEAPINFO *) {
-  stub_unix();
+  stub_unix(__func__);
   return 0;
 }
-inline void InitializeCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
-inline void DeleteCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
-inline void EnterCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
-inline void LeaveCriticalSection(CRITICAL_SECTION *) { stub_unix(); }
+inline void InitializeCriticalSection(CRITICAL_SECTION *) { stub_unix(__func__); }
+inline void DeleteCriticalSection(CRITICAL_SECTION *) { stub_unix(__func__); }
+inline void EnterCriticalSection(CRITICAL_SECTION *) { stub_unix(__func__); }
+inline void LeaveCriticalSection(CRITICAL_SECTION *) { stub_unix(__func__); }
 
 inline LRESULT SetWindowLongPtr(void *hWnd, int nIndex, LRESULT dwNewLong) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline bool SetWindowPos(void *hWnd, void *hWndInsertAfter, int X, int Y, int cx,
                   int cy, unsigned int uFlags) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 
-inline void *SetActiveWindow(void *hWnd) { stub_unix(); }
+inline void *SetActiveWindow(void *hWnd) { stub_unix(__func__); }
 
-inline void *SelectObject(void *hdc, void *h) { stub_unix(); }
+inline void *SelectObject(void *hdc, void *h) { stub_unix(__func__); }
 
-inline unsigned int SetTextColor(void *hdc, unsigned int color) { stub_unix(); }
+inline unsigned int SetTextColor(void *hdc, unsigned int color) { stub_unix(__func__); }
 
-inline unsigned int SetBkColor(void *hdc, unsigned int color) { stub_unix(); }
+inline unsigned int SetBkColor(void *hdc, unsigned int color) { stub_unix(__func__); }
 
-inline void *MonitorFromWindow(void *hwnd, unsigned int dwFlags) { stub_unix(); }
+inline void *MonitorFromWindow(void *hwnd, unsigned int dwFlags) { stub_unix(__func__); }
 
-inline bool GetMonitorInfoA(void *hMonitor, MONITORINFO *lpmi) { stub_unix(); }
+inline bool GetMonitorInfoA(void *hMonitor, MONITORINFO *lpmi) { stub_unix(__func__); }
 
-inline void *GetDesktopWindow(void) { stub_unix(); }
+inline void *GetDesktopWindow(void) { stub_unix(__func__); }
 
 inline bool EnumDisplaySettings(const char *lpszDeviceName, unsigned int iModeNum,
                          DEVMODE *lpDevMode) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline long _InterlockedCompareExchange(long *Destination, long Exchange,
                                  long Comperand) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
-inline int ReleaseDC(void *hWnd, void *hDC) { stub_unix(); }
+inline int ReleaseDC(void *hWnd, void *hDC) { stub_unix(__func__); }
 
-inline int FillRect(void *hDC, const void *lprc, void *hbr) { stub_unix(); }
+inline int FillRect(void *hDC, const void *lprc, void *hbr) { stub_unix(__func__); }
 
 inline bool InvalidateRect(void *hWnd, const void *lpRect, bool bErase) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 
-inline bool GetWindowInfo(void *hwnd, WINDOWINFO *pwi) { stub_unix(); }
+inline bool GetWindowInfo(void *hwnd, WINDOWINFO *pwi) { stub_unix(__func__); }
 
 inline int MultiByteToWideChar(unsigned int CodePage, unsigned long dwFlags,
                         const char *lpMultiByteStr, int cbMultiByte,
                         wchar_t *lpWideCharStr, int cchWideChar) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
-inline bool ClientToScreen(void *hWnd, void *lpPoint) { stub_unix(); }
+inline bool ClientToScreen(void *hWnd, void *lpPoint) { stub_unix(__func__); }
 
-inline bool SetCursorPos(int X, int Y) { stub_unix(); }
+inline bool SetCursorPos(int X, int Y) { stub_unix(__func__); }
 
 inline SIZE_T VirtualQuery(LPCVOID lpAddress, PMEMORY_BASIC_INFORMATION lpBuffer,
                     SIZE_T dwLength) {
-  stub_unix();
-}
-
-inline int _splitpath_s(const char *path, char *drive, size_t driveSize,
-                        char *dir, size_t dirSize, char *fname,
-                        size_t fnameSize, char *ext, size_t extSize) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline int _ui64toa_s(uint64_t val, char *buf, size_t size, int radix) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline int _i64toa_s(int64_t val, char *buf, size_t size, int radix) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline int wcstombs_s(size_t *ret, char *dst, size_t size, const wchar_t *src,
                       size_t count) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline BOOL SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
-  stub_unix();
+  stub_unix(__func__);
 }
-inline BOOL GetWindowRect(HWND hWnd, LPRECT lpRect) { stub_unix(); }
+inline BOOL GetWindowRect(HWND hWnd, LPRECT lpRect) { stub_unix(__func__); }
 
 inline LRESULT DefWindowProcW(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
-  stub_unix();
+  stub_unix(__func__);
 }
 
-inline void CopyMemory(PVOID Destination, const VOID *Source, SIZE_T Length) {
-  stub_unix();
-}
+
 
 // not stubs////////////////////////////////////////////////////////////////////
+
+inline void CopyMemory(PVOID Destination, const VOID *Source, SIZE_T Length) {
+  memcpy(Destination, Source, Length);
+}
 
 inline void _strdate(char *buf) {
   time_t t = time(nullptr);
@@ -1330,31 +1307,15 @@ template <size_t size> inline int _strupr_s(char (&str)[size]) {
   return _strupr_s(str, size);
 }
 
-inline int strncpy_s(char *strDest, size_t numberOfElements,
-                     const char *strSource, size_t count) {
-  return strncpy_s(strDest, numberOfElements, strSource, count);
-}
-
-template <size_t size>
-inline int strncpy_s(char (&strDest)[size], const char *strSource,
-                     size_t count) {
-  return strncpy_s(strDest, size, strSource, count);
-}
 
 template <typename... Args>
 inline int sscanf_s(const char *buffer, const char *format, Args... args) {
   return sscanf(buffer, format, args...);
 }
 
-
-inline void _splitpath(const char *path, char *drive, char *dir, char *fname,
-                       char *ext) {
-            stub_unix();
-}
-
 inline void strncat_s(char* dest, size_t destSize, const char* src, size_t count)
 {
-  stub_unix();
+  stub_unix(__func__);
 }
 
 inline char *_itoa(int i, char *s, int dummy_radix) {
@@ -1367,5 +1328,37 @@ inline char *_itoa(int i, char *s, int dummy_radix) {
 inline DWORD GetCurrentProcessId() { return (DWORD)getpid(); }
 
 inline HANDLE GetCurrentProcess() { return (HANDLE)(uintptr_t)getpid(); }
+
+
+
+//// not stubs
+#include <filesystem>
+inline size_t FileSize(std::filesystem::path file)
+{
+	auto* handle = fopen(file.c_str(), "rb");
+
+	if (handle == nullptr)
+		return 0;
+
+	auto pos = ftell(handle);
+	fseek(handle, 0, SEEK_END);
+	size_t size = ftell(handle);
+	fseek(handle, pos, SEEK_SET);
+	fclose(handle);
+	
+	return size;
+}
+
+// use default version later
+inline char* strncpy_s(char *strDest, size_t numberOfElements,
+                     const char *strSource, size_t count) {
+  return strncpy(strDest, strSource, count);
+}
+
+template <size_t size>
+inline char* strncpy_s(char (&strDest)[size], const char *strSource,
+                     size_t count) {
+  return strncpy_s(strDest, size, strSource, count);
+}
 
 #endif
