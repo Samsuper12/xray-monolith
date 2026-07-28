@@ -4,7 +4,6 @@
 #include "UIOptConCom.h"
 //#include "game_base_space.h"
 #include "gametype_chooser.h"
-#include "RegistryFuncs.h"
 #include "UICDkey.h"
 
 xr_token g_GameModes [] = {

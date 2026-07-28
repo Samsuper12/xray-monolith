@@ -4,7 +4,6 @@
 #include "../MainMenu.h"
 
 #include "../../xrEngine/XR_IOConsole.h"
-#include "../RegistryFuncs.h"
 #include "player_name_modifyer.h"
 
 //#include <dinput.h>

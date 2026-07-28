@@ -130,8 +130,7 @@ add_module(XRay.Game.Core.Common.Random.Weighted
 
 add_module(XRay.Game.Core.Common.Registry
   SOURCES
-  #RegistryFuncs.cpp
-  RegistryFuncs.h
+
 )
 
 add_module(XRay.Game.Core.Common.Shared

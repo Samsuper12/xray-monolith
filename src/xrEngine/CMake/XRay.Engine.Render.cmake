@@ -1,10 +1,3 @@
-add_module(XRay.Engine.Render.TextConsole
-  SOURCES
-  Text_Console.cpp
-  Text_Console_WndProc.cpp
-  Text_Console.h
-)
-
 add_module(XRay.Engine.Render.Textures
   SOURCES
   tntQAVI.cpp

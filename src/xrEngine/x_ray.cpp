@@ -37,7 +37,6 @@
 #include "GameFont.h"
 #include "resource.h"
 #include "LightAnimLibrary.h"
-#include "Text_Console.h"
 #include "profiler.h"
 #include "xrSASH.h"
 //#include "securom_api.h"
@@ -224,9 +223,7 @@ PROTECT_API void InitConsole()
 	////SECUROM_MARKER_SECURITY_ON(5)
 
 #ifdef DEDICATED_SERVER
-    {
-        Console = xr_new<CTextConsole>();
-    }
+
 #else
 	// else
 	{
@@ -573,7 +570,7 @@ void Startup()
 	if (Core.Params.load) Console->Execute(args::get(Core.Params.load).c_str());
 	
 	// Initialize APP
-	ShowWindow(Device.m_hWnd, SW_SHOWNORMAL);
+	//ShowWindow(Device.m_hWnd, SW_SHOWNORMAL);
 	Device.Create();
 
 	LALib.OnCreate();
@@ -841,8 +838,6 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
 	if (E == eQuit)
 	{
 		g_SASH.EndBenchmark();
-
-		PostQuitMessage(0);
 
 		for (u32 i = 0; i < Levels.size(); i++)
 		{

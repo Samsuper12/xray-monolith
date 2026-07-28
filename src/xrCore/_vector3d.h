@@ -5,6 +5,7 @@
 #include <_std_extensions.h>
 #include "math_constants.h"
 #include "math_funcs_inline.h"
+#include <algorithm>
 
 class CRenderDevice;
 extern ENGINE_API CRenderDevice Device;

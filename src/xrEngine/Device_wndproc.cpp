@@ -3,7 +3,7 @@
 bool CRenderDevice::on_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& result)
 {
 	//FIXME:
-	{ stub_unix(); }
+	{ stub_unix(__func__); }
 // 	switch (uMsg)
 // 	{
 // 	case WM_SYSKEYDOWN:

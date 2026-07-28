@@ -14,10 +14,6 @@ private:
 	crashhandler* handler;
 
 public:
-	void _initialize(const bool& dedicated) {stub_unix();}
-	void _destroy();
-
-public:
 
 	LPCSTR error2string(long code);
 

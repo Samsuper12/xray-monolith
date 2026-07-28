@@ -58,6 +58,8 @@ target_link_libraries(XRay.Core.Includes INTERFACE
   taywee::args
   fmt::fmt-header-only
   Boost::stacktrace_basic
+  Boost::interprocess
+  Boost::headers 
 )
 
 

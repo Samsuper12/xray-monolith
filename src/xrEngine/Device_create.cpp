@@ -106,7 +106,7 @@ void CRenderDevice::_Create(LPCSTR shName)
 	_SetupStates();
 
 	m_pRender->OnDeviceCreate(shName);
-	m_imgui.OnDeviceCreate();
+	//TODO: disable imgui for now. m_imgui.OnDeviceCreate();
 	dwFrame = 0;
 }
 
@@ -176,6 +176,10 @@ PROTECT_API void CRenderDevice::Create()
 
 	fFOV = 90.f;
 	fASPECT = 1.f;
+	//FIXME: hardcoded for now
+	dwWidth = 1920;
+	dwHeight = 1080;
+
 	m_pRender->Create(
 		m_window,
 		dwWidth,
@@ -189,24 +193,15 @@ PROTECT_API void CRenderDevice::Create()
 	);
 
 	if (g_screenmode == 1)
-	{
-		u32 w, h;
-		GetMonitorResolution(w, h);
-		SetWindowLongPtr(Device.m_hWnd, GWL_STYLE, WS_VISIBLE | WS_POPUP);
-		SetWindowPos(Device.m_hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
-	}
+		SDL_SetWindowFullscreen(Device.m_window, true);
 
-	RECT winRect;
-	GetClientRect(m_hWnd, &winRect);
-	MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
-	ClipCursor(&winRect);
-	SetActiveWindow(m_hWnd);
+	SDL_RaiseWindow(Device.m_window);
 
-	string_path fname;
+	std::filesystem::path fname;
 	FS.update_path(fname, "$game_data$", "shaders.xr");
 
 	//////////////////////////////////////////////////////////////////////////
-	_Create(fname);
+	_Create(fname.c_str());
 
 	PreCache(0, false, false);
 

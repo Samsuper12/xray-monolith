@@ -1,7 +1,6 @@
 #include "login_manager.h"
 #include "account_manager.h"
 #include "MainMenu.h"
-#include "RegistryFuncs.h"
 #include "player_name_modifyer.h"
 #include "ui/UICDkey.h"
 #include "secure_messaging.h"

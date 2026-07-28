@@ -670,8 +670,6 @@ void CConsole::Show()
 	}
 	bVisible = true;
 
-	GetCursorPos(&m_mouse_pos);
-
 	ec().clear_states();
 	scroll_delta = 0;
 	reset_cmd_history_idx();

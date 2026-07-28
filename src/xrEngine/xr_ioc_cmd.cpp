@@ -576,20 +576,14 @@ public:
 
 			if (g_screenmode == 0 || g_screenmode == 1)
 			{
-				u32 w, h;
-				GetMonitorResolution(w, h);
-				SetWindowLongPtr(Device.m_hWnd, GWL_STYLE, WS_VISIBLE | WS_POPUP);
-				SetWindowPos(Device.m_hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
+				SDL_SetWindowFullscreen(Device.m_window, g_screenmode != 0 ? true : false);
 
-				if (g_screenmode == 0)
-					SetWindowLongPtr(Device.m_hWnd, GWL_STYLE, WS_VISIBLE | WS_OVERLAPPEDWINDOW);
+				// TODO: check this later.
+				//SetWindowLongPtr(Device.m_hWnd, GWL_STYLE, WS_VISIBLE | WS_POPUP);
+				//if (g_screenmode == 0)
+					//SetWindowLongPtr(Device.m_hWnd, GWL_STYLE, WS_VISIBLE | WS_OVERLAPPEDWINDOW);
 			}
 		}
-
-		RECT winRect;
-		GetClientRect(Device.m_hWnd, &winRect);
-		MapWindowPoints(Device.m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
-		ClipCursor(&winRect);
 	}
 };
 //-----------------------------------------------------------------------

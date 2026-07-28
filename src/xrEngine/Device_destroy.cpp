@@ -26,8 +26,6 @@ void CRenderDevice::Destroy(void)
 
 	Log("Destroying Direct3D...");
 
-	ShowCursor(TRUE);
-	ClipCursor(NULL);
 	m_pRender->ValidateHW();
 
 	_Destroy(FALSE);
@@ -73,7 +71,6 @@ void CRenderDevice::Reset(bool precache)
 	u32 dwWidth_before = dwWidth;
 	u32 dwHeight_before = dwHeight;
 
-	ShowCursor(TRUE);
 	u32 tm_start = TimerAsync();
 
 	m_pRender->Reset(m_window, dwWidth, dwHeight, fWidth_2, fHeight_2);
@@ -106,11 +103,10 @@ void CRenderDevice::Reset(bool precache)
 	}
 
 #ifndef DEDICATED_SERVER
-	ShowCursor(FALSE);
-	RECT winRect;
-	GetClientRect(m_hWnd, &winRect);
-	MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
-	ClipCursor(&winRect);
+	// RECT winRect;
+	// GetClientRect(m_hWnd, &winRect);
+	// MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
+	// ClipCursor(&winRect);
 #endif
 
 	m_imgui.OnDeviceResetEnd();

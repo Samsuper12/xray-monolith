@@ -535,12 +535,7 @@ extern u32 g_screenmode;
 
 void CMainMenu::OnDeviceCreate()
 {
-	RECT winRect;
-	GetClientRect(Device.m_hWnd, &winRect);
-	MapWindowPoints(Device.m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
-	ClipCursor(&winRect);
 }
-
 
 void CMainMenu::Screenshot(IRender_interface::ScreenshotMode mode, LPCSTR name)
 {
@@ -719,9 +714,9 @@ void CMainMenu::OnDownloadPatchProgress(u64 bytesReceived, u64 totalSize)
 	m_sPDProgress.Progress = (float(bytesReceived) / float(totalSize)) * 100.0f;
 };
 
-extern ENGINE_API string512 g_sLaunchOnExit_app;
-extern ENGINE_API string512 g_sLaunchOnExit_params;
-extern ENGINE_API string_path g_sLaunchWorkingFolder;
+string512 g_sLaunchOnExit_app;
+string512 g_sLaunchOnExit_params;
+string_path g_sLaunchWorkingFolder;
 
 void CMainMenu::OnRunDownloadedPatch(CUIWindow*, void*)
 {

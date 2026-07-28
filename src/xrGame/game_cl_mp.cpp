@@ -30,7 +30,6 @@
 #include "clsid_game.h"
 #include "MainMenu.h"
 #include "WeaponKnife.h"
-#include "RegistryFuncs.h"
 #include "screenshot_server.h"
 #include "../xrCore/ppmd_compressor.h"
 #include "../xrCore/rt_compressor.h"

@@ -515,19 +515,18 @@ void CRenderDevice::message_loop()
         return;
     }
 #endif
-	// MSG msg;
-	// PeekMessage(&msg, NULL, 0U, 0U, PM_NOREMOVE);
 	SDL_Event ev;
 	while (true)//msg.message != WM_QUIT)
 	{
-		SDL_PollEvent(&ev);
-
-		if (ev.type == SDL_EVENT_QUIT) {
-			Msg("SDL quie event. BB");
-			break;
+		while(SDL_PollEvent(&ev)) {
+			if (ev.type == SDL_EVENT_QUIT) {
+				Msg("SDL quie event. BB");
+				break;
+			}
+			pSDL3Input->UpdateSDL3Event(ev);
 		}
 
-		pSDL3Input->UpdateSDL3Event(ev);
+
 	// 	  if (Event.type == SDL_EVENT_WINDOW_MOUSE_ENTER) {
     //   } else if (Event.type == SDL_EVENT_WINDOW_MOUSE_LEAVE
 	// } else if (Event.type == SDL_EVENT_QUIT) {
@@ -537,8 +536,6 @@ void CRenderDevice::message_loop()
 		// 	DispatchMessage(&msg);
 		// 	continue;
 		// }
-
-
 
 		on_idle();
 	}
@@ -575,17 +572,17 @@ void CRenderDevice::Run()
 	// DUMP_PHASE;
 	g_bLoaded = FALSE;
 	Log("Starting engine...");
-	thread_name("X-RAY Primary thread");
+	//thread_name("X-RAY Primary thread");
 	// Startup timers and calculate timer delta
 	dwTimeGlobal = 0;
-	Timer_MM_Delta = 0;
-	{
-		u32 time_mm = timeGetTime();
-		while (timeGetTime() == time_mm); // wait for next tick
-		u32 time_system = timeGetTime();
-		u32 time_local = TimerAsync();
-		Timer_MM_Delta = time_system - time_local;
-	}
+	Timer_MM_Delta = 0; // pretty sure that this thing is unused.
+	// {
+	// 	u32 time_mm = timeGetTime();
+	// 	while (timeGetTime() == time_mm); // wait for next tick
+	// 	u32 time_system = timeGetTime();
+	// 	u32 time_local = TimerAsync();
+	// 	Timer_MM_Delta = time_system - time_local;
+	// }
 	// Start all threads
 	// InitializeCriticalSection (&mt_csEnter);
 	// InitializeCriticalSection (&mt_csLeave);
@@ -763,21 +760,15 @@ void CRenderDevice::OnWM_Activate(WPARAM wParam, LPARAM lParam)
 
 			if (Device.b_hide_cursor)
 			{
-				ShowCursor(FALSE);
-				if (m_hWnd)
-				{
-					RECT winRect;
-					GetClientRect(m_hWnd, &winRect);
-					MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
-					ClipCursor(&winRect);
-				}
+				//ShowCursor(FALSE);
+
 				//pInput->OnAppActivate();
 				pSDL3Input->OnAppActivate();
 			}
 			else
 			{
-				ShowCursor(TRUE);
-				ClipCursor(NULL);
+				// ShowCursor(TRUE);
+				// ClipCursor(NULL);
 				//pInput->OnAppDeactivate();
 				pSDL3Input->OnAppDeactivate();
 
@@ -800,22 +791,15 @@ void CRenderDevice::OnWM_Activate(WPARAM wParam, LPARAM lParam)
 # ifdef INGAME_EDITOR
             if (!editor())
 # endif // #ifdef INGAME_EDITOR
-			ShowCursor(FALSE);
-			if (m_hWnd)
-			{
-				RECT winRect;
-				GetClientRect(m_hWnd, &winRect);
-				MapWindowPoints(m_hWnd, nullptr, reinterpret_cast<LPPOINT>(&winRect), 2);
-				ClipCursor(&winRect);
-			}
+			//ShowCursor(FALSE);
+
 #endif // #ifndef DEDICATED_SERVER
 		}
 		else
 		{
 			app_inactive_time_start = TimerMM.GetElapsed_ms();
 			Device.seqAppDeactivate.Process(rp_AppDeactivate);
-			ShowCursor(TRUE);
-			ClipCursor(NULL);
+			//ShowCursor(TRUE);
 		}
 	}
 }
