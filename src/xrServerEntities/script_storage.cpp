@@ -396,6 +396,13 @@ bool LoadKernelScriptToGlobal(lua_State* L, const char* name)
 	return true;
 };
 
+static void *l_alloc(void *ud, void *ptr, size_t osize, size_t nsize) {
+    (void)ud; (void)osize;
+    if (nsize == 0) { free(ptr); return NULL; }
+    return realloc(ptr, nsize);
+}
+
+
 BOOL lua_debug = FALSE;
 void CScriptStorage::reinit()
 {
@@ -405,7 +412,7 @@ void CScriptStorage::reinit()
 #ifdef USE_GSC_MEM_ALLOC
     m_virtual_machine = lua_newstate(lua_alloc, NULL);
 #else
-	m_virtual_machine = luaL_newstate();
+	m_virtual_machine = lua_newstate(l_alloc, NULL);
 #endif //-USE_GSC_MEM_ALLOC
 
 	if (!m_virtual_machine)
@@ -819,7 +826,7 @@ bool CScriptStorage::do_file(LPCSTR caScriptName, LPCSTR caNameSpaceName)
 			for(const auto& f : file_list) {
 				if (f.extension() != ".ltx")
 					continue;
-
+				
 				std::fs::path file_name;
 				NeedAttention("std::fs::path(unlocalizers) / f. It can grep anything");
 				FS.update_path(file_name, "$game_config$", std::fs::path("unlocalizers") / f);
