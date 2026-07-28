@@ -5,10 +5,6 @@
 #include <sstream>
 #include <string>
 
-#ifdef _EDITOR
-#include <malloc.h>
-#endif
-
 #include <string_concatenations.h>
 
 #include "xrCore.h"
@@ -17,6 +13,12 @@
 #include "resource.h"
 #include "log.h"
 #include "profiler.h"
+
+#include <fmt/ostream.h>
+#include <fmt/compile.h>
+
+// static fmt::memory_buffer m_logbuf;
+// static fmt::ostream m_logfile;
 
 extern BOOL LogExecCB = TRUE;
 static string_path logFName = "engine.log";
@@ -30,10 +32,37 @@ static xrCriticalSection logCS;
 xr_vector<shared_str>* LogFile = NULL;
 static LogCallback LogCB = 0;
 
+void InitLog()
+{
+	R_ASSERT(LogFile == NULL);
+	LogFile = xr_new<xr_vector<shared_str>>();
+	LogFile->reserve(1000);
+}
+
+void CreateLog(BOOL nl)
+{
+	no_log = nl;
+	strconcat(sizeof(log_file_name), log_file_name, Core.ApplicationName.c_str(), "_", Core.UserName.c_str(), ".log");
+	if (FS.path_exist("$logs$"))
+		FS.update_path(logFName, "$logs$", log_file_name);
+	if (!no_log)
+	{
+		//Alun: Backup existing log
+		xr_string backup_logFName = EFS.ChangeFileExt(logFName, ".bkp");
+		FS.file_rename(logFName, backup_logFName.c_str(), true);
+		//-Alun
+		IWriter* f = FS.w_open(logFName);
+		if (f == NULL)
+		{
+			MessageBox(NULL, "Can't create log file.", "Error", MB_ICONERROR);
+			abort();
+		}
+		FS.w_close(f);
+	}
+}
+
 void FlushLog()
 {
-	PROF_EVENT();
-
 	if (!no_log && LogFile != nullptr)
 	{
 		PROF_EVENT("Flushing");
@@ -104,7 +133,6 @@ void AddOne(const char* split)
     OutputDebugString("\n");
 #endif
 
-	// DUMP_PHASE;
 	{
 		// demonized: add timestamps to log
 		std::string t = split;
@@ -184,12 +212,12 @@ void Log(const char* s)
 	AddOne(split);
 }
 
-void __cdecl Msg(const char* format, ...)
+void Msg(const char* format, ...)
 {
 	va_list mark;
 	string2048 buf;
 	va_start(mark, format);
-	_vsnprintf(buf, sizeof(buf) - 1, format, mark);
+	vsnprintf(buf, sizeof(buf) - 1, format, mark);
 	buf[sizeof(buf) - 1] = 0;
 	va_end(mark);
 	Log(buf);
@@ -279,34 +307,6 @@ LPCSTR log_name()
 	return (log_file_name);
 }
 
-void InitLog()
-{
-	R_ASSERT(LogFile == NULL);
-	LogFile = xr_new<xr_vector<shared_str>>();
-	LogFile->reserve(1000);
-}
-
-void CreateLog(BOOL nl)
-{
-	no_log = nl;
-	strconcat(sizeof(log_file_name), log_file_name, Core.ApplicationName.c_str(), "_", Core.UserName.c_str(), ".log");
-	if (FS.path_exist("$logs$"))
-		FS.update_path(logFName, "$logs$", log_file_name);
-	if (!no_log)
-	{
-		//Alun: Backup existing log
-		xr_string backup_logFName = EFS.ChangeFileExt(logFName, ".bkp");
-		FS.file_rename(logFName, backup_logFName.c_str(), true);
-		//-Alun
-		IWriter* f = FS.w_open(logFName);
-		if (f == NULL)
-		{
-			MessageBox(NULL, "Can't create log file.", "Error", MB_ICONERROR);
-			abort();
-		}
-		FS.w_close(f);
-	}
-}
 
 void CloseLog(void)
 {
