@@ -50,7 +50,7 @@ DWORD countSetBits(ULONG_PTR bitMask)
 
 int _cpuid(_processor_info* pinfo)
 {
-			stub_unix();
+			stub_unix(__func__);
 
 	// ZeroMemory(pinfo, sizeof(_processor_info));
 

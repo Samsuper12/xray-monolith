@@ -48,9 +48,6 @@ ENGINE_API int g_current_renderer = 0;
 ENGINE_API bool is_enough_address_space_available()
 {
 	return true; // we are on 64 bit, so it's always true
-	//SYSTEM_INFO system_info;
-	//    GetSystemInfo(&system_info);
-	//    return (*(u32*)&system_info.lpMaximumApplicationAddress) > 0x90000000;
 }
 
 #ifndef DEDICATED_SERVER
@@ -80,88 +77,14 @@ extern bool DllMainXrRenderRV();
 
 void CEngineAPI::InitializeNotDedicated()
 {
-#ifdef STATIC_RENDERER_RV
-	LPCSTR rv_name = "xrRender_RV.dll";
-	//if (psDeviceFlags.test(rsR4))
-    {
-        // try to initialize R4
-		psDeviceFlags.set(rsR2, FALSE);
-		psDeviceFlags.set(rsR3, FALSE);
-		psDeviceFlags.set(rsR4, FALSE);
 
-		Log("Loading DLL:", rv_name);
-		DllMainXrRenderRV();
-        //hRender = LoadLibrary(r4_name);
-	//if (0 == hRender)
-	//{
-	//    // try to load R1
-	//    Msg("! ...Failed - incompatible hardware/pre-Vista OS.");
-	//    psDeviceFlags.set(rsR2, TRUE);
-        //}
-		g_current_renderer = 5;
-    }
-#endif
+	DllMainXrRenderRV();
 
-#ifdef STATIC_RENDERER_R4
-	LPCSTR r4_name = "xrRender_R4.dll";
-	//if (psDeviceFlags.test(rsR4))
-    {
-        // try to initialize R4
-		psDeviceFlags.set(rsR2, FALSE);
-		psDeviceFlags.set(rsR3, FALSE);
-		Log("Loading DLL:", r4_name);
-		DllMainXrRenderR4(NULL, DLL_PROCESS_ATTACH, NULL);
-        //hRender = LoadLibrary(r4_name);
-	//if (0 == hRender)
-	//{
-	//    // try to load R1
-	//    Msg("! ...Failed - incompatible hardware/pre-Vista OS.");
-	//    psDeviceFlags.set(rsR2, TRUE);
-        //}
-		g_current_renderer = 0;
-    }
-#endif
+	psDeviceFlags.set(rsR2, FALSE);
+	psDeviceFlags.set(rsR3, FALSE);
+	psDeviceFlags.set(rsR4, FALSE);
 
-#ifdef STATIC_RENDERER_R3
-	LPCSTR r3_name = "xrRender_R3.dll";
-	//if (psDeviceFlags.test(rsR3))
-	{
-		// try to initialize R3
-		psDeviceFlags.set(rsR2, FALSE);
-		psDeviceFlags.set(rsR4, FALSE);
-		Log("Loading DLL:", r3_name);
-		DllMainXrRenderR3(NULL, DLL_PROCESS_ATTACH, NULL);
-		//hRender = LoadLibrary(r3_name);
-		//if (0 == hRender)
-		//{
-		//    // try to load R1
-		//    Msg("! ...Failed - incompatible hardware/pre-Vista OS.");
-		//    psDeviceFlags.set(rsR2, TRUE);
-		//}
-		//else
-		g_current_renderer = 3;
-	}
-#endif
-
-#ifdef STATIC_RENDERER_R2
-	LPCSTR r2_name = "xrRender_R2.dll";
-	//if (psDeviceFlags.test(rsR2))
-    {
-        // try to initialize R2
-        psDeviceFlags.set(rsR3, FALSE);
-		psDeviceFlags.set(rsR4, FALSE);
-		Log("Loading DLL:", r2_name);
-		DllMainXrRenderR2(NULL, DLL_PROCESS_ATTACH, NULL);
-		//hRender = LoadLibrary(r2_name);
-	//if (0 == hRender)
-	//{
-	//    // try to load R1
-	//    Msg("! ...Failed - incompatible hardware.");
-	//}
-        //else
-            g_current_renderer = 2;
-    }
-#endif
+	g_current_renderer = 5;
 }
 #endif // DEDICATED_SERVER
 
@@ -175,31 +98,7 @@ void __cdecl xrFactory_Destroy(DLL_Pure* O);
 
 void CEngineAPI::Initialize(void)
 {
-	//////////////////////////////////////////////////////////////////////////
-	// render
-#ifndef DEDICATED_SERVER
 	InitializeNotDedicated();
-#endif // DEDICATED_SERVER
-
-#ifdef STATIC_RENDERER_R1
-	LPCSTR r1_name = "xrRender_R1.dll";
-	//if (0 == hRender)
-    {
-        // try to load R1
-        psDeviceFlags.set(rsR4, FALSE);
-        psDeviceFlags.set(rsR3, FALSE);
-        psDeviceFlags.set(rsR2, FALSE);
-        renderer_value = 0; //con cmd
-
-        Log("Loading DLL:", r1_name);
-		DllMainXrRenderR1(NULL, DLL_PROCESS_ATTACH, NULL);
-		//hRender = LoadLibrary(r1_name);
-	//if (0 == hRender) R_CHK(GetLastError());
-        //R_ASSERT(hRender);
-        g_current_renderer = 1;
-    }
-#endif
-
 	Device.ConnectToRender();
 
 	// game

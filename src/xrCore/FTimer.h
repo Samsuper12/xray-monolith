@@ -3,6 +3,8 @@
 #pragma once
 
 #include <log.h>
+#include <chrono>
+
 
 class CTimer_paused;
 
@@ -22,42 +24,44 @@ extern XRCORE_API pauseMngr& g_pauseMngr();
 
 class XRCORE_API CTimerBase
 {
+public:
+	using duration_t = std::chrono::high_resolution_clock::duration;
+	using time_point_t = std::chrono::high_resolution_clock::time_point;
+	using clock = std::chrono::high_resolution_clock;
+
 protected:
-	u64 qwStartTime;
-	u64 qwPausedTime;
-	u64 qwPauseAccum;
+	time_point_t qwStartTime;
+	duration_t qwPausedTime;
+	duration_t qwPauseAccum;
 	bool bPause;
 public:
-	CTimerBase() : qwStartTime(0), qwPausedTime(0), qwPauseAccum(0), bPause(false)
+
+	CTimerBase() : qwStartTime{}, qwPausedTime{}, qwPauseAccum{}, bPause(false)
 	{
 	}
 
-	ICF void Start()
+	inline void Start()
 	{
 		if (bPause) return;
-		qwStartTime = CPU::QPC() - qwPauseAccum;
+		qwStartTime = (clock::now() - qwPauseAccum);
 	}
 
-	ICF u64 GetElapsed_ticks() const
+	inline duration_t GetElapsed_ticks() const
 	{
 		if (bPause) return qwPausedTime;
-		else return CPU::QPC() - qwStartTime - CPU::qpc_overhead - qwPauseAccum;
+		else return ((clock::now() - qwStartTime) - qwPauseAccum);
 	}
 
-	IC u32 GetElapsed_ms() const { return u32(GetElapsed_ticks() * u64(1000) / CPU::qpc_freq); }
-	IC float GetElapsed_sec() const
+	inline long long GetElapsed_ms() const { 
+		return std::chrono::duration_cast<std::chrono::milliseconds>(GetElapsed_ticks()).count();
+	}
+	inline float GetElapsed_sec() const
 	{
-#ifndef _EDITOR
-		FPU::m64r();
-#endif
-		float _result = float(double(GetElapsed_ticks()) / double(CPU::qpc_freq));
-#ifndef _EDITOR
-		FPU::m24r();
-#endif
-		return _result;
+		std::chrono::duration<float> t = std::chrono::duration_cast<std::chrono::seconds>(GetElapsed_ticks());
+		return t.count();
 	}
 
-	IC void Dump() const
+	inline void Dump() const
 	{
 		Msg("* Elapsed time (sec): %f", GetElapsed_sec());
 	}
@@ -66,86 +70,68 @@ public:
 class XRCORE_API CTimer : public CTimerBase
 {
 private:
-	typedef CTimerBase inherited;
+	using inherited = CTimerBase;
 
 private:
 	float m_time_factor;
-	u64 m_real_ticks;
-	u64 m_ticks;
+	duration_t m_real_ticks;
+	duration_t m_ticks;
 
 private:
-	IC u64 GetElapsed_ticks(const u64& current_ticks) const
+	inline duration_t modif_ticks(duration_t current) const
 	{
-		u64 delta = current_ticks - m_real_ticks;
-		double delta_d = (double)delta;
-		double time_factor_d = time_factor();
-		double time = delta_d * time_factor_d + .5;
-		u64 result = (u64)time;
-		return (m_ticks + result);
+		auto delta = current - m_real_ticks;
+		auto time_factor_d = time_factor();
+		auto time = delta * time_factor_d + std::chrono::nanoseconds{5};
+		return m_ticks + std::chrono::duration_cast<duration_t>(time);
 	}
 
 public:
-	IC CTimer() : m_time_factor(1.f), m_real_ticks(0), m_ticks(0)
+	inline CTimer() : m_time_factor(1.f), m_real_ticks(0), m_ticks(0)
 	{
 	}
 
-	ICF void Start()
+	inline void Start()
 	{
 		if (bPause)
 			return;
 
 		inherited::Start();
 
-		m_real_ticks = 0;
-		m_ticks = 0;
+		m_real_ticks = {};
+		m_ticks = {};
 	}
 
-	IC const float& time_factor() const
+	inline const float& time_factor() const
 	{
 		return (m_time_factor);
 	}
 
-	IC void time_factor(const float& time_factor)
+	inline void time_factor(const float& time_factor)
 	{
-		u64 current = inherited::GetElapsed_ticks();
-		m_ticks = GetElapsed_ticks(current);
+		auto current = inherited::GetElapsed_ticks();
+		m_ticks = modif_ticks(current);
 		m_real_ticks = current;
 		m_time_factor = time_factor;
 	}
 
-	IC u64 GetElapsed_ticks() const
+	inline duration_t GetElapsed_ticks() const
 	{
-#ifndef _EDITOR
-		FPU::m64r();
-#endif // _EDITOR
-
-		u64 result = GetElapsed_ticks(inherited::GetElapsed_ticks());
-
-#ifndef _EDITOR
-		FPU::m24r();
-#endif // _EDITOR
-
-		return (result);
+		return modif_ticks(inherited::GetElapsed_ticks());
 	}
 
-	IC u32 GetElapsed_ms() const
+	inline long long GetElapsed_ms() const
 	{
-		return (u32(GetElapsed_ticks() * u64(1000) / CPU::qpc_freq));
+		return std::chrono::duration_cast<std::chrono::milliseconds>(GetElapsed_ticks()).count();
 	}
 
-	IC float GetElapsed_sec() const
+	inline float GetElapsed_sec() const
 	{
-#ifndef _EDITOR
-		FPU::m64r();
-#endif
-		float result = float(double(GetElapsed_ticks()) / double(CPU::qpc_freq));
-#ifndef _EDITOR
-		FPU::m24r();
-#endif
-		return (result);
+		std::chrono::duration<float> t = std::chrono::duration_cast<std::chrono::seconds>(GetElapsed_ticks());
+		return t.count();
 	}
 
-	IC void Dump() const
+	inline void Dump() const
 	{
 		Msg("* Elapsed time (sec): %f", GetElapsed_sec());
 	}
@@ -153,7 +139,7 @@ public:
 
 class XRCORE_API CTimer_paused_ex : public CTimer
 {
-	u64 save_clock;
+	time_point_t save_clock;
 public:
 	CTimer_paused_ex()
 	{
@@ -163,12 +149,12 @@ public:
 	{
 	}
 
-	IC bool Paused() const { return bPause; }
-	IC void Pause(const bool b)
+	inline bool Paused() const { return bPause; }
+	inline void Pause(const bool b)
 	{
 		if (bPause == b) return;
 
-		u64 _current = CPU::QPC() - CPU::qpc_overhead;
+		auto _current = clock::now();
 		if (b)
 		{
 			save_clock = _current;
@@ -193,9 +179,13 @@ extern XRCORE_API BOOL g_bEnableStatGather;
 
 class XRCORE_API CStatTimer
 {
+	using duration_t = std::chrono::high_resolution_clock::duration;
+	using time_point_t = std::chrono::high_resolution_clock::time_point;
+	using clock = std::chrono::high_resolution_clock;
+
 public:
 	CTimer T;
-	u64 accum;
+	duration_t accum;
 	float result;
 	u32 count;
 public:
@@ -203,32 +193,26 @@ public:
 	void FrameStart();
 	void FrameEnd();
 
-	ICF void Begin()
+	inline void Begin()
 	{
 		if (!g_bEnableStatGather) return;
 		count++;
 		T.Start();
 	}
 
-	ICF void End()
+	inline void End()
 	{
 		if (!g_bEnableStatGather) return;
 		accum += T.GetElapsed_ticks();
 	}
 
-	ICF u64 GetElapsed_ticks() const { return accum; }
+	inline duration_t GetElapsed_ticks() const { return accum; }
 
-	IC u32 GetElapsed_ms() const { return u32(GetElapsed_ticks() * u64(1000) / CPU::qpc_freq); }
-	IC float GetElapsed_sec() const
+	inline long long GetElapsed_ms() const { return std::chrono::duration_cast<std::chrono::milliseconds>(GetElapsed_ticks()).count(); }
+	inline float GetElapsed_sec() const
 	{
-#ifndef _EDITOR
-		FPU::m64r();
-#endif
-		float _result = float(double(GetElapsed_ticks()) / double(CPU::qpc_freq));
-#ifndef _EDITOR
-		FPU::m24r();
-#endif
-		return _result;
+		std::chrono::duration<float> _result = std::chrono::duration_cast<std::chrono::seconds>(GetElapsed_ticks());
+		return _result.count();
 	}
 };
 

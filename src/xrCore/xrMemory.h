@@ -38,7 +38,6 @@ extern XRCORE_API xrMemory Memory;
 #undef CopyMemory
 #undef FillMemory
 #define ZeroMemory(a,b) Memory.mem_fill(a,0,b)
-#define CopyMemory(a,b,c) memcpy(a,b,c) //. CopyMemory(a,b,c)
 #define FillMemory(a,b,c) Memory.mem_fill(a,c,b)
 
 template <class T, class... Args>

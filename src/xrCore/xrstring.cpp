@@ -4,7 +4,7 @@
 #include "FS_impl.h"
 
 XRCORE_API extern str_container* g_pStringContainer = NULL;
-#define HEADER (12 + sizeof(void*)) // ref + len + crc + next
+#define HEADER offsetof(str_value, value)// ref + len + crc + next
 
 #if 1
 

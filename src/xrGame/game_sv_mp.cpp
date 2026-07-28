@@ -2107,14 +2107,14 @@ void game_sv_mp::StartToDumpStatistics()
 		StopToDumpStatistics();
 	}
 
-	xrGameSpyServer* srv = smart_cast<xrGameSpyServer*>(m_server);
-	FS.update_path(round_statistics_dump_fn, "$logs$", "mp_stats\\");
-	string64 t_stamp;
-	timestamp(t_stamp);
-	xr_strcat(round_statistics_dump_fn, srv->HostName.c_str());
-	xr_strcat(round_statistics_dump_fn, "\\games\\dmp");
-	xr_strcat(round_statistics_dump_fn, t_stamp);
-	xr_strcat(round_statistics_dump_fn, ".ltx");
+	// xrGameSpyServer* srv = smart_cast<xrGameSpyServer*>(m_server);
+	// FS.update_path(round_statistics_dump_fn, "$logs$", "mp_stats\\");
+	// string64 t_stamp;
+	// timestamp(t_stamp);
+	// xr_strcat(round_statistics_dump_fn, srv->HostName.c_str());
+	// xr_strcat(round_statistics_dump_fn, "\\games\\dmp");
+	// xr_strcat(round_statistics_dump_fn, t_stamp);
+	// xr_strcat(round_statistics_dump_fn, ".ltx");
 }
 
 void game_sv_mp::StopToDumpStatistics()

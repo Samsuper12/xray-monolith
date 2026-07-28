@@ -1,5 +1,4 @@
 #include "xrCPU_Pipe.h"
-#include "ttapi.h"
 
 //BOOL WINAPI DllMain( HINSTANCE hinstDLL , DWORD fdwReason , LPVOID lpvReserved )
 BOOL DllMainIgnore2(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
@@ -36,26 +35,5 @@ void __cdecl xrBind_PSGP(xrDispatchTable* T, _processor_info* ID)
 	T->skin4W = xrSkin4W_x86;
 	skin4W_func = xrSkin4W_x86;
 	T->PLC_calc3 = PLC_calc3_x86;
-
-#if 0
-		// SSE
-		if ( ID->feature & _CPU_FEATURE_SSE) {
-			T->skin1W	= xrSkin1W_SSE;
-			T->skin2W	= xrSkin2W_SSE;
-			T->skin3W	= xrSkin3W_SSE;
-			T->skin4W	= xrSkin4W_SSE;
-			skin4W_func = xrSkin4W_SSE;
-			T->PLC_calc3 = PLC_calc3_SSE;
-		}
-#endif
-
-	// Init helper threads
-	ttapi_Init(ID);
-
-	if (ttapi_GetWorkersCount() > 1)
-	{
-		// We can use threading
-		T->skin4W = xrSkin4W_thread;
-	}
 }
 };

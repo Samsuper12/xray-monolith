@@ -72,8 +72,6 @@ void xrCore::_initialize(const std::string& ApplicationName)
 
 	if (0 == init_counter)
 	{
-		CPU::Detect();
-
 		Memory._initialize(Params.mem_debug);
 
 		InitLog();
@@ -99,11 +97,8 @@ void xrCore::_initialize(const std::string& ApplicationName)
 #endif // _EDITOR
 		flags |= CLocatorAPI::flScanAppRoot;
 
-#ifndef _EDITOR
-#ifndef ELocatorAPIH
 		if (Params.file_activity) flags |= CLocatorAPI::flDumpFileActivity;
-#endif
-#endif
+
 		bool ltxPresent = Params.fsltx && std::filesystem::exists(args::get(Params.fsltx));
 		FS._initialize(flags, 0, ltxPresent ? args::get(Params.fsltx).c_str() : nullptr);
 		Msg("'%s' build %d, %s\n", "xrCore", build_id, build_date);

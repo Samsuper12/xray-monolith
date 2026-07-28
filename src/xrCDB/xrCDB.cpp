@@ -76,9 +76,6 @@ struct BTHREAD_params
 void MODEL::build_thread(void* params)
 {
 	PROF_EVENT();
-
-	_initialize_cpu_thread();
-	FPU::m64r();
 	BTHREAD_params P = *((BTHREAD_params*)params);
 	P.M->cs.Enter();
 	P.M->build_internal(P.V, P.Vcnt, P.T, P.Tcnt, P.BC, P.BCP);
@@ -92,7 +89,6 @@ void MODEL::build(Fvector* V, int Vcnt, TRI* T, int Tcnt, build_callback* bc, vo
 	R_ASSERT(S_INIT == status);
 	R_ASSERT((Vcnt>=4)&&(Tcnt>=2));
 
-	_initialize_cpu_thread();
 #ifdef _EDITOR
 	build_internal				(V,Vcnt,T,Tcnt,bc,bcp);
 #else

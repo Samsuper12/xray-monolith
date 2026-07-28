@@ -1678,9 +1678,6 @@ extern void noise3Init();
 
 #ifndef _EDITOR
 
-// #include <xmmintrin.h>
-#include "ttapi.h"
-
 //FIXME:
 // __forceinline __m128 _mm_load_fvector(const Fvector& v)
 // {
