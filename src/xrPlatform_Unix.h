@@ -1194,14 +1194,6 @@ inline long _InterlockedCompareExchange(long *Destination, long Exchange,
 
 inline int ReleaseDC(void *hWnd, void *hDC) { stub_unix(__func__); }
 
-inline int FillRect(void *hDC, const void *lprc, void *hbr) { stub_unix(__func__); }
-
-inline bool InvalidateRect(void *hWnd, const void *lpRect, bool bErase) {
-  stub_unix(__func__);
-}
-
-
-inline bool GetWindowInfo(void *hwnd, WINDOWINFO *pwi) { stub_unix(__func__); }
 
 inline int MultiByteToWideChar(unsigned int CodePage, unsigned long dwFlags,
                         const char *lpMultiByteStr, int cbMultiByte,
