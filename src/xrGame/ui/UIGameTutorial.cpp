@@ -230,6 +230,8 @@ extern CUISequencer* g_tutorial2;
 
 void CUISequencer::Destroy()
 {
+	if (!IsActive()) return;
+	
 	if (m_stop_lua_function.size())
 		CallFunction(m_stop_lua_function);
 
@@ -310,6 +312,10 @@ void CUISequencer::OnFrame()
 
 void CUISequencer::OnRender()
 {
+	// my fix
+	if (!IsActive() || !m_UIWindow)
+        return;
+
 	if (m_UIWindow->IsShown())
 		m_UIWindow->Draw();
 
