@@ -6,6 +6,7 @@
 #include "GameFont.h"
 #include "RenderFactory.h"
 #include "xrAPI.h"
+#include <format>
 
 #ifdef _EDITOR
 unsigned short int mbhMulti2Wide
@@ -304,21 +305,9 @@ void CGameFont::MasterOut(
 	rs.c = dwCurrentColor;
 	rs.height = fCurrentHeight;
 	rs.align = eCurrentAlignment;
-#ifndef _EDITOR
-	int vs_sz = vsprintf_s(rs.string, fmt, p);
-#else
-    int vs_sz = vsprintf(rs.string, fmt, p);
-#endif
-	//VERIFY( ( vs_sz != -1 ) && ( rs.string[ vs_sz ] == '\0' ) );
+	snprintf(rs.string, sizeof(rs.string), fmt, p);
 
-	rs.string[sizeof(rs.string) - 1] = 0;
-	if (vs_sz == -1)
-	{
-		return;
-	}
-
-	if (vs_sz)
-		strings.push_back(rs);
+	strings.push_back(rs);
 
 	if (bUseSkip)
 		OutSkip(_skip);
