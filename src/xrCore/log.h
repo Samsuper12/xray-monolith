@@ -17,10 +17,17 @@ void Log(LPCSTR msg, float dop);
 void Log(LPCSTR msg, const Fvector& dop);
 void Log(LPCSTR msg, const Fmatrix& dop);
 void LogWinErr(LPCSTR msg, long err_code);
-inline auto NeedAttention(const char* hint = nullptr, const char* filename = __FILE__, const char* func = __func__) -> void {
-    Msg("Attention required here. Debug it! [%s:%s]. Hint: %s\n", filename, func, hint ? hint : "None");
-    fprintf(stderr, "Attention required here. Debug it! [%s:%s]. Hint: %s\n", filename, func, hint ? hint : "None");
-}
+
+#define NeedAttention() do { \
+    Msg("Attention required here. Debug it! [%s:%s]. Hint: %s\n", __FILE__, __func__, "None"); \
+    fprintf(stderr, "Attention required here. Debug it! [%s:%s]. Hint: %s\n", __FILE__, __func__, "None"); \
+} while(0)
+
+#define NeedAttention(hint) do { \
+    Msg("Attention required here. Debug it! [%s:%s]. Hint: %s\n", __FILE__, __func__, hint); \
+    fprintf(stderr, "Attention required here. Debug it! [%s:%s]. Hint: %s\n", __FILE__, __func__, hint); \
+} while(0)
+
 
 typedef void (*LogCallback)(LPCSTR string);
 LogCallback SetLogCB(LogCallback cb);
