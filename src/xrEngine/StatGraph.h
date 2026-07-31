@@ -9,7 +9,7 @@
 //---------------------------------------------------------------------------
 class ENGINE_API CStatGraph : public pureRender
 {
-	friend class dxStatGraphRender;
+	friend class vkStatGraphRender;
 public:
 	enum EStyle
 	{
