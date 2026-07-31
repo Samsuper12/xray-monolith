@@ -8,8 +8,11 @@
 class IRender_interface;
 extern XRAPI_API IRender_interface* Render;
 
-class dxRenderFactory;
-extern XRAPI_API dxRenderFactory* RenderFactory;
+// class dxRenderFactory;
+// extern XRAPI_API dxRenderFactory* RenderFactory;
+
+class vkRenderFactory;
+extern XRAPI_API vkRenderFactory* RenderFactory;
 
 class CDUInterface;
 extern XRAPI_API CDUInterface* DU;

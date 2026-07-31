@@ -1,34 +1,24 @@
 // xrRender_R2.cpp : Defines the entry point for the DLL application.
 //
-#include "../xrRender/dxRenderFactory.h"
-#include "../xrRender/dxUIRender.h"
-#include "../xrRender/dxDebugRender.h"
 #include "rv.hpp"
-//BOOL APIENTRY DllMain( HANDLE hModule,
-BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
+#include "render_factory/vkRenderFactory.hpp"
+#include "render_factory/vkUIRender.hpp"
+#include <xrRender_console.h>
+
+//#include "render_factory/dxDebugRender.h"
+
+extern void xrRender_initconsole();
+
+BOOL DllMainXrRenderRV()
 {
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-		//	Can't call CreateDXGIFactory from DllMain
-		//if (!xrRender_test_hw())	return FALSE;
-		::Render = &RImplementation;
-		// TODO:
-		// ::RenderFactory = &RenderFactoryImpl;
+		Render = &RImplementation;
+		RenderFactory = &RenderFactoryImpl;
 		// ::DU = &DUImpl;
 		// //::vid_mode_token			= inited by HW;
-		// UIRender = &UIRenderImpl;
+		UIRender = &UIRenderImpl;
 		// DRender	= &DebugRenderImpl;
-		//xrRender_initconsole();
-		break ;
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
+		xrRender_initconsole();
 }
-
 
 extern "C" {
 bool /*_declspec(dllexport)*/ SupportsVulkanRendering();

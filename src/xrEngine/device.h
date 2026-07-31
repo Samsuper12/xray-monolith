@@ -469,9 +469,6 @@ extern ENGINE_API CRenderDevice Device;
 #define RDEVICE EDevice
 #endif
 
-#ifdef ECO_RENDER
-extern ENGINE_API float refresh_rate;
-#endif // ECO_RENDER
 
 extern ENGINE_API bool g_bBenchmark;
 

@@ -45,6 +45,8 @@ set(XRAY_COMPILER_FLAGS_RELWITHDEBINFO
   -fkeep-inline-functions
   -D_HAS_ITERATOR_DEBUGGING=0
   -D_SECURE_SCL=0
+  -fsanitize=address
+  -fno-inline
 )
 
 set(XRAY_LINKER_FLAGS_RELEASE

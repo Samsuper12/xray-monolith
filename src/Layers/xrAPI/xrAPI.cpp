@@ -5,10 +5,10 @@
 
 //#include "dxRenderFactory.h"
 
-extern dxRenderFactory RenderFactoryImpl;
+extern vkRenderFactory RenderFactoryImpl;
 
 XRAPI_API IRender_interface* Render = nullptr;
-XRAPI_API dxRenderFactory* RenderFactory = &RenderFactoryImpl;
+XRAPI_API vkRenderFactory* RenderFactory = &RenderFactoryImpl;
 XRAPI_API CDUInterface* DU = nullptr;
 XRAPI_API xr_token* vid_mode_token = nullptr;
 XRAPI_API IUIRender* UIRender = nullptr;

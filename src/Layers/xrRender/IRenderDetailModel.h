@@ -2,13 +2,11 @@
 #define IRenderDetailModelH
 #pragma once
 
-#include "RenderDetailModel.h"
 #include "_types_own.h"
 #include "_sphere.h"
 #include "_fbox.h"
 #include "_flags.h"
 #include "_vector3d.h"
-#include "Shader.h"
 
 //////////////////////////////////////////////////////////////////////////
 // definition (Detail Model)
@@ -35,7 +33,7 @@ public:
 	float m_fMinScale;
 	float m_fMaxScale;
 
-	ref_shader shader;
+	// ref_shader shader;
 	fvfVertexIn* vertices;
 	u32 number_vertices;
 	u16* indices;

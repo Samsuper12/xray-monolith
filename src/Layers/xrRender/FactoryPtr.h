@@ -4,7 +4,10 @@
 
 #include "RenderFactory.h"
 #include "../xrAPI/xrAPI.h"
+#if 0
 #include "dxRenderFactory.h"
+#endif
+#include "../xrRenderPC_RV/render_factory/vkRenderFactory.hpp"
 
 #define FACTORY_PTR_INSTANCIATE(Class) \
     template<> \

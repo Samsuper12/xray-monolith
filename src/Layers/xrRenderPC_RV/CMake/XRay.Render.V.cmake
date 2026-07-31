@@ -17,7 +17,6 @@ add_module(XRay.Render.RV
   RENDER=5
   STATIC_RENDERER_RV
   USE_VK
-  USE_DX11
   XRRENDER_RV_EXPORTS
 
   LINKS
@@ -26,10 +25,7 @@ add_module(XRay.Render.RV
   imgui
   luabind
   LuaJIT
-  #NVAPI
-  #ReShadeCompat
   robin_hood
-  tbb
   
   XRay.Platform
   XRay.Render.RV.ForceIncludes
@@ -47,97 +43,81 @@ add_module(XRay.Render.RV
   XRay.Physics.Includes
   XRay.Render.API.Includes
   XRay.Render.Common.Includes
-  #XRay.Render.DX10.Includes
   XRay.ServerEntities.Includes
   XRay.Sound.Includes
   
   PRECOMPILES
-  #[["d3dx9.h"]]
-  #[["d3d11.h"]]
-  #[["d3d11_1.h"]]
-  #[["d3d11_2.h"]]
-  #[["D3Dx11core.h"]]
-  #[["D3DCompiler.h"]]
-  #[["xrD3DDefs.h"]]
-  #[["dx10EventWrapper.h"]]
-  #[["psystem.h"]]
-  #[["HW.h"]]
-  #[["Shader.h"]]
-  #[["R_Backend.h"]]
-  #[["R_Backend_Runtime.h"]]
-  #[["resourcemanager.h"]]
-  #[["vis_common.h"]]
-  #[["Render.h"]]
-  #[["_d3d_extensions.h"]]
-  #[["IGame_Level.h"]]
-  #[["blenders/blender.h"]]
-  #[["blenders/blender_clsid.h"]]
-  #[["xrRender_console.h"]]
-  #[["r4.h"]]
+  [["vulkan_main.hpp"]]
+  [["rv.hpp"]]
+  [["Render.h"]]
 
   SOURCES
-  #../xrRenderDX10/DXCommonTypes.h
-  #../xrRender/xrD3DDefs.h
-  
-  #../xrRender/xrRender_console.cpp
-  #../xrRender/xrRender_console.h
-
-  #jitter.h
 
   xrRender_RV.cpp
+  xrRender_console.cpp
 )
 
-#find_package(glm CONFIG REQUIRED)
-#find_package(volk CONFIG REQUIRED)
-#find_package(glslang CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package(volk CONFIG REQUIRED)
+find_package(VulkanMemoryAllocator CONFIG REQUIRED)
+find_package(glslang CONFIG REQUIRED)
+find_package(VulkanHeaders CONFIG REQUIRED)
+
 
 target_link_libraries(XRay.Render.RV.Includes INTERFACE
-  #glm::glm-header-only
-  #volk::volk
-  #volk::volk_headers
-  # glslang::glslang
-  # glslang::glslang-default-resource-limits
-  # glslang::SPIRV
+  glm::glm-header-only
+  volk::volk
+  volk::volk_headers
+  vk-bootstrap::vk-bootstrap
+  VulkanMemoryAllocator
+  Vulkan::Headers
+)
+
+add_module(XRay.Render.RV.RenderFactory
+  SOURCES
+  render_factory/vkUISequenceVideoItem.cpp
+  render_factory/vkUISequenceVideoItem.hpp
+  render_factory/vkUIShader.hpp
+  render_factory/vkUIShader.cpp
+  render_factory/vkStatGraphRender.hpp
+  render_factory/vkStatGraphRender.cpp
+  render_factory/vkApplicationRender.hpp
+  render_factory/vkApplicationRender.cpp
+  render_factory/vkConsoleRender.hpp
+  render_factory/vkConsoleRender.cpp
+  render_factory/vkWallMarkArray.hpp
+  render_factory/vkWallMarkArray.cpp
+  render_factory/vkStatRender.hpp
+  render_factory/vkStatRender.cpp
+  render_factory/vkThunderboltRender.hpp
+  render_factory/vkThunderboltRender.cpp
+  render_factory/vkThunderboltDescRender.hpp
+  render_factory/vkThunderboltDescRender.cpp
+  render_factory/vkRainRender.hpp
+  render_factory/vkRainRender.cpp
+  render_factory/vkLensFlareRender.hpp
+  render_factory/vkLensFlareRender.cpp
+  render_factory/vkImGuiRender.hpp
+  render_factory/vkImGuiRender.cpp
+  render_factory/vkFontRender.hpp
+  render_factory/vkFontRender.cpp
+  render_factory/vkRenderDeviceRender.hpp
+  render_factory/vkRenderDeviceRender.cpp
+  render_factory/vkEnvironmentRender.hpp
+  render_factory/vkEnvironmentRender.cpp
+  render_factory/vkUIRender.hpp
+  render_factory/vkUIRender.cpp
+  render_factory/vkUIRender.cpp
+  render_factory/vkRenderFactory.hpp
+  render_factory/vkRenderFactory.cpp
 )
 
 add_module(XRay.Render.RV.Core
   SOURCES
- # ../xrRenderDX10/dx10Texture.cpp
-  # ../xrRender/particles_systems_library_interface.hpp
-  # ../xrRender/PSLibrary.cpp
-  # ../xrRender/PSLibrary.h
-  # ../xrRender/QueryHelper.h
-  # ../xrRender/r__dsgraph_build.cpp
-  # ../xrRender/r__dsgraph_render.cpp
-  # ../xrRender/r__dsgraph_render_lods.cpp
-  # ../xrRender/r__dsgraph_structure.h
-  # ../xrRender/r__dsgraph_types.h
-  # ../xrRender/r__occlusion.cpp
-  # ../xrRender/r__occlusion.h
-  # ../xrRender/r__pixel_calculator.cpp
-  # ../xrRender/r__pixel_calculator.h
-  # ../xrRender/r__screenshot.cpp
-  # ../xrRender/r_sun_cascades.h
+  vulkan_init.cpp
   rv.cpp
   rv.hpp
-  rv_loader.cpp
-  rv_R_render.cpp
-  stub.cpp
-  ../xrRender/tga.cpp
-  ../xrRender/tga.h
-)
-
-add_module(XRay.Render.RV.Core.Target
-  SOURCES
-  #   ../xrRender/rendertarget_phase_blur.cpp
-  # ../xrRender/rendertarget_phase_dof.cpp
-  # ../xrRender/rendertarget_phase_lut.cpp
-  # ../xrRender/rendertarget_phase_nightvision.cpp
-  # ../xrRender/rendertarget_phase_gasmask_drops.cpp
-  # ../xrRender/rendertarget_phase_gasmask_dudv.cpp
-  # ../xrRender/rendertarget_phase_pp_bloom.cpp
-  # ../xrRender/rendertarget_phase_smaa.cpp
-  # ../xrRender/rendertarget_phase_sunshafts.cpp
-  rv_rendertarget.cpp
-  rv_rendertarget.hpp
+  VkHW.hpp
+  VkHW.cpp
+  SH_Matrix.cpp
 )

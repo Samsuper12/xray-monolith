@@ -53,7 +53,6 @@ extern Fvector4 ps_ssfx_grass_interactive;
 std::chrono::high_resolution_clock::time_point tlastf = std::chrono::high_resolution_clock::now(), tcurrentf = std::
 	                                               chrono::high_resolution_clock::now();
 std::chrono::duration<float> time_span;
-ENGINE_API float refresh_rate = 0;
 #endif // ECO_RENDER
 
 
@@ -420,15 +419,12 @@ void CRenderDevice::on_idle()
 	{
 		PROF_EVENT("Eco Render");
 
-		if (refresh_rate == 0)
-			refresh_rate = GetMonitorRefresh();
-
 		float rr;
 
 		if (ps_framelimiter)
 			rr = 1.f / ps_framelimiter;
 		else
-			rr = refresh_rate;
+			rr = 1.f / 60.f;
 
 		time_span = std::chrono::duration_cast<std::chrono::duration<float>>(tcurrentf - tlastf);
 		while (time_span.count() < rr)

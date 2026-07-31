@@ -2,7 +2,7 @@
 #define	UISequenceVideoItem_included
 #pragma once
 
-#include <_types_own.h>
+#include <limits>
 
 class IUISequenceVideoItem
 {
@@ -13,9 +13,9 @@ public:
 	virtual bool HasTexture() = 0;
 	virtual void CaptureTexture() = 0;
 	virtual void ResetTexture() = 0;
-	virtual BOOL video_IsPlaying() = 0;
-	virtual void video_Sync(u32 _time) = 0;
-	virtual void video_Play(BOOL looped, u32 _time = 0xFFFFFFFF) = 0;
+	virtual bool video_IsPlaying() = 0;
+	virtual void video_Sync(uint64_t _time) = 0;
+	virtual void video_Play(bool looped, uint64_t _time = std::numeric_limits<uint64_t>::max()) = 0;
 	virtual void video_Stop() = 0;
 };
 

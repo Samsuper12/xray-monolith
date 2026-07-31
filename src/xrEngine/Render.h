@@ -1,6 +1,7 @@
 #ifndef _RENDER_H_
 #define _RENDER_H_
 
+#include <device.h>
 #include <FactoryPtr.h>
 #include <xrAPI.h>
 #include <xr_resource.h>
@@ -255,7 +256,7 @@ public:
 
 	//virtual IDirect3DBaseTexture9* texture_load (LPCSTR fname, u32& msize) = 0;
 	void shader_option_skinning(s32 mode) { m_skinning = mode; }
-	virtual HRESULT shader_compile(
+	virtual bool shader_compile(
 		LPCSTR name,
 		DWORD const* pSrcData,
 		UINT SrcDataLen,

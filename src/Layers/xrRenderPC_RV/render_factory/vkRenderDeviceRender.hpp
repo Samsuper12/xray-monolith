@@ -1,17 +1,11 @@
 #pragma once
 
-// #ifndef _EDITOR
-// #define DEV dxRenderDeviceRender::Instance().Resources
-// #else
-	#define DEV EDevice.Resources
-// #endif
+#include "VkHW.hpp"
+#include <RenderDeviceRender.h>
+#include <device.h>
+#include "ResourceManager.hpp"
 
-// #ifndef _EDITOR
-
-#include "RenderDeviceRender.h"
-#include "device.h"
-#include "Shader.h"
-#include "xr_effgamma.h"
+#define DEV = vkRenderDeviceRender::Instance().Resources
 
 class CResourceManager;
 
@@ -25,12 +19,11 @@ public:
 	virtual void Copy(IRenderDeviceRender& _in);
 
 	//	Gamma correction functions
-	virtual void setGamma(float fGamma);
-	virtual void setBrightness(float fGamma);
-	virtual void setContrast(float fGamma);
-	virtual void updateGamma();
-
-	//void	gammaGenLUT(D3DGAMMARAMP &G) {m_Gamma.GenLUT(G);}
+	// DXGI shit. Ignore it.
+	virtual void setGamma(float fGamma) {render_stub();}
+	virtual void setBrightness(float fGamma) {render_stub();}
+	virtual void setContrast(float fGamma) {render_stub();}
+	virtual void updateGamma() {render_stub();}
 
 	//	Destroy
 	virtual void OnDeviceDestroy(BOOL bKeepTextures);
@@ -73,13 +66,9 @@ public:
 
 public:
 	CResourceManager* Resources;
-	ref_shader m_WireShader;
-	ref_shader m_SelectionShader;
-
-private:
-
-	CGammaControl m_Gamma;
+	SDL_Window* window;
 };
+
 
 // #endif //ifndef _EDITOR
 
