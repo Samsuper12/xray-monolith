@@ -45,23 +45,21 @@ PROTECT_API void CRenderDevice::Initialize()
 #endif // #ifdef INGAME_EDITOR
 
 	// Unless a substitute hWnd has been specified, create a window to render into
-	if (m_hWnd == NULL)
-	{
-		m_window = SDL_CreateWindow(
-			"S.T.A.L.K.E.R.: Anomaly SDL3",
-			1920,
-			1080,
-			SDL_WINDOW_RESIZABLE
-    	);
 
-		if (m_window == nullptr) {
-			Msg("SDL_CreateWindow failed: %s\n", SDL_GetError());
-			SDL_Quit();
-			abort();
-		}
+	m_window = SDL_CreateWindow(
+		"S.T.A.L.K.E.R.: Anomaly SDL3",
+		1920,
+		1080,
+		SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN | SDL_WINDOW_HIGH_PIXEL_DENSITY
+	);
 
-		SDL_PropertiesID props = SDL_GetWindowProperties(m_window);
-		Device.seqAppStart.Add(&m_imgui);
-		Device.seqAppEnd.Add(&m_imgui);
+	if (m_window == nullptr) {
+		Msg("SDL_CreateWindow failed: %s\n", SDL_GetError());
+		SDL_Quit();
+		abort();
 	}
+
+	SDL_PropertiesID props = SDL_GetWindowProperties(m_window);
+	Device.seqAppStart.Add(&m_imgui);
+	Device.seqAppEnd.Add(&m_imgui);
 }

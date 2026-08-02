@@ -1,8 +1,8 @@
 #include "pch_script.h"
 #include "script_imgui.h"
 #include "script_imgui_inline.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
+#include <imgui.h>
+#include <imgui_internal.h>
 
 using namespace luabind;
 #pragma optimize("s",on)
@@ -197,9 +197,9 @@ void ScriptImGui::script_register(::lua_State* L)
 		def("BeginPopupModal", &ImGui::BeginPopupModal, out_value<2>()),
 		def("EndPopup", &ImGui::EndPopup),
 		def("OpenPopup", (void (*)(LPCSTR))& ImGui_OpenPopup),
-		def("OpenPopup", (void (*)(LPCSTR, ImGuiPopupFlags))& ImGui::OpenPopup),
+		//def("OpenPopup", (void (*)(LPCSTR, ImGuiPopupFlags))& ImGui::OpenPopup),
 		def("OpenPopup", (void (*)(ImGuiID))& ImGui_OpenPopup),
-		def("OpenPopup", (void (*)(ImGuiID, ImGuiPopupFlags))& ImGui::OpenPopup),
+		//def("OpenPopup", (void (*)(ImGuiID, ImGuiPopupFlags))& ImGui::OpenPopup),
 		def("OpenPopupOnItemClick", &ImGui::OpenPopupOnItemClick),
 		def("CloseCurrentPopup", &ImGui::CloseCurrentPopup),
 		def("BeginPopupContextItem", &ImGui::BeginPopupContextItem),
@@ -277,8 +277,8 @@ void ScriptImGui::script_register(::lua_State* L)
 		def("Shortcut", (bool (*)(ImGuiKeyChord, ImGuiInputFlags))&ImGui::Shortcut),
 		def("SetNextItemShortcut", &ImGui::SetNextItemShortcut),
 
-		def("SetItemKeyOwner", (void (*)(ImGuiKey))&ImGui::SetItemKeyOwner),
-		def("SetItemKeyOwner", (void (*)(ImGuiKey, ImGuiInputFlags))&ImGui::SetItemKeyOwner),
+		//def("SetItemKeyOwner", (void (*)(ImGuiKey))&ImGui::SetItemKeyOwner),
+		//def("SetItemKeyOwner", (void (*)(ImGuiKey, ImGuiInputFlags))&ImGui::SetItemKeyOwner),
 
 		def("CalcTextSize", &ImGui_CalcTextSize),
 
@@ -676,8 +676,8 @@ void ScriptImGui::script_register(::lua_State* L)
 			value("SelectableTextAlign", (int)ImGuiStyleVar_SelectableTextAlign),
 			value("SeparatorTextBorderSize", (int)ImGuiStyleVar_SeparatorTextBorderSize),
 			value("SeparatorTextAlign", (int)ImGuiStyleVar_SeparatorTextAlign),
-			value("SeparatorTextPadding", (int)ImGuiStyleVar_SeparatorTextPadding),
-			value("DockingSeparatorSize", (int)ImGuiStyleVar_DockingSeparatorSize)
+			value("SeparatorTextPadding", (int)ImGuiStyleVar_SeparatorTextPadding)
+			//value("DockingSeparatorSize", (int)ImGuiStyleVar_DockingSeparatorSize)
 		],
 
 		class_<enum_exporter<ImGuiComboFlags_>>("ImGuiComboFlags")

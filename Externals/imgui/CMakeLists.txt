@@ -1,14 +1,13 @@
 add_library(imgui STATIC)
 
+find_package(SDL3 CONFIG REQUIRED)
+find_package(VulkanHeaders CONFIG REQUIRED)
+
 target_folder(imgui ${FOLDER_EXTERNAL})
 
 target_compile_definitions(imgui
   PRIVATE
-  IMGUI_DISABLE_DEFAULT_ALLOCATORS
-  IMGUI_DISABLE_DEFAULT_FONT
-  IMGUI_INCLUDE_IMGUI_USER_H
-  IMGUI_USER_H_FILENAME="imgui_custom.h"
-  IMGUI_DEFINE_MATH_OPERATORS
+  IMGUI_IMPL_VULKAN_USE_VOLK
 )
 
 target_compile_options(imgui
@@ -16,6 +15,13 @@ target_compile_options(imgui
   $<$<CXX_COMPILER_ID:MSVC>:/permissive->
   $<$<CXX_COMPILER_ID:MSVC>:/wd4005>
   $<$<CXX_COMPILER_ID:Clang>:-Wno-macro-redefined>
+)
+
+target_link_libraries(imgui
+  PRIVATE
+  SDL3::SDL3
+  volk::volk
+  volk::volk_headers
 )
 
 target_include_directories(imgui
@@ -32,12 +38,6 @@ target_sources_sandboxed(imgui
   ../imgui-git/
 
   SOURCES
-  imgui_custom.cpp
-  imgui_custom.h
-
-  imgui.natvis
-  imgui.natstepfilter
-
   ../IconFontCppHeaders-git/IconsFontAwesome6.h
   
   ../imgui-git/imconfig.h
@@ -51,13 +51,8 @@ target_sources_sandboxed(imgui
   ../imgui-git/imstb_rectpack.h
   ../imgui-git/imstb_textedit.h
   ../imgui-git/imstb_truetype.h
-
-  # ../imgui-git/backends/imgui_impl_dx9.cpp
-  # ../imgui-git/backends/imgui_impl_dx9.h
-
-  # ../imgui-git/backends/imgui_impl_dx10.cpp
-  # ../imgui-git/backends/imgui_impl_dx10.h
-
-  # ../imgui-git/backends/imgui_impl_dx11.cpp
-  # ../imgui-git/backends/imgui_impl_dx11.h
+  ../imgui-git/backends/imgui_impl_sdl3.cpp
+  ../imgui-git/backends/imgui_impl_sdl3.h
+  ../imgui-git/backends/imgui_impl_vulkan.cpp
+  ../imgui-git/backends/imgui_impl_vulkan.h
 )

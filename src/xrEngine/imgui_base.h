@@ -1,16 +1,11 @@
 #pragma once
 
-#include "IInputReceiver.h"
 #include "../Layers/xrRender/ImGuiRender.h"
+#include <SDL3/SDL_events.h>
 
 struct ImGuiContext;
-struct ImFont;
-struct ImFontConfig;
 
 class IReader;
-
-#define IMGUI_DISABLE_OBSOLETE_KEYIO
-
 namespace xr_imgui
 {
     struct ide_backend;
@@ -22,8 +17,7 @@ namespace xr_imgui
         public pureAppDeactivate,
         public pureAppStart,
         public pureAppEnd,
-        public pureScreenResolutionChanged,
-        public IInputReceiver
+        public pureScreenResolutionChanged
     {
     public:
         ide();
@@ -31,7 +25,6 @@ namespace xr_imgui
 
         bool is_shown() const { return m_shown; }
         void Show(bool bShow = true);
-        bool is_input() const { return m_input; }
         void EnableInput(bool bInput = true);
 
     public:
@@ -53,27 +46,7 @@ namespace xr_imgui
 
         virtual void OnScreenResolutionChanged();
 
-        virtual void IR_Capture();
-        virtual void IR_Release();
-
-        void IR_OnMousePress(int key) final;
-        void IR_OnMouseRelease(int key) final;
-        void IR_OnMouseWheel(int direction) final;
-        void IR_OnMouseMove(int x, int y) final;
-
-        void IR_OnKeyboardPress(int key) final;
-        void IR_OnKeyboardRelease(int key) final;
-
-        // ImGui handles hold state on its own
-        void IR_OnMouseHold(int key) final {};
-        void IR_OnKeyboardHold(int key) final {};
-
-        void InputChar(WPARAM param);
-        void UpdateInputLang();
-
-        ImFont* GetFont(LPCSTR name);
-        ImFontConfig LoadImGuiFontConfig(const char* path, LPCSTR name);
-        void LoadImGuiFont(string_path path, LPCSTR name);
+        void SDL3ProcessEvent(SDL_Event* ev);
 
     private:
         void InitBackend();
@@ -83,15 +56,9 @@ namespace xr_imgui
         void ShowMain();
 
     private:
-        CTimer m_timer;
         IImGuiRender* m_render;
         ImGuiContext* m_context;
-        ide_backend* m_backend_data;
         bool m_shown;
-        bool m_input;
         bool firstframe;
-        uint32_t keyboard_code_page;
-        xr_vector<IReader*> ImGuiFontsPtr;
-        xr_map<shared_str, ImFont*> ImFonts;
     };
 } // namespace xr_imgui

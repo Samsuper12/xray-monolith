@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Sound.h>
-
+#include "IInputReceiver.h"
 #include "xr_level_controller.h"
 
 class CUIWindow;

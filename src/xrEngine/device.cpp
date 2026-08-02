@@ -6,6 +6,8 @@
 #include "XR_IOConsole.h"
 #include "xr_sdl3_input.hpp"
 
+
+
 #pragma warning(disable:4995)
 // mmsystem.h
 #define MMNOSOUND
@@ -504,6 +506,9 @@ void CRenderDevice::Screenshot()
 
 void CRenderDevice::message_loop()
 {
+	bool quit = false;
+	SDL_Event ev;
+
 #ifdef INGAME_EDITOR
     if (editor())
     {
@@ -511,28 +516,19 @@ void CRenderDevice::message_loop()
         return;
     }
 #endif
-	SDL_Event ev;
-	while (true)//msg.message != WM_QUIT)
+
+	while (!quit)
 	{
 		while(SDL_PollEvent(&ev)) {
 			if (ev.type == SDL_EVENT_QUIT) {
-				Msg("SDL quie event. BB");
+				Engine.Event.Defer("KERNEL:disconnect");
+				Engine.Event.Defer("KERNEL:quit");
+				quit = true;
 				break;
 			}
+			imgui().SDL3ProcessEvent(&ev);
 			pSDL3Input->UpdateSDL3Event(ev);
 		}
-
-
-	// 	  if (Event.type == SDL_EVENT_WINDOW_MOUSE_ENTER) {
-    //   } else if (Event.type == SDL_EVENT_WINDOW_MOUSE_LEAVE
-	// } else if (Event.type == SDL_EVENT_QUIT) {
-		// if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-		// {
-		// 	TranslateMessage(&msg);
-		// 	DispatchMessage(&msg);
-		// 	continue;
-		// }
-
 		on_idle();
 	}
 }

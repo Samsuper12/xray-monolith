@@ -34,6 +34,8 @@ void vkRenderDeviceRender::OnDeviceCreate(LPCSTR shName) {
 }
 
 void vkRenderDeviceRender::Begin() {
+	HW.BeginRendering();
+
 	//CHK_DX(HW.pDevice->BeginScene()); eq to glBegin or vkCmdBeginRendering
 	// RCache.OnFrameBegin();
 	// RCache.set_CullMode(CULL_CW);
@@ -53,6 +55,8 @@ void vkRenderDeviceRender::End() {
 	// Memory.dbg_check();
 
 	// DoAsyncScreenshot();
+	HW.EndRendering();
+
 
 #if defined(USE_DX10) || defined(USE_DX11)
     // UINT present_flags = 0;

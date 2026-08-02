@@ -327,4 +327,45 @@ inline VkRenderingAttachmentInfo depthAttachmentInfo(
   };
 }
 
+template <typename T> struct MmapedBuffer {
+  std::span<T> data;
+  T *raw_data;
+  VmaAllocator allocator;
+  VmaAllocation allocation;
+};
+
+template <typename T> static inline void base_vma_unmmap(MmapedBuffer<T> *m) {
+  vmaUnmapMemory(m->allocator, m->allocation);
+  delete (m);
+}
+
+template <typename T>
+using buffer_ptr_t =
+    std::unique_ptr<MmapedBuffer<T>, decltype(&base_vma_unmmap<T>)>;
+
+template <typename T>
+inline buffer_ptr_t<T> getBufferPointer(VmaAllocator allocator,
+                                        const AllocatedBuffer &buf) {
+
+  MmapedBuffer<T> *buf_data = new MmapedBuffer<T>{};
+  buf_data->allocator = allocator;
+  buf_data->allocation = buf.allocation;
+  vmaMapMemory(buf_data->allocator, buf_data->allocation,
+               reinterpret_cast<void **>(&buf_data->raw_data));
+
+  VmaAllocationInfo tmpAllocInfo;
+  vmaGetAllocationInfo(buf_data->allocator, buf_data->allocation,
+                       &tmpAllocInfo);
+  buf_data->data =
+      std::span<T>(buf_data->raw_data, tmpAllocInfo.size / sizeof(T));
+
+  return buffer_ptr_t<T>(buf_data, &base_vma_unmmap<T>);
+}
+
+
+template buffer_ptr_t<float> getBufferPointer(VmaAllocator allocator,
+                                              const AllocatedBuffer &buf);
+
+                                              static inline VmaAllocator dumbAlloc;
+
 } // namespace util

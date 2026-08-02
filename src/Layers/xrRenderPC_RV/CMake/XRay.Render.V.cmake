@@ -22,10 +22,10 @@ add_module(XRay.Render.RV
   LINKS
   fastdelegate
   FastDynamicCast
-  imgui
   luabind
   LuaJIT
   robin_hood
+  imgui
   
   XRay.Platform
   XRay.Render.RV.ForceIncludes
@@ -63,6 +63,8 @@ find_package(VulkanMemoryAllocator CONFIG REQUIRED)
 find_package(glslang CONFIG REQUIRED)
 find_package(VulkanHeaders CONFIG REQUIRED)
 
+#TODO: use CPM instead of brew
+find_package(Slang CONFIG REQUIRED)
 
 target_link_libraries(XRay.Render.RV.Includes INTERFACE
   glm::glm-header-only
@@ -71,6 +73,7 @@ target_link_libraries(XRay.Render.RV.Includes INTERFACE
   vk-bootstrap::vk-bootstrap
   VulkanMemoryAllocator
   Vulkan::Headers
+  slang::slang
 )
 
 add_module(XRay.Render.RV.RenderFactory

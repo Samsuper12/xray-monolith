@@ -7,11 +7,7 @@ add_module(XRay.Engine.Interfaces.Collidable
 add_module(XRay.Engine.Interfaces.ImGui
   SOURCES
   imgui_base.cpp
-  imgui_base_input.cpp
-  imgui_helper.cpp
-
   imgui_base.h
-  imgui_helper.h
 )
 
 add_module(XRay.Engine.Interfaces.Input

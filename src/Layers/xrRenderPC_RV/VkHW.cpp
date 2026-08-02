@@ -1,11 +1,47 @@
 #include "VkHW.hpp"
 #include "utils/vkUtil.hpp"
 
-#ifdef DEBUG
+// #ifdef DEBUG
+// bool useValidationLayers = true;
+// #else
+// bool useValidationLayers = false;
+// #endif
+
 bool useValidationLayers = true;
-#else
-bool useValidationLayers = false;
-#endif
+
+VKAPI_ATTR VkBool32 VKAPI_CALL
+vulkan_callback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+                VkDebugUtilsMessageTypeFlagsEXT messageType,
+                const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
+                void *pUserData) {
+
+  std::string severityStr = "[UNKNOWN]";
+  if (messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT) {
+    severityStr = "[VERBOSE]";
+  } else if (messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT) {
+    severityStr = "[INFO]";
+  } else if (messageSeverity &
+             VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) {
+    severityStr = "[WARNING]";
+  } else if (messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT) {
+    severityStr = "[ERROR]";
+  }
+
+  std::string typeStr = "[GENERAL]:";
+  if (messageType & VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT) {
+    typeStr = "[VALIDATION]:";
+  } else if (messageType & VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT) {
+    typeStr = "[PERFORMANCE]:";
+  }
+
+  std::string result =
+      severityStr + typeStr + std::string(" Message ID Name: ") +
+      std::string((pCallbackData->pMessageIdName ? pCallbackData->pMessageIdName
+                                                 : "None")) +
+      std::string(" | Message: ") + pCallbackData->pMessage;
+
+  Msg("[RV]%s", result.c_str());
+}
 
 void VkHW::CreateDevice(SDL_Window *window, VkExtent2D windowExtent) {
   this->window = window;
@@ -16,7 +52,9 @@ void VkHW::CreateDevice(SDL_Window *window, VkExtent2D windowExtent) {
   init_commands();
   init_sync_structures();
   init_descriptors();
-  init_pipelines();
+
+  isInit = true;
+  // Device.b_is_Active = TRUE;
 }
 
 void VkHW::DestroyDevice() {
@@ -76,7 +114,7 @@ void VkHW::init_vulkan() {
       .set_debug_messenger_severity(
           VkDebugUtilsMessageSeverityFlagBitsEXT::
               VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT)
-      .use_default_debug_messenger();
+      .set_debug_callback(&vulkan_callback);
 
   if (sysInfo.is_extension_available(
           "VK_KHR_get_physical_device_properties2")) {
@@ -166,35 +204,30 @@ void VkHW::init_vulkan() {
   // vmaDestroyAllocator(allocator); });
 }
 
-void VkHW::create_swapchain(VkExtent2D extent, bool recreate) {
-  vkb::SwapchainBuilder swapchainBuilder{device};
+void VkHW::init_commands() {
+  auto cmdInfo = util::createCommandPoolInfo(
+      graphicsQueueFamily, VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
 
-  swapchainBuilder.set_desired_format({.format = VK_FORMAT_B8G8R8_UNORM})
-      .set_desired_present_mode(VK_PRESENT_MODE_FIFO_KHR)
-      .set_desired_extent(extent.width, extent.height)
-      .add_image_usage_flags(VK_IMAGE_USAGE_TRANSFER_DST_BIT);
+  for (size_t i = 0; i < frame_overlap; ++i) {
+    VK_CHECK(
+        vkCreateCommandPool(device, &cmdInfo, nullptr, &frames[i].cmdPool));
 
-  if (recreate)
-    swapchainBuilder.set_old_swapchain(swapchain);
+    auto allocInfo = util::createBufferAllocateInfo(frames[i].cmdPool, 1);
 
-  auto vkres = swapchainBuilder.build();
-  R_ASSERT2(vkres, vkres.error().message());
-
-  if (recreate) {
-    vkb::destroy_swapchain(swapchain);
-    swapchainImages.clear();
-    swapchainImageViews.clear();
+    VK_CHECK(
+        vkAllocateCommandBuffers(device, &allocInfo, &frames[i].cmdBuffer));
   }
 
-  swapchain = vkres.value();
-  swapchainImages = swapchain.get_images().value();
-  swapchainImageViews = swapchain.get_image_views().value();
-  swapchainExtent = swapchain.extent;
+  { // Immediate cmd buffers
+    VK_CHECK(vkCreateCommandPool(device, &cmdInfo, nullptr, &immCmdPool));
+    auto immAllocInfo = util::createBufferAllocateInfo(immCmdPool, 1);
+    VK_CHECK(vkAllocateCommandBuffers(device, &immAllocInfo, &immCmdBuff));
+  }
 }
 
 void VkHW::init_swapchain() {
-  create_swapchain(windowExtent, false);
-  
+  create_swapchain(windowExtent);
+
   VkExtent3D drawImageExtent{
       .width = windowExtent.width,
       .height = windowExtent.height,
@@ -206,13 +239,91 @@ void VkHW::init_swapchain() {
       .requiredFlags =
           VkMemoryPropertyFlags(VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT),
   };
-}
-void VkHW::init_commands() {}
-void VkHW::init_sync_structures() {}
-void VkHW::init_descriptors() {}
-void VkHW::init_pipelines() {}
-void VkHW::resize_swapchain() {}
 
+  { // Draw Image
+    drawImage.imageFormat = VK_FORMAT_R16G16B16A16_SFLOAT;
+    drawImage.imageExtent = drawImageExtent;
+
+    VkImageUsageFlags drawImageUsage =
+        VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT |
+        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+
+    auto rimgInfo = util::imageCreateInfo(drawImage.imageFormat, drawImageUsage,
+                                          drawImageExtent);
+
+    VK_CHECK(vmaCreateImage(allocator, &rimgInfo, &ringAllocInfo,
+                            &drawImage.image, &drawImage.alloc, nullptr));
+
+    auto rviewInfo = util::imageViewCreateInfo(
+        drawImage.imageFormat, drawImage.image, VK_IMAGE_ASPECT_COLOR_BIT);
+
+    VK_CHECK(
+        vkCreateImageView(device, &rviewInfo, nullptr, &drawImage.imageView));
+  }
+
+  { // Depth Image
+    depthImage.imageFormat = VK_FORMAT_D32_SFLOAT;
+    depthImage.imageExtent = drawImageExtent;
+
+    VkImageUsageFlags depthImageUsage =
+        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+    VkImageCreateInfo dimgInfo = util::imageCreateInfo(
+        depthImage.imageFormat, depthImageUsage, depthImage.imageExtent);
+
+    VK_CHECK(vmaCreateImage(allocator, &dimgInfo, &ringAllocInfo,
+                            &depthImage.image, &depthImage.alloc, nullptr));
+
+    VkImageViewCreateInfo dviewInfo = util::imageViewCreateInfo(
+        depthImage.imageFormat, depthImage.image, VK_IMAGE_ASPECT_DEPTH_BIT);
+
+    VK_CHECK(
+        vkCreateImageView(device, &dviewInfo, nullptr, &depthImage.imageView));
+  }
+
+  // mainDeletionQueue.pushFunction([&]() {
+  //   vkDestroyImageView(device, drawImage.imageView, nullptr);
+  //   vmaDestroyImage(allocator, drawImage.image, drawImage.alloc);
+
+  //   vkDestroyImageView(device, depthImage.imageView, nullptr);
+  //   vmaDestroyImage(allocator, drawImage.image, drawImage.alloc);
+  // });
+}
+
+void VkHW::init_sync_structures() {
+  auto semaphoreInfo = util::createSempahoreInfo();
+  auto fenceInfo = util::createFenceInfo(VK_FENCE_CREATE_SIGNALED_BIT);
+
+  for (size_t i = 0; i < frame_overlap; ++i) {
+    VK_CHECK(vkCreateFence(device, &fenceInfo, nullptr, &frames[i].fence));
+    VK_CHECK(vkCreateSemaphore(device, &semaphoreInfo, nullptr,
+                               &frames[i].renderSemaphore));
+    VK_CHECK(vkCreateSemaphore(device, &semaphoreInfo, nullptr,
+                               &frames[i].swapchainSemaphore));
+  }
+
+  { // immediate fence
+    VK_CHECK(vkCreateFence(device, &fenceInfo, nullptr, &immFence));
+    // mainDeletionQueue.pushFunction(
+    //     [&]() { vkDestroyFence(device, immFence, nullptr); });
+  }
+}
+void VkHW::init_descriptors() {
+  for (size_t i = 0; i < frame_overlap; ++i) {
+    std::vector<DescriptorAllocatorGrowable::PoolSizeRatio> frameSizes{
+        {VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 3},
+        {VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3},
+        {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 3},
+        {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 4},
+    };
+
+    frames[i].frameDescriptors = DescriptorAllocatorGrowable{};
+    frames[i].frameDescriptors.init(device, 1000, frameSizes);
+  }
+
+  // allocate default descriptors here
+}
+
+//-------------------------------
 
 void VkHW::immediateSubmit(std::function<void(VkCommandBuffer cmd)> &&f) {
   VK_CHECK(vkResetFences(device, 1, &immFence));
@@ -231,6 +342,201 @@ void VkHW::immediateSubmit(std::function<void(VkCommandBuffer cmd)> &&f) {
 
   VK_CHECK(vkQueueSubmit2(graphicsQueue, 1, &submit, immFence));
   VK_CHECK(vkWaitForFences(device, 1, &immFence, true, 9999999999));
+}
+
+void VkHW::create_swapchain(VkExtent2D extent, bool recreate) {
+  vkb::SwapchainBuilder swapchainBuilder{device};
+
+  swapchainBuilder.set_desired_format({.format = VK_FORMAT_B8G8R8_UNORM})
+      .set_desired_present_mode(VK_PRESENT_MODE_FIFO_KHR)
+      .set_desired_extent(extent.width, extent.height)
+      .add_image_usage_flags(VK_IMAGE_USAGE_TRANSFER_DST_BIT);
+
+  if (recreate)
+    swapchainBuilder.set_old_swapchain(swapchain);
+
+  auto vkres = swapchainBuilder.build();
+
+  if (!vkres) {
+    swapchain.swapchain = VK_NULL_HANDLE;
+    std::runtime_error(vkres.error().message());
+  }
+
+  if (recreate) {
+    vkb::destroy_swapchain(swapchain);
+    swapchainImages.clear();
+    swapchainImageViews.clear();
+  }
+
+  swapchain = vkres.value();
+  swapchainImages = swapchain.get_images().value();
+  swapchainImageViews = swapchain.get_image_views().value();
+  swapchainExtent = swapchain.extent;
+}
+
+void VkHW::resize_swapchain() {
+  vkDeviceWaitIdle(device);
+  int w, h;
+  SDL_GetWindowSize(window, &w, &h);
+  windowExtent.width = w;
+  windowExtent.height = h;
+
+  create_swapchain(windowExtent, true);
+  request_resize = false;
+}
+
+AllocatedBuffer VkHW::createBuffer(size_t allocSize, VkBufferUsageFlags usage,
+                                   VmaMemoryUsage memoryUsage) {
+  VkBufferCreateInfo bufferInfo{
+      .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
+      .pNext = nullptr,
+      .size = allocSize,
+      .usage = usage,
+  };
+
+  VmaAllocationCreateInfo vmaAlloc{
+      .flags = VMA_ALLOCATION_CREATE_MAPPED_BIT,
+      .usage = memoryUsage,
+  };
+
+  AllocatedBuffer buffer;
+  VK_CHECK(vmaCreateBuffer(allocator, &bufferInfo, &vmaAlloc, &buffer.buffer,
+                           &buffer.allocation, &buffer.info));
+  return buffer;
+}
+
+void VkHW::BeginRendering() {
+
+  VK_CHECK(
+      vkWaitForFences(device, 1, &get_current_frame().fence, true, 1000000000));
+  VK_CHECK(vkResetFences(device, 1, &get_current_frame().fence));
+  // get_current_frame().deletionQueue.flush();
+  get_current_frame().frameDescriptors.clear_pools(device);
+
+  VkResult swapchainErr = vkAcquireNextImageKHR(
+      device, swapchain, 1000000000, get_current_frame().swapchainSemaphore,
+      nullptr, &swapchainImgIndex);
+
+  if (swapchainErr == VK_ERROR_OUT_OF_DATE_KHR) {
+    request_resize = true;
+    return;
+  }
+
+  auto &frameData = get_current_frame();
+
+  auto cmd = frameData.cmdBuffer;
+  VK_CHECK(vkResetCommandBuffer(cmd, 0));
+
+  auto cmdBegin =
+      util::cmdBufferBeginInfo(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+
+  drawExtent.width =
+      std::min(drawImage.imageExtent.width, swapchainExtent.width) *
+      renderScale;
+  drawExtent.height =
+      std::min(drawImage.imageExtent.height, swapchainExtent.height) *
+      renderScale;
+
+  VkViewport vp{
+      .x = 0,
+      .y = 0,
+      .width = static_cast<float>(drawExtent.width),
+      .height = static_cast<float>(drawExtent.height),
+      .minDepth = 0.0f,
+      .maxDepth = 1.0f,
+  };
+
+  VkRect2D scissor{
+      .offset =
+          {
+              .x = 0,
+              .y = 0,
+          },
+      .extent =
+          {
+              .width = drawExtent.width,
+              .height = drawExtent.height,
+          },
+  };
+
+  VK_CHECK(vkBeginCommandBuffer(cmd, &cmdBegin));
+
+  vkCmdSetViewport(cmd, 0, 1, &vp);
+  vkCmdSetScissor(cmd, 0, 1, &scissor);
+
+  util::transition_umage(cmd, drawImage.image, VK_IMAGE_LAYOUT_UNDEFINED,
+                         VK_IMAGE_LAYOUT_GENERAL);
+
+  // compute pipelines here
+
+  util::transition_umage(cmd, drawImage.image, VK_IMAGE_LAYOUT_GENERAL,
+                         VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+  util::transition_umage(cmd, depthImage.image, VK_IMAGE_LAYOUT_UNDEFINED,
+                         VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL);
+
+  // drawImage ready to use as resulting image
+}
+
+
+void VkHW::EndRendering() {
+  auto cmd = get_current_frame().cmdBuffer;
+
+  util::transition_umage(cmd, drawImage.image,
+                         VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+                         VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+
+  util::transition_umage(cmd, swapchainImages[swapchainImgIndex],
+                         VK_IMAGE_LAYOUT_UNDEFINED,
+                         VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+
+  util::copyImageToImage(cmd, drawImage.image,
+                         swapchainImages[swapchainImgIndex], drawExtent,
+                         swapchainExtent);
+
+  // TODO: remove this transition later
+  util::transition_umage(cmd, swapchainImages[swapchainImgIndex],
+                         VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                         VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+  //--------
+
+  util::transition_umage(cmd, swapchainImages[swapchainImgIndex],
+                         VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+                         VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+
+  VK_CHECK(vkEndCommandBuffer(cmd));
+
+  auto cmdSubmitInfo = util::cmdBufferSubmitInfo(cmd);
+
+  auto waitInfo =
+      util::semaphoreSubmitInfo(VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
+                                get_current_frame().swapchainSemaphore);
+  auto signalInfo =
+      util::semaphoreSubmitInfo(VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT,
+                                get_current_frame().renderSemaphore);
+  auto submit = util::submitInfo2(&cmdSubmitInfo, &signalInfo, &waitInfo);
+
+  VK_CHECK(
+      vkQueueSubmit2(graphicsQueue, 1, &submit, get_current_frame().fence));
+
+  VkPresentInfoKHR present = {
+      .sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
+      .pNext = nullptr,
+      .waitSemaphoreCount = 1,
+      .pWaitSemaphores = &get_current_frame().renderSemaphore,
+      .swapchainCount = 1,
+      .pSwapchains = &swapchain.swapchain,
+      .pImageIndices = &swapchainImgIndex,
+  };
+
+  VkResult presentErr = vkQueuePresentKHR(graphicsQueue, &present);
+
+  if (presentErr == VK_ERROR_OUT_OF_DATE_KHR) {
+    request_resize = true;
+  }
+  frameNumber++;
+
+  if (request_resize)
+    resize_swapchain();
 }
 
 VkHW HW;

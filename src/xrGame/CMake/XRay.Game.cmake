@@ -15,6 +15,7 @@ add_module(XRay.Game
   DPlay
   #CxImage
   IKAN
+  imgui
 
   XRay.Core.Defines
   XRay.Engine.Defines

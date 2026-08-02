@@ -172,12 +172,6 @@ void CLevel::IR_OnKeyboardPress(int key)
             return;
         }
 
-        if (!Device.imgui().is_input())
-        {
-            Device.imgui().EnableInput();
-            return;
-        }
-
         Device.imgui().Show(false);
         return;
     }

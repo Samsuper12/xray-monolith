@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ImGuiRender.h>
+#include "VkHW.hpp"
 
 class vkImGuiRender : public IImGuiRender
 {
@@ -16,4 +17,8 @@ public:
     void OnDeviceDestroy() override;
     void OnDeviceResetBegin() override;
     void OnDeviceResetEnd() override;
+
+private:
+    VkViewport viewport;
+    VkDescriptorPool imguiPool;
 };
