@@ -67,12 +67,12 @@ public:
 	}
 };
 
-class XRCORE_API CTimer : public CTimerBase
+class CTimer : public CTimerBase
 {
 private:
 	using inherited = CTimerBase;
 
-private:
+protected:
 	float m_time_factor;
 	duration_t m_real_ticks;
 	duration_t m_ticks;
@@ -163,6 +163,7 @@ public:
 		else
 		{
 			qwPauseAccum += _current - save_clock;
+			m_real_ticks = CTimer::GetElapsed_ticks(); 
 		}
 		bPause = b;
 	}
