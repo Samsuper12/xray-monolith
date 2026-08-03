@@ -77,6 +77,8 @@ elseif(Linux)
   set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_WAYLAND_KHR)
 endif()
 
+set(KTX_FEATURE_TESTS OFF CACHE BOOL "" FORCE)
+set(KTX_FEATURE_TOOLS OFF CACHE BOOL "" FORCE)
 
 # Configure CCache
 include(XRay.CCache)
@@ -110,6 +112,7 @@ include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
 set(BOOST_INCLUDE_LIBRARIES "stacktrace;interprocess;system;container;intrusive;move")
 
+CPMAddPackage("gh:KhronosGroup/KTX-Software#v5.0.0-rc1")
 CPMAddPackage("gh:charles-lunarg/vk-bootstrap#v1.4.350")
 #CPMAddPackage("gh:libsdl-org/SDL#release-3.4.2")
 CPMAddPackage("gh:fmtlib/fmt#12.1.0")

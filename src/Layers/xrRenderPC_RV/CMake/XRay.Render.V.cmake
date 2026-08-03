@@ -74,6 +74,7 @@ target_link_libraries(XRay.Render.RV.Includes INTERFACE
   VulkanMemoryAllocator
   Vulkan::Headers
   slang::slang
+  ktx
 )
 
 add_module(XRay.Render.RV.RenderFactory
