@@ -1,6 +1,7 @@
 #include <defines.h>
 #include <Frustum.h>
 #include <profiler.h>
+#include <thread>
 #include <xrCore.h>
 
 #include "XR_IOConsole.h"
@@ -310,7 +311,7 @@ void mt_FreezeThread(void *ptr) {
 		}
 		STOP_PROFILE;
 
-		sleep((DWORD)repeatcheck);
+		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint32_t>(repeatcheck)));
 	}
 }
 
