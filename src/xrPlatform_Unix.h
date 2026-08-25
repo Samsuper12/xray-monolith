@@ -1279,8 +1279,8 @@ inline char *_strlwr(char *s) {
 inline int _strupr_s(char *str, size_t size) {
   if (!str || size == 0)
     return -1;
-  for (char *p = str; *p; p++)
-    *p = toupper((unsigned char)*p);
+  for (size_t i = 0; i < size && str[i]; i++)
+    str[i] = (char)toupper((unsigned char)str[i]);
   return 0;
 }
 
@@ -1311,7 +1311,7 @@ inline void strncat_s(char* dest, size_t destSize, const char* src, size_t count
 }
 
 inline char *_itoa(int i, char *s, int dummy_radix) {
-  sprintf(s, "%ld", i);
+  sprintf(s, "%d", i);
   return s;
 }
 
@@ -1344,7 +1344,11 @@ inline size_t FileSize(std::filesystem::path file)
 // use default version later
 inline char* strncpy_s(char *strDest, size_t numberOfElements,
                      const char *strSource, size_t count) {
-  return strncpy(strDest, strSource, count);
+    if (numberOfElements == 0) return strDest;
+    size_t n = (count < numberOfElements - 1) ? count : numberOfElements - 1;
+    strncpy(strDest, strSource, n);
+    strDest[n] = '\0';
+    return strDest;
 }
 
 template <size_t size>
@@ -1352,5 +1356,20 @@ inline char* strncpy_s(char (&strDest)[size], const char *strSource,
                      size_t count) {
   return strncpy_s(strDest, size, strSource, count);
 }
+
+inline auto GlobToRegex = [](std::string glob) -> std::string {
+    std::string rx = "^";
+    for (char c : glob) {
+        switch (c) {
+            case '*': rx += ".*"; break;
+            case '?': rx += '.'; break;
+            case '.': rx += "\\."; break;
+            case '\\': rx += "\\\\"; break;
+            default: rx += c;
+        }
+    }
+    rx += "$";
+    return rx;
+};
 
 #endif
