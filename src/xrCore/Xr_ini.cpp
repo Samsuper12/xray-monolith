@@ -237,25 +237,25 @@ void CInifile::Load(IReader* F, std::fs::path path
 
 	std::string DLTX_DELETE = "DLTX_DELETE";
 
-	auto MergeParentSet = [](std::vector<std::string>& ParentsBase, const std::vector<std::string>& ParentsOverride, bool bIncludeRemovers)
+	auto MergeParentSet = [](std::vector<std::string>* ParentsBase, const std::vector<std::string>* ParentsOverride, bool bIncludeRemovers)
 	{
-		for (std::string CurrentParent : ParentsOverride)
+		for (std::string CurrentParent : *ParentsOverride)
 		{
 			bool bIsParentRemoval = CurrentParent[0] == '!';
 
 			std::string StaleParentString = (!bIsParentRemoval ? "!" : "") + CurrentParent.substr(1);
 
-			for (auto It = ParentsBase.rbegin(); It != ParentsBase.rend(); It++)
+			for (auto It = ParentsBase->rbegin(); It != ParentsBase->rend(); It++)
 			{
 				if (*It == StaleParentString)
 				{
-					ParentsBase.erase(std::next(It).base());
+					ParentsBase->erase(std::next(It).base());
 				}
 			}
 
 			if (bIncludeRemovers || !bIsParentRemoval)
 			{
-				ParentsBase.insert(ParentsBase.end(), CurrentParent);
+				ParentsBase->insert(ParentsBase->end(), CurrentParent);
 			}
 		}
 	};
@@ -514,8 +514,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 					if (strstr(inc_name, "*.ltx"))
 					{
 						FS_FileSet fset;
-						// TODO:
-						FS.file_list(fset, inc_path.c_str(), FS_ListFiles, {std::regex(inc_name)});
+						FS.file_list(fset, inc_path.c_str(), FS_ListFiles, {std::regex(GlobToRegex(inc_name))});
 
 						for (auto it = fset.begin(); it != fset.end(); it++)
 						{
@@ -599,7 +598,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 						std::vector<std::string> CurrentParents = GetParentsSetFromString(inherited_names);
 						std::vector<std::string>* SectionParents = GetParentStrings(Current->Name.c_str());
 
-						MergeParentSet(*SectionParents, CurrentParents, true);
+						MergeParentSet(SectionParents, &CurrentParents, true);
 					}
 				}
 
@@ -721,13 +720,12 @@ void CInifile::Load(IReader* F, std::fs::path path
 
 		PreviousEvaluations->insert(PreviousEvaluations->end(), SectionName);
 
-		std::vector<std::string>* BaseParents = BaseParentDataMap.find(SectionName) != BaseParentDataMap.end() ? &BaseParentDataMap.find(SectionName)->second : nullptr;
-		std::vector<std::string>* OverrideParents = OverrideParentDataMap.find(SectionName) != OverrideParentDataMap.end() ? &OverrideParentDataMap.find(SectionName)->second : nullptr;
+		std::vector<std::string>* BaseParents = &BaseParentDataMap[SectionName];
+		std::vector<std::string>* OverrideParents = &OverrideParentDataMap[SectionName];
 
 		BOOL bDeleteSectionIfEmpty = FALSE;
 
-		if (BaseParents && OverrideParents)
-			MergeParentSet(*BaseParents, *OverrideParents, false);
+		MergeParentSet(BaseParents, OverrideParents, false);
 
 		std::pair<std::string, Sect> CurrentSecPair = std::pair<std::string, Sect>(SectionName, Sect());
 		Sect* CurrentSect = &CurrentSecPair.second;
@@ -801,8 +799,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 		InsertData(&BaseData, true);
 
 		//Insert variables from parents
-		if (BaseParents)
-		{
+
 			for (auto BaseParentIt = BaseParents->rbegin(); BaseParentIt != BaseParents->rend(); ++BaseParentIt)
 			{
 				std::string ParentSectionName = *(BaseParentIt.base() - 1);
@@ -831,7 +828,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 					InsertItemWithDelete(CurrentItem, Parent);
 				}
 			}
-		}
+		
 
 		//Delete entries that are still marked DLTX_DELETE
 		xr_unordered_set<xr_string> deletedItems;
