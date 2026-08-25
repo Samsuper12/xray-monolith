@@ -5,6 +5,7 @@
 #include "pch_script.h"
 #include "fs_registrator.h"
 #include <filesystem>
+#include "ReGlob.hpp"
 using namespace luabind;
 
 LPCSTR get_file_age_str(CLocatorAPI* fs, LPCSTR nm);
@@ -133,7 +134,7 @@ FS_file_list_ex::FS_file_list_ex(LPCSTR path, u32 flags, LPCSTR mask)
 
 	FS_FileSet files;
 	NeedAttention("Regex");
-	FS.file_list(files, path, flags, {std::regex(mask)});
+	FS.file_list(files, path, flags, {SudoMaker::ReGlob::Regexp(mask, {.globstars = true})});
 
 	for (FS_FileSetIt it = files.begin(); it != files.end(); ++it)
 	{
