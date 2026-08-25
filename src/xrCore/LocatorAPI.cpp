@@ -775,7 +775,7 @@ std::vector<CLocatorAPI::file> CLocatorAPI::file_list_open_impl(const std::strin
 	auto patternMatch = [patterns] (const std::fs::path& p) -> bool {
 		auto s = p.string();
 		for (const auto& pattern : patterns) {
-			if (std::regex_match(s, pattern))
+			if (std::regex_search(s, pattern))
 				return true;
 		}
 		return false;

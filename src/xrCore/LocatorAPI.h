@@ -193,7 +193,8 @@ public:
 	inline int file_list(FS_FileSet& dest, LPCSTR path, u32 flags = FS_ListFiles, std::initializer_list<std::regex> patterns = {}) {
 		auto files = file_list_open_impl(path, flags, patterns);
 
-		NeedAttention("f.vfs");
+		// FIXME: it looks good. Maybe everything is ok.
+		//NeedAttention("f.vfs");
 		//(entry.vfs != 0xffffffff ? FS_File::flVFS : 0)
 		//u32 fl = FS_File::flSubDir | (entry.vfs ? FS_File::flVFS : 0);
 
