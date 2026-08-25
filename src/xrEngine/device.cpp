@@ -287,38 +287,26 @@ float GetMonitorRefresh()
 extern int ps_framelimiter;
 extern u32 g_screenmode;
 
-CTimer FreezeTimer;
 void mt_FreezeThread(void *ptr) {
-	float freezetime = 0.f;
-	float repeatcheck = 500.f;
+	float freezetime = 500.f;
 
 	while (true)
 	{
 		PROF_EVENT();
 
 		if (g_loading_events.size())
-			freezetime = 25000.0f;
+			freezetime = 2500.0f;
 		else
-			freezetime = 5000.0f;
+			freezetime = 500.0f;
 
-		repeatcheck = 500.f;
-
-		START_PROFILE("Check timer");
-		if (FreezeTimer.GetElapsed_sec()*1000.f > freezetime)
-		{
-			FlushLog();
-			repeatcheck = 5000.f;
-		}
-		STOP_PROFILE;
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint32_t>(repeatcheck)));
+		FlushLog();
+		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint32_t>(freezetime)));
+		//STOP_PROFILE;
 	}
 }
 
 void CRenderDevice::on_idle()
 {
-	FreezeTimer.Start();
-
 	if (!b_is_Ready)
 	{
 		sleep(100);
