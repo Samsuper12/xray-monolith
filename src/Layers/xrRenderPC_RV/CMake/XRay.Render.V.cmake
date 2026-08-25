@@ -52,7 +52,6 @@ add_module(XRay.Render.RV
   [["Render.h"]]
 
   SOURCES
-
   xrRender_RV.cpp
   xrRender_console.cpp
 )
@@ -62,6 +61,7 @@ find_package(volk CONFIG REQUIRED)
 find_package(VulkanMemoryAllocator CONFIG REQUIRED)
 find_package(glslang CONFIG REQUIRED)
 find_package(VulkanHeaders CONFIG REQUIRED)
+find_package(gli CONFIG REQUIRED)
 
 #TODO: use CPM instead of brew
 find_package(Slang CONFIG REQUIRED)
@@ -75,6 +75,7 @@ target_link_libraries(XRay.Render.RV.Includes INTERFACE
   Vulkan::Headers
   slang::slang
   ktx
+  gli
 )
 
 add_module(XRay.Render.RV.RenderFactory
@@ -118,10 +119,9 @@ add_module(XRay.Render.RV.RenderFactory
 
 add_module(XRay.Render.RV.Core
   SOURCES
-  vulkan_init.cpp
   rv.cpp
   rv.hpp
   VkHW.hpp
   VkHW.cpp
-  SH_Matrix.cpp
+  ResourceManager.cpp
 )

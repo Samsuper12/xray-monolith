@@ -268,8 +268,8 @@ void CrosshairPair::RenderAimLine(
 ) const
 {
 	Fvector2 scr_size = {
-		float(::Render->getTarget()->get_width()),
-		float(::Render->getTarget()->get_height())
+		float(::Render->getRenderTargetSize().x),
+		float(::Render->getRenderTargetSize().y)
 	};
 
 	int verts = 2;

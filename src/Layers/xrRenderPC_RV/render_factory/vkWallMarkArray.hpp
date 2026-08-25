@@ -1,6 +1,7 @@
 #pragma once
 #include <WallMarkArray.h>
 
+// TODO: remove this. 
 class vkWallMarkArray : public IWallMarkArray
 {
 public:

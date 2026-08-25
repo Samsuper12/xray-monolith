@@ -23,9 +23,7 @@ public:
 	Fvector2 vPos;
 	Fvector2 vSize;
 	u32 dwColor;
-#ifdef DEBUG
 	shared_str		dbg_tex_name;
-#endif
 
 	void CreateShader(LPCSTR tex, LPCSTR sh = "hud\\default");
 	void SetShader(const ui_shader& sh) { hShader = sh; };

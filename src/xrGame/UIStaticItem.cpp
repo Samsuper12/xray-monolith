@@ -205,9 +205,7 @@ void CUIStaticItem::CreateShader(LPCSTR tex, LPCSTR sh)
 {
 	hShader->create(sh, tex);
 
-#ifdef DEBUG
 	dbg_tex_name = tex;
-#endif
 	uFlags.set(flValidSize, FALSE);
 	uFlags.set(flValidTextureRect, FALSE);
 }

@@ -5,7 +5,7 @@
 #include <device.h>
 #include "ResourceManager.hpp"
 
-#define DEV = vkRenderDeviceRender::Instance().Resources
+#define DEV vkRenderDeviceRender::Instance().Resources
 
 class CResourceManager;
 

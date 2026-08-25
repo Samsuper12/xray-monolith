@@ -1,6 +1,6 @@
 #pragma once
-#include <glm_main.hpp>
 #include "vulkan_main.hpp"
+#include <glm_main.hpp>
 
 #include <deque>
 #include <span>
@@ -12,7 +12,7 @@ struct DescriptorAllocatorGrowable {
   };
 
   void init(VkDevice device, uint32_t maxSets,
-                std::span<PoolSizeRatio> poolRatios) {
+            std::span<PoolSizeRatio> poolRatios) {
     ratios.clear();
 
     for (auto ratio : poolRatios)
@@ -48,6 +48,12 @@ struct DescriptorAllocatorGrowable {
 
   auto allocate(VkDevice device, VkDescriptorSetLayout layout,
                 void *pNext = nullptr) -> VkDescriptorSet {
+    std::array layouts{layout};
+    return allocate(device, layouts, pNext);
+  }
+
+  auto allocate(VkDevice device, std::span<VkDescriptorSetLayout> layouts,
+                void *pNext = nullptr) -> VkDescriptorSet {
     VkDescriptorPool usePool = get_pool(device);
     VkDescriptorSet set;
 
@@ -55,8 +61,8 @@ struct DescriptorAllocatorGrowable {
         .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO,
         .pNext = pNext,
         .descriptorPool = usePool,
-        .descriptorSetCount = 1,
-        .pSetLayouts = &layout,
+        .descriptorSetCount = layouts.size(),
+        .pSetLayouts = layouts.data(),
     };
 
     auto res = vkAllocateDescriptorSets(device, &allocInfo, &set);
@@ -132,7 +138,7 @@ struct DescriptorWriter {
         .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
         .pNext = nullptr,
         .dstSet = VK_NULL_HANDLE,
-
+        .descriptorCount = 1,
         .dstBinding = bindingIndex,
         .descriptorType = type,
         .pImageInfo = &info,
@@ -141,8 +147,8 @@ struct DescriptorWriter {
     writes.push_back(write);
   }
 
-  auto write_sampler(uint32_t bindingIndex, VkSampler) -> void {
-    write_image(bindingIndex, VK_NULL_HANDLE, VK_NULL_HANDLE,
+  auto write_sampler(uint32_t bindingIndex, VkSampler sampler) -> void {
+    write_image(bindingIndex, VK_NULL_HANDLE, sampler,
                 VK_IMAGE_LAYOUT_UNDEFINED, VK_DESCRIPTOR_TYPE_SAMPLER);
   }
 
@@ -159,6 +165,7 @@ struct DescriptorWriter {
         .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
         .pNext = nullptr,
         .dstSet = VK_NULL_HANDLE,
+        .descriptorCount = 1,
 
         .dstBinding = bindingIndex,
         .descriptorType = type,
@@ -180,5 +187,37 @@ struct DescriptorWriter {
 
     vkUpdateDescriptorSets(device, static_cast<uint32_t>(writes.size()),
                            writes.data(), 0, nullptr);
+  }
+};
+
+struct DescriptorLayoutBuilder {
+  std::vector<VkDescriptorSetLayoutBinding> bindings;
+
+  void addBinding(uint32_t binding, VkDescriptorType type) {
+    bindings.push_back(VkDescriptorSetLayoutBinding{
+        .binding = binding,
+        .descriptorType = type,
+        .descriptorCount = 1,
+    });
+  }
+  void clear() { bindings.clear(); }
+  VkDescriptorSetLayout build(VkDevice dev, VkShaderStageFlags shaderStages,
+                              void *pNext = nullptr,
+                              VkDescriptorSetLayoutCreateFlags flags = 0) {
+    for (auto &b : bindings)
+      b.stageFlags |= shaderStages;
+
+    VkDescriptorSetLayoutCreateInfo info{
+        .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,
+        .pNext = pNext,
+        .flags = flags,
+        .bindingCount = static_cast<uint32_t>(bindings.size()),
+        .pBindings = bindings.data(),
+    };
+
+    VkDescriptorSetLayout ret;
+    VK_CHECK(vkCreateDescriptorSetLayout(dev, &info, nullptr, &ret));
+
+    return ret;
   }
 };

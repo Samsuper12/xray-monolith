@@ -476,7 +476,8 @@ bool allow_intro()
 
 bool allow_logo() // AVO: skip NVIDIA and other logos at load time
 {
-	return !Core.Params.skiplogo;
+	// FIXME:
+	return false; //!Core.Params.skiplogo;
 }
 
 void CGamePersistent::start_logo_intro()

@@ -12,8 +12,9 @@
 
 namespace xr_imgui
 {
+    // TODO: fix imgui overlay
     static bool imgui_demo = false;
-    static bool imgui_metrics = false;
+    static bool imgui_metrics = true;
 
     ide::ide()
         :  m_render(nullptr), m_shown(true), firstframe(true)

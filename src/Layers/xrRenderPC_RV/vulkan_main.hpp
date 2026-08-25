@@ -16,16 +16,3 @@ inline void VK_CHECK(VkResult x) {
   }
 }
 
-struct AllocatedBuffer {
-  VkBuffer buffer;
-  VmaAllocation allocation;
-  VmaAllocationInfo info;
-};
-
-struct AllocatedImage {
-  VkImage image;
-  VkImageView imageView;
-  VmaAllocation alloc;
-  VkExtent3D imageExtent;
-  VkFormat imageFormat;
-};

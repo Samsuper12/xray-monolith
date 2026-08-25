@@ -7,9 +7,23 @@
 #include <optional>
 #include <vector>
 
-#include "vkDescriptorWriter.hpp"
+#include "Descriptors.hpp"
+#include "Error.hpp"
+#include "Pipelines.hpp"
+#include "Structs.hpp"
+#include "Texture.hpp"
+#include "Slang.hpp"
 
 namespace util {
+
+inline glm::vec3 normalizeToScreenNDC(const glm::vec3 &pos,
+                                      uint32_t screenWidth,
+                                      uint32_t screenHeight) {
+  return glm::vec3((pos.x / static_cast<float>(screenWidth)) * 2.0f - 1.0f,
+                   (pos.y / static_cast<float>(screenHeight)) * 2.0f - 1.0f,
+                   pos.z);
+}
+
 inline VkCommandPoolCreateInfo
 createCommandPoolInfo(uint32_t familyIndex, VkCommandPoolCreateFlags flags) {
   return VkCommandPoolCreateInfo{
@@ -154,6 +168,7 @@ inline VkImageCreateInfo imageCreateInfo(VkFormat format,
       .samples = VK_SAMPLE_COUNT_1_BIT,
       .tiling = VK_IMAGE_TILING_OPTIMAL,
       .usage = usageFlags,
+      .initialLayout = VK_IMAGE_LAYOUT_UNDEFINED,
   };
 }
 
@@ -166,13 +181,14 @@ imageViewCreateInfo(VkFormat format, VkImage image,
       .image = image,
       .viewType = VK_IMAGE_VIEW_TYPE_2D,
       .format = format,
-      .subresourceRange = {
-        .aspectMask = aspectMask,
-        .baseMipLevel = 0,
-        .levelCount = 1,
-        .baseArrayLayer = 0,
-        .layerCount = 1,
-      },
+      .subresourceRange =
+          {
+              .aspectMask = aspectMask,
+              .baseMipLevel = 0,
+              .levelCount = 1,
+              .baseArrayLayer = 0,
+              .layerCount = 1,
+          },
   };
 }
 
@@ -181,33 +197,35 @@ inline void copyImageToImage(VkCommandBuffer cmd, VkImage src, VkImage dst,
   VkImageBlit2 blitRegion{
       .sType = VK_STRUCTURE_TYPE_IMAGE_BLIT_2,
       .pNext = nullptr,
-      .srcSubresource = {
-        .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
-        .mipLevel = 0,
-        .baseArrayLayer = 0,
-        .layerCount = 1,
-      },
-      
-      .dstSubresource = {
-        .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
-        .mipLevel = 0,
-        .baseArrayLayer = 0,
-        .layerCount = 1,
-      }, 
+      .srcSubresource =
+          {
+              .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+              .mipLevel = 0,
+              .baseArrayLayer = 0,
+              .layerCount = 1,
+          },
+
+      .dstSubresource =
+          {
+              .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+              .mipLevel = 0,
+              .baseArrayLayer = 0,
+              .layerCount = 1,
+          },
 
   };
 
   blitRegion.srcOffsets[1] = {
-        .x = static_cast<int32_t>(srcSize.width),
-        .y = static_cast<int32_t>(srcSize.height),
-        .z = 1,
-      };
+      .x = static_cast<int32_t>(srcSize.width),
+      .y = static_cast<int32_t>(srcSize.height),
+      .z = 1,
+  };
 
-      blitRegion .dstOffsets[1] = {
-        .x = static_cast<int32_t>(dstSize.width),
-        .y = static_cast<int32_t>(dstSize.height),
-        .z = 1,
-      };
+  blitRegion.dstOffsets[1] = {
+      .x = static_cast<int32_t>(dstSize.width),
+      .y = static_cast<int32_t>(dstSize.height),
+      .z = 1,
+  };
 
   VkBlitImageInfo2 blitInfo{
       .sType = VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2,
@@ -323,8 +341,7 @@ inline VkRenderingAttachmentInfo depthAttachmentInfo(
       .imageLayout = layout,
       .loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
       .storeOp = VK_ATTACHMENT_STORE_OP_STORE,
-      .clearValue = {.depthStencil = {.depth = 0.f}}
-  };
+      .clearValue = {.depthStencil = {.depth = 0.f}}};
 }
 
 template <typename T> struct MmapedBuffer {
@@ -362,10 +379,7 @@ inline buffer_ptr_t<T> getBufferPointer(VmaAllocator allocator,
   return buffer_ptr_t<T>(buf_data, &base_vma_unmmap<T>);
 }
 
-
 template buffer_ptr_t<float> getBufferPointer(VmaAllocator allocator,
                                               const AllocatedBuffer &buf);
-
-                                              static inline VmaAllocator dumbAlloc;
 
 } // namespace util

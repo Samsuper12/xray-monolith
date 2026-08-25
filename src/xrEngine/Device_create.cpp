@@ -191,9 +191,9 @@ PROTECT_API void CRenderDevice::Create()
 #endif // #ifdef INGAME_EDITOR
 		true
 	);
-
-	if (g_screenmode == 1)
-		SDL_SetWindowFullscreen(Device.m_window, true);
+	// TODO: let it windowed for now.
+	// if (g_screenmode == 1)
+	// 	SDL_SetWindowFullscreen(Device.m_window, true);
 
 	SDL_RaiseWindow(Device.m_window);
 

@@ -5,6 +5,8 @@
 #include <IRenderDetailModel.h>
 #include <Kinematics.h>
 #include "render_stub.hpp"
+#include <FS.h>
+#include <LocatorAPI.h>
 
 
 class CRender : public IRender_interface, public pureFrame
@@ -66,12 +68,13 @@ public:
 
 	// Information
 	virtual void Statistics(CGameFont* F) override  {render_stub();}
-	virtual LPCSTR getShaderPath() override {render_stub();}// { return "r3\\"; }
+	virtual std::string getShaderPath() override { return "rv/"; }
 	// virtual ref_shader getShader(int id)  {render_stub();}
 	virtual IRender_Sector* getSector(int id) override  {render_stub();}
 	virtual IRenderVisual* getVisual(int id) override  {render_stub();}
 	virtual IRender_Sector* detectSector(const Fvector& P) override  {render_stub();}
 	virtual IRender_Target* getTarget() override  {render_stub();}
+	auto getRenderTargetSize() -> glm::vec2 override;
 	virtual u32 memory_usage() {render_stub();}
 
 

@@ -1,4 +1,5 @@
 #include "VkHW.hpp"
+#include "utils/Descriptors.hpp"
 #include "utils/vkUtil.hpp"
 
 // #ifdef DEBUG
@@ -6,6 +7,13 @@
 // #else
 // bool useValidationLayers = false;
 // #endif
+
+inline auto fmatrix_to_glm(const Fmatrix &m) -> glm::mat4 const {
+  return glm::mat4{
+      m._11, m._12, m._13, m._14, m._21, m._22, m._23, m._24,
+      m._31, m._32, m._33, m._34, m._41, m._42, m._43, m._44,
+  };
+}
 
 bool useValidationLayers = true;
 
@@ -52,9 +60,9 @@ void VkHW::CreateDevice(SDL_Window *window, VkExtent2D windowExtent) {
   init_commands();
   init_sync_structures();
   init_descriptors();
+  init_buffers();
 
   isInit = true;
-  // Device.b_is_Active = TRUE;
 }
 
 void VkHW::DestroyDevice() {
@@ -109,7 +117,7 @@ void VkHW::init_vulkan() {
   vkb::InstanceBuilder instBuilder;
 
   instBuilder.set_app_name("Vulkan")
-      .require_api_version(1, 3, 0)
+      .require_api_version(1, 4, 0)
       .request_validation_layers(useValidationLayers)
       .set_debug_messenger_severity(
           VkDebugUtilsMessageSeverityFlagBitsEXT::
@@ -173,6 +181,8 @@ void VkHW::init_vulkan() {
 
   physDevice.enable_extension_if_present("VK_EXT_descriptor_buffer");
 
+  vkGetPhysicalDeviceProperties(physDevice, &deviceCaps);
+
   vkb::DeviceBuilder deviceBuilder{physDevice};
   auto dvkres = deviceBuilder.build();
   R_ASSERT2(dvkres, dvkres.error().message());
@@ -200,7 +210,6 @@ void VkHW::init_vulkan() {
   vmaImportVulkanFunctionsFromVolk(&allocInfo, &vmaFuncs);
   vmaCreateAllocator(&allocInfo, &allocator);
 
-  // TODO: mainDeletionQueue.pushFunction([&]() {
   // vmaDestroyAllocator(allocator); });
 }
 
@@ -246,7 +255,8 @@ void VkHW::init_swapchain() {
 
     VkImageUsageFlags drawImageUsage =
         VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT |
-        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+        VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+        VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT;
 
     auto rimgInfo = util::imageCreateInfo(drawImage.imageFormat, drawImageUsage,
                                           drawImageExtent);
@@ -279,14 +289,6 @@ void VkHW::init_swapchain() {
     VK_CHECK(
         vkCreateImageView(device, &dviewInfo, nullptr, &depthImage.imageView));
   }
-
-  // mainDeletionQueue.pushFunction([&]() {
-  //   vkDestroyImageView(device, drawImage.imageView, nullptr);
-  //   vmaDestroyImage(allocator, drawImage.image, drawImage.alloc);
-
-  //   vkDestroyImageView(device, depthImage.imageView, nullptr);
-  //   vmaDestroyImage(allocator, drawImage.image, drawImage.alloc);
-  // });
 }
 
 void VkHW::init_sync_structures() {
@@ -301,11 +303,7 @@ void VkHW::init_sync_structures() {
                                &frames[i].swapchainSemaphore));
   }
 
-  { // immediate fence
-    VK_CHECK(vkCreateFence(device, &fenceInfo, nullptr, &immFence));
-    // mainDeletionQueue.pushFunction(
-    //     [&]() { vkDestroyFence(device, immFence, nullptr); });
-  }
+  VK_CHECK(vkCreateFence(device, &fenceInfo, nullptr, &immFence));
 }
 void VkHW::init_descriptors() {
   for (size_t i = 0; i < frame_overlap; ++i) {
@@ -321,9 +319,233 @@ void VkHW::init_descriptors() {
   }
 
   // allocate default descriptors here
+  std::vector<DescriptorAllocatorGrowable::PoolSizeRatio> globalPoolRatios{
+      {VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 3},
+      {VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3},
+      {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 3},
+      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 4},
+  };
+
+  globalDescriptorAllocator = DescriptorAllocatorGrowable{};
+  globalDescriptorAllocator.init(device, 1000, globalPoolRatios);
+
+  // GPU_Scenedata
+  DescriptorLayoutBuilder layoutBuilder;
+  layoutBuilder.addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
+  sceneDescriptorLayout = layoutBuilder.build(device, VK_SHADER_STAGE_ALL);
+  sceneDescriptorSet =
+      globalDescriptorAllocator.allocate(device, sceneDescriptorLayout);
+}
+
+void VkHW::init_buffers() {
+  sceneDataBuffer =
+      createBuffer(sizeof(GPU_SceneData), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                   VMA_MEMORY_USAGE_CPU_TO_GPU);
+  DescriptorWriter sceneWriter;
+  sceneWriter.write_buffer(0, sceneDataBuffer.buffer, sizeof(GPU_SceneData), 0,
+                           VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
+  sceneWriter.updatee_set(device, sceneDescriptorSet);
+
+  VkSamplerCreateInfo samplerInfo{
+      .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
+      .magFilter = VK_FILTER_LINEAR,
+      .minFilter = VK_FILTER_LINEAR,
+      .addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT,
+      .addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT,
+      .addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT,
+      .anisotropyEnable = VK_FALSE,
+      .compareEnable = VK_FALSE,
+      .unnormalizedCoordinates = VK_FALSE,
+      .mipmapMode = VK_SAMPLER_MIPMAP_MODE_NEAREST,
+      .mipLodBias = 0.0f,
+      .minLod = 0.0f,
+      .maxLod = 0.0f,
+  };
+
+  VK_CHECK(vkCreateSampler(device, &samplerInfo, nullptr, &linearSampler));
 }
 
 //-------------------------------
+AllocatedImage VkHW::createImage(VkExtent3D size, VkFormat format,
+                                 VkImageUsageFlags flags, bool mipmapped,
+                                 uint32_t layers) {
+  AllocatedImage newImage{
+      .imageExtent = size,
+      .imageFormat = format,
+      .layersCount = layers,
+  };
+
+  VkImageCreateInfo imgInfo = util::imageCreateInfo(format, flags, size);
+
+  if (mipmapped)
+    imgInfo.mipLevels = static_cast<uint32_t>(std::floor(
+                            std::log2(std::max(size.width, size.height)))) +
+                        1;
+
+  VmaAllocationCreateInfo allocInfo{.usage = VMA_MEMORY_USAGE_GPU_ONLY,
+                                    .requiredFlags = VkMemoryPropertyFlags(
+                                        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)};
+
+  VK_CHECK(vmaCreateImage(allocator, &imgInfo, &allocInfo, &newImage.image,
+                          &newImage.alloc, nullptr));
+
+  VkImageAspectFlags aspect = (format == VK_FORMAT_D32_SFLOAT)
+                                  ? VK_IMAGE_ASPECT_DEPTH_BIT
+                                  : VK_IMAGE_ASPECT_COLOR_BIT;
+
+  VkImageViewCreateInfo viewInfo =
+      util::imageViewCreateInfo(format, newImage.image, aspect);
+  VK_CHECK(vkCreateImageView(device, &viewInfo, nullptr, &newImage.imageView));
+
+  return newImage;
+}
+
+AllocatedImage VkHW::createImage(void *data, uint32_t dataSize, VkExtent3D size,
+                                 VkFormat format, VkImageUsageFlags flags,
+                                 bool mipmapped, uint32_t layers) {
+  // size_t data_size = size.depth * size.height * size.width * 4;
+  AllocatedBuffer staging = createBuffer(
+      dataSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_MEMORY_USAGE_CPU_TO_GPU);
+  memcpy(staging.info.pMappedData, data, dataSize);
+
+  AllocatedImage newImage = createImage(size, format, flags, mipmapped, layers);
+  VkImageAspectFlags aspect = (format == VK_FORMAT_D32_SFLOAT)
+                                  ? VK_IMAGE_ASPECT_DEPTH_BIT
+                                  : VK_IMAGE_ASPECT_COLOR_BIT;
+
+  immediateSubmit([&](VkCommandBuffer cmd) {
+    util::transition_umage(cmd, newImage.image, VK_IMAGE_LAYOUT_UNDEFINED,
+                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+
+    VkBufferImageCopy copyRegion{
+        .bufferOffset = 0,
+        .bufferRowLength = 0,
+        .bufferImageHeight = 0,
+        .imageExtent = size,
+    };
+
+    copyRegion.imageSubresource = {
+        .aspectMask = aspect,
+        .mipLevel = 0,
+        .baseArrayLayer = 0,
+        .layerCount = 1,
+    };
+
+    vkCmdCopyBufferToImage(cmd, staging.buffer, newImage.image,
+                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1,
+                           &copyRegion);
+
+    util::transition_umage(cmd, newImage.image,
+                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                           VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+  });
+
+  destroyBuffer(staging);
+
+  return newImage;
+}
+
+// TODO: 3D/ArrayTexture
+AllocatedImage VkHW::createImage(rv::texture::ktxTexsturePtr_t ktxTexturePtr,
+                                 VkImageUsageFlags flags) {
+
+  VkExtent3D extent{
+      .width = ktxTexturePtr->baseWidth,
+      .height = ktxTexturePtr->baseHeight,
+      .depth = 1,
+  };
+
+  VkFormat format = ktxTexture2_GetVkFormat(ktxTexturePtr.get());
+  uint32_t dataSize = ktxTexture_GetDataSize(ktxTexture(ktxTexturePtr.get()));
+
+  AllocatedImage newImage{
+      .imageExtent = extent,
+      .imageFormat = format,
+      .layersCount = ktxTexturePtr->numLayers,
+  };
+
+  VkImageCreateInfo imgInfo = util::imageCreateInfo(format, flags, extent);
+  imgInfo.mipLevels = ktxTexturePtr->numLevels;
+  imgInfo.arrayLayers = ktxTexturePtr->numLayers;
+
+  VmaAllocationCreateInfo allocInfo{.usage = VMA_MEMORY_USAGE_GPU_ONLY,
+                                    .requiredFlags = VkMemoryPropertyFlags(
+                                        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)};
+
+  VK_CHECK(vmaCreateImage(allocator, &imgInfo, &allocInfo, &newImage.image,
+                          &newImage.alloc, nullptr));
+
+  VkImageAspectFlags aspect = (format == VK_FORMAT_D32_SFLOAT)
+                                  ? VK_IMAGE_ASPECT_DEPTH_BIT
+                                  : VK_IMAGE_ASPECT_COLOR_BIT;
+
+  VkImageViewCreateInfo viewInfo =
+      util::imageViewCreateInfo(format, newImage.image, aspect);
+
+  if (ktxTexturePtr->numLayers > 1) {
+    viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D_ARRAY;
+  }
+  viewInfo.subresourceRange = {
+      .aspectMask = aspect,
+      .baseMipLevel = 0,
+      .levelCount = ktxTexturePtr->numLevels,
+      .baseArrayLayer = 0,
+      .layerCount = ktxTexturePtr->numLayers,
+  };
+
+  VK_CHECK(vkCreateImageView(device, &viewInfo, nullptr, &newImage.imageView));
+
+  AllocatedBuffer staging = createBuffer(
+      dataSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_MEMORY_USAGE_CPU_TO_GPU);
+  memcpy(staging.info.pMappedData, ktxTexturePtr->pData, dataSize);
+
+  immediateSubmit([&](VkCommandBuffer cmd) {
+    util::transition_umage(cmd, newImage.image, VK_IMAGE_LAYOUT_UNDEFINED,
+                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+
+    std::vector<VkBufferImageCopy> bufferCopyRegions;
+
+    for (uint32_t level = 0; level < ktxTexturePtr->numLevels; ++level) {
+
+      ktx_size_t offset;
+      ktxTexture_GetImageOffset(ktxTexture(ktxTexturePtr.get()), level, 0, 0,
+                                &offset);
+
+      VkBufferImageCopy copyRegion{
+          .bufferOffset = offset,
+          .bufferRowLength = 0,
+          .bufferImageHeight = 0,
+          .imageExtent =
+              VkExtent3D{
+                  .width = std::max(1u, ktxTexturePtr->baseWidth >> level),
+                  .height = std::max(1u, ktxTexturePtr->baseHeight >> level),
+                  .depth = 1,
+              },
+      };
+
+      copyRegion.imageSubresource = {
+          .aspectMask = aspect,
+          .mipLevel = level,
+          .baseArrayLayer = 0,
+          .layerCount = ktxTexturePtr->numLayers,
+      };
+
+      bufferCopyRegions.push_back(copyRegion);
+    }
+
+    vkCmdCopyBufferToImage(cmd, staging.buffer, newImage.image,
+                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                           bufferCopyRegions.size(), bufferCopyRegions.data());
+
+    util::transition_umage(cmd, newImage.image,
+                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                           VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+  });
+
+  destroyBuffer(staging);
+
+  return newImage;
+}
 
 void VkHW::immediateSubmit(std::function<void(VkCommandBuffer cmd)> &&f) {
   VK_CHECK(vkResetFences(device, 1, &immFence));
@@ -459,6 +681,33 @@ void VkHW::BeginRendering() {
           },
   };
 
+  auto m_view = fmatrix_to_glm(Device.mView);
+  auto m_project = fmatrix_to_glm(Device.mProject);
+
+  auto *sceneData =
+      static_cast<GPU_SceneData *>(sceneDataBuffer.info.pMappedData);
+  *sceneData = GPU_SceneData{};
+
+  glm::mat4 m_Texgen{1.0f};
+  // u_compute_texgen_screen ?
+  // TODO:
+  sceneData->m_W = m_Texgen;
+  sceneData->m_WV = sceneData->m_V * sceneData->m_W;
+  sceneData->m_WVP = sceneData->m_P * sceneData->m_WV;
+  sceneData->m_V = m_view;
+  sceneData->m_WV = sceneData->m_V * sceneData->m_W;
+  sceneData->m_VP = sceneData->m_P * sceneData->m_V;
+  sceneData->m_WVP = sceneData->m_P * sceneData->m_WV;
+  sceneData->m_P = m_project;
+  sceneData->m_VP = sceneData->m_P * sceneData->m_V;
+  sceneData->m_WVP = sceneData->m_P * sceneData->m_WV;
+
+  // TODO:
+  sceneData->deltaTime = 0;
+  sceneData->frameNumber = frameNumber;
+
+  set_ActiveTextureExtent(VkExtent3D{drawExtent.width, drawExtent.height, 1});
+
   VK_CHECK(vkBeginCommandBuffer(cmd, &cmdBegin));
 
   vkCmdSetViewport(cmd, 0, 1, &vp);
@@ -476,7 +725,6 @@ void VkHW::BeginRendering() {
 
   // drawImage ready to use as resulting image
 }
-
 
 void VkHW::EndRendering() {
   auto cmd = get_current_frame().cmdBuffer;
@@ -533,6 +781,7 @@ void VkHW::EndRendering() {
   if (presentErr == VK_ERROR_OUT_OF_DATE_KHR) {
     request_resize = true;
   }
+
   frameNumber++;
 
   if (request_resize)

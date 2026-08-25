@@ -84,8 +84,12 @@ void vkRenderDeviceRender::End() {
 	//if				(D3DERR_DEVICELOST==_hr)	return;			// we will handle this later
 	render_stub_unimpl();
 }
-void vkRenderDeviceRender::SetCacheXform(Fmatrix& mView, Fmatrix& mProject) {render_stub();}
-void vkRenderDeviceRender::SetCacheXform_prev(Fmatrix& mView, Fmatrix& mProject) {render_stub();}
+void vkRenderDeviceRender::SetCacheXform(Fmatrix& mView, Fmatrix& mProject) {
+	render_stub();
+}
+void vkRenderDeviceRender::SetCacheXform_prev(Fmatrix& mView, Fmatrix& mProject) {
+	render_stub();
+}
 
 
 IRenderDeviceRender::DeviceState vkRenderDeviceRender::GetDeviceState() {return IRenderDeviceRender::dsOK;}

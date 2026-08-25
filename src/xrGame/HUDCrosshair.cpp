@@ -103,8 +103,8 @@ bool CHUDCrosshair::InitShaderCrosshair()
 void CHUDCrosshair::PushVerts(Fvector* verts, Fvector* uvs, int count, Fmatrix mat, Fvector4 pos) const
 {
 	Fvector2 scr_size = {
-		float(::Render->getTarget()->get_width()),
-		float(::Render->getTarget()->get_height())
+		float(::Render->getRenderTargetSize().x),
+		float(::Render->getRenderTargetSize().y)
 	};
 
 	for (int i = 0; i < count; i++)
@@ -128,8 +128,8 @@ void CHUDCrosshair::RenderShaderCrosshair()
 {
 	// Fetch the render target size
 	Fvector2 scr_size = {
-		float(::Render->getTarget()->get_width()),
-		float(::Render->getTarget()->get_height())
+		float(::Render->getRenderTargetSize().x),
+		float(::Render->getRenderTargetSize().y)
 	};
 
 	float max = maxRadius;
@@ -167,8 +167,8 @@ void CHUDCrosshair::RenderWireCrosshair()
 {
 	// Fetch the render target size
 	Fvector2 scr_size = {
-		float(::Render->getTarget()->get_width()),
-		float(::Render->getTarget()->get_height())
+		float(::Render->getRenderTargetSize().x),
+		float(::Render->getRenderTargetSize().y)
 	};
 
 	float min = minRadius;

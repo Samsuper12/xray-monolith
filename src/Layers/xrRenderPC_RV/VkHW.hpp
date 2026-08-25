@@ -1,18 +1,19 @@
 #pragma once
 #include "SDL3/SDL.h"
-#include "utils/vkDescriptorWriter.hpp"
-#include "vulkan_main.hpp"
+#include "utils/Structs.hpp"
+#include "utils/vkUtil.hpp"
 #include <algorithm>
 #include <vector>
 
-constexpr uint32_t frame_overlap = 2;
+// TODO: refactor this shit.
+
+static constexpr uint32_t frame_overlap = 1;
 struct FrameData {
   VkCommandPool cmdPool;
   VkCommandBuffer cmdBuffer;
   VkSemaphore swapchainSemaphore, renderSemaphore;
   VkFence fence;
   // DeletionQueue deletionQueue;
-
   DescriptorAllocatorGrowable frameDescriptors;
 };
 
@@ -51,6 +52,23 @@ public:
   void immediateSubmit(std::function<void(VkCommandBuffer cmd)> &&f);
   AllocatedBuffer createBuffer(size_t allocSize, VkBufferUsageFlags usage,
                                VmaMemoryUsage memoryUsage);
+  AllocatedImage createImage(VkExtent3D size, VkFormat format,
+                             VkImageUsageFlags flags, bool mipmapped = false, uint32_t layers = 1);
+  AllocatedImage createImage(void *data, uint32_t dataSize, VkExtent3D size, VkFormat format,
+                             VkImageUsageFlags flags, bool mipmapped = false, uint32_t layers = 1);
+  AllocatedImage createImage(rv::texture::ktxTexsturePtr_t ktxtexture, VkImageUsageFlags flags);
+
+  void deleteImage(AllocatedImage img) {
+    vkDestroyImageView(device, img.imageView, nullptr);
+    vmaDestroyImage(allocator, img.image, img.alloc);
+  }
+
+  void destroyBuffer(const AllocatedBuffer &buffer) {
+    vmaDestroyBuffer(allocator, buffer.buffer, buffer.allocation);
+  }
+
+  auto get_ActiveTextureExtent() -> VkExtent3D const { return currentTextureExtent; }
+  auto set_ActiveTextureExtent(VkExtent3D extent) {currentTextureExtent = extent;};
 
 private:
   void init_vulkan();
@@ -58,6 +76,8 @@ private:
   void init_commands();
   void init_sync_structures();
   void init_descriptors();
+  void init_buffers();
+
   void resize_swapchain();
   void create_swapchain(VkExtent2D extent, bool recreate = false);
 
@@ -66,7 +86,7 @@ public:
   vkb::Device device;
   vkb::Swapchain swapchain;
 
-  uint32_t frameNumber{0};
+  uint64_t frameNumber{0};
   FrameData frames[frame_overlap];
   uint32_t swapchainImgIndex;
 
@@ -79,7 +99,6 @@ public:
   VkExtent2D swapchainExtent;
   VkExtent2D drawExtent;
   VkExtent2D windowExtent;
-
 
   SDL_Window *window;
   bool request_resize{false};
@@ -95,6 +114,21 @@ public:
 
   AllocatedImage drawImage;
   AllocatedImage depthImage;
+
+  DescriptorAllocatorGrowable globalDescriptorAllocator;
+
+  // Scene SSBO
+  VkDescriptorSet sceneDescriptorSet;
+  VkDescriptorSetLayout sceneDescriptorLayout;
+  GPU_SceneData sceneData;
+  GPU_SceneData *sceneDataWritePtr;
+  AllocatedBuffer sceneDataBuffer;
+
+  VkSampler linearSampler;
+
+  VkPhysicalDeviceProperties deviceCaps;
+
+  VkExtent3D currentTextureExtent;
 };
 
 extern VkHW HW;

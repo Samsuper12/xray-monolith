@@ -10,6 +10,7 @@
 #include "vis_common.h"
 
 #include <stdint.h>
+#include <glm_main.hpp>
 
 using UINT = unsigned int;
 
@@ -271,12 +272,14 @@ public:
 	{
 	};
 
-	virtual LPCSTR getShaderPath() = 0;
+	virtual std::string getShaderPath() = 0;
 	// virtual ref_shader getShader (int id) = 0;
 	virtual IRender_Sector* getSector(int id) = 0;
 	virtual IRenderVisual* getVisual(int id) = 0;
 	virtual IRender_Sector* detectSector(const Fvector& P) = 0;
+	//TODO: remove getTarget();
 	virtual IRender_Target* getTarget() = 0;
+	virtual auto getRenderTargetSize() -> glm::vec2 = 0;
 
 	// Main
 	IC void set_Frustum(CFrustum* O)

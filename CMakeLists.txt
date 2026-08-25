@@ -1,5 +1,5 @@
 # Use minimum VS-supported CMake for broad IDE compatibility
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 4.4)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 message(STATUS "CMake")
@@ -124,6 +124,9 @@ CPMAddPackage("gh:uxlfoundation/oneTBB#v2022.3.0")
 CPMAddPackage("gh:Taywee/args#6.4.8")
 CPMAddPackage("gh:nothings/stb#f1c79c0")
 CPMAddPackage("gh:zeux/volk#vulkan-sdk-1.4.350.1")
+CPMAddPackage("gh:Samsuper12/gli#cdb01f8")
+CPMAddPackage("gh:SudoMaker/ReGlob#29284d4") 
+CPMAddPackage("gh:yosh-matsuda/cpp-yyjson#v0.8.0")
 CPMAddPackage(
   NAME Boost
   VERSION 1.90.0

@@ -312,9 +312,6 @@ void CUISequencer::OnFrame()
 
 void CUISequencer::OnRender()
 {
-	// my fix
-	if (!IsActive() || !m_UIWindow)
-        return;
 
 	if (m_UIWindow->IsShown())
 		m_UIWindow->Draw();

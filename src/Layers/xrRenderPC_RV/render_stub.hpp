@@ -2,13 +2,15 @@
 #include <log.h>
 #include <cstdio>
 
+static const bool wannaMsg = false;
+
 static inline void render_stub_impl(const char* msg, const char* func, const char * file) {
+    if (!wannaMsg) return;
+
     if (msg) {
-        Msg("%s: %s:%s", msg, file, func);
-        fprintf(stdout, "%s: %s:%s\n", msg, file, func);
+        Msg("[RV][STUB]: %s: %s:%s", msg, file, func);
     } else {
-        Msg("Render stub: %s:%s", file, func);
-        fprintf(stderr, "Render stub: %s:%s\n", file, func);
+        Msg("[RV][STUB]: %s:%s", file, func);
     }
 }
 
