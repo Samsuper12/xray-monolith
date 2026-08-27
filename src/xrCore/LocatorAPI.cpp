@@ -33,6 +33,7 @@
 #include "stream_reader.h"
 #include "file_stream_reader.h"
 #include "xrDebug_macros.h"
+#include <profiler.h>
 
 const u32 BIG_FILE_READER_WINDOW_SIZE = 1024 * 1024;
 
@@ -228,6 +229,7 @@ CLocatorAPI::~CLocatorAPI()
 
 void CLocatorAPI::Register(std::fs::path path, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, time_t modif)
 {
+	PROF_EVENT();
 	// try to add a folder before
 	auto parent_path = vfs::parent_path(path);
 	if (m_files.find({.name = parent_path}) == m_files.end()) {
@@ -255,6 +257,7 @@ void CLocatorAPI::Register(std::fs::path path, u32 vfs, u32 crc, u32 ptr, u32 si
 
 IReader* open_chunk(std::fs::path path, u32 ID)
 {
+	PROF_EVENT();
 	std::ifstream file(path, std::ios::binary);
 	VERIFY(file.is_open());
 	file.seekg(0);
@@ -290,6 +293,7 @@ IReader* open_chunk(std::fs::path path, u32 ID)
 
 void CLocatorAPI::LoadArchive(archive& A, LPCSTR entrypoint)
 {
+	PROF_EVENT();
 	// Create base path
 	std::fs::path fs_entry_point;
 	if (A.header)
@@ -379,6 +383,7 @@ void CLocatorAPI::LoadArchive(archive& A, LPCSTR entrypoint)
 
 void CLocatorAPI::archive::open()
 {
+	PROF_EVENT();
 	if (fileMapping)
 		return;
 
@@ -397,6 +402,7 @@ void CLocatorAPI::archive::close()
 
 void CLocatorAPI::ProcessArchive(std::fs::path path)
 {
+	PROF_EVENT();
 	// find existing archive
 	for (archives_it it = m_archives.begin(); it != m_archives.end(); ++it)
 		if (it->path == path)
@@ -464,6 +470,7 @@ IC bool pred_str_ff(const _finddata_t& x, const _finddata_t& y)
 
 bool CLocatorAPI::Recurse(std::fs::path path)
 {
+	PROF_EVENT();
 	if (!std::fs::exists(path))
 		return false;
 
@@ -499,6 +506,7 @@ bool file_handle_internal(std::fs::path file_name, size_t& size, FILE* file_hand
 
 static void searchForFsltx(const char* fs_name, std::fs::path& fsltxPath)
 {
+	PROF_EVENT();
 	//#TODO: Update code, when std::filesystem is out (not much work, standards don't change dramatically)
 	const char* realFsltxName = nullptr;
 	if (fs_name)
@@ -542,6 +550,7 @@ static void searchForFsltx(const char* fs_name, std::fs::path& fsltxPath)
 
 IReader* CLocatorAPI::setup_fs_ltx(LPCSTR fs_name)
 {
+	PROF_EVENT();
 	std::fs::path fs_path;	
 	searchForFsltx(fs_name, fs_path);
 
@@ -573,6 +582,7 @@ IReader* CLocatorAPI::setup_fs_ltx(LPCSTR fs_name)
 
 void CLocatorAPI::_initialize(u32 flags, LPCSTR target_folder, LPCSTR fs_name)
 {
+	PROF_EVENT();
 	char _delimiter = '|'; //','
 	if (m_Flags.is(flReady))return;
 	CTimer t;
@@ -724,6 +734,7 @@ const CLocatorAPI::file* CLocatorAPI::exist(std::filesystem::path N) {
 
 const CLocatorAPI::file* CLocatorAPI::exist(const char* fn)
 {
+	PROF_EVENT();
 	auto str = normalize_path(fn);
 	auto it = file_find_it(str.c_str());
 	return (it != m_files.end()) ? &(*it) : nullptr;
@@ -756,8 +767,11 @@ const CLocatorAPI::file* CLocatorAPI::exist(string_path& fn, LPCSTR path, LPCSTR
 	return exist(fn);
 }
 
-
+// TODO: refactor this. Also suze ZoneText(patterns); (yeah, use std::string instead of std::regex at first)
+// TODO: search for O(logN) or even O(1) complexity for this
 std::vector<CLocatorAPI::file> CLocatorAPI::file_list_open_impl(const std::string& path, uint32_t flags, std::initializer_list<std::regex> patterns) {
+	PROF_EVENT();
+	ZoneText(path.c_str(), path.size());
 	R_ASSERT(!path.empty());
 	VERIFY(flags);
 	check_pathes();
@@ -812,6 +826,7 @@ std::vector<CLocatorAPI::file> CLocatorAPI::file_list_open_impl(const std::strin
 
 void CLocatorAPI::check_cached_files(LPSTR fname, const u32& fname_size, const file& desc, LPCSTR& source_name)
 {
+	PROF_EVENT();
 	string_path fname_copy;
 	if (pathes.size() <= 1)
 		return;
@@ -891,6 +906,7 @@ void CLocatorAPI::file_from_cache_impl(IReader*& R, LPSTR fname, const file& des
 
 void CLocatorAPI::file_from_cache_impl(CStreamReader*& R, LPSTR fname, const file& desc)
 {
+	PROF_EVENT();
 	CFileStreamReader* r = xr_new<CFileStreamReader>();
 	r->construct(fname, BIG_FILE_READER_WINDOW_SIZE);
 	R = r;
@@ -909,6 +925,7 @@ void CLocatorAPI::file_from_cache(T*& R, LPSTR fname, const u32& fname_size, con
 
 void CLocatorAPI::file_from_archive(IReader*& R, LPCSTR fname, const file& desc)
 {
+	PROF_EVENT();
 	//TODO: dwAllocGranularity
 	// Archived one
 	archive& A = m_archives[desc.vfs];
@@ -944,6 +961,7 @@ void CLocatorAPI::file_from_archive(IReader*& R, LPCSTR fname, const file& desc)
 
 void CLocatorAPI::file_from_archive(CStreamReader*& R, LPCSTR fname, const file& desc)
 {
+	PROF_EVENT();
 	archive& A = m_archives[desc.vfs];
 	R_ASSERT2(
 		desc.size_compressed == desc.size_real,
@@ -981,6 +999,7 @@ void CLocatorAPI::copy_file_to_build(IWriter* W, CStreamReader* r)
 template <typename T>
 void CLocatorAPI::copy_file_to_build(T*& r, LPCSTR source_name)
 {
+	PROF_EVENT();
 	string_path cpy_name;
 	string_path e_cpy_name;
 	FS_Path* P;
@@ -1057,6 +1076,7 @@ void CLocatorAPI::copy_file_to_build(T*& r, LPCSTR source_name)
 
 bool CLocatorAPI::check_for_file(LPCSTR path, LPCSTR _fname, string_path& fname, const file*& desc)
 {
+	PROF_EVENT();
 	// проверить нужно ли пересканировать пути
 	check_pathes();
 
@@ -1084,6 +1104,7 @@ bool CLocatorAPI::check_for_file(LPCSTR path, LPCSTR _fname, string_path& fname,
 template <typename T>
 T* CLocatorAPI::r_open_impl(LPCSTR path, LPCSTR _fname)
 {
+	PROF_EVENT();
 	T* R = 0;
 	string_path fname;
 	const file* desc = 0;
@@ -1120,6 +1141,7 @@ CStreamReader* CLocatorAPI::rs_open(LPCSTR path, LPCSTR _fname)
 
 IReader* CLocatorAPI::r_open(LPCSTR path, LPCSTR _fname)
 {
+	PROF_EVENT();
 	static bool p = false;
 	if (p) {
 		FILE* fw = fopen("/Users/eva00/all_files.txt", "w+");
@@ -1132,6 +1154,7 @@ IReader* CLocatorAPI::r_open(LPCSTR path, LPCSTR _fname)
 
 void CLocatorAPI::r_close(IReader*& fs)
 {
+	PROF_EVENT();
 	if (m_Flags.test(flDumpFileActivity))
 		_unregister_open_file(fs);
 
@@ -1140,6 +1163,7 @@ void CLocatorAPI::r_close(IReader*& fs)
 
 void CLocatorAPI::r_close(CStreamReader*& fs)
 {
+	PROF_EVENT();
 	if (m_Flags.test(flDumpFileActivity))
 		_unregister_open_file(fs);
 
@@ -1148,6 +1172,7 @@ void CLocatorAPI::r_close(CStreamReader*& fs)
 
 IWriter* CLocatorAPI::w_open(LPCSTR path, LPCSTR _fname)
 {
+	PROF_EVENT();
 	string_path fname;
 	xr_strcpy(fname, _fname);
 	//xr_strlwr(fname); //,".$");
@@ -1161,6 +1186,7 @@ IWriter* CLocatorAPI::w_open(LPCSTR path, LPCSTR _fname)
 
 IWriter* CLocatorAPI::w_open_ex(LPCSTR path, LPCSTR _fname)
 {
+	PROF_EVENT();
 	string_path fname;
 	xr_strcpy(fname, _fname);
 	xr_strlwr(fname); //,".$");
@@ -1174,6 +1200,7 @@ IWriter* CLocatorAPI::w_open_ex(LPCSTR path, LPCSTR _fname)
 
 void CLocatorAPI::w_close(IWriter*& S)
 {
+	PROF_EVENT();
 	if (S)
 	{
 		R_ASSERT(S->fName.size());
@@ -1192,12 +1219,14 @@ void CLocatorAPI::w_close(IWriter*& S)
 
 CLocatorAPI::files_it CLocatorAPI::file_find_it(LPCSTR fname)
 {
+	PROF_EVENT();
 	check_pathes();
 	return m_files.find({.name = std::fs::path(fname)});
 }
 
 BOOL CLocatorAPI::dir_delete(LPCSTR path, LPCSTR nm, BOOL remove_files)
 {
+	PROF_EVENT();
 	std::fs::path fpath;
 	std::error_code e;
 
@@ -1283,6 +1312,7 @@ void CLocatorAPI::file_copy(LPCSTR src, LPCSTR dest)
 
 void CLocatorAPI::file_rename(LPCSTR src, LPCSTR dest, bool bOwerwrite)
 {
+	PROF_EVENT();
 	if (!bOwerwrite && file_find_it(dest) != m_files.end()) {
 		m_files.erase(file_find_it(dest));
 		return;
@@ -1320,6 +1350,7 @@ bool CLocatorAPI::path_exist(LPCSTR path)
 
 FS_Path* CLocatorAPI::append_path(LPCSTR path_alias, LPCSTR root, LPCSTR add, BOOL recursive)
 {
+	PROF_EVENT();
 	VERIFY(root/*&&root[0]*/);
 	VERIFY(false == path_exist(path_alias));
 	FS_Path* P = xr_new<FS_Path>(root, add, LPCSTR(0), LPCSTR(0), 0);
@@ -1331,6 +1362,7 @@ FS_Path* CLocatorAPI::append_path(LPCSTR path_alias, LPCSTR root, LPCSTR add, BO
 
 FS_Path* CLocatorAPI::get_path(LPCSTR path)
 {
+	PROF_EVENT();
 	PathPairIt P = pathes.find(path);
 	R_ASSERT2(P != pathes.end(), path);
 	return P->second;
@@ -1338,6 +1370,7 @@ FS_Path* CLocatorAPI::get_path(LPCSTR path)
 
 LPCSTR CLocatorAPI::update_path(string_path& dest, LPCSTR initial, LPCSTR src)
 {
+	PROF_EVENT();
 	std::fs::path p;
 	auto str = std::fs::path(normalize_path(src));
 	xr_pathlwr(str);
@@ -1364,6 +1397,7 @@ u32 CLocatorAPI::get_file_age(LPCSTR nm)
 
 void CLocatorAPI::set_file_age(LPCSTR nm, u32 age)
 {
+	PROF_EVENT();
 	// проверить нужно ли пересканировать пути
 	check_pathes();
 
@@ -1393,6 +1427,7 @@ void CLocatorAPI::set_file_age(LPCSTR nm, u32 age)
 //TODO: don't forget to call each time the std::fs::exists()
 void CLocatorAPI::rescan_path(std::fs::path full_path, BOOL bRecurse)
 {
+	PROF_EVENT();
 	file desc;
 	desc.name = full_path;
 	files_it I = m_files.lower_bound(desc);
@@ -1421,6 +1456,7 @@ void CLocatorAPI::rescan_path(std::fs::path full_path, BOOL bRecurse)
 
 void CLocatorAPI::rescan_pathes()
 {
+	PROF_EVENT();
 	m_Flags.set(flNeedRescan, FALSE);
 	for (PathPairIt p_it = pathes.begin(); p_it != pathes.end(); p_it++)
 	{
@@ -1448,6 +1484,7 @@ void CLocatorAPI::unlock_rescan()
 
 void CLocatorAPI::check_pathes()
 {
+	PROF_EVENT();
 	if (m_Flags.is(flNeedRescan) && (0 == m_iLockRescan))
 	{
 		lock_rescan();

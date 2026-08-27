@@ -498,7 +498,7 @@ bool CLevel::PostponedSpawnFind(u16 id, NET_Packet& P) const
 
 bool CLevel::PostponedSpawn(u16 id)
 {
-	PROF_EVENT("ProcessGameEvents PostponedSpawn");
+	PROF_EVENT_N("ProcessGameEvents PostponedSpawn");
 
 	xrCriticalSectionGuard g(prefetch_cs);
 	auto queue = prefetch_events;
@@ -569,7 +569,7 @@ void CLevel::ProcessPrefetchEvents(void* args)
 			continue;
 		}
 
-		PROF_EVENT("ProcessPrefetchEvents");
+		PROF_EVENT_N("ProcessPrefetchEvents");
 
 		if (spawn_antifreeze_debug) Msg("[ProcessPrefetchEvents] started, queue size %d", prefetch_events->size());
 
@@ -606,7 +606,7 @@ void CLevel::ProcessPrefetchEvents(void* args)
 // demonized: If called manually, be aware of ProcessPrefetchEvents thread, which may modify spawn_events queue at the same time, maybe fix later
 void CLevel::ProcessSpawnEvents()
 {
-	PROF_EVENT("ProcessSpawnEvents");
+	PROF_EVENT_N("ProcessSpawnEvents");
 	for (auto it = spawn_events->queue.begin(); it != spawn_events->queue.end();)
 	{
 		const NET_Event& E = *it;
@@ -653,13 +653,13 @@ void CLevel::ProcessSpawnEvents()
 
 void CLevel::ProcessGameEvents()
 {
-	PROF_EVENT("ProcessGameEvents");
+	PROF_EVENT_N("ProcessGameEvents");
 
 	// Game events
 	{
 		for (auto it = game_events->queue.begin(); it != game_events->queue.end(); )
 		{
-			PROF_EVENT("ProcessGameEvents game_events queue");
+			PROF_EVENT_N("ProcessGameEvents game_events queue");
 			u16 ID = it->ID;
 			u16 dest = it->destination;
 			u16 type = it->type;
@@ -682,7 +682,7 @@ void CLevel::ProcessGameEvents()
 				// add to prefetch_events queue for postponed spawn
 				if (M_SPAWN == ID)
 				{
-					PROF_EVENT("ProcessGameEvents M_SPAWN");
+					PROF_EVENT_N("ProcessGameEvents M_SPAWN");
 
 					u16 parent_id;
 					shared_str section;
@@ -777,7 +777,7 @@ void CLevel::ProcessGameEvents()
 			{
 			case M_SPAWN:
 				{
-					PROF_EVENT("ProcessGameEvents M_SPAWN");
+					PROF_EVENT_N("ProcessGameEvents M_SPAWN");
 
 #ifdef SPAWN_ANTIFREEZE
 					if (spawn_antifreeze_debug)
@@ -796,13 +796,13 @@ void CLevel::ProcessGameEvents()
 				}
 			case M_EVENT:
 				{
-					PROF_EVENT("ProcessGameEvents M_EVENT");
+					PROF_EVENT_N("ProcessGameEvents M_EVENT");
 					cl_Process_Event(dest, type, P);
 					break;
 				}
 			case M_MOVE_PLAYERS:
 				{
-					PROF_EVENT("ProcessGameEvents M_MOVE_PLAYERS");
+					PROF_EVENT_N("ProcessGameEvents M_MOVE_PLAYERS");
 					u8 Count = P.r_u8();
 					for (u8 i = 0; i < Count; i++)
 					{
@@ -822,21 +822,21 @@ void CLevel::ProcessGameEvents()
 				}
 			case M_STATISTIC_UPDATE:
 				{
-					PROF_EVENT("ProcessGameEvents M_STATISTIC_UPDATE");
+					PROF_EVENT_N("ProcessGameEvents M_STATISTIC_UPDATE");
 					if (GameID() != eGameIDSingle)
 						Game().m_WeaponUsageStatistic->OnUpdateRequest(&P);
 					break;
 				}
 			case M_FILE_TRANSFER:
 				{
-					PROF_EVENT("ProcessGameEvents M_FILE_TRANSFER");
+					PROF_EVENT_N("ProcessGameEvents M_FILE_TRANSFER");
 					if (m_file_transfer) // in case of net_Stop
 						m_file_transfer->on_message(&P);
 					break;
 				}
 			case M_GAMEMESSAGE:
 				{
-					PROF_EVENT("ProcessGameEvents M_GAMEMESSAGE");
+					PROF_EVENT_N("ProcessGameEvents M_GAMEMESSAGE");
 					Game().OnGameMessage(P);
 					break;
 				}
@@ -903,7 +903,7 @@ void CLevel::MakeReconnect()
 
 void CLevel::OnFrame()
 {
-	PROF_EVENT("CLevel::OnFrame()");
+	PROF_EVENT_N("CLevel::OnFrame()");
 
 #ifdef DEBUG_MEMORY_MANAGER
     debug_memory_guard __guard__;

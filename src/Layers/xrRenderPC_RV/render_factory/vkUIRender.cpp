@@ -37,7 +37,7 @@ void vkUIRender::SetShader(IUIShader &shader) {
     arenaCursor = 0;
     vertexIndex = 0;
   }
-  
+
   if (!vkShader->shaderPass || !vkShader->texture) {
     skipCurrentDraw = true;
     Msg("[RV][ATTENTION]: Skipping UIShader: %s, %s",
@@ -117,7 +117,7 @@ void vkUIRender::PushPoint(float x, float y, float z, u32 C, float u, float v) {
   GPU_Vertex *vertex = static_cast<GPU_Vertex *>(vertexArena.info.pMappedData);
   vertex[arenaCursor + vertexIndex++] = {
       util::normalizeToScreenNDC(glm::vec3(x, y, 0), HW.drawExtent.width,
-                           HW.drawExtent.height),
+                                 HW.drawExtent.height),
       u,
       glm::vec3(0),
       v,
@@ -126,11 +126,13 @@ void vkUIRender::PushPoint(float x, float y, float z, u32 C, float u, float v) {
 }
 
 void vkUIRender::FlushPrimitive() {
+  PROF_EVENT_N("vkUIRender");
   if (keepAliveUI.empty())
     return;
 
   auto *currentUI = keepAliveUI.back();
   auto cmd = HW.get_current_frame().cmdBuffer;
+  TracyVkZone(HW.tracyCtx, cmd, "vkUIRender");
 
   HW.set_ActiveTextureExtent(currentUI->texture->imageExtent);
 
@@ -166,8 +168,7 @@ void vkUIRender::FlushPrimitive() {
                           descriptorSets.size(), descriptorSets.data(), 0,
                           nullptr);
   vkCmdPushConstants(cmd, currentUI->shaderPass->pipelineLayout,
-                     VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(GPU_UIPC),
-                     &pc);
+                     VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(GPU_UIPC), &pc);
   vkCmdDraw(cmd, vertexIndex, 1, 0, 0);
   vkCmdEndRendering(cmd);
 

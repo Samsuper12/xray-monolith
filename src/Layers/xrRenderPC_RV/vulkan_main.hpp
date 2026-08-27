@@ -7,6 +7,9 @@
 #include <VkBootstrap.h>
 #include <SDL3/SDL_vulkan.h>
 #include "log.h"
+#define TRACY_VK_USE_SYMBOL_TABLE
+#include <profiler.h>
+#include <tracy/TracyVulkan.hpp>
 
 inline void VK_CHECK(VkResult x) {
   if (x != VK_SUCCESS) {

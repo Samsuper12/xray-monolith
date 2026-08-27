@@ -58,6 +58,7 @@ void vkFontRender::Initialize(LPCSTR cShader, LPCSTR cTexture) {
 }
 
 void vkFontRender::OnRender(CGameFont &owner) {
+  PROF_EVENT_N("vkFontRender");
   if (!shaderPass || !texture)
     return;
 
@@ -69,6 +70,7 @@ void vkFontRender::OnRender(CGameFont &owner) {
   }
 
   auto cmd = HW.get_current_frame().cmdBuffer;
+  TracyVkZone(HW.tracyCtx, cmd, "vkFontRender");
 
   VkRenderingAttachmentInfo colorAttachment =
       util::colorAttachmentInfo(HW.drawImage.imageView, std::nullopt);

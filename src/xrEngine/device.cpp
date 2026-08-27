@@ -182,7 +182,7 @@ void mt_Thread(void* ptr)
 
 		if (device->mt_bMustExit)
 		{
-			PROF_EVENT("Must exit");
+			PROF_EVENT_N("Must exit");
 
 			device->mt_bMustExit = FALSE; // Important!!!
 			device->mt_csEnter.Leave(); // Important!!!
@@ -313,7 +313,7 @@ void CRenderDevice::on_idle()
 		return;
 	}
 
-	PROF_FRAME("X-RAY Primary thread");
+	PROF_FRAME();
 	PROF_EVENT();
 
 #ifdef DEDICATED_SERVER
@@ -328,7 +328,7 @@ void CRenderDevice::on_idle()
 
 	if (g_loading_events.size())
 	{
-		PROF_EVENT("Pop loading event");
+		PROF_EVENT_N("Pop loading event");
 		if (g_loading_events.front()())
 			g_loading_events.pop_front();
 		pApp->LoadDraw();
@@ -337,7 +337,7 @@ void CRenderDevice::on_idle()
 
 	if (!Device.dwPrecacheFrame && !g_SASH.IsBenchmarkRunning() && g_bLoaded)
 	{
-		PROF_EVENT("Start xrSASH Benchmark");
+		PROF_EVENT_N("Start xrSASH Benchmark");
 		g_SASH.StartBenchmark();
 	}
 
@@ -346,7 +346,7 @@ void CRenderDevice::on_idle()
 	// Precache
 	if (dwPrecacheFrame)
 	{
-		PROF_EVENT("Precache frame");
+		PROF_EVENT_N("Precache frame");
 		float factor = float(dwPrecacheFrame) / float(dwPrecacheTotal);
 		float angle = PI_MUL_2 * factor;
 		vCameraDirection.set(_sin(angle), 0, _cos(angle));
@@ -408,7 +408,7 @@ void CRenderDevice::on_idle()
 #ifdef ECO_RENDER // ECO_RENDER START
 	if (Device.Paused() || IsMainMenuActive() || ps_framelimiter)
 	{
-		PROF_EVENT("Eco Render");
+		PROF_EVENT_N("Eco Render");
 
 		float rr;
 
@@ -439,7 +439,7 @@ void CRenderDevice::on_idle()
 
 		if (psDeviceFlags.test(rsCameraPos) || psDeviceFlags.test(rsStatistic) || Statistic->errors.size())
 		{
-			PROF_EVENT("Draw statistics");
+			PROF_EVENT_N("Draw statistics");
 			Statistic->Show();
 		}
 
@@ -460,7 +460,7 @@ void CRenderDevice::on_idle()
 	// Ensure, that second thread gets chance to execute anyway
 	if (dwFrame != mt_Thread_marker)
 	{
-		PROF_EVENT("Execute second thread");
+		PROF_EVENT_N("Execute second thread");
 		for (u32 pit = 0; pit < Device.seqParallel.size(); pit++)
 			Device.seqParallel[pit]();
 		Device.seqParallel.clear_not_free();
@@ -600,7 +600,7 @@ void CRenderDevice::FrameMove()
 	dwTimeContinual = TimerMM.GetElapsed_ms() - app_inactive_time;
 	if (psDeviceFlags.test(rsConstantFPS))
 	{
-		PROF_EVENT("Constant FPS");
+		PROF_EVENT_N("Constant FPS");
 
 		// 20ms = 50fps
 		//fTimeDelta = 0.020f;
@@ -615,7 +615,7 @@ void CRenderDevice::FrameMove()
 	}
 	else
 	{
-		PROF_EVENT("Timer FPS");
+		PROF_EVENT_N("Timer FPS");
 
 		// Timer
 		float fPreviousFrameTime = Timer.GetElapsed_sec();

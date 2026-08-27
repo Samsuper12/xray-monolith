@@ -3,6 +3,7 @@
 #include "ui_base.h"
 #include "GamePersistent.h"
 #include "UICursor.h"
+#include <profiler.h>
 
 CUICursor& GetUICursor() { return UI().GetUICursor(); };
 ui_core& UI() { return *GamePersistent().m_pUI_core; };
@@ -31,6 +32,7 @@ void C2DFrustum::CreateFromRect(const Frect& rect)
 
 sPoly2D* C2DFrustum::ClipPoly(sPoly2D& S, sPoly2D& D) const
 {
+	PROF_EVENT();
 	bool bFullTest = false;
 	for (u32 j = 0; j < S.size(); j++)
 	{
@@ -154,6 +156,7 @@ void ui_core::AlignPixel(float& src_and_dest) const
 
 void ui_core::PushScissor(const Frect& r_tgt, bool overlapped)
 {
+	PROF_EVENT();
 	if (UI().m_currentPointType == IUIRender::pttLIT)
 		return;
 
@@ -189,6 +192,7 @@ void ui_core::PushScissor(const Frect& r_tgt, bool overlapped)
 
 void ui_core::PopScissor()
 {
+	PROF_EVENT();
 	if (UI().m_currentPointType == IUIRender::pttLIT)
 		return;
 
@@ -212,6 +216,7 @@ void ui_core::PopScissor()
 
 ui_core::ui_core()
 {
+	PROF_EVENT();
 	if (!g_dedicated_server)
 	{
 		m_pUICursor = xr_new<CUICursor>();
@@ -239,6 +244,7 @@ ui_core::~ui_core()
 
 void ui_core::pp_start()
 {
+	PROF_EVENT();
 	m_bPostprocess = true;
 
 	m_pp_scale_.set(float(::Render->getRenderTargetSize().x) / float(UI_BASE_WIDTH),
@@ -293,6 +299,7 @@ float ui_core::get_current_kx()
 
 shared_str ui_core::get_xml_name(LPCSTR fn)
 {
+	PROF_EVENT();
 	string_path str;
 	if (screenmode() == u8(0))
 	{

@@ -26,6 +26,7 @@ extern "C" void __cdecl xrBind_PSGP(xrDispatchTable* T, _processor_info* ID);
 
 PROTECT_API void CEngine::Initialize(void)
 {
+	PROF_EVENT();
 	xrBinder* bindCPU = xrBind_PSGP;
 	R_ASSERT(bindCPU);
 	bindCPU(&PSGP, &CPU::ID);

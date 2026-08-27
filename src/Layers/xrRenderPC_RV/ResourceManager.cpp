@@ -2,6 +2,7 @@
 #include "VkHW.hpp"
 
 auto CResourceManager::OnDeviceCreate(std::fs::path file) -> void {
+  PROF_EVENT();
   auto shadersRoot = rv::utils::slang_shader::getShaderRoot();
   std::vector<const char *> shaderLoadPath = {
       shadersRoot.c_str(),
@@ -13,6 +14,8 @@ auto CResourceManager::OnDeviceCreate(std::fs::path file) -> void {
 auto CResourceManager::createPass(std::fs::path shaderPath,
                                   PipelineConfig config, PipelineInput input)
     -> std::shared_ptr<ShaderPass> {
+  PROF_EVENT();
+  ZoneText(shaderPath.c_str(), shaderPath.string().size());
   VkShaderModule vertexModule, fragmentModule;
   auto shPath = rv::utils::slang_shader::getShaderPath(shaderPath);
   auto pass = std::make_shared<ShaderPass>();
@@ -105,6 +108,9 @@ auto CResourceManager::createPass(std::fs::path shaderPath,
 
 auto CResourceManager::createTexture(std::fs::path path)
     -> std::shared_ptr<AllocatedImage> {
+  PROF_EVENT();
+  ZoneText(path.c_str(), path.string().size());
+  std::shared_ptr<AllocatedImage> ret;
   std::fs::path texPath;
 
   if (FS.exist(texPath, "$game_textures$", path.c_str(), ".dds")) {
@@ -128,24 +134,42 @@ auto CResourceManager::createTexture(std::fs::path path)
           texPath.c_str());
       return nullptr;
     }
+
     gli::texture2d tex2d(*ddsTex);
 
-    // convert texture to rgba8888.
-    auto convertedTex =
-        gli::convert<gli::texture2d>(tex2d, gli::FORMAT_RGBA8_UNORM_PACK32);
-
     VkExtent3D extent{
-        .width = convertedTex.extent().x,
-        .height = convertedTex.extent().y,
+        .width = tex2d.extent().x,
+        .height = tex2d.extent().y,
         .depth = 1,
     };
 
-    auto tex = std::make_shared<AllocatedImage>(
-        HW.createImage(convertedTex.data(), convertedTex.size(), extent,
-                       VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_USAGE_SAMPLED_BIT));
+    auto format = rv::texture::gliToVkFormat(tex2d.format());
+    bool formatSupported =
+        format ? HW.formatIsSupported(format.value()) : false;
 
-    m_textures[path] = tex;
-    return tex;
+    if (formatSupported) {
+      ret = std::make_shared<AllocatedImage>(
+          HW.createImage(tex2d.data(), tex2d.size(), extent, format.value(),
+                         VK_IMAGE_USAGE_SAMPLED_BIT));
+
+    } else {
+      // convert texture to rgba8888.
+      PROF_EVENT_N("Converting Texture");
+      ZoneText(path.c_str(), path.string().size());
+      Msg("[RV][ERR]: Texture format out of support. Converting to RGBA8. "
+          "Warning: consider huge performance loss during converting %s",
+          texPath.c_str());
+
+      auto convertedTex =
+          gli::convert<gli::texture2d>(tex2d, gli::FORMAT_RGBA8_UNORM_PACK32);
+
+      ret = std::make_shared<AllocatedImage>(
+          HW.createImage(convertedTex.data(), convertedTex.size(), extent,
+                         VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_USAGE_SAMPLED_BIT));
+    }
+
+    m_textures[path] = ret;
+    return ret;
 
   } else if (FS.exist(texPath, "$game_textures$", path.c_str(), ".ktx2")) {
     FS.update_path(texPath, "$game_textures$",

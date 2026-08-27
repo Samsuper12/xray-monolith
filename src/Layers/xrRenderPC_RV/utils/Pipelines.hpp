@@ -30,6 +30,7 @@ struct PipelineBuilder {
   }
 
   VkPipeline build(VkDevice device) {
+    PROF_EVENT_N("Building VkPipeline");
     VkPipelineViewportStateCreateInfo viewportState{
         .sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO,
         .pNext = nullptr,
@@ -190,7 +191,8 @@ struct PipelineBuilder {
     depthStencil.maxDepthBounds = 1.f;
   }
 
-  void enableDepthtest(bool depthTestEnable, bool depthWriteEnable, VkCompareOp op) {
+  void enableDepthtest(bool depthTestEnable, bool depthWriteEnable,
+                       VkCompareOp op) {
     depthStencil.depthTestEnable = depthTestEnable;
     depthStencil.depthWriteEnable = depthWriteEnable;
     depthStencil.depthCompareOp = op;

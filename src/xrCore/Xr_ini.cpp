@@ -14,6 +14,7 @@
 #include "FS_internal.h"
 #include "LocatorAPI.h"
 #include "mezz_stringbuffer.h"
+#include <profiler.h>
 
 XRCORE_API CInifile const* pSettings = NULL;
 XRCORE_API CInifile const* pSettingsAuth = NULL;
@@ -106,6 +107,7 @@ XRCORE_API void _decorate(LPSTR dest, LPCSTR src)
 
 BOOL CInifile::Sect::line_exist(LPCSTR L, LPCSTR* val)
 {
+	PROF_EVENT();
 	SectCIt A = std::lower_bound(Data.begin(), Data.end(), L, item_pred);
 	if (A != Data.end() && xr_strcmp(*A->first, L) == 0)
 	{
@@ -146,6 +148,7 @@ CInifile::CInifile(LPCSTR szFileName,
 )
 
 {
+	PROF_EVENT();
 	if (szFileName && strstr(szFileName, "system"))
 		Msg("-----loading %s", szFileName);
 
@@ -233,6 +236,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 #endif
 )
 {
+	PROF_EVENT();
 	R_ASSERT(F);
 
 	std::string DLTX_DELETE = "DLTX_DELETE";
@@ -1178,6 +1182,7 @@ BOOL CInifile::section_exist(const shared_str& S) const { return section_exist(*
 //--------------------------------------------------------------------------------------
 CInifile::Sect& CInifile::r_section(LPCSTR S) const
 {
+	PROF_EVENT();
 	R_ASSERT2(S && strlen(S),
 	         "Empty section (null\\'') passed into CInifile::r_section(). See info above ^, check your configs and 'call stack'.")
 	; //--#SM+#--
@@ -1207,6 +1212,7 @@ CInifile::Sect& CInifile::r_section(LPCSTR S) const
 
 LPCSTR CInifile::r_string(LPCSTR S, LPCSTR L) const
 {
+	PROF_EVENT();
 	if (!S || !L || !strlen(S) || !strlen(L)) //--#SM+#-- [fix for one of "xrDebug - Invalid handler" error log]
 	{
 		Msg("!![ERROR] CInifile::r_string: S = [%s], L = [%s]", S, L);
@@ -1419,6 +1425,7 @@ BOOL CInifile::r_line(const shared_str& S, int L, const char** N, const char** V
 //--------------------------------------------------------------------------------------
 void CInifile::w_string(LPCSTR S, LPCSTR L, LPCSTR V, LPCSTR comment)
 {
+	PROF_EVENT();
 	R_ASSERT(!m_flags.test(eReadOnly));
 
 	// section

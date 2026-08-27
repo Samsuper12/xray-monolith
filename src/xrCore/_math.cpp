@@ -86,7 +86,7 @@ void _initialize_cpu(void)
 	g_initialize_cpu_called = true;
 }
 
-void thread_spawn(thread_t* entry, const char* name, unsigned stack, void* arglist)
+void thread_spawn(thread_t2* entry, const char* name, unsigned stack, void* arglist)
 {
 	Msg("Thread launched: %s", name);
 	auto& ref = launchedThreads.emplace_back(LaunchedThread{.functionName = name, .thread = std::thread(entry, arglist)});

@@ -18,9 +18,9 @@ namespace CPU
 extern XRCORE_API void _initialize_cpu();
 
 // threading
-typedef void thread_t(void*);
+typedef void thread_t2(void*);
 extern XRCORE_API void thread_spawn(
-	thread_t* entry,
+	thread_t2* entry,
 	const char* name,
 	unsigned stack,
 	void* arglist

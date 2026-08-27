@@ -65,7 +65,7 @@ void FlushLog()
 {
 	if (!no_log && LogFile != nullptr)
 	{
-		PROF_EVENT("Flushing");
+		PROF_EVENT_N("Flushing");
 		logCS.Enter();
 		IWriter* f = FS.w_open(logFName);
 		if (f)

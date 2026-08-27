@@ -31,6 +31,9 @@
 #include "lua.hpp"
 #endif
 
+#include <profiler.h>
+#include <tracy/TracyLua.hpp>
+
 extern "C"
 {
 #include <lua.h>
@@ -424,6 +427,8 @@ void CScriptStorage::reinit()
 
 #ifndef USE_LUAJIT_ONE
 	luaL_openlibs(lua());
+	//FIXME: so verbose. Maybe later.
+	//lua_sethook(lua(), tracy::LuaHook, LUA_MASKCALL, 0);
 	if (Core.Params.nojit)
 		luaJIT_setmode(lua(), 0, LUAJIT_MODE_ENGINE | LUAJIT_MODE_OFF);
 #else // USE_LUAJIT_ONE

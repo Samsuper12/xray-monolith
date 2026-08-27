@@ -61,6 +61,7 @@
 
 CGamePersistent::CGamePersistent(void)
 {
+	PROF_EVENT();
 	m_bPickableDOF = false;
 	m_game_params.m_e_game_type = eGameIDNoGame;
 	ambient_effect_next_time = 0;
@@ -123,6 +124,7 @@ CGamePersistent::~CGamePersistent(void)
 
 void CGamePersistent::RegisterModel(IRenderVisual* V)
 {
+	PROF_EVENT();
 	// Check types
 	switch (V->getType())
 	{
@@ -159,6 +161,7 @@ extern void init_game_globals();
 
 void CGamePersistent::OnAppStart()
 {
+	PROF_EVENT();
 	// load game materials
 	GMLib.Load();
 	init_game_globals();
@@ -205,6 +208,7 @@ void CGamePersistent::Disconnect()
 
 void CGamePersistent::OnGameStart()
 {
+	PROF_EVENT();
 	IGame_Persistent::OnGameStart();
 	UpdateGameType();
 }
@@ -282,6 +286,7 @@ void CGamePersistent::OnGameEnd()
 
 void CGamePersistent::WeathersUpdate()
 {
+	PROF_EVENT();
 	if (g_pGameLevel && !g_dedicated_server)
 	{
 		CActor* actor = smart_cast<CActor*>(Level().CurrentViewEntity());
@@ -482,6 +487,7 @@ bool allow_logo() // AVO: skip NVIDIA and other logos at load time
 
 void CGamePersistent::start_logo_intro()
 {
+	PROF_EVENT();
 	if (Device.dwPrecacheFrame == 0)
 	{
 		m_intro_event.bind(this, &CGamePersistent::update_logo_intro);
@@ -516,6 +522,7 @@ void CGamePersistent::update_logo_intro()
 
 void CGamePersistent::game_loaded()
 {
+	PROF_EVENT();
 	if (Device.dwPrecacheFrame <= 2)
 	{
 		if (g_pGameLevel &&
@@ -623,6 +630,7 @@ extern CUISequencer* g_tutorial2;
 
 void CGamePersistent::OnFrame()
 {
+	PROF_EVENT();
 	if (Device.dwPrecacheFrame == 5 && m_intro_event.empty())
 	{
 		m_intro_event.bind(this, &CGamePersistent::game_loaded);
@@ -792,6 +800,7 @@ void CGamePersistent::ImGui_OnRender(LPCSTR name)
 
 void CGamePersistent::OnEvent(EVENT E, u64 P1, u64 P2)
 {
+	PROF_EVENT();
 	if (E == eQuickLoad)
 	{
 		if (Device.Paused())
@@ -850,6 +859,7 @@ static BOOL bEntryFlag = TRUE;
 
 void CGamePersistent::OnAppActivate()
 {
+	PROF_EVENT();
 	bool bIsMP = (g_pGameLevel && Level().game && GameID() != eGameIDSingle);
 	bIsMP &= !Device.Paused();
 
@@ -888,6 +898,7 @@ void CGamePersistent::OnAppDeactivate()
 
 bool CGamePersistent::OnRenderPPUI_query()
 {
+	PROF_EVENT();
 	return MainMenu()->OnRenderPPUI_query();
 	// enable PP or not
 }
@@ -896,6 +907,7 @@ extern void draw_wnds_rects();
 
 void CGamePersistent::OnRenderPPUI_main()
 {
+	PROF_EVENT();
 	// always
 	MainMenu()->OnRenderPPUI_main();
 	draw_wnds_rects();
@@ -911,6 +923,7 @@ void CGamePersistent::OnRenderPPUI_PP()
 
 void CGamePersistent::LoadTitle(bool change_tip, shared_str map_name)
 {
+	PROF_EVENT();
 	pApp->LoadStage();
 	if (change_tip)
 	{

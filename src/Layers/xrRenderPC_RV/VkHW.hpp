@@ -1,11 +1,18 @@
 #pragma once
 #include "SDL3/SDL.h"
+#include "render_factory/vkUIRender.hpp"
 #include "utils/Structs.hpp"
 #include "utils/vkUtil.hpp"
 #include <algorithm>
 #include <vector>
 
 // TODO: refactor this shit.
+// TODO: use better image format than rgba8 for swapchain. And don't forget
+// about tracy.
+
+static constexpr VkFormat TracyImageFormat = VK_FORMAT_R8G8B8A8_UNORM;
+static constexpr VkExtent3D TracyExtent = {
+    .width = 640, .height = 360, .depth = 1}; // Maximum.
 
 static constexpr uint32_t frame_overlap = 1;
 struct FrameData {
@@ -15,6 +22,10 @@ struct FrameData {
   VkFence fence;
   // DeletionQueue deletionQueue;
   DescriptorAllocatorGrowable frameDescriptors;
+
+  // tracy
+  AllocatedImage tracyImage;
+  AllocatedBuffer tracyBuffer;
 };
 
 class VkHW {
@@ -53,10 +64,13 @@ public:
   AllocatedBuffer createBuffer(size_t allocSize, VkBufferUsageFlags usage,
                                VmaMemoryUsage memoryUsage);
   AllocatedImage createImage(VkExtent3D size, VkFormat format,
-                             VkImageUsageFlags flags, bool mipmapped = false, uint32_t layers = 1);
-  AllocatedImage createImage(void *data, uint32_t dataSize, VkExtent3D size, VkFormat format,
-                             VkImageUsageFlags flags, bool mipmapped = false, uint32_t layers = 1);
-  AllocatedImage createImage(rv::texture::ktxTexsturePtr_t ktxtexture, VkImageUsageFlags flags);
+                             VkImageUsageFlags flags, bool mipmapped = false,
+                             uint32_t layers = 1);
+  AllocatedImage createImage(void *data, uint32_t dataSize, VkExtent3D size,
+                             VkFormat format, VkImageUsageFlags flags,
+                             bool mipmapped = false, uint32_t layers = 1);
+  AllocatedImage createImage(rv::texture::ktxTexsturePtr_t ktxtexture,
+                             VkImageUsageFlags flags);
 
   void deleteImage(AllocatedImage img) {
     vkDestroyImageView(device, img.imageView, nullptr);
@@ -67,8 +81,15 @@ public:
     vmaDestroyBuffer(allocator, buffer.buffer, buffer.allocation);
   }
 
-  auto get_ActiveTextureExtent() -> VkExtent3D const { return currentTextureExtent; }
-  auto set_ActiveTextureExtent(VkExtent3D extent) {currentTextureExtent = extent;};
+  auto get_ActiveTextureExtent() -> VkExtent3D const {
+    return currentTextureExtent;
+  }
+  auto set_ActiveTextureExtent(VkExtent3D extent) {
+    currentTextureExtent = extent;
+  };
+
+  // TODO: searches only for sampledimage bit. Extend later
+  auto formatIsSupported(VkFormat format) -> bool;
 
 private:
   void init_vulkan();
@@ -83,6 +104,7 @@ private:
 
 public:
   vkb::Instance instance;
+  vkb::PhysicalDevice physDevice;
   vkb::Device device;
   vkb::Swapchain swapchain;
 
@@ -129,6 +151,8 @@ public:
   VkPhysicalDeviceProperties deviceCaps;
 
   VkExtent3D currentTextureExtent;
+
+  TracyVkCtx tracyCtx;
 };
 
 extern VkHW HW;

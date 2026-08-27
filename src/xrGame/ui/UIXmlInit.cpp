@@ -78,6 +78,7 @@ Frect CUIXmlInit::GetFRect(CUIXml& xml_doc, LPCSTR path, int index)
 bool CUIXmlInit::InitWindow(CUIXml& xml_doc, LPCSTR path,
                             int index, CUIWindow* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	Fvector2 pos, size;
@@ -116,6 +117,7 @@ bool CUIXmlInit::InitFrameWindow(CUIXml& xml_doc, LPCSTR path,
 
 bool CUIXmlInit::InitOptionsItem(CUIXml& xml_doc, LPCSTR path, int index, CUIOptionsItem* pWnd)
 {
+	PROF_EVENT();
 	string256 buf;
 	strconcat(sizeof(buf), buf, path, ":options_item");
 
@@ -152,6 +154,7 @@ bool CUIXmlInit::InitOptionsItem(CUIXml& xml_doc, LPCSTR path, int index, CUIOpt
 bool CUIXmlInit::InitStatic(CUIXml& xml_doc, LPCSTR path,
                             int index, CUIStatic* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitWindow(xml_doc, path, index, pWnd);
@@ -203,6 +206,7 @@ bool CUIXmlInit::InitStatic(CUIXml& xml_doc, LPCSTR path,
 
 bool CUIXmlInit::InitTextWnd(CUIXml& xml_doc, LPCSTR path, int index, CUITextWnd* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitWindow(xml_doc, path, index, pWnd);
@@ -233,6 +237,7 @@ bool CUIXmlInit::InitTextWnd(CUIXml& xml_doc, LPCSTR path, int index, CUITextWnd
 
 bool CUIXmlInit::InitCheck(CUIXml& xml_doc, LPCSTR path, int index, CUICheckButton* pWnd)
 {
+	PROF_EVENT();
 	InitStatic(xml_doc, path, index, pWnd);
 
 	string256 buf;
@@ -310,6 +315,7 @@ bool CUIXmlInit::InitText(CUIXml& xml_doc, LPCSTR path, int index, CUIStatic* pW
 
 bool CUIXmlInit::InitText(CUIXml& xml_doc, LPCSTR path, int index, CUILines* pLines)
 {
+	PROF_EVENT();
 	if (!xml_doc.NavigateToNode(path, index))
 		return false;
 
@@ -358,6 +364,7 @@ extern int keyname_to_dik(LPCSTR);
 
 bool CUIXmlInit::Init3tButton(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButton* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	pWnd->m_frameline_mode = (xml_doc.ReadAttribInt(path, index, "frame_mode", 0) == 1) ? true : false;
@@ -426,6 +433,7 @@ bool CUIXmlInit::Init3tButton(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButt
 
 bool CUIXmlInit::InitTabButtonMP(CUIXml& xml_doc, LPCSTR path, int index, CUITabButtonMP* pWnd)
 {
+	PROF_EVENT();
 	Init3tButton(xml_doc, path, index, pWnd);
 
 	string256 buff;
@@ -454,6 +462,7 @@ bool CUIXmlInit::InitTabButtonMP(CUIXml& xml_doc, LPCSTR path, int index, CUITab
 
 bool CUIXmlInit::InitSound(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButton* pWnd)
 {
+	PROF_EVENT();
 	string256 sound_h;
 	string256 sound_t;
 	strconcat(sizeof(sound_h), sound_h, path, ":sound_h");
@@ -473,6 +482,7 @@ bool CUIXmlInit::InitSound(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButton*
 
 bool CUIXmlInit::InitDragDropListEx(CUIXml& xml_doc, LPCSTR path, int index, CUIDragDropListEx* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	Fvector2 pos, size;
@@ -536,6 +546,7 @@ bool CUIXmlInit::InitDragDropListEx(CUIXml& xml_doc, LPCSTR path, int index, CUI
 bool CUIXmlInit::InitProgressBar(CUIXml& xml_doc, LPCSTR path,
                                  int index, CUIProgressBar* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitAutoStaticGroup(xml_doc, path, index, pWnd);
@@ -616,6 +627,7 @@ bool CUIXmlInit::InitProgressBar(CUIXml& xml_doc, LPCSTR path,
 
 bool CUIXmlInit::InitProgressShape(CUIXml& xml_doc, LPCSTR path, int index, CUIProgressShape* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitStatic(xml_doc, path, index, pWnd);
@@ -649,6 +661,7 @@ bool CUIXmlInit::InitProgressShape(CUIXml& xml_doc, LPCSTR path, int index, CUIP
 
 void CUIXmlInit::InitAutoStaticGroup(CUIXml& xml_doc, LPCSTR path, int index, CUIWindow* pParentWnd)
 {
+	PROF_EVENT();
 	XML_NODE* _stored_root = xml_doc.GetLocalRoot();
 	xml_doc.SetLocalRoot(xml_doc.NavigateToNode(path, index));
 
@@ -712,6 +725,7 @@ void CUIXmlInit::InitAutoStaticGroup(CUIXml& xml_doc, LPCSTR path, int index, CU
 
 void CUIXmlInit::InitAutoFrameLineGroup(CUIXml& xml_doc, LPCSTR path, int index, CUIWindow* pParentWnd)
 {
+	PROF_EVENT();
 	int items_num = xml_doc.GetNodesNum(path, index, "auto_frameline");
 	if (items_num == 0)
 	{
@@ -738,6 +752,7 @@ void CUIXmlInit::InitAutoFrameLineGroup(CUIXml& xml_doc, LPCSTR path, int index,
 
 bool CUIXmlInit::InitFont(CUIXml& xml_doc, LPCSTR path, int index, u32& color, CGameFont*& pFnt)
 {
+	PROF_EVENT();
 	color = GetColor(xml_doc, path, index, 0xff);
 
 	LPCSTR font_name = xml_doc.ReadAttrib(path, index, "font", NULL);
@@ -803,6 +818,7 @@ bool CUIXmlInit::InitFont(CUIXml& xml_doc, LPCSTR path, int index, u32& color, C
 
 bool CUIXmlInit::InitTabControl(CUIXml& xml_doc, LPCSTR path, int index, CUITabControl* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	bool status = true;
@@ -835,6 +851,7 @@ bool CUIXmlInit::InitTabControl(CUIXml& xml_doc, LPCSTR path, int index, CUITabC
 
 bool CUIXmlInit::InitFrameLine(CUIXml& xml_doc, LPCSTR path, int index, CUIFrameLineWnd* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT3(xml_doc.NavigateToNode(path,index), "XML node not found", path);
 
 	string256 buf;
@@ -903,6 +920,7 @@ bool CUIXmlInit::InitCustomEdit(CUIXml& xml_doc, LPCSTR path, int index, CUICust
 
 bool CUIXmlInit::InitEditBox(CUIXml& xml_doc, LPCSTR path, int index, CUIEditBox* pWnd)
 {
+	PROF_EVENT();
 	InitCustomEdit(xml_doc, path, index, pWnd);
 
 	InitTexture(xml_doc, path, index, pWnd);
@@ -915,6 +933,7 @@ bool CUIXmlInit::InitEditBox(CUIXml& xml_doc, LPCSTR path, int index, CUIEditBox
 
 bool CUIXmlInit::InitAnimatedStatic(CUIXml& xml_doc, const char* path, int index, CUIAnimatedStatic* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitStatic(xml_doc, path, index, pWnd);
@@ -943,6 +962,7 @@ bool CUIXmlInit::InitAnimatedStatic(CUIXml& xml_doc, const char* path, int index
 
 bool CUIXmlInit::InitSleepStatic(CUIXml& xml_doc, const char* path, int index, CUISleepStatic* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitStatic(xml_doc, path, index, pWnd);
@@ -952,6 +972,7 @@ bool CUIXmlInit::InitSleepStatic(CUIXml& xml_doc, const char* path, int index, C
 
 bool CUIXmlInit::InitTexture(CUIXml& xml_doc, LPCSTR path, int index, ITextureOwner* pWnd)
 {
+	PROF_EVENT();
 	string256 buf;
 	LPCSTR texture = NULL;
 	LPCSTR shader = NULL;
@@ -989,6 +1010,7 @@ bool CUIXmlInit::InitTexture(CUIXml& xml_doc, LPCSTR path, int index, ITextureOw
 
 bool CUIXmlInit::InitTextureOffset(CUIXml& xml_doc, LPCSTR path, int index, CUIStatic* pWnd)
 {
+	PROF_EVENT();
 	string256 textureOffset;
 	if (0 == xr_strcmp(path, ""))
 		xr_strcpy(textureOffset, "texture_offset");
@@ -1005,6 +1027,7 @@ bool CUIXmlInit::InitTextureOffset(CUIXml& xml_doc, LPCSTR path, int index, CUIS
 
 bool CUIXmlInit::InitMultiTexture(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButton* pWnd)
 {
+	PROF_EVENT();
 	string256 buff;
 	bool success = false;
 
@@ -1147,6 +1170,7 @@ bool CUIXmlInit::InitAlignment(CUIXml& xml_doc, const char* path,
 
 void CUIXmlInit::InitColorDefs()
 {
+	PROF_EVENT();
 	if (NULL != m_pColorDefs) return;
 
 	m_pColorDefs = xr_new<ColorDefs>();
@@ -1173,6 +1197,7 @@ void CUIXmlInit::InitColorDefs()
 
 bool CUIXmlInit::InitScrollView(CUIXml& xml_doc, LPCSTR path, int index, CUIScrollView* pWnd)
 {
+	PROF_EVENT();
 	R_ASSERT4(xml_doc.NavigateToNode(path,index), "XML node not found", path, xml_doc.m_xml_file_name);
 
 	InitWindow(xml_doc, path, index, pWnd);
@@ -1223,6 +1248,7 @@ bool CUIXmlInit::InitScrollView(CUIXml& xml_doc, LPCSTR path, int index, CUIScro
 
 bool CUIXmlInit::InitListBox(CUIXml& xml_doc, LPCSTR path, int index, CUIListBox* pWnd)
 {
+	PROF_EVENT();
 	InitScrollView(xml_doc, path, index, pWnd);
 
 	string512 _path;
@@ -1246,6 +1272,7 @@ bool CUIXmlInit::InitListBox(CUIXml& xml_doc, LPCSTR path, int index, CUIListBox
 
 bool CUIXmlInit::InitTrackBar(CUIXml& xml_doc, LPCSTR path, int index, CUITrackBar* pWnd)
 {
+	PROF_EVENT();
 	InitWindow(xml_doc, path, 0, pWnd);
 	pWnd->InitTrackBar(pWnd->GetWndPos(), pWnd->GetWndSize());
 	int is_integer = xml_doc.ReadAttribInt(path, index, "is_integer", 0);
@@ -1263,6 +1290,7 @@ bool CUIXmlInit::InitTrackBar(CUIXml& xml_doc, LPCSTR path, int index, CUITrackB
 
 bool CUIXmlInit::InitComboBox(CUIXml& xml_doc, LPCSTR path, int index, CUIComboBox* pWnd)
 {
+	PROF_EVENT();
 	u32 color;
 	CGameFont* pFont;
 
@@ -1307,6 +1335,7 @@ void CUIXmlInit::AssignColor(LPCSTR name, u32 clr)
 
 u32 CUIXmlInit::GetColor(CUIXml& xml_doc, LPCSTR path, int index, u32 def_clr)
 {
+	PROF_EVENT();
 	LPCSTR clr_def = xml_doc.ReadAttrib(path, index, "color", NULL);
 	if (clr_def)
 	{

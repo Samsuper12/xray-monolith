@@ -35,6 +35,7 @@ void CRenderDevice::initialize_editor()
 
 PROTECT_API void CRenderDevice::Initialize()
 {
+	PROF_EVENT();
 	Log("Initializing Engine...");
 	TimerGlobal.Start();
 	TimerMM.Start();

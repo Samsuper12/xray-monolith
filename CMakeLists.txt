@@ -65,6 +65,9 @@ set(ALSOFT_REQUIRE_OPENSL OFF CACHE BOOL "" FORCE)
 set(ALSOFT_BACKEND_PORTAUDIO OFF CACHE BOOL "" FORCE)
 set(ALSOFT_REQUIRE_PORTAUDIO OFF CACHE BOOL "" FORCE)
 
+# Tracy
+set(TRACY_ENABLE ON)
+
 # CLI11
 set(CLI11_WARNINGS_AS_ERRORS OFF CACHE BOOL "" FORCE)
 set(CLI11_SINGLE_FILE ON CACHE BOOL "" FORCE)
@@ -127,6 +130,7 @@ CPMAddPackage("gh:zeux/volk#vulkan-sdk-1.4.350.1")
 CPMAddPackage("gh:Samsuper12/gli#cdb01f8")
 CPMAddPackage("gh:SudoMaker/ReGlob#29284d4") 
 CPMAddPackage("gh:yosh-matsuda/cpp-yyjson#v0.8.0")
+CPMAddPackage("gh:wolfpld/tracy#v0.14.1")
 CPMAddPackage(
   NAME Boost
   VERSION 1.90.0

@@ -66,6 +66,7 @@ CMainMenu* MainMenu() { return (CMainMenu*)g_pGamePersistent->m_pMainMenu; };
 
 CMainMenu::CMainMenu()
 {
+	PROF_EVENT();
 	m_Flags.zero();
 	m_startDialog = NULL;
 	m_screenshotFrame = u32(-1);
@@ -155,6 +156,7 @@ CMainMenu::~CMainMenu()
 
 void CMainMenu::ReadTextureInfo()
 {
+	PROF_EVENT();
 	FS_FileSet fset;
 	FS.file_list(fset, "$game_config$", FS_ListFiles, {std::regex("ui/textures_descr/.*\\.xml", std::regex::icase)});
 	FS_FileSetIt fit = fset.begin();
@@ -174,6 +176,7 @@ extern bool IsGameTypeSingle();
 
 void CMainMenu::Activate(bool bActivate)
 {
+	PROF_EVENT();
 	if (!!m_Flags.test(flActive) == bActivate) return;
 	if (m_Flags.test(flGameSaveScreenshot)) return;
 	if ((m_screenshotFrame == Device.dwFrame) ||
@@ -288,6 +291,7 @@ void CMainMenu::Activate(bool bActivate)
 
 bool CMainMenu::ReloadUI()
 {
+	PROF_EVENT();
 	if (m_startDialog)
 	{
 		if (m_startDialog->IsShown())
@@ -415,6 +419,7 @@ extern bool use_reshade;
 
 void CMainMenu::OnRender()
 {
+	PROF_EVENT();
 	if (m_Flags.test(flGameSaveScreenshot))
 		return;
 
@@ -457,6 +462,7 @@ void CMainMenu::OnRenderPPUI_main()
 
 void CMainMenu::OnRenderPPUI_PP()
 {
+	PROF_EVENT();
 	if (!IsActive()) return;
 
 	if (m_Flags.test(flGameSaveScreenshot)) return;
@@ -481,6 +487,7 @@ void CMainMenu::StartStopMenu(CUIDialogWnd* pDialog, bool bDoHideIndicators)
 //pureFrame
 void CMainMenu::OnFrame()
 {
+	PROF_EVENT();
 	if (m_Flags.test(flNeedChangeCapture))
 	{
 		m_Flags.set(flNeedChangeCapture,FALSE);
@@ -594,6 +601,7 @@ void CMainMenu::DestroyInternal(bool bForce)
 
 void CMainMenu::OnNewPatchFound(LPCSTR VersionName, LPCSTR URL)
 {
+	PROF_EVENT();
 	if (m_sPDProgress.IsInProgress) return;
 
 	if (m_pMB_ErrDlgs[NewPatchFound])

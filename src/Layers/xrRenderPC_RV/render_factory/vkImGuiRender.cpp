@@ -25,16 +25,19 @@ void vkImGuiRender::Frame() {
 }
 
 void vkImGuiRender::Render(ImDrawData *data) {
+  PROF_EVENT_N("vkImGuiRender");
   auto frameData = HW.get_current_frame();
   auto cmd = frameData.cmdBuffer;
+
+  TracyVkZone(HW.tracyCtx, cmd, "vkImGuiRender");
 
   auto colorAttach =
       util::colorAttachmentInfo(HW.drawImage.imageView, std::nullopt,
                                 VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
 
-  VkExtent2D extent {
-    .width = HW.drawImage.imageExtent.width,
-    .height = HW.drawImage.imageExtent.height,
+  VkExtent2D extent{
+      .width = HW.drawImage.imageExtent.width,
+      .height = HW.drawImage.imageExtent.height,
   };
 
   auto renderInfo = util::renderingInfo(extent, &colorAttach, nullptr);
@@ -92,7 +95,7 @@ void vkImGuiRender::OnDeviceCreate(ImGuiContext *context) {
   ImGui_ImplVulkan_Init(&init_info);
 }
 
-void vkImGuiRender::OnDeviceDestroy() { 
+void vkImGuiRender::OnDeviceDestroy() {
   ImGui_ImplVulkan_Shutdown();
   vkDestroyDescriptorPool(HW.device, imguiPool, nullptr);
 }

@@ -9,6 +9,7 @@
 #include "string_concatenations.h"
 #include "rt_compressor.h"
 #include "xrCore.h"
+#include <profiler.h>
 
 xrCore Core;
 
@@ -65,6 +66,7 @@ std::tuple<std::string, std::string> xrCore::FetchPCNames() {
 
 void xrCore::_initialize(const std::string& ApplicationName)
 {
+	PROF_EVENT();
 	auto [username, hostname] = FetchPCNames();
 	this->ApplicationName = ApplicationName;
 	this->UserName = username;

@@ -14,6 +14,8 @@ namespace rv::utils::slang_shader {
 class Loader {
 public:
   Loader(const std::vector<const char *> search_path) : loaded(false) {
+    PROF_EVENT_N("Loading Slang");
+
     auto res = slang::createGlobalSession(slangGlobal.writeRef());
     if (SLANG_FAILED(res)) {
       Msg("[RV][SLANG]: failed to load global session.");
@@ -31,7 +33,7 @@ public:
                                    .searchPaths = search_path.data(),
                                    .searchPathCount = search_path.size()};
 
-    res =slangGlobal->createSession(sessionDesc, session.writeRef());
+    res = slangGlobal->createSession(sessionDesc, session.writeRef());
     if (SLANG_FAILED(res)) {
       Msg("[RV][SLANG]: failed to load target session.");
       return;
@@ -46,8 +48,11 @@ public:
   }
 
   auto load(VkDevice dev, const std::string module_name,
-                  const std::span<std::string> entry_point_names)
+            const std::span<std::string> entry_point_names)
       -> std::map<std::string, VkShaderModule> {
+    PROF_EVENT_N("Slang module");
+    ZoneText(module_name.c_str(), module_name.size());
+
     Slang::ComPtr<slang::IBlob> diagBlob;
     std::map<std::string, VkShaderModule> ret;
 

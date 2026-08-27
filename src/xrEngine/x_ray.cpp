@@ -165,6 +165,7 @@ string512 g_sBenchmarkName;
 // startup point
 void InitEngine()
 {
+	PROF_EVENT();
 	Engine.Initialize();
 	while (!g_bIntroFinished) sleep(100);
 	Device.Initialize();
@@ -224,6 +225,7 @@ extern float g_fTimeFactor;
 
 PROTECT_API void InitSettings()
 {
+	PROF_EVENT();
 	string_path fname;
 	FS.update_path(fname, "$game_config$", "system.ltx");
 #ifdef DEBUG

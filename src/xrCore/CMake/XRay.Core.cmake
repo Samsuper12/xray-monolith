@@ -61,6 +61,7 @@ target_link_libraries(XRay.Core.Includes INTERFACE
   Boost::interprocess
   Boost::headers
   ReGlob
+  Tracy::TracyClient
 )
 
 

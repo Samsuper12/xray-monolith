@@ -46,6 +46,7 @@ extern void InitHudSoundSettings();
 
 void init_game_globals()
 {
+	PROF_EVENT();
 	CreateUIGeom();
 	InitHudSoundSettings();
 	if (!g_dedicated_server)

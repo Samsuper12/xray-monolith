@@ -10,9 +10,9 @@
 #include "Descriptors.hpp"
 #include "Error.hpp"
 #include "Pipelines.hpp"
+#include "Slang.hpp"
 #include "Structs.hpp"
 #include "Texture.hpp"
-#include "Slang.hpp"
 
 namespace util {
 
@@ -240,6 +240,25 @@ inline void copyImageToImage(VkCommandBuffer cmd, VkImage src, VkImage dst,
   };
 
   vkCmdBlitImage2(cmd, &blitInfo);
+}
+
+inline auto copyImageToBuffer(
+    VkCommandBuffer cmd, AllocatedImage src, AllocatedBuffer dst,
+    VkImageLayout srcLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) -> void {
+
+  VkBufferImageCopy region{.bufferOffset = 0,
+                           .bufferRowLength = 0,
+                           .bufferImageHeight = 0,
+                           .imageSubresource =
+                               {
+                                   .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+                                   .mipLevel = 0,
+                                   .baseArrayLayer = 0,
+                                   .layerCount = 1,
+                               },
+                           .imageOffset = {0, 0, 0},
+                           .imageExtent = src.imageExtent};
+  vkCmdCopyImageToBuffer(cmd, src.image, srcLayout, dst.buffer, 1, &region);
 }
 
 inline VkRenderingAttachmentInfo colorAttachmentInfo(
