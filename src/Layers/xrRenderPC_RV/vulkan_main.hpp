@@ -19,3 +19,12 @@ inline void VK_CHECK(VkResult x) {
   }
 }
 
+inline auto TracyGPUMemNotify(const VmaAllocator& allocator) -> void {
+  static const std::string nameAlloc = "VMA Alloc";
+  VmaBudget budgets[VK_MAX_MEMORY_HEAPS];
+  vmaGetHeapBudgets(allocator, budgets);
+  const auto& budget = budgets[0];
+  TracyPlot(nameAlloc.c_str(), static_cast<double>(budget.usage));
+  TracyPlotConfig(nameAlloc.c_str(), tracy::PlotFormatType::Memory, false, true, tracy::Color::Red);
+}
+

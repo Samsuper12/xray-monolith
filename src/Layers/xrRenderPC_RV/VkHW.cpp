@@ -7,7 +7,7 @@
 // #else
 // bool useValidationLayers = false;
 // #endif
-extern xr_token* vid_mode_token;
+extern xr_token *vid_mode_token;
 
 inline auto fmatrix_to_glm(const Fmatrix &m) -> glm::mat4 const {
   return glm::mat4{
@@ -217,6 +217,7 @@ void VkHW::init_vulkan() {
 
   vmaImportVulkanFunctionsFromVolk(&allocInfo, &vmaFuncs);
   vmaCreateAllocator(&allocInfo, &allocator);
+  TracyGPUMemNotify(allocator);
 
   tracyCtx = TracyVkContextHostCalibrated(
       instance, physDevice, device, vkGetInstanceProcAddr, vkGetDeviceProcAddr);
@@ -277,6 +278,7 @@ void VkHW::init_swapchain() {
 
     VK_CHECK(vmaCreateImage(allocator, &rimgInfo, &ringAllocInfo,
                             &drawImage.image, &drawImage.alloc, nullptr));
+    TracyGPUMemNotify(allocator);
 
     auto rviewInfo = util::imageViewCreateInfo(
         drawImage.imageFormat, drawImage.image, VK_IMAGE_ASPECT_COLOR_BIT);
@@ -296,6 +298,7 @@ void VkHW::init_swapchain() {
 
     VK_CHECK(vmaCreateImage(allocator, &dimgInfo, &ringAllocInfo,
                             &depthImage.image, &depthImage.alloc, nullptr));
+    TracyGPUMemNotify(allocator);
 
     VkImageViewCreateInfo dviewInfo = util::imageViewCreateInfo(
         depthImage.imageFormat, depthImage.image, VK_IMAGE_ASPECT_DEPTH_BIT);
@@ -335,6 +338,7 @@ void VkHW::init_sync_structures() {
       VK_CHECK(vmaCreateImage(allocator, &rimgInfo, &ringAllocInfo,
                               &frames[i].tracyImage.image,
                               &frames[i].tracyImage.alloc, nullptr));
+      TracyGPUMemNotify(allocator);
 
       auto rviewInfo = util::imageViewCreateInfo(TracyImageFormat,
                                                  frames[i].tracyImage.image,
@@ -438,6 +442,7 @@ AllocatedImage VkHW::createImage(VkExtent3D size, VkFormat format,
 
   VK_CHECK(vmaCreateImage(allocator, &imgInfo, &allocInfo, &newImage.image,
                           &newImage.alloc, nullptr));
+  TracyGPUMemNotify(allocator);
 
   VkImageAspectFlags aspect = (format == VK_FORMAT_D32_SFLOAT)
                                   ? VK_IMAGE_ASPECT_DEPTH_BIT
@@ -525,6 +530,7 @@ AllocatedImage VkHW::createImage(rv::texture::ktxTexsturePtr_t ktxTexturePtr,
 
   VK_CHECK(vmaCreateImage(allocator, &imgInfo, &allocInfo, &newImage.image,
                           &newImage.alloc, nullptr));
+  TracyGPUMemNotify(allocator);
 
   VkImageAspectFlags aspect = (format == VK_FORMAT_D32_SFLOAT)
                                   ? VK_IMAGE_ASPECT_DEPTH_BIT
@@ -689,7 +695,9 @@ auto VkHW::InitResolutionList() -> void {
         uint32_t w = 0;
         uint32_t h = 0;
         for (auto j = 0; j < modeCount; j++) {
-          if (w == modes[j]->w && h == modes[j]->h && refreshRate != modes[j]->refresh_rate) continue;
+          if (w == modes[j]->w && h == modes[j]->h &&
+              refreshRate != modes[j]->refresh_rate)
+            continue;
 
           resolutions.push_back(std::format("{}x{}", modes[j]->w, modes[j]->h));
 
@@ -705,23 +713,22 @@ auto VkHW::InitResolutionList() -> void {
 
   vid_mode_token = xr_alloc<xr_token>(resolutions.size());
   vid_mode_token[resolutions.size()].id = -1;
-	vid_mode_token[resolutions.size()].name = nullptr;
+  vid_mode_token[resolutions.size()].name = nullptr;
 
-  for(auto i = 0; i < resolutions.size(); i++) {
+  for (auto i = 0; i < resolutions.size(); i++) {
     vid_mode_token[i].id = i;
-		vid_mode_token[i].name = xr_strdup(resolutions[i].c_str());
+    vid_mode_token[i].name = xr_strdup(resolutions[i].c_str());
   }
 }
 
 auto VkHW::DestroyResolutionsList() -> void {
-  xr_token* t = vid_mode_token;
-  while(t) {
+  xr_token *t = vid_mode_token;
+  while (t) {
     xr_free(t->name);
     t++;
   }
   xr_free(vid_mode_token);
 }
-
 
 AllocatedBuffer VkHW::createBuffer(size_t allocSize, VkBufferUsageFlags usage,
                                    VmaMemoryUsage memoryUsage) {
@@ -741,6 +748,7 @@ AllocatedBuffer VkHW::createBuffer(size_t allocSize, VkBufferUsageFlags usage,
   AllocatedBuffer buffer;
   VK_CHECK(vmaCreateBuffer(allocator, &bufferInfo, &vmaAlloc, &buffer.buffer,
                            &buffer.allocation, &buffer.info));
+  TracyGPUMemNotify(allocator);
   return buffer;
 }
 

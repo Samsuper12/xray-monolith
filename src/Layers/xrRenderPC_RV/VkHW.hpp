@@ -75,10 +75,12 @@ public:
   void deleteImage(AllocatedImage img) {
     vkDestroyImageView(device, img.imageView, nullptr);
     vmaDestroyImage(allocator, img.image, img.alloc);
+    TracyGPUMemNotify(allocator);
   }
 
   void destroyBuffer(const AllocatedBuffer &buffer) {
     vmaDestroyBuffer(allocator, buffer.buffer, buffer.allocation);
+    TracyGPUMemNotify(allocator);
   }
 
   auto get_ActiveTextureExtent() -> VkExtent3D const {
