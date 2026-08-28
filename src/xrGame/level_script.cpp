@@ -1455,10 +1455,10 @@ void hud_adj_state(bool state)
 
 LPCSTR vid_modes_string()
 {
-	xr_string resolutions = "";
+	static xr_string resolutions = "";
 
 	xr_token* tok = vid_mode_token;
-	while (tok->name)
+	while (tok && tok->name)
 	{
 		if (strlen(resolutions.c_str()) > 0)
 			resolutions.append(",");

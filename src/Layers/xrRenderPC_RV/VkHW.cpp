@@ -7,6 +7,7 @@
 // #else
 // bool useValidationLayers = false;
 // #endif
+extern xr_token* vid_mode_token;
 
 inline auto fmatrix_to_glm(const Fmatrix &m) -> glm::mat4 const {
   return glm::mat4{
@@ -64,10 +65,13 @@ void VkHW::CreateDevice(SDL_Window *window, VkExtent2D windowExtent) {
   init_descriptors();
   init_buffers();
 
+  InitResolutionList();
+
   isInit = true;
 }
 
 void VkHW::DestroyDevice() {
+  DestroyResolutionsList();
   // cleanup
 }
 
@@ -668,6 +672,56 @@ auto VkHW::formatIsSupported(VkFormat format) -> bool {
     return true;
   }
 }
+
+auto VkHW::InitResolutionList() -> void {
+  std::vector<std::string> resolutions;
+
+  int displayCount = 0;
+  SDL_DisplayID *displays = SDL_GetDisplays(&displayCount);
+  if (displays) {
+    for (auto i = 0; i < displayCount; i++) {
+      int modeCount = 0;
+      SDL_DisplayMode **modes =
+          SDL_GetFullscreenDisplayModes(displays[i], &modeCount);
+      if (modes) {
+        // store only one resolution from subset {wxh} * refresh_rate
+        float refreshRate = 0;
+        uint32_t w = 0;
+        uint32_t h = 0;
+        for (auto j = 0; j < modeCount; j++) {
+          if (w == modes[j]->w && h == modes[j]->h && refreshRate != modes[j]->refresh_rate) continue;
+
+          resolutions.push_back(std::format("{}x{}", modes[j]->w, modes[j]->h));
+
+          refreshRate = modes[i]->refresh_rate;
+          w = modes[j]->w;
+          h = modes[j]->h;
+        }
+        SDL_free(modes);
+      }
+    }
+    SDL_free(displays);
+  }
+
+  vid_mode_token = xr_alloc<xr_token>(resolutions.size());
+  vid_mode_token[resolutions.size()].id = -1;
+	vid_mode_token[resolutions.size()].name = nullptr;
+
+  for(auto i = 0; i < resolutions.size(); i++) {
+    vid_mode_token[i].id = i;
+		vid_mode_token[i].name = xr_strdup(resolutions[i].c_str());
+  }
+}
+
+auto VkHW::DestroyResolutionsList() -> void {
+  xr_token* t = vid_mode_token;
+  while(t) {
+    xr_free(t->name);
+    t++;
+  }
+  xr_free(vid_mode_token);
+}
+
 
 AllocatedBuffer VkHW::createBuffer(size_t allocSize, VkBufferUsageFlags usage,
                                    VmaMemoryUsage memoryUsage) {

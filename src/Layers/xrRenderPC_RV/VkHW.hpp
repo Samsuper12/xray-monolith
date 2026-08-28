@@ -99,6 +99,8 @@ private:
   void init_descriptors();
   void init_buffers();
 
+  auto InitResolutionList() -> void;
+  auto DestroyResolutionsList() -> void;
   void resize_swapchain();
   void create_swapchain(VkExtent2D extent, bool recreate = false);
 
