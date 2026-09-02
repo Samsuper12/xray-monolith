@@ -58,19 +58,38 @@ function(add_submodule NAME SUBNAME)
   target_link_libraries(${NAME} ${TYPE_PUBLIC} ${SUBMODULE})
 endfunction()
 
+function(add_cxx_submodule NAME SUBNAME)
+  set(SUBMODULE ${NAME}.${SUBNAME})
+  add_library(${SUBMODULE} INTERFACE)
+  get_target_property(FOLDER ${NAME} FOLDER)
+  set_target_properties(${SUBMODULE} PROPERTIES FOLDER ${FOLDER})
+  target_link_libraries(${NAME} ${TYPE_PUBLIC} ${SUBMODULE})
+
+  if(SHOW_SUBMODULES)
+    target_sources(${SUBMODULE} PRIVATE ${CMAKE_CURRENT_LIST_FILE})
+  endif()
+  
+  target_link_libraries(${NAME} ${TYPE_PUBLIC} ${SUBMODULE})
+endfunction()
+
 # X-Ray Module Constructor
 function(add_module NAME)
   # Parse keyword arguments
   cmake_parse_arguments(PARSE_ARGV 1 ARG
     "NO_LINK_PARENT"
     "TYPE"
-    "SOURCES;INCLUDES;PRECOMPILES;DEFINES;LINKS"
+    "SOURCES;INCLUDES;PRECOMPILES;DEFINES;LINKS;CXX_MODULES"
   )
 
   # Determine whether we have any C or CPP sources
   set(HAS_SOURCES false)
   if(ARG_SOURCES MATCHES "\\.cpp" OR ARG_SOURCES MATCHES "\\.c")
     set(HAS_SOURCES true)
+  endif()
+
+  set(HAS_CXX_MODULES false)
+  if (CXX_MODULES MATCHES "\\.cppm")
+    set(HAS_CXX_MODULES true)
   endif()
   
   # If type has not been set explicitly, infer...
@@ -115,6 +134,7 @@ function(add_module NAME)
   # Set unity group
   set_source_files_properties(
     ${ARG_SOURCES}
+    ${ARG_CXX_MODULES}
     PROPERTIES
     UNITY_GROUP ${NAME}
   )
@@ -171,11 +191,30 @@ function(add_module NAME)
     target_precompile_headers(${NAME}.Precompiles INTERFACE ${ARG_PRECOMPILES})
   endif()
 
-  # Add current CMake file to our sources
-  list(APPEND ARG_SOURCES ${CMAKE_CURRENT_LIST_FILE})
+  if(ARG_CXX_MODULES)
+  if(ARG_TYPE STREQUAL INTERFACE)
+    message(FATAL_ERROR "Don't use INTERFACE with CXX modules")
+  endif()
 
+  target_sources(${NAME}
+    ${TYPE_PUBLIC}
+    FILE_SET CXX_MODULES
+    FILES ${ARG_CXX_MODULES}
+  )
+
+  add_cxx_submodule(${NAME} CXX_MODULES)
+
+  if(ARG_INCLUDES)
+    target_include_directories(${NAME}.CXX_MODULES INTERFACE ${ARG_INCLUDES})
+  endif()
+endif()
+
+  # Add current CMake file to our sources
+  if(HAS_SOURCES)
+    list(APPEND ARG_SOURCES ${CMAKE_CURRENT_LIST_FILE})
   # Add sources
-  target_sources(${NAME} PRIVATE ${ARG_SOURCES})
+    target_sources(${NAME} PRIVATE ${ARG_SOURCES})
+  endif()
 
   # If this is an interface with sources,
   # expose them separately to ensure IDEs don't elide the module

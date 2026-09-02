@@ -106,6 +106,8 @@ project(
   LANGUAGES CXX C
 )
 
+include(XRay.CMake)
+
 file(
         DOWNLOAD
         https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.42.1/CPM.cmake
@@ -143,7 +145,6 @@ CPMAddPackage(
     "BOOST_DATE_TIME_NO_LIB ON"
 )
 
-
 message(STATUS)
 message(STATUS "S.T.A.L.K.E.R. Anomaly")
 message(STATUS "      Version: ${TODAY_DOTS}")
@@ -152,9 +153,6 @@ message(STATUS "      Version: ${TODAY_DOTS}")
 add_custom_target(Build)
 file(GLOB_RECURSE SOURCES_GAMEDATA CMake/*)
 target_sources(Build PRIVATE ${SOURCES_GAMEDATA})
-
-# Hand off to our XRay entrypoint
-include(XRay.CMake)
 
 # Setup external libraries
 add_subdirectory(Externals)
