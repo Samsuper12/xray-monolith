@@ -28,7 +28,7 @@ public:
 
 	SCalculateData(CIKLimb& l, const Fmatrix& o);
 public:
-	IC Fmatrix& goal(Fmatrix& g) const;
+	inline Fmatrix& goal(Fmatrix& g) const;
 };
 
 //#define IK_DBG_STATE_SEQUENCE

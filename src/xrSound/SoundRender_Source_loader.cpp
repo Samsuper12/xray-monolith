@@ -98,7 +98,7 @@ bool CSoundRender_Source::LoadWave(LPCSTR pName)
 	ZeroMemory(&m_wformat, sizeof( WAVEFORMATEX ));
 
 	m_wformat.nSamplesPerSec = (ovi->rate); //44100;
-	m_wformat.wFormatTag = WAVE_FORMAT_PCM;
+	m_wformat.wFormatTag = (0x0001);
 	m_wformat.nChannels = u16(ovi->channels);
 	m_wformat.wBitsPerSample = 16;
 

@@ -10,17 +10,17 @@ struct xrGUID
 {
 	u64 g[2];
 
-	ICF bool operator==(const xrGUID& o) const
+	inline bool operator==(const xrGUID& o) const
 	{
 		return ((g[0] == o.g[0]) && (g[1] == o.g[1]));
 	}
 
-	ICF bool operator!=(const xrGUID& o) const
+	inline bool operator!=(const xrGUID& o) const
 	{
 		return !(*this == o);
 	}
 
-	ICF void LoadLTX(CInifile& ini, LPCSTR section, LPCSTR name)
+	inline void LoadLTX(CInifile& ini, LPCSTR section, LPCSTR name)
 	{
 		string128 buff;
 
@@ -28,7 +28,7 @@ struct xrGUID
 		g[1] = ini.r_u64(section, strconcat(sizeof(buff), buff, name, "_g1"));
 	}
 
-	ICF void SaveLTX(CInifile& ini, LPCSTR section, LPCSTR name)
+	inline void SaveLTX(CInifile& ini, LPCSTR section, LPCSTR name)
 	{
 		string128 buff;
 
@@ -120,33 +120,33 @@ class NodePosition
 {
 	u8 data[5];
 
-	ICF void xz(u32 value)
+	inline void xz(u32 value)
 	{
-		CopyMemory(data, &value, 3);
+		memcpy(data, &value, 3);
 	}
 
-	ICF void y(u16 value)
+	inline void y(u16 value)
 	{
-		CopyMemory(data + 3, &value, 2);
+		memcpy(data + 3, &value, 2);
 	}
 
 public:
-	ICF u32 xz() const
+	inline u32 xz() const
 	{
 		return ((*((u32*)data)) & 0x00ffffff);
 	}
 
-	ICF u32 x(u32 row) const
+	inline u32 x(u32 row) const
 	{
 		return (xz() / row);
 	}
 
-	ICF u32 z(u32 row) const
+	inline u32 z(u32 row) const
 	{
 		return (xz() % row);
 	}
 
-	ICF u32 y() const
+	inline u32 y() const
 	{
 		return (*((u16*)(data + 3)));
 	}
@@ -162,7 +162,7 @@ public:
 	u8 data[12];
 private:
 
-	ICF void link(u8 link_index, u32 value)
+	inline void link(u8 link_index, u32 value)
 	{
 		value &= 0x007fffff;
 		switch (link_index)
@@ -170,34 +170,34 @@ private:
 		case 0:
 			{
 				value |= (*(u32*)data) & 0xff800000;
-				CopyMemory(data, &value, sizeof(u32));
+				memcpy(data, &value, sizeof(u32));
 				break;
 			}
 		case 1:
 			{
 				value <<= 7;
 				value |= (*(u32*)(data + 2)) & 0xc000007f;
-				CopyMemory(data + 2, &value, sizeof(u32));
+				memcpy(data + 2, &value, sizeof(u32));
 				break;
 			}
 		case 2:
 			{
 				value <<= 6;
 				value |= (*(u32*)(data + 5)) & 0xe000003f;
-				CopyMemory(data + 5, &value, sizeof(u32));
+				memcpy(data + 5, &value, sizeof(u32));
 				break;
 			}
 		case 3:
 			{
 				value <<= 5;
 				value |= (*(u32*)(data + 8)) & 0xf000001f;
-				CopyMemory(data + 8, &value, sizeof(u32));
+				memcpy(data + 8, &value, sizeof(u32));
 				break;
 			}
 		}
 	}
 
-	ICF void light(u8 value)
+	inline void light(u8 value)
 	{
 		data[10] |= value << 4;
 	}
@@ -210,7 +210,7 @@ public:
 		u16 cover2 : 4;
 		u16 cover3 : 4;
 
-		ICF u16 cover(u8 index) const
+		inline u16 cover(u8 index) const
 		{
 			switch (index)
 			{
@@ -237,7 +237,7 @@ public:
 	NodePosition p;
 	// 32 + 16 + 40 + 92 = 180 bits = 24.5 bytes => 25 bytes
 
-	ICF u32 link(u8 index) const
+	inline u32 link(u8 index) const
 	{
 		switch (index)
 		{
@@ -271,7 +271,7 @@ public:
     u8 data[11];
 private:
 
-    ICF void link(u8 link_index, u32 value)
+    inline void link(u8 link_index, u32 value)
     {
         value &= 0x001fffff;
         switch (link_index)
@@ -279,34 +279,34 @@ private:
         case 0 :
         {
             value |= (*(u32*)data) & 0xffe00000;
-            CopyMemory(data, &value, sizeof(u32));
+            memcpy(data, &value, sizeof(u32));
             break;
         }
         case 1 :
         {
             value <<= 5;
             value |= (*(u32*)(data + 2)) & 0xfc00001f;
-            CopyMemory(data + 2, &value, sizeof(u32));
+            memcpy(data + 2, &value, sizeof(u32));
             break;
         }
         case 2 :
         {
             value <<= 2;
             value |= (*(u32*)(data + 5)) & 0xff800003;
-            CopyMemory(data + 5, &value, sizeof(u32));
+            memcpy(data + 5, &value, sizeof(u32));
             break;
         }
         case 3 :
         {
             value <<= 7;
             value |= (*(u32*)(data + 7)) & 0xf000007f;
-            CopyMemory(data + 7, &value, sizeof(u32));
+            memcpy(data + 7, &value, sizeof(u32));
             break;
         }
         }
     }
 
-    ICF void light(u8 value)
+    inline void light(u8 value)
     {
         data[10] |= value << 4;
     }
@@ -319,7 +319,7 @@ public:
     u16 plane;
     NodePosition p;
 
-    ICF u32 link(u8 index) const
+    inline u32 link(u8 index) const
     {
         switch (index)
         {
@@ -339,12 +339,12 @@ public:
 #endif
     }
 
-    ICF u8 light() const
+    inline u8 light() const
     {
         return (data[10] >> 4);
     }
 
-    ICF u16 cover(u8 index) const
+    inline u16 cover(u8 index) const
     {
         switch (index)
         {

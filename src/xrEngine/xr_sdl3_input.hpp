@@ -61,7 +61,7 @@ public:
 	//get_exclusive_mode();
 
 	// FIXME: 
-	// bool get_dik_name(int dik, LPSTR dest, int dest_sz);
+	// bool get_dik_name(int dik, char * dest, int dest_sz);
 
 private:
 	//FIXME: init {} in constructor

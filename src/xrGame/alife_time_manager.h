@@ -28,12 +28,12 @@ public:
 	virtual void save(IWriter& memory_stream);
 	virtual void load(IReader& file_stream);
 	void init(LPCSTR section);
-	IC void set_time_factor(float time_factor);
-	IC ALife::_TIME_ID start_game_time() const;
-	IC ALife::_TIME_ID game_time() const;
-	IC float time_factor() const;
-	IC float normal_time_factor() const;
-	IC void change_game_time(u32 value);
+	inline void set_time_factor(float time_factor);
+	inline ALife::_TIME_ID start_game_time() const;
+	inline ALife::_TIME_ID game_time() const;
+	inline float time_factor() const;
+	inline float normal_time_factor() const;
+	inline void change_game_time(u32 value);
 };
 
 #include "alife_time_manager_inline.h"

@@ -30,8 +30,8 @@ public:
 
 		float m_fTimeEnd;
 
-		IC float TimeStart() { return m_fTimeStart; }
-		IC float TimeEnd() { return m_fTimeEnd; }
+		inline float TimeStart() { return m_fTimeStart; }
+		inline float TimeEnd() { return m_fTimeEnd; }
 	};
 
 	DEFINE_VECTOR(static_wallmark*, StaticWMVec, StaticWMVecIt);

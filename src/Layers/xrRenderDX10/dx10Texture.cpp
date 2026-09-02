@@ -93,7 +93,7 @@ const float _BUMPHEIGH = 8.f;
 //////////////////////////////////////////////////////////////////////
 // Utility pack
 //////////////////////////////////////////////////////////////////////
-IC u32 GetPowerOf2Plus1(u32 v)
+inline u32 GetPowerOf2Plus1(u32 v)
 {
 	u32 cnt = 0;
 	while (v)
@@ -104,7 +104,7 @@ IC u32 GetPowerOf2Plus1(u32 v)
 	return cnt;
 }
 
-IC void Reduce(int& w, int& h, int& l, int& skip)
+inline void Reduce(int& w, int& h, int& l, int& skip)
 {
 	while ((l > 1) && skip)
 	{
@@ -118,7 +118,7 @@ IC void Reduce(int& w, int& h, int& l, int& skip)
 	if (h < 1) h = 1;
 }
 
-IC void Reduce(UINT& w, UINT& h, int l, int skip)
+inline void Reduce(UINT& w, UINT& h, int l, int skip)
 {
 	while ((l > 1) && skip)
 	{
@@ -204,7 +204,7 @@ ID3DTexture2D*	TW_LoadTextureFromTexture
 }
 
 template	<class _It>
-IC	void	TW_Iterate_1OP
+inline	void	TW_Iterate_1OP
 (
  ID3DTexture2D*		t_dst,
  ID3DTexture2D*		t_src,
@@ -235,7 +235,7 @@ IC	void	TW_Iterate_1OP
 	}
 }
 template	<class _It>
-IC	void	TW_Iterate_2OP
+inline	void	TW_Iterate_2OP
 (
  ID3DTexture2D*		t_dst,
  ID3DTexture2D*		t_src0,
@@ -273,13 +273,13 @@ IC	void	TW_Iterate_2OP
 	}
 }
 
-IC u32 it_gloss_rev		(u32 d, u32 s)	{	return	color_rgba	(
+inline u32 it_gloss_rev		(u32 d, u32 s)	{	return	color_rgba	(
 	color_get_A(s),		// gloss
 	color_get_B(d),
 	color_get_G(d),
 	color_get_R(d)		);
 }
-IC u32 it_gloss_rev_base(u32 d, u32 s)	{	
+inline u32 it_gloss_rev_base(u32 d, u32 s)	{	
 	u32		occ		= color_get_A(d)/3;
 	u32		def		= 8;
 	u32		gloss	= (occ*1+def*3)/4;
@@ -290,19 +290,19 @@ IC u32 it_gloss_rev_base(u32 d, u32 s)	{
 		color_get_R(d)
 		);
 }
-IC u32 it_difference	(u32 d, u32 orig, u32 ucomp)	{	return	color_rgba(
+inline u32 it_difference	(u32 d, u32 orig, u32 ucomp)	{	return	color_rgba(
 	128+(int(color_get_R(orig))-int(color_get_R(ucomp)))*2,		// R-error
 	128+(int(color_get_G(orig))-int(color_get_G(ucomp)))*2,		// G-error
 	128+(int(color_get_B(orig))-int(color_get_B(ucomp)))*2,		// B-error
 	128+(int(color_get_A(orig))-int(color_get_A(ucomp)))*2	);	// A-error	
 }
-IC u32 it_height_rev	(u32 d, u32 s)	{	return	color_rgba	(
+inline u32 it_height_rev	(u32 d, u32 s)	{	return	color_rgba	(
 	color_get_A(d),					// diff x
 	color_get_B(d),					// diff y
 	color_get_G(d),					// diff z
 	color_get_R(s)	);				// height
 }
-IC u32 it_height_rev_base(u32 d, u32 s)	{	return	color_rgba	(
+inline u32 it_height_rev_base(u32 d, u32 s)	{	return	color_rgba	(
 	color_get_A(d),					// diff x
 	color_get_B(d),					// diff y
 	color_get_G(d),					// diff z

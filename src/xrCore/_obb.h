@@ -56,7 +56,7 @@ public:
 	Tvector m_translate;
 	Tvector m_halfsize;
 
-	IC SelfRef invalidate()
+	inline SelfRef invalidate()
 	{
 		m_rotate.identity();
 		m_translate.set(0, 0, 0);
@@ -64,14 +64,14 @@ public:
 		return *this;
 	}
 
-	IC SelfRef identity()
+	inline SelfRef identity()
 	{
 		invalidate();
 		m_halfsize.set(T(0.5), T(0.5), T(0.5));
 		return *this;
 	}
 
-	IC void xform_get(Tmatrix& D) const
+	inline void xform_get(Tmatrix& D) const
 	{
 		D.i.set(m_rotate.i);
 		D._14_ = 0;
@@ -83,7 +83,7 @@ public:
 		D._44_ = 1;
 	}
 
-	IC SelfRef xform_set(const Tmatrix& S)
+	inline SelfRef xform_set(const Tmatrix& S)
 	{
 		m_rotate.i.set(S.i);
 		m_rotate.j.set(S.j);
@@ -92,7 +92,7 @@ public:
 		return *this;
 	}
 
-	IC void xform_full(Tmatrix& D) const
+	inline void xform_full(Tmatrix& D) const
 	{
 		Tmatrix R, S;
 		xform_get(R);
@@ -101,7 +101,7 @@ public:
 	}
 
 	// NOTE: Unoptimized
-	IC SelfRef transform(SelfCRef src, const Tmatrix& M)
+	inline SelfRef transform(SelfCRef src, const Tmatrix& M)
 	{
 		Tmatrix srcR, destR;
 
@@ -112,7 +112,7 @@ public:
 		return *this;
 	}
 
-	IC bool intersect(const Tvector& start, const Tvector& dir, T& dist) const
+	inline bool intersect(const Tvector& start, const Tvector& dir, T& dist) const
 	{
 		// convert ray to box coordinates
 		Tvector kDiff;

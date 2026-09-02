@@ -35,7 +35,7 @@ public:
 	{
 	};
 
-	IC CEF_Storage& ef_storage() const
+	inline CEF_Storage& ef_storage() const
 	{
 		VERIFY(m_storage);
 		return (*m_storage);
@@ -56,23 +56,23 @@ public:
 				+ .5f));
 	}
 
-	IC float ffGetMaxResultValue()
+	inline float ffGetMaxResultValue()
 	{
 		return (m_fMaxResultValue);
 	}
 
-	IC float ffGetMinResultValue()
+	inline float ffGetMinResultValue()
 	{
 		return (m_fMinResultValue);
 	}
 
-	IC LPCSTR Name()
+	inline LPCSTR Name()
 	{
 		return (m_caName);
 	}
 
-	IC CLASS_ID clsid_member() const;
-	IC CLASS_ID clsid_enemy() const;
-	IC CLASS_ID clsid_member_item() const;
-	IC CLASS_ID clsid_enemy_item() const;
+	inline CLASS_ID clsid_member() const;
+	inline CLASS_ID clsid_enemy() const;
+	inline CLASS_ID clsid_member_item() const;
+	inline CLASS_ID clsid_enemy_item() const;
 };

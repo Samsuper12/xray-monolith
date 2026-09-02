@@ -145,7 +145,7 @@ bool stalker_movement_manager_smart_cover::test_pick(Fvector source, Fvector des
 
 	struct test_pick
 	{
-		static BOOL callback(collide::rq_result& result, LPVOID user_data)
+		static BOOL callback(collide::rq_result& result, void* user_data)
 		{
 			parameters* const param = (parameters*)user_data;
 			if (param->m_object->feel_vision_mtl_transp(result.O, result.element) < 1.f)
@@ -265,7 +265,7 @@ stalker_movement_manager_smart_cover::transition_action const& stalker_movement_
 
 	struct applicable
 	{
-		IC static bool predicate(action const* const & action)
+		inline static bool predicate(action const* const & action)
 		{
 			return (action->applicable());
 		}
@@ -600,7 +600,7 @@ void stalker_movement_manager_smart_cover::go_next_loophole()
 	m_current.cover_loophole_id(m_path[1]);
 }
 
-static IC bool exit_loophole(shared_str const& loophole_id)
+static inline bool exit_loophole(shared_str const& loophole_id)
 {
 	return (
 		loophole_id._get()

@@ -63,7 +63,7 @@ public:
 	//связь диалога между двумя DialogManager
 	virtual void Init(CPhraseDialogManager* speaker_first, CPhraseDialogManager* speaker_second);
 
-	IC bool IsInited() const { return ((FirstSpeaker() != NULL) && (SecondSpeaker() != NULL)); }
+	inline bool IsInited() const { return ((FirstSpeaker() != NULL) && (SecondSpeaker() != NULL)); }
 
 	//реинициализация диалога
 	virtual void Reset();
@@ -92,8 +92,8 @@ public:
 
 	bool IsFinished() const { return m_bFinished; }
 
-	IC CPhraseDialogManager* FirstSpeaker() const { return m_pSpeakerFirst; }
-	IC CPhraseDialogManager* SecondSpeaker() const { return m_pSpeakerSecond; }
+	inline CPhraseDialogManager* FirstSpeaker() const { return m_pSpeakerFirst; }
+	inline CPhraseDialogManager* SecondSpeaker() const { return m_pSpeakerSecond; }
 
 	//кто собирается говорить и кто слушать
 	CPhraseDialogManager* CurrentSpeaker() const;
@@ -101,10 +101,10 @@ public:
 	//кто последний сказал фразу
 	CPhraseDialogManager* LastSpeaker() const { return m_bFirstIsSpeaking ? SecondSpeaker() : FirstSpeaker(); }
 
-	IC bool FirstIsSpeaking() const { return m_bFirstIsSpeaking; }
-	IC bool SecondIsSpeaking() const { return !m_bFirstIsSpeaking; }
+	inline bool FirstIsSpeaking() const { return m_bFirstIsSpeaking; }
+	inline bool SecondIsSpeaking() const { return !m_bFirstIsSpeaking; }
 
-	IC bool IsWeSpeaking(CPhraseDialogManager* dialog_manager) const
+	inline bool IsWeSpeaking(CPhraseDialogManager* dialog_manager) const
 	{
 		return (FirstSpeaker() == dialog_manager && FirstIsSpeaking()) ||
 			(SecondSpeaker() == dialog_manager && SecondIsSpeaking());

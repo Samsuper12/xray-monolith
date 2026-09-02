@@ -130,9 +130,9 @@ void CLevel::IR_OnMouseMove(int dx, int dy)
 		if (IR) IR->IR_OnMouseMove(dx, dy);
 	}
 
-    POINT p;
-    p.x = Device.dwWidth / 2;
-    p.y = Device.dwHeight / 2;
+    // POINT p;
+    // p.x = Device.dwWidth / 2;
+    // p.y = Device.dwHeight / 2;
     // FIXME: why? for what?
     //ClientToScreen(Device.m_hWnd, &p);
     //SetCursorPos(p.x, p.y);

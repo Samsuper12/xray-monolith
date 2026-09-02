@@ -27,9 +27,9 @@ namespace extrapolation
 		{
 		}
 
-		IC const pose& pose() const { return p; }
-		IC float time() const { return m_time; }
-		IC point& set(const extrapolation::pose& p_, float time)
+		inline const pose& pose() const { return p; }
+		inline float time() const { return m_time; }
+		inline point& set(const extrapolation::pose& p_, float time)
 		{
 			p = p_;
 			m_time = time;

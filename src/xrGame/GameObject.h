@@ -247,7 +247,7 @@ public:
 	void remove_visual_callback(visual_callback* callback);
 	void SetKinematicsCallback(bool set);
 
-	IC CALLBACK_VECTOR& visual_callbacks()
+	inline CALLBACK_VECTOR& visual_callbacks()
 	{
 		return (m_visual_callback);
 	}
@@ -268,7 +268,7 @@ public:
 	}
 
 public:
-	IC CInifile* spawn_ini()
+	inline CInifile* spawn_ini()
 	{
 		return (m_ini_file);
 	}
@@ -277,7 +277,7 @@ protected:
 	virtual void spawn_supplies();
 
 public:
-	IC CAI_ObjectLocation& ai_location() const
+	inline CAI_ObjectLocation& ai_location() const
 	{
 		VERIFY(m_ai_location);
 		return (*m_ai_location);
@@ -287,13 +287,13 @@ private:
 	u32 m_spawn_time;
 
 public:
-	IC u32 spawn_time() const
+	inline u32 spawn_time() const
 	{
 		VERIFY(m_spawned);
 		return (m_spawn_time);
 	}
 
-	IC const ALife::_STORY_ID& story_id() const
+	inline const ALife::_STORY_ID& story_id() const
 	{
 		return (m_story_id);
 	}
@@ -343,7 +343,7 @@ public:
 	virtual bool is_ai_obstacle() const;
 
 public:
-	IC ai_obstacle& obstacle() const
+	inline ai_obstacle& obstacle() const
 	{
 		VERIFY(m_ai_obstacle);
 		return (*m_ai_obstacle);

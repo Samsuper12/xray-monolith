@@ -88,10 +88,10 @@ namespace secure_messaging
 			return ret_checksum;
 
 		s32 next_raw_word = 0;
-		CopyMemory(&next_raw_word, current_word, rest_bytes);
+		memcpy(&next_raw_word, current_word, rest_bytes);
 		raw_word = next_raw_word;
 		next_raw_word = (raw_word ^ sec_key.m_key[key_word_index]) ^ last_word;
-		CopyMemory(current_word, &next_raw_word, rest_bytes);
+		memcpy(current_word, &next_raw_word, rest_bytes);
 
 		if (crypt_action == xr_encrypt)
 		{

@@ -27,7 +27,7 @@ public:
 	{
 	}
 
-	IC void hud_camera_Matrix(Fmatrix& M)
+	inline void hud_camera_Matrix(Fmatrix& M)
 	{
 		M.set(m_cam_info_hud.r, m_cam_info_hud.n, m_cam_info_hud.d, m_cam_info_hud.p);
 	}

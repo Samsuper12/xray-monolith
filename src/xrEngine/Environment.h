@@ -122,8 +122,8 @@ protected:
 	shared_str m_ambients_config_filename;
 
 public:
-	IC const shared_str& name() { return m_load_section; }
-	IC const shared_str& get_ambients_config_filename() { return m_ambients_config_filename; }
+	inline const shared_str& name() { return m_load_section; }
+	inline const shared_str& get_ambients_config_filename() { return m_ambients_config_filename; }
 
 	INGAME_EDITOR_VIRTUAL void load(
 		CInifile& ambients_config,
@@ -131,8 +131,8 @@ public:
 		CInifile& effects_config,
 		const shared_str& section
 	);
-	IC SEffect* get_rnd_effect() { return effects().empty() ? 0 : effects()[Random.randI(effects().size())]; }
-	IC u32 get_rnd_effect_time() { return Random.randI(m_effect_period.x, m_effect_period.y); }
+	inline SEffect* get_rnd_effect() { return effects().empty() ? 0 : effects()[Random.randI(effects().size())]; }
+	inline u32 get_rnd_effect_time() { return Random.randI(m_effect_period.x, m_effect_period.y); }
 
 	INGAME_EDITOR_VIRTUAL SEffect* create_effect(CInifile& config, LPCSTR id);
 	INGAME_EDITOR_VIRTUAL SSndChannel* create_sound_channel(CInifile& config, LPCSTR id);
@@ -257,7 +257,7 @@ class ENGINE_API CEnvironment
 
 	struct str_pred
 	{
-		IC bool operator()(const shared_str& x, const shared_str& y) const
+		inline bool operator()(const shared_str& x, const shared_str& y) const
 		{
 			return xr_strcmp(x, y) < 0;
 		}

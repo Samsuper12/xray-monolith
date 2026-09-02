@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC Fvector CSpaceRestrictionShape::position(const CCF_Shape::shape_def& data) const
+inline Fvector CSpaceRestrictionShape::position(const CCF_Shape::shape_def& data) const
 {
 	switch (data.type)
 	{
@@ -21,7 +21,7 @@ IC Fvector CSpaceRestrictionShape::position(const CCF_Shape::shape_def& data) co
 #endif
 }
 
-IC float CSpaceRestrictionShape::radius(const CCF_Shape::shape_def& data) const
+inline float CSpaceRestrictionShape::radius(const CCF_Shape::shape_def& data) const
 {
 	switch (data.type)
 	{
@@ -35,7 +35,7 @@ IC float CSpaceRestrictionShape::radius(const CCF_Shape::shape_def& data) const
 #endif
 }
 
-IC CSpaceRestrictionShape::CSpaceRestrictionShape(CSpaceRestrictor* space_restrictor, bool default_restrictor)
+inline CSpaceRestrictionShape::CSpaceRestrictionShape(CSpaceRestrictor* space_restrictor, bool default_restrictor)
 {
 	m_default = default_restrictor;
 	m_initialized = true;
@@ -47,17 +47,17 @@ IC CSpaceRestrictionShape::CSpaceRestrictionShape(CSpaceRestrictor* space_restri
 	build_border();
 }
 
-IC void CSpaceRestrictionShape::initialize()
+inline void CSpaceRestrictionShape::initialize()
 {
 	VERIFY(m_initialized);
 }
 
-IC bool CSpaceRestrictionShape::shape() const
+inline bool CSpaceRestrictionShape::shape() const
 {
 	return (true);
 }
 
-IC bool CSpaceRestrictionShape::default_restrictor() const
+inline bool CSpaceRestrictionShape::default_restrictor() const
 {
 	return (m_default);
 }

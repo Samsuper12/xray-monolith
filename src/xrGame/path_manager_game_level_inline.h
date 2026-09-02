@@ -35,7 +35,7 @@ CGameVertexTypePathManager::~CPathManager()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CGameVertexTypePathManager::setup(
+inline void CGameVertexTypePathManager::setup(
 	const _Graph* _graph,
 	_DataStorage* _data_storage,
 	xr_vector<_index_type>* _path,
@@ -57,13 +57,13 @@ IC void CGameVertexTypePathManager::setup(
 }
 
 TEMPLATE_SPECIALIZATION
-IC _dist_type CGameVertexTypePathManager::estimate(const _index_type& node_index) const
+inline _dist_type CGameVertexTypePathManager::estimate(const _index_type& node_index) const
 {
 	return (_dist_type(0));
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CGameVertexTypePathManager::is_goal_reached(const _index_type& node_index)
+inline bool CGameVertexTypePathManager::is_goal_reached(const _index_type& node_index)
 {
 	VERIFY(m_evaluator);
 	if (this->graph->vertex(this->data_storage->get_best().index())->level_id() == this->m_evaluator->m_level_id)
@@ -76,7 +76,7 @@ IC bool CGameVertexTypePathManager::is_goal_reached(const _index_type& node_inde
 
 TEMPLATE_SPECIALIZATION
 template <typename T>
-IC void CGameVertexTypePathManager::create_path(T& vertex)
+inline void CGameVertexTypePathManager::create_path(T& vertex)
 {
 	if (this->path)
 		inherited::create_path(vertex);

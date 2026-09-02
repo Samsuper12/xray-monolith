@@ -193,7 +193,7 @@ struct STranspParam
 	}
 };
 
-IC BOOL material_callback(collide::rq_result& result, LPVOID params)
+inline BOOL material_callback(collide::rq_result& result, void* params)
 {
 	STranspParam* fp = (STranspParam*)params;
 	float vis = 1.f;
@@ -223,7 +223,7 @@ IC BOOL material_callback(collide::rq_result& result, LPVOID params)
 }
 #endif
 
-IC void blend_lerp(float& cur, float tgt, float speed, float dt)
+inline void blend_lerp(float& cur, float tgt, float speed, float dt)
 {
 	float diff = tgt - cur;
 	float diff_a = _abs(diff);

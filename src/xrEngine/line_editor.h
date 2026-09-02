@@ -19,7 +19,7 @@ namespace text_editor
 		line_editor(u32 str_buffer_size);
 		virtual ~line_editor();
 
-		IC line_edit_control& control() { return m_control; }
+		inline line_edit_control& control() { return m_control; }
 
 		void on_frame();
 

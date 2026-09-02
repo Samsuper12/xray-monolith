@@ -17,7 +17,7 @@ CUIEditKeyBind::~CUIEditKeyBind()
 {
 }
 
-u32 cut_string_by_length(CGameFont* pFont, LPCSTR src, LPSTR dst, u32 dst_size, float length)
+u32 cut_string_by_length(CGameFont* pFont, LPCSTR src, char * dst, u32 dst_size, float length)
 {
 	if (pFont->IsMultibyte())
 	{

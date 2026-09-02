@@ -58,12 +58,14 @@ void WeaponUsageStatistic::WriteLtx(CInifile& ini)
 
 void WeaponUsageStatistic::SaveData()
 {
+	//FIXME:
+	stub_unix(__func__);
 	if (OnClient()) return;
 	if (!CollectData()) return;
 	if (aPlayersStatistic.empty()) return;
 
 	string64 GameType;
-	SYSTEMTIME Time;
+	//SYSTEMTIME Time;
 	switch (GameID())
 	{
 	case eGameIDDeathmatch: xr_sprintf(GameType, "dm");
@@ -78,9 +80,9 @@ void WeaponUsageStatistic::SaveData()
 		return;
 		break;
 	};
-	GetLocalTime(&Time);
-	xr_sprintf(mFileName, "(%s)_(%s)_%02d.%02d.%02d_%02d.%02d.%02d.wus", *(Level().name()), GameType, Time.wMonth,
-	           Time.wDay, Time.wYear, Time.wHour, Time.wMinute, Time.wSecond);
+	//GetLocalTime(&Time);
+	// xr_sprintf(mFileName, "(%s)_(%s)_%02d.%02d.%02d_%02d.%02d.%02d.wus", *(Level().name()), GameType, Time.wMonth,
+	//            Time.wDay, Time.wYear, Time.wHour, Time.wMinute, Time.wSecond);
 
 
 	//---------------------------------------------------------

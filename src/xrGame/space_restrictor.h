@@ -45,12 +45,12 @@ private:
 public:
 	u8 m_space_restrictor_type;
 private:
-	IC void actual(bool value) const;
+	inline void actual(bool value) const;
 	void prepare() const;
 	bool prepared_inside(const Fsphere& sphere) const;
 
 public:
-	IC CSpaceRestrictor();
+	inline CSpaceRestrictor();
 	virtual ~CSpaceRestrictor();
 	virtual BOOL net_Spawn(CSE_Abstract* data);
 	virtual void net_Destroy();
@@ -59,11 +59,11 @@ public:
 	virtual float Radius() const;
 	virtual BOOL UsedAI_Locations();
 	virtual void spatial_move();
-	IC bool actual() const;
+	inline bool actual() const;
 	virtual CSpaceRestrictor* cast_restrictor() { return this; }
 	virtual bool register_schedule() const { return false; }
 
-	IC RestrictionSpace::ERestrictorTypes restrictor_type() const;
+	inline RestrictionSpace::ERestrictorTypes restrictor_type() const;
 
 public:
 #ifdef DEBUG

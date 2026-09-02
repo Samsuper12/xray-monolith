@@ -47,7 +47,7 @@ smem_value* smem_container::dock(u32 dwCRC, u32 dwLength, void* ptr)
 		result->dwReference = 0;
 		result->dwCRC = dwCRC;
 		result->dwLength = dwLength;
-		CopyMemory(result->value, ptr, dwLength);
+		memcpy(result->value, ptr, dwLength);
 		container.insert(saved_place, result);
 	}
 

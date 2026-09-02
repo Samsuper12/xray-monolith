@@ -57,7 +57,7 @@ public:
 	static CInifile* Create(LPCSTR szFileName, BOOL ReadOnly = TRUE);
 	static void Destroy(CInifile*);
 
-	static IC BOOL IsBOOL(LPCSTR B)
+	static inline BOOL IsBOOL(LPCSTR B)
 	{
 		return (xr_strcmp(B, "on") == 0 || xr_strcmp(B, "yes") == 0 || xr_strcmp(B, "true") == 0 || xr_strcmp(B, "1") ==
 			0);

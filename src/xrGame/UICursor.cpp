@@ -122,9 +122,9 @@ void CUICursor::UpdateCursorPosition(int _dx, int _dy)
 void CUICursor::SetUICursorPosition(Fvector2 pos)
 {
 	vPos = pos;
-	POINT p;
-	p.x = iFloor(vPos.x / (UI_BASE_WIDTH / (float)Device.dwWidth));
-	p.y = iFloor(vPos.y / (UI_BASE_HEIGHT / (float)Device.dwHeight));
+	// POINT p;
+	// p.x = iFloor(vPos.x / (UI_BASE_WIDTH / (float)Device.dwWidth));
+	// p.y = iFloor(vPos.y / (UI_BASE_HEIGHT / (float)Device.dwHeight));
 	// if (m_b_use_win_cursor)
 	// 	ClientToScreen(Device.m_hWnd, (LPPOINT)&p);
 	// fuck win32

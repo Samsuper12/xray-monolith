@@ -25,7 +25,7 @@ static const float s_fJumpTime = 0.3f;
 static const float s_fJumpGroundTime = 0.1f; // для снятия флажка Jump если на земле
 const float s_fFallTime = 0.2f;
 
-IC static void generate_orthonormal_basis1(const Fvector& dir, Fvector& updir, Fvector& right)
+inline static void generate_orthonormal_basis1(const Fvector& dir, Fvector& updir, Fvector& right)
 {
 	right.crossproduct(dir, updir); //. <->
 	right.normalize();

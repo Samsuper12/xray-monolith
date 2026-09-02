@@ -51,12 +51,14 @@ char* xr_strdup(const char* string)
 	VERIFY(string);
 	u32 len = u32(xr_strlen(string)) + 1;
 	char* memory = (char*)Memory.mem_alloc(len);
-	CopyMemory(memory, string, len);
+	memcpy(memory, string, len);
 	return memory;
 }
 
 //TODO: 
-size_t xrMemory::mem_usage() {}
+size_t xrMemory::mem_usage() {
+
+}
 void xrMemory::mem_compact() {}
 void xrMemory::log_vminfo() {
 	// Msg(

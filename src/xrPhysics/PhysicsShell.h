@@ -336,7 +336,7 @@ public:
 					IPhysicsShellHolder			*dbg_obj																																;
 #endif
 public:
-	IC IKinematics* PKinematics() { return m_pKinematics; }
+	inline IKinematics* PKinematics() { return m_pKinematics; }
 	////////////////////////////////////////////////////IPhysicsShell///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	virtual const Fmatrix& XFORM() const { return CPhysicsBase::XFORM(); }
 	virtual const IPhysicsElement& Element(u16 index) const { return *get_ElementByStoreOrder(index); };

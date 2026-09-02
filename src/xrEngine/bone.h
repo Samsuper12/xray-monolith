@@ -44,12 +44,12 @@ public:
 	//
 	// methods
 public:
-	IC BoneCallback callback() { return Callback; }
-	IC void* callback_param() { return Callback_Param; }
-	IC BOOL callback_overwrite() { return Callback_overwrite; } // performance hint - don't calc anims
-	IC u32 callback_type() { return Callback_type; }
+	inline BoneCallback callback() { return Callback; }
+	inline void* callback_param() { return Callback_Param; }
+	inline BOOL callback_overwrite() { return Callback_overwrite; } // performance hint - don't calc anims
+	inline u32 callback_type() { return Callback_type; }
 public:
-	IC void construct();
+	inline void construct();
 
 	void set_callback(u32 Type, BoneCallback C, void* Param, BOOL overwrite = FALSE)
 	{
@@ -405,25 +405,25 @@ public:
 	shared_str Name() { return name; }
 	shared_str ParentName() { return parent_name; }
 	shared_str WMap() { return wmap; }
-	IC CBone* Parent() { return parent; }
-	IC BOOL IsRoot() { return (parent == 0); }
+	inline CBone* Parent() { return parent; }
+	inline BOOL IsRoot() { return (parent == 0); }
 	shared_str& NameRef() { return name; }
 
 	// transformation
 	const Fvector& _Offset() { return mot_offset; }
 	const Fvector& _Rotate() { return mot_rotate; }
 	float _Length() { return mot_length; }
-	IC Fmatrix& _RTransform() { return rest_transform; }
-	IC Fmatrix& _RITransform() { return rest_i_transform; }
-	IC Fmatrix& _LRTransform() { return local_rest_transform; }
-	IC Fmatrix& _MTransform() { return mot_transform; }
+	inline Fmatrix& _RTransform() { return rest_transform; }
+	inline Fmatrix& _RITransform() { return rest_i_transform; }
+	inline Fmatrix& _LRTransform() { return local_rest_transform; }
+	inline Fmatrix& _MTransform() { return mot_transform; }
 
-	IC Fmatrix& _LTransform() { return mTransform; } //{return last_transform;}
-	IC const Fmatrix& _LTransform() const { return mTransform; }
+	inline Fmatrix& _LTransform() { return mTransform; } //{return last_transform;}
+	inline const Fmatrix& _LTransform() const { return mTransform; }
 
-	IC Fmatrix& _RenderTransform() { return mRenderTransform; } //{return render_transform;}
-	IC Fvector& _RestOffset() { return rest_offset; }
-	IC Fvector& _RestRotate() { return rest_rotate; }
+	inline Fmatrix& _RenderTransform() { return mRenderTransform; } //{return render_transform;}
+	inline Fvector& _RestOffset() { return rest_offset; }
+	inline Fvector& _RestRotate() { return rest_rotate; }
 
 	void _Update(const Fvector& T, const Fvector& R)
 	{
@@ -446,11 +446,11 @@ public:
 #ifdef _LW_EXPORT
     void ParseBone(LWItemID bone);
 #endif
-	IC float engine_lo_limit(u8 k) const { return -IK_data.limits[k].limit.y; }
-	IC float engine_hi_limit(u8 k) const { return -IK_data.limits[k].limit.x; }
+	inline float engine_lo_limit(u8 k) const { return -IK_data.limits[k].limit.y; }
+	inline float engine_hi_limit(u8 k) const { return -IK_data.limits[k].limit.x; }
 
-	IC float editor_lo_limit(u8 k) const { return IK_data.limits[k].limit.x; }
-	IC float editor_hi_limit(u8 k) const { return IK_data.limits[k].limit.y; }
+	inline float editor_lo_limit(u8 k) const { return IK_data.limits[k].limit.x; }
+	inline float editor_hi_limit(u8 k) const { return IK_data.limits[k].limit.y; }
 
 
 	void SaveData(IWriter& F);
@@ -551,10 +551,10 @@ public:
     typedef svector<int, 128> BoneDebug;
     void DebugQuery(BoneDebug& L);
 #endif
-	IC void SetParentID(u16 id) { ParentID = id; }
+	inline void SetParentID(u16 id) { ParentID = id; }
 
-	IC u16 GetSelfID() const { return SelfID; }
-	IC u16 GetParentID() const { return ParentID; }
+	inline u16 GetSelfID() const { return SelfID; }
+	inline u16 GetParentID() const { return ParentID; }
 
 	// assign face
 	void AppendFace(u16 child_idx, u16 idx)
@@ -596,7 +596,7 @@ enum EBoneCallbackType
 	bctForceU32 = u32(-1),
 };
 
-IC void CBoneInstance::construct()
+inline void CBoneInstance::construct()
 {
 	mTransform.identity();
 	mTransformHidden.identity();

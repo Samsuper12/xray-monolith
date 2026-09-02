@@ -1,7 +1,7 @@
 #pragma once
 
 #if XRGAME_EXPORTS | XRSE_FACTORY_EXPORTS
-#	define	_memcpy CopyMemory
+#	define	_memcpy memcpy
 #	define	_memset Memory.mem_fill
 #	define	_strlen xr_strlen
 #else
@@ -13,7 +13,7 @@
 class CMailSlotMsg
 {
 	char m_buff [2048];
-	DWORD m_len;
+	uint32_t m_len;
 	int m_pos;
 
 	inline void Read(void* dst, int sz)
@@ -47,8 +47,8 @@ public:
 		// m_pos = 0;
 	};
 	inline void* GetBuffer() { return m_buff; };
-	inline void SetLen(DWORD l) { m_len = l; };
-	inline DWORD GetLen() const { return m_len; };
+	inline void SetLen(uint32_t l) { m_len = l; };
+	inline uint32_t GetLen() const { return m_len; };
 
 	inline BOOL r_string(char* dst)
 	{
@@ -103,9 +103,9 @@ public:
 	};
 };
 
-inline HANDLE CreateMailSlotByName(LPSTR slotName)
+inline void* CreateMailSlotByName(char * slotName)
 {
-	// HANDLE hSlot = CreateMailslot(slotName,
+	// void* hSlot = CreateMailslot(slotName,
 	//                               0, // no maximum message size 
 	//                               MAILSLOT_WAIT_FOREVER, // no time-out for operations 
 	//                               (LPSECURITY_ATTRIBUTES)NULL); // no security attributes 
@@ -113,9 +113,9 @@ inline HANDLE CreateMailSlotByName(LPSTR slotName)
 	// return hSlot;
 }
 
-inline BOOL CheckExisting(LPSTR slotName)
+inline BOOL CheckExisting(char * slotName)
 {
-	// HANDLE hFile;
+	// void* hFile;
 	// BOOL res;
 	// hFile = CreateFile(slotName,
 	//                    GENERIC_WRITE,
@@ -123,7 +123,7 @@ inline BOOL CheckExisting(LPSTR slotName)
 	//                    (LPSECURITY_ATTRIBUTES)NULL,
 	//                    OPEN_EXISTING,
 	//                    FILE_ATTRIBUTE_NORMAL,
-	//                    (HANDLE)NULL);
+	//                    (void*)NULL);
 
 	// res = (hFile != INVALID_HANDLE_VALUE);
 
@@ -133,11 +133,11 @@ inline BOOL CheckExisting(LPSTR slotName)
 	// return res;
 }
 
-inline BOOL SendMailslotMessage(LPSTR slotName, CMailSlotMsg& msg)
+inline BOOL SendMailslotMessage(char * slotName, CMailSlotMsg& msg)
 {
 	// BOOL fResult;
-	// HANDLE hFile;
-	// DWORD cbWritten;
+	// void* hFile;
+	// uint32_t cbWritten;
 
 	// hFile = CreateFile(slotName,
 	//                    GENERIC_WRITE,
@@ -145,7 +145,7 @@ inline BOOL SendMailslotMessage(LPSTR slotName, CMailSlotMsg& msg)
 	//                    (LPSECURITY_ATTRIBUTES)NULL,
 	//                    OPEN_EXISTING,
 	//                    FILE_ATTRIBUTE_NORMAL,
-	//                    (HANDLE)NULL);
+	//                    (void*)NULL);
 
 	// R_ASSERT(hFile != INVALID_HANDLE_VALUE);
 
@@ -165,11 +165,11 @@ inline BOOL SendMailslotMessage(LPSTR slotName, CMailSlotMsg& msg)
 	// return fResult;
 }
 
-inline BOOL CheckMailslotMessage(HANDLE hSlot, CMailSlotMsg& msg)
+inline BOOL CheckMailslotMessage(void* hSlot, CMailSlotMsg& msg)
 {
-	// DWORD cbMessage, cMessage, cbRead;
+	// uint32_t cbMessage, cMessage, cbRead;
 	// BOOL fResult;
-	// HANDLE hEvent;
+	// void* hEvent;
 	// OVERLAPPED ov;
 
 	// cbMessage = cMessage = cbRead = 0;
@@ -183,10 +183,10 @@ inline BOOL CheckMailslotMessage(HANDLE hSlot, CMailSlotMsg& msg)
 
 
 	// fResult = GetMailslotInfo(hSlot, // mailslot handle 
-	//                           (LPDWORD)NULL, // no maximum message size 
+	//                           (uint32_t*)NULL, // no maximum message size 
 	//                           &cbMessage, // size of next message 
 	//                           &cMessage, // number of messages 
-	//                           (LPDWORD)NULL); // no read time-out 
+	//                           (uint32_t*)NULL); // no read time-out 
 
 	// R_ASSERT(fResult);
 

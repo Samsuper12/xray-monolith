@@ -174,7 +174,7 @@ extern int ps_ssfx_gloss_method;
 extern float ps_ssfx_gloss_factor;
 extern Fvector3 ps_ssfx_gloss_minmax;
 
-IC float u_diffuse2s(float x, float y, float z)
+inline float u_diffuse2s(float x, float y, float z)
 {
 	if (ps_ssfx_gloss_method == 0)
 	{
@@ -188,4 +188,4 @@ IC float u_diffuse2s(float x, float y, float z)
 	}
 }
 
-IC float u_diffuse2s(Fvector3& c) { return u_diffuse2s(c.x, c.y, c.z); }
+inline float u_diffuse2s(Fvector3& c) { return u_diffuse2s(c.x, c.y, c.z); }

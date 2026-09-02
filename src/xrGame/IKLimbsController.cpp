@@ -69,13 +69,13 @@ void CIKLimbsController::LimbUpdate(CIKLimb& L)
 	L.Update(m_object, m_legs_blend, _pose_extrapolation);
 }
 
-IC void update_blend(CBlend* & b)
+inline void update_blend(CBlend* & b)
 {
 	if (b && CBlend::eFREE_SLOT == b->blend_state())
 		b = 0;
 }
 
-IC float lerp(float t, float a, float b)
+inline float lerp(float t, float a, float b)
 {
 	return (a + t * (b - a));
 }

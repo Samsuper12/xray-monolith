@@ -9,12 +9,12 @@
 #ifndef RAT_STATE_BASE_INLINE_H_INCLUDED
 #define RAT_STATE_BASE_INLINE_H_INCLUDED
 
-IC rat_state_base::rat_state_base() :
+inline rat_state_base::rat_state_base() :
 	m_object(0)
 {
 }
 
-IC CAI_Rat& rat_state_base::object() const
+inline CAI_Rat& rat_state_base::object() const
 {
 	VERIFY(m_object);
 	return (*m_object);

@@ -58,28 +58,28 @@ public:
 	CAI_Space();
 	virtual ~CAI_Space();
 	void init();
-	IC CGameGraph& game_graph() const;
-	IC CGameGraph* get_game_graph() const;
-	IC CLevelGraph& level_graph() const;
-	IC const CLevelGraph* get_level_graph() const;
+	inline CGameGraph& game_graph() const;
+	inline CGameGraph* get_game_graph() const;
+	inline CLevelGraph& level_graph() const;
+	inline const CLevelGraph* get_level_graph() const;
 	const CGameLevelCrossTable& cross_table() const;
 	const CGameLevelCrossTable* get_cross_table() const;
-	IC const CPatrolPathStorage& patrol_paths() const;
-	IC CEF_Storage& ef_storage() const;
-	IC CGraphEngine& graph_engine() const;
-	IC const CALifeSimulator& alife() const;
-	IC const CALifeSimulator* get_alife() const;
-	IC const CCoverManager& cover_manager() const;
-	IC CScriptEngine& script_engine() const;
-	IC moving_objects& moving_objects() const;
-	IC doors::manager& doors() const;
+	inline const CPatrolPathStorage& patrol_paths() const;
+	inline CEF_Storage& ef_storage() const;
+	inline CGraphEngine& graph_engine() const;
+	inline const CALifeSimulator& alife() const;
+	inline const CALifeSimulator* get_alife() const;
+	inline const CCoverManager& cover_manager() const;
+	inline CScriptEngine& script_engine() const;
+	inline moving_objects& moving_objects() const;
+	inline doors::manager& doors() const;
 
 #ifdef DEBUG
 			void						validate				(const u32			level_id) const;
 #endif
 };
 
-IC CAI_Space& ai();
+inline CAI_Space& ai();
 
 extern CAI_Space* g_ai_space;
 

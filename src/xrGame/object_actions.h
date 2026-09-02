@@ -33,10 +33,10 @@ protected:
 	_item_type* m_item;
 
 public:
-	IC CObjectActionBase(_item_type* item, CAI_Stalker* owner, CPropertyStorage* storage, LPCSTR action_name = "");
+	inline CObjectActionBase(_item_type* item, CAI_Stalker* owner, CPropertyStorage* storage, LPCSTR action_name = "");
 	virtual void initialize();
-	IC void set_property(_condition_type condition_id, _value_type value);
-	IC CAI_Stalker& object() const;
+	inline void set_property(_condition_type condition_id, _value_type value);
+	inline CAI_Stalker& object() const;
 	void prevent_weapon_state_switch_ugly();
 	void stop_hiding_operation_if_any() const;
 };
@@ -64,7 +64,7 @@ protected:
 	_value_type m_value;
 
 public:
-	IC CObjectActionMember(_item_type* item, CAI_Stalker* owner, CPropertyStorage* storage,
+	inline CObjectActionMember(_item_type* item, CAI_Stalker* owner, CPropertyStorage* storage,
 	                       _condition_type condition_id, _value_type value, LPCSTR action_name = "");
 	virtual void execute();
 };

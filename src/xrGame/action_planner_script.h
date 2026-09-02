@@ -22,9 +22,9 @@ public:
 	_object_type* m_object;
 
 public:
-	IC CActionPlannerScript();
+	inline CActionPlannerScript();
 	virtual void setup(_object_type* object);
-	IC _object_type& object() const;
+	inline _object_type& object() const;
 };
 
 #include "action_planner_script_inline.h"

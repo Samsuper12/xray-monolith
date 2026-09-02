@@ -34,8 +34,8 @@ struct ray_segment_t
 	float t_near, t_far;
 };
 
-ICF u32& uf(float& x) { return (u32&)x; }
-ICF BOOL isect_fpu(const Fvector& min, const Fvector& max, const ray_t& ray, Fvector& coord)
+inline u32& uf(float& x) { return (u32&)x; }
+inline BOOL isect_fpu(const Fvector& min, const Fvector& max, const ray_t& ray, Fvector& coord)
 {
 	Fvector MaxT;
 	MaxT.x = MaxT.y = MaxT.z = -1.0f;
@@ -148,7 +148,7 @@ static const float _MM_ALIGN16
 	ps_cst_plus_inf [4] = {flt_plus_inf, flt_plus_inf, flt_plus_inf, flt_plus_inf},
 	ps_cst_minus_inf[4] = {-flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf};
 
-ICF BOOL isect_sse(const aabb_t& box, const ray_t& ray, float& dist)
+inline BOOL isect_sse(const aabb_t& box, const ray_t& ray, float& dist)
 {
 	//FIXME:
 	// you may already have those values hanging around somewhere
@@ -239,7 +239,7 @@ public:
 	}
 
 	// fpu
-	ICF BOOL _box_fpu(const Fvector& n_C, const float n_R, Fvector& coord)
+	inline BOOL _box_fpu(const Fvector& n_C, const float n_R, Fvector& coord)
 	{
 		// box
 		float n_vR = 2 * n_R;
@@ -249,7 +249,7 @@ public:
 	}
 
 	// sse
-	ICF BOOL _box_sse(const Fvector& n_C, const float n_R, float& dist)
+	inline BOOL _box_sse(const Fvector& n_C, const float n_R, float& dist)
 	{
 		//FIXME:
 		// aabb_t box;

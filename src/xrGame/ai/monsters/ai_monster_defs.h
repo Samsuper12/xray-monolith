@@ -392,20 +392,20 @@ struct SCurrentAnimationInfo
 
 	struct
 	{
-		IC void _set_current(float v)
+		inline void _set_current(float v)
 		{
 			current = v;
 			VERIFY2(_abs(v)<1000, "_set_current(). monster speed is too big");
 		}
 
-		IC void _set_target(float v)
+		inline void _set_target(float v)
 		{
 			target = v;
 			VERIFY2(_abs(v)<1000, "_set_target(). monster speed is too big");
 		}
 
-		IC float _get_current() { return current; }
-		IC float _get_target() { return target; }
+		inline float _get_current() { return current; }
+		inline float _get_target() { return target; }
 	private:
 		float current;
 		float target;

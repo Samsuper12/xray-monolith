@@ -120,7 +120,7 @@ public:
 	void Render_R1_Attachment_UI();
 };
 
-IC CHUDManager& HUD()
+inline CHUDManager& HUD()
 {
 	return *((CHUDManager*)g_hud);
 }

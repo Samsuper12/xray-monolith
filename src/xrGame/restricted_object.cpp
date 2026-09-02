@@ -25,7 +25,7 @@ CRestrictedObject::~CRestrictedObject()
 {
 }
 
-IC void construct_string(LPSTR result, u32 const result_size, const xr_vector<ALife::_OBJECT_ID>& restrictions)
+inline void construct_string(char * result, u32 const result_size, const xr_vector<ALife::_OBJECT_ID>& restrictions)
 {
 	u32 count = xr_strlen(result) ? _GetItemCount(result) : 0;
 	xr_vector<ALife::_OBJECT_ID>::const_iterator I = restrictions.begin();
@@ -47,7 +47,7 @@ IC void construct_string(LPSTR result, u32 const result_size, const xr_vector<AL
 }
 
 #if 0
-IC	void construct_id_string					(LPSTR result, const xr_vector<ALife::_OBJECT_ID> &restrictions)
+inline	void construct_id_string					(char * result, const xr_vector<ALife::_OBJECT_ID> &restrictions)
 {
 	xr_strcpy			(result,"");
 	string16		temp;
@@ -259,7 +259,7 @@ shared_str CRestrictedObject::base_out_restrictions() const
 	STOP_PROFILE
 }
 
-IC void CRestrictedObject::add_object_restriction(ALife::_OBJECT_ID id,
+inline void CRestrictedObject::add_object_restriction(ALife::_OBJECT_ID id,
                                                   const RestrictionSpace::ERestrictorTypes& restrictor_type)
 {
 	NET_Packet net_packet;
@@ -269,7 +269,7 @@ IC void CRestrictedObject::add_object_restriction(ALife::_OBJECT_ID id,
 	Level().Send(net_packet, net_flags(TRUE,TRUE));
 }
 
-IC void CRestrictedObject::remove_object_restriction(ALife::_OBJECT_ID id,
+inline void CRestrictedObject::remove_object_restriction(ALife::_OBJECT_ID id,
                                                      const RestrictionSpace::ERestrictorTypes& restrictor_type)
 {
 	NET_Packet net_packet;
@@ -280,7 +280,7 @@ IC void CRestrictedObject::remove_object_restriction(ALife::_OBJECT_ID id,
 }
 
 template <typename P, bool value>
-IC void CRestrictedObject::construct_restriction_string(LPSTR temp_restrictions, u32 const temp_restrictions_size,
+inline void CRestrictedObject::construct_restriction_string(char * temp_restrictions, u32 const temp_restrictions_size,
                                                         const xr_vector<ALife::_OBJECT_ID>& restrictions,
                                                         shared_str current_restrictions, const P& p)
 {
@@ -310,12 +310,12 @@ struct CRestrictionPredicate
 {
 	RestrictionSpace::ERestrictorTypes m_restrictor_type;
 
-	IC CRestrictionPredicate(RestrictionSpace::ERestrictorTypes restrictor_type)
+	inline CRestrictionPredicate(RestrictionSpace::ERestrictorTypes restrictor_type)
 	{
 		m_restrictor_type = restrictor_type;
 	}
 
-	IC void operator()(CRestrictedObject* object, ALife::_OBJECT_ID id) const
+	inline void operator()(CRestrictedObject* object, ALife::_OBJECT_ID id) const
 	{
 		if (add)
 			object->add_object_restriction(id, m_restrictor_type);

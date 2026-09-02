@@ -29,12 +29,12 @@ class id_predicate
 	shared_str m_id;
 
 public:
-	IC id_predicate(shared_str const& id) :
+	inline id_predicate(shared_str const& id) :
 		m_id(id)
 	{
 	}
 
-	IC bool operator()(std::pair<shared_str, action*> const& other) const
+	inline bool operator()(std::pair<shared_str, action*> const& other) const
 	{
 		return (m_id._get() == other.first._get());
 	}

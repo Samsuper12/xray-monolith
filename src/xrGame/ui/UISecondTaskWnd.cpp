@@ -189,7 +189,7 @@ UITaskListWndItem::~UITaskListWndItem()
 {
 }
 
-IC u32 UITaskListWndItem::get_priority_task() const
+inline u32 UITaskListWndItem::get_priority_task() const
 {
 	VERIFY(m_task);
 	return m_task->m_priority;

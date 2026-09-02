@@ -38,7 +38,7 @@
 #	pragma warning(pop)
 
 struct logical_string_predicate {
-	static HRESULT AnsiToUnicode						(LPCSTR pszA, LPVOID buffer, u32 const& buffer_size)
+	static HRESULT AnsiToUnicode						(LPCSTR pszA, void* buffer, u32 const& buffer_size)
 	{
 		VERIFY			(pszA);
 		VERIFY			(buffer);
@@ -56,12 +56,12 @@ struct logical_string_predicate {
 	bool operator()			(LPCSTR const& first, LPCSTR const& second) const
 	{
 		u32				buffer_size0 = (xr_strlen(first) + 1)*2;
-		LPCWSTR			buffer0 = (LPCWSTR)alloca(buffer_size0);
-		AnsiToUnicode	(first, (LPVOID)buffer0, buffer_size0);
+		const wchar_t *			buffer0 = (const wchar_t *)alloca(buffer_size0);
+		AnsiToUnicode	(first, (void*)buffer0, buffer_size0);
 
 		u32				buffer_size1 = (xr_strlen(second) + 1)*2;
-		LPCWSTR			buffer1 = (LPCWSTR)alloca(buffer_size1);
-		AnsiToUnicode	(second, (LPVOID)buffer1, buffer_size1);
+		const wchar_t *			buffer1 = (const wchar_t *)alloca(buffer_size1);
+		AnsiToUnicode	(second, (void*)buffer1, buffer_size1);
 
 		return			(StrCmpLogicalW(buffer0, buffer1) < 0);
 	}
@@ -69,12 +69,12 @@ struct logical_string_predicate {
 	bool operator()			(shared_str const& first, shared_str const& second) const
 	{
 		u32				buffer_size0 = (first.size() + 1)*2;
-		LPCWSTR			buffer0 = (LPCWSTR)alloca(buffer_size0);
-		AnsiToUnicode	(first.c_str(), (LPVOID)buffer0, buffer_size0);
+		const wchar_t *			buffer0 = (const wchar_t *)alloca(buffer_size0);
+		AnsiToUnicode	(first.c_str(), (void*)buffer0, buffer_size0);
 
 		u32				buffer_size1 = (second.size() + 1)*2;
-		LPCWSTR			buffer1 = (LPCWSTR)alloca(buffer_size1);
-		AnsiToUnicode	(second.c_str(), (LPVOID)buffer1, buffer_size1);
+		const wchar_t *			buffer1 = (const wchar_t *)alloca(buffer_size1);
+		AnsiToUnicode	(second.c_str(), (void*)buffer1, buffer_size1);
 
 		return			(StrCmpLogicalW(buffer0, buffer1) < 0);
 	}
@@ -92,7 +92,7 @@ bool SortStringsByAlphabetPred(const shared_str& s1, const shared_str& s2)
 
 struct story_name_predicate
 {
-	IC bool operator()(const xr_rtoken& _1, const xr_rtoken& _2) const
+	inline bool operator()(const xr_rtoken& _1, const xr_rtoken& _2) const
 	{
 		VERIFY(_1.name.size());
 		VERIFY(_2.name.size());

@@ -686,17 +686,17 @@ void CDrawUtilities::DrawLineSphere(const Fvector& p, float radius, u32 c, BOOL 
 
 //----------------------------------------------------
 #ifdef _EDITOR
-IC float 				_x2real			(float x)
+inline float 				_x2real			(float x)
 { return (x+1)*Device.m_RenderWidth_2;	}
-IC float 				_y2real			(float y)
+inline float 				_y2real			(float y)
 { return (y+1)*Device.m_RenderHeight_2;}
 #else
-IC float _x2real(float x)
+inline float _x2real(float x)
 {
 	return (x + 1) * Device.dwWidth * 0.5f;
 }
 
-IC float _y2real(float y)
+inline float _y2real(float y)
 {
 	return (y + 1) * Device.dwHeight * 0.5f;
 }

@@ -88,11 +88,11 @@ public:
 	{
 	} ;
 
-	//IC	dSpaceID					GetSpace						()			{return Space;}	;
-	IC bool Exist() { return b_exist; }
+	//inline	dSpaceID					GetSpace						()			{return Space;}	;
+	inline bool Exist() { return b_exist; }
 	void Create(bool mt, CObjectSpace* os, CObjectList* lo, CRenderDevice* dv);
 	void SetGravity(float g);
-	IC float Gravity() { return m_gravity; }
+	inline float Gravity() { return m_gravity; }
 	void AddObject(CPHObject* object);
 	void AddUpdateObject(CPHUpdateObject* object);
 	void AddRecentlyDisabled(CPHObject* object);
@@ -100,10 +100,10 @@ public:
 	void RemoveObject(PH_OBJECT_I i);
 	void RemoveUpdateObject(PH_UPDATE_OBJECT_I i);
 	dGeomID GetMeshGeom() { return Mesh.GetGeom(); }
-	IC dGeomID GetMotionRayGeom() { return m_motion_ray; }
+	inline dGeomID GetMotionRayGeom() { return m_motion_ray; }
 	void SetStep(float s);
 	void Destroy();
-	IC float FrameTime(bool frame_mark) { return b_frame_mark == frame_mark ? m_frame_time : m_previous_frame_time; }
+	inline float FrameTime(bool frame_mark) { return b_frame_mark == frame_mark ? m_frame_time : m_previous_frame_time; }
 
 	void FrameStep(dReal step = 0.025f);
 	void Step();
@@ -115,11 +115,11 @@ public:
 	void AddFreezedObject(CPHObject* obj);
 	void RemoveFreezedObject(PH_OBJECT_I i);
 	bool IsFreezed();
-	IC bool Processing() { return b_processing; }
+	inline bool Processing() { return b_processing; }
 	u32 CalcNumSteps(u32 dTime);
 	u16 ObjectsNumber();
 	u16 UpdateObjectsNumber();
-	IC u16 StepsShortCnt() { return m_steps_short_num; }
+	inline u16 StepsShortCnt() { return m_steps_short_num; }
 	u64& StepsNum() { return m_steps_num; }
 	float FrameTime() { return m_frame_time; }
 	ContactCallbackFun* default_contact_shotmark() { return m_default_contact_shotmark; }
@@ -170,7 +170,7 @@ private:
 //#undef script_type_list
 //#define script_type_list save_type_list(CPHWorld)
 extern CPHWorld* ph_world;
-IC CPHWorld& inl_ph_world()
+inline CPHWorld& inl_ph_world()
 {
 	return *ph_world;
 }

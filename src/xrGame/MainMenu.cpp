@@ -685,7 +685,7 @@ void CMainMenu::OnSessionTerminate(LPCSTR reason)
 	m_start_time = Device.dwTimeGlobal;
 	CStringTable st;
 	LPCSTR str = st.translate("ui_st_kicked_by_server").c_str();
-	LPSTR text;
+	char * text;
 
 	if (reason && xr_strlen(reason) && reason[0] == '@')
 	{
@@ -913,6 +913,7 @@ demo_info const* CMainMenu::GetDemoInfo(LPCSTR file_name)
 
 void open_originals_link()
 {
+	// TODO:
 	LPCSTR params = "/C start https://www.stalker-game.com/en/available-on";
-	ShellExecute(0, "open", "cmd.exe", params, NULL, SW_SHOW);
+	//ShellExecute(0, "open", "cmd.exe", params, NULL, SW_SHOW);
 }

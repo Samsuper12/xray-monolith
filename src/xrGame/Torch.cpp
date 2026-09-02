@@ -502,7 +502,7 @@ void CTorch::net_Export(NET_Packet& P)
 	//	P.w_u8						(m_switched_on ? 1 : 0);
 
 
-	BYTE F = 0;
+	unsigned char F = 0;
 	F |= (m_switched_on ? eTorchActive : 0);
 	const CActor* pA = smart_cast<const CActor *>(H_Parent());
 	if (pA)
@@ -517,7 +517,7 @@ void CTorch::net_Import(NET_Packet& P)
 {
 	inherited::net_Import(P);
 
-	BYTE F = P.r_u8();
+	unsigned char F = P.r_u8();
 	bool new_m_switched_on = !!(F & eTorchActive);
 
 	if (new_m_switched_on != m_switched_on) Switch(new_m_switched_on);

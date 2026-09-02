@@ -407,8 +407,8 @@ void CUITalkWnd::PlaySnd(LPCSTR text)
 	}
 
 	strncpy_s(fn, sizeof(fn), path, xr_strlen(path));
-	strncat_s(fn, sizeof(fn), text, text_len);
-	strncat_s(fn, sizeof(fn), ext, xr_strlen(ext));
+	strncat(fn, text, text_len);
+	strncat(fn, ext, xr_strlen(ext));
 
 	//	strconcat( sizeof(fn), fn, "characters_voice\\dialogs\\", text2, ".ogg" );
 

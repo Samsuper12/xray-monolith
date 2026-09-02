@@ -32,7 +32,7 @@ public:
 
 	void resetoccq();
 
-	IC bool sleep() { return Device.dwFrame > frame_sleep; }
+	inline bool sleep() { return Device.dwFrame > frame_sleep; }
 
 	virtual void rfeedback_static(dxRender_Visual* V);
 };

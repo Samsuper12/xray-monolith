@@ -5,51 +5,51 @@ class Point
 public:
 
 	//! Empty constructor
-	IC Point()
+	inline Point()
 	{
 	}
 
 	//! Constructor from floats
-	IC Point(float _x, float _y, float _z) : x(_x), y(_y), z(_z)
+	inline Point(float _x, float _y, float _z) : x(_x), y(_y), z(_z)
 	{
 	}
 
 	//! Constructor from array
-	IC Point(float f[3]) : x(f[0]), y(f[1]), z(f[2])
+	inline Point(float f[3]) : x(f[0]), y(f[1]), z(f[2])
 	{
 	}
 
 	//! Constructor from array
-	IC Point(const float f[3]) : x(f[0]), y(f[1]), z(f[2])
+	inline Point(const float f[3]) : x(f[0]), y(f[1]), z(f[2])
 	{
 	}
 
 	//! Copy constructor
-	IC Point(const Point& p) : x(p.x), y(p.y), z(p.z)
+	inline Point(const Point& p) : x(p.x), y(p.y), z(p.z)
 	{
 	}
 
 	//! Destructor
-	IC ~Point()
+	inline ~Point()
 	{
 	}
 
 	//! Returns MIN(x, y, z);
-	//IC	float		Min()								const		{ return MIN(x, MIN(y, z));												}
+	//inline	float		Min()								const		{ return MIN(x, MIN(y, z));												}
 	//! Returns MAX(x, y, z);
-	//IC	float		Max()								const		{ return MAX(x, MAX(y, z));												}
+	//inline	float		Max()								const		{ return MAX(x, MAX(y, z));												}
 	//! TO BE DOCUMENTED
-	//IC	Point&		Min(const Point& p)								{ x = MIN(x, p.x); y = MIN(y, p.y); z = MIN(z, p.z);	return *this;	}
+	//inline	Point&		Min(const Point& p)								{ x = MIN(x, p.x); y = MIN(y, p.y); z = MIN(z, p.z);	return *this;	}
 	//! TO BE DOCUMENTED
-	//IC	Point&		Max(const Point& p)								{ x = MAX(x, p.x); y = MAX(y, p.y); z = MAX(z, p.z);	return *this;	}
+	//inline	Point&		Max(const Point& p)								{ x = MAX(x, p.x); y = MAX(y, p.y); z = MAX(z, p.z);	return *this;	}
 
 	//! Computes square magnitude
-	IC float SquareMagnitude() const { return x * x + y * y + z * z; }
+	inline float SquareMagnitude() const { return x * x + y * y + z * z; }
 	//! Computes magnitude
-	IC float Magnitude() const { return _sqrt(x * x + y * y + z * z); }
+	inline float Magnitude() const { return _sqrt(x * x + y * y + z * z); }
 
 	//! Return largest axis
-	IC u32 LargestAxis() const
+	inline u32 LargestAxis() const
 	{
 		const float* Vals = &x;
 		u32 m = 0;
@@ -60,27 +60,27 @@ public:
 
 	// Arithmetic operators
 	//! Operator for Point Negate = - Point
-	ICF Point operator-() const { return Point(-x, -y, -z); }
+	inline Point operator-() const { return Point(-x, -y, -z); }
 
 	//! Operator for Point Plus = Point + Point.
-	ICF Point operator+(const Point& p) const { return Point(x + p.x, y + p.y, z + p.z); }
+	inline Point operator+(const Point& p) const { return Point(x + p.x, y + p.y, z + p.z); }
 	//! Operator for Point Minus = Point - Point.
-	ICF Point operator-(const Point& p) const { return Point(x - p.x, y - p.y, z - p.z); }
+	inline Point operator-(const Point& p) const { return Point(x - p.x, y - p.y, z - p.z); }
 	//! Operator for Point Scale = Point * float.
-	ICF Point operator*(float s) const { return Point(x * s, y * s, z * s); }
+	inline Point operator*(float s) const { return Point(x * s, y * s, z * s); }
 	//! Operator for Point Scale = float * Point.
 	friend Point operator*(float s, const Point& p) { return Point(s * p.x, s * p.y, s * p.z); }
 	//! Operator for Point Scale = Point / float.
-	ICF Point operator/(float s) const
+	inline Point operator/(float s) const
 	{
 		s = 1.0f / s;
 		return Point(x * s, y * s, z * s);
 	}
 
 	//! Operator for float DotProd = Point | Point.
-	ICF float operator|(const Point& p) const { return x * p.x + y * p.y + z * p.z; }
+	inline float operator|(const Point& p) const { return x * p.x + y * p.y + z * p.z; }
 	//! Operator for Point VecProd = Point ^ Point.
-	ICF Point operator^(const Point& p) const
+	inline Point operator^(const Point& p) const
 	{
 		return Point(
 			y * p.z - z * p.y,
@@ -89,7 +89,7 @@ public:
 	}
 
 	//! Operator for Point += Point.
-	ICF Point& operator+=(const Point& p)
+	inline Point& operator+=(const Point& p)
 	{
 		x += p.x;
 		y += p.y;
@@ -98,7 +98,7 @@ public:
 	}
 
 	//! Operator for Point += float.
-	ICF Point& operator+=(float s)
+	inline Point& operator+=(float s)
 	{
 		x += s;
 		y += s;
@@ -107,7 +107,7 @@ public:
 	}
 
 	//! Operator for Point -= Point.
-	ICF Point& operator-=(const Point& p)
+	inline Point& operator-=(const Point& p)
 	{
 		x -= p.x;
 		y -= p.y;
@@ -116,7 +116,7 @@ public:
 	}
 
 	//! Operator for Point -= float.
-	ICF Point& operator-=(float s)
+	inline Point& operator-=(float s)
 	{
 		x -= s;
 		y -= s;
@@ -125,7 +125,7 @@ public:
 	}
 
 	//! Operator for Point *= float.
-	ICF Point& operator*=(float s)
+	inline Point& operator*=(float s)
 	{
 		x *= s;
 		y *= s;
@@ -134,7 +134,7 @@ public:
 	}
 
 	//! Operator for Point /= float.
-	ICF Point& operator/=(float s)
+	inline Point& operator/=(float s)
 	{
 		s = 1.0f / s;
 		x *= s;
@@ -154,9 +154,9 @@ public:
 	//					Point&		operator*=(const Matrix4x4& mat);
 
 	//! Access as array
-	ICF operator const float*() const { return &x; }
+	inline operator const float*() const { return &x; }
 	//! Access as array
-	ICF operator float*() { return &x; }
+	inline operator float*() { return &x; }
 
 public:
 	float x; //!< x coordinate
@@ -181,7 +181,7 @@ using namespace Opcode;
 	if(x0>max&&x1>max&&x2>max)return false;
 
 //! TO BE DOCUMENTED
-ICF bool planeBoxOverlap_slow(const Point& normal, const float d, const Point& maxbox)
+inline bool planeBoxOverlap_slow(const Point& normal, const float d, const Point& maxbox)
 {
 	Point vmin, vmax;
 	if (normal[0] > 0.0f)
@@ -219,7 +219,7 @@ ICF bool planeBoxOverlap_slow(const Point& normal, const float d, const Point& m
 	return false;
 }
 
-ICF bool planeBoxOverlap(const Point& normal, const float d, const Point& maxbox)
+inline bool planeBoxOverlap(const Point& normal, const float d, const Point& maxbox)
 {
 	float norm_box_proj = _abs(maxbox.x * normal.x) + _abs(maxbox.y * normal.y) + _abs(maxbox.z * normal.z);
 	if (d > -norm_box_proj && d < norm_box_proj)return true;
@@ -275,7 +275,7 @@ ICF bool planeBoxOverlap(const Point& normal, const float d, const Point& maxbox
 	if(min>rad || max<-rad) return false;
 
 
-IC bool aabb_tri_aabb(Point center, Point extents, const Point* mLeafVerts)
+inline bool aabb_tri_aabb(Point center, Point extents, const Point* mLeafVerts)
 {
 	Point v0, v1, v2;
 	//Fvector v0,v1,v2;
@@ -327,7 +327,7 @@ IC bool aabb_tri_aabb(Point center, Point extents, const Point* mLeafVerts)
 	return true;
 }
 
-IC bool __aabb_tri(Point center, Point extents, const Point* mLeafVerts)
+inline bool __aabb_tri(Point center, Point extents, const Point* mLeafVerts)
 {
 	// move everything so that the boxcenter is in (0,0,0) 
 	Point v0, v1, v2;

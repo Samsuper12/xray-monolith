@@ -27,12 +27,12 @@ public:
 	u32 bulletId;
 
 public:
-	IC CScriptHit();
-	IC CScriptHit(const CScriptHit* tpLuaHit);
-	IC CScriptHit(const SHit* tpHit);
+	inline CScriptHit();
+	inline CScriptHit(const CScriptHit* tpLuaHit);
+	inline CScriptHit(const SHit* tpHit);
 	virtual ~CScriptHit();
-	IC LPCSTR get_bone_name() const;
-	IC void set_bone_name(LPCSTR bone_name);
+	inline LPCSTR get_bone_name() const;
+	inline void set_bone_name(LPCSTR bone_name);
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };
 

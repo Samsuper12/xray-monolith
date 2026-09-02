@@ -23,7 +23,7 @@
 #define CBucketList CDataStorageBucketList<_path_id_type,_bucket_id_type,bucket_count,clear_buckets>::template CDataStorage<_data_storage,_vertex>
 
 TEMPLATE_SPECIALIZATION
-IC CBucketList::CDataStorage(const u32 vertex_count) :
+inline CBucketList::CDataStorage(const u32 vertex_count) :
 	inherited(vertex_count)
 {
 	this->m_min_bucket_value = _dist_type(0);
@@ -37,7 +37,7 @@ CBucketList::~CDataStorage()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::init()
+inline void CBucketList::init()
 {
 	inherited::init();
 	this->m_min_bucket_id = bucket_count;
@@ -46,14 +46,14 @@ IC void CBucketList::init()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::add_best_closed()
+inline void CBucketList::add_best_closed()
 {
 	VERIFY(!this->is_opened_empty());
 	inherited_base::add_closed(*m_buckets[m_min_bucket_id]);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CBucketList::is_opened_empty()
+inline bool CBucketList::is_opened_empty()
 {
 	if (this->m_min_bucket_id == bucket_count)
 		return (true);
@@ -71,7 +71,7 @@ IC bool CBucketList::is_opened_empty()
 }
 
 TEMPLATE_SPECIALIZATION
-IC u32 CBucketList::compute_bucket_id(CGraphVertex& vertex) const
+inline u32 CBucketList::compute_bucket_id(CGraphVertex& vertex) const
 {
 	if (vertex.f() >= m_max_bucket_value)
 		return (bucket_count - 1);
@@ -81,7 +81,7 @@ IC u32 CBucketList::compute_bucket_id(CGraphVertex& vertex) const
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::verify_buckets() const
+inline void CBucketList::verify_buckets() const
 {
 	//		for (u32 i=0; i<bucket_count; ++i) {
 	//			CGraphVertex	*j = m_buckets[i], *k;
@@ -109,7 +109,7 @@ IC void CBucketList::verify_buckets() const
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::add_to_bucket(CGraphVertex& vertex, u32 m_bucket_id)
+inline void CBucketList::add_to_bucket(CGraphVertex& vertex, u32 m_bucket_id)
 {
 	if (m_bucket_id < m_min_bucket_id)
 		m_min_bucket_id = m_bucket_id;
@@ -182,7 +182,7 @@ IC void CBucketList::add_to_bucket(CGraphVertex& vertex, u32 m_bucket_id)
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::add_opened(CGraphVertex& vertex)
+inline void CBucketList::add_opened(CGraphVertex& vertex)
 {
 	//	ai().m_visited_nodes.push_back	(vertex.index());
 	inherited_base::add_opened(vertex);
@@ -191,7 +191,7 @@ IC void CBucketList::add_opened(CGraphVertex& vertex)
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::decrease_opened(CGraphVertex& vertex, const _dist_type value)
+inline void CBucketList::decrease_opened(CGraphVertex& vertex, const _dist_type value)
 {
 	VERIFY(!is_opened_empty());
 	u32 node_bucket_id = compute_bucket_id(vertex);
@@ -211,7 +211,7 @@ IC void CBucketList::decrease_opened(CGraphVertex& vertex, const _dist_type valu
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::remove_best_opened()
+inline void CBucketList::remove_best_opened()
 {
 	VERIFY(!is_opened_empty());
 	verify_buckets();
@@ -223,20 +223,20 @@ IC void CBucketList::remove_best_opened()
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CBucketList::CGraphVertex&CBucketList::get_best()
+inline typename CBucketList::CGraphVertex&CBucketList::get_best()
 {
 	VERIFY(!is_opened_empty());
 	return (*m_buckets[m_min_bucket_id]);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::set_min_bucket_value(const _dist_type min_bucket_value)
+inline void CBucketList::set_min_bucket_value(const _dist_type min_bucket_value)
 {
 	m_min_bucket_value = min_bucket_value;
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CBucketList::set_max_bucket_value(const _dist_type max_bucket_value)
+inline void CBucketList::set_max_bucket_value(const _dist_type max_bucket_value)
 {
 	m_max_bucket_value = max_bucket_value;
 }

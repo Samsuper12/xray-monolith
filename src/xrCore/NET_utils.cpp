@@ -23,7 +23,7 @@ u32 NET_Packet::r_begin(u16& type) // returns time of receiving
 void NET_Packet::w_seek(u32 pos, const void* p, u32 count)
 {
 	VERIFY(p && count && (pos + count <= B.count));
-	CopyMemory(&B.data[pos], p, count);
+	memcpy(&B.data[pos], p, count);
 	//. INI_ASSERT (w_seek)
 }
 
@@ -285,7 +285,7 @@ void NET_Packet::r_sdir(Fvector& A)
 	A.mul(s);
 }
 
-void NET_Packet::r_stringZ(LPSTR S)
+void NET_Packet::r_stringZ(char * S)
 {
 	if (!inistream)
 	{
@@ -362,7 +362,7 @@ void NET_Packet::r_clientID(ClientID& C)
 	C.set(tmp);
 }
 
-void NET_Packet::r_stringZ_s(LPSTR string, u32 const size)
+void NET_Packet::r_stringZ_s(char * string, u32 const size)
 {
 	if (inistream)
 	{

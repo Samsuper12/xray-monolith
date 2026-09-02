@@ -12,7 +12,7 @@
 #define CSQuadTree				CQuadTree<_object_type>
 
 TEMPLATE_SPECIALIZATION
-IC CSQuadTree::CQuadTree(const Fbox& box, float min_cell_size, u32 max_node_count, u32 max_list_item_count)
+inline CSQuadTree::CQuadTree(const Fbox& box, float min_cell_size, u32 max_node_count, u32 max_list_item_count)
 {
 	m_leaf_count = 0;
 	m_radius = _max(box.max.x - box.min.x, box.max.z - box.min.z) * .5f;
@@ -36,7 +36,7 @@ CSQuadTree::~CQuadTree()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSQuadTree::clear()
+inline void CSQuadTree::clear()
 {
 	START_PROFILE("Covers/clear")
 		m_nodes->clear();
@@ -47,19 +47,19 @@ IC void CSQuadTree::clear()
 }
 
 TEMPLATE_SPECIALIZATION
-IC size_t CSQuadTree::size() const
+inline size_t CSQuadTree::size() const
 {
 	return (m_leaf_count);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CSQuadTree::empty() const
+inline bool CSQuadTree::empty() const
 {
 	return (!size());
 }
 
 TEMPLATE_SPECIALIZATION
-IC u32 CSQuadTree::neighbour_index(const Fvector& position, Fvector& center, float distance) const
+inline u32 CSQuadTree::neighbour_index(const Fvector& position, Fvector& center, float distance) const
 {
 	if (position.x <= center.x)
 		if (position.z <= center.z)
@@ -89,7 +89,7 @@ IC u32 CSQuadTree::neighbour_index(const Fvector& position, Fvector& center, flo
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSQuadTree::insert(_object_type* object)
+inline void CSQuadTree::insert(_object_type* object)
 {
 	START_PROFILE("Covers/insert")
 		Fvector center = m_center;
@@ -120,7 +120,7 @@ IC void CSQuadTree::insert(_object_type* object)
 }
 
 TEMPLATE_SPECIALIZATION
-IC _object_type*CSQuadTree::find(const Fvector& position) const
+inline _object_type*CSQuadTree::find(const Fvector& position) const
 {
 	Fvector center = m_center;
 	float distance = m_radius;
@@ -148,7 +148,7 @@ IC _object_type*CSQuadTree::find(const Fvector& position) const
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSQuadTree::nearest(const Fvector& position, float radius, xr_vector<_object_type*>& objects, bool clear) const
+inline void CSQuadTree::nearest(const Fvector& position, float radius, xr_vector<_object_type*>& objects, bool clear) const
 {
 	START_PROFILE("Covers/nearest")
 		if (clear)
@@ -158,7 +158,7 @@ IC void CSQuadTree::nearest(const Fvector& position, float radius, xr_vector<_ob
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSQuadTree::nearest(const Fvector& position, float radius, xr_vector<_object_type*>& objects, CQuadNode* node,
+inline void CSQuadTree::nearest(const Fvector& position, float radius, xr_vector<_object_type*>& objects, CQuadNode* node,
                             Fvector center, float distance, int depth) const
 {
 	if (!node)
@@ -262,7 +262,7 @@ IC void CSQuadTree::nearest(const Fvector& position, float radius, xr_vector<_ob
 }
 
 TEMPLATE_SPECIALIZATION
-IC _object_type*CSQuadTree::remove(const _object_type* object)
+inline _object_type*CSQuadTree::remove(const _object_type* object)
 {
 	START_PROFILE("Covers/remove")
 		_object_type* _object = remove(object, m_root, m_center, m_radius, 0);
@@ -271,7 +271,7 @@ IC _object_type*CSQuadTree::remove(const _object_type* object)
 }
 
 TEMPLATE_SPECIALIZATION
-IC _object_type*CSQuadTree::remove(const _object_type* object, CQuadNode*& node, Fvector center, float distance,
+inline _object_type*CSQuadTree::remove(const _object_type* object, CQuadNode*& node, Fvector center, float distance,
                                    int depth)
 {
 	VERIFY(node);
@@ -307,7 +307,7 @@ IC _object_type*CSQuadTree::remove(const _object_type* object, CQuadNode*& node,
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSQuadTree::all(xr_vector<_object_type*>& objects, CQuadNode* node, int depth) const
+inline void CSQuadTree::all(xr_vector<_object_type*>& objects, CQuadNode* node, int depth) const
 {
 	if (!node)
 		return;
@@ -327,7 +327,7 @@ IC void CSQuadTree::all(xr_vector<_object_type*>& objects, CQuadNode* node, int 
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSQuadTree::all(xr_vector<_object_type*>& objects, bool clear) const
+inline void CSQuadTree::all(xr_vector<_object_type*>& objects, bool clear) const
 {
 	if (clear)
 		objects.clear();

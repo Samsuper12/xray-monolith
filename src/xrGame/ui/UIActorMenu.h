@@ -364,7 +364,7 @@ public:
 	void PutAllToInventoryBox();
 	void UpdateConditionProgressBars();
 
-	IC UIHint* get_hint_wnd() { return m_hint_wnd; }
+	inline UIHint* get_hint_wnd() { return m_hint_wnd; }
 
 	//AxelDominator && Alundaio consumable use condition
 	void RefreshCurrentItemCell();

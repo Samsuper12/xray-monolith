@@ -70,7 +70,7 @@ public:
 	u32 net_Export(NET_Packet* P, u32 _start, u32 _count); // return next start
 	void net_Import(NET_Packet* P);
 
-	ICF CObject* net_Find(u16 ID) const
+	inline CObject* net_Find(u16 ID) const
 	{
 		if (ID == u16(-1))
 			return (0);
@@ -82,8 +82,8 @@ public:
 	void o_remove(Objects& v, CObject* O);
 	void o_activate(CObject* O);
 	void o_sleep(CObject* O);
-	IC u32 o_count() { return objects_active.size() + objects_sleeping.size(); };
-	IC CObject* o_get_by_iterator(u32 _it)
+	inline u32 o_count() { return objects_active.size() + objects_sleeping.size(); };
+	inline CObject* o_get_by_iterator(u32 _it)
 	{
 		if (_it < objects_active.size()) return objects_active[_it];
 		else return objects_sleeping[_it - objects_active.size()];
@@ -98,7 +98,7 @@ public:
 #endif // #ifdef DEBUG
 
 private:
-	IC Objects& get_crows()
+	inline Objects& get_crows()
 	{
 		if (GetCurrentThreadId() == m_owner_thread_id)
 			return (m_crows[0]);

@@ -15,7 +15,7 @@
 #include "../../../group_hierarchy_holder.h"
 #include "../../../../xrServerEntities/ai_sounds.h"
 
-IC void CAI_Rat::add_active_member(bool bForceActive)
+inline void CAI_Rat::add_active_member(bool bForceActive)
 {
 	CGroupHierarchyHolder& Group = Level().seniority_holder().team(g_Team()).squad(g_Squad()).group(g_Group());
 	if (!m_bActive && (bForceActive || (Group.m_dwAliveCount * m_dwActiveCountPercent / 100 >= Group.m_dwActiveCount)))
@@ -30,7 +30,7 @@ IC void CAI_Rat::add_active_member(bool bForceActive)
 	//Msg("* Group : alive[%2d], active[%2d]",Group.m_dwAliveCount,Group.m_dwActiveCount);
 };
 
-IC void CAI_Rat::vfRemoveActiveMember()
+inline void CAI_Rat::vfRemoveActiveMember()
 {
 	CGroupHierarchyHolder& Group = Level().seniority_holder().team(g_Team()).squad(g_Squad()).group(g_Group());
 	if (m_bActive)
@@ -45,7 +45,7 @@ IC void CAI_Rat::vfRemoveActiveMember()
 	//Msg("* Group : alive[%2d], active[%2d]",Group.m_dwAliveCount,Group.m_dwActiveCount);
 };
 
-IC void CAI_Rat::vfAddStandingMember()
+inline void CAI_Rat::vfAddStandingMember()
 {
 	CGroupHierarchyHolder& Group = Level().seniority_holder().team(g_Team()).squad(g_Squad()).group(g_Group());
 	if ((Group.m_dwAliveCount * m_dwStandingCountPercent / 100 >= Group.m_dwStandingCount) && (!m_bStanding))
@@ -55,7 +55,7 @@ IC void CAI_Rat::vfAddStandingMember()
 	}
 };
 
-IC void CAI_Rat::vfRemoveStandingMember()
+inline void CAI_Rat::vfRemoveStandingMember()
 {
 	CGroupHierarchyHolder& Group = Level().seniority_holder().team(g_Team()).squad(g_Squad()).group(g_Group());
 	if (m_bStanding)
@@ -66,13 +66,13 @@ IC void CAI_Rat::vfRemoveStandingMember()
 	}
 };
 
-IC bool CAI_Rat::bfCheckIfSoundFrightful()
+inline bool CAI_Rat::bfCheckIfSoundFrightful()
 {
 	return (((m_tLastSound.eSoundType & SOUND_TYPE_WEAPON_BULLET_HIT) == SOUND_TYPE_WEAPON_BULLET_HIT) || ((m_tLastSound
 		.eSoundType & SOUND_TYPE_WEAPON_SHOOTING) == SOUND_TYPE_WEAPON_SHOOTING));
 };
 
-IC void CAI_Rat::update_morale_broadcast(float const& fValue, float const&/*fRadius*/)
+inline void CAI_Rat::update_morale_broadcast(float const& fValue, float const&/*fRadius*/)
 {
 	CGroupHierarchyHolder& Group = Level().seniority_holder().team(g_Team()).squad(g_Squad()).group(g_Group());
 	for (int i = 0; i < (int)Group.members().size(); ++i)

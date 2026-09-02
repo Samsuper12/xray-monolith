@@ -285,12 +285,12 @@ void CSE_SmartCover::set_enterable (shared_str const &id)
 		shared_str				m_id;
 
 	public:
-		IC	id_predicate		(shared_str const &id) :
+		inline	id_predicate		(shared_str const &id) :
 		  m_id				(id)
 		  {
 		  }
 
-		  IC	bool	operator()	(SSCDrawHelper const &h) const
+		  inline	bool	operator()	(SSCDrawHelper const &h) const
 		  {
 			  return				(m_id._get() == h.string_identifier._get());
 		  }

@@ -16,12 +16,12 @@ namespace LevelGraph
 		friend class CRenumbererConverter;
 
 	public:
-		ICF u32 version() const;
-		ICF u32 vertex_count() const;
-		ICF float cell_size() const;
-		ICF float factor_y() const;
-		ICF const Fbox& box() const;
-		ICF const xrGUID& guid() const;
+		inline u32 version() const;
+		inline u32 vertex_count() const;
+		inline float cell_size() const;
+		inline float factor_y() const;
+		inline const Fbox& box() const;
+		inline const xrGUID& guid() const;
 	};
 
 	typedef NodePosition CPosition;
@@ -32,14 +32,14 @@ namespace LevelGraph
 		friend class CRenumbererConverter;
 
 	public:
-		ICF u32 link(int i) const;
-		ICF u16 high_cover(u8 index) const;
-		ICF u16 low_cover(u8 index) const;
-		ICF u16 plane() const;
-		ICF const CPosition& position() const;
-		ICF bool operator<(const LevelGraph::CVertex& vertex) const;
-		ICF bool operator>(const LevelGraph::CVertex& vertex) const;
-		ICF bool operator==(const LevelGraph::CVertex& vertex) const;
+		inline u32 link(int i) const;
+		inline u16 high_cover(u8 index) const;
+		inline u16 low_cover(u8 index) const;
+		inline u16 plane() const;
+		inline const CPosition& position() const;
+		inline bool operator<(const LevelGraph::CVertex& vertex) const;
+		inline bool operator>(const LevelGraph::CVertex& vertex) const;
+		inline bool operator==(const LevelGraph::CVertex& vertex) const;
 		friend class CLevelGraph;
 	};
 

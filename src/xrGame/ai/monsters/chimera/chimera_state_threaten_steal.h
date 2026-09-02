@@ -16,7 +16,7 @@ class CStateChimeraThreatenSteal : public CStateMonsterMoveToPointEx<_Object>
 
 
 public:
-	IC CStateChimeraThreatenSteal(_Object* obj) : inherited(obj)
+	inline CStateChimeraThreatenSteal(_Object* obj) : inherited(obj)
 	{
 	}
 

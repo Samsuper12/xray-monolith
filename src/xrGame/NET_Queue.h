@@ -68,13 +68,13 @@ public:
 
 	void implication(NET_Packet& P) const
 	{
-		CopyMemory(P.B.data, &*data.begin(), (u32)data.size());
+		memcpy(P.B.data, &*data.begin(), (u32)data.size());
 		P.B.count = (u32)data.size();
 		P.r_pos = 0;
 	}
 };
 
-IC bool operator <(const NET_Event& A, const NET_Event& B) { return A.timestamp < B.timestamp; }
+inline bool operator <(const NET_Event& A, const NET_Event& B) { return A.timestamp < B.timestamp; }
 
 
 class NET_Queue_Event
@@ -83,7 +83,7 @@ public:
 	//	xr_multiset<NET_Event>	queue;	
 	xr_deque<NET_Event> queue;
 public:
-	IC void insert(NET_Packet& P)
+	inline void insert(NET_Packet& P)
 	{
 		NET_Event E;
 		E.import(P);
@@ -110,7 +110,7 @@ public:
 		//*/
 	}
 
-	IC BOOL available(u32 T)
+	inline BOOL available(u32 T)
 	{
 		//		if (queue.empty()/* || (T<queue.begin()->timestamp)*/)	return FALSE;
 		//		else												return TRUE;
@@ -128,7 +128,7 @@ public:
 		return TRUE;
 	}
 
-	IC void get(u16& ID, u16& dest, u16& type, NET_Packet& P)
+	inline void get(u16& ID, u16& dest, u16& type, NET_Packet& P)
 	{
 		const NET_Event& E = *queue.begin();
 		ID = E.ID;

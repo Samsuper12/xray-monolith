@@ -32,7 +32,7 @@ CDemoPlay::CDemoPlay(const char* name, float ms, u32 cycles, float life_time) : 
 	m_MParam = 0;
 	string_path nm, fn;
 	xr_strcpy(nm, sizeof(nm), name);
-	LPSTR extp = strext(nm);
+	char * extp = strext(nm);
 	if (extp)
 		xr_strcpy(nm, sizeof(nm) - (extp - nm), ".anm");
 
@@ -62,7 +62,7 @@ CDemoPlay::CDemoPlay(const char* name, float ms, u32 cycles, float life_time) : 
 
 		seq.resize(sz / sizeof(Fmatrix));
 		m_count = seq.size();
-		CopyMemory(&*seq.begin(), fs->pointer(), sz);
+		memcpy(&*seq.begin(), fs->pointer(), sz);
 		FS.r_close(fs);
 		Log("~ Total key-frames: ", m_count);
 	}

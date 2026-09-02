@@ -22,12 +22,12 @@ protected:
 	{
 		LPCSTR m_name;
 
-		IC CTokenPredicateName(LPCSTR name)
+		inline CTokenPredicateName(LPCSTR name)
 		{
 			m_name = name;
 		}
 
-		IC bool operator()(const xr_token& token) const
+		inline bool operator()(const xr_token& token) const
 		{
 			return (token.name && !xr_strcmp(token.name, m_name));
 		}
@@ -37,12 +37,12 @@ protected:
 	{
 		int m_id;
 
-		IC CTokenPredicateID(int id)
+		inline CTokenPredicateID(int id)
 		{
 			m_id = id;
 		}
 
-		IC bool operator()(const xr_token& token) const
+		inline bool operator()(const xr_token& token) const
 		{
 			return (token.name && (token.id == m_id));
 		}
@@ -52,19 +52,19 @@ protected:
 	TOKEN_LIST m_token_list;
 
 protected:
-	IC iterator token(LPCSTR name);
-	IC iterator token(int id);
+	inline iterator token(LPCSTR name);
+	inline iterator token(int id);
 
 public:
-	IC CScriptTokenList();
+	inline CScriptTokenList();
 	~CScriptTokenList();
-	IC void add(LPCSTR name, int id);
-	IC void remove(LPCSTR name);
-	IC void clear();
-	IC int id(LPCSTR name);
-	IC LPCSTR name(int id);
-	IC const TOKEN_LIST& tokens() const;
-	IC TOKEN_LIST& tokens();
+	inline void add(LPCSTR name, int id);
+	inline void remove(LPCSTR name);
+	inline void clear();
+	inline int id(LPCSTR name);
+	inline LPCSTR name(int id);
+	inline const TOKEN_LIST& tokens() const;
+	inline TOKEN_LIST& tokens();
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };
 

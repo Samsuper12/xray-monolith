@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC CSightAction::CSightAction() :
+inline CSightAction::CSightAction() :
 	m_sight_type(SightManager::eSightTypeCurrentDirection),
 	m_torso_look(false),
 	m_path(false),
@@ -19,7 +19,7 @@ IC CSightAction::CSightAction() :
 {
 }
 
-IC CSightAction::CSightAction(const ESightType& sight_type, bool torso_look, bool path) :
+inline CSightAction::CSightAction(const ESightType& sight_type, bool torso_look, bool path) :
 	m_sight_type(sight_type),
 	m_torso_look(torso_look),
 	m_path(path),
@@ -30,7 +30,7 @@ IC CSightAction::CSightAction(const ESightType& sight_type, bool torso_look, boo
 {
 }
 
-IC CSightAction::CSightAction(const ESightType& sight_type, const Fvector& vector3d, bool torso_look) :
+inline CSightAction::CSightAction(const ESightType& sight_type, const Fvector& vector3d, bool torso_look) :
 	m_sight_type(sight_type),
 	m_vector3d(vector3d),
 	m_path(false),
@@ -42,7 +42,7 @@ IC CSightAction::CSightAction(const ESightType& sight_type, const Fvector& vecto
 {
 }
 
-IC CSightAction::CSightAction(const CGameObject* object_to_look, bool torso_look, bool fire_object, bool no_pitch) :
+inline CSightAction::CSightAction(const CGameObject* object_to_look, bool torso_look, bool fire_object, bool no_pitch) :
 	m_sight_type(fire_object ? SightManager::eSightTypeFireObject : SightManager::eSightTypeObject),
 	m_torso_look(torso_look),
 	m_path(false),
@@ -54,7 +54,7 @@ IC CSightAction::CSightAction(const CGameObject* object_to_look, bool torso_look
 {
 }
 
-IC CSightAction::CSightAction(const CMemoryInfo* memory_object, bool torso_look) :
+inline CSightAction::CSightAction(const CMemoryInfo* memory_object, bool torso_look) :
 	m_sight_type(SightManager::eSightTypeObject),
 	m_torso_look(torso_look),
 	m_path(false),
@@ -65,7 +65,7 @@ IC CSightAction::CSightAction(const CMemoryInfo* memory_object, bool torso_look)
 {
 }
 
-IC CSightAction::CSightAction(const ESightType& sight_type, const Fvector* vector3d) :
+inline CSightAction::CSightAction(const ESightType& sight_type, const Fvector* vector3d) :
 	m_sight_type(sight_type),
 	m_path(false),
 	m_object_to_look(0),
@@ -84,7 +84,7 @@ IC CSightAction::CSightAction(const ESightType& sight_type, const Fvector* vecto
 		m_vector3d = *vector3d;
 }
 
-IC bool CSightAction::operator==(const CSightAction& sight_action) const
+inline bool CSightAction::operator==(const CSightAction& sight_action) const
 {
 	if (m_sight_type != sight_action.m_sight_type)
 		return (false);
@@ -119,37 +119,37 @@ IC bool CSightAction::operator==(const CSightAction& sight_action) const
 #endif
 }
 
-IC void CSightAction::set_vector3d(const Fvector& vector3d)
+inline void CSightAction::set_vector3d(const Fvector& vector3d)
 {
 	m_vector3d = vector3d;
 }
 
-IC void CSightAction::set_object_to_look(const CGameObject* object_to_look)
+inline void CSightAction::set_object_to_look(const CGameObject* object_to_look)
 {
 	m_object_to_look = object_to_look;
 }
 
-IC void CSightAction::set_memory_object(const CMemoryInfo* memory_object)
+inline void CSightAction::set_memory_object(const CMemoryInfo* memory_object)
 {
 	m_memory_object = memory_object;
 }
 
-IC CSightAction::ESightType CSightAction::sight_type() const
+inline CSightAction::ESightType CSightAction::sight_type() const
 {
 	return (m_sight_type);
 }
 
-IC const CGameObject* CSightAction::object_to_look() const
+inline const CGameObject* CSightAction::object_to_look() const
 {
 	return (m_object_to_look);
 }
 
-IC const Fvector& CSightAction::vector3d() const
+inline const Fvector& CSightAction::vector3d() const
 {
 	return (m_vector3d);
 }
 
-IC u32 const& CSightAction::state_fire_object() const
+inline u32 const& CSightAction::state_fire_object() const
 {
 	VERIFY(m_sight_type == SightManager::eSightTypeFireObject);
 	return (m_state_fire_object);

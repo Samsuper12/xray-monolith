@@ -20,7 +20,7 @@ enum EStateAnimTriple
 struct STripleAnimEventData : public ControlCom::IEventData
 {
 	u32 m_current_state;
-	IC STripleAnimEventData(u32 state) : m_current_state(state)
+	inline STripleAnimEventData(u32 state) : m_current_state(state)
 	{
 	}
 };

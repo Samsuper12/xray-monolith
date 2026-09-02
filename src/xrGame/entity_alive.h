@@ -83,7 +83,7 @@ public:
 
 	virtual bool human_being() const { return (false); }
 public:
-	//IC	CPHMovementControl*					PMovement					()						{return m_PhysicMovementControl;}
+	//inline	CPHMovementControl*					PMovement					()						{return m_PhysicMovementControl;}
 
 	virtual u16 PHGetSyncItemsNumber();
 	virtual CPHSynchronize* PHGetSyncItem(u16 item);
@@ -155,8 +155,8 @@ protected:
 	virtual CEntityConditionSimple* create_entity_condition(CEntityConditionSimple* ec);
 
 public:
-	IC CEntityCondition& conditions() const;
-	IC CMaterialManager& material() const
+	inline CEntityCondition& conditions() const;
+	inline CMaterialManager& material() const
 	{
 		VERIFY(m_material_manager);
 		return (*m_material_manager);
@@ -193,10 +193,10 @@ public:
 public:
 	virtual Fvector predict_position(const float& time_to_check) const;
 	virtual Fvector target_position() const;
-	IC bool const& is_agresive() const;
-	IC void is_agresive(bool const& value);
-	IC bool const& is_start_attack() const;
-	IC void is_start_attack(bool const& value);
+	inline bool const& is_agresive() const;
+	inline void is_agresive(bool const& value);
+	inline bool const& is_start_attack() const;
+	inline void is_start_attack(bool const& value);
 
 
 public:

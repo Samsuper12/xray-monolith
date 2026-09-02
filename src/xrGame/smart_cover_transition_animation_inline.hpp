@@ -12,27 +12,27 @@ namespace smart_cover
 {
 	namespace transitions
 	{
-		IC bool animation_action::has_animation() const
+		inline bool animation_action::has_animation() const
 		{
 			return (m_animation_id != "");
 		}
 
-		IC Fvector const& animation_action::position() const
+		inline Fvector const& animation_action::position() const
 		{
 			return (m_position);
 		}
 
-		IC shared_str const& animation_action::animation_id() const
+		inline shared_str const& animation_action::animation_id() const
 		{
 			return (m_animation_id);
 		}
 
-		IC MonsterSpace::EBodyState const& animation_action::body_state() const
+		inline MonsterSpace::EBodyState const& animation_action::body_state() const
 		{
 			return (m_body_state);
 		}
 
-		IC MonsterSpace::EMovementType const& animation_action::movement_type() const
+		inline MonsterSpace::EMovementType const& animation_action::movement_type() const
 		{
 			return (m_movement_type);
 		}

@@ -99,6 +99,6 @@ public:
 	virtual void OnAssetsChanged();
 };
 
-IC CGamePersistent& GamePersistent() { return *((CGamePersistent*)g_pGamePersistent); }
+inline CGamePersistent& GamePersistent() { return *((CGamePersistent*)g_pGamePersistent); }
 
 #endif //GamePersistentH

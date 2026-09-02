@@ -44,7 +44,7 @@ public:
 	void AddItem(LPCSTR name_, LPCSTR value_, u32 color_ = RGB(255, 255, 255));
 	void AddItem(shared_str& name_, LPCSTR value_, u32 color_ = RGB(255, 255, 255));
 
-	IC SItem_ServerInfo& operator[](u32 id)
+	inline SItem_ServerInfo& operator[](u32 id)
 	{
 		VERIFY(id < max_item);
 		return data[id];

@@ -41,7 +41,7 @@ namespace PAPI
 			xr_free(real_ptr);
 		}
 
-		IC int Resize(u32 max_count)
+		inline int Resize(u32 max_count)
 		{
 			// Reducing max.
 			if (particles_allocated >= max_count)
@@ -68,7 +68,7 @@ namespace PAPI
 			Particle* new_particles = (Particle*)((uintptr_t)new_real_ptr + (64 - ((uintptr_t)new_real_ptr & 63)));
 			//Msg( "Re-allocated %u bytes (%u particles) with base address 0x%p" , max_count * sizeof( Particle ) , max_count , new_particles );
 
-			CopyMemory(new_particles, particles, p_count * sizeof(Particle));
+			memcpy(new_particles, particles, p_count * sizeof(Particle));
 			xr_free(real_ptr);
 
 			particles = new_particles;
@@ -79,7 +79,7 @@ namespace PAPI
 			return max_count;
 		}
 
-		IC void Remove(int i)
+		inline void Remove(int i)
 		{
 			if (0 == p_count) return;
 			Particle& m = particles[i];
@@ -88,7 +88,7 @@ namespace PAPI
 			// Msg( "pDel() : %u" , p_count );
 		}
 
-		IC BOOL Add(const pVector& pos, const pVector& posB,
+		inline BOOL Add(const pVector& pos, const pVector& posB,
 		            const pVector& size, const pVector& rot, const pVector& vel, u32 color,
 		            const float age = 0.0f, u16 frame = 0, u16 flags = 0)
 		{

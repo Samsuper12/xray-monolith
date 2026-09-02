@@ -27,7 +27,7 @@ public:
 	float theta; /* Inner angle of spotlight cone */
 	float phi; /* Outer angle of spotlight cone */
 
-	IC void set(u32 ltType, float x, float y, float z)
+	inline void set(u32 ltType, float x, float y, float z)
 	{
 		ZeroMemory(this, sizeof(Flight));
 		type = ltType;
@@ -39,7 +39,7 @@ public:
 		range = _sqrt(flt_max);
 	}
 
-	IC void mul(float brightness)
+	inline void mul(float brightness)
 	{
 		diffuse.mul_rgb(brightness);
 		ambient.mul_rgb(brightness);
@@ -65,7 +65,7 @@ public:
 	Fcolor emissive; /* Emissive color RGB */
 	float power; /* Sharpness if specular highlight */
 
-	IC void set(float r, float g, float b)
+	inline void set(float r, float g, float b)
 	{
 		ZeroMemory(this, sizeof(Fmaterial));
 		diffuse.r = ambient.r = r;
@@ -75,7 +75,7 @@ public:
 		power = 0;
 	}
 
-	IC void set(float r, float g, float b, float a)
+	inline void set(float r, float g, float b, float a)
 	{
 		ZeroMemory(this, sizeof(Fmaterial));
 		diffuse.r = ambient.r = r;
@@ -85,7 +85,7 @@ public:
 		power = 0;
 	}
 
-	IC void set(Fcolor& c)
+	inline void set(Fcolor& c)
 	{
 		ZeroMemory(this, sizeof(Fmaterial));
 		diffuse.r = ambient.r = c.r;
@@ -104,34 +104,34 @@ public:
 
 #endif
 
-#ifndef NO_XR_VDECLARATOR
-struct VDeclarator : public svector<D3DVERTEXELEMENT9, MAXD3DDECLLENGTH + 1>
-{
-	void set(u32 FVF)
-	{
-		D3DXDeclaratorFromFVF(FVF, begin());
-		resize(D3DXGetDeclLength(begin()) + 1);
-	}
+// #ifndef NO_XR_VDECLARATOR
+// struct VDeclarator : public svector<D3DVERTEXELEMENT9, MAXD3DDECLLENGTH + 1>
+// {
+// 	void set(u32 FVF)
+// 	{
+// 		D3DXDeclaratorFromFVF(FVF, begin());
+// 		resize(D3DXGetDeclLength(begin()) + 1);
+// 	}
 
-	void set(D3DVERTEXELEMENT9* dcl)
-	{
-		resize(D3DXGetDeclLength(dcl) + 1);
-		CopyMemory(begin(), dcl, size()*sizeof(D3DVERTEXELEMENT9));
-	}
+// 	void set(D3DVERTEXELEMENT9* dcl)
+// 	{
+// 		resize(D3DXGetDeclLength(dcl) + 1);
+// 		memcpy(begin(), dcl, size()*sizeof(D3DVERTEXELEMENT9));
+// 	}
 
-	void set(const VDeclarator& d)
-	{
-		*this = d;
-	}
+// 	void set(const VDeclarator& d)
+// 	{
+// 		*this = d;
+// 	}
 
-	u32 vertex() { return D3DXGetDeclVertexSize(begin(), 0); }
+// 	u32 vertex() { return D3DXGetDeclVertexSize(begin(), 0); }
 
-	BOOL equal(VDeclarator& d)
-	{
-		if (size() != d.size()) return false;
-		else return 0 == memcmp(begin(), d.begin(), size() * sizeof(D3DVERTEXELEMENT9));
-	}
-};
-#endif
+// 	BOOL equal(VDeclarator& d)
+// 	{
+// 		if (size() != d.size()) return false;
+// 		else return 0 == memcmp(begin(), d.begin(), size() * sizeof(D3DVERTEXELEMENT9));
+// 	}
+// };
+// #endif
 
 #endif

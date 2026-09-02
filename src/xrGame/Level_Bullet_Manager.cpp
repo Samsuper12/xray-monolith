@@ -815,7 +815,7 @@ static void update_bullet(
 	update_bullet_parabolic(bullet, data, gravity, air_resistance);
 }
 
-BOOL CBulletManager::firetrace_callback(collide::rq_result& result, LPVOID params)
+BOOL CBulletManager::firetrace_callback(collide::rq_result& result, void* params)
 {
 	bullet_test_callback_data& data = *(bullet_test_callback_data*)params;
 	SBullet& bullet = *data.pBullet;

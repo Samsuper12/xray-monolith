@@ -53,15 +53,15 @@ public:
 	u32 dwFrame;
 
 	u32 mem_usage() { return sizeof(*this); }
-	IC bool update_time(float dt);
-	IC void update_play(float dt, PlayCallback _Callback);
-	IC bool update_falloff(float dt);
-	IC bool update(float dt, PlayCallback _Callback);
-	IC ECurvature blend_state() const { return blend; }
-	IC void set_free_state() { blend = eFREE_SLOT; }
-	IC void set_accrue_state() { blend = eAccrue; }
-	IC void set_falloff_state() { blend = eFalloff; }
-	IC void set(const CBlend& r) { *this = r; }
+	inline bool update_time(float dt);
+	inline void update_play(float dt, PlayCallback _Callback);
+	inline bool update_falloff(float dt);
+	inline bool update(float dt, PlayCallback _Callback);
+	inline ECurvature blend_state() const { return blend; }
+	inline void set_free_state() { blend = eFREE_SLOT; }
+	inline void set_accrue_state() { blend = eAccrue; }
+	inline void set_falloff_state() { blend = eFalloff; }
+	inline void set(const CBlend& r) { *this = r; }
 #ifdef	DEBUG
 CBlend(  ):
 
@@ -120,7 +120,7 @@ const CBlend& operator=( const CBlend& r )
 };
 
 
-IC void CBlend::update_play(float dt, PlayCallback _Callback)
+inline void CBlend::update_play(float dt, PlayCallback _Callback)
 {
 	float pow_dt = dt;
 	if (pow_dt < 0.f)
@@ -156,7 +156,7 @@ IC void CBlend::update_play(float dt, PlayCallback _Callback)
 	return;
 }
 
-IC bool CBlend::update_time(float dt)
+inline bool CBlend::update_time(float dt)
 {
 	if (!playing)
 		return false;
@@ -192,7 +192,7 @@ IC bool CBlend::update_time(float dt)
 	return true;
 }
 
-IC bool CBlend::update_falloff(float dt)
+inline bool CBlend::update_falloff(float dt)
 {
 	update_time(dt);
 
@@ -204,7 +204,7 @@ IC bool CBlend::update_falloff(float dt)
 	return ret;
 }
 
-IC bool CBlend::update(float dt, PlayCallback _Callback)
+inline bool CBlend::update(float dt, PlayCallback _Callback)
 {
 	switch (blend)
 	{

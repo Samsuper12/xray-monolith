@@ -104,7 +104,7 @@ CSpaceRestrictionManager::CRestrictionPtr CSpaceRestrictionManager::restriction(
 	return ((*I).second.m_restriction);
 }
 
-IC void CSpaceRestrictionManager::collect_garbage()
+inline void CSpaceRestrictionManager::collect_garbage()
 {
 	SPACE_RESTRICTIONS::iterator I = m_space_restrictions.begin(), J;
 	SPACE_RESTRICTIONS::iterator E = m_space_restrictions.end();
@@ -209,7 +209,7 @@ bool CSpaceRestrictionManager::restriction_presented(shared_str restrictions, sh
 	return (false);
 }
 
-IC void CSpaceRestrictionManager::join_restrictions(shared_str& restrictions, shared_str update)
+inline void CSpaceRestrictionManager::join_restrictions(shared_str& restrictions, shared_str update)
 {
 	string4096 m_temp1;
 	string4096 m_temp2;
@@ -225,7 +225,7 @@ IC void CSpaceRestrictionManager::join_restrictions(shared_str& restrictions, sh
 	restrictions = shared_str(m_temp2);
 }
 
-IC void CSpaceRestrictionManager::difference_restrictions(shared_str& restrictions, shared_str update)
+inline void CSpaceRestrictionManager::difference_restrictions(shared_str& restrictions, shared_str update)
 {
 	string4096 m_temp1;
 	string4096 m_temp2;

@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC const Fvector& CPatrolPoint::position() const
+inline const Fvector& CPatrolPoint::position() const
 {
 #ifdef DEBUG
 	VERIFY(m_initialized);
@@ -16,7 +16,7 @@ IC const Fvector& CPatrolPoint::position() const
 	return (m_position);
 }
 
-IC const u32& CPatrolPoint::flags() const
+inline const u32& CPatrolPoint::flags() const
 {
 #ifdef DEBUG
 	VERIFY(m_initialized);
@@ -24,7 +24,7 @@ IC const u32& CPatrolPoint::flags() const
 	return (m_flags);
 }
 
-IC const shared_str& CPatrolPoint::name() const
+inline const shared_str& CPatrolPoint::name() const
 {
 #ifdef DEBUG
 	VERIFY(m_initialized);
@@ -32,7 +32,7 @@ IC const shared_str& CPatrolPoint::name() const
 	return (m_name);
 }
 
-IC const u32& CPatrolPoint::level_vertex_id(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross,
+inline const u32& CPatrolPoint::level_vertex_id(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross,
                                             const CGameGraph* game_graph) const
 {
 #ifdef DEBUG
@@ -42,7 +42,7 @@ IC const u32& CPatrolPoint::level_vertex_id(const CLevelGraph* level_graph, cons
 	return (m_level_vertex_id);
 }
 
-IC const GameGraph::_GRAPH_ID& CPatrolPoint::game_vertex_id(const CLevelGraph* level_graph,
+inline const GameGraph::_GRAPH_ID& CPatrolPoint::game_vertex_id(const CLevelGraph* level_graph,
                                                             const CGameLevelCrossTable* cross,
                                                             const CGameGraph* game_graph) const
 {
@@ -54,7 +54,7 @@ IC const GameGraph::_GRAPH_ID& CPatrolPoint::game_vertex_id(const CLevelGraph* l
 }
 
 #ifdef DEBUG
-IC	void CPatrolPoint::path										(const CPatrolPath *path)
+inline	void CPatrolPoint::path										(const CPatrolPath *path)
 {
 	VERIFY				(path);
 	VERIFY				(!m_path);

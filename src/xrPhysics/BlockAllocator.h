@@ -9,14 +9,14 @@ class CBlockAllocator
 	T* current_block;
 	xr_vector<T*> blocks;
 public:
-	IC T* add()
+	inline T* add()
 	{
 		if (block_position == block_size)next_block();
 		++block_position;
 		return &current_block[block_position - 1];
 	}
 
-	IC void empty()
+	inline void empty()
 	{
 		block_count = 0;
 		if (blocks.size())
@@ -40,14 +40,14 @@ public:
 		clear();
 	}
 
-	IC void init()
+	inline void init()
 	{
 		block_position = block_size;
 		block_count = 0;
 		current_block = NULL;
 	}
 
-	IC void clear()
+	inline void clear()
 	{
 		auto i = blocks.begin(), e = blocks.end();
 		for (; i != e; ++i) xr_free(*i);
@@ -57,11 +57,11 @@ public:
 
 private:
 	/////////////////////////////////////////////////////////////////
-	IC void add_block()
+	inline void add_block()
 	{
 		blocks.push_back(xr_alloc<T>(block_size));
 	};
-	IC void next_block()
+	inline void next_block()
 	{
 		if (block_count == blocks.size()) add_block();
 		current_block = blocks[block_count];
@@ -72,7 +72,7 @@ private:
 	////////////////////////////////////////////////////////////////
 public:
 	template <typename _Predicate>
-	IC void for_each(const _Predicate& pred)
+	inline void for_each(const _Predicate& pred)
 	{
 		if (! current_block) return;
 		auto i = blocks.begin();
@@ -91,32 +91,32 @@ public:
 	}
 
 private:
-	IC T* pointer(u32 position)
+	inline T* pointer(u32 position)
 	{
 		return blocks[position / block_size] + position % block_size;
 	}
 
-	IC T& back()
+	inline T& back()
 	{
 		return current_block[block_position - 1];
 	}
 
-	IC T& back_pointer()
+	inline T& back_pointer()
 	{
 		return current_block + block_position - 1;
 	}
 
-	IC T& operator[](u32 position)
+	inline T& operator[](u32 position)
 	{
 		return *pointer(position);
 	}
 
-	IC void construct(u32 position)
+	inline void construct(u32 position)
 	{
 		xr_allocator_t<T>().construct(pointer(position));
 	}
 
-	IC void construct_back()
+	inline void construct_back()
 	{
 		xr_allocator_t<T>().construct(back_pointer());
 	}

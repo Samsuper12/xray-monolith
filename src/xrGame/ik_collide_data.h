@@ -11,14 +11,14 @@ public:
 		none =-1
 	};
 
-	IC void set(const Fvector& toe, const Fvector& heel, const Fvector& side)
+	inline void set(const Fvector& toe, const Fvector& heel, const Fvector& side)
 	{
 		_toe = toe;
 		_heel = heel;
 		_side = side;
 	}
 
-	IC bool is_valid() const
+	inline bool is_valid() const
 	{
 		Fbox test;
 		test.max.set(flt_max / 2.f, flt_max / 2.f, flt_max / 2.f);
@@ -32,9 +32,9 @@ public:
 	{
 	}
 
-	IC const Fvector& pos_toe() const { return _toe; }
-	IC const Fvector& pos_heel() const { return _heel; }
-	IC const Fvector& pos_side() const { return _side; }
+	inline const Fvector& pos_toe() const { return _toe; }
+	inline const Fvector& pos_heel() const { return _heel; }
+	inline const Fvector& pos_side() const { return _side; }
 private:
 	Fvector _toe;
 	Fvector _heel;

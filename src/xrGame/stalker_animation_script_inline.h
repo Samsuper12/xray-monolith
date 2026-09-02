@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC CStalkerAnimationScript::CStalkerAnimationScript(
+inline CStalkerAnimationScript::CStalkerAnimationScript(
 	const MotionID& animation,
 	bool hand_usage,
 	bool use_movement_controller,
@@ -34,7 +34,7 @@ IC CStalkerAnimationScript::CStalkerAnimationScript(
 	m_transform.c.set(flt_max, flt_max, flt_max);
 }
 
-IC CStalkerAnimationScript::CStalkerAnimationScript(CStalkerAnimationScript const& object)
+inline CStalkerAnimationScript::CStalkerAnimationScript(CStalkerAnimationScript const& object)
 {
 	m_transform = object.m_transform;
 	m_transform_ptr = object.m_transform_ptr ? &m_transform : 0;
@@ -44,27 +44,27 @@ IC CStalkerAnimationScript::CStalkerAnimationScript(CStalkerAnimationScript cons
 	m_local_animation = object.m_local_animation;
 }
 
-IC const MotionID& CStalkerAnimationScript::animation() const
+inline const MotionID& CStalkerAnimationScript::animation() const
 {
 	return (m_animation);
 }
 
-IC const bool& CStalkerAnimationScript::hand_usage() const
+inline const bool& CStalkerAnimationScript::hand_usage() const
 {
 	return (m_hand_usage);
 }
 
-IC const bool& CStalkerAnimationScript::use_movement_controller() const
+inline const bool& CStalkerAnimationScript::use_movement_controller() const
 {
 	return (m_use_movement_controller);
 }
 
-IC const bool& CStalkerAnimationScript::local_animation() const
+inline const bool& CStalkerAnimationScript::local_animation() const
 {
 	return (m_local_animation);
 }
 
-IC Fmatrix const& CStalkerAnimationScript::transform(CObject const& object) const
+inline Fmatrix const& CStalkerAnimationScript::transform(CObject const& object) const
 {
 	if (m_transform_ptr)
 		return (*m_transform_ptr);
@@ -72,7 +72,7 @@ IC Fmatrix const& CStalkerAnimationScript::transform(CObject const& object) cons
 	return (object.XFORM());
 }
 
-IC bool CStalkerAnimationScript::has_transform() const
+inline bool CStalkerAnimationScript::has_transform() const
 {
 	return (!!m_transform_ptr);
 }

@@ -26,7 +26,7 @@ public:
 	void clear();
 };
 
-IC CStalkerAnimationDataStorage& stalker_animation_data_storage();
+inline CStalkerAnimationDataStorage& stalker_animation_data_storage();
 
 extern CStalkerAnimationDataStorage* g_stalker_animation_data_storage;
 

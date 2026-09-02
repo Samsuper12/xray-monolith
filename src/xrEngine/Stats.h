@@ -113,7 +113,7 @@ public:
 	CStats();
 	~CStats();
 
-	IC CGameFont* Font() { return pFont; }
+	inline CGameFont* Font() { return pFont; }
 
 private:
 	FactoryPtr<IStatsRender> m_pRender;

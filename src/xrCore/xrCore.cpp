@@ -141,5 +141,5 @@ void xrCore::_destroy()
 }
 
 #ifdef _EDITOR
-BOOL WINAPI DllEntryPoint(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved)
+// BOOL WINAPI DllEntryPoint(HINSTANCE hinstDLL, uint32_t ul_reason_for_call, void* lpvReserved)
 #endif

@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC CDangerExplosive::CDangerExplosive(const CExplosive* grenade, const CGameObject* game_object, CAI_Stalker* reactor,
+inline CDangerExplosive::CDangerExplosive(const CExplosive* grenade, const CGameObject* game_object, CAI_Stalker* reactor,
                                       u32 time)
 {
 	m_grenade = grenade;
@@ -18,7 +18,7 @@ IC CDangerExplosive::CDangerExplosive(const CExplosive* grenade, const CGameObje
 	m_time = time;
 }
 
-IC bool CDangerExplosive::operator==(const CExplosive* grenade) const
+inline bool CDangerExplosive::operator==(const CExplosive* grenade) const
 {
 	return (m_grenade == grenade);
 }

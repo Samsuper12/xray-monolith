@@ -38,7 +38,7 @@ public:
 #endif
 
 	CSoundRender_Target* target;
-	IC CSoundRender_Source* source() { return (CSoundRender_Source*)owner_data->handle; };
+	inline CSoundRender_Source* source() { return (CSoundRender_Source*)owner_data->handle; };
 	ref_sound_data_ptr owner_data;
 
 	u32 get_bytes_total() const;

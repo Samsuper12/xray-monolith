@@ -22,13 +22,13 @@ class CHM_Static
 		BOOL bReady;
 		int x, z;
 
-		IC void set(int _x, int _z)
+		inline void set(int _x, int _z)
 		{
 			x = _x;
 			z = _z;
 		}
 
-		IC void clear()
+		inline void clear()
 		{
 			for (u32 i = 0; i < dhm_precision; ++i)
 				for (u32 j = 0; j < dhm_precision; ++j)

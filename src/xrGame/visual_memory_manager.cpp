@@ -76,12 +76,12 @@ struct CNotYetVisibleObjectPredicate
 {
 	const CGameObject* m_game_object;
 
-	IC CNotYetVisibleObjectPredicate(const CGameObject* game_object)
+	inline CNotYetVisibleObjectPredicate(const CGameObject* game_object)
 	{
 		m_game_object = game_object;
 	}
 
-	IC bool operator()(const CNotYetVisibleObject& object) const
+	inline bool operator()(const CNotYetVisibleObject& object) const
 	{
 		return (object.m_object->ID() == m_game_object->ID());
 	}

@@ -66,18 +66,18 @@ public:
 	}
 #endif
 
-	IC CKinematics* Parent() { return m_Parent; }
-	IC u32 VCount() { return m_Faces.size() * 3; }
-	IC bool Similar(ref_shader& sh, const Fvector& cp, float eps)
+	inline CKinematics* Parent() { return m_Parent; }
+	inline u32 VCount() { return m_Faces.size() * 3; }
+	inline bool Similar(ref_shader& sh, const Fvector& cp, float eps)
 	{
 		return (m_Shader == sh) && m_ContactPoint.similar(cp, eps);
 	}
 
-	IC float TimeStart() { return m_fTimeStart; }
-	IC float TimeEnd() { return m_fTimeEnd; }
-	IC const Fmatrix* XFORM() { return m_XForm; }
-	IC const Fvector3& ContactPoint() { return m_ContactPoint; }
-	IC ref_shader Shader() { return m_Shader; }
+	inline float TimeStart() { return m_fTimeStart; }
+	inline float TimeEnd() { return m_fTimeEnd; }
+	inline const Fmatrix* XFORM() { return m_XForm; }
+	inline const Fvector3& ContactPoint() { return m_ContactPoint; }
+	inline ref_shader Shader() { return m_Shader; }
 };
 
 DEFINE_VECTOR(intrusive_ptr<CSkeletonWallmark>, SkeletonWMVec, SkeletonWMVecIt);
@@ -121,7 +121,7 @@ public:
 	dxRender_Visual* m_lod;
 
 #ifdef OPTIMIZE_CALCULATE_BONES
-	IC bool canBeOptimized()
+	inline bool canBeOptimized()
 	{
 		return spatialParent && spatialParent->canOptimizeCalculateBones();
 	}
@@ -195,14 +195,14 @@ public:
 
 	CInifile* LL_UserData() { return pUserData; }
 	accel* LL_Bones() { return bone_map_N; }
-	ICF CBoneInstance& LL_GetBoneInstance(u16 bone_id)
+	inline CBoneInstance& LL_GetBoneInstance(u16 bone_id)
 	{
 		VERIFY(bone_id<LL_BoneCount());
 		VERIFY(bone_instances);
 		return bone_instances[bone_id];
 	}
 
-	ICF const CBoneInstance& LL_GetBoneInstance(u16 bone_id) const
+	inline const CBoneInstance& LL_GetBoneInstance(u16 bone_id) const
 	{
 		VERIFY(bone_id<LL_BoneCount());
 		VERIFY(bone_instances);
@@ -245,9 +245,9 @@ public:
 		return (u16)btwCount1(F);
 	}
 
-	ICF Fmatrix& LL_GetTransform(u16 bone_id) { return LL_GetBoneVisible(bone_id) ? LL_GetBoneInstance(bone_id).mTransform : LL_GetBoneInstance(bone_id).mTransformHidden; }
-	ICF const Fmatrix& LL_GetTransform(u16 bone_id) const { return LL_GetBoneVisible(bone_id) ? LL_GetBoneInstance(bone_id).mTransform : LL_GetBoneInstance(bone_id).mTransformHidden; }
-	ICF Fmatrix& LL_GetTransform_R(u16 bone_id) { return LL_GetBoneInstance(bone_id).mRenderTransform; }
+	inline Fmatrix& LL_GetTransform(u16 bone_id) { return LL_GetBoneVisible(bone_id) ? LL_GetBoneInstance(bone_id).mTransform : LL_GetBoneInstance(bone_id).mTransformHidden; }
+	inline const Fmatrix& LL_GetTransform(u16 bone_id) const { return LL_GetBoneVisible(bone_id) ? LL_GetBoneInstance(bone_id).mTransform : LL_GetBoneInstance(bone_id).mTransformHidden; }
+	inline Fmatrix& LL_GetTransform_R(u16 bone_id) { return LL_GetBoneInstance(bone_id).mRenderTransform; }
 	// rendering only
 	Fobb& LL_GetBox(u16 bone_id)
 	{
@@ -339,6 +339,6 @@ private:
 	bool m_is_original_lod;
 };
 
-IC CKinematics* PCKinematics(dxRender_Visual* V) { return V ? (CKinematics*)V->dcast_PKinematics() : 0; }
+inline CKinematics* PCKinematics(dxRender_Visual* V) { return V ? (CKinematics*)V->dcast_PKinematics() : 0; }
 //---------------------------------------------------------------------------
 #endif

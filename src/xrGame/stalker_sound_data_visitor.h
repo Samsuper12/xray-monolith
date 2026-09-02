@@ -19,10 +19,10 @@ private:
 	CAI_Stalker* m_object;
 
 public:
-	IC CStalkerSoundDataVisitor(CAI_Stalker* object);
+	inline CStalkerSoundDataVisitor(CAI_Stalker* object);
 	virtual ~CStalkerSoundDataVisitor();
 	virtual void visit(CStalkerSoundData* data);
-	IC CAI_Stalker& object() const;
+	inline CAI_Stalker& object() const;
 };
 
 #include "stalker_sound_data_visitor_inline.h"

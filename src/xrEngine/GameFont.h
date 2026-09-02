@@ -67,7 +67,7 @@ public:
 	};
 
 protected:
-	IC const Fvector& GetCharTC(u16 c) { return TCMap[c]; }
+	inline const Fvector& GetCharTC(u16 c) { return TCMap[c]; }
 
 public:
 	CGameFont(LPCSTR section, u32 flags = 0);
@@ -76,15 +76,15 @@ public:
 
 	void Initialize(LPCSTR shader, LPCSTR texture);
 
-	IC void SetColor(u32 C) { dwCurrentColor = C; };
+	inline void SetColor(u32 C) { dwCurrentColor = C; };
 
 	void SetHeightI(float S);
 	void SetHeight(float S);
 
-	IC float GetHeight() { return fCurrentHeight; };
-	IC void SetInterval(float x, float y) { vInterval.set(x, y); };
-	IC void SetInterval(const Fvector2& v) { vInterval.set(v); };
-	IC void SetAligment(EAligment aligment) { eCurrentAlignment = aligment; }
+	inline float GetHeight() { return fCurrentHeight; };
+	inline void SetInterval(float x, float y) { vInterval.set(x, y); };
+	inline void SetInterval(const Fvector2& v) { vInterval.set(v); };
+	inline void SetAligment(EAligment aligment) { eCurrentAlignment = aligment; }
 
 	float SizeOf_(LPCSTR s);
 	float SizeOf_(const wide_char* wsStr);
@@ -112,7 +112,7 @@ public:
 
 	void OnRender();
 
-	IC void Clear() { strings.clear(); };
+	inline void Clear() { strings.clear(); };
 
 #ifdef DEBUG
     shared_str m_font_name;

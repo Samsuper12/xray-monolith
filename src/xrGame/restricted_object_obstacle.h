@@ -35,13 +35,13 @@ public:
 	virtual void add_border(u32 start_vertex_id, u32 dest_vertex_id) const;
 	virtual void remove_border() const;
 
-	IC const obstacles_query& static_query() const
+	inline const obstacles_query& static_query() const
 	{
 		VERIFY(!applied());
 		return (m_static_query);
 	}
 
-	IC const obstacles_query& dynamic_query() const
+	inline const obstacles_query& dynamic_query() const
 	{
 		VERIFY(!applied());
 		return (m_dynamic_query);

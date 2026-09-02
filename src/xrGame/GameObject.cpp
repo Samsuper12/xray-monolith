@@ -1218,7 +1218,7 @@ void CGameObject::destroy_anim_mov_ctrl()
 	xr_delete(m_anim_mov_ctrl);
 }
 
-IC bool similar(const Fmatrix& _0, const Fmatrix& _1, const float& epsilon = EPS)
+inline bool similar(const Fmatrix& _0, const Fmatrix& _1, const float& epsilon = EPS)
 {
 	if (!_0.i.similar(_1.i, epsilon))
 		return (false);

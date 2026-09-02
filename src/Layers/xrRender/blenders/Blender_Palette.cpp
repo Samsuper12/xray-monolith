@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "blender_clsid.h"
 
-IC bool p_sort(IBlender* A, IBlender* B)
+inline bool p_sort(IBlender* A, IBlender* B)
 {
 	return _stricmp(A->getComment(), B->getComment()) < 0;
 }

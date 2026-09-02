@@ -12,7 +12,7 @@ struct SCartridgeParam
 
 	bool tracer_silenced;
 
-	IC void Init()
+	inline void Init()
 	{
 		kDist = kDisp = kHit = kImpulse = kBulletSpeed = 1.0f;
 		//		kCritical = 0.0f;

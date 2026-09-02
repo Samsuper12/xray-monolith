@@ -67,8 +67,8 @@ namespace mp_anticheat
 		mp_config_sections m_ltx_configs;
 		mp_active_params m_active_params;
 
-		HANDLE m_make_start_event;
-		HANDLE m_make_done_event;
+		void* m_make_start_event;
+		void* m_make_done_event;
 
 #ifdef DEBUG
 	CTimer				m_debug_timer;

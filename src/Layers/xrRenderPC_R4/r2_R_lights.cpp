@@ -1,7 +1,7 @@
 #include <defines.h>
 #include <dx10EventWrapper.h>
 
-IC bool pred_area(light* _1, light* _2)
+inline bool pred_area(light* _1, light* _2)
 {
 	u32 a0 = _1->X.S.size;
 	u32 a1 = _2->X.S.size;
@@ -26,7 +26,7 @@ bool check_grass_shadow(light* L, CFrustum VB)
 	return true;
 }
 
-IC void hud_light_apply(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
+inline void hud_light_apply(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
 {
 	for (u32 it = 0; it < source.size(); it++)
 	{
@@ -40,7 +40,7 @@ IC void hud_light_apply(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, 
 	}
 }
 
-IC void hud_light_restore(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
+inline void hud_light_restore(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
 {
 	for (const auto& saved : saved_pos)
 	{

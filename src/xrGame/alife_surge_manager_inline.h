@@ -8,6 +8,6 @@
 
 #pragma once
 
-IC CALifeSurgeManager::CALifeSurgeManager(xrServer* server, LPCSTR section)
+inline CALifeSurgeManager::CALifeSurgeManager(xrServer* server, LPCSTR section)
 {
 }

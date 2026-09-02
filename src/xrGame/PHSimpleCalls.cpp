@@ -13,7 +13,7 @@ CPHCallOnStepCondition::CPHCallOnStepCondition()
 		set_step(0);
 }
 
-IC bool CPHCallOnStepCondition::time_out() const
+inline bool CPHCallOnStepCondition::time_out() const
 {
 	return physics_world()->StepsNum() > m_step;
 }

@@ -52,8 +52,8 @@ public:
     void clear() { erase(begin(), end()); }
     void clear_and_free() { std::vector<T>::clear(); }
     void clear_not_free() { erase(begin(), end()); }
-    ICF const_reference operator[] (size_type _Pos) const { {VERIFY(_Pos < size()); } return (*(begin() + _Pos)); }
-    ICF reference operator[] (size_type _Pos) { {VERIFY(_Pos < size()); } return (*(begin() + _Pos)); }
+    inline const_reference operator[] (size_type _Pos) const { {VERIFY(_Pos < size()); } return (*(begin() + _Pos)); }
+    inline reference operator[] (size_type _Pos) { {VERIFY(_Pos < size()); } return (*(begin() + _Pos)); }
 };
 
 template <>
@@ -168,6 +168,7 @@ namespace std
 // string(char)
 typedef std::basic_string<char, std::char_traits<char>, xalloc<char>> xr_string;
 
+#include <vector>
 // vector
 template <typename T, typename allocator = xalloc<T>>
 class xr_vector : public std::vector<T, allocator>
@@ -406,12 +407,12 @@ inline std::pair<_Ty1, _Ty2> mk_pair(_Ty1 _Val1, _Ty2 _Val2) { return (std::pair
 
 struct pred_str
 {
-	IC bool operator()(const char* x, const char* y) const { return xr_strcmp(x, y) < 0; }
+	inline bool operator()(const char* x, const char* y) const { return xr_strcmp(x, y) < 0; }
 };
 
 struct pred_stri
 {
-	IC bool operator()(const char* x, const char* y) const { return _stricmp(x, y) < 0; }
+	inline bool operator()(const char* x, const char* y) const { return _stricmp(x, y) < 0; }
 };
 
 // STL extensions
@@ -446,7 +447,7 @@ DEFINE_VECTOR(Fvector, FvectorVec, FvectorIt);
 DEFINE_VECTOR(Fvector*, LPFvectorVec, LPFvectorIt);
 DEFINE_VECTOR(Fcolor, FcolorVec, FcolorIt);
 DEFINE_VECTOR(Fcolor*, LPFcolorVec, LPFcolorIt);
-DEFINE_VECTOR(LPSTR, LPSTRVec, LPSTRIt);
+DEFINE_VECTOR(char *, LPSTRVec, LPSTRIt);
 DEFINE_VECTOR(LPCSTR, LPCSTRVec, LPCSTRIt);
 DEFINE_VECTOR(string64, string64Vec, string64It);
 DEFINE_VECTOR(xr_string, SStringVec, SStringVecIt);

@@ -14,8 +14,8 @@ class CPPEffectorDistance : public CPPEffectorController
 	float m_dist;
 public:
 	virtual void load(LPCSTR section);
-	IC void set_radius(float r) { m_radius = r; }
-	IC void set_current_dist(float dist) { m_dist = dist; }
+	inline void set_radius(float r) { m_radius = r; }
+	inline void set_current_dist(float dist) { m_dist = dist; }
 
 	virtual bool check_completion();
 	virtual bool check_start_conditions();

@@ -38,14 +38,14 @@ private:
 	actor_mp_state m_state;
 
 private:
-	IC bool check(const int& flag) const;
+	inline bool check(const int& flag) const;
 
 public:
-	IC actor_mp_state_holder();
+	inline actor_mp_state_holder();
 	void write(NET_Packet& packet);
 	void read(NET_Packet& packet);
 	bool relevant(const actor_mp_state& state);
-	IC const actor_mp_state& state() const;
+	inline const actor_mp_state& state() const;
 };
 
 #include "actor_mp_state_inline.h"

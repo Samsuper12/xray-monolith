@@ -24,25 +24,25 @@ private:
 
 public:
 	void init_external(CBaseMonster* obj) { m_object = obj; }
-	IC void load(LPCSTR section);
+	inline void load(LPCSTR section);
 
 	// инициализировано состояние атаки
-	IC void init_attack();
+	inline void init_attack();
 	void on_hit_attempt(bool hit_success);
 
 	// Получить расстояние от fire_bone до врага
 	// Выполнить RayQuery от fire_bone в enemy.center
 	float distance_to_enemy(const CEntityAlive* enemy);
 
-	IC float get_min_distance();
-	IC float get_max_distance();
+	inline float get_min_distance();
+	inline float get_max_distance();
 
 	bool can_start_melee(const CEntityAlive* enemy);
 	bool should_stop_melee(const CEntityAlive* enemy);
 
 #ifdef DEBUG
-	IC		float	dbg_as_min_dist			(){return m_as_min_dist;}
-	IC		float	dbg_as_step				(){return m_as_step;}
+	inline		float	dbg_as_min_dist			(){return m_as_min_dist;}
+	inline		float	dbg_as_step				(){return m_as_step;}
 #endif
 };
 

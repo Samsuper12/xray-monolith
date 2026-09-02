@@ -98,10 +98,10 @@ public:
 	CUIGlobalMap(CUIMapWnd* pMapWnd);
 	virtual ~CUIGlobalMap();
 
-	IC void SetMinZoom(float zoom) { m_minZoom = zoom; }
-	IC float GetMinZoom() { return m_minZoom; }
-	IC float GetMaxZoom() { return m_max_zoom; }
-	IC void SetMaxZoom(float zoom) { m_max_zoom = zoom; }
+	inline void SetMinZoom(float zoom) { m_minZoom = zoom; }
+	inline float GetMinZoom() { return m_minZoom; }
+	inline float GetMaxZoom() { return m_max_zoom; }
+	inline void SetMaxZoom(float zoom) { m_max_zoom = zoom; }
 
 	virtual bool OnMouseAction(float x, float y, EUIMessages mouse_action);
 

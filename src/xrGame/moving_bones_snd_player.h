@@ -22,7 +22,7 @@ public:
 	void update(float time_delta, CGameObject& object);
 	void play(CGameObject& O);
 	void stop();
-	IC bool is_active()
+	inline bool is_active()
 	{
 		return true;/*!!sound._feedback();*/
 	}
@@ -34,7 +34,7 @@ private:
 
 extern moving_bones_snd_player* create_moving_bones_snd_player(CGameObject& O);
 
-IC bool is_active(moving_bones_snd_player* player)
+inline bool is_active(moving_bones_snd_player* player)
 {
 	return player && player->is_active();
 }

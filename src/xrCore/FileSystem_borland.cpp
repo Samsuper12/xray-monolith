@@ -14,8 +14,8 @@
 // #include <Shlobj.h>
 //#include "OSDialog.h"
 
-int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam,
-                                LPARAM lpData)
+int  BrowseCallbackProc(void* hWnd, uint32_t uMsg, intptr_t lParam,
+                                intptr_t lpData)
 {
 	stub_unix(__func__);
 	// if (uMsg == BFFM_INITIALIZED)
@@ -32,12 +32,12 @@ bool EFS_Utils::GetOpenName(LPCSTR initial, xr_string& buffer, bool bMulti, LPCS
 	// /*
 	// char* g_SHBF_Folder =("C:\\Program Files");
 	// TCHAR path[_MAX_PATH];
-	// BROWSEINFO info={NULL,NULL,path,"title",BIF_USENEWUI,BrowseCallbackProc, (LPARAM)g_SHBF_Folder };
+	// BROWSEINFO info={NULL,NULL,path,"title",BIF_USENEWUI,BrowseCallbackProc, (intptr_t)g_SHBF_Folder };
 	// SHBrowseForFolder (&info);
 	// */
 	// /*
 	//  {
-	//  HANDLE hDialog = OSDInit(true, "SDITEST", 0, 0, 0, 0, 0, 0);
+	//  void* hDialog = OSDInit(true, "SDITEST", 0, 0, 0, 0, 0, 0);
 	//  if(hDialog)
 	//  {
 	//  OSDRET osResult=OSDDoModal(hDialog, 0);

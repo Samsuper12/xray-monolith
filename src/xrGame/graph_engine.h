@@ -54,7 +54,7 @@ struct CVertexManagerFixed;
 
 namespace hash_fixed_vertex_manager
 {
-	IC u32 to_u32(GraphEngineSpace::CWorldState const& other)
+	inline u32 to_u32(GraphEngineSpace::CWorldState const& other)
 	{
 		return (other.hash_value());
 	}
@@ -132,17 +132,17 @@ public:
 
 public:
 
-	IC CGraphEngine(u32 max_vertex_count);
+	inline CGraphEngine(u32 max_vertex_count);
 	virtual ~CGraphEngine();
 #ifndef AI_COMPILER
-	IC const CSolverAlgorithm& solver_algorithm() const;
+	inline const CSolverAlgorithm& solver_algorithm() const;
 #endif // AI_COMPILER
 
 	template <
 		typename _Graph,
 		typename _Parameters
 	>
-	IC bool search(
+	inline bool search(
 		const _Graph& graph,
 		const shared_str& start_node,
 		const shared_str& dest_node,
@@ -154,7 +154,7 @@ public:
 		typename _Graph,
 		typename _Parameters
 	>
-	IC bool search(
+	inline bool search(
 		const _Graph& graph,
 		const _index_type& start_node,
 		const _index_type& dest_node,
@@ -166,7 +166,7 @@ public:
 		typename _Graph,
 		typename _Parameters
 	>
-	IC bool search(
+	inline bool search(
 		const _Graph& graph,
 		const _index_type& start_node,
 		const _index_type& dest_node,
@@ -179,7 +179,7 @@ public:
 		typename _Parameters,
 		typename _PathManager
 	>
-	IC bool search(
+	inline bool search(
 		const _Graph& graph,
 		const _index_type& start_node,
 		const _index_type& dest_node,
@@ -200,7 +200,7 @@ public:
 		typename T8,
 		typename _Parameters
 	>
-	IC bool search(
+	inline bool search(
 		const CProblemSolver<
 			T1,
 			T2,

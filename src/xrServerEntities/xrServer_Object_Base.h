@@ -71,7 +71,7 @@ public:
 	};
 
 private:
-	LPSTR s_name_replace;
+	char * s_name_replace;
 
 public:
 	BOOL net_Ready;
@@ -156,14 +156,14 @@ public:
 	virtual bool __stdcall validate();
 	//
 
-	IC const Fvector& Position() const { return o_Position; };
+	inline const Fvector& Position() const { return o_Position; };
 	// we need this to prevent virtual inheritance :-(
 	virtual CSE_Abstract* base();
 	virtual const CSE_Abstract* base() const;
 	virtual CSE_Abstract* init();
 	virtual bool match_configuration() const { return true; }
 	// end of the virtual inheritance dependant code
-	IC int script_clsid() const
+	inline int script_clsid() const
 	{
 		VERIFY(m_script_clsid >= 0);
 		return (m_script_clsid);

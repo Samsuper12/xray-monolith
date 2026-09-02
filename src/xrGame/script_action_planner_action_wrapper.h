@@ -18,7 +18,7 @@ class CScriptActionPlannerActionWrapper : public CScriptActionPlannerAction, pub
 {
 	using inherited = CScriptActionPlannerAction;
 public:
-	IC CScriptActionPlannerActionWrapper(CScriptGameObject* object = 0, LPCSTR action_name = "");
+	inline CScriptActionPlannerActionWrapper(CScriptGameObject* object = 0, LPCSTR action_name = "");
 	virtual void setup(CScriptGameObject* object, CPropertyStorage* storage);
 	static void setup_static(CScriptActionPlannerAction* action, CScriptGameObject* object, CPropertyStorage* storage);
 	virtual void initialize();

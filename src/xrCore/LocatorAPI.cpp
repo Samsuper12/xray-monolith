@@ -272,7 +272,7 @@ IReader* open_chunk(std::fs::path path, u32 ID)
 			file.read(reinterpret_cast<char*>(data), size);
 
 			if (type & CFS_CompressMark) {
-				BYTE* dest;
+				unsigned char* dest;
 				unsigned dest_sz;
 				_decompressLZ(&dest, &dest_sz, data, size);
 				xr_free(data);
@@ -463,10 +463,6 @@ bool CLocatorAPI::load_all_unloaded_archives()
 	return res;
 }
 
-IC bool pred_str_ff(const _finddata_t& x, const _finddata_t& y)
-{
-	return xr_strcmp(x.name, y.name) < 0;
-}
 
 bool CLocatorAPI::Recurse(std::fs::path path)
 {
@@ -714,7 +710,7 @@ void CLocatorAPI::_destroy()
 	m_files.clear();
 	for (PathPairIt p_it = pathes.begin(); p_it != pathes.end(); p_it++)
 	{
-		char* str = LPSTR(p_it->first);
+		char* str = (char *)(p_it->first);
 		xr_free(str);
 		xr_delete(p_it->second);
 	}
@@ -824,7 +820,7 @@ std::vector<CLocatorAPI::file> CLocatorAPI::file_list_open_impl(const std::strin
 	return dest;
 }
 
-void CLocatorAPI::check_cached_files(LPSTR fname, const u32& fname_size, const file& desc, LPCSTR& source_name)
+void CLocatorAPI::check_cached_files(char * fname, const u32& fname_size, const file& desc, LPCSTR& source_name)
 {
 	PROF_EVENT();
 	string_path fname_copy;
@@ -893,7 +889,7 @@ void CLocatorAPI::check_cached_files(LPSTR fname, const u32& fname_size, const f
 	xr_strcpy(fname, fname_size, fname_in_cache);
 }
 
-void CLocatorAPI::file_from_cache_impl(IReader*& R, LPSTR fname, const file& desc)
+void CLocatorAPI::file_from_cache_impl(IReader*& R, char * fname, const file& desc)
 {
 	if (desc.size_real < 16 * 1024)
 	{
@@ -904,7 +900,7 @@ void CLocatorAPI::file_from_cache_impl(IReader*& R, LPSTR fname, const file& des
 	R = xr_new<CVirtualFileReader>(fname);
 }
 
-void CLocatorAPI::file_from_cache_impl(CStreamReader*& R, LPSTR fname, const file& desc)
+void CLocatorAPI::file_from_cache_impl(CStreamReader*& R, char * fname, const file& desc)
 {
 	PROF_EVENT();
 	CFileStreamReader* r = xr_new<CFileStreamReader>();
@@ -913,7 +909,7 @@ void CLocatorAPI::file_from_cache_impl(CStreamReader*& R, LPSTR fname, const fil
 }
 
 template <typename T>
-void CLocatorAPI::file_from_cache(T*& R, LPSTR fname, const u32& fname_size, const file& desc, LPCSTR& source_name)
+void CLocatorAPI::file_from_cache(T*& R, char * fname, const u32& fname_size, const file& desc, LPCSTR& source_name)
 {
 #ifdef DEBUG
     if (m_Flags.is(flCacheFiles))
@@ -1402,10 +1398,10 @@ void CLocatorAPI::set_file_age(LPCSTR nm, u32 age)
 	check_pathes();
 
 	// set file
-	_utimbuf tm;
-	tm.actime = age;
-	tm.modtime = age;
-	int res = _utime(nm, &tm);
+	// _utimbuf tm;
+	// tm.actime = age;
+	// tm.modtime = age;
+	int res = 0;// _utime(nm, &tm);
 	if (0 != res)
 	{
 		//FIXME:

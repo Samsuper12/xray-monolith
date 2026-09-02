@@ -12,14 +12,14 @@ namespace FVF
 	{
 		Fvector p;
 		u32 color;
-		IC void set(const L& src) { *this = src; };
-		IC void set(float x, float y, float z, u32 C)
+		inline void set(const L& src) { *this = src; };
+		inline void set(float x, float y, float z, u32 C)
 		{
 			p.set(x, y, z);
 			color = C;
 		}
 
-		IC void set(const Fvector& _p, u32 C)
+		inline void set(const Fvector& _p, u32 C)
 		{
 			p.set(_p);
 			color = C;
@@ -32,14 +32,14 @@ namespace FVF
 	{
 		Fvector p;
 		Fvector2 t;
-		IC void set(const V& src) { *this = src; };
-		IC void set(float x, float y, float z, float u, float v)
+		inline void set(const V& src) { *this = src; };
+		inline void set(float x, float y, float z, float u, float v)
 		{
 			p.set(x, y, z);
 			t.set(u, v);
 		}
 
-		IC void set(const Fvector& _p, float u, float v)
+		inline void set(const Fvector& _p, float u, float v)
 		{
 			p.set(_p);
 			t.set(u, v);
@@ -53,15 +53,15 @@ namespace FVF
 		Fvector p;
 		u32 color;
 		Fvector2 t;
-		IC void set(const LIT& src) { *this = src; };
-		IC void set(float x, float y, float z, u32 C, float u, float v)
+		inline void set(const LIT& src) { *this = src; };
+		inline void set(float x, float y, float z, u32 C, float u, float v)
 		{
 			p.set(x, y, z);
 			color = C;
 			t.set(u, v);
 		}
 
-		IC void set(const Fvector& _p, u32 C, float u, float v)
+		inline void set(const Fvector& _p, u32 C, float u, float v)
 		{
 			p.set(_p);
 			color = C;
@@ -75,24 +75,24 @@ namespace FVF
 	{
 		Fvector4 p;
 		u32 color;
-		IC void set(const TL0uv& src)
+		inline void set(const TL0uv& src)
 		{
 			*this = src;
 		};
-		IC void set(float x, float y, u32 c)
+		inline void set(float x, float y, u32 c)
 		{
 			set(x, y, .0001f, .9999f, c);
 		};
-		IC void set(int x, int y, u32 c)
+		inline void set(int x, int y, u32 c)
 		{
 			set(float(x), float(y), .0001f, .9999f, c);
 		};
-		IC void set(float x, float y, float z, float w, u32 c)
+		inline void set(float x, float y, float z, float w, u32 c)
 		{
 			p.set(x, y, z, w);
 			color = c;
 		};
-		IC void transform(const Fvector& v, const Fmatrix& matSet)
+		inline void transform(const Fvector& v, const Fmatrix& matSet)
 		{
 			// Transform it through the matrix set. Takes in mean projection.
 			// Finally, scale the vertices to screen coords.
@@ -112,30 +112,30 @@ namespace FVF
 		Fvector4 p;
 		u32 color;
 		Fvector2 uv;
-		IC void set(const TL& src)
+		inline void set(const TL& src)
 		{
 			*this = src;
 		};
-		IC void set(float x, float y, u32 c, Fvector2& t)
+		inline void set(float x, float y, u32 c, Fvector2& t)
 		{
 			set(x, y, .0001f, .9999f, c, t.x, t.y);
 		};
-		IC void set(float x, float y, u32 c, float u, float v)
+		inline void set(float x, float y, u32 c, float u, float v)
 		{
 			set(x, y, .0001f, .9999f, c, u, v);
 		};
-		IC void set(int x, int y, u32 c, float u, float v)
+		inline void set(int x, int y, u32 c, float u, float v)
 		{
 			set(float(x), float(y), .0001f, .9999f, c, u, v);
 		};
-		IC void set(float x, float y, float z, float w, u32 c, float u, float v)
+		inline void set(float x, float y, float z, float w, u32 c, float u, float v)
 		{
 			p.set(x, y, z, w);
 			color = c;
 			uv.x = u;
 			uv.y = v;
 		};
-		IC void transform(const Fvector& v, const Fmatrix& matSet)
+		inline void transform(const Fvector& v, const Fmatrix& matSet)
 		{
 			// Transform it through the matrix set. Takes in mean projection.
 			// Finally, scale the vertices to screen coords.
@@ -155,27 +155,27 @@ namespace FVF
 		Fvector4 p;
 		u32 color;
 		Fvector2 uv[2];
-		IC void set(const TL2uv& src)
+		inline void set(const TL2uv& src)
 		{
 			*this = src;
 		};
-		IC void set(float x, float y, u32 c, Fvector2& t0, Fvector2& t1)
+		inline void set(float x, float y, u32 c, Fvector2& t0, Fvector2& t1)
 		{
 			set(x, y, .0001f, .9999f, c, t0.x, t0.y, t1.x, t1.y);
 		};
-		IC void set(float x, float y, float z, float w, u32 c, Fvector2& t0, Fvector2& t1)
+		inline void set(float x, float y, float z, float w, u32 c, Fvector2& t0, Fvector2& t1)
 		{
 			set(x, y, z, w, c, t0.x, t0.y, t1.x, t1.y);
 		};
-		IC void set(float x, float y, u32 c, float u, float v, float u2, float v2)
+		inline void set(float x, float y, u32 c, float u, float v, float u2, float v2)
 		{
 			set(x, y, .0001f, .9999f, c, u, v, u2, v2);
 		};
-		IC void set(int x, int y, u32 c, float u, float v, float u2, float v2)
+		inline void set(int x, int y, u32 c, float u, float v, float u2, float v2)
 		{
 			set(float(x), float(y), .0001f, .9999f, c, u, v, u2, v2);
 		};
-		IC void set(float x, float y, float z, float w, u32 c, float u, float v, float u2, float v2)
+		inline void set(float x, float y, float z, float w, u32 c, float u, float v, float u2, float v2)
 		{
 			p.set(x, y, z, w);
 			color = c;
@@ -184,7 +184,7 @@ namespace FVF
 			uv[1].x = u2;
 			uv[1].y = v2;
 		};
-		IC void transform(const Fvector& v, const Fmatrix& matSet)
+		inline void transform(const Fvector& v, const Fmatrix& matSet)
 		{
 			// Transform it through the matrix set. Takes in mean projection.
 			// Finally, scale the vertices to screen coords.
@@ -204,27 +204,27 @@ namespace FVF
 		Fvector4 p;
 		u32 color;
 		Fvector2 uv[4];
-		IC void set(const TL4uv& src)
+		inline void set(const TL4uv& src)
 		{
 			*this = src;
 		};
-		IC void set(float x, float y, u32 c, Fvector2& t0, Fvector2& t1)
+		inline void set(float x, float y, u32 c, Fvector2& t0, Fvector2& t1)
 		{
 			set(x, y, .0001f, .9999f, c, t0.x, t0.y, t1.x, t1.y);
 		};
-		IC void set(float x, float y, float z, float w, u32 c, Fvector2& t0, Fvector2& t1)
+		inline void set(float x, float y, float z, float w, u32 c, Fvector2& t0, Fvector2& t1)
 		{
 			set(x, y, z, w, c, t0.x, t0.y, t1.x, t1.y);
 		};
-		IC void set(float x, float y, u32 c, float u, float v, float u2, float v2)
+		inline void set(float x, float y, u32 c, float u, float v, float u2, float v2)
 		{
 			set(x, y, .0001f, .9999f, c, u, v, u2, v2);
 		};
-		IC void set(int x, int y, u32 c, float u, float v, float u2, float v2)
+		inline void set(int x, int y, u32 c, float u, float v, float u2, float v2)
 		{
 			set(float(x), float(y), .0001f, .9999f, c, u, v, u2, v2);
 		};
-		IC void set(float x, float y, float z, float w, u32 c, float u, float v, float u2, float v2)
+		inline void set(float x, float y, float z, float w, u32 c, float u, float v, float u2, float v2)
 		{
 			p.set(x, y, z, w);
 			color = c;

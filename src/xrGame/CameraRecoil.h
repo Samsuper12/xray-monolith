@@ -38,7 +38,7 @@ struct CameraRecoil
 
 	CameraRecoil(const CameraRecoil& clone) { Clone(clone); }
 
-	IC void Clone(const CameraRecoil& clone)
+	inline void Clone(const CameraRecoil& clone)
 	{
 		// *this = clone;
 		RelaxSpeed = clone.RelaxSpeed;

@@ -1,5 +1,5 @@
 #pragma once
-IC float clamp_rotation(Fquaternion& q, float v)
+inline float clamp_rotation(Fquaternion& q, float v)
 {
 	float angl;
 	Fvector ax;
@@ -14,7 +14,7 @@ IC float clamp_rotation(Fquaternion& q, float v)
 	return abs_angl;
 }
 
-IC float clamp_rotation(Fmatrix& m, float v)
+inline float clamp_rotation(Fmatrix& m, float v)
 {
 	Fquaternion q;
 	q.set(m);
@@ -25,14 +25,14 @@ IC float clamp_rotation(Fmatrix& m, float v)
 	return r;
 }
 
-IC void get_axis_angle(const Fmatrix& m, Fvector& ax, float& angl)
+inline void get_axis_angle(const Fmatrix& m, Fvector& ax, float& angl)
 {
 	Fquaternion q;
 	q.set(m);
 	q.get_axis_angle(ax, angl);
 }
 
-IC bool clamp_change(Fmatrix& m, const Fmatrix& start, float ml, float ma, float tl, float ta)
+inline bool clamp_change(Fmatrix& m, const Fmatrix& start, float ml, float ma, float tl, float ta)
 {
 	Fmatrix diff;
 	diff.mul_43(Fmatrix().invert(start), m);
@@ -50,7 +50,7 @@ IC bool clamp_change(Fmatrix& m, const Fmatrix& start, float ml, float ma, float
 	return ret;
 }
 
-IC void get_diff_value(const Fmatrix& m0, const Fmatrix& m1, float& l, float& a)
+inline void get_diff_value(const Fmatrix& m0, const Fmatrix& m1, float& l, float& a)
 {
 	Fmatrix diff;
 	diff.mul_43(Fmatrix().invert(m1), m0);
@@ -60,7 +60,7 @@ IC void get_diff_value(const Fmatrix& m0, const Fmatrix& m1, float& l, float& a)
 	a = _abs(a);
 }
 
-IC void cmp_matrix(bool& eq_linear, bool& eq_angular, const Fmatrix& m0, const Fmatrix& m1, float tl, float ta)
+inline void cmp_matrix(bool& eq_linear, bool& eq_angular, const Fmatrix& m0, const Fmatrix& m1, float tl, float ta)
 {
 	float l, a;
 	get_diff_value(m0, m1, l, a);
@@ -68,14 +68,14 @@ IC void cmp_matrix(bool& eq_linear, bool& eq_angular, const Fmatrix& m0, const F
 	eq_angular = a < ta;
 }
 
-IC bool cmp_matrix(const Fmatrix& m0, const Fmatrix& m1, float tl, float ta)
+inline bool cmp_matrix(const Fmatrix& m0, const Fmatrix& m1, float tl, float ta)
 {
 	bool l = false, a = false;
 	cmp_matrix(l, a, m0, m1, tl, ta);
 	return l && a;
 }
 
-IC void angular_diff(Fvector& aw, const Fmatrix& diff, float dt)
+inline void angular_diff(Fvector& aw, const Fmatrix& diff, float dt)
 {
 	aw.set((diff._32 - diff._23) / 2.f / dt,
 	       (diff._13 - diff._31) / 2.f / dt,
@@ -83,23 +83,23 @@ IC void angular_diff(Fvector& aw, const Fmatrix& diff, float dt)
 	);
 }
 
-IC void linear_diff(Fvector& lv, const Fvector& diff, float dt)
+inline void linear_diff(Fvector& lv, const Fvector& diff, float dt)
 {
 	lv.mul(diff, (1.f / dt));
 }
 
-IC void linear_diff(Fvector& lv, const Fvector& mc1, const Fvector& mc0, float dt)
+inline void linear_diff(Fvector& lv, const Fvector& mc1, const Fvector& mc0, float dt)
 {
 	linear_diff(lv, Fvector().sub(mc1, mc0), dt);
 }
 
-IC void matrix_diff(Fvector& lv, Fvector& aw, const Fmatrix& diff, float dt)
+inline void matrix_diff(Fvector& lv, Fvector& aw, const Fmatrix& diff, float dt)
 {
 	angular_diff(aw, diff, dt);
 	linear_diff(lv, diff.c, dt);
 }
 
-IC void matrix_diff(Fvector& lv, Fvector& aw, const Fmatrix& m0, const Fmatrix& m1, float dt)
+inline void matrix_diff(Fvector& lv, Fvector& aw, const Fmatrix& m0, const Fmatrix& m1, float dt)
 {
 	matrix_diff(lv, aw, Fmatrix().mul_43(Fmatrix().invert(m0), m1), dt);
 }

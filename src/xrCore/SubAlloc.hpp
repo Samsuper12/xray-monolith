@@ -18,7 +18,7 @@ enum
 // #pragma pack(1)
 struct BLK_NODE
 {
-	DWORD Stamp;
+	uint32_t Stamp;
 	BLK_NODE* next;
 	BOOL avail() const { return (next != NULL); }
 
@@ -43,19 +43,19 @@ struct BLK_NODE
 
 struct MEM_BLK : public BLK_NODE
 {
-	DWORD NU;
+	uint32_t NU;
 } _PACK_ATTR;
 // #pragma pack()
 
-static BYTE Indx2Units[N_INDEXES], Units2Indx[128]; // constants
-static DWORD GlueCount, SubAllocatorSize = 0;
-static BYTE *HeapStart, *pText, *UnitsStart, *LoUnit, *HiUnit;
+static unsigned char Indx2Units[N_INDEXES], Units2Indx[128]; // constants
+static uint32_t GlueCount, SubAllocatorSize = 0;
+static unsigned char *HeapStart, *pText, *UnitsStart, *LoUnit, *HiUnit;
 
 inline void PrefetchData(void* Addr)
 {
 #if defined(_USE_PREFETCHING)
     #pragma warning(disable : 4189)
-	BYTE PrefetchByte = *(volatile BYTE*)Addr;
+	unsigned char PrefetchByte = *(volatile unsigned char*)Addr;
 #endif /* defined(_USE_PREFETCHING) */
 }
 
@@ -68,12 +68,12 @@ inline void BLK_NODE::insert(void* pv, int NU)
 	Stamp++;
 }
 
-inline UINT U2B(UINT NU) { return 8 * NU + 4 * NU; }
+inline uint32_t U2B(uint32_t NU) { return 8 * NU + 4 * NU; }
 
-inline void SplitBlock(void* pv, UINT OldIndx, UINT NewIndx)
+inline void SplitBlock(void* pv, uint32_t OldIndx, uint32_t NewIndx)
 {
-	UINT i, k, UDiff = Indx2Units[OldIndx] - Indx2Units[NewIndx];
-	BYTE* p = ((BYTE*)pv) + U2B(Indx2Units[NewIndx]);
+	uint32_t i, k, UDiff = Indx2Units[OldIndx] - Indx2Units[NewIndx];
+	unsigned char* p = ((unsigned char*)pv) + U2B(Indx2Units[NewIndx]);
 	if (Indx2Units[i = Units2Indx[UDiff - 1]] != UDiff)
 	{
 		k = Indx2Units[--i];
@@ -84,9 +84,9 @@ inline void SplitBlock(void* pv, UINT OldIndx, UINT NewIndx)
 	BList[Units2Indx[UDiff - 1]].insert(p, UDiff);
 }
 
-DWORD _STDCALL GetUsedMemory()
+uint32_t _STDCALL GetUsedMemory()
 {
-	DWORD i, RetVal = SubAllocatorSize - (DWORD)(HiUnit - LoUnit) - (DWORD)(UnitsStart - pText);
+	uint32_t i, RetVal = SubAllocatorSize - (uint32_t)(HiUnit - LoUnit) - (uint32_t)(UnitsStart - pText);
 	for (i = 0; i < N_INDEXES; i++)
 		RetVal -= UNIT_SIZE * Indx2Units[i] * BList[i].Stamp;
 	return RetVal;
@@ -101,12 +101,12 @@ void _STDCALL StopSubAllocator()
 	}
 }
 
-BOOL _STDCALL StartSubAllocator(UINT SASize)
+BOOL _STDCALL StartSubAllocator(uint32_t SASize)
 {
-	DWORD t = SASize << 20U;
+	uint32_t t = SASize << 20U;
 	if (SubAllocatorSize == t) return TRUE;
 	StopSubAllocator();
-	if ((HeapStart = new BYTE[t]) == NULL) return FALSE;
+	if ((HeapStart = new unsigned char[t]) == NULL) return FALSE;
 	SubAllocatorSize = t;
 	return TRUE;
 }
@@ -115,14 +115,14 @@ static inline void InitSubAllocator()
 {
 	memset(BList, 0, sizeof(BList));
 	HiUnit = (pText = HeapStart) + SubAllocatorSize;
-	UINT Diff = UNIT_SIZE * (SubAllocatorSize / 8 / UNIT_SIZE * 7);
+	uint32_t Diff = UNIT_SIZE * (SubAllocatorSize / 8 / UNIT_SIZE * 7);
 	LoUnit = UnitsStart = HiUnit - Diff;
 	GlueCount = 0;
 }
 
 static void GlueFreeBlocks()
 {
-	UINT i, k, sz;
+	uint32_t i, k, sz;
 	MEM_BLK s0, *p, *p0, *p1;
 	if (LoUnit != HiUnit) *LoUnit = 0;
 	for (i = 0, (p0 = &s0)->next = NULL; i < N_INDEXES; i++)
@@ -155,9 +155,9 @@ static void GlueFreeBlocks()
 	GlueCount = 1 << 13;
 }
 
-static void* _STDCALL AllocUnitsRare(UINT indx)
+static void* _STDCALL AllocUnitsRare(uint32_t indx)
 {
-	UINT i = indx;
+	uint32_t i = indx;
 	if (!GlueCount)
 	{
 		GlueFreeBlocks();
@@ -178,9 +178,9 @@ static void* _STDCALL AllocUnitsRare(UINT indx)
 	return RetVal;
 }
 
-inline void* AllocUnits(UINT NU)
+inline void* AllocUnits(uint32_t NU)
 {
-	UINT indx = Units2Indx[NU - 1];
+	uint32_t indx = Units2Indx[NU - 1];
 	if (BList[indx].avail()) return BList[indx].remove();
 	void* RetVal = LoUnit;
 	LoUnit += U2B(Indx2Units[indx]);
@@ -196,9 +196,9 @@ inline void* AllocContext()
 	else return AllocUnitsRare(0);
 }
 
-inline void UnitsCpy(void* Dest, void* Src, UINT NU)
+inline void UnitsCpy(void* Dest, void* Src, uint32_t NU)
 {
-	DWORD *p1 = (DWORD*)Dest, *p2 = (DWORD*)Src;
+	uint32_t *p1 = (uint32_t*)Dest, *p2 = (uint32_t*)Src;
 	do
 	{
 		p1[0] = p2[0];
@@ -210,9 +210,9 @@ inline void UnitsCpy(void* Dest, void* Src, UINT NU)
 	while (--NU);
 }
 
-inline void* ExpandUnits(void* OldPtr, UINT OldNU)
+inline void* ExpandUnits(void* OldPtr, uint32_t OldNU)
 {
-	UINT i0 = Units2Indx[OldNU - 1], i1 = Units2Indx[OldNU - 1 + 1];
+	uint32_t i0 = Units2Indx[OldNU - 1], i1 = Units2Indx[OldNU - 1 + 1];
 	if (i0 == i1) return OldPtr;
 	void* ptr = AllocUnits(OldNU + 1);
 	if (ptr)
@@ -223,9 +223,9 @@ inline void* ExpandUnits(void* OldPtr, UINT OldNU)
 	return ptr;
 }
 
-inline void* ShrinkUnits(void* OldPtr, UINT OldNU, UINT NewNU)
+inline void* ShrinkUnits(void* OldPtr, uint32_t OldNU, uint32_t NewNU)
 {
-	UINT i0 = Units2Indx[OldNU - 1], i1 = Units2Indx[NewNU - 1];
+	uint32_t i0 = Units2Indx[OldNU - 1], i1 = Units2Indx[NewNU - 1];
 	if (i0 == i1) return OldPtr;
 	if (BList[i1].avail())
 	{
@@ -241,31 +241,31 @@ inline void* ShrinkUnits(void* OldPtr, UINT OldNU, UINT NewNU)
 	}
 }
 
-inline void FreeUnits(void* ptr, UINT NU)
+inline void FreeUnits(void* ptr, uint32_t NU)
 {
-	UINT indx = Units2Indx[NU - 1];
+	uint32_t indx = Units2Indx[NU - 1];
 	BList[indx].insert(ptr, Indx2Units[indx]);
 }
 
 inline void SpecialFreeUnit(void* ptr)
 {
-	if ((BYTE*)ptr != UnitsStart) BList->insert(ptr, 1);
+	if ((unsigned char*)ptr != UnitsStart) BList->insert(ptr, 1);
 	else
 	{
-		*(DWORD*)ptr = ~0UL;
+		*(uint32_t*)ptr = ~0UL;
 		UnitsStart += UNIT_SIZE;
 	}
 }
 
-inline void* MoveUnitsUp(void* OldPtr, UINT NU)
+inline void* MoveUnitsUp(void* OldPtr, uint32_t NU)
 {
-	UINT indx = Units2Indx[NU - 1];
-	if ((BYTE*)OldPtr > UnitsStart + 16 * 1024 || (BLK_NODE*)OldPtr > BList[indx].next)
+	uint32_t indx = Units2Indx[NU - 1];
+	if ((unsigned char*)OldPtr > UnitsStart + 16 * 1024 || (BLK_NODE*)OldPtr > BList[indx].next)
 		return OldPtr;
 	void* ptr = BList[indx].remove();
 	UnitsCpy(ptr, OldPtr, NU);
 	NU = Indx2Units[indx];
-	if ((BYTE*)OldPtr != UnitsStart) BList[indx].insert(OldPtr, NU);
+	if ((unsigned char*)OldPtr != UnitsStart) BList[indx].insert(OldPtr, NU);
 	else UnitsStart += U2B(NU);
 	return ptr;
 }
@@ -273,16 +273,16 @@ inline void* MoveUnitsUp(void* OldPtr, UINT NU)
 static inline void ExpandTextArea()
 {
 	BLK_NODE* p;
-	UINT Count[N_INDEXES];
+	uint32_t Count[N_INDEXES];
 	memset(Count, 0, sizeof(Count));
 	while ((p = (BLK_NODE*)UnitsStart)->Stamp == ~0UL)
 	{
 		MEM_BLK* pm = (MEM_BLK*)p;
-		UnitsStart = (BYTE*)(pm + pm->NU);
+		UnitsStart = (unsigned char*)(pm + pm->NU);
 		Count[Units2Indx[pm->NU - 1]]++;
 		pm->Stamp = 0;
 	}
-	for (UINT i = 0; i < N_INDEXES; i++)
+	for (uint32_t i = 0; i < N_INDEXES; i++)
 		for (p = BList + i; Count[i] != 0; p = p->next)
 			while (!p->next->Stamp)
 			{

@@ -7,7 +7,7 @@ struct DXUT_GAMEPAD;
 #define DXUT_GAMEPAD_TRIGGER_THRESHOLD 30
 #define DXUT_MAX_CONTROLLERS 4 // XInput handles up to 4 controllers
 
-HRESULT DXUTGetGamepadState( DWORD dwPort,
+HRESULT DXUTGetGamepadState( uint32_t dwPort,
 DXUT_GAMEPAD* pGamePad,
 bool bThumbstickDeadZone,
 bool bSnapThumbstickToCardinals );
@@ -16,9 +16,9 @@ void set_vibration (u16 s1, u16 s2);
 struct DXUT_GAMEPAD
 {
 // From XINPUT_GAMEPAD
-WORD wButtons;
-BYTE bLeftTrigger;
-BYTE bRightTrigger;
+unsigned short wButtons;
+unsigned char bLeftTrigger;
+unsigned char bRightTrigger;
 SHORT sThumbLX;
 SHORT sThumbLY;
 SHORT sThumbRX;
@@ -38,12 +38,12 @@ float fThumbLY;
 
 // Records which buttons were pressed this frame.
 // These are only set on the first frame that the button is pressed
-WORD wPressedButtons;
+unsigned short wPressedButtons;
 bool bPressedLeftTrigger;
 bool bPressedRightTrigger;
 
 // Last state of the buttons
-WORD wLastButtons;
+unsigned short wLastButtons;
 bool bLastLeftTrigger;
 bool bLastRightTrigger;
 };

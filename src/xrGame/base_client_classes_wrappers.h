@@ -47,7 +47,7 @@ template <typename base, typename luabind_base = Loki::EmptyType>
 class DLL_PureWrapper : public heritage<base, luabind_base>::result
 {
 public:
-	IC DLL_PureWrapper()
+	inline DLL_PureWrapper()
 	{
 	};
 
@@ -72,7 +72,7 @@ typedef DLL_PureWrapper<DLL_Pure, ::luabind::wrap_base> CDLL_PureWrapper;
 template <typename base, typename luabind_base = Loki::EmptyType>
 class ISpatialWrapper : public heritage<base,luabind_base>::result {
 public:
-	IC						ISpatialWrapper				() {};
+	inline						ISpatialWrapper				() {};
 	virtual					~ISpatialWrapper			() {};
 	virtual	void			spatial_register			()
 	{
@@ -152,7 +152,7 @@ template <typename base, typename luabind_base = Loki::EmptyType>
 class ISheduledWrapper : public heritage<base, luabind_base>::result
 {
 public:
-	IC ISheduledWrapper()
+	inline ISheduledWrapper()
 	{
 	};
 
@@ -191,7 +191,7 @@ template <typename base, typename luabind_base = Loki::EmptyType>
 class IRenderableWrapper : public heritage<base, luabind_base>::result
 {
 public:
-	IC IRenderableWrapper()
+	inline IRenderableWrapper()
 	{
 	};
 
@@ -241,7 +241,7 @@ typedef IRenderableWrapper<IRenderable, ::luabind::wrap_base> CIRenderableWrappe
 
 //class CObjectWrapper : public CObjectIRenderable {
 //public:
-//	IC						CObjectWrapper		() {};
+//	inline						CObjectWrapper		() {};
 //	virtual					~CObjectWrapper		() {};
 ///**
 //	virtual BOOL			Ready				();
@@ -279,7 +279,7 @@ typedef IRenderableWrapper<CGameObjectISheduled> CGameObjectIRenderable;
 class CGameObjectWrapper : public CGameObjectIRenderable
 {
 public:
-	IC CGameObjectWrapper()
+	inline CGameObjectWrapper()
 	{
 	};
 
@@ -332,7 +332,7 @@ public:
 class CEntityWrapper : public CEntity, public ::luabind::wrap_base
 {
 public:
-	IC CEntityWrapper()
+	inline CEntityWrapper()
 	{
 	}
 

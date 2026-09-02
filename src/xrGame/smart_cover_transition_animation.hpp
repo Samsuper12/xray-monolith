@@ -32,11 +32,11 @@ namespace smart_cover
 				MonsterSpace::EBodyState const& body_state,
 				MonsterSpace::EMovementType const& movement_type
 			);
-			IC bool has_animation() const;
-			IC Fvector const& position() const;
-			IC shared_str const& animation_id() const;
-			IC MonsterSpace::EBodyState const& body_state() const;
-			IC MonsterSpace::EMovementType const& movement_type() const;
+			inline bool has_animation() const;
+			inline Fvector const& position() const;
+			inline shared_str const& animation_id() const;
+			inline MonsterSpace::EBodyState const& body_state() const;
+			inline MonsterSpace::EMovementType const& movement_type() const;
 		};
 	} // namespace transitions
 } // namespace smart_cover

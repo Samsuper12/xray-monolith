@@ -9,7 +9,7 @@ namespace CPU
 	XRCORE_API extern _processor_info ID;
 	XRCORE_API extern long long QPC();
 
-	IC long long GetCLK(void)
+	inline long long GetCLK(void)
 	{
 		return QPC();
 	}

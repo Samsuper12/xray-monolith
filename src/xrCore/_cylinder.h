@@ -15,7 +15,7 @@ public:
 	T m_height;
 	T m_radius;
 public:
-	IC SelfRef invalidate()
+	inline SelfRef invalidate()
 	{
 		m_center.set(0, 0, 0);
 		m_direction.set(0, 0, 0);
@@ -26,7 +26,7 @@ public:
 
 	enum ecode { cyl_cap, cyl_wall, cyl_none };
 
-	IC int intersect(const _vector3<T>& start, const _vector3<T>& dir, T afT[2], ecode code[2]) const
+	inline int intersect(const _vector3<T>& start, const _vector3<T>& dir, T afT[2], ecode code[2]) const
 	{
 		T fEpsilon = 1e-12f;
 
@@ -231,7 +231,7 @@ public:
 		fcv_forcedword = u32(-1)
 	};
 
-	IC ERP_Result intersect(const _vector3<T>& start, const _vector3<T>& dir, T& dist) const
+	inline ERP_Result intersect(const _vector3<T>& start, const _vector3<T>& dir, T& dist) const
 	{
 		T afT[2];
 		ecode code[2];

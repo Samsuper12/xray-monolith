@@ -10,17 +10,17 @@
 
 namespace smart_cover
 {
-	IC shared_str const& description::table_id() const
+	inline shared_str const& description::table_id() const
 	{
 		return (m_table_id);
 	}
 
-	IC description::Loopholes const& description::loopholes() const
+	inline description::Loopholes const& description::loopholes() const
 	{
 		return (m_loopholes);
 	}
 
-	IC description::TransitionGraph const& description::transitions() const
+	inline description::TransitionGraph const& description::transitions() const
 	{
 		return (m_transitions);
 	}

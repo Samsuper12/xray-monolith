@@ -719,7 +719,7 @@ void xrSASH::ReleaseEngine()
 //    VERIFY(m_bInited);
 //
 //    string2048 buf;
-//    int sz = _vsnprintf(buf, sizeof(buf) - 1, pszMsg, mark);
+//    int sz = vsnprintf(buf, sizeof(buf) - 1, pszMsg, mark);
 //    buf[sizeof(buf) - 1] = 0;
 //
 //    if (sz) Message(MessageType, buf);

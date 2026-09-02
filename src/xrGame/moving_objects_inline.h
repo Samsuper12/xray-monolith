@@ -9,7 +9,7 @@
 #ifndef MOVING_OBJECTS_INLINE_H
 #define MOVING_OBJECTS_INLINE_H
 
-IC const moving_objects::COLLISIONS& moving_objects::collisions() const
+inline const moving_objects::COLLISIONS& moving_objects::collisions() const
 {
 	return (m_previous_collisions);
 }

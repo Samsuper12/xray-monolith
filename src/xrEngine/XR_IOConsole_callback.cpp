@@ -101,7 +101,7 @@ void CConsole::Find_cmd_back() // DIK_TAB+shift
 		IConsole_Command& cc = *(it->second);
 		LPCSTR name_cmd = cc.Name();
 		u32 name_cmd_size = xr_strlen(name_cmd);
-		PSTR new_str = (PSTR)alloca((offset + name_cmd_size + 2) * sizeof(char));
+		char * new_str = (char *)alloca((offset + name_cmd_size + 2) * sizeof(char));
 
 		xr_strcpy(new_str, offset + name_cmd_size + 2, (b_ra) ? radmin_cmd_name : "");
 		xr_strcat(new_str, offset + name_cmd_size + 2, name_cmd);
@@ -175,13 +175,13 @@ void CConsole::Execute_cmd() // DIK_RETURN, DIK_NUMPADENTER
 		shared_str const& str = m_tips[m_select_tip].text;
 		if (m_tips_mode == 1)
 		{
-			LPSTR buf;
+			char * buf;
 			STRCONCAT(buf, str.c_str(), " ");
 			ec().set_edit(buf);
 		}
 		else if (m_tips_mode == 2)
 		{
-			LPSTR buf;
+			char * buf;
 			STRCONCAT(buf, m_cur_cmd.c_str(), " ", str.c_str());
 			ec().set_edit(buf);
 		}

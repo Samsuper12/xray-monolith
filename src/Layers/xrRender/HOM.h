@@ -47,7 +47,7 @@ public:
 	void Enable();
 
 	void __stdcall MT_RENDER();
-	ICF void MT_SYNC()
+	inline void MT_SYNC()
 	{
 		if (g_pGamePersistent->m_pMainMenu && g_pGamePersistent->m_pMainMenu->IsActive())
 			return;

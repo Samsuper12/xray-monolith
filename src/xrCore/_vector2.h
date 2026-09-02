@@ -2,6 +2,7 @@
 #define __V2D__
 
 #include "math_constants.h"
+#include <_types_own.h>
 
 template <class T>
 struct _vector2
@@ -14,154 +15,154 @@ public:
 public:
 	T x, y;
 
-	IC SelfRef set(float _u, float _v)
+	inline SelfRef set(float _u, float _v)
 	{
 		x = T(_u);
 		y = T(_v);
 		return *this;
 	}
 
-	IC SelfRef set(double _u, double _v)
+	inline SelfRef set(double _u, double _v)
 	{
 		x = T(_u);
 		y = T(_v);
 		return *this;
 	}
 
-	IC SelfRef set(int _u, int _v)
+	inline SelfRef set(int _u, int _v)
 	{
 		x = T(_u);
 		y = T(_v);
 		return *this;
 	}
 
-	IC SelfRef set(const Self& p)
+	inline SelfRef set(const Self& p)
 	{
 		x = p.x;
 		y = p.y;
 		return *this;
 	}
 
-	IC SelfRef abs(const Self& p)
+	inline SelfRef abs(const Self& p)
 	{
 		x = _abs(p.x);
 		y = _abs(p.y);
 		return *this;
 	}
 
-	IC SelfRef min(const Self& p)
+	inline SelfRef min(const Self& p)
 	{
 		x = _min(x, p.x);
 		y = _min(y, p.y);
 		return *this;
 	}
 
-	IC SelfRef min(T _x, T _y)
+	inline SelfRef min(T _x, T _y)
 	{
 		x = _min(x, _x);
 		y = _min(y, _y);
 		return *this;
 	}
 
-	IC SelfRef max(const Self& p)
+	inline SelfRef max(const Self& p)
 	{
 		x = _max(x, p.x);
 		y = _max(y, p.y);
 		return *this;
 	}
 
-	IC SelfRef max(T _x, T _y)
+	inline SelfRef max(T _x, T _y)
 	{
 		x = _max(x, _x);
 		y = _max(y, _y);
 		return *this;
 	}
 
-	IC SelfRef sub(const T p)
+	inline SelfRef sub(const T p)
 	{
 		x -= p;
 		y -= p;
 		return *this;
 	}
 
-	IC SelfRef sub(const Self& p)
+	inline SelfRef sub(const Self& p)
 	{
 		x -= p.x;
 		y -= p.y;
 		return *this;
 	}
 
-	IC SelfRef sub(const Self& p1, const Self& p2)
+	inline SelfRef sub(const Self& p1, const Self& p2)
 	{
 		x = p1.x - p2.x;
 		y = p1.y - p2.y;
 		return *this;
 	}
 
-	IC SelfRef sub(const Self& p, float d)
+	inline SelfRef sub(const Self& p, float d)
 	{
 		x = p.x - d;
 		y = p.y - d;
 		return *this;
 	}
 
-	IC SelfRef add(const T p)
+	inline SelfRef add(const T p)
 	{
 		x += p;
 		y += p;
 		return *this;
 	}
 
-	IC SelfRef add(const Self& p)
+	inline SelfRef add(const Self& p)
 	{
 		x += p.x;
 		y += p.y;
 		return *this;
 	}
 
-	IC SelfRef add(const Self& p1, const Self& p2)
+	inline SelfRef add(const Self& p1, const Self& p2)
 	{
 		x = p1.x + p2.x;
 		y = p1.y + p2.y;
 		return *this;
 	}
 
-	IC SelfRef add(const Self& p, float d)
+	inline SelfRef add(const Self& p, float d)
 	{
 		x = p.x + d;
 		y = p.y + d;
 		return *this;
 	}
 
-	IC SelfRef mul(const T s)
+	inline SelfRef mul(const T s)
 	{
 		x *= s;
 		y *= s;
 		return *this;
 	}
 
-	IC SelfRef mul(const Self& p)
+	inline SelfRef mul(const Self& p)
 	{
 		x *= p.x;
 		y *= p.y;
 		return *this;
 	}
 
-	IC SelfRef div(const T s)
+	inline SelfRef div(const T s)
 	{
 		x /= s;
 		y /= s;
 		return *this;
 	}
 
-	IC SelfRef div(const Self& p)
+	inline SelfRef div(const Self& p)
 	{
 		x /= p.x;
 		y /= p.y;
 		return *this;
 	}
 
-	IC SelfRef rot90(void)
+	inline SelfRef rot90(void)
 	{
 		float t = -x;
 		x = y;
@@ -169,16 +170,16 @@ public:
 		return *this;
 	}
 
-	IC SelfRef cross(const Self& D)
+	inline SelfRef cross(const Self& D)
 	{
 		x = D.y;
 		y = -D.x;
 		return *this;
 	}
 
-	IC T dot(Self& p) { return x * p.x + y * p.y; }
-	IC T dot(const Self& p) const { return x * p.x + y * p.y; }
-	IC SelfRef norm(void)
+	inline T dot(Self& p) { return x * p.x + y * p.y; }
+	inline T dot(const Self& p) const { return x * p.x + y * p.y; }
+	inline SelfRef norm(void)
 	{
 		float m = _sqrt(x * x + y * y);
 		x /= m;
@@ -186,7 +187,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef norm_safe(void)
+	inline SelfRef norm_safe(void)
 	{
 		float m = _sqrt(x * x + y * y);
 		if (m)
@@ -197,18 +198,18 @@ public:
 		return *this;
 	}
 
-	IC T distance_to(const Self& p) const { return _sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y)); }
-	IC T square_magnitude(void) const { return x * x + y * y; }
-	IC T magnitude(void) const { return _sqrt(square_magnitude()); }
+	inline T distance_to(const Self& p) const { return _sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y)); }
+	inline T square_magnitude(void) const { return x * x + y * y; }
+	inline T magnitude(void) const { return _sqrt(square_magnitude()); }
 
-	IC SelfRef mad(const Self& p, const Self& d, T r)
+	inline SelfRef mad(const Self& p, const Self& d, T r)
 	{
 		x = p.x + d.x * r;
 		y = p.y + d.y * r;
 		return *this;
 	}
 
-	IC Self Cross()
+	inline Self Cross()
 	{
 		// vector3 orthogonal to (x,y) is (y,-x)
 		Self kCross;
@@ -217,18 +218,18 @@ public:
 		return kCross;
 	}
 
-	IC bool similar(Self& p, T eu, T ev) const
+	inline bool similar(Self& p, T eu, T ev) const
 	{
 		return _abs(x - p.x) < eu && _abs(y - p.y) < ev;
 	}
 
-	IC bool similar(const Self& p, float E = EPS_L) const
+	inline bool similar(const Self& p, float E = EPS_L) const
 	{
 		return _abs(x - p.x) < E && _abs(y - p.y) < E;
 	};
 
 	// average arithmetic
-	IC SelfRef averageA(Self& p1, Self& p2)
+	inline SelfRef averageA(Self& p1, Self& p2)
 	{
 		x = (p1.x + p2.x) * .5f;
 		y = (p1.y + p2.y) * .5f;
@@ -236,7 +237,7 @@ public:
 	}
 
 	// average geometric
-	IC SelfRef averageG(Self& p1, Self& p2)
+	inline SelfRef averageG(Self& p1, Self& p2)
 	{
 		x = _sqrt(p1.x * p2.x);
 		y = _sqrt(p1.y * p2.y);
@@ -249,9 +250,9 @@ public:
 		return (T&)*(&x + i);
 	}
 
-	IC SelfRef normalize(void) { return norm(); }
-	IC SelfRef normalize_safe(void) { return norm_safe(); }
-	IC SelfRef normalize(const Self& v)
+	inline SelfRef normalize(void) { return norm(); }
+	inline SelfRef normalize_safe(void) { return norm_safe(); }
+	inline SelfRef normalize(const Self& v)
 	{
 		float m = _sqrt(v.x * v.x + v.y * v.y);
 		x = v.x / m;
@@ -259,7 +260,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef normalize_safe(const Self& v)
+	inline SelfRef normalize_safe(const Self& v)
 	{
 		float m = _sqrt(v.x * v.x + v.y * v.y);
 		if (m)
@@ -270,9 +271,9 @@ public:
 		return *this;
 	}
 
-	IC float dotproduct(const Self& p) const { return dot(p); }
-	IC float crossproduct(const Self& p) const { return y * p.x - x * p.y; }
-	IC float getH(void) const
+	inline float dotproduct(const Self& p) const { return dot(p); }
+	inline float crossproduct(const Self& p) const { return y * p.x - x * p.y; }
+	inline float getH(void) const
 	{
 		if (fis_zero(y))
 			if (fis_zero(x))

@@ -30,7 +30,7 @@ class CAnomalyDetector
 		{
 		}
 
-		IC bool operator()(const SAnomalyInfo& info)
+		inline bool operator()(const SAnomalyInfo& info)
 		{
 			return (info.time_registered + time_remember < Device.dwTimeGlobal);
 		}

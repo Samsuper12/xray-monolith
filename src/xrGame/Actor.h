@@ -344,10 +344,10 @@ public:
 		return *m_pActorEffector;
 	}
 
-	IC CCameraBase* cam_Active() { return cameras[cam_active]; }
-	IC CCameraBase* cam_FirstEye() { return cameras[eacFirstEye]; }
+	inline CCameraBase* cam_Active() { return cameras[cam_active]; }
+	inline CCameraBase* cam_FirstEye() { return cameras[eacFirstEye]; }
 	//Swartz: actor shadow
-	IC EActorCameras active_cam() { return cam_active; } //KD: need to know which cam active outside actor methods
+	inline EActorCameras active_cam() { return cam_active; } //KD: need to know which cam active outside actor methods
 	virtual void cam_Set(EActorCameras style); //Alundaio: made public
 	//-Swartz
 
@@ -682,7 +682,7 @@ public:
 	void set_input_external_handler(CActorInputHandler* handler);
 	bool input_external_handler_installed() const { return (m_input_external_handler != 0); }
 
-	IC void lock_accel_for(u32 time) { m_time_lock_accel = Device.dwTimeGlobal + time; }
+	inline void lock_accel_for(u32 time) { m_time_lock_accel = Device.dwTimeGlobal + time; }
 
 private:
 	CActorInputHandler* m_input_external_handler;
@@ -722,7 +722,7 @@ protected:
 	virtual CEntityConditionSimple* create_entity_condition(CEntityConditionSimple* ec);
 
 public:
-	IC CActorCondition& conditions() const;
+	inline CActorCondition& conditions() const;
 	virtual DLL_Pure* _construct();
 	virtual bool natural_weapon() const { return false; }
 	virtual bool natural_detector() const { return false; }
@@ -773,7 +773,7 @@ private:
 	CActorMemory* m_memory;
 
 public:
-	IC CActorMemory& memory() const
+	inline CActorMemory& memory() const
 	{
 		VERIFY(m_memory);
 		return (*m_memory);
@@ -781,7 +781,7 @@ public:
 
 	void OnDifficultyChanged();
 
-	IC float HitProbability() { return m_hit_probability; }
+	inline float HitProbability() { return m_hit_probability; }
 	virtual CVisualMemoryManager* visual_memory() const;
 
 	virtual BOOL BonePassBullet(int boneID);
@@ -796,7 +796,7 @@ private:
 	CLocationManager* m_location_manager;
 
 public:
-	IC const CLocationManager& locations() const
+	inline const CLocationManager& locations() const
 	{
 		VERIFY(m_location_manager);
 		return (*m_location_manager);
@@ -830,22 +830,22 @@ private:
 	bool m_inventory_disabled;
 	//static CPhysicsShell		*actor_camera_shell;
 
-	IC u32 get_state() const
+	inline u32 get_state() const
 	{
 		return this->mstate_real;
 	}
 
-	IC void set_state(u32 state)
+	inline void set_state(u32 state)
 	{
 		mstate_real = state;
 	}
 
-	IC u32 get_state_wishful() const
+	inline u32 get_state_wishful() const
 	{
 		return this->mstate_wishful;
 	}
 
-	IC void set_state_wishful(u32 state)
+	inline void set_state_wishful(u32 state)
 	{
 		mstate_wishful = state;
 	}
@@ -878,7 +878,7 @@ add_to_type_list(CActor)
 
 extern bool isActorAccelerated(u32 mstate, bool ZoomMode);
 
-IC CActorCondition& CActor::conditions() const
+inline CActorCondition& CActor::conditions() const
 {
 	VERIFY(m_entity_condition);
 	return (*m_entity_condition);

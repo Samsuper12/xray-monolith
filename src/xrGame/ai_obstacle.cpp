@@ -45,14 +45,14 @@ public:
 	AREA* m_area;
 	const CLevelGraph* m_level_graph;
 
-	IC merge_predicate(ai_obstacle* object, AREA& area)
+	inline merge_predicate(ai_obstacle* object, AREA& area)
 	{
 		m_object = object;
 		m_area = &area;
 		m_level_graph = &ai().level_graph();
 	}
 
-	IC void operator()(const CLevelGraph::CVertex& vertex) const
+	inline void operator()(const CLevelGraph::CVertex& vertex) const
 	{
 		u32 vertex_id = m_level_graph->vertex_id(&vertex);
 		if (!m_object->inside(vertex_id))
@@ -62,12 +62,12 @@ public:
 	}
 };
 
-IC Fvector construct_position(u32 level_vertex_id, float x, float z)
+inline Fvector construct_position(u32 level_vertex_id, float x, float z)
 {
 	return (Fvector().set(x, ai().level_graph().vertex_plane_y(level_vertex_id, x, z), z));
 }
 
-IC bool ai_obstacle::inside(const Fvector& position, const float& radius) const
+inline bool ai_obstacle::inside(const Fvector& position, const float& radius) const
 {
 	for (u32 i = 0; i < PLANE_COUNT; ++i)
 	{
@@ -77,7 +77,7 @@ IC bool ai_obstacle::inside(const Fvector& position, const float& radius) const
 	return (true);
 }
 
-IC bool ai_obstacle::inside(const Fvector& position, const float& radius, const float& increment,
+inline bool ai_obstacle::inside(const Fvector& position, const float& radius, const float& increment,
                             const u32 step_count) const
 {
 	Fvector temp = position;
@@ -89,7 +89,7 @@ IC bool ai_obstacle::inside(const Fvector& position, const float& radius, const 
 	return (false);
 }
 
-IC bool ai_obstacle::inside(const u32& vertex_id) const
+inline bool ai_obstacle::inside(const u32& vertex_id) const
 {
 	const Fvector& position = ai().level_graph().vertex_position(vertex_id);
 	float offset = ai().level_graph().header().cell_size() * .5f - EPS_L;

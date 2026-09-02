@@ -132,6 +132,8 @@ void clientdata_proxy::notify_admin(clientdata_event_t event_for_admin, char con
 
 void clientdata_proxy::save_proxy_screenshot()
 {
+	//FIXME:
+	stub_unix(__func__);
 	game_cl_mp* clgame = smart_cast<game_cl_mp*>(Level().game);
 	if (!clgame)
 		return;
@@ -148,9 +150,9 @@ void clientdata_proxy::save_proxy_screenshot()
 		          "nulldigest"
 	          )
 	);
-	SYSTEMTIME date_time;
-	GetLocalTime(&date_time);
-	clgame->generate_file_name(screenshot_fn, dest_file_name, date_time);
+	// SYSTEMTIME date_time;
+	// //GetLocalTime(&date_time);
+	// clgame->generate_file_name(screenshot_fn, dest_file_name, date_time);
 
 	clgame->decompress_and_save_screenshot(
 		screenshot_fn,
@@ -174,9 +176,9 @@ void clientdata_proxy::save_proxy_config()
 	          clgame->make_file_name(m_cheater_name.c_str(), config_fn),
 	          ".cltx");
 
-	SYSTEMTIME date_time;
-	GetLocalTime(&date_time);
-	clgame->generate_file_name(dest_file_name, fn_suffix, date_time);
+	//SYSTEMTIME date_time;
+	//GetLocalTime(&date_time);
+	//clgame->generate_file_name(dest_file_name, fn_suffix, date_time);
 	IWriter* tmp_writer = FS.w_open("$screenshots$", dest_file_name);
 	if (!tmp_writer)
 		return;

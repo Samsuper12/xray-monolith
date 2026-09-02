@@ -85,10 +85,10 @@ public:
 
 	virtual void renderable_Render();
 
-	IC CPolterSpecialAbility* ability() { return (m_flame ? m_flame : m_tele); }
+	inline CPolterSpecialAbility* ability() { return (m_flame ? m_flame : m_tele); }
 
 
-	IC bool is_hidden() { return state_invisible; }
+	inline bool is_hidden() { return state_invisible; }
 
 
 	// Poltergeist ability

@@ -10,6 +10,16 @@
 #ifndef __DIRECTPLAY8_H__
 #define __DIRECTPLAY8_H__
 
+#define STDMETHOD(method) HRESULT method
+typedef struct _GUID {
+  unsigned long Data1;
+  unsigned short Data2;
+  unsigned short Data3;
+  unsigned char Data4[8];
+} GUID;
+struct IUnknown {};
+
+
 //#include <ole2.h>	   // for DECLARE_INTERFACE_ and HRESULT
 
 #include <stdint.h>
@@ -513,7 +523,7 @@ typedef struct	_DPN_APPLICATION_DESC
 typedef struct	_BUFFERDESC
 {
 	DWORD	dwBufferSize;		
-	BYTE * 	pBufferData;		
+	unsigned char * 	pBufferData;		
 } BUFFERDESC, DPN_BUFFER_DESC, *PDPN_BUFFER_DESC;
 
 typedef BUFFERDESC	FAR * PBUFFERDESC;

@@ -72,8 +72,8 @@ public:
 	CFontManager& Font() { return *m_pFontManager; }
 	CUICursor& GetUICursor() { return *m_pUICursor; }
 
-	IC float ClientToScreenScaledX(float left) const { return left * m_current_scale->x; };
-	IC float ClientToScreenScaledY(float top) const { return top * m_current_scale->y; };
+	inline float ClientToScreenScaledX(float left) const { return left * m_current_scale->x; };
+	inline float ClientToScreenScaledY(float top) const { return top * m_current_scale->y; };
 	void ClientToScreenScaled(Fvector2& dest, float left, float top) const;
 	void ClientToScreenScaled(Fvector2& src_and_dest) const;
 	void ClientToScreenScaledWidth(float& src_and_dest) const;

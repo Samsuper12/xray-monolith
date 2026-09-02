@@ -1,12 +1,12 @@
 #pragma once
 
 //----------------------------------------------------------------------------
-IC MagicBox3::MagicBox3()
+inline MagicBox3::MagicBox3()
 {
 	// no initialization for efficiency
 }
 
-IC MagicBox3::MagicBox3(const Fmatrix& m, const Fvector& half_size)
+inline MagicBox3::MagicBox3(const Fmatrix& m, const Fvector& half_size)
 {
 	m_kCenter = m.c;
 	m_akAxis[0] = m.i;
@@ -18,65 +18,65 @@ IC MagicBox3::MagicBox3(const Fmatrix& m, const Fvector& half_size)
 }
 
 //----------------------------------------------------------------------------
-IC Fvector& MagicBox3::Center()
+inline Fvector& MagicBox3::Center()
 {
 	return m_kCenter;
 }
 
 //----------------------------------------------------------------------------
-IC const Fvector& MagicBox3::Center() const
+inline const Fvector& MagicBox3::Center() const
 {
 	return m_kCenter;
 }
 
 //----------------------------------------------------------------------------
-IC Fvector& MagicBox3::Axis(int i)
+inline Fvector& MagicBox3::Axis(int i)
 {
 	VERIFY(0 <= i && i < 3);
 	return m_akAxis[i];
 }
 
 //----------------------------------------------------------------------------
-IC const Fvector& MagicBox3::Axis(int i) const
+inline const Fvector& MagicBox3::Axis(int i) const
 {
 	VERIFY(0 <= i && i < 3);
 	return m_akAxis[i];
 }
 
 //----------------------------------------------------------------------------
-IC Fvector* MagicBox3::Axes()
+inline Fvector* MagicBox3::Axes()
 {
 	return m_akAxis;
 }
 
 //----------------------------------------------------------------------------
-IC const Fvector* MagicBox3::Axes() const
+inline const Fvector* MagicBox3::Axes() const
 {
 	return m_akAxis;
 }
 
 //----------------------------------------------------------------------------
-IC float& MagicBox3::Extent(int i)
+inline float& MagicBox3::Extent(int i)
 {
 	VERIFY(0 <= i && i < 3);
 	return m_afExtent[i];
 }
 
 //----------------------------------------------------------------------------
-IC const float& MagicBox3::Extent(int i) const
+inline const float& MagicBox3::Extent(int i) const
 {
 	VERIFY(0 <= i && i < 3);
 	return m_afExtent[i];
 }
 
 //----------------------------------------------------------------------------
-IC float* MagicBox3::Extents()
+inline float* MagicBox3::Extents()
 {
 	return m_afExtent;
 }
 
 //----------------------------------------------------------------------------
-IC const float* MagicBox3::Extents() const
+inline const float* MagicBox3::Extents() const
 {
 	return m_afExtent;
 }

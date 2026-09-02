@@ -54,7 +54,7 @@ Pixel get_pixel(Image* image, int x, int y)
 void get_row(Pixel* row, Image* image, int y)
 {
 	if ((y < 0) || (y >= image->ysize)) return;
-	CopyMemory(row, image->data + (y * image->span), (sizeof(Pixel) * image->xsize));
+	memcpy(row, image->data + (y * image->span), (sizeof(Pixel) * image->xsize));
 }
 
 void get_column(Pixel* column, Image* image, int x)

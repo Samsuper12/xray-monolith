@@ -51,14 +51,14 @@ private:
 
 
 protected:
-	IC bool edge_vertex(u32 index);
-	IC bool cover(LevelGraph::CVertex* v, u32 index0, u32 index1);
-	IC bool critical_point(LevelGraph::CVertex* v, u32 index, u32 index0, u32 index1);
-	IC bool critical_cover(u32 index);
+	inline bool edge_vertex(u32 index);
+	inline bool cover(LevelGraph::CVertex* v, u32 index0, u32 index1);
+	inline bool critical_point(LevelGraph::CVertex* v, u32 index, u32 index0, u32 index1);
+	inline bool critical_cover(u32 index);
 
 private:
 	template <typename _evaluator_type, typename _restrictor_type>
-	IC bool inertia(Fvector const& position, float radius, _evaluator_type& evaluator,
+	inline bool inertia(Fvector const& position, float radius, _evaluator_type& evaluator,
 	                const _restrictor_type& restrictor) const;
 
 	static void clear_covers(PointVector& covers);
@@ -69,18 +69,18 @@ public:
 	CCoverManager();
 	virtual ~CCoverManager();
 	void compute_static_cover();
-	IC CPointQuadTree& covers() const;
-	IC CPointQuadTree* get_covers();
-	IC Storage* smart_covers_storage() const;
+	inline CPointQuadTree& covers() const;
+	inline CPointQuadTree* get_covers();
+	inline Storage* smart_covers_storage() const;
 	void clear();
 	template <typename _evaluator_type, typename _restrictor_type>
-	IC const CCoverPoint* best_cover(const Fvector& position, float radius, _evaluator_type& evaluator,
+	inline const CCoverPoint* best_cover(const Fvector& position, float radius, _evaluator_type& evaluator,
 	                                 const _restrictor_type& restrictor) const;
 	template <typename _evaluator_type>
-	IC const CCoverPoint* best_cover(const Fvector& position, float radius, _evaluator_type& evaluator) const;
-	IC bool operator()(const CCoverPoint*) const;
-	IC float weight(const CCoverPoint*) const;
-	IC void finalize(const CCoverPoint*) const;
+	inline const CCoverPoint* best_cover(const Fvector& position, float radius, _evaluator_type& evaluator) const;
+	inline bool operator()(const CCoverPoint*) const;
+	inline float weight(const CCoverPoint*) const;
+	inline void finalize(const CCoverPoint*) const;
 	Cover const* add_smart_cover(LPCSTR table_name, smart_cover::object const& object, bool const& is_combat_cover,
 	                             bool const& can_fire, ::luabind::object const& loopholes) const;
 	Cover* smart_cover(shared_str const& cover_id) const;

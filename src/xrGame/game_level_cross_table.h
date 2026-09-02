@@ -42,11 +42,11 @@ public:
 		xrGUID m_game_guid;
 
 	public:
-		IC u32 version() const;
-		IC u32 level_vertex_count() const;
-		IC u32 game_vertex_count() const;
-		IC const xrGUID& level_guid() const;
-		IC const xrGUID& game_guid() const;
+		inline u32 version() const;
+		inline u32 level_vertex_count() const;
+		inline u32 game_vertex_count() const;
+		inline const xrGUID& level_guid() const;
+		inline const xrGUID& game_guid() const;
 
 #ifdef AI_COMPILER
 		friend class CLevelGameGraph;
@@ -61,8 +61,8 @@ public:
 		GameGraph::_GRAPH_ID tGraphIndex;
 		float fDistance;
 	public:
-		IC GameGraph::_GRAPH_ID game_vertex_id() const;
-		IC float distance() const;
+		inline GameGraph::_GRAPH_ID game_vertex_id() const;
+		inline float distance() const;
 #ifdef AI_COMPILER
 		friend class CLevelGameGraph;
 		friend class CCrossTableBuilder;
@@ -83,15 +83,15 @@ private:
 #endif // AI_COMPILER
 
 public:
-	IC CGameLevelCrossTable(const void* buffer, const u32& buffer_size);
+	inline CGameLevelCrossTable(const void* buffer, const u32& buffer_size);
 #ifdef AI_COMPILER
-	IC						CGameLevelCrossTable	(LPCSTR fName);
+	inline						CGameLevelCrossTable	(LPCSTR fName);
 #endif // AI_COMPILER
 
 public:
-	IC virtual ~CGameLevelCrossTable();
-	IC const CCell& vertex(u32 level_vertex_id) const;
-	IC const CHeader& header() const;
+	inline virtual ~CGameLevelCrossTable();
+	inline const CCell& vertex(u32 level_vertex_id) const;
+	inline const CHeader& header() const;
 };
 
 #include "game_level_cross_table_inline.h"

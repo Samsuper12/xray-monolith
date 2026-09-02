@@ -44,10 +44,10 @@ private:
 	virtual CRestrictedObject* create_restricted_object();
 
 public:
-	IC CRestrictedObjectObstacle& restricted_object() const;
+	inline CRestrictedObjectObstacle& restricted_object() const;
 
 private:
-	IC void remove_query_objects(const Fvector& position, const float& radius);
+	inline void remove_query_objects(const Fvector& position, const float& radius);
 	bool apply_border(const obstacles_query& query);
 	void remove_border(const obstacles_query& query);
 	void move_along_path_no_changes();

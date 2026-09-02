@@ -23,12 +23,12 @@ struct id_predicate
 	shared_str m_id;
 
 public:
-	IC id_predicate(shared_str const& id) :
+	inline id_predicate(shared_str const& id) :
 		m_id(id)
 	{
 	}
 
-	IC bool operator()(::description* const & ptr) const
+	inline bool operator()(::description* const & ptr) const
 	{
 		return (m_id._get() == ptr->table_id()._get());
 	}
@@ -68,7 +68,7 @@ void storage::collect_garbage()
 {
 	struct garbage
 	{
-		static IC bool predicate(::description* const & object)
+		static inline bool predicate(::description* const & object)
 		{
 			if (object->m_ref_count)
 				return (false);

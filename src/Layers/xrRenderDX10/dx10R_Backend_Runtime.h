@@ -5,14 +5,14 @@
 #include "StateManager/dx10StateManager.h"
 #include "StateManager/dx10ShaderResourceStateCache.h"
 
-IC void CBackend::set_xform(u32 ID, const Fmatrix& M)
+inline void CBackend::set_xform(u32 ID, const Fmatrix& M)
 {
 	stat.xforms ++;
 	//	TODO: DX10: Implement CBackend::set_xform
 	//VERIFY(!"Implement CBackend::set_xform");
 }
 
-IC void CBackend::set_RT(ID3DRenderTargetView* RT, u32 ID)
+inline void CBackend::set_RT(ID3DRenderTargetView* RT, u32 ID)
 {
 	if (RT != pRT[ID])
 	{
@@ -30,7 +30,7 @@ IC void CBackend::set_RT(ID3DRenderTargetView* RT, u32 ID)
 	}
 }
 
-IC void CBackend::set_ZB(ID3DDepthStencilView* ZB)
+inline void CBackend::set_ZB(ID3DDepthStencilView* ZB)
 {
 	if (ZB != pZB)
 	{
@@ -46,7 +46,7 @@ IC void CBackend::set_ZB(ID3DDepthStencilView* ZB)
 	}
 }
 
-ICF void CBackend::set_Format(SDeclaration* _decl)
+inline void CBackend::set_Format(SDeclaration* _decl)
 {
 	if (decl != _decl)
 	{
@@ -58,7 +58,7 @@ ICF void CBackend::set_Format(SDeclaration* _decl)
 	}
 }
 
-ICF void CBackend::set_PS(ID3DPixelShader* _ps, LPCSTR _n)
+inline void CBackend::set_PS(ID3DPixelShader* _ps, LPCSTR _n)
 {
 	if (ps != _ps)
 	{
@@ -77,7 +77,7 @@ ICF void CBackend::set_PS(ID3DPixelShader* _ps, LPCSTR _n)
 	}
 }
 
-ICF void CBackend::set_GS(ID3DGeometryShader* _gs, LPCSTR _n)
+inline void CBackend::set_GS(ID3DGeometryShader* _gs, LPCSTR _n)
 {
 	if (gs != _gs)
 	{
@@ -98,7 +98,7 @@ ICF void CBackend::set_GS(ID3DGeometryShader* _gs, LPCSTR _n)
 }
 
 #	ifdef USE_DX11
-ICF void CBackend::set_HS(ID3D11HullShader* _hs, LPCSTR _n)
+inline void CBackend::set_HS(ID3D11HullShader* _hs, LPCSTR _n)
 {
 	if (hs!=_hs)
 	{
@@ -114,7 +114,7 @@ ICF void CBackend::set_HS(ID3D11HullShader* _hs, LPCSTR _n)
 	}
 }
 
-ICF void CBackend::set_DS(ID3D11DomainShader* _ds, LPCSTR _n)
+inline void CBackend::set_DS(ID3D11DomainShader* _ds, LPCSTR _n)
 {
 	if (ds!=_ds)
 	{
@@ -130,7 +130,7 @@ ICF void CBackend::set_DS(ID3D11DomainShader* _ds, LPCSTR _n)
 	}
 }
 
-ICF void CBackend::set_CS(ID3D11ComputeShader* _cs, LPCSTR _n)
+inline void CBackend::set_CS(ID3D11ComputeShader* _cs, LPCSTR _n)
 {
 	if (cs!=_cs)
 	{
@@ -146,7 +146,7 @@ ICF void CBackend::set_CS(ID3D11ComputeShader* _cs, LPCSTR _n)
 	}
 }
 
-ICF	bool CBackend::is_TessEnabled()
+inline	bool CBackend::is_TessEnabled()
 {
 	return HW.FeatureLevel>=D3D_FEATURE_LEVEL_11_0 && (ds!=0 || hs!=0);
 }
@@ -154,7 +154,7 @@ ICF	bool CBackend::is_TessEnabled()
 #	endif
 
 
-ICF void CBackend::set_VS(ID3DVertexShader* _vs, LPCSTR _n)
+inline void CBackend::set_VS(ID3DVertexShader* _vs, LPCSTR _n)
 {
 	if (vs != _vs)
 	{
@@ -173,7 +173,7 @@ ICF void CBackend::set_VS(ID3DVertexShader* _vs, LPCSTR _n)
 	}
 }
 
-ICF void CBackend::set_Vertices(ID3DVertexBuffer* _vb, u32 _vb_stride)
+inline void CBackend::set_Vertices(ID3DVertexBuffer* _vb, u32 _vb_stride)
 {
 	if ((vb != _vb) || (vb_stride != _vb_stride))
 	{
@@ -199,7 +199,7 @@ ICF void CBackend::set_Vertices(ID3DVertexBuffer* _vb, u32 _vb_stride)
 	}
 }
 
-ICF void CBackend::set_Indices(ID3DIndexBuffer* _ib)
+inline void CBackend::set_Indices(ID3DIndexBuffer* _ib)
 {
 	if (ib != _ib)
 	{
@@ -212,7 +212,7 @@ ICF void CBackend::set_Indices(ID3DIndexBuffer* _ib)
 	}
 }
 
-IC D3D_PRIMITIVE_TOPOLOGY TranslateTopology(D3DPRIMITIVETYPE T)
+inline D3D_PRIMITIVE_TOPOLOGY TranslateTopology(D3DPRIMITIVETYPE T)
 {
 	static D3D_PRIMITIVE_TOPOLOGY translateTable[] =
 	{
@@ -235,7 +235,7 @@ IC D3D_PRIMITIVE_TOPOLOGY TranslateTopology(D3DPRIMITIVETYPE T)
 	return result;
 }
 
-IC u32 GetIndexCount(D3DPRIMITIVETYPE T, u32 iPrimitiveCount)
+inline u32 GetIndexCount(D3DPRIMITIVETYPE T, u32 iPrimitiveCount)
 {
 	switch (T)
 	{
@@ -256,7 +256,7 @@ IC u32 GetIndexCount(D3DPRIMITIVETYPE T, u32 iPrimitiveCount)
 	}
 }
 
-IC void CBackend::ApplyPrimitieTopology(D3D_PRIMITIVE_TOPOLOGY Topology)
+inline void CBackend::ApplyPrimitieTopology(D3D_PRIMITIVE_TOPOLOGY Topology)
 {
 	if (m_PrimitiveTopology != Topology)
 	{
@@ -266,7 +266,7 @@ IC void CBackend::ApplyPrimitieTopology(D3D_PRIMITIVE_TOPOLOGY Topology)
 }
 
 #ifdef USE_DX11
-IC void CBackend::Compute(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ)
+inline void CBackend::Compute(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ)
 {
 	stat.calls++;
 
@@ -278,7 +278,7 @@ IC void CBackend::Compute(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT T
 }
 #endif
 
-IC void CBackend::Render(D3DPRIMITIVETYPE T, u32 baseV, u32 startV, u32 countV, u32 startI, u32 PC)
+inline void CBackend::Render(D3DPRIMITIVETYPE T, u32 baseV, u32 startV, u32 countV, u32 startI, u32 PC)
 {
 	//VERIFY(vs);
 	//HW.pDevice->VSSetShader(vs);
@@ -327,7 +327,7 @@ IC void CBackend::Render(D3DPRIMITIVETYPE T, u32 baseV, u32 startV, u32 countV, 
 	PGO(Msg("PGO:DIP:%dv/%df",countV,PC));
 }
 
-IC void CBackend::Render(D3DPRIMITIVETYPE T, u32 startV, u32 PC)
+inline void CBackend::Render(D3DPRIMITIVETYPE T, u32 startV, u32 PC)
 {
 	//	TODO: DX10: Remove triangle fan usage from the engine
 	if (T == D3DPT_TRIANGLEFAN)
@@ -358,7 +358,7 @@ IC void CBackend::Render(D3DPRIMITIVETYPE T, u32 startV, u32 PC)
 	PGO(Msg("PGO:DIP:%dv/%df",3*PC,PC));
 }
 
-IC void CBackend::set_Geometry(SGeometry* _geom)
+inline void CBackend::set_Geometry(SGeometry* _geom)
 {
 	set_Format(&*_geom->dcl);
 
@@ -366,7 +366,7 @@ IC void CBackend::set_Geometry(SGeometry* _geom)
 	set_Indices(_geom->ib);
 }
 
-IC void CBackend::set_Scissor(Irect* R)
+inline void CBackend::set_Scissor(Irect* R)
 {
 	if (R)
 	{
@@ -383,7 +383,7 @@ IC void CBackend::set_Scissor(Irect* R)
 	}
 }
 
-IC void CBackend::set_Stencil(u32 _enable, u32 _func, u32 _ref, u32 _mask, u32 _writemask, u32 _fail, u32 _pass,
+inline void CBackend::set_Stencil(u32 _enable, u32 _func, u32 _ref, u32 _mask, u32 _writemask, u32 _fail, u32 _pass,
                               u32 _zfail)
 {
 	StateManager.SetStencil(_enable, _func, _ref, _mask, _writemask, _fail, _pass, _zfail);
@@ -399,7 +399,7 @@ IC void CBackend::set_Stencil(u32 _enable, u32 _func, u32 _ref, u32 _mask, u32 _
 	//if (stencil_zfail		!= _zfail)		{ stencil_zfail=_zfail;			CHK_DX(HW.pDevice->SetRenderState	( D3DRS_STENCILZFAIL,		_zfail				)); }
 }
 
-IC void CBackend::set_Z(u32 _enable)
+inline void CBackend::set_Z(u32 _enable)
 {
 	StateManager.SetDepthEnable(_enable);
 	//if (z_enable != _enable)
@@ -409,7 +409,7 @@ IC void CBackend::set_Z(u32 _enable)
 	//}
 }
 
-IC void CBackend::set_ZFunc(u32 _func)
+inline void CBackend::set_ZFunc(u32 _func)
 {
 	StateManager.SetDepthFunc(_func);
 	//if (z_func!=_func)
@@ -419,7 +419,7 @@ IC void CBackend::set_ZFunc(u32 _func)
 	//}
 }
 
-IC void CBackend::set_AlphaRef(u32 _value)
+inline void CBackend::set_AlphaRef(u32 _value)
 {
 	//	TODO: DX10: Implement rasterizer state update to support alpha ref
 	VERIFY(!"Not implemented.");
@@ -430,7 +430,7 @@ IC void CBackend::set_AlphaRef(u32 _value)
 	//}
 }
 
-IC void CBackend::set_ColorWriteEnable(u32 _mask)
+inline void CBackend::set_ColorWriteEnable(u32 _mask)
 {
 	StateManager.SetColorWriteEnable(_mask);
 	//if (colorwrite_mask		!= _mask)		{ 
@@ -442,18 +442,18 @@ IC void CBackend::set_ColorWriteEnable(u32 _mask)
 	//}
 }
 
-ICF void CBackend::set_FillMode(u32 _mode)
+inline void CBackend::set_FillMode(u32 _mode)
 {
 	StateManager.SetFillMode(_mode);
 }
 
-ICF void CBackend::set_CullMode(u32 _mode)
+inline void CBackend::set_CullMode(u32 _mode)
 {
 	StateManager.SetCullMode(_mode);
 	//if (cull_mode		!= _mode)		{ cull_mode = _mode;			CHK_DX(HW.pDevice->SetRenderState	( D3DRS_CULLMODE,			_mode				)); }
 }
 
-IC void CBackend::ApplyVertexLayout()
+inline void CBackend::ApplyVertexLayout()
 {
 	VERIFY(vs);
 	VERIFY(decl);
@@ -486,19 +486,19 @@ IC void CBackend::ApplyVertexLayout()
 	}
 }
 
-ICF void CBackend::set_VS(ref_vs& _vs)
+inline void CBackend::set_VS(ref_vs& _vs)
 {
 	m_pInputSignature = _vs->signature->signature;
 	set_VS(_vs->vs, _vs->cName.c_str());
 }
 
-ICF void CBackend::set_VS(SVS* _vs)
+inline void CBackend::set_VS(SVS* _vs)
 {
 	m_pInputSignature = _vs->signature->signature;
 	set_VS(_vs->vs, _vs->cName.c_str());
 }
 
-IC bool CBackend::CBuffersNeedUpdate(ref_cbuffer buf1[MaxCBuffers], ref_cbuffer buf2[MaxCBuffers], u32& uiMin,
+inline bool CBackend::CBuffersNeedUpdate(ref_cbuffer buf1[MaxCBuffers], ref_cbuffer buf2[MaxCBuffers], u32& uiMin,
                                      u32& uiMax)
 {
 	bool bRes = false;
@@ -520,7 +520,7 @@ IC bool CBackend::CBuffersNeedUpdate(ref_cbuffer buf1[MaxCBuffers], ref_cbuffer 
 	return bRes;
 }
 
-IC void CBackend::set_Constants(R_constant_table* C)
+inline void CBackend::set_Constants(R_constant_table* C)
 {
 	// caching
 	if (ctable == C) return;
@@ -748,7 +748,7 @@ IC void CBackend::set_Constants(R_constant_table* C)
 	}
 }
 
-ICF void CBackend::ApplyRTandZB()
+inline void CBackend::ApplyRTandZB()
 {
 	if (m_bChangedRTorZB)
 	{
@@ -757,7 +757,7 @@ ICF void CBackend::ApplyRTandZB()
 	}
 }
 
-IC void CBackend::get_ConstantDirect(shared_str& n, u32 DataSize, void** pVData, void** pGData, void** pPData)
+inline void CBackend::get_ConstantDirect(shared_str& n, u32 DataSize, void** pVData, void** pGData, void** pPData)
 {
 	ref_constant C = get_c(n);
 

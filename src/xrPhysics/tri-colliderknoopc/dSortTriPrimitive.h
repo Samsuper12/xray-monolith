@@ -16,7 +16,7 @@
 #include "debug_output.h"
 #endif
 
-IC bool negative_tri_set_ignored_by_positive_tri(const Triangle& neg_tri, const Triangle& pos_tri,
+inline bool negative_tri_set_ignored_by_positive_tri(const Triangle& neg_tri, const Triangle& pos_tri,
                                                  const Fvector* V_array)
 {
 	bool common0 = neg_tri.T->verts[0] == pos_tri.T->verts[0] ||
@@ -75,7 +75,7 @@ int SetBackTrajectoryCnt(const dReal* p, const dReal* last_pos, Triangle& neg_tr
 }
 
 template <class T>
-IC int dcTriListCollider::dSortTriPrimitiveCollide(
+inline int dcTriListCollider::dSortTriPrimitiveCollide(
 	T primitive,
 	dxGeom* o1, dxGeom* o2,
 	int flags, dContactGeom* contact, int skip,
@@ -132,7 +132,7 @@ IC int dcTriListCollider::dSortTriPrimitiveCollide(
 
 	pos_tries.clear();
 	dReal neg_depth = dInfinity, b_neg_depth = dInfinity;
-	UINT b_count = 0;
+	uint32_t b_count = 0;
 	bool intersect = false;
 
 #ifdef DEBUG

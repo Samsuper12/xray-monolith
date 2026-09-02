@@ -32,13 +32,13 @@ struct HUD_SOUND_ITEM
 
 	static void StopSound(HUD_SOUND_ITEM& snd);
 
-	ICF BOOL playing()
+	inline BOOL playing()
 	{
 		if (m_activeSnd) return m_activeSnd->snd._feedback() ? TRUE : FALSE;
 		else return FALSE;
 	}
 
-	ICF void set_position(const Fvector& pos)
+	inline void set_position(const Fvector& pos)
 	{
 		if (m_activeSnd)
 		{

@@ -93,16 +93,16 @@ public:
 
 public:
 	CScriptMovementAction();
-	IC CScriptMovementAction(MonsterSpace::EBodyState tBodyState, MonsterSpace::EMovementType tMovementType,
+	inline CScriptMovementAction(MonsterSpace::EBodyState tBodyState, MonsterSpace::EMovementType tMovementType,
 	                         DetailPathManager::EDetailPathType tPathType, CScriptGameObject* tpObjectToGo,
 	                         float fSpeed = 0.f);
 	CScriptMovementAction(MonsterSpace::EBodyState tBodyState, MonsterSpace::EMovementType tMovementType,
 	                      DetailPathManager::EDetailPathType tPathType, CPatrolPathParams* tPatrolPathParams,
 	                      float fSpeed = 0.f);
-	IC CScriptMovementAction(MonsterSpace::EBodyState tBodyState, MonsterSpace::EMovementType tMovementType,
+	inline CScriptMovementAction(MonsterSpace::EBodyState tBodyState, MonsterSpace::EMovementType tMovementType,
 	                         DetailPathManager::EDetailPathType tPathType, Fvector* tPosition, float fSpeed = 0.f);
 	CScriptMovementAction(Fvector* tPosition, float fSpeed);
-	IC CScriptMovementAction(EInputKeys tInputKeys, float fSpeed = 0.f);
+	inline CScriptMovementAction(EInputKeys tInputKeys, float fSpeed = 0.f);
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------						
 	// Monsters
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,25 +113,25 @@ public:
 	                      float dist_to_end = -1.f);
 	CScriptMovementAction(MonsterSpace::EScriptMonsterMoveAction tAct, u32 node_id, Fvector* tPosition,
 	                      float dist_to_end = -1.f);
-	IC CScriptMovementAction(MonsterSpace::EScriptMonsterMoveAction tAct, Fvector* tPosition, float dist_to_end,
+	inline CScriptMovementAction(MonsterSpace::EScriptMonsterMoveAction tAct, Fvector* tPosition, float dist_to_end,
 	                         MonsterSpace::EScriptMonsterSpeedParam speed_param);
 	CScriptMovementAction(MonsterSpace::EScriptMonsterMoveAction tAct, CPatrolPathParams* tPatrolPathParams,
 	                      float dist_to_end, MonsterSpace::EScriptMonsterSpeedParam speed_param);
-	IC CScriptMovementAction(MonsterSpace::EScriptMonsterMoveAction tAct, CScriptGameObject* tpObjectToGo,
+	inline CScriptMovementAction(MonsterSpace::EScriptMonsterMoveAction tAct, CScriptGameObject* tpObjectToGo,
 	                         float dist_to_end, MonsterSpace::EScriptMonsterSpeedParam speed_param);
 	virtual ~CScriptMovementAction();
-	IC void SetBodyState(const MonsterSpace::EBodyState tBodyState);
-	IC void SetMovementType(const MonsterSpace::EMovementType tMovementType);
-	IC void SetPathType(const DetailPathManager::EDetailPathType tPathType);
+	inline void SetBodyState(const MonsterSpace::EBodyState tBodyState);
+	inline void SetMovementType(const MonsterSpace::EMovementType tMovementType);
+	inline void SetPathType(const DetailPathManager::EDetailPathType tPathType);
 	void SetObjectToGo(CScriptGameObject* tpObjectToGo);
-	IC void SetPatrolPath(const CPatrolPath* path, const shared_str& path_name);
-	IC void SetPosition(const Fvector& tPosition);
-	IC void SetSpeed(float fSpeed);
-	IC void SetPatrolStart(PatrolPathManager::EPatrolStartType tPatrolPathStart);
-	IC void SetPatrolStop(PatrolPathManager::EPatrolRouteType tPatrolPathStop);
-	IC void SetPatrolRandom(bool bRandom);
-	IC void SetInputKeys(const EInputKeys tInputKeys);
-	IC void initialize();
+	inline void SetPatrolPath(const CPatrolPath* path, const shared_str& path_name);
+	inline void SetPosition(const Fvector& tPosition);
+	inline void SetSpeed(float fSpeed);
+	inline void SetPatrolStart(PatrolPathManager::EPatrolStartType tPatrolPathStart);
+	inline void SetPatrolStop(PatrolPathManager::EPatrolRouteType tPatrolPathStop);
+	inline void SetPatrolRandom(bool bRandom);
+	inline void SetInputKeys(const EInputKeys tInputKeys);
+	inline void initialize();
 
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };

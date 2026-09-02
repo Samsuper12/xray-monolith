@@ -14,85 +14,85 @@ public:
 public:
 	T flags;
 
-	IC TYPE get() const { return flags; }
-	IC SelfRef zero()
+	inline TYPE get() const { return flags; }
+	inline SelfRef zero()
 	{
 		flags = T(0);
 		return *this;
 	}
 
-	IC SelfRef one()
+	inline SelfRef one()
 	{
 		flags = T(-1);
 		return *this;
 	}
 
-	IC SelfRef invert()
+	inline SelfRef invert()
 	{
 		flags = ~flags;
 		return *this;
 	}
 
-	IC SelfRef invert(const Self& f)
+	inline SelfRef invert(const Self& f)
 	{
 		flags = ~f.flags;
 		return *this;
 	}
 
-	IC SelfRef invert(const T mask)
+	inline SelfRef invert(const T mask)
 	{
 		flags ^= mask;
 		return *this;
 	}
 
-	IC SelfRef assign(const Self& f)
+	inline SelfRef assign(const Self& f)
 	{
 		flags = f.flags;
 		return *this;
 	}
 
-	IC SelfRef assign(const T mask)
+	inline SelfRef assign(const T mask)
 	{
 		flags = mask;
 		return *this;
 	}
 
-	IC SelfRef set(const T mask, BOOL value)
+	inline SelfRef set(const T mask, BOOL value)
 	{
 		if (value) flags |= mask;
 		else flags &= ~mask;
 		return *this;
 	}
 
-	IC BOOL is(const T mask) const { return mask == (flags & mask); }
-	IC BOOL is_any(const T mask) const { return BOOL(!!(flags & mask)); }
-	IC BOOL test(const T mask) const { return BOOL(!!(flags & mask)); }
-	IC SelfRef _or(const T mask)
+	inline BOOL is(const T mask) const { return mask == (flags & mask); }
+	inline BOOL is_any(const T mask) const { return BOOL(!!(flags & mask)); }
+	inline BOOL test(const T mask) const { return BOOL(!!(flags & mask)); }
+	inline SelfRef _or(const T mask)
 	{
 		flags |= mask;
 		return *this;
 	}
 
-	IC SelfRef _or(const Self& f, const T mask)
+	inline SelfRef _or(const Self& f, const T mask)
 	{
 		flags = f.flags | mask;
 		return *this;
 	}
 
-	IC SelfRef _and(const T mask)
+	inline SelfRef _and(const T mask)
 	{
 		flags &= mask;
 		return *this;
 	}
 
-	IC SelfRef _and(const Self& f, const T mask)
+	inline SelfRef _and(const Self& f, const T mask)
 	{
 		flags = f.flags & mask;
 		return *this;
 	}
 
-	IC BOOL equal(const Self& f) const { return flags == f.flags; }
-	IC BOOL equal(const Self& f, const T mask) const { return (flags & mask) == (f.flags & mask); }
+	inline BOOL equal(const Self& f) const { return flags == f.flags; }
+	inline BOOL equal(const Self& f, const T mask) const { return (flags & mask) == (f.flags & mask); }
 };
 
 typedef _flags<u8> Flags8;

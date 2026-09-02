@@ -92,11 +92,11 @@ public:
 	CEntityConditionSimple();
 	virtual ~CEntityConditionSimple();
 
-	IC float GetHealth() const { return m_fHealth; }
-	IC void SetHealth(const float value) { m_fHealth = value; }
-	IC float GetMaxHealth() const { return m_fHealthMax; }
-	IC const float& health() const { return m_fHealth; }
-	IC float& max_health() { return m_fHealthMax; }
+	inline float GetHealth() const { return m_fHealth; }
+	inline void SetHealth(const float value) { m_fHealth = value; }
+	inline float GetMaxHealth() const { return m_fHealthMax; }
+	inline const float& health() const { return m_fHealth; }
+	inline float& max_health() { return m_fHealthMax; }
 };
 
 class CEntityCondition : public CEntityConditionSimple, public CHitImmunity
@@ -116,19 +116,19 @@ public:
 	virtual void save(NET_Packet& output_packet);
 	virtual void load(IReader& input_packet);
 
-	IC float GetPower() const { return m_fPower; }
-	IC void SetPower(float power) { m_fPower = power; }
-	IC float GetRadiation() const { return m_fRadiation; }
-	IC void SetRadiation(float radiation) { m_fRadiation = radiation; }
-	IC float GetPsyHealth() const { return m_fPsyHealth; }
-	IC void SetPsyHealth(float psyHealth) { m_fPsyHealth = psyHealth; }
+	inline float GetPower() const { return m_fPower; }
+	inline void SetPower(float power) { m_fPower = power; }
+	inline float GetRadiation() const { return m_fRadiation; }
+	inline void SetRadiation(float radiation) { m_fRadiation = radiation; }
+	inline float GetPsyHealth() const { return m_fPsyHealth; }
+	inline void SetPsyHealth(float psyHealth) { m_fPsyHealth = psyHealth; }
 	virtual float GetSatiety() const { return 1.0f; }
 	virtual void SetSatiety(float satiety) {}
 
-	IC float GetEntityMorale() const { return m_fEntityMorale; }
-	IC void SetEntityMorale(float morale) { m_fEntityMorale = morale; }
+	inline float GetEntityMorale() const { return m_fEntityMorale; }
+	inline void SetEntityMorale(float morale) { m_fEntityMorale = morale; }
 
-	IC float GetHealthLost() const { return m_fHealthLost; }
+	inline float GetHealthLost() const { return m_fHealthLost; }
 
 	virtual bool IsLimping() const;
 
@@ -144,13 +144,13 @@ public:
 	{
 	};
 
-	IC void MaxPower() { m_fPower = m_fPowerMax; };
-	IC void SetMaxPower(const float val)
+	inline void MaxPower() { m_fPower = m_fPowerMax; };
+	inline void SetMaxPower(const float val)
 	{
 		m_fPowerMax = val;
 		clamp(m_fPowerMax, 0.1f, 1.0f);
 	};
-	IC float GetMaxPower() const { return m_fPowerMax; };
+	inline float GetMaxPower() const { return m_fPowerMax; };
 
 	void ChangeBleeding(const float percent);
 
@@ -162,7 +162,7 @@ public:
 	virtual void UpdateCondition();
 	void UpdateWounds();
 	void UpdateConditionTime();
-	IC void SetConditionDeltaTime(float DeltaTime) { m_fDeltaTime = DeltaTime; };
+	inline void SetConditionDeltaTime(float DeltaTime) { m_fDeltaTime = DeltaTime; };
 
 
 	//скорость потери крови из всех открытых ран 
@@ -173,13 +173,13 @@ public:
 
 	CWound* AddWound(float hit_power, ALife::EHitType hit_type, u16 element);
 
-	IC void SetCanBeHarmedState(bool CanBeHarmed) { m_bCanBeHarmed = CanBeHarmed; }
-	IC bool CanBeHarmed() const { return OnServer() && m_bCanBeHarmed; };
+	inline void SetCanBeHarmedState(bool CanBeHarmed) { m_bCanBeHarmed = CanBeHarmed; }
+	inline bool CanBeHarmed() const { return OnServer() && m_bCanBeHarmed; };
 	virtual bool ApplyInfluence(const SMedicineInfluenceValues& V, const shared_str& sect);
 	virtual bool ApplyBooster(const SBooster& B, const shared_str& sect);
 	void ClearWounds();
 
-	IC float GetBoostRadiationImmunity() const { return m_fBoostRadiationImmunity; };
+	inline float GetBoostRadiationImmunity() const { return m_fBoostRadiationImmunity; };
 
 	typedef xr_map<EBoostParams, SBooster> BOOSTER_MAP;
 protected:
@@ -294,10 +294,10 @@ protected:
 public:
 	virtual void reinit();
 
-	IC const float fdelta_time() const { return (m_fDeltaTime); }
-	IC const WOUND_VECTOR& wounds() const { return (m_WoundVector); }
-	IC float& radiation() { return (m_fRadiation); }
-	IC float& hit_bone_scale() { return (m_fHitBoneScale); }
-	IC float& wound_bone_scale() { return (m_fWoundBoneScale); }
+	inline const float fdelta_time() const { return (m_fDeltaTime); }
+	inline const WOUND_VECTOR& wounds() const { return (m_WoundVector); }
+	inline float& radiation() { return (m_fRadiation); }
+	inline float& hit_bone_scale() { return (m_fHitBoneScale); }
+	inline float& wound_bone_scale() { return (m_fWoundBoneScale); }
 	virtual SConditionChangeV& change_v();
 };

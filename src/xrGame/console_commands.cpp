@@ -279,7 +279,7 @@ extern	BOOL	g_bDrawFirstBulletCrosshair;
 float	debug_on_frame_gather_stats_frequency = 0.f;
 #endif
 #ifdef DEBUG
-extern LPSTR	dbg_stalker_death_anim;
+extern char *	dbg_stalker_death_anim;
 extern BOOL		b_death_anim_velocity;
 extern BOOL		death_anim_debug;
 extern BOOL		dbg_imotion_draw_skeleton;
@@ -614,7 +614,7 @@ public:
 #endif
 		Console->Hide();
 
-		LPSTR fn_;
+		char * fn_;
 		STRCONCAT(fn_, args, ".xrdemo");
 		std::filesystem::path fn;
 		FS.update_path(fn, "$game_saves$", fn_);
@@ -660,7 +660,7 @@ public:
 				boundary = num;
 			}
 		}
-		LPSTR fn_;
+		char * fn_;
 		STRCONCAT(fn_, arg1.c_str(), ".xrdemo");
 		std::filesystem::path fn;
 		FS.update_path(fn, "$game_saves$", fn_);
@@ -690,7 +690,7 @@ public:
 #endif
 		Console->Hide();
 
-		LPSTR fn_;
+		char * fn_;
 		STRCONCAT(fn_, args, ".xrdemo");
 		std::filesystem::path fn;
 		FS.update_path(fn, "$game_saves$", fn_);
@@ -803,7 +803,7 @@ public:
 			Console->Hide();
 			std::filesystem::path fn;
 			u32 loops = 0;
-			LPSTR comma = strchr(const_cast<LPSTR>(args), ',');
+			char * comma = strchr(const_cast<char *>(args), ',');
 			if (comma)
 			{
 				loops = atoi(comma + 1);
@@ -981,7 +981,7 @@ public:
 		Msg("Game save overhead  : %f milliseconds", timer.GetElapsed_sec()*1000.f);
 #endif
 		StaticDrawableWrapper* _s = CurrentGameUI()->AddCustomStatic("game_saved", true);
-		LPSTR save_name;
+		char * save_name;
 		STRCONCAT(save_name, CStringTable().translate("st_game_saved").c_str(), ": ", S);
 		_s->wnd()->TextItemControl()->SetText(save_name);
 
@@ -1127,7 +1127,7 @@ public:
 			return;
 		}
 
-		LPSTR command;
+		char * command;
 		if (ai().get_alife())
 		{
 			STRCONCAT(command, "load ", g_last_saved_game);
@@ -1985,7 +1985,7 @@ public:
 	}
 	virtual	void	Execute(LPCSTR args);
 
-	IC		void	Set(BOOL V)
+	inline		void	Set(BOOL V)
 	{
 		value->set(mask, V);
 	}

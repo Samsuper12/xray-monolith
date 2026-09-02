@@ -43,7 +43,7 @@ public:
 		Memory.mem_fill(this, 0, sizeof(CMatrix));
 	}
 
-	IC void tc_trans(Fmatrix& T, float u, float v)
+	inline void tc_trans(Fmatrix& T, float u, float v)
 	{
 		T.identity();
 		T.m[2][0] = u;
@@ -52,7 +52,7 @@ public:
 
 	void Calculate();
 
-	IC BOOL Similar(CMatrix& M) // comare by modes and params
+	inline BOOL Similar(CMatrix& M) // comare by modes and params
 	{
 		if (dwMode != M.dwMode) return FALSE;
 		if (tcm != M.tcm) return FALSE;

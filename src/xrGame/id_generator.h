@@ -28,11 +28,11 @@ private:
 		TIME_ID m_tTimeID;
 		TYPE_ID m_tpIDs[tBlockSize];
 
-		IC SID_Block() : m_tCount(0)
+		inline SID_Block() : m_tCount(0)
 		{
 		}
 
-		IC bool operator<(const SID_Block& b) const
+		inline bool operator<(const SID_Block& b) const
 		{
 			return (m_tCount && ((m_tTimeID < b.m_tTimeID) || !b.m_tCount));
 		}
@@ -49,14 +49,14 @@ private:
 	SID_Block m_tppBlocks [m_tBlockCount];
 
 private:
-	IC BLOCK_ID tfGetBlockByValue(VALUE_ID tValueID)
+	inline BLOCK_ID tfGetBlockByValue(VALUE_ID tValueID)
 	{
 		BLOCK_ID l_tBlockID = BLOCK_ID((tValueID - tMinValue) / tBlockSize);
 		R_ASSERT2(l_tBlockID < m_tBlockCount, "Requesting ID is invalid!");
 		return (l_tBlockID);
 	}
 
-	IC VALUE_ID tfGetFromBlock(SID_Block& l_tID_Block, VALUE_ID tValueID)
+	inline VALUE_ID tfGetFromBlock(SID_Block& l_tID_Block, VALUE_ID tValueID)
 	{
 		VERIFY(l_tID_Block.m_tCount);
 		BLOCK_ID l_tBlockID = BLOCK_ID(&l_tID_Block - m_tppBlocks);
@@ -78,7 +78,7 @@ private:
 	}
 
 public:
-	IC CID_Generator()
+	inline CID_Generator()
 	{
 		m_available_count = 0;
 		for (VALUE_ID i = tMinValue; ; ++i)
@@ -92,7 +92,7 @@ public:
 			std::reverse(m_tppBlocks[j].m_tpIDs, m_tppBlocks[j].m_tpIDs + m_tppBlocks[j].m_tCount);
 	}
 
-	IC VALUE_ID tfGetID(VALUE_ID tValueID = tInvalidValueID)
+	inline VALUE_ID tfGetID(VALUE_ID tValueID = tInvalidValueID)
 	{
 		if (tInvalidValueID != tValueID)
 			return (tfGetFromBlock(m_tppBlocks[tfGetBlockByValue(tValueID)], tValueID));
@@ -103,7 +103,7 @@ public:
 		return (tfGetFromBlock(*I, tValueID));
 	}
 
-	IC void vfFreeID(VALUE_ID tValueID, TIME_ID tTimeID)
+	inline void vfFreeID(VALUE_ID tValueID, TIME_ID tTimeID)
 	{
 		BLOCK_ID l_tBlockID = tfGetBlockByValue(tValueID);
 		SID_Block& l_tID_Block = m_tppBlocks[l_tBlockID];

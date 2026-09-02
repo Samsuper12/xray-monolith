@@ -78,7 +78,7 @@ namespace screenshots
 
 		CMemoryWriter tmp_writer;
 		m_info_data.save_as(tmp_writer);
-		CopyMemory(
+		memcpy(
 			m_buffer + m_buffer_info_pos,
 			tmp_writer.pointer(), tmp_writer.size());
 

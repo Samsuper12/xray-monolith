@@ -39,8 +39,8 @@ struct ray_segment_t
 	float t_near, t_far;
 };
 
-ICF u32& uf(float& x) { return (u32&)x; }
-ICF BOOL isect_fpu(const Fvector& min, const Fvector& max, const ray_t& ray, Fvector& coord)
+inline u32& uf(float& x) { return (u32&)x; }
+inline BOOL isect_fpu(const Fvector& min, const Fvector& max, const ray_t& ray, Fvector& coord)
 {
 	Fvector MaxT;
 	MaxT.x = MaxT.y = MaxT.z = -1.0f;
@@ -153,7 +153,7 @@ static const float _MM_ALIGN16
 	ps_cst_plus_inf [4] = {flt_plus_inf, flt_plus_inf, flt_plus_inf, flt_plus_inf},
 	ps_cst_minus_inf[4] = {-flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf};
 
-ICF BOOL isect_sse(const aabb_t& box, const ray_t& ray, float& dist)
+inline BOOL isect_sse(const aabb_t& box, const ray_t& ray, float& dist)
 {
 	//FIXME:
 	// // you may already have those values hanging around somewhere
@@ -216,7 +216,7 @@ public:
 	float rRange;
 	float rRange2;
 
-	IC void _init(COLLIDER* CL, Fvector* V, TRI* T, const Fvector& C, const Fvector& D, float R)
+	inline void _init(COLLIDER* CL, Fvector* V, TRI* T, const Fvector& C, const Fvector& D, float R)
 	{
 		dest = CL;
 		tris = T;
@@ -245,7 +245,7 @@ public:
 	}
 
 	// fpu
-	ICF BOOL _box_fpu(const Fvector& bCenter, const Fvector& bExtents, Fvector& coord)
+	inline BOOL _box_fpu(const Fvector& bCenter, const Fvector& bExtents, Fvector& coord)
 	{
 		Fbox BB;
 		BB.min.sub(bCenter, bExtents);
@@ -254,7 +254,7 @@ public:
 	}
 
 	// sse
-	ICF BOOL _box_sse(const Fvector& bCenter, const Fvector& bExtents, float& dist)
+	inline BOOL _box_sse(const Fvector& bCenter, const Fvector& bExtents, float& dist)
 	{
 		//FIXME:
 		// aabb_t box;
@@ -273,7 +273,7 @@ public:
 		// return isect_sse(box, ray, dist);
 	}
 
-	IC bool _tri(u32* p, float& u, float& v, float& range)
+	inline bool _tri(u32* p, float& u, float& v, float& range)
 	{
 		Fvector edge1, edge2, tvec, pvec, qvec;
 		float det, inv_det;
@@ -318,7 +318,7 @@ public:
 		return true;
 	}
 
-	void _prim(DWORD prim)
+	void _prim(uint32_t prim)
 	{
 		float u, v, r;
 		if (!_tri(tris[prim].verts, u, v, r)) return;

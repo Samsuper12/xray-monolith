@@ -19,6 +19,7 @@
 // Include Guard
 #ifndef __OPC_COMMON_H__
 #define __OPC_COMMON_H__
+#define CopyMemory(a,r,g) memcpy(a,r,g)
 
 // [GOTTFRIED]: Just a small change for readability.
 #ifdef OPC_CPU_COMPARE

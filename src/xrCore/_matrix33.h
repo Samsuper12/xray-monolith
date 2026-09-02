@@ -30,7 +30,7 @@ public:
 	};
 
 	// Class members
-	IC SelfRef set_rapid(const _matrix<T>& a)
+	inline SelfRef set_rapid(const _matrix<T>& a)
 	{
 		m[0][0] = a.m[0][0];
 		m[0][1] = a.m[0][1];
@@ -44,13 +44,13 @@ public:
 		return *this;
 	}
 
-	IC SelfRef set(SelfCRef a)
+	inline SelfRef set(SelfCRef a)
 	{
-		CopyMemory(this, &a, 9 * sizeof(float));
+		memcpy(this, &a, 9 * sizeof(float));
 		return *this;
 	}
 
-	IC SelfRef set(const _matrix<T>& a)
+	inline SelfRef set(const _matrix<T>& a)
 	{
 		_11 = a._11;
 		_12 = a._12;
@@ -64,7 +64,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef identity(void)
+	inline SelfRef identity(void)
 	{
 		_11 = 1.f;
 		_12 = 0.f;
@@ -78,7 +78,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef transpose(SelfCRef matSource) // faster version of transpose
+	inline SelfRef transpose(SelfCRef matSource) // faster version of transpose
 	{
 		_11 = matSource._11;
 		_12 = matSource._21;
@@ -92,7 +92,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef transpose(const _matrix<T>& matSource) // faster version of transpose
+	inline SelfRef transpose(const _matrix<T>& matSource) // faster version of transpose
 	{
 		_11 = matSource._11;
 		_12 = matSource._21;
@@ -106,15 +106,15 @@ public:
 		return *this;
 	}
 
-	IC SelfRef transpose(void) // self transpose - slower
+	inline SelfRef transpose(void) // self transpose - slower
 	{
 		_matrix33 a;
-		CopyMemory(&a, this, 9 * sizeof(float)); // save matrix
+		memcpy(&a, this, 9 * sizeof(float)); // save matrix
 		transpose(a);
 		return *this;
 	}
 
-	IC SelfRef MxM(SelfCRef M1, SelfCRef M2)
+	inline SelfRef MxM(SelfCRef M1, SelfCRef M2)
 	{
 		m[0][0] = (M1.m[0][0] * M2.m[0][0] +
 			M1.m[0][1] * M2.m[1][0] +
@@ -146,7 +146,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef MTxM(SelfCRef M1, SelfCRef M2)
+	inline SelfRef MTxM(SelfCRef M1, SelfCRef M2)
 	{
 		m[0][0] = (M1.m[0][0] * M2.m[0][0] +
 			M1.m[1][0] * M2.m[1][0] +
@@ -181,7 +181,7 @@ public:
 
 #define ROT(a,i,j,k,l) g=a.m[i][j]; h=a.m[k][l]; a.m[i][j]=g-s*(h+g*tau); a.m[k][l]=h+s*(g-h*tau);
 
-	int IC Meigen(Tvector& dout, SelfRef a)
+	int inline Meigen(Tvector& dout, SelfRef a)
 	{
 		int i;
 		float tresh, theta, tau, t, sm, s, h, g, c;
@@ -315,7 +315,7 @@ public:
 	//--------------------------------------------------------------------------------
 	// other unused function
 	//--------------------------------------------------------------------------------
-	IC SelfRef McolcMcol(int cr, SelfCRef M, int c)
+	inline SelfRef McolcMcol(int cr, SelfCRef M, int c)
 	{
 		m[0][cr] = M.m[0][c];
 		m[1][cr] = M.m[1][c];
@@ -323,7 +323,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef MxMpV(SelfCRef M1, SelfCRef M2, const Tvector& vec)
+	inline SelfRef MxMpV(SelfCRef M1, SelfCRef M2, const Tvector& vec)
 	{
 		m[0][0] = (M1.m[0][0] * M2.m[0][0] +
 			M1.m[0][1] * M2.m[1][0] +
@@ -355,7 +355,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef Mqinverse(SelfCRef M)
+	inline SelfRef Mqinverse(SelfCRef M)
 	{
 		int i, j;
 
@@ -371,7 +371,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef MxMT(SelfCRef M1, SelfCRef M2)
+	inline SelfRef MxMT(SelfCRef M1, SelfCRef M2)
 	{
 		m[0][0] = (M1.m[0][0] * M2.m[0][0] +
 			M1.m[0][1] * M2.m[0][1] +
@@ -403,7 +403,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef MskewV(const Tvector& v)
+	inline SelfRef MskewV(const Tvector& v)
 	{
 		m[0][0] = m[1][1] = m[2][2] = 0.0;
 		m[1][0] = v.z;
@@ -415,7 +415,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sMxVpV(Tvector& R, float s1, const Tvector& V1, const Tvector& V2) const
+	inline SelfRef sMxVpV(Tvector& R, float s1, const Tvector& V1, const Tvector& V2) const
 	{
 		R.x = s1 * (m[0][0] * V1.x + m[0][1] * V1.y + m[0][2] * V1.z) + V2.x;
 		R.y = s1 * (m[1][0] * V1.x + m[1][1] * V1.y + m[1][2] * V1.z) + V2.y;
@@ -423,21 +423,21 @@ public:
 		return *this;
 	}
 
-	IC void MTxV(Tvector& R, const Tvector& V1) const
+	inline void MTxV(Tvector& R, const Tvector& V1) const
 	{
 		R.x = (m[0][0] * V1.x + m[1][0] * V1.y + m[2][0] * V1.z);
 		R.y = (m[0][1] * V1.x + m[1][1] * V1.y + m[2][1] * V1.z);
 		R.z = (m[0][2] * V1.x + m[1][2] * V1.y + m[2][2] * V1.z);
 	}
 
-	IC void MTxVpV(Tvector& R, const Tvector& V1, const Tvector& V2) const
+	inline void MTxVpV(Tvector& R, const Tvector& V1, const Tvector& V2) const
 	{
 		R.x = (m[0][0] * V1.x + m[1][0] * V1.y + m[2][0] * V1.z + V2.x);
 		R.y = (m[0][1] * V1.x + m[1][1] * V1.y + m[2][1] * V1.z + V2.y);
 		R.z = (m[0][2] * V1.x + m[1][2] * V1.y + m[2][2] * V1.z + V2.z);
 	}
 
-	IC SelfRef MTxVmV(Tvector& R, const Tvector& V1, const Tvector& V2) const
+	inline SelfRef MTxVmV(Tvector& R, const Tvector& V1, const Tvector& V2) const
 	{
 		R.x = (m[0][0] * V1.x + m[1][0] * V1.y + m[2][0] * V1.z - V2.x);
 		R.y = (m[0][1] * V1.x + m[1][1] * V1.y + m[2][1] * V1.z - V2.y);
@@ -445,7 +445,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sMTxV(Tvector& R, float s1, const Tvector& V1) const
+	inline SelfRef sMTxV(Tvector& R, float s1, const Tvector& V1) const
 	{
 		R.x = s1 * (m[0][0] * V1.x + m[1][0] * V1.y + m[2][0] * V1.z);
 		R.y = s1 * (m[0][1] * V1.x + m[1][1] * V1.y + m[2][1] * V1.z);
@@ -453,7 +453,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef MxV(Tvector& R, const Tvector& V1) const
+	inline SelfRef MxV(Tvector& R, const Tvector& V1) const
 	{
 		R.x = (m[0][0] * V1.x + m[0][1] * V1.y + m[0][2] * V1.z);
 		R.y = (m[1][0] * V1.x + m[1][1] * V1.y + m[1][2] * V1.z);
@@ -461,21 +461,21 @@ public:
 		return *this;
 	}
 
-	IC void transform_dir(_vector2<T>& dest, const _vector2<T>& v) const // preferred to use
+	inline void transform_dir(_vector2<T>& dest, const _vector2<T>& v) const // preferred to use
 	{
 		dest.x = v.x * _11 + v.y * _21;
 		dest.y = v.x * _12 + v.y * _22;
 		dest.z = v.x * _13 + v.y * _23;
 	}
 
-	IC void transform_dir(_vector2<T>& v) const
+	inline void transform_dir(_vector2<T>& v) const
 	{
 		_vector2<T> res;
 		transform_dir(res, v);
 		v.set(res);
 	}
 
-	IC SelfRef MxVpV(Tvector& R, const Tvector& V1, const Tvector& V2) const
+	inline SelfRef MxVpV(Tvector& R, const Tvector& V1, const Tvector& V2) const
 	{
 		R.x = (m[0][0] * V1.x + m[0][1] * V1.y + m[0][2] * V1.z + V2.x);
 		R.y = (m[1][0] * V1.x + m[1][1] * V1.y + m[1][2] * V1.z + V2.y);

@@ -74,17 +74,17 @@ void CPatrolPathManager::reinit()
 	reset();
 }
 
-IC bool CPatrolPathManager::accessible(const Fvector& position) const
+inline bool CPatrolPathManager::accessible(const Fvector& position) const
 {
 	return (m_object ? object().accessible(position) : true);
 }
 
-IC bool CPatrolPathManager::accessible(u32 vertex_id) const
+inline bool CPatrolPathManager::accessible(u32 vertex_id) const
 {
 	return (m_object ? object().accessible(vertex_id) : true);
 }
 
-IC bool CPatrolPathManager::accessible(const CPatrolPath::CVertex* vertex) const
+inline bool CPatrolPathManager::accessible(const CPatrolPath::CVertex* vertex) const
 {
 	return (vertex ? object().accessible(vertex->data().position()) : true);
 }
@@ -93,12 +93,12 @@ struct CAccessabilityEvaluator
 {
 	const CPatrolPathManager* m_manager;
 
-	IC CAccessabilityEvaluator(const CPatrolPathManager* manager)
+	inline CAccessabilityEvaluator(const CPatrolPathManager* manager)
 	{
 		m_manager = manager;
 	}
 
-	IC bool operator()(const Fvector& position) const
+	inline bool operator()(const Fvector& position) const
 	{
 		return (m_manager->accessible(position));
 	}

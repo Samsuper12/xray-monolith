@@ -21,18 +21,18 @@
 #define CPathManagerTemplate CAbstractPathManager<_Graph,_VertexEvaluator,_vertex_id_type,_index_type>
 
 TEMPLATE_SPECIALIZATION
-IC CPathManagerTemplate::CAbstractPathManager(CRestrictedObject* object)
+inline CPathManagerTemplate::CAbstractPathManager(CRestrictedObject* object)
 {
 	m_object = object;
 }
 
 TEMPLATE_SPECIALIZATION
-IC CPathManagerTemplate::~CAbstractPathManager()
+inline CPathManagerTemplate::~CAbstractPathManager()
 {
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::reinit(const _Graph* graph)
+inline void CPathManagerTemplate::reinit(const _Graph* graph)
 {
 	m_actuality = false;
 	m_failed = false;
@@ -47,7 +47,7 @@ IC void CPathManagerTemplate::reinit(const _Graph* graph)
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::build_path(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id)
+inline void CPathManagerTemplate::build_path(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id)
 {
 	VERIFY(
 		m_graph && m_evaluator && m_graph->valid_vertex_id(start_vertex_id) && m_graph->valid_vertex_id(dest_vertex_id))
@@ -79,46 +79,46 @@ IC void CPathManagerTemplate::build_path(const _vertex_id_type start_vertex_id, 
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::select_intermediate_vertex()
+inline void CPathManagerTemplate::select_intermediate_vertex()
 {
 	VERIFY(!failed() && !m_path.empty());
 	m_intermediate_index = m_path.size() - 1;
 }
 
 TEMPLATE_SPECIALIZATION
-IC _vertex_id_type CPathManagerTemplate::intermediate_vertex_id() const
+inline _vertex_id_type CPathManagerTemplate::intermediate_vertex_id() const
 {
 	VERIFY(m_intermediate_index < m_path.size());
 	return (m_path[intermediate_index()]);
 }
 
 TEMPLATE_SPECIALIZATION
-IC u32 CPathManagerTemplate::intermediate_index() const
+inline u32 CPathManagerTemplate::intermediate_index() const
 {
 	return (m_intermediate_index);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CPathManagerTemplate::actual(const _vertex_id_type /*start_vertex_id*/,
+inline bool CPathManagerTemplate::actual(const _vertex_id_type /*start_vertex_id*/,
                                      const _vertex_id_type /*dest_vertex_id*/) const
 {
 	return (m_actuality);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CPathManagerTemplate::completed() const
+inline bool CPathManagerTemplate::completed() const
 {
 	return (m_intermediate_index == m_path.size() - 1);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CPathManagerTemplate::failed() const
+inline bool CPathManagerTemplate::failed() const
 {
 	return (m_failed);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::set_evaluator(_VertexEvaluator* evaluator)
+inline void CPathManagerTemplate::set_evaluator(_VertexEvaluator* evaluator)
 {
 	if ((evaluator != m_evaluator) || !m_evaluator->actual())
 		m_actuality = false;
@@ -126,19 +126,19 @@ IC void CPathManagerTemplate::set_evaluator(_VertexEvaluator* evaluator)
 }
 
 TEMPLATE_SPECIALIZATION
-IC const typename CPathManagerTemplate::PATH&CPathManagerTemplate::path() const
+inline const typename CPathManagerTemplate::PATH&CPathManagerTemplate::path() const
 {
 	return (m_path);
 }
 
 TEMPLATE_SPECIALIZATION
-IC _vertex_id_type CPathManagerTemplate::dest_vertex_id() const
+inline _vertex_id_type CPathManagerTemplate::dest_vertex_id() const
 {
 	return (m_dest_vertex_id);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::set_dest_vertex(const _vertex_id_type vertex_id)
+inline void CPathManagerTemplate::set_dest_vertex(const _vertex_id_type vertex_id)
 {
 	VERIFY(check_vertex(vertex_id));
 	m_actuality = m_actuality && (dest_vertex_id() == vertex_id);
@@ -146,48 +146,48 @@ IC void CPathManagerTemplate::set_dest_vertex(const _vertex_id_type vertex_id)
 }
 
 TEMPLATE_SPECIALIZATION
-IC const _VertexEvaluator*CPathManagerTemplate::evaluator() const
+inline const _VertexEvaluator*CPathManagerTemplate::evaluator() const
 {
 	return (m_evaluator);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::make_inactual()
+inline void CPathManagerTemplate::make_inactual()
 {
 	m_actuality = false;
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::before_search(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id)
+inline void CPathManagerTemplate::before_search(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id)
 {
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::after_search()
+inline void CPathManagerTemplate::after_search()
 {
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CPathManagerTemplate::check_vertex(const _vertex_id_type vertex_id) const
+inline bool CPathManagerTemplate::check_vertex(const _vertex_id_type vertex_id) const
 {
 	return (m_graph->valid_vertex_id(vertex_id));
 }
 
 TEMPLATE_SPECIALIZATION
-IC CRestrictedObject&CPathManagerTemplate::object() const
+inline CRestrictedObject&CPathManagerTemplate::object() const
 {
 	VERIFY(m_object);
 	return (*m_object);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::reset()
+inline void CPathManagerTemplate::reset()
 {
 	m_failed = false;
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPathManagerTemplate::invalidate_failed_info()
+inline void CPathManagerTemplate::invalidate_failed_info()
 {
 	reset();
 	m_failed_start_vertex_id = u32(-1);

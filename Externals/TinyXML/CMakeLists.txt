@@ -13,7 +13,7 @@ target_link_libraries(TinyXML
   robin_hood
   fastdelegate
   
-  XRay.Platform
+  #XRay.Platform
 
   XRay.Core.Defines
   XRay.XMLParser.Defines

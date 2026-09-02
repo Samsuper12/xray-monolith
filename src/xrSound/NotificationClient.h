@@ -2,8 +2,7 @@
 // #include <mmdeviceapi.h>
 // #include <endpointvolume.h>
 
-class CNotificationClient : 
-    public IMMNotificationClient 
+class CNotificationClient
 {
 public:
     CNotificationClient();
@@ -31,18 +30,18 @@ public:
     //     return ulRef;
     // }
 
-    // IMMNotificationClient methods
-    STDMETHOD(OnDefaultDeviceChanged)(EDataFlow flow, ERole role, LPCWSTR pwstrDeviceId);
-    STDMETHOD(OnDeviceRemoved)(LPCWSTR pwstrDeviceId);
-    STDMETHOD(OnDeviceAdded)(LPCWSTR pwstrDeviceId);
-    STDMETHOD(OnDeviceStateChanged)(LPCWSTR pwstrDeviceId, DWORD dwNewState);
-    STDMETHOD(OnPropertyValueChanged)(LPCWSTR pwstrDeviceId, const PROPERTYKEY key);
+    // // IMMNotificationClient methods
+    // STDMETHOD(OnDefaultDeviceChanged)(EDataFlow flow, ERole role, const wchar_t * pwstrDeviceId);
+    // STDMETHOD(OnDeviceRemoved)(const wchar_t * pwstrDeviceId);
+    // STDMETHOD(OnDeviceAdded)(const wchar_t * pwstrDeviceId);
+    // STDMETHOD(OnDeviceStateChanged)(const wchar_t * pwstrDeviceId, uint32_t dwNewState);
+    // STDMETHOD(OnPropertyValueChanged)(const wchar_t * pwstrDeviceId, const PROPERTYKEY key);
 
 private:
     bool Start();
     void Close();
 
 private:
-    LONG m_cRef;
-    IMMDeviceEnumerator* m_pEnumerator;
+    long m_cRef;
+    //IMMDeviceEnumerator* m_pEnumerator;
 };

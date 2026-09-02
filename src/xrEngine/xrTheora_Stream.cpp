@@ -87,7 +87,7 @@ BOOL CTheoraStream::ParseHeaders()
 			if (!header_count && theora_decode_header(&t_info, &t_comment, &o_packet) >= 0)
 			{
 				// it is theora
-				CopyMemory(&o_stream_state, &test, sizeof(test));
+				memcpy(&o_stream_state, &test, sizeof(test));
 				header_count = 1;
 			}
 			else

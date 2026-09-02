@@ -96,19 +96,19 @@ public:
 	void SetLessCoverLook(const LevelGraph::CVertex* tpNode, bool bDifferenceLook);
 	void SetLessCoverLook(const LevelGraph::CVertex* tpNode, float fMaxHeadTurnAngle, bool bDifferenceLook);
 	void vfValidateAngleDependency(float x1, float& x2, float x3);
-	IC bool GetDirectionAnglesByPrevPositions(float& yaw, float& pitch);
+	inline bool GetDirectionAnglesByPrevPositions(float& yaw, float& pitch);
 	bool GetDirectionAngles(float& yaw, float& pitch);
-	IC bool use_torso_look() const;
+	inline bool use_torso_look() const;
 	template <typename T1, typename T2, typename T3>
-	IC void setup(T1 _1, T2 _2, T3 _3);
+	inline void setup(T1 _1, T2 _2, T3 _3);
 	template <typename T1, typename T2>
-	IC void setup(T1 _1, T2 _2);
+	inline void setup(T1 _1, T2 _2);
 	template <typename T1>
-	IC void setup(T1 _1);
+	inline void setup(T1 _1);
 	void setup(const CSightAction& sight_action);
 	virtual void update();
-	IC bool turning_in_place() const;
-	IC bool enabled() const;
+	inline bool turning_in_place() const;
+	inline bool enabled() const;
 	void enable(bool value);
 
 private:
@@ -121,13 +121,13 @@ public:
 	Fvector object_position() const;
 
 public:
-	IC Fmatrix const& current_spine_rotation() const;
-	IC Fmatrix const& current_shoulder_rotation() const;
-	IC Fmatrix const& current_head_rotation() const;
+	inline Fmatrix const& current_spine_rotation() const;
+	inline Fmatrix const& current_shoulder_rotation() const;
+	inline Fmatrix const& current_head_rotation() const;
 
 public:
-	IC void bone_aiming();
-	IC void bone_aiming(
+	inline void bone_aiming();
+	inline void bone_aiming(
 		shared_str const& animation_id,
 		animation_frame_type const animation_frame,
 		aiming_type const aiming_type

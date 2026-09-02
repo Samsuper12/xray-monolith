@@ -70,12 +70,12 @@ class body_state_predicate
 	MonsterSpace::EBodyState m_body_state;
 
 public:
-	IC body_state_predicate(MonsterSpace::EBodyState const& body_state) :
+	inline body_state_predicate(MonsterSpace::EBodyState const& body_state) :
 		m_body_state(body_state)
 	{
 	}
 
-	IC bool operator()(animation_action* animation_action) const
+	inline bool operator()(animation_action* animation_action) const
 	{
 		VERIFY(animation_action);
 

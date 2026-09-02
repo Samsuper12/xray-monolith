@@ -54,7 +54,7 @@ ENGINE_API CInifile* pGameIni = NULL;
 BOOL g_bIntroFinished = FALSE;
 extern void Intro(void* fn);
 extern void Intro_DSHOW(void* fn);
-//extern int PASCAL IntroDSHOW_wnd(HINSTANCE hInstC, HINSTANCE hInstP, LPSTR lpCmdLine, int nCmdShow);
+//extern int PASCAL IntroDSHOW_wnd(HINSTANCE hInstC, HINSTANCE hInstP, char * lpCmdLine, int nCmdShow);
 //int max_load_stage = 0;
 
 // computing build id
@@ -82,7 +82,7 @@ bool use_reshade = false;
 // extern void unregister_reshade();
 extern bool DllMainXrPhysics();
 
-static LPSTR month_id[12] =
+static char * month_id[12] =
 {
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
@@ -370,39 +370,40 @@ void CheckPrivilegySlowdown()
 
 LPCSTR xr_ToUTF8(LPCSTR input, int max_length)
 {
-	UErrorCode errorCode = U_ZERO_ERROR;
-	UConverter *conv_from = ucnv_open("cp1251", &errorCode);
-	R_ASSERT3(conv_from, "[Discord RPC] Error creating UConverter!\n", std::to_string(errorCode).c_str());
+	// UErrorCode errorCode = U_ZERO_ERROR;
+	// UConverter *conv_from = ucnv_open("cp1251", &errorCode);
+	// R_ASSERT3(conv_from, "[Discord RPC] Error creating UConverter!\n", std::to_string(errorCode).c_str());
 
-	std::vector<UChar> converted(strlen(input) * 2);
-	int32_t conv_len = ucnv_toUChars(conv_from, &converted[0], (int32_t)converted.size(), input, (int32_t)strlen(input), &errorCode);
-	if (errorCode != U_ZERO_ERROR)
-	{
-		Msg("[Discord RPC] Failed to convert string! (%s)", std::to_string(errorCode).c_str());
-		return input;
-	}
+	// std::vector<UChar> converted(strlen(input) * 2);
+	// int32_t conv_len = ucnv_toUChars(conv_from, &converted[0], (int32_t)converted.size(), input, (int32_t)strlen(input), &errorCode);
+	// if (errorCode != U_ZERO_ERROR)
+	// {
+	// 	Msg("[Discord RPC] Failed to convert string! (%s)", std::to_string(errorCode).c_str());
+	// 	return input;
+	// }
 
-	converted.resize(conv_len);
-	ucnv_close(conv_from);
+	// converted.resize(conv_len);
+	// ucnv_close(conv_from);
 
-	// needs to be static so the data buffer is still valid after this function returns
-	static std::string g;
-	g.clear();
+	// // needs to be static so the data buffer is still valid after this function returns
+	// static std::string g;
+	// g.clear();
 
-	g.resize(converted.size() * 4);
+	// g.resize(converted.size() * 4);
 
-	UConverter *conv_u8 = ucnv_open("UTF-8", &errorCode);
-	int32_t u8_len = ucnv_fromUChars(conv_u8, &g[0], (int32_t)g.size(), &converted[0], (int32_t)converted.size(), &errorCode);
-	if (errorCode != U_ZERO_ERROR)
-	{
-		Msg("[Discord RPC] Failed to convert string! (%s)", std::to_string(errorCode).c_str());
-		return input;
-	}
+	// UConverter *conv_u8 = ucnv_open("UTF-8", &errorCode);
+	// int32_t u8_len = ucnv_fromUChars(conv_u8, &g[0], (int32_t)g.size(), &converted[0], (int32_t)converted.size(), &errorCode);
+	// if (errorCode != U_ZERO_ERROR)
+	// {
+	// 	Msg("[Discord RPC] Failed to convert string! (%s)", std::to_string(errorCode).c_str());
+	// 	return input;
+	// }
 
-	g.resize(_min(u8_len, max_length));
-	ucnv_close(conv_u8);
+	// g.resize(_min(u8_len, max_length));
+	// ucnv_close(conv_u8);
 
-	return g.data();
+	// return g.data();
+	return "";
 }
 
 //Discord Rich Presence - Rezy ------------------------------------------------
@@ -674,24 +675,6 @@ void Startup()
 	destroyEngine();
 }
 
-static INT_PTR CALLBACK logDlgProc(HWND hw, UINT msg, WPARAM wp, LPARAM lp)
-{
-	switch (msg)
-	{
-	case WM_DESTROY:
-		break;
-	case WM_CLOSE:
-		DestroyWindow(hw);
-		break;
-	case WM_COMMAND:
-		if (LOWORD(wp) == IDCANCEL)
-			DestroyWindow(hw);
-		break;
-	default:
-		return FALSE;
-	}
-	return TRUE;
-}
 
 
 #include "xr_ioc_cmd.h"
@@ -734,31 +717,17 @@ void foo()
 ENGINE_API bool g_dedicated_server = false;
 
 
-int stack_overflow_exception_filter(int exception_code)
-{
-	if (exception_code == EXCEPTION_STACK_OVERFLOW)
-	{
-		// Do not call _resetstkoflw here, because
-		// at this point, the stack is not yet unwound.
-		// Instead, signal that the handler (the __except block)
-		// is to be executed.
-		return EXCEPTION_EXECUTE_HANDLER;
-	}
-	else
-		return EXCEPTION_CONTINUE_SEARCH;
-}
-
-//extern BOOL DllMainOpenAL32(HANDLE module, DWORD reason, LPVOID reserved);
+//extern BOOL DllMainOpenAL32(void* module, uint32_t reason, void* reserved);
 #ifndef XRCORE_STATIC
-// extern BOOL DllMainXrCore(HANDLE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvReserved);
+// extern BOOL DllMainXrCore(void* hinstDLL, uint32_t ul_reason_for_call, void* lpvReserved);
 #endif
 
-//extern BOOL DllMainXrGame(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved);
+//extern BOOL DllMainXrGame(void* hModule, u32 ul_reason_for_call, void* lpReserved);
 //
-//extern BOOL DllMainXrRenderR1(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
-//extern BOOL DllMainXrRenderR2(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
-//extern BOOL DllMainXrRenderR3(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
-//extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved);
+//extern BOOL DllMainXrRenderR1(void* hModule, uint32_t  ul_reason_for_call, void* lpReserved);
+//extern BOOL DllMainXrRenderR2(void* hModule, uint32_t  ul_reason_for_call, void* lpReserved);
+//extern BOOL DllMainXrRenderR3(void* hModule, uint32_t  ul_reason_for_call, void* lpReserved);
+//extern BOOL DllMainXrRenderR4(void* hModule, uint32_t  ul_reason_for_call, void* lpReserved);
 
 LPCSTR _GetFontTexName(LPCSTR section)
 {
@@ -886,8 +855,8 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
 	}
 	else if (E == eStart)
 	{
-		LPSTR op_server = LPSTR(P1);
-		LPSTR op_client = LPSTR(P2);
+		char * op_server = (char *)(P1);
+		char * op_client = (char *)(P2);
 		Level_Current = u32(-1);
 		R_ASSERT(0 == g_pGameLevel);
 		R_ASSERT(0 != g_pGamePersistent);
@@ -948,13 +917,13 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
 	}
 	else if (E == eConsole)
 	{
-		LPSTR command = (LPSTR)P1;
+		char * command = (char *)P1;
 		Console->ExecuteCommand(command, false);
 		xr_free(command);
 	}
 	else if (E == eStartMPDemo)
 	{
-		LPSTR demo_file = LPSTR(P1);
+		char * demo_file = (char *)(P1);
 
 		R_ASSERT(0 == g_pGameLevel);
 		R_ASSERT(0 != g_pGamePersistent);
@@ -1283,19 +1252,20 @@ extern "C" {
 typedef int __cdecl LauncherFunc(int);
 }
 
-HMODULE hLauncher = NULL;
+void* hLauncher = NULL;
 LauncherFunc* pLauncher = NULL;
 
 void InitLauncher()
 {
+	//TODO:
 	if (hLauncher)
 		return;
-	hLauncher = LoadLibrary("xrLauncher.dll");
+	//hLauncher = LoadLibrary("xrLauncher.dll");
 	// if (0 == hLauncher)
 	// 	R_CHK(GetLastError());
 	R_ASSERT2(hLauncher, "xrLauncher DLL raised exception during loading or there is no xrLauncher.dll at all");
 
-	pLauncher = (LauncherFunc*)GetProcAddress(hLauncher, "RunXRLauncher");
+	//pLauncher = (LauncherFunc*)GetProcAddress(hLauncher, "RunXRLauncher");
 	R_ASSERT2(pLauncher, "Cannot obtain RunXRLauncher function from xrLauncher.dll");
 };
 
@@ -1303,7 +1273,7 @@ void FreeLauncher()
 {
 	if (hLauncher)
 	{
-		FreeLibrary(hLauncher);
+		//FreeLibrary(hLauncher);
 		hLauncher = NULL;
 		pLauncher = NULL;
 	};

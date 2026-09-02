@@ -17,6 +17,8 @@ namespace mp_anticheat
 {
 	configs_dumper::configs_dumper()
 	{
+		//FIXME:
+		stub_unix(__func__);
 		m_state = ds_not_active;
 		m_buffer_for_compress = NULL;
 		m_buffer_for_compress_size = 0;
@@ -33,25 +35,27 @@ namespace mp_anticheat
 	{
 		if (m_make_start_event)
 		{
-			SetEvent(m_make_start_event);
-			WaitForSingleObject(m_make_done_event, INFINITE); //thread stoped
-			CloseHandle(m_make_done_event);
-			CloseHandle(m_make_start_event);
+			// SetEvent(m_make_start_event);
+			// WaitForSingleObject(m_make_done_event, INFINITE); //thread stoped
+			// CloseHandle(m_make_done_event);
+			// CloseHandle(m_make_start_event);
 		}
 		xr_free(m_buffer_for_compress);
 	}
 
 	void configs_dumper::shedule_Update(u32 dt)
 	{
-		DWORD thread_result = WaitForSingleObject(m_make_done_event, 0);
-		R_ASSERT((thread_result != WAIT_ABANDONED) && (thread_result != WAIT_FAILED));
-		R_ASSERT(m_state == ds_active);
-		if (thread_result == WAIT_OBJECT_0)
-		{
-			m_complete_cb(m_buffer_for_compress, m_buffer_for_compress_size, m_dump_result.size());
-			m_state = ds_not_active;
-			Engine.Sheduler.Unregister(this);
-		}
+		//FIXME:
+	stub_unix(__func__);
+		// uint32_t thread_result = WaitForSingleObject(m_make_done_event, 0);
+		// //R_ASSERT((thread_result != WAIT_ABANDONED) && (thread_result != WAIT_FAILED));
+		// R_ASSERT(m_state == ds_active);
+		// if (thread_result == WAIT_OBJECT_0)
+		// {
+		// 	m_complete_cb(m_buffer_for_compress, m_buffer_for_compress_size, m_dump_result.size());
+		// 	m_state = ds_not_active;
+		// 	Engine.Sheduler.Unregister(this);
+		// }
 	}
 
 	struct ExistDumpPredicate
@@ -160,7 +164,7 @@ namespace mp_anticheat
 	void configs_dumper::sign_configs()
 	{
 		string64 creation_date;
-		LPSTR tmp_player_name = NULL;
+		char * tmp_player_name = NULL;
 		CInifile tmp_ini(NULL, FALSE, FALSE, FALSE);
 		game_cl_mp* tmp_cl_game = smart_cast<game_cl_mp*>(&Game());
 		R_ASSERT(tmp_cl_game);
@@ -208,6 +212,8 @@ namespace mp_anticheat
 
 	void configs_dumper::dump_config(complete_callback_t complete_cb)
 	{
+		//FIXME:
+	stub_unix(__func__);
 		if (is_active())
 		{
 #ifdef DEBUG
@@ -216,12 +222,12 @@ namespace mp_anticheat
 			return;
 		}
 
-		DWORD_PTR process_affinity_mask;
-		DWORD_PTR tmp_dword;
-		GetProcessAffinityMask(
-			GetCurrentProcess(),
-			&process_affinity_mask,
-			&tmp_dword);
+		uintptr_t process_affinity_mask;
+		uintptr_t tmp_dword;
+		// GetProcessAffinityMask(
+		// 	GetCurrentProcess(),
+		// 	&process_affinity_mask,
+		// 	&tmp_dword);
 		bool single_core = (btwCount1(static_cast<u32>(process_affinity_mask)) == 1);
 		if (single_core)
 		{
@@ -236,12 +242,13 @@ namespace mp_anticheat
 		m_state = ds_active;
 		if (m_make_start_event)
 		{
-			SetEvent(m_make_start_event);
+			//SetEvent(m_make_start_event);
 			Engine.Sheduler.Register(this, TRUE);
 			return;
 		}
-		m_make_start_event = CreateEvent(NULL, FALSE, TRUE, NULL);
-		m_make_done_event = CreateEvent(NULL, FALSE, FALSE, NULL);
+		//FIXME:
+		//m_make_start_event = CreateEvent(NULL, FALSE, TRUE, NULL);
+		//m_make_done_event = CreateEvent(NULL, FALSE, FALSE, NULL);
 		thread_spawn(&configs_dumper::dumper_thread, "configs_dumper", 0, this);
 		Engine.Sheduler.Register(this, TRUE);
 	}
@@ -266,26 +273,28 @@ namespace mp_anticheat
 	void configs_dumper::dumper_thread(void* my_ptr)
 	{
 		PROF_EVENT();
+		//FIXME:
+		stub_unix(__func__);
 
 		configs_dumper* this_ptr = static_cast<configs_dumper*>(my_ptr);
-		DWORD wait_result = WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
-		while ((wait_result != WAIT_ABANDONED) || (wait_result != WAIT_FAILED))
-		{
-			if (!this_ptr->is_active())
-				break; // error
-			this_ptr->timer_begin("writing configs");
-			this_ptr->write_configs();
-			this_ptr->timer_end();
-			this_ptr->timer_begin("signing configs");
-			this_ptr->sign_configs();
-			this_ptr->timer_end();
-			this_ptr->timer_begin("compressing data");
-			this_ptr->compress_configs();
-			this_ptr->timer_end();
-			SetEvent(this_ptr->m_make_done_event);
-			wait_result = WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
-		}
-		SetEvent(this_ptr->m_make_done_event);
+		// uint32_t wait_result = WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
+		// while ((wait_result != WAIT_ABANDONED) || (wait_result != WAIT_FAILED))
+		// {
+		// 	if (!this_ptr->is_active())
+		// 		break; // error
+		// 	this_ptr->timer_begin("writing configs");
+		// 	this_ptr->write_configs();
+		// 	this_ptr->timer_end();
+		// 	this_ptr->timer_begin("signing configs");
+		// 	this_ptr->sign_configs();
+		// 	this_ptr->timer_end();
+		// 	this_ptr->timer_begin("compressing data");
+		// 	this_ptr->compress_configs();
+		// 	this_ptr->timer_end();
+		// 	//SetEvent(this_ptr->m_make_done_event);
+		// 	wait_result = 0;//WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
+		// }
+		//SetEvent(this_ptr->m_make_done_event);
 	}
 
 	void __stdcall configs_dumper::yield_cb(long progress)
@@ -298,8 +307,9 @@ namespace mp_anticheat
 
 	void __stdcall configs_dumper::switch_thread()
 	{
-		if (!SwitchToThread())
-			sleep(10);
+		//TODO:
+		// if (!SwitchToThread())
+		// 	sleep(10);
 	}
 
 	void configs_dumper::realloc_compress_buffer(u32 need_size)

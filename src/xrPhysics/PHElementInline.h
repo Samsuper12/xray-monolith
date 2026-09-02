@@ -1,11 +1,11 @@
-IC void CPHElement::InverceLocalForm(Fmatrix& m)
+inline void CPHElement::InverceLocalForm(Fmatrix& m)
 {
 	m.identity();
 	m.c.set(m_mass_center);
 	m.invert();
 }
 
-IC void CPHElement::MulB43InverceLocalForm(Fmatrix& m) const
+inline void CPHElement::MulB43InverceLocalForm(Fmatrix& m) const
 {
 	Fvector ic;
 	ic.set(m_mass_center);
@@ -15,7 +15,7 @@ IC void CPHElement::MulB43InverceLocalForm(Fmatrix& m) const
 }
 
 
-IC void CPHElement::CalculateBoneTransform(Fmatrix& bone_transform) const
+inline void CPHElement::CalculateBoneTransform(Fmatrix& bone_transform) const
 {
 	Fmatrix parent;
 	parent.invert(m_shell->mXFORM);

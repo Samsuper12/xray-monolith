@@ -1,27 +1,27 @@
 #include "xr_trims.h"
 
-LPSTR _TrimLeft(LPSTR str)
+char * _TrimLeft(char * str)
 {
-	LPSTR p = str;
+	char * p = str;
 	while (*p && (u8(*p) <= u8(' '))) p++;
 	if (p != str)
 	{
-		LPSTR t = str;
+		char * t = str;
 		for (; *p; t++, p++) *t = *p;
 		*t = 0;
 	}
 	return str;
 }
 
-LPSTR _TrimRight(LPSTR str)
+char * _TrimRight(char * str)
 {
-	LPSTR p = str + xr_strlen(str);
+	char * p = str + xr_strlen(str);
 	while ((p != str) && (u8(*p) <= u8(' '))) p--;
 	*(++p) = 0;
 	return str;
 }
 
-LPSTR _Trim(LPSTR str)
+char * _Trim(char * str)
 {
 	_TrimLeft(str);
 	_TrimRight(str);
@@ -40,7 +40,7 @@ LPCSTR _SetPos(LPCSTR src, u32 pos, char separator)
 	return res;
 }
 
-LPCSTR _CopyVal(LPCSTR src, LPSTR dst, u32 const dst_size, char separator)
+LPCSTR _CopyVal(LPCSTR src, char * dst, u32 const dst_size, char separator)
 {
 	LPCSTR p;
 	size_t n;
@@ -70,7 +70,7 @@ int _GetItemCount(LPCSTR src, char separator)
 	return cnt;
 }
 
-LPSTR _GetItem(LPCSTR src, int index, LPSTR dst, u32 const dst_size, char separator, LPCSTR def, bool trim)
+char * _GetItem(LPCSTR src, int index, char * dst, u32 const dst_size, char separator, LPCSTR def, bool trim)
 {
 	LPCSTR ptr;
 	ptr = _SetPos(src, index, separator);
@@ -80,9 +80,9 @@ LPSTR _GetItem(LPCSTR src, int index, LPSTR dst, u32 const dst_size, char separa
 	return dst;
 }
 
-LPSTR _GetItems(LPCSTR src, int idx_start, int idx_end, LPSTR dst, char separator)
+char * _GetItems(LPCSTR src, int idx_start, int idx_end, char * dst, char separator)
 {
-	LPSTR n = dst;
+	char * n = dst;
 	int level = 0;
 	for (LPCSTR p = src; *p != 0; p++)
 	{
@@ -103,16 +103,16 @@ u32 _ParseItem(LPCSTR src, xr_token* token_list)
 	return u32(-1);
 }
 
-u32 _ParseItem(LPSTR src, int ind, xr_token* token_list)
+u32 _ParseItem(char * src, int ind, xr_token* token_list)
 {
 	char dst[128];
 	_GetItem(src, ind, dst);
 	return _ParseItem(dst, token_list);
 }
 
-LPSTR _ReplaceItems(LPCSTR src, int idx_start, int idx_end, LPCSTR new_items, LPSTR dst, char separator)
+char * _ReplaceItems(LPCSTR src, int idx_start, int idx_end, LPCSTR new_items, char * dst, char separator)
 {
-	LPSTR n = dst;
+	char * n = dst;
 	int level = 0;
 	bool bCopy = true;
 	for (LPCSTR p = src; *p != 0; p++)
@@ -136,9 +136,9 @@ LPSTR _ReplaceItems(LPCSTR src, int idx_start, int idx_end, LPCSTR new_items, LP
 	return dst;
 }
 
-LPSTR _ReplaceItem(LPCSTR src, int index, LPCSTR new_item, LPSTR dst, char separator)
+char * _ReplaceItem(LPCSTR src, int index, LPCSTR new_item, char * dst, char separator)
 {
-	LPSTR n = dst;
+	char * n = dst;
 	int level = 0;
 	bool bCopy = true;
 	for (LPCSTR p = src; *p != 0; p++)
@@ -162,7 +162,7 @@ LPSTR _ReplaceItem(LPCSTR src, int index, LPCSTR new_item, LPSTR dst, char separ
 	return dst;
 }
 
-LPSTR _ChangeSymbol(LPSTR name, char src, char dest)
+char * _ChangeSymbol(char * name, char src, char dest)
 {
 	char* sTmpName = name;
 	while (sTmpName[0])

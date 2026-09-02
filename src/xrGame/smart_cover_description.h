@@ -46,9 +46,9 @@ namespace smart_cover
 	public:
 		description(shared_str const& table_id);
 		~description();
-		IC shared_str const& table_id() const;
-		IC Loopholes const& loopholes() const;
-		IC TransitionGraph const& transitions() const;
+		inline shared_str const& table_id() const;
+		inline Loopholes const& loopholes() const;
+		inline TransitionGraph const& transitions() const;
 		loophole const* loophole(shared_str const& loophole_id) const;
 
 	private:

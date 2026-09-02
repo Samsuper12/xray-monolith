@@ -8,12 +8,12 @@
 
 #pragma once
 
-IC refreshable_obstacles_query::refreshable_obstacles_query()
+inline refreshable_obstacles_query::refreshable_obstacles_query()
 {
 	m_last_update_time = 0;
 }
 
-IC const float& refreshable_obstacles_query::refresh_radius()
+inline const float& refreshable_obstacles_query::refresh_radius()
 {
 	static const float m_update_objects_radius = 2.f;
 	static const float m_large_update_objects_radius = 100.f;

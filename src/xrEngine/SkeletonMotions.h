@@ -83,7 +83,7 @@ public:
 		_count = cnt;
 	}
 
-	ICF u32 get_count() const { return (u32(_count) & 0x00FFFFFF); }
+	inline u32 get_count() const { return (u32(_count) & 0x00FFFFFF); }
 
 	float GetLength() { return float(_count) * SAMPLE_SPF; }
 
@@ -139,8 +139,8 @@ public:
 	u16 flags;
 	xr_vector<motion_marks> marks;
 
-	IC float Dequantize(u16 V) const { return float(V) / 655.35f; }
-	IC u16 Quantize(float V) const
+	inline float Dequantize(u16 V) const { return float(V) / 655.35f; }
+	inline u16 Quantize(float V) const
 	{
 		s32 t = iFloor(V * 655.35f);
 		clamp(t, 0, 65535);
@@ -150,16 +150,16 @@ public:
 	void Load(IReader* MP, u32 fl, u16 vers);
 	u32 mem_usage() { return sizeof(*this); }
 
-	ICF float Accrue() { return fQuantizerRangeExt * Dequantize(accrue); }
-	ICF float Falloff() { return fQuantizerRangeExt * Dequantize(falloff); }
-	ICF float Speed() { return Dequantize(speed); }
-	ICF float Power() { return Dequantize(power); }
+	inline float Accrue() { return fQuantizerRangeExt * Dequantize(accrue); }
+	inline float Falloff() { return fQuantizerRangeExt * Dequantize(falloff); }
+	inline float Speed() { return Dequantize(speed); }
+	inline float Power() { return Dequantize(power); }
 	bool StopAtEnd();
 };
 
 struct accel_str_pred
 {
-	IC bool operator()(const shared_str& x, const shared_str& y) const { return xr_strcmp(x, y) < 0; }
+	inline bool operator()(const shared_str& x, const shared_str& y) const { return xr_strcmp(x, y) < 0; }
 };
 
 typedef xr_map<shared_str, u16, accel_str_pred> accel_map;
@@ -187,8 +187,8 @@ class ENGINE_API CPartition
 {
 	xr_vector<CPartDef*> P;
 public:
-	IC CPartDef* operator[](u16 id) { return P.size() > id ? P.at(id) : nullptr; }
-	IC const CPartDef* part(u16 id) const { return P.size() > id ? P.at(id) : nullptr; }
+	inline CPartDef* operator[](u16 id) { return P.size() > id ? P.at(id) : nullptr; }
+	inline const CPartDef* part(u16 id) const { return P.size() > id ? P.at(id) : nullptr; }
 	CPartDef* create()
 	{
 		if (P.size() > MAX_PARTS) return nullptr;

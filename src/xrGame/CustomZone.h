@@ -102,7 +102,7 @@ public:
 		eZoneStateMax
 	} EZoneState;
 
-	IC ALife::EHitType GetHitType() { return m_eHitTypeBlowout; }
+	inline ALife::EHitType GetHitType() { return m_eHitTypeBlowout; }
 
 protected:
 	enum EZoneFlags

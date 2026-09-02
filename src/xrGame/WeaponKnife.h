@@ -135,7 +135,7 @@ private:
 	                 Fvector const& dir,
 	                 float const dist);
 
-	static BOOL RayQueryCallback(collide::rq_result& result, LPVOID this_ptr);
+	static BOOL RayQueryCallback(collide::rq_result& result, void* this_ptr);
 	collide::rq_results m_ray_query_results;
 	u16 m_except_id;
 	CObject* m_last_picked_obj;

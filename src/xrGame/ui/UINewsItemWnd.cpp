@@ -35,7 +35,7 @@ void CUINewsItemWnd::Setup(GAME_NEWS_DATA& news_data)
 	receive_time = news_data.receive_time;
 	shared_str time_str = InventoryUtilities::GetTimeAndDateAsString(news_data.receive_time);
 	u32 sz = (time_str.size() + 5) * sizeof(char);
-	PSTR str = (PSTR)alloca(sz);
+	char * str = (char *)alloca(sz);
 	xr_strcpy(str, sz, time_str.c_str());
 	xr_strcat(str, sz, " -");
 	m_UIDate->SetText(str);

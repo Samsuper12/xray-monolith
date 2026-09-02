@@ -45,16 +45,16 @@ public:
 
 	void update_schedule(u32 dt);
 
-	IC void set_despondent();
-	IC void set_take_heart();
-	IC void set_normal_state();
+	inline void set_despondent();
+	inline void set_take_heart();
+	inline void set_normal_state();
 
-	IC bool is_despondent();
+	inline bool is_despondent();
 
-	IC float get_morale();
+	inline float get_morale();
 
 private:
-	IC void change(float value);
+	inline void change(float value);
 };
 
 #include "monster_morale_inline.h"

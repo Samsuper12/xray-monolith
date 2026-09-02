@@ -4,13 +4,13 @@
 
 #include "R_Backend.h"
 
-IC void CBackend::set_xform(u32 ID, const Fmatrix& M)
+inline void CBackend::set_xform(u32 ID, const Fmatrix& M)
 {
 	stat.xforms ++;
 	CHK_DX(HW.pDevice->SetTransform((D3DTRANSFORMSTATETYPE)ID,(D3DMATRIX*)&M));
 }
 
-IC void CBackend::set_RT(ID3DRenderTargetView* RT, u32 ID)
+inline void CBackend::set_RT(ID3DRenderTargetView* RT, u32 ID)
 {
 	if (RT != pRT[ID])
 	{
@@ -21,7 +21,7 @@ IC void CBackend::set_RT(ID3DRenderTargetView* RT, u32 ID)
 	}
 }
 
-IC void CBackend::set_ZB(ID3DDepthStencilView* ZB)
+inline void CBackend::set_ZB(ID3DDepthStencilView* ZB)
 {
 	if (ZB != pZB)
 	{
@@ -32,7 +32,7 @@ IC void CBackend::set_ZB(ID3DDepthStencilView* ZB)
 	}
 }
 
-ICF void CBackend::set_Format(IDirect3DVertexDeclaration9* _decl)
+inline void CBackend::set_Format(IDirect3DVertexDeclaration9* _decl)
 {
 	if (decl != _decl)
 	{
@@ -45,7 +45,7 @@ ICF void CBackend::set_Format(IDirect3DVertexDeclaration9* _decl)
 	}
 }
 
-ICF void CBackend::set_PS(ID3DPixelShader* _ps, LPCSTR _n)
+inline void CBackend::set_PS(ID3DPixelShader* _ps, LPCSTR _n)
 {
 	if (ps != _ps)
 	{
@@ -59,7 +59,7 @@ ICF void CBackend::set_PS(ID3DPixelShader* _ps, LPCSTR _n)
 	}
 }
 
-ICF void CBackend::set_VS(ID3DVertexShader* _vs, LPCSTR _n)
+inline void CBackend::set_VS(ID3DVertexShader* _vs, LPCSTR _n)
 {
 	if (vs != _vs)
 	{
@@ -73,7 +73,7 @@ ICF void CBackend::set_VS(ID3DVertexShader* _vs, LPCSTR _n)
 	}
 }
 
-ICF void CBackend::set_Vertices(ID3DVertexBuffer* _vb, u32 _vb_stride)
+inline void CBackend::set_Vertices(ID3DVertexBuffer* _vb, u32 _vb_stride)
 {
 	if ((vb != _vb) || (vb_stride != _vb_stride))
 	{
@@ -87,7 +87,7 @@ ICF void CBackend::set_Vertices(ID3DVertexBuffer* _vb, u32 _vb_stride)
 	}
 }
 
-ICF void CBackend::set_Indices(ID3DIndexBuffer* _ib)
+inline void CBackend::set_Indices(ID3DIndexBuffer* _ib)
 {
 	if (ib != _ib)
 	{
@@ -100,7 +100,7 @@ ICF void CBackend::set_Indices(ID3DIndexBuffer* _ib)
 	}
 }
 
-ICF void CBackend::Render(D3DPRIMITIVETYPE T, u32 baseV, u32 startV, u32 countV, u32 startI, u32 PC)
+inline void CBackend::Render(D3DPRIMITIVETYPE T, u32 baseV, u32 startV, u32 countV, u32 startI, u32 PC)
 {
 	//Fix D3D ERROR
 	if (PC == 0)
@@ -114,7 +114,7 @@ ICF void CBackend::Render(D3DPRIMITIVETYPE T, u32 baseV, u32 startV, u32 countV,
 	PGO(Msg("PGO:DIP:%dv/%df",countV,PC));
 }
 
-ICF void CBackend::Render(D3DPRIMITIVETYPE T, u32 startV, u32 PC)
+inline void CBackend::Render(D3DPRIMITIVETYPE T, u32 startV, u32 PC)
 {
 	//Fix D3D ERROR
 	if (PC == 0)
@@ -128,14 +128,14 @@ ICF void CBackend::Render(D3DPRIMITIVETYPE T, u32 startV, u32 PC)
 	PGO(Msg("PGO:DIP:%dv/%df",3*PC,PC));
 }
 
-IC void CBackend::set_Geometry(SGeometry* _geom)
+inline void CBackend::set_Geometry(SGeometry* _geom)
 {
 	set_Format(_geom->dcl._get()->dcl);
 	set_Vertices(_geom->vb, _geom->vb_stride);
 	set_Indices(_geom->ib);
 }
 
-IC void CBackend::set_Scissor(Irect* R)
+inline void CBackend::set_Scissor(Irect* R)
 {
 	if (R)
 	{
@@ -149,7 +149,7 @@ IC void CBackend::set_Scissor(Irect* R)
 	}
 }
 
-IC void CBackend::set_Stencil(u32 _enable, u32 _func, u32 _ref, u32 _mask, u32 _writemask, u32 _fail, u32 _pass,
+inline void CBackend::set_Stencil(u32 _enable, u32 _func, u32 _ref, u32 _mask, u32 _writemask, u32 _fail, u32 _pass,
                               u32 _zfail)
 {
 	// Simple filter
@@ -196,7 +196,7 @@ IC void CBackend::set_Stencil(u32 _enable, u32 _func, u32 _ref, u32 _mask, u32 _
 	}
 }
 
-IC void CBackend::set_Z(u32 _enable)
+inline void CBackend::set_Z(u32 _enable)
 {
 	if (z_enable != _enable)
 	{
@@ -205,7 +205,7 @@ IC void CBackend::set_Z(u32 _enable)
 	}
 }
 
-IC void CBackend::set_ZFunc(u32 _func)
+inline void CBackend::set_ZFunc(u32 _func)
 {
 	if (z_func != _func)
 	{
@@ -214,7 +214,7 @@ IC void CBackend::set_ZFunc(u32 _func)
 	}
 }
 
-IC void CBackend::set_AlphaRef(u32 _value)
+inline void CBackend::set_AlphaRef(u32 _value)
 {
 	if (alpha_ref != _value)
 	{
@@ -223,7 +223,7 @@ IC void CBackend::set_AlphaRef(u32 _value)
 	}
 }
 
-IC void CBackend::set_ColorWriteEnable(u32 _mask)
+inline void CBackend::set_ColorWriteEnable(u32 _mask)
 {
 	if (colorwrite_mask != _mask)
 	{
@@ -235,7 +235,7 @@ IC void CBackend::set_ColorWriteEnable(u32 _mask)
 	}
 }
 
-ICF void CBackend::set_FillMode(u32 _mode)
+inline void CBackend::set_FillMode(u32 _mode)
 {
 	if (fill_mode != _mode)
 	{
@@ -244,7 +244,7 @@ ICF void CBackend::set_FillMode(u32 _mode)
 	}
 }
 
-ICF void CBackend::set_CullMode(u32 _mode)
+inline void CBackend::set_CullMode(u32 _mode)
 {
 	if (cull_mode != _mode)
 	{
@@ -253,12 +253,12 @@ ICF void CBackend::set_CullMode(u32 _mode)
 	}
 }
 
-ICF void CBackend::set_VS(ref_vs& _vs)
+inline void CBackend::set_VS(ref_vs& _vs)
 {
 	set_VS(_vs->vs, _vs->cName.c_str());
 }
 
-IC void CBackend::set_Constants(R_constant_table* C)
+inline void CBackend::set_Constants(R_constant_table* C)
 {
 	// caching
 	if (ctable == C) return;

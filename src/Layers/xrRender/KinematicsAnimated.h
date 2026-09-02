@@ -54,9 +54,9 @@ public:
 	virtual u16 LL_MotionsSlotCount() = 0;
 	virtual const shared_motions& LL_MotionsSlot(u16 idx) = 0;
 
-	//IC CMotionDef*				LL_GetMotionDef	(MotionID id){return m_Motions[id.slot].motions.motion_def(id.idx);}
-	//IC CMotion*					LL_GetRootMotion(MotionID id){return &m_Motions[id.slot].bone_motions[iRoot]->at(id.idx);}
-	//IC CMotion*					LL_GetMotion	(MotionID id, u16 bone_id){return &m_Motions[id.slot].bone_motions[bone_id]->at(id.idx);}
+	//inline CMotionDef*				LL_GetMotionDef	(MotionID id){return m_Motions[id.slot].motions.motion_def(id.idx);}
+	//inline CMotion*					LL_GetRootMotion(MotionID id){return &m_Motions[id.slot].bone_motions[iRoot]->at(id.idx);}
+	//inline CMotion*					LL_GetMotion	(MotionID id, u16 bone_id){return &m_Motions[id.slot].bone_motions[bone_id]->at(id.idx);}
 	virtual CMotionDef* LL_GetMotionDef(MotionID id) = 0;
 	virtual CMotion* LL_GetRootMotion(MotionID id) = 0;
 	virtual CMotion* LL_GetMotion(MotionID id, u16 bone_id) = 0;
@@ -75,10 +75,10 @@ public:
 
 	//	CBlend*						LL_PlayFX		(u16 bone,		MotionID motion, float blendAccrue,	float blendFalloff, float Speed, float Power);
 	virtual CBlend* LL_PlayCycle(u16 partition, MotionID motion, BOOL bMixing, float blendAccrue, float blendFalloff,
-	                             float Speed, BOOL noloop, PlayCallback Callback, LPVOID CallbackParam,
+	                             float Speed, BOOL noloop, PlayCallback Callback, void* CallbackParam,
 	                             u8 channel = 0) = 0;
 	virtual CBlend* LL_PlayCycle(u16 partition, MotionID motion, BOOL bMixIn, PlayCallback Callback,
-	                             LPVOID CallbackParam, u8 channel = 0) = 0;
+	                             void* CallbackParam, u8 channel = 0) = 0;
 	//	void						LL_FadeCycle	(u16 partition, float	falloff, u8 mask_channel = (1<<0));
 	virtual void LL_CloseCycle(u16 partition, u8 mask_channel = (1 << 0)) = 0;
 	virtual void LL_SetChannelFactor(u16 channel, float factor) = 0;
@@ -94,12 +94,12 @@ public:
 	virtual MotionID ID_Cycle_Safe(LPCSTR N) = 0;
 	virtual MotionID ID_Cycle(shared_str N) = 0;
 	virtual MotionID ID_Cycle_Safe(shared_str N) = 0;
-	virtual CBlend* PlayCycle(LPCSTR N, BOOL bMixIn = TRUE, PlayCallback Callback = 0, LPVOID CallbackParam = 0,
+	virtual CBlend* PlayCycle(LPCSTR N, BOOL bMixIn = TRUE, PlayCallback Callback = 0, void* CallbackParam = 0,
 	                          u8 channel = 0) = 0;
-	virtual CBlend* PlayCycle(MotionID M, BOOL bMixIn = TRUE, PlayCallback Callback = 0, LPVOID CallbackParam = 0,
+	virtual CBlend* PlayCycle(MotionID M, BOOL bMixIn = TRUE, PlayCallback Callback = 0, void* CallbackParam = 0,
 	                          u8 channel = 0) = 0;
 	virtual CBlend* PlayCycle(u16 partition, MotionID M, BOOL bMixIn = TRUE, PlayCallback Callback = 0,
-	                          LPVOID CallbackParam = 0, u8 channel = 0, float speed = 0) = 0;
+	                          void* CallbackParam = 0, u8 channel = 0, float speed = 0) = 0;
 	// fx'es
 	virtual MotionID ID_FX(LPCSTR N) = 0;
 	virtual MotionID ID_FX_Safe(LPCSTR N) = 0;

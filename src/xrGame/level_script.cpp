@@ -628,7 +628,7 @@ void iterate_sounds(LPCSTR prefix, u32 max_count, const CScriptCallbackEx<void>&
 	for (int j = 0, N = _GetItemCount(prefix); j < N; ++j)
 	{
 		string_path fn, s;
-		LPSTR S = (LPSTR)&s;
+		char * S = (char *)&s;
 		_GetItem(prefix, j, s);
 		if (FS.exist(fn, "$game_sounds$", S, ".ogg"))
 			callback(prefix);

@@ -91,15 +91,15 @@ public:
 #endif
 	void MakeMeCrow();
 
-	ICF void IAmNotACrowAnyMore() { Props.crow = false; }
+	inline void IAmNotACrowAnyMore() { Props.crow = false; }
 	virtual BOOL AlwaysTheCrow() { return FALSE; }
-	ICF bool AmICrow() const { return !!Props.crow; }
+	inline bool AmICrow() const { return !!Props.crow; }
 
 	// Network
-	ICF BOOL Local() const { return Props.net_Local; }
-	ICF BOOL Remote() const { return !Props.net_Local; }
-	ICF u16 ID() const { return Props.net_ID; }
-	ICF void setID(u16 _ID) { Props.net_ID = _ID; }
+	inline BOOL Local() const { return Props.net_Local; }
+	inline BOOL Remote() const { return !Props.net_Local; }
+	inline u16 ID() const { return Props.net_ID; }
+	inline void setID(u16 _ID) { Props.net_ID = _ID; }
 	virtual BOOL Ready() { return Props.net_Ready; }
 	BOOL GetTmpPreDestroy() const { return Props.bPreDestroy; }
 	void SetTmpPreDestroy(BOOL b) { Props.bPreDestroy = b; }
@@ -107,41 +107,41 @@ public:
 	virtual bool shedule_Needed() { return processing_enabled(); };
 
 	// Parentness
-	IC CObject* H_Parent() { return Parent; }
-	IC const CObject* H_Parent() const { return Parent; }
+	inline CObject* H_Parent() { return Parent; }
+	inline const CObject* H_Parent() const { return Parent; }
 	CObject* H_Root() { return Parent ? Parent->H_Root() : this; }
 	const CObject* H_Root() const { return Parent ? Parent->H_Root() : this; }
 	CObject* H_SetParent(CObject* O, bool just_before_destroy = false);
 
 	// Geometry xform
 	virtual void Center(Fvector& C) const;
-	IC const Fmatrix& XFORM() const
+	inline const Fmatrix& XFORM() const
 	{
 		VERIFY(_valid(renderable.xform));
 		return renderable.xform;
 	}
 
-	ICF Fmatrix& XFORM() { return renderable.xform; }
+	inline Fmatrix& XFORM() { return renderable.xform; }
 	virtual void spatial_register();
 	virtual void spatial_unregister();
 	virtual void spatial_move();
 	void spatial_update(float eps_P, float eps_R);
 
-	ICF Fvector& Direction() { return renderable.xform.k; }
-	ICF const Fvector& Direction() const { return renderable.xform.k; }
-	ICF Fvector& Position() { return renderable.xform.c; }
-	ICF const Fvector& Position() const { return renderable.xform.c; }
+	inline Fvector& Direction() { return renderable.xform.k; }
+	inline const Fvector& Direction() const { return renderable.xform.k; }
+	inline Fvector& Position() { return renderable.xform.c; }
+	inline const Fvector& Position() const { return renderable.xform.c; }
 	virtual float Radius() const;
 	virtual const Fbox& BoundingBox() const;
 
-	IC IRender_Sector* Sector() { return H_Root()->spatial.sector; }
-	IC IRender_ObjectSpecific* ROS() { return renderable_ROS(); }
+	inline IRender_Sector* Sector() { return H_Root()->spatial.sector; }
+	inline IRender_ObjectSpecific* ROS() { return renderable_ROS(); }
 	virtual BOOL renderable_ShadowGenerate() { return TRUE; }
 	virtual BOOL renderable_ShadowReceive() { return TRUE; }
 
 	// Accessors and converters
-	ICF IRenderVisual* Visual() const { return renderable.visual; }
-	ICF ICollisionForm* CFORM() const { return collidable.model; }
+	inline IRenderVisual* Visual() const { return renderable.visual; }
+	inline ICollisionForm* CFORM() const { return collidable.model; }
 	virtual CObject* dcast_CObject() { return this; }
 	virtual IRenderable* dcast_Renderable() { return this; }
 
@@ -153,12 +153,12 @@ public:
 
 	virtual const IObjectPhysicsCollision* physics_collision() { return 0; }
 	// Name management
-	ICF shared_str cName() const { return NameObject; }
+	inline shared_str cName() const { return NameObject; }
 	void cName_set(shared_str N);
-	ICF shared_str cNameSect() const { return NameSection; }
-	ICF LPCSTR cNameSect_str() const { return NameSection.c_str(); }
+	inline shared_str cNameSect() const { return NameSection; }
+	inline LPCSTR cNameSect_str() const { return NameSection.c_str(); }
 	void cNameSect_set(shared_str N);
-	ICF shared_str cNameVisual() const { return NameVisual; }
+	inline shared_str cNameVisual() const { return NameVisual; }
 	void cNameVisual_set(shared_str N);
 	virtual shared_str shedule_Name() const { return cName(); };
 
@@ -168,17 +168,17 @@ public:
 	bool processing_enabled() { return 0 != Props.bActiveCounter; }
 
 	void setVisible(BOOL _visible);
-	ICF BOOL getVisible() const { return Props.bVisible; }
+	inline BOOL getVisible() const { return Props.bVisible; }
 	void setEnabled(BOOL _enabled);
-	ICF BOOL getEnabled() const { return Props.bEnabled; }
+	inline BOOL getEnabled() const { return Props.bEnabled; }
 	void setDestroy(BOOL _destroy);
-	ICF BOOL getDestroy() const { return Props.bDestroy; }
-	ICF void setLocal(BOOL _local) { Props.net_Local = _local ? 1 : 0; }
-	ICF BOOL getLocal() const { return Props.net_Local; }
-	ICF void setSVU(BOOL _svu) { Props.net_SV_Update = _svu ? 1 : 0; }
-	ICF BOOL getSVU() const { return Props.net_SV_Update; }
-	ICF void setReady(BOOL _ready) { Props.net_Ready = _ready ? 1 : 0; }
-	ICF BOOL getReady() const { return Props.net_Ready; }
+	inline BOOL getDestroy() const { return Props.bDestroy; }
+	inline void setLocal(BOOL _local) { Props.net_Local = _local ? 1 : 0; }
+	inline BOOL getLocal() const { return Props.net_Local; }
+	inline void setSVU(BOOL _svu) { Props.net_SV_Update = _svu ? 1 : 0; }
+	inline BOOL getSVU() const { return Props.net_SV_Update; }
+	inline void setReady(BOOL _ready) { Props.net_Ready = _ready ? 1 : 0; }
+	inline BOOL getReady() const { return Props.net_Ready; }
 
 	//---------------------------------------------------------------------
 	CObject();
@@ -212,7 +212,7 @@ public:
 	}; // destroy all links to another objects
 
 	// Position stack
-	IC u32 ps_Size() const { return PositionStack.size(); }
+	inline u32 ps_Size() const { return PositionStack.size(); }
 	virtual SavedPosition ps_Element(u32 ID) const;
 
 	virtual void ForceTransform(const Fmatrix& m)

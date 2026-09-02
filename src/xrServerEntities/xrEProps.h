@@ -34,26 +34,26 @@ typedef fastdelegate::FastDelegate0<> TOnModifiedEvent;
 //------------------------------------------------------------------------------
 // Prepare Key
 //------------------------------------------------------------------------------
-IC xr_string FolderAppend(LPCSTR val)
+inline xr_string FolderAppend(LPCSTR val)
 {
 	xr_string tmp = (val && val[0]) ? val : "";
 	if (val && val[0])tmp += "\\";
 	return tmp;
 }
 
-IC shared_str PrepareKey(LPCSTR pref, LPCSTR key)
+inline shared_str PrepareKey(LPCSTR pref, LPCSTR key)
 {
 	R_ASSERT(key);
 	return shared_str(xr_string(FolderAppend(pref) + key).c_str());
 }
 
-IC shared_str PrepareKey(LPCSTR pref0, LPCSTR pref1, LPCSTR key)
+inline shared_str PrepareKey(LPCSTR pref0, LPCSTR pref1, LPCSTR key)
 {
 	R_ASSERT(key);
 	return shared_str(xr_string(FolderAppend(pref0) + FolderAppend(pref1) + key).c_str());
 }
 
-IC shared_str PrepareKey(LPCSTR pref0, LPCSTR pref1, LPCSTR pref2, LPCSTR key)
+inline shared_str PrepareKey(LPCSTR pref0, LPCSTR pref1, LPCSTR pref2, LPCSTR key)
 {
 	R_ASSERT(key);
 	return shared_str(xr_string(FolderAppend(pref0) + FolderAppend(pref1) + FolderAppend(pref2) + key).c_str());
@@ -146,14 +146,14 @@ public:
 
 	virtual GameTypeValue* __stdcall CreateGameType(PropItemVec& items, shared_str key, GameTypeChooser* val) =0;
 	// obsolette    
-	virtual CTextValue* __stdcall CreateCText(PropItemVec& items, shared_str key, LPSTR val, u32 sz) =0;
-	virtual CListValue* __stdcall CreateCList(PropItemVec& items, shared_str key, LPSTR val, u32 sz, xr_string* lst,
+	virtual CTextValue* __stdcall CreateCText(PropItemVec& items, shared_str key, char * val, u32 sz) =0;
+	virtual CListValue* __stdcall CreateCList(PropItemVec& items, shared_str key, char * val, u32 sz, xr_string* lst,
 	                                          u32 cnt) =0;
-	virtual CTextValue* __stdcall CreateCName(PropItemVec& items, shared_str key, LPSTR val, u32 sz, ListItem* owner) =
+	virtual CTextValue* __stdcall CreateCName(PropItemVec& items, shared_str key, char * val, u32 sz, ListItem* owner) =
 	0;
 	virtual TokenValueSH* __stdcall CreateTokenSH(PropItemVec& items, shared_str key, u32* val,
 	                                              const TokenValueSH::Item* lst, u32 cnt) =0;
-	virtual CTextValue* __stdcall CreateTexture(PropItemVec& items, shared_str key, LPSTR val, u32 sz) =0;
+	virtual CTextValue* __stdcall CreateTexture(PropItemVec& items, shared_str key, char * val, u32 sz) =0;
 };
 
 //---------------------------------------------------------------------------

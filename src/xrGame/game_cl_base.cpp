@@ -198,7 +198,7 @@ void game_cl_GameState::net_import_update(NET_Packet& P)
 	if (players.end() != I)
 	{
 		game_PlayerState* IP = I->second;
-		//		CopyMemory	(&IP,&PS,sizeof(PS));		
+		//		memcpy	(&IP,&PS,sizeof(PS));		
 		//***********************************************
 		u16 OldFlags = IP->flags__;
 		u8 OldVote = IP->m_bCurrentVoteAgreed;
@@ -232,7 +232,7 @@ void game_cl_GameState::TranslateGameMessage(u32 msg, NET_Packet& P)
 
 	string512 Text;
 	char Color_Main[] = "%c[255,192,192,192]";
-	LPSTR Color_Teams[3] = {"%c[255,255,240,190]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
+	char * Color_Teams[3] = {"%c[255,255,240,190]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
 
 	switch (msg)
 	{

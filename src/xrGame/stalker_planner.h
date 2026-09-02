@@ -40,8 +40,8 @@ public:
 	virtual ~CStalkerPlanner();
 	virtual void setup(CAI_Stalker* object);
 	virtual void update(u32 time_delta);
-	IC void affect_cover(bool value);
-	IC bool affect_cover() const;
+	inline void affect_cover(bool value);
+	inline bool affect_cover() const;
 
 #ifdef LOG_ACTION
 	virtual	LPCSTR			object_name			() const;

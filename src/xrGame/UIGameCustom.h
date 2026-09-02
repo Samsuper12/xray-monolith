@@ -105,8 +105,8 @@ public:
 
 	virtual void Render();
 	virtual void OnFrame() override;
-	IC CUIActorMenu& GetActorMenu() const { return *ActorMenu; }
-	IC CUIPdaWnd& GetPdaMenu() const { return *PdaMenu; }
+	inline CUIActorMenu& GetActorMenu() const { return *ActorMenu; }
+	inline CUIPdaWnd& GetPdaMenu() const { return *PdaMenu; }
 	bool ShowActorMenu();
 	void HideActorMenu();
 	void UpdateActorMenu(); //Alundaio

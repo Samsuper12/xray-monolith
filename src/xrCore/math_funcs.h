@@ -2,7 +2,7 @@
 #define _XRCORE_MATH_FUNCS_
 
 // normalize angle (0..2PI)
-ICF float angle_normalize_always(float a) {
+inline float angle_normalize_always(float a) {
   float div = a / PI_MUL_2;
   int rnd = (div > 0) ? iFloor(div) : iCeil(div);
   float frac = div - rnd;
@@ -12,7 +12,7 @@ ICF float angle_normalize_always(float a) {
 }
 
 // normalize angle (0..2PI)
-ICF float angle_normalize(float a) {
+inline float angle_normalize(float a) {
   if (a >= 0 && a <= PI_MUL_2)
     return a;
   else
@@ -20,7 +20,7 @@ ICF float angle_normalize(float a) {
 }
 
 // -PI .. +PI
-ICF float angle_normalize_signed(float a) {
+inline float angle_normalize_signed(float a) {
   if (a >= (-PI) && a <= PI)
     return a;
   float angle = angle_normalize_always(a);
@@ -30,7 +30,7 @@ ICF float angle_normalize_signed(float a) {
 }
 
 // -PI..PI
-ICF float angle_difference_signed(float a, float b) {
+inline float angle_difference_signed(float a, float b) {
   float diff = angle_normalize_signed(a) - angle_normalize_signed(b);
   if (diff > 0) {
     if (diff > PI)
@@ -43,11 +43,11 @@ ICF float angle_difference_signed(float a, float b) {
 }
 
 // 0..PI
-ICF float angle_difference(float a, float b) {
+inline float angle_difference(float a, float b) {
   return _abs(angle_difference_signed(a, b));
 }
 
-IC bool are_ordered(float const value0, float const value1,
+inline bool are_ordered(float const value0, float const value1,
                     float const value2) {
   if ((value1 >= value0) && (value1 <= value2))
     return true;
@@ -58,12 +58,12 @@ IC bool are_ordered(float const value0, float const value1,
   return false;
 }
 
-IC bool is_between(float const value, float const left, float const right) {
+inline bool is_between(float const value, float const left, float const right) {
   return are_ordered(left, value, right);
 }
 
 // c=current, t=target, s=speed, dt=dt
-IC bool angle_lerp(float &c, float t, float s, float dt) {
+inline bool angle_lerp(float &c, float t, float s, float dt) {
   float const before = c;
   float diff = t - c;
   if (diff > 0) {
@@ -95,7 +95,7 @@ IC bool angle_lerp(float &c, float t, float s, float dt) {
 }
 
 // Just lerp :) expects normalized angles in range [0..2PI)
-ICF float angle_lerp(float A, float B, float f) {
+inline float angle_lerp(float A, float B, float f) {
   float diff = B - A;
   if (diff > PI)
     diff -= PI_MUL_2;
@@ -105,7 +105,7 @@ ICF float angle_lerp(float A, float B, float f) {
   return A + diff * f;
 }
 
-IC float angle_inertion(float src, float tgt, float speed, float clmp,
+inline float angle_inertion(float src, float tgt, float speed, float clmp,
                         float dt) {
   float a = angle_normalize_signed(tgt);
   angle_lerp(src, a, speed, dt);
@@ -116,7 +116,7 @@ IC float angle_inertion(float src, float tgt, float speed, float clmp,
   return src;
 }
 
-IC float angle_inertion_var(float src, float tgt, float min_speed,
+inline float angle_inertion_var(float src, float tgt, float min_speed,
                             float max_speed, float clmp, float dt) {
   tgt = angle_normalize_signed(tgt);
   src = angle_normalize_signed(src);

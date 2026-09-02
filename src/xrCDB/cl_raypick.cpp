@@ -29,9 +29,9 @@ namespace RAPID
 	}
 
 	//----------------------------------------------------------------------------
-	IC DWORD& IR(float &x)
- { return (DWORD&)x; }
-	IC BOOL TestAABB(const Fvector& bMax, const Fvector& rP, const Fvector& rD, Fvector& coord)
+	inline uint32_t& IR(float &x)
+ { return (uint32_t&)x; }
+	inline BOOL TestAABB(const Fvector& bMax, const Fvector& rP, const Fvector& rD, Fvector& coord)
 	{
 #ifdef _EDITOR
     	Fbox		BB;
@@ -89,7 +89,7 @@ namespace RAPID
 		}
 
 		// Get largest of the maxT's for final choice of intersection
-		DWORD WhichPlane = 0;
+		uint32_t WhichPlane = 0;
 		if (MaxT[1] > MaxT[0]) WhichPlane = 1;
 		if (MaxT[2] > MaxT[WhichPlane]) WhichPlane = 2;
 

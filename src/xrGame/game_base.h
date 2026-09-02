@@ -181,7 +181,7 @@ public:
 	{
 	}
 
-	IC EGameIDs const& Type() const { return m_type; };
+	inline EGameIDs const& Type() const { return m_type; };
 	u16 Phase() const { return m_phase; };
 	s32 Round() const { return m_round; };
 	u32 StartTime() const { return m_start_time; };

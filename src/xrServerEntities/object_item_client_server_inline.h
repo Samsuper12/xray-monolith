@@ -15,7 +15,7 @@
 #define CSObjectItemClientServer CObjectItemClientServer<_client_type,_server_type>
 
 TEMPLATE_SPECIALIZATION
-IC CSObjectItemClientServer::CObjectItemClientServer(const CLASS_ID& clsid, LPCSTR script_clsid) :
+inline CSObjectItemClientServer::CObjectItemClientServer(const CLASS_ID& clsid, LPCSTR script_clsid) :
 	inherited(clsid, script_clsid)
 {
 }
@@ -44,7 +44,7 @@ ObjectFactory::SERVER_BASE_CLASS*CSObjectItemClientServer::server_object(LPCSTR 
 #	define CSObjectItemClientServerSingleMp CObjectItemClientServerSingleMp<_client_type_single,_client_type_mp,_server_type_single,_server_type_mp>
 
 TEMPLATE_SPECIALIZATION
-IC CSObjectItemClientServerSingleMp::CObjectItemClientServerSingleMp(const CLASS_ID& clsid, LPCSTR script_clsid) :
+inline CSObjectItemClientServerSingleMp::CObjectItemClientServerSingleMp(const CLASS_ID& clsid, LPCSTR script_clsid) :
 	inherited(clsid, script_clsid)
 {
 }

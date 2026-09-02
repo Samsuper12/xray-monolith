@@ -20,14 +20,14 @@
 const float hinge2_spring = 20000.f;
 const float hinge2_damping = 1000.f;
 
-IC dBodyID body_for_joint(CPhysicsElement* ee)
+inline dBodyID body_for_joint(CPhysicsElement* ee)
 {
 	VERIFY(smart_cast<CPHElement *>(ee));
 	CPHElement* e = static_cast<CPHElement *>(ee);
 	return e->isFixed() ? 0 : e->get_body(); //return e->get_body();//
 }
 
-IC void SwapLimits(float& lo, float& hi)
+inline void SwapLimits(float& lo, float& hi)
 {
 	float t = -lo;
 	lo = -hi;

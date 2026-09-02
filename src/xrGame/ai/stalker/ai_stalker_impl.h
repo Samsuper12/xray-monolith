@@ -18,12 +18,12 @@
 #include "smart_cover_animation_selector.h"
 #include "smart_cover_animation_planner.h"
 
-IC CAgentManager& CAI_Stalker::agent_manager() const
+inline CAgentManager& CAI_Stalker::agent_manager() const
 {
 	return (Level().seniority_holder().team(g_Team()).squad(g_Squad()).group(g_Group()).agent_manager());
 }
 
-IC Fvector CAI_Stalker::weapon_shot_effector_direction(const Fvector& current) const
+inline Fvector CAI_Stalker::weapon_shot_effector_direction(const Fvector& current) const
 {
 #if 1
 	return current;

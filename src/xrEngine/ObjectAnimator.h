@@ -27,15 +27,15 @@ public:
 
 	void Clear();
 	void Load(LPCSTR name);
-	IC LPCSTR Name() { return *m_Name; }
+	inline LPCSTR Name() { return *m_Name; }
 	float& Speed() { return m_Speed; }
 
 	COMotion* Play(bool bLoop, LPCSTR name = 0);
 	void Pause(bool val) { return m_MParam.Pause(val); }
 	void Stop();
-	IC BOOL IsPlaying() { return m_MParam.bPlay; }
+	inline BOOL IsPlaying() { return m_MParam.bPlay; }
 
-	IC const Fmatrix& XFORM() { return m_XFORM; }
+	inline const Fmatrix& XFORM() { return m_XFORM; }
 	const SAnimParams& anim_param() { return m_MParam; }
 	bool bLoop;
 	float GetLength();

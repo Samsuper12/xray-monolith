@@ -152,8 +152,8 @@ void CConsole::Initialize()
 	pFont = NULL;
 	pFont2 = NULL;
 
-	m_mouse_pos.x = 0;
-	m_mouse_pos.y = 0;
+	// m_mouse_pos.x = 0;
+	// m_mouse_pos.y = 0;
 	m_last_cmd = NULL;
 
 	m_cmd_history.reserve(m_cmd_history_max + 2);
@@ -223,7 +223,7 @@ void CConsole::OutFont(LPCSTR text, float& pos_y)
 		float f = 0.0f;
 		int sz = 0;
 		int ln = 0;
-		PSTR one_line = (PSTR)alloca((CONSOLE_BUF_SIZE + 1) * sizeof(char));
+		char * one_line = (char *)alloca((CONSOLE_BUF_SIZE + 1) * sizeof(char));
 
 		while (text[sz] && (ln + sz < CONSOLE_BUF_SIZE - 5)) // перенос строк
 		{
@@ -580,9 +580,9 @@ void CConsole::DrawRect(Frect const& r, u32 color)
 void CConsole::ExecuteCommand(LPCSTR cmd_str, bool record_cmd)
 {
 	u32 str_size = xr_strlen(cmd_str);
-	PSTR edt = (PSTR)alloca((str_size + 1) * sizeof(char));
-	PSTR first = (PSTR)alloca((str_size + 1) * sizeof(char));
-	PSTR last = (PSTR)alloca((str_size + 1) * sizeof(char));
+	char * edt = (char *)alloca((str_size + 1) * sizeof(char));
+	char * first = (char *)alloca((str_size + 1) * sizeof(char));
+	char * last = (char *)alloca((str_size + 1) * sizeof(char));
 
 	xr_strcpy(edt, str_size + 1, cmd_str);
 	edt[str_size] = 0;
@@ -735,7 +735,7 @@ void CConsole::Execute(LPCSTR cmd)
 void CConsole::ExecuteScript(LPCSTR str)
 {
 	u32 str_size = xr_strlen(str);
-	PSTR buf = (PSTR)alloca((str_size + 10) * sizeof(char));
+	char * buf = (char *)alloca((str_size + 10) * sizeof(char));
 	xr_strcpy(buf, str_size + 10, "cfg_load ");
 	xr_strcat(buf, str_size + 10, str);
 	Execute(buf);
@@ -749,7 +749,7 @@ IConsole_Command* CConsole::find_next_cmd(LPCSTR in_str, shared_str& out_str)
 	bool b_ra = (in_str == strstr(in_str, radmin_cmd_name));
 	u32 offset = (b_ra) ? xr_strlen(radmin_cmd_name) : 0;
 
-	LPSTR t2;
+	char * t2;
 	STRCONCAT(t2, in_str + offset, " ");
 
 	vecCMD_IT it = Commands.lower_bound(t2);
@@ -758,7 +758,7 @@ IConsole_Command* CConsole::find_next_cmd(LPCSTR in_str, shared_str& out_str)
 		IConsole_Command* cc = it->second;
 		LPCSTR name_cmd = cc->Name();
 		u32 name_cmd_size = xr_strlen(name_cmd);
-		PSTR new_str = (PSTR)alloca((offset + name_cmd_size + 2) * sizeof(char));
+		char * new_str = (char *)alloca((offset + name_cmd_size + 2) * sizeof(char));
 
 		xr_strcpy(new_str, offset + name_cmd_size + 2, (b_ra) ? radmin_cmd_name : "");
 		xr_strcat(new_str, offset + name_cmd_size + 2, name_cmd);
@@ -777,7 +777,7 @@ bool CConsole::add_next_cmds(LPCSTR in_str, vecTipsEx& out_v)
 		return false;
 	}
 
-	LPSTR t2;
+	char * t2;
 	STRCONCAT(t2, in_str, " ");
 
 	shared_str temp;
@@ -802,7 +802,7 @@ bool CConsole::add_next_cmds(LPCSTR in_str, vecTipsEx& out_v)
 		{
 			break; // for
 		}
-		LPSTR t3;
+		char * t3;
 		STRCONCAT(t3, out_v.back().text.c_str(), " ");
 		cc = find_next_cmd(t3, temp);
 		if (!cc)
@@ -908,8 +908,8 @@ void CConsole::update_tips()
 	}
 	m_prev_length_str = cur_length;
 
-	PSTR first = (PSTR)alloca((cur_length + 1) * sizeof(char));
-	PSTR last = (PSTR)alloca((cur_length + 1) * sizeof(char));
+	char * first = (char *)alloca((cur_length + 1) * sizeof(char));
+	char * last = (char *)alloca((cur_length + 1) * sizeof(char));
 	text_editor::split_cmd(first, last, cur);
 
 	u32 first_lenght = xr_strlen(first);

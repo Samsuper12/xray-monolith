@@ -39,41 +39,41 @@
 #endif
 
 #ifdef _EDITOR
-IC char* strncpy_s(char* strDestination, size_t sizeInBytes, const char* strSource, size_t count)
+inline char* strncpy_s(char* strDestination, size_t sizeInBytes, const char* strSource, size_t count)
 {
     return strncpy(strDestination, strSource, count);
 }
 
-IC char* xr_strcpy(char* strDestination, size_t sizeInBytes, const char* strSource)
+inline char* xr_strcpy(char* strDestination, size_t sizeInBytes, const char* strSource)
 {
     return strcpy(strDestination, strSource);
 }
 
-IC char* xr_strcpy(char* strDestination, const char* strSource)
+inline char* xr_strcpy(char* strDestination, const char* strSource)
 {
     return strcpy(strDestination, strSource);
 }
 
-IC char* _strlwr_s(char* strDestination, size_t sizeInBytes)
+inline char* _strlwr_s(char* strDestination, size_t sizeInBytes)
 {
     return _strlwr(strDestination);
 }
 
-IC char* xr_strcat(char* strDestination, size_t sizeInBytes, const char* strSource)
+inline char* xr_strcat(char* strDestination, size_t sizeInBytes, const char* strSource)
 {
     return strncat(strDestination, strSource, sizeInBytes);
 }
 
-IC char* xr_strcat(char* strDestination, const char* strSource)
+inline char* xr_strcat(char* strDestination, const char* strSource)
 {
     return strcat(strDestination, strSource);
 }
 
-IC int xr_sprintf(char* dest, size_t sizeOfBuffer, const char* format, ...)
+inline int xr_sprintf(char* dest, size_t sizeOfBuffer, const char* format, ...)
 {
     va_list mark;
     va_start(mark, format);
-    int sz = _vsnprintf(dest, sizeOfBuffer, format, mark);
+    int sz = vsnprintf(dest, sizeOfBuffer, format, mark);
     dest[sizeOfBuffer - 1] = 0;
     va_end(mark);
     return sz;
@@ -87,14 +87,14 @@ struct XRCORE_API xr_token
 	int id;
 };
 
-IC LPCSTR get_token_name(xr_token* tokens, int key)
+inline LPCSTR get_token_name(xr_token* tokens, int key)
 {
 	for (int k = 0; tokens[k].name; k++)
 		if (key == tokens[k].id) return tokens[k].name;
 	return "";
 }
 
-IC int get_token_id(xr_token* tokens, LPCSTR key)
+inline int get_token_id(xr_token* tokens, LPCSTR key)
 {
 	for (int k = 0; tokens[k].name; k++)
 		if (_stricmp(tokens[k].name, key) == 0)
@@ -111,20 +111,20 @@ struct XRCORE_API xr_token2
 
 // generic
 template <class T>
-IC T _min(T a, T b) { return a < b ? a : b; }
+inline T _min(T a, T b) { return a < b ? a : b; }
 
 template <class T>
-IC T _max(T a, T b) { return a > b ? a : b; }
+inline T _max(T a, T b) { return a > b ? a : b; }
 
 template <class T>
-IC T _sqr(T a) { return a * a; }
+inline T _sqr(T a) { return a * a; }
 
 // float
-IC float _abs(float x) { return std::fabsf(x); }
-IC float _sqrt(float x) { return std::sqrtf(x); }
-IC float _sin(float x) { return std::sinf(x); }
-IC float _cos(float x) { return std::cosf(x); }
-IC BOOL _valid(const float x)
+inline float _abs(float x) { return std::fabsf(x); }
+inline float _sqrt(float x) { return std::sqrtf(x); }
+inline float _sin(float x) { return std::sinf(x); }
+inline float _cos(float x) { return std::cosf(x); }
+inline BOOL _valid(const float x)
 {
 	switch (std::fpclassify(x))
     {
@@ -138,11 +138,11 @@ IC BOOL _valid(const float x)
 
 
 // double
-IC double _abs(double x) { return std::fabs(x); }
-IC double _sqrt(double x) { return std::sqrt(x); }
-IC double _sin(double x) { return std::sin(x); }
-IC double _cos(double x) { return std::cos(x); }
-IC BOOL _valid(const double x)
+inline double _abs(double x) { return std::fabs(x); }
+inline double _sqrt(double x) { return std::sqrt(x); }
+inline double _sin(double x) { return std::sin(x); }
+inline double _cos(double x) { return std::cos(x); }
+inline BOOL _valid(const double x)
 {
 	// check for: Signaling NaN, Quiet NaN, Negative infinity ( –INF), Positive infinity (+INF), Negative denormalized, Positive denormalized
 	switch (std::fpclassify(x))
@@ -167,47 +167,47 @@ IC BOOL _valid(const double x)
 }
 
 // int8
-IC s8 _abs(s8 x) { return (x >= 0) ? x : s8(-x); }
-IC s8 _min(s8 x, s8 y) { return y + ((x - y) & ((x - y) >> (sizeof(s8) * 8 - 1))); };
-IC s8 _max(s8 x, s8 y) { return x - ((x - y) & ((x - y) >> (sizeof(s8) * 8 - 1))); };
+inline s8 _abs(s8 x) { return (x >= 0) ? x : s8(-x); }
+inline s8 _min(s8 x, s8 y) { return y + ((x - y) & ((x - y) >> (sizeof(s8) * 8 - 1))); };
+inline s8 _max(s8 x, s8 y) { return x - ((x - y) & ((x - y) >> (sizeof(s8) * 8 - 1))); };
 
 // unsigned int8
-IC u8 _abs(u8 x) { return x; }
+inline u8 _abs(u8 x) { return x; }
 
 // int16
-IC s16 _abs(s16 x) { return (x >= 0) ? x : s16(-x); }
-IC s16 _min(s16 x, s16 y) { return y + ((x - y) & ((x - y) >> (sizeof(s16) * 8 - 1))); };
-IC s16 _max(s16 x, s16 y) { return x - ((x - y) & ((x - y) >> (sizeof(s16) * 8 - 1))); };
+inline s16 _abs(s16 x) { return (x >= 0) ? x : s16(-x); }
+inline s16 _min(s16 x, s16 y) { return y + ((x - y) & ((x - y) >> (sizeof(s16) * 8 - 1))); };
+inline s16 _max(s16 x, s16 y) { return x - ((x - y) & ((x - y) >> (sizeof(s16) * 8 - 1))); };
 
 // unsigned int16
-IC u16 _abs(u16 x) { return x; }
+inline u16 _abs(u16 x) { return x; }
 
 // int32
-IC s32 _abs(s32 x) { return (x >= 0) ? x : s32(-x); }
-IC s32 _min(s32 x, s32 y) { return y + ((x - y) & ((x - y) >> (sizeof(s32) * 8 - 1))); };
-IC s32 _max(s32 x, s32 y) { return x - ((x - y) & ((x - y) >> (sizeof(s32) * 8 - 1))); };
+inline s32 _abs(s32 x) { return (x >= 0) ? x : s32(-x); }
+inline s32 _min(s32 x, s32 y) { return y + ((x - y) & ((x - y) >> (sizeof(s32) * 8 - 1))); };
+inline s32 _max(s32 x, s32 y) { return x - ((x - y) & ((x - y) >> (sizeof(s32) * 8 - 1))); };
 
 // int64
-IC s64 _abs(s64 x) { return (x >= 0) ? x : s64(-x); }
-IC s64 _min(s64 x, s64 y) { return y + ((x - y) & ((x - y) >> (sizeof(s64) * 8 - 1))); };
-IC s64 _max(s64 x, s64 y) { return x - ((x - y) & ((x - y) >> (sizeof(s64) * 8 - 1))); };
+inline s64 _abs(s64 x) { return (x >= 0) ? x : s64(-x); }
+inline s64 _min(s64 x, s64 y) { return y + ((x - y) & ((x - y) >> (sizeof(s64) * 8 - 1))); };
+inline s64 _max(s64 x, s64 y) { return x - ((x - y) & ((x - y) >> (sizeof(s64) * 8 - 1))); };
 
-IC u32 xr_strlen(const char* S);
+inline u32 xr_strlen(const char* S);
 
 // string management
 
 // return pointer to ".ext"
-IC char* strext(const char* S)
+inline char* strext(const char* S)
 {
 	return (char*)strrchr(S, '.');
 }
 
-IC u32 xr_strlen(const char* S)
+inline u32 xr_strlen(const char* S)
 {
 	return (u32)strlen(S);
 }
 
-IC char* xr_strlwr(char* S)
+inline char* xr_strlwr(char* S)
 {
 	return _strlwr(S);
 }
@@ -223,7 +223,7 @@ inline std::filesystem::path& xr_pathlwr(std::filesystem::path& p) {
 #ifdef BREAK_AT_STRCMP
 XRCORE_API int xr_strcmp(const char* S1, const char* S2);
 #else
-IC int xr_strcmp(const char* S1, const char* S2)
+inline int xr_strcmp(const char* S1, const char* S2)
 {
 	return (int)strcmp(S1, S2);
 }
@@ -231,23 +231,23 @@ IC int xr_strcmp(const char* S1, const char* S2)
 
 #ifndef _EDITOR
 #ifndef MASTER_GOLD
-inline void xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
+inline void xr_strcpy(char * destination, size_t const destination_size, LPCSTR source)
 {
     snprintf(destination, destination_size, "%s", source);
 }
 
-inline void xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
+inline void xr_strcat(char * destination, size_t const buffer_size, LPCSTR source)
 {
     size_t dst_len = strlen(destination);
     if (dst_len < buffer_size)
         snprintf(destination + dst_len, buffer_size - dst_len, "%s", source);
 }
 
-inline int xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
+inline int xr_sprintf(char * destination, size_t const buffer_size, LPCSTR format_string, ...)
 {
     va_list args;
     va_start(args, format_string);
-    return vsprintf(destination, buffer_size, format_string, args);
+    return 1;//vsprintf(destination, buffer_size, format_string, args);
 }
 
 template <int count>
@@ -259,16 +259,16 @@ inline int xr_sprintf(char(&destination)[count], LPCSTR format_string, ...)
 }
 #else // #ifndef MASTER_GOLD
 
-inline void xr_strcpy(LPSTR destination, size_t const destination_size, LPCSTR source)
+inline void xr_strcpy(char * destination, size_t const destination_size, LPCSTR source)
 {
 	snprintf(destination, destination_size, "%s", source);
 }
 
-inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR source)
+inline errno_t xr_strcat(char * destination, size_t const buffer_size, LPCSTR source)
 {
 	size_t const destination_length = xr_strlen(destination);
-	LPSTR i = destination + destination_length;
-	LPSTR const e = destination + buffer_size - 1;
+	char * i = destination + destination_length;
+	char * const e = destination + buffer_size - 1;
 	if (i > e)
 		return 0;
 
@@ -279,7 +279,7 @@ inline errno_t xr_strcat(LPSTR destination, size_t const buffer_size, LPCSTR sou
 	return 0;
 }
 
-inline int xr_sprintf(LPSTR destination, size_t const buffer_size, LPCSTR format_string, ...)
+inline int xr_sprintf(char * destination, size_t const buffer_size, LPCSTR format_string, ...)
 {
 	va_list args;
 	va_start(args, format_string);

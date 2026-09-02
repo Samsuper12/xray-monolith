@@ -18,7 +18,7 @@
 
 u32 CPHSkeleton::existence_time = 5000;
 
-bool IC CheckObjectSize(IKinematics* K)
+bool inline CheckObjectSize(IKinematics* K)
 {
 	u16 bcount = K->LL_BoneCount();
 	for (u16 i = 0; i < bcount; ++i)

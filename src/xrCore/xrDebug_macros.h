@@ -52,7 +52,7 @@
 # endif // NON_FATAL_VERIFY
 //-AVO
 # else // DEBUG
-# define NODEFAULT __assume(0)
+# define NODEFAULT
 #ifdef USE_VERIFY_IN_RELEASE
 # define VERIFY(expr) do {if (!(expr)) ::Debug.soft_fail(#expr,DEBUG_INFO);} while(0)
 # define VERIFY2(expr,e2) do {if (!(expr)) ::Debug.soft_fail(#expr,e2,DEBUG_INFO);} while(0)

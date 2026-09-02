@@ -186,8 +186,8 @@ public:
 	CStatTimer stat_insert;
 	CStatTimer stat_remove;
 private:
-	IC uint32_t _octant(uint32_t x, uint32_t y, uint32_t z) { return z * 4 + y * 2 + x; }
-	IC uint32_t _octant(Fvector& base, Fvector& rel)
+	inline uint32_t _octant(uint32_t x, uint32_t y, uint32_t z) { return z * 4 + y * 2 + x; }
+	inline uint32_t _octant(Fvector& base, Fvector& rel)
 	{
 		uint32_t o = 0;
 		if (rel.x > base.x) o += 1;

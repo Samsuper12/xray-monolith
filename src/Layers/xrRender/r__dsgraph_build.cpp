@@ -25,14 +25,14 @@ float r_ssaLOD_A, r_ssaLOD_B;
 float r_ssaGLOD_start, r_ssaGLOD_end;
 float r_ssaHZBvsTEX;
 
-ICF float CalcSSA(float& distSQ, Fvector& C, dxRender_Visual* V)
+inline float CalcSSA(float& distSQ, Fvector& C, dxRender_Visual* V)
 {
 	float R = V->vis.sphere.R + 0;
 	distSQ = Device.vCameraPosition.distance_to_sqr(C) + EPS;
 	return R / distSQ;
 }
 
-ICF float CalcSSA(float& distSQ, Fvector& C, float R)
+inline float CalcSSA(float& distSQ, Fvector& C, float R)
 {
 	distSQ = Device.vCameraPosition.distance_to_sqr(C) + EPS;
 	return R / distSQ;
@@ -642,7 +642,7 @@ Fvector4 o_optimize_dynamic_l3_size = {O_D_L3_S_LOW, O_D_L3_S_MED, O_D_L3_S_HII,
 
 #define BASE_FOV 67.f
 
-IC float GetDistFromCamera(const Fvector& from_position)
+inline float GetDistFromCamera(const Fvector& from_position)
 // Aproximate, adjusted by fov, distance from camera to position (For right work when looking though binoculars and scopes)
 {
 	float distance = Device.vCameraPosition.distance_to(from_position);
@@ -652,7 +652,7 @@ IC float GetDistFromCamera(const Fvector& from_position)
 	return adjusted_distane;
 }
 
-IC bool IsValuableToRender(dxRender_Visual* pVisual, bool isStatic, bool sm, Fmatrix& transform_matrix)
+inline bool IsValuableToRender(dxRender_Visual* pVisual, bool isStatic, bool sm, Fmatrix& transform_matrix)
 {
 	if ((isStatic && opt_static >= 1) || (!isStatic && opt_dynamic >= 1))
 	{

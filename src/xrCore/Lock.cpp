@@ -1,16 +1,17 @@
 #include "Lock.hpp"
 #include <mutex>
+#include <_types_own.h>
 
 struct LockImpl
 {
-	CRITICAL_SECTION cs;
+	//CRITICAL_SECTION cs;
 
-	LockImpl() { InitializeCriticalSection(&cs); }
-	~LockImpl() { DeleteCriticalSection(&cs); }
+	LockImpl() { stub_unix(__func__); }
+	~LockImpl() { stub_unix(__func__); }
 
-	ICF void Lock() { EnterCriticalSection(&cs); }
-	ICF void Unlock() { LeaveCriticalSection(&cs); }
-	ICF bool TryLock() { return !!TryEnterCriticalSection(&cs); }
+	inline void Lock() { stub_unix(__func__); }
+	inline void Unlock() { stub_unix(__func__); }
+	inline bool TryLock() { stub_unix(__func__);}
 };
 
 #ifdef CONFIG_PROFILE_LOCKS
@@ -21,7 +22,7 @@ struct profiler
 	u64 m_time;
 	LPCSTR m_timer_id;
 
-	IC profiler::profiler(LPCSTR timer_id)
+	inline profiler::profiler(LPCSTR timer_id)
 	{
 		if (!add_profile_portion)
 			return;
@@ -30,7 +31,7 @@ struct profiler
 		m_time = CPU::QPC();
 	}
 
-	IC profiler::~profiler()
+	inline profiler::~profiler()
 	{
 		if (!add_profile_portion)
 			return;

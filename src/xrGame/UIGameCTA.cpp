@@ -828,7 +828,7 @@ void CUIGameCTA::ShowBuySpawn(s32 spawn_cost)
 	LPCSTR format_str = st.translate("mp_press_yes2pay").c_str();
 	VERIFY(format_str);
 	size_t pay_frm_size = xr_strlen(format_str) * sizeof(char) + 64;
-	PSTR pay_frm_str = static_cast<char*>(alloca(pay_frm_size));
+	char * pay_frm_str = static_cast<char*>(alloca(pay_frm_size));
 
 	xr_sprintf(
 		pay_frm_str,

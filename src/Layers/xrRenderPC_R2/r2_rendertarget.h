@@ -342,20 +342,20 @@ public:
 	void DoAsyncScreenshot();
 
 #ifdef DEBUG
-	IC void						dbg_addline				(Fvector& P0, Fvector& P1, u32 c)					{
+	inline void						dbg_addline				(Fvector& P0, Fvector& P1, u32 c)					{
 		dbg_lines.push_back		(dbg_line_t());
 		dbg_lines.back().P0		= P0;
 		dbg_lines.back().P1		= P1;
 		dbg_lines.back().color	= c;
 	}
-	IC void						dbg_addbox(const Fbox &box, const u32 &color)
+	inline void						dbg_addbox(const Fbox &box, const u32 &color)
 	{
 		Fvector c, r;
 		box.getcenter(c);
 		box.getradius(r);
 		dbg_addbox(c, r.x, r.y, r.z, color);
 	}
-	IC void						dbg_addbox(const Fvector &c, float rx, float ry, float rz, u32 color)
+	inline void						dbg_addbox(const Fvector &c, float rx, float ry, float rz, u32 color)
 	{
 		Fvector p1, p2, p3, p4, p5, p6, p7, p8;
 
@@ -384,15 +384,15 @@ public:
 		dbg_addline(p3, p7, color);
 		dbg_addline(p4, p8, color);
 	}
-	IC void						dbg_addplane			(Fplane& P0,  u32 c)								{
+	inline void						dbg_addplane			(Fplane& P0,  u32 c)								{
 		dbg_planes.push_back(P0);
 	}
 #else
-	IC void dbg_addline(Fvector& P0, Fvector& P1, u32 c)
+	inline void dbg_addline(Fvector& P0, Fvector& P1, u32 c)
 	{
 	}
 
-	IC void dbg_addplane(Fplane& P0, u32 c)
+	inline void dbg_addplane(Fplane& P0, u32 c)
 	{
 	}
 #endif

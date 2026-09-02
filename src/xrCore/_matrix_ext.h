@@ -5,7 +5,7 @@
 #include <_quaternion.h>
 
 template <class T>
-IC _matrix<T>& _matrix<T>::rotation(const _quaternion<T>& Q)
+inline _matrix<T>& _matrix<T>::rotation(const _quaternion<T>& Q)
 {
 	T xx = Q.x * Q.x;
 	T yy = Q.y * Q.y;
@@ -37,7 +37,7 @@ IC _matrix<T>& _matrix<T>::rotation(const _quaternion<T>& Q)
 }
 
 template <class T>
-IC _matrix<T>& _matrix<T>::mk_xform(const _quaternion<T>& Q, const Tvector& V)
+inline _matrix<T>& _matrix<T>::mk_xform(const _quaternion<T>& Q, const Tvector& V)
 {
 	T xx = Q.x * Q.x;
 	T yy = Q.y * Q.y;

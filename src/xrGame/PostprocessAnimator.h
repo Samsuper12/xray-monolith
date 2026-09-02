@@ -172,7 +172,7 @@ public:
 	virtual ~CPostprocessAnimator();
 	void Clear();
 	void Load(LPCSTR name);
-	IC LPCSTR Name() { return *m_Name; }
+	inline LPCSTR Name() { return *m_Name; }
 	virtual void Stop(float speed);
 	void SetDesiredFactor(float f, float sp);
 	void SetCurrentFactor(float f);

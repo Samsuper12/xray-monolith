@@ -21,21 +21,21 @@ public:
 	{
 	}
 
-	IC void SetParams(int oct, float freq, float amp)
+	inline void SetParams(int oct, float freq, float amp)
 	{
 		mOctaves = oct;
 		mFrequency = freq;
 		mAmplitude = amp;
 	}
 
-	IC void SetOctaves(int oct)
+	inline void SetOctaves(int oct)
 	{
 		mOctaves = oct;
 		mTimes.resize(mOctaves);
 	}
 
-	IC void SetFrequency(float freq) { mFrequency = freq; }
-	IC void SetAmplitude(float amp) { mAmplitude = amp; }
+	inline void SetFrequency(float freq) { mFrequency = freq; }
+	inline void SetAmplitude(float amp) { mAmplitude = amp; }
 };
 
 class ENGINE_API CPerlinNoise1D : public CPerlinNoiseCustom

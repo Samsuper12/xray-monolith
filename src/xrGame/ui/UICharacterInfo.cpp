@@ -362,8 +362,8 @@ bool CUICharacterInfo::get_actor_community(shared_str* our, shared_str* enemy)
 		return false;
 	}
 	u32 size_temp = (xr_strlen(vs_teams) + 1) * sizeof(char);
-	PSTR our_fract = (PSTR)alloca(size_temp);
-	PSTR enemy_fract = (PSTR)alloca(size_temp);
+	char * our_fract = (char *)alloca(size_temp);
+	char * enemy_fract = (char *)alloca(size_temp);
 	_GetItem(vs_teams, 0, our_fract, size_temp);
 	_GetItem(vs_teams, 1, enemy_fract, size_temp);
 

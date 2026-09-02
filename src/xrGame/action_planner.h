@@ -89,8 +89,8 @@ public:
 	virtual LPCSTR				property2string			(const _condition_type &action_id);
 	virtual LPCSTR				object_name				() const;
 	virtual void				show					(LPCSTR offset = "");
-	IC		void				show_current_world_state();
-	IC		void				show_target_world_state	();
+	inline		void				show_current_world_state();
+	inline		void				show_target_world_state	();
 #endif
 
 public:
@@ -99,18 +99,18 @@ public:
 	virtual void setup(_object_type* object);
 	virtual void update();
 	virtual void finalize();
-	IC COperator& action(const _action_id_type& action_id);
-	IC CConditionEvaluator& evaluator(const _condition_type& evaluator_id);
-	IC _action_id_type current_action_id() const;
-	IC COperator& current_action();
-	IC bool initialized() const;
-	IC void add_condition(_world_operator* action, _condition_type condition_id, _value_type condition_value);
-	IC void add_effect(_world_operator* action, _condition_type condition_id, _value_type condition_value);
-	IC virtual void add_operator(const _edge_type& operator_id, _operator_ptr _operator);
-	IC virtual void remove_operator(const _edge_type& operator_id);
-	IC virtual void add_evaluator(const _condition_type& condition_id, _condition_evaluator_ptr evaluator);
-	IC virtual void remove_evaluator(const _condition_type& condition_id);
-	IC _object_type& object() const;
+	inline COperator& action(const _action_id_type& action_id);
+	inline CConditionEvaluator& evaluator(const _condition_type& evaluator_id);
+	inline _action_id_type current_action_id() const;
+	inline COperator& current_action();
+	inline bool initialized() const;
+	inline void add_condition(_world_operator* action, _condition_type condition_id, _value_type condition_value);
+	inline void add_effect(_world_operator* action, _condition_type condition_id, _value_type condition_value);
+	inline virtual void add_operator(const _edge_type& operator_id, _operator_ptr _operator);
+	inline virtual void remove_operator(const _edge_type& operator_id);
+	inline virtual void add_evaluator(const _condition_type& condition_id, _condition_evaluator_ptr evaluator);
+	inline virtual void remove_evaluator(const _condition_type& condition_id);
+	inline _object_type& object() const;
 	virtual void save(NET_Packet& packet);
 	virtual void load(IReader& packet);
 

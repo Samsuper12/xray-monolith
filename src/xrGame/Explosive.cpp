@@ -203,7 +203,7 @@ struct SExpQParams
 };
 
 //проверка на попадание "осколком" по объекту
-ICF static BOOL grenade_hit_callback(collide::rq_result& result, LPVOID params)
+inline static BOOL grenade_hit_callback(collide::rq_result& result, void* params)
 {
 	SExpQParams& ep = *(SExpQParams*)params;
 	u16 mtl_idx = GAMEMTL_NONE_IDX;

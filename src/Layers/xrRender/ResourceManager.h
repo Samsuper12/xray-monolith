@@ -20,7 +20,7 @@ class ECORE_API CResourceManager
 private:
 	struct str_pred
 	{
-		IC bool operator()(LPCSTR x, LPCSTR y) const
+		inline bool operator()(LPCSTR x, LPCSTR y) const
 		{
 			return xr_strcmp(x, y) < 0;
 		}

@@ -80,7 +80,7 @@ public:
 	virtual bool OnKeyboardAction(int dik, EUIMessages keyboard_action);
 	virtual bool OnKeyboardHold(int dik);
 
-	IC void UpdateNews() { m_need_reload = true; }
+	inline void UpdateNews() { m_need_reload = true; }
 	void xr_stdcall PerformWork();
 
 protected:

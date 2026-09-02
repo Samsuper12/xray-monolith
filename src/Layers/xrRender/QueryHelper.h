@@ -3,16 +3,16 @@
 #pragma once
 
 //	Interface
-IC HRESULT CreateQuery(ID3DQuery** ppQuery, D3DQUERYTYPE Type);
-IC HRESULT GetData(ID3DQuery* pQuery, void* pData, UINT DataSize);
-IC HRESULT BeginQuery(ID3DQuery* pQuery);
-IC HRESULT EndQuery(ID3DQuery* pQuery);
+inline HRESULT CreateQuery(ID3DQuery** ppQuery, D3DQUERYTYPE Type);
+inline HRESULT GetData(ID3DQuery* pQuery, void* pData, UINT DataSize);
+inline HRESULT BeginQuery(ID3DQuery* pQuery);
+inline HRESULT EndQuery(ID3DQuery* pQuery);
 
 //	Implementation
 
 #if defined(USE_DX11)
 
-IC HRESULT CreateQuery ( ID3DQuery **ppQuery, D3DQUERYTYPE Type)
+inline HRESULT CreateQuery ( ID3DQuery **ppQuery, D3DQUERYTYPE Type)
 {
 	D3D_QUERY_DESC	desc;
 	desc.MiscFlags = 0;
@@ -29,19 +29,19 @@ IC HRESULT CreateQuery ( ID3DQuery **ppQuery, D3DQUERYTYPE Type)
 	return HW.pDevice->CreateQuery( &desc, ppQuery);
 }
 
-IC HRESULT GetData( ID3DQuery *pQuery, void *pData, UINT DataSize )
+inline HRESULT GetData( ID3DQuery *pQuery, void *pData, UINT DataSize )
 {
 	//	Use D3Dxx_ASYNC_GETDATA_DONOTFLUSH for prevent flushing
 	return HW.pContext->GetData(pQuery, pData, DataSize, 0);
 }
 
-IC HRESULT BeginQuery( ID3DQuery *pQuery)
+inline HRESULT BeginQuery( ID3DQuery *pQuery)
 {
 	HW.pContext->Begin(pQuery);
 	return S_OK;
 }
 
-IC HRESULT EndQuery( ID3DQuery *pQuery)
+inline HRESULT EndQuery( ID3DQuery *pQuery)
 {
 	HW.pContext->End(pQuery);
 	return S_OK;
@@ -49,7 +49,7 @@ IC HRESULT EndQuery( ID3DQuery *pQuery)
 
 #elif defined(USE_DX10)
 
-IC HRESULT CreateQuery(ID3DQuery** ppQuery, D3DQUERYTYPE Type)
+inline HRESULT CreateQuery(ID3DQuery** ppQuery, D3DQUERYTYPE Type)
 {
 	D3D_QUERY_DESC desc;
 	desc.MiscFlags = 0;
@@ -66,19 +66,19 @@ IC HRESULT CreateQuery(ID3DQuery** ppQuery, D3DQUERYTYPE Type)
 	return HW.pDevice->CreateQuery(&desc, ppQuery);
 }
 
-IC HRESULT GetData(ID3DQuery* pQuery, void* pData, UINT DataSize)
+inline HRESULT GetData(ID3DQuery* pQuery, void* pData, UINT DataSize)
 {
 	//	Use D3Dxx_ASYNC_GETDATA_DONOTFLUSH for prevent flushing
 	return pQuery->GetData(pData, DataSize, 0);
 }
 
-IC HRESULT BeginQuery(ID3DQuery* pQuery)
+inline HRESULT BeginQuery(ID3DQuery* pQuery)
 {
 	pQuery->Begin();
 	return S_OK;
 }
 
-IC HRESULT EndQuery(ID3DQuery* pQuery)
+inline HRESULT EndQuery(ID3DQuery* pQuery)
 {
 	pQuery->End();
 	return S_OK;
@@ -86,22 +86,22 @@ IC HRESULT EndQuery(ID3DQuery* pQuery)
 
 #else	//	USE_DX10
 
-IC HRESULT CreateQuery ( ID3DQuery **ppQuery, D3DQUERYTYPE Type)
+inline HRESULT CreateQuery ( ID3DQuery **ppQuery, D3DQUERYTYPE Type)
 {
 	return HW.pDevice->CreateQuery(Type, ppQuery);
 }
 
-IC HRESULT GetData( ID3DQuery *pQuery, void *pData, UINT DataSize )
+inline HRESULT GetData( ID3DQuery *pQuery, void *pData, UINT DataSize )
 {
 	return pQuery->GetData( pData, DataSize, D3DGETDATA_FLUSH);
 }
 
-IC HRESULT BeginQuery( ID3DQuery *pQuery)
+inline HRESULT BeginQuery( ID3DQuery *pQuery)
 {
 	return pQuery->Issue( D3DISSUE_BEGIN);
 }
 
-IC HRESULT EndQuery( ID3DQuery *pQuery)
+inline HRESULT EndQuery( ID3DQuery *pQuery)
 {
 	return pQuery->Issue( D3DISSUE_END);
 }

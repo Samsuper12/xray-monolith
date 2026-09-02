@@ -8,12 +8,12 @@
 
 #pragma once
 
-IC void CDebugRenderer::render()
+inline void CDebugRenderer::render()
 {
 	DRender->Render();
 }
 
-IC void CDebugRenderer::draw_line(const Fmatrix& matrix, const Fvector& vertex0, const Fvector& vertex1,
+inline void CDebugRenderer::draw_line(const Fmatrix& matrix, const Fvector& vertex0, const Fvector& vertex1,
                                   const u32& color, bool bHud)
 {
 	Fvector vertices[2] = {vertex0, vertex1};
@@ -22,7 +22,7 @@ IC void CDebugRenderer::draw_line(const Fmatrix& matrix, const Fvector& vertex0,
 	          color, bHud);
 }
 
-IC void CDebugRenderer::draw_aabb(const Fvector& center, const float& half_radius_x, const float& half_radius_y,
+inline void CDebugRenderer::draw_aabb(const Fvector& center, const float& half_radius_x, const float& half_radius_y,
                                   const float& half_radius_z, const u32& color, bool bHud)
 {
 	Fvector half_radius;

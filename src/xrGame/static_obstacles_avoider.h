@@ -36,17 +36,17 @@ private:
 
 protected:
 	virtual void query();
-	IC const stalker_movement_manager_obstacles& movement_manager() const;
+	inline const stalker_movement_manager_obstacles& movement_manager() const;
 	const CAI_Stalker& object() const;
 
 public:
-	IC static_obstacles_avoider();
-	IC void construct(stalker_movement_manager_obstacles* movement_manager, const bool& failed_to_build_path);
-	IC const bool& need_path_to_rebuild() const;
-	IC obstacles_query& active_query();
-	IC obstacles_query& inactive_query();
-	IC obstacles_query& current_iteration();
-	IC void clear();
+	inline static_obstacles_avoider();
+	inline void construct(stalker_movement_manager_obstacles* movement_manager, const bool& failed_to_build_path);
+	inline const bool& need_path_to_rebuild() const;
+	inline obstacles_query& active_query();
+	inline obstacles_query& inactive_query();
+	inline obstacles_query& current_iteration();
+	inline void clear();
 
 public:
 	void on_before_query();

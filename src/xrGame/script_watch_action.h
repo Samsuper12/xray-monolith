@@ -45,20 +45,20 @@ public:
 
 public:
 	CScriptWatchAction();
-	IC CScriptWatchAction(SightManager::ESightType tWatchType);
-	IC CScriptWatchAction(SightManager::ESightType tWatchType, const Fvector& tDirection);
-	IC CScriptWatchAction(SightManager::ESightType tWatchType, CScriptGameObject* tpObjectToWatch,
+	inline CScriptWatchAction(SightManager::ESightType tWatchType);
+	inline CScriptWatchAction(SightManager::ESightType tWatchType, const Fvector& tDirection);
+	inline CScriptWatchAction(SightManager::ESightType tWatchType, CScriptGameObject* tpObjectToWatch,
 	                      LPCSTR bone_to_watch = "");
 	// Searchlight look ///////////////////////////////////////////////
 	CScriptWatchAction(const Fvector& tTarget, float vel1, float vel2);
-	IC CScriptWatchAction(CScriptGameObject* tpObjectToWatch, float vel1, float vel2);
+	inline CScriptWatchAction(CScriptGameObject* tpObjectToWatch, float vel1, float vel2);
 	///////////////////////////////////////////////////////////////////
 	virtual ~CScriptWatchAction();
 	void SetWatchObject(CScriptGameObject* tpObjectToWatch);
-	IC void SetWatchType(SightManager::ESightType tWatchType);
-	IC void SetWatchDirection(const Fvector& tDirection);
-	IC void SetWatchBone(LPCSTR bone_to_watch);
-	IC void initialize();
+	inline void SetWatchType(SightManager::ESightType tWatchType);
+	inline void SetWatchDirection(const Fvector& tDirection);
+	inline void SetWatchBone(LPCSTR bone_to_watch);
+	inline void initialize();
 
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };

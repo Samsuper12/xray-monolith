@@ -5,7 +5,7 @@
 #include	"Kinematics.h"
 
 class CIKLimb;
-IC bool state_valide(const calculate_state& prev_state);
+inline bool state_valide(const calculate_state& prev_state);
 
 class ik_limb_state
 {
@@ -26,7 +26,7 @@ public:
 
 	void set_limb(CIKLimb* l);
 
-	IC void save_new_state(const calculate_state& s)
+	inline void save_new_state(const calculate_state& s)
 	{
 #ifdef IK_DBG_STATE_SEQUENCE
 	if( sv_state.size()>130 )
@@ -37,10 +37,10 @@ public:
 	}
 
 private:
-	IC const Fmatrix& anim_pos() const { return state.anim_pos; }
-	IC const ik_goal_matrix& goal() const { return state.goal; }
-	IC const ik_goal_matrix& blend_to() const { return state.blend_to; }
-	IC const Fvector& pick() const { return state.pick; }
+	inline const Fmatrix& anim_pos() const { return state.anim_pos; }
+	inline const ik_goal_matrix& goal() const { return state.goal; }
+	inline const ik_goal_matrix& blend_to() const { return state.blend_to; }
+	inline const Fvector& pick() const { return state.pick; }
 public:
 	Fmatrix& anim_pos(Fmatrix& m) const;
 	ik_goal_matrix& goal(ik_goal_matrix& m) const;
@@ -49,12 +49,12 @@ public:
 	ik_goal_matrix& to_ref_bone(ik_goal_matrix& m) const;
 	Fvector& pick(Fvector& v) const;
 
-	IC u16 ref_bone() const { return state.ref_bone; }
-	IC bool foot_step() const { return state.foot_step; }
-	IC bool blending() const { return state.blending; }
-	IC bool valide() const { return state_valide(state); }
+	inline u16 ref_bone() const { return state.ref_bone; }
+	inline bool foot_step() const { return state.foot_step; }
+	inline bool blending() const { return state.blending; }
+	inline bool valide() const { return state_valide(state); }
 
-	IC void get_calculate_state(calculate_state& s) const
+	inline void get_calculate_state(calculate_state& s) const
 	{
 		s.calc_time = Device.dwTimeGlobal;
 		s.blending = valide() && (state.blending || state.foot_step != s.foot_step);
@@ -78,7 +78,7 @@ public:
 extern	bool dbg_always_valide	;
 #endif
 
-IC bool state_valide(const calculate_state& prev_state)
+inline bool state_valide(const calculate_state& prev_state)
 {
 #ifdef	DEBUG
 	if( dbg_always_valide )
@@ -87,7 +87,7 @@ IC bool state_valide(const calculate_state& prev_state)
 	return (Device.dwTimeGlobal <= (prev_state.calc_time + UCalc_Interval + Device.dwTimeDelta));
 }
 
-IC bool state_valide(const ik_limb_state& s)
+inline bool state_valide(const ik_limb_state& s)
 {
 	return s.valide();
 }

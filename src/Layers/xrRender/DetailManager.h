@@ -217,7 +217,7 @@ public:
 	virtual ObjectList* 			GetSnapList		()=0;
 #endif
 
-	IC bool UseVS() { return HW.Caps.geometry_major >= 1; }
+	inline bool UseVS() { return HW.Caps.geometry_major >= 1; }
 
 	// Software processor
 	ref_geom soft_Geom;
@@ -275,7 +275,7 @@ public:
 	volatile u32 m_frame_rendered;
 
 	void __stdcall MT_CALC();
-	ICF void MT_SYNC()
+	inline void MT_SYNC()
 	{
 		if (m_frame_calc == RDEVICE.dwFrame)
 			return;

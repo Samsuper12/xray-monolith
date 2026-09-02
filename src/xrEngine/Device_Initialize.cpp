@@ -6,7 +6,7 @@
 # include "engine_impl.hpp"
 #endif // #ifdef INGAME_EDITOR
 
-extern LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+extern intptr_t  WndProc(void* hWnd, uint32_t uMsg, uintptr_t wParam, intptr_t lParam);
 
 #ifdef INGAME_EDITOR
 void CRenderDevice::initialize_editor()

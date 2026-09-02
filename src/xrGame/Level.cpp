@@ -87,7 +87,7 @@ u32 lvInterpSteps = 0;
 BOOL spawn_antifreeze = TRUE;
 BOOL spawn_antifreeze_debug = FALSE;
 static xrCriticalSection prefetch_cs;
-static HANDLE prefetch_thread_signal;
+static void* prefetch_thread_signal;
 
 static void unpausePrefetchThreadSignal()
 {
@@ -109,8 +109,9 @@ static void closePrefetchThreadSignal()
 
 static void createPrefetchThreadSignal()
 {
+	// FIXME:
 	if (spawn_antifreeze_debug) Msg("prefetch_thread_signal CreateEvent");
-	prefetch_thread_signal = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+	//prefetch_thread_signal = CreateEvent(nullptr, TRUE, FALSE, nullptr);
 }
 
 struct spawn_and_prefetch_events
@@ -552,6 +553,7 @@ void CLevel::ProcessPrefetchEvents(void* args)
 
 	while (true)
 	{
+		// TODO:
 		//WaitForSingleObject(prefetch_thread_signal, INFINITE); // wait for prefetch queue event to be signaled
 
 		if (*closeSignal == true)

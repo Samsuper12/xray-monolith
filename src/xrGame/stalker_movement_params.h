@@ -55,36 +55,36 @@ private:
 public:
 	stalker_movement_params();
 	stalker_movement_params& operator=(stalker_movement_params const& params);
-	IC void construct(stalker_movement_manager_smart_cover* manager);
+	inline void construct(stalker_movement_manager_smart_cover* manager);
 
 public:
 	bool equal_to_target(stalker_movement_params const& target) const;
 
 public:
-	IC void desired_position(Fvector const* position);
-	IC Fvector const* desired_position() const;
+	inline void desired_position(Fvector const* position);
+	inline Fvector const* desired_position() const;
 
 public:
-	IC void desired_direction(Fvector const* direction);
-	IC Fvector const* desired_direction() const;
+	inline void desired_direction(Fvector const* direction);
+	inline Fvector const* desired_direction() const;
 
 public:
 	void cover_id(shared_str const& cover_id);
-	IC shared_str const& cover_id() const;
-	IC cover_type const* cover() const;
+	inline shared_str const& cover_id() const;
+	inline cover_type const* cover() const;
 
 public:
-	IC void cover_loophole_id(shared_str const& loophole_id);
+	inline void cover_loophole_id(shared_str const& loophole_id);
 	LPCSTR cover_loophole_id() const;
 	loophole_type const* cover_loophole() const;
 
 public:
-	IC void cover_fire_object(CGameObject const* object);
-	IC CGameObject const* cover_fire_object() const;
+	inline void cover_fire_object(CGameObject const* object);
+	inline CGameObject const* cover_fire_object() const;
 
 public:
-	IC void cover_fire_position(Fvector const* position);
-	IC Fvector const* cover_fire_position() const;
+	inline void cover_fire_position(Fvector const* position);
+	inline Fvector const* cover_fire_position() const;
 
 private:
 	void actualize_loophole() const;

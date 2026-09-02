@@ -100,7 +100,7 @@ public:
 	ETaskType GetTaskType() const { return m_task_type; }
 
 	ETaskState UpdateState();
-	IC CMapLocation* LinkedMapLocation() { return m_linked_map_location; }
+	inline CMapLocation* LinkedMapLocation() { return m_linked_map_location; }
 
 	// for scripting access
 	void SetTitle_script(LPCSTR _title) { m_Title = _title; }

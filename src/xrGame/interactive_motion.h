@@ -30,7 +30,7 @@ public:
 	void setup(const MotionID& m, CPhysicsShell* s, float angle);
 
 	void update();
-	IC bool is_enabled() { return !!flags.test(fl_use_death_motion); }
+	inline bool is_enabled() { return !!flags.test(fl_use_death_motion); }
 
 	void play();
 
@@ -54,7 +54,7 @@ protected:
 	static void anim_callback(CBlend* B);
 };
 
-IC void destroy(interactive_motion* & im)
+inline void destroy(interactive_motion* & im)
 {
 	if (!im)
 		return;

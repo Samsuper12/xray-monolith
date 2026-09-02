@@ -3,6 +3,7 @@
 #include <mutex>
 #include <shared_mutex>
 #include "_noncopyable.h"
+#include <_types_own.h>
 
 // Desc: Simple wrapper for critical section
 class XRCORE_API xrCriticalSection : xray::noncopyable

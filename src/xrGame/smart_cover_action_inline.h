@@ -10,17 +10,17 @@
 
 namespace smart_cover
 {
-	IC bool const& action::movement() const
+	inline bool const& action::movement() const
 	{
 		return (m_movement);
 	}
 
-	IC Fvector const& action::target_position() const
+	inline Fvector const& action::target_position() const
 	{
 		return (m_target_position);
 	}
 
-	IC action::Animations const& action::animations(shared_str const& cover_id, shared_str const& id) const
+	inline action::Animations const& action::animations(shared_str const& cover_id, shared_str const& id) const
 	{
 		AnimationList::const_iterator found = m_animations.find(id);
 		VERIFY2(found != m_animations.end(),

@@ -52,7 +52,7 @@ private:
 	u32 m_last_hit_time;
 
 public:
-	IC CHitMemoryManager(CCustomMonster* object, CAI_Stalker* stalker);
+	inline CHitMemoryManager(CCustomMonster* object, CAI_Stalker* stalker);
 	virtual ~CHitMemoryManager();
 	virtual void Load(LPCSTR section);
 	virtual void reinit();
@@ -66,14 +66,14 @@ public:
 	void add(const CHitObject& hit_object);
 
 public:
-	IC const HITS& objects() const;
+	inline const HITS& objects() const;
 #ifdef USE_SELECTED_HIT
-	IC		const CHitObject	*hit				() const;
+	inline		const CHitObject	*hit				() const;
 #endif
 	const CHitObject* hit(const CEntityAlive* object) const;
-	IC void set_squad_objects(HITS* squad_objects);
-	IC const ALife::_OBJECT_ID& last_hit_object_id() const;
-	IC u32 const& last_hit_time() const;
+	inline void set_squad_objects(HITS* squad_objects);
+	inline const ALife::_OBJECT_ID& last_hit_object_id() const;
+	inline u32 const& last_hit_time() const;
 
 public:
 	void enable(const CObject* object, bool enable);

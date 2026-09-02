@@ -25,7 +25,7 @@ namespace smart_cover
 		class animation_predicate
 		{
 		public:
-			IC bool operator()(shared_str const& lhs, shared_str const& rhs) const
+			inline bool operator()(shared_str const& lhs, shared_str const& rhs) const
 			{
 				return (lhs._get() < rhs._get());
 			}
@@ -44,9 +44,9 @@ namespace smart_cover
 	public:
 		action(::luabind::object const& description);
 		~action();
-		IC bool const& movement() const;
-		IC Fvector const& target_position() const;
-		IC Animations const& animations(shared_str const& cover_id, shared_str const& id) const;
+		inline bool const& movement() const;
+		inline Fvector const& target_position() const;
+		inline Animations const& animations(shared_str const& cover_id, shared_str const& id) const;
 
 	private:
 		void add_animation(LPCSTR animation_type, ::luabind::object const& table);

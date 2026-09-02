@@ -37,7 +37,7 @@ struct CWrapperBase : public T, public ::luabind::wrap_base
 	typedef T inherited;
 	typedef CWrapperBase<T> self_type;
 
-	IC CWrapperBase(LPCSTR section) : T(section)
+	inline CWrapperBase(LPCSTR section) : T(section)
 	{
 	}
 

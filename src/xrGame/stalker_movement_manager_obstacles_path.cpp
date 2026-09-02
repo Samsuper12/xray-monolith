@@ -98,7 +98,7 @@ void stalker_movement_manager_obstacles::restore_current_state()
 	m_saved_current_iteration.swap(m_static_obstacles.current_iteration());
 }
 
-IC void stalker_movement_manager_obstacles::remove_query_objects(const Fvector& position, const float& radius)
+inline void stalker_movement_manager_obstacles::remove_query_objects(const Fvector& position, const float& radius)
 {
 	m_static_obstacles.inactive_query().remove_objects(position, radius);
 	m_static_obstacles.active_query().remove_objects(position, radius);

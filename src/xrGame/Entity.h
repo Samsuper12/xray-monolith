@@ -30,8 +30,8 @@ protected:
 	virtual CEntityConditionSimple* create_entity_condition(CEntityConditionSimple* ec);
 
 public:
-	IC float GetfHealth() const { return m_entity_condition->GetHealth(); }
-	IC float SetfHealth(float value)
+	inline float GetfHealth() const { return m_entity_condition->GetHealth(); }
+	inline float SetfHealth(float value)
 	{
 		m_entity_condition->SetHealth(value);
 		return value;
@@ -78,16 +78,16 @@ public:
 
 	//	virtual float			g_Health			()const	{ return GetfHealth();}
 	/*	virtual*/
-	IC float GetMaxHealth() const { return m_entity_condition->max_health(); }
+	inline float GetMaxHealth() const { return m_entity_condition->max_health(); }
 	/*	virtual*/
-	IC void SetMaxHealth(float v) { m_entity_condition->max_health() = v; }
+	inline void SetMaxHealth(float v) { m_entity_condition->max_health() = v; }
 
 	virtual float GetGlowing();			//--DSR-- SilencerOverheat
 	virtual float GetHotness();			//--DSR-- HeatVision
 	virtual void  OnChangeVisual();		//--DSR-- HeatVision
 
 	/*virtual*/
-	IC BOOL g_Alive() const { return GetfHealth() > 0; }
+	inline BOOL g_Alive() const { return GetfHealth() > 0; }
 	virtual BOOL g_State(SEntityState&) const { return FALSE; }
 
 	bool AlreadyDie() { return 0 != GetLevelDeathTime() ? true : false; }
@@ -132,7 +132,7 @@ private:
 	ALife::_OBJECT_ID m_killer_id;
 
 public:
-	IC u16 killer_id() const { return m_killer_id; };
+	inline u16 killer_id() const { return m_killer_id; };
 	virtual bool use_simplified_visual() const { return false; };
 
 public:

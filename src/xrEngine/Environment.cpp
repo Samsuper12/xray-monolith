@@ -88,10 +88,10 @@ CEnvironment::CEnvironment() :
 	// fill clouds hemi verts & faces
 	const Fvector* verts;
 	CloudsVerts.resize(xrHemisphereVertices(2, verts));
-	CopyMemory(&CloudsVerts.front(), verts, CloudsVerts.size()*sizeof(Fvector));
+	memcpy(&CloudsVerts.front(), verts, CloudsVerts.size()*sizeof(Fvector));
 	const u16* indices;
 	CloudsIndices.resize(xrHemisphereIndices(2, indices));
-	CopyMemory(&CloudsIndices.front(), indices, CloudsIndices.size()*sizeof(u16));
+	memcpy(&CloudsIndices.front(), indices, CloudsIndices.size()*sizeof(u16));
 
 	// perlin noise
 	PerlinNoise1D = xr_new<CPerlinNoise1D>(Random.randI(0, 0xFFFF));
@@ -430,7 +430,7 @@ void CEnvironment::StopWFX()
 #endif
 }
 
-IC bool lb_env_pred(const CEnvDescriptor* x, float val)
+inline bool lb_env_pred(const CEnvDescriptor* x, float val)
 {
 	return x->exec_time < val;
 }
@@ -496,17 +496,17 @@ void CEnvironment::SelectEnvs(float gt)
 	}
 }
 
-int get_ref_count(IUnknown* ii)
-{
-	//FIXME:
-	// if (ii)
-	// {
-	// 	ii->AddRef();
-	// 	return ii->Release();
-	// }
-	// else
-	// 	return 0;
-}
+// int get_ref_count(IUnknown* ii)
+// {
+// 	//FIXME:
+// 	// if (ii)
+// 	// {
+// 	// 	ii->AddRef();
+// 	// 	return ii->Release();
+// 	// }
+// 	// else
+// 	// 	return 0;
+// }
 
 void CEnvironment::lerp(float& current_weight)
 {

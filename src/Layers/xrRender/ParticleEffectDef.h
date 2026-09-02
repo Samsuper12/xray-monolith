@@ -46,7 +46,7 @@ namespace PS
 			m_fSpeed = 24.f;
 		}
 
-		IC void CalculateTC(int frame, Fvector2& lt, Fvector2& rb)
+		inline void CalculateTC(int frame, Fvector2& lt, Fvector2& rb)
 		{
 			lt.x = (float)((frame % m_iFrameDimX) * m_fTexSize.x);
 			lt.y = (float)((frame / m_iFrameDimX) * m_fTexSize.y);
@@ -116,7 +116,7 @@ namespace PS
 		float GetFStep();
 
 		void SetName(LPCSTR name);
-		IC LPCSTR Name() const { return *m_Name; }
+		inline LPCSTR Name() const { return *m_Name; }
 		void CreateShader();
 		void DestroyShader();
 

@@ -14,6 +14,12 @@
 #include "mp_logging.h"
 #include "xr_collide_form.h"
 
+// FIXME:
+inline long _InterlockedCompareExchange(long *Destination, long Exchange,
+                                 long Comperand) {
+  stub_unix(__func__);
+}
+
 #pragma warning(push)
 #pragma warning(disable:4995)
 // #include <intrin.h>

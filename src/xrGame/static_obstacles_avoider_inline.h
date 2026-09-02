@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC static_obstacles_avoider::static_obstacles_avoider() :
+inline static_obstacles_avoider::static_obstacles_avoider() :
 	m_need_path_to_rebuild(false)
 {
 #ifdef DEBUG
@@ -17,40 +17,40 @@ IC static_obstacles_avoider::static_obstacles_avoider() :
 #endif // DEBUG
 }
 
-IC void static_obstacles_avoider::construct(stalker_movement_manager_obstacles* movement_manager,
+inline void static_obstacles_avoider::construct(stalker_movement_manager_obstacles* movement_manager,
                                             const bool& failed_to_build_path)
 {
 	m_movement_manager = movement_manager;
 	m_failed_to_build_path = &failed_to_build_path;
 }
 
-IC const stalker_movement_manager_obstacles& static_obstacles_avoider::movement_manager() const
+inline const stalker_movement_manager_obstacles& static_obstacles_avoider::movement_manager() const
 {
 	VERIFY(m_movement_manager);
 	return (*m_movement_manager);
 }
 
-IC const bool& static_obstacles_avoider::need_path_to_rebuild() const
+inline const bool& static_obstacles_avoider::need_path_to_rebuild() const
 {
 	return (m_need_path_to_rebuild);
 }
 
-IC obstacles_query& static_obstacles_avoider::active_query()
+inline obstacles_query& static_obstacles_avoider::active_query()
 {
 	return (m_active_query);
 }
 
-IC obstacles_query& static_obstacles_avoider::inactive_query()
+inline obstacles_query& static_obstacles_avoider::inactive_query()
 {
 	return (m_inactive_query);
 }
 
-IC obstacles_query& static_obstacles_avoider::current_iteration()
+inline obstacles_query& static_obstacles_avoider::current_iteration()
 {
 	return (m_current_iteration);
 }
 
-IC void static_obstacles_avoider::clear()
+inline void static_obstacles_avoider::clear()
 {
 	m_last_iteration.clear();
 	m_current_iteration.clear();

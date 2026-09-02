@@ -80,7 +80,7 @@ void CSoundMemoryManager::reload(LPCSTR section)
 	m_world_factor = READ_IF_EXISTS(pSettings, r_float, sound_perceive_section, "world", 1.f);
 }
 
-IC void CSoundMemoryManager::update_sound_threshold()
+inline void CSoundMemoryManager::update_sound_threshold()
 {
 	VERIFY(_valid(m_self_sound_factor));
 	VERIFY(_valid(m_sound_threshold));
@@ -101,7 +101,7 @@ IC void CSoundMemoryManager::update_sound_threshold()
 	VERIFY(_valid(m_sound_threshold));
 }
 
-IC u32 CSoundMemoryManager::priority(const MemorySpace::CSoundObject& sound) const
+inline u32 CSoundMemoryManager::priority(const MemorySpace::CSoundObject& sound) const
 {
 	u32 priority = u32(-1);
 	xr_map<ESoundTypes, u32>::const_iterator I = m_priorities.begin();
@@ -120,7 +120,7 @@ void CSoundMemoryManager::enable(const CObject* object, bool enable)
 	(*J).m_enabled = enable;
 }
 
-IC bool is_sound_type(int s, const ESoundTypes& t)
+inline bool is_sound_type(int s, const ESoundTypes& t)
 {
 	return ((s & t) == t);
 }

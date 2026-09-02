@@ -115,7 +115,7 @@ public:
 	virtual ~game_sv_mp();
 	virtual void Create(shared_str& options);
 	virtual void OnPlayerConnect(ClientID id_who);
-	virtual void OnPlayerDisconnect(ClientID id_who, LPSTR Name, u16 GameID);
+	virtual void OnPlayerDisconnect(ClientID id_who, char * Name, u16 GameID);
 	virtual BOOL OnTouch(u16 eid_who, u16 eid_target, BOOL bForced = FALSE) { return true; };
 	// TRUE=allow ownership, FALSE=denied
 	virtual void OnDetach(u16 eid_who, u16 eid_target)

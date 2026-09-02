@@ -13,27 +13,27 @@ namespace inventory
 {
 	namespace upgrade
 	{
-		IC const shared_str& Property::id() const
+		inline const shared_str& Property::id() const
 		{
 			return m_id;
 		}
 
-		IC LPCSTR Property::id_str() const
+		inline LPCSTR Property::id_str() const
 		{
 			return m_id.c_str();
 		}
 
-		IC LPCSTR Property::icon_name() const
+		inline LPCSTR Property::icon_name() const
 		{
 			return m_icon.c_str();
 		}
 
-		IC LPCSTR Property::name() const
+		inline LPCSTR Property::name() const
 		{
 			return m_name.c_str();
 		}
 
-		IC Property::FunctorParams_type const& Property::functor_params() const
+		inline Property::FunctorParams_type const& Property::functor_params() const
 		{
 			return m_functor_params;
 		}

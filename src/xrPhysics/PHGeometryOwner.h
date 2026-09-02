@@ -61,13 +61,13 @@ public:
 #endif
 	void SetMaterial(u16 m);
 	void SetMaterial(LPCSTR m) { SetMaterial(GMLibrary().GetMaterialIdx(m)); } //aux
-	IC CODEGeom* Geom(u16 num)
+	inline CODEGeom* Geom(u16 num)
 	{
 		R_ASSERT2(num<m_geoms.size(), "out of range");
 		return m_geoms[num];
 	}
 
-	IC const CODEGeom* Geom(u16 num) const
+	inline const CODEGeom* Geom(u16 num) const
 	{
 		R_ASSERT2(num<m_geoms.size(), "out of range");
 		return m_geoms[num];
@@ -77,7 +77,7 @@ public:
 	u16 numberOfGeoms() const; //aux
 	dGeomID dSpacedGeometry();
 protected:
-	IC dSpaceID group_space() { return m_group; }
+	inline dSpaceID group_space() { return m_group; }
 public:
 	Fvector get_mc_data(); //aux
 	Fvector get_mc_geoms(); //aux

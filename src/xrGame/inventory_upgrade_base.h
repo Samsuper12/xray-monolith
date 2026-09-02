@@ -46,9 +46,9 @@ namespace inventory
 			virtual ~UpgradeBase();
 			void construct(const shared_str& upgrade_id, Manager& manager_r);
 
-			IC const shared_str& id() const;
-			IC LPCSTR id_str() const;
-			IC bool is_known() const;
+			inline const shared_str& id() const;
+			inline LPCSTR id_str() const;
+			inline bool is_known() const;
 
 #ifdef DEBUG
 	virtual		void		log_hierarchy( LPCSTR nest );

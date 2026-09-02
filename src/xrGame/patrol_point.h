@@ -32,7 +32,7 @@ protected:
 #endif
 
 private:
-	IC void correct_position(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross,
+	inline void correct_position(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross,
 	                         const CGameGraph* game_graph);
 #ifdef DEBUG
 	void verify_vertex_id(const CLevelGraph *level_graph, const CGameLevelCrossTable *cross, const CGameGraph *game_graph) const;
@@ -46,11 +46,11 @@ public:
 	CPatrolPoint& load_raw(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross, const CGameGraph* game_graph, IReader& stream);
 	CPatrolPoint& load_from_config(CInifile* ini_paths, LPCSTR patrol_name, LPCSTR point_name);
 	void set_lvid_from_position(const CLevelGraph* level_graph);
-	IC const Fvector& position() const;
-	IC const u32& level_vertex_id(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross, const CGameGraph* game_graph) const;
-	IC const GameGraph::_GRAPH_ID& game_vertex_id(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross, const CGameGraph* game_graph) const;
-	IC const u32& flags() const;
-	IC const shared_str& name() const;
+	inline const Fvector& position() const;
+	inline const u32& level_vertex_id(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross, const CGameGraph* game_graph) const;
+	inline const GameGraph::_GRAPH_ID& game_vertex_id(const CLevelGraph* level_graph, const CGameLevelCrossTable* cross, const CGameGraph* game_graph) const;
+	inline const u32& flags() const;
+	inline const shared_str& name() const;
 
 public:
 #ifdef XRGAME_EXPORTS
@@ -60,7 +60,7 @@ public:
 
 #ifdef DEBUG
 public:
-	IC void path(const CPatrolPath *path);
+	inline void path(const CPatrolPath *path);
 #endif
 };
 

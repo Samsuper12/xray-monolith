@@ -14,7 +14,7 @@
 namespace ALifeCommunication {
 	class CRemoveAttachedItemsPredicate {
 	public:
-		IC bool			operator()	(const CSE_ALifeInventoryItem *item)
+		inline bool			operator()	(const CSE_ALifeInventoryItem *item)
 		{
 			return		(item->attached());
 		};

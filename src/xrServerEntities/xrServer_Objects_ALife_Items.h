@@ -78,7 +78,7 @@ private:
 public:
 	// end of the virtual inheritance dependant code
 
-	IC bool attached() const
+	inline bool attached() const
 	{
 		return (base()->ID_Parent < 0xffff);
 	}

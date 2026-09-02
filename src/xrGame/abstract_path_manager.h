@@ -39,33 +39,33 @@ protected:
 	_vertex_id_type m_failed_dest_vertex_id;
 
 protected:
-	IC _vertex_id_type intermediate_vertex_id() const;
+	inline _vertex_id_type intermediate_vertex_id() const;
 
-	IC void build_path(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id);
-	IC virtual void before_search(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id);
-	IC virtual void after_search();
-	IC virtual bool check_vertex(const _vertex_id_type vertex_id) const;
-
-public:
-	IC CAbstractPathManager(CRestrictedObject* object);
-	IC virtual ~CAbstractPathManager();
-	IC void reinit(const _Graph* graph = 0);
-	IC bool actual(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id) const;
-	IC void make_inactual();
-	IC void set_evaluator(_VertexEvaluator* evaluator);
-	IC const _VertexEvaluator* evaluator() const;
-	IC void set_dest_vertex(const _vertex_id_type vertex_id);
-	IC _vertex_id_type dest_vertex_id() const;
-	IC virtual bool completed() const;
-	IC bool failed() const;
-	IC void reset();
-	IC virtual void select_intermediate_vertex();
-	IC CRestrictedObject& object() const;
-	IC void invalidate_failed_info();
+	inline void build_path(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id);
+	inline virtual void before_search(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id);
+	inline virtual void after_search();
+	inline virtual bool check_vertex(const _vertex_id_type vertex_id) const;
 
 public:
-	IC const PATH& path() const;
-	IC u32 intermediate_index() const;
+	inline CAbstractPathManager(CRestrictedObject* object);
+	inline virtual ~CAbstractPathManager();
+	inline void reinit(const _Graph* graph = 0);
+	inline bool actual(const _vertex_id_type start_vertex_id, const _vertex_id_type dest_vertex_id) const;
+	inline void make_inactual();
+	inline void set_evaluator(_VertexEvaluator* evaluator);
+	inline const _VertexEvaluator* evaluator() const;
+	inline void set_dest_vertex(const _vertex_id_type vertex_id);
+	inline _vertex_id_type dest_vertex_id() const;
+	inline virtual bool completed() const;
+	inline bool failed() const;
+	inline void reset();
+	inline virtual void select_intermediate_vertex();
+	inline CRestrictedObject& object() const;
+	inline void invalidate_failed_info();
+
+public:
+	inline const PATH& path() const;
+	inline u32 intermediate_index() const;
 
 	friend class CMovementManager;
 };
@@ -96,7 +96,7 @@ private:
 
 
 public:
-	IC CBasePathManager(CRestrictedObject* object) : inherited(object)
+	inline CBasePathManager(CRestrictedObject* object) : inherited(object)
 	{
 	}
 };

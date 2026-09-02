@@ -199,11 +199,11 @@ public:
 protected:
 	virtual void Draw();
 
-	IC const Ivector2& CellsCapacity() { return m_cellsCapacity; };
+	inline const Ivector2& CellsCapacity() { return m_cellsCapacity; };
 	void SetCellsCapacity(const Ivector2& c);
-	IC const Ivector2& CellSize() { return m_cellSize; };
+	inline const Ivector2& CellSize() { return m_cellSize; };
 	void SetCellSize(const Ivector2& new_sz);
-	IC const Ivector2& CellsSpacing() { return m_cellSpacing; };
+	inline const Ivector2& CellsSpacing() { return m_cellSpacing; };
 	void SetCellsSpacing(const Ivector2& new_sz);
 	Ivector2 TopVisibleCell();
 

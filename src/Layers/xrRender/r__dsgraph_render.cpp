@@ -15,13 +15,13 @@ extern float r_ssaDONTSORT;
 extern float r_ssaHZBvsTEX;
 extern float r_ssaGLOD_start, r_ssaGLOD_end;
 
-ICF float calcLOD(float ssa/*fDistSq*/, float R)
+inline float calcLOD(float ssa/*fDistSq*/, float R)
 {
 	return _sqrt(clampr((ssa - r_ssaGLOD_end) / (r_ssaGLOD_start - r_ssaGLOD_end), 0.f, 1.f));
 }
 
 // NORMAL
-IC bool cmp_normal_items(const _NormalItem& N1, const _NormalItem& N2)
+inline bool cmp_normal_items(const _NormalItem& N1, const _NormalItem& N2)
 {
 	return (N1.ssa > N2.ssa);
 }
@@ -43,7 +43,7 @@ void __fastcall mapNormal_Render(mapNormalItems& N)
 }
 
 // Matrix
-IC bool cmp_matrix_items(const _MatrixItem& N1, const _MatrixItem& N2)
+inline bool cmp_matrix_items(const _MatrixItem& N1, const _MatrixItem& N2)
 {
 	return (N1.ssa > N2.ssa);
 }
@@ -159,17 +159,17 @@ void __fastcall water_node(mapSorted_Node* N)
 #endif
 }*/
 
-IC bool cmp_vs_nrm(mapNormalVS::TNode* N1, mapNormalVS::TNode* N2)
+inline bool cmp_vs_nrm(mapNormalVS::TNode* N1, mapNormalVS::TNode* N2)
 {
 	return (N1->val.ssa > N2->val.ssa);
 }
 
-IC bool cmp_vs_mat(mapMatrixVS::TNode* N1, mapMatrixVS::TNode* N2)
+inline bool cmp_vs_mat(mapMatrixVS::TNode* N1, mapMatrixVS::TNode* N2)
 {
 	return (N1->val.ssa > N2->val.ssa);
 }
 
-IC bool cmp_ps_nrm(mapNormalPS::TNode* N1, mapNormalPS::TNode* N2)
+inline bool cmp_ps_nrm(mapNormalPS::TNode* N1, mapNormalPS::TNode* N2)
 {
 #ifdef USE_DX11
 	return (N1->val.mapCS.ssa > N2->val.mapCS.ssa);
@@ -178,7 +178,7 @@ IC bool cmp_ps_nrm(mapNormalPS::TNode* N1, mapNormalPS::TNode* N2)
 #endif
 }
 
-IC bool cmp_ps_mat(mapMatrixPS::TNode* N1, mapMatrixPS::TNode* N2)
+inline bool cmp_ps_mat(mapMatrixPS::TNode* N1, mapMatrixPS::TNode* N2)
 {
 #ifdef USE_DX11
 	return (N1->val.mapCS.ssa > N2->val.mapCS.ssa);
@@ -188,17 +188,17 @@ IC bool cmp_ps_mat(mapMatrixPS::TNode* N1, mapMatrixPS::TNode* N2)
 }
 
 #if defined(USE_DX10) || defined(USE_DX11)
-IC bool cmp_gs_nrm(mapNormalGS::TNode* N1, mapNormalGS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
-IC bool cmp_gs_mat(mapMatrixGS::TNode* N1, mapMatrixGS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
+inline bool cmp_gs_nrm(mapNormalGS::TNode* N1, mapNormalGS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
+inline bool cmp_gs_mat(mapMatrixGS::TNode* N1, mapMatrixGS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
 #endif	//	USE_DX10
 
-IC bool cmp_cs_nrm(mapNormalCS::TNode* N1, mapNormalCS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
-IC bool cmp_cs_mat(mapMatrixCS::TNode* N1, mapMatrixCS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
+inline bool cmp_cs_nrm(mapNormalCS::TNode* N1, mapNormalCS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
+inline bool cmp_cs_mat(mapMatrixCS::TNode* N1, mapMatrixCS::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
 
-IC bool cmp_states_nrm(mapNormalStates::TNode* N1, mapNormalStates::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
-IC bool cmp_states_mat(mapMatrixStates::TNode* N1, mapMatrixStates::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
+inline bool cmp_states_nrm(mapNormalStates::TNode* N1, mapNormalStates::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
+inline bool cmp_states_mat(mapMatrixStates::TNode* N1, mapMatrixStates::TNode* N2) { return (N1->val.ssa > N2->val.ssa); }
 
-IC bool cmp_textures_lex2_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
+inline bool cmp_textures_lex2_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
 {
 	STextureList* t1 = N1->key;
 	STextureList* t2 = N2->key;
@@ -208,7 +208,7 @@ IC bool cmp_textures_lex2_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::T
 	else return false;
 }
 
-IC bool cmp_textures_lex2_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
+inline bool cmp_textures_lex2_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
 {
 	STextureList* t1 = N1->key;
 	STextureList* t2 = N2->key;
@@ -218,19 +218,7 @@ IC bool cmp_textures_lex2_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::T
 	else return false;
 }
 
-IC bool cmp_textures_lex3_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
-{
-	STextureList* t1 = N1->key;
-	STextureList* t2 = N2->key;
-	if ((*t1)[0] < (*t2)[0]) return true;
-	if ((*t1)[0] > (*t2)[0]) return false;
-	if ((*t1)[1] < (*t2)[1]) return true;
-	if ((*t1)[1] > (*t2)[1]) return false;
-	if ((*t1)[2] < (*t2)[2]) return true;
-	else return false;
-}
-
-IC bool cmp_textures_lex3_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
+inline bool cmp_textures_lex3_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
 {
 	STextureList* t1 = N1->key;
 	STextureList* t2 = N2->key;
@@ -242,26 +230,38 @@ IC bool cmp_textures_lex3_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::T
 	else return false;
 }
 
-IC bool cmp_textures_lexN_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
+inline bool cmp_textures_lex3_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
+{
+	STextureList* t1 = N1->key;
+	STextureList* t2 = N2->key;
+	if ((*t1)[0] < (*t2)[0]) return true;
+	if ((*t1)[0] > (*t2)[0]) return false;
+	if ((*t1)[1] < (*t2)[1]) return true;
+	if ((*t1)[1] > (*t2)[1]) return false;
+	if ((*t1)[2] < (*t2)[2]) return true;
+	else return false;
+}
+
+inline bool cmp_textures_lexN_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
 {
 	STextureList* t1 = N1->key;
 	STextureList* t2 = N2->key;
 	return std::lexicographical_compare(t1->begin(), t1->end(), t2->begin(), t2->end());
 }
 
-IC bool cmp_textures_lexN_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
+inline bool cmp_textures_lexN_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
 {
 	STextureList* t1 = N1->key;
 	STextureList* t2 = N2->key;
 	return std::lexicographical_compare(t1->begin(), t1->end(), t2->begin(), t2->end());
 }
 
-IC bool cmp_textures_ssa_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
+inline bool cmp_textures_ssa_nrm(mapNormalTextures::TNode* N1, mapNormalTextures::TNode* N2)
 {
 	return (N1->val.ssa > N2->val.ssa);
 }
 
-IC bool cmp_textures_ssa_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
+inline bool cmp_textures_ssa_mat(mapMatrixTextures::TNode* N1, mapMatrixTextures::TNode* N2)
 {
 	return (N1->val.ssa > N2->val.ssa);
 }

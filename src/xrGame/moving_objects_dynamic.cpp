@@ -29,7 +29,7 @@ extern MagicBox3 MagicMinBox(int iQuantity, const Fvector* akPoint);
 
 struct priority
 {
-	IC static bool standing(const moving_object* object)
+	inline static bool standing(const moving_object* object)
 	{
 		if (object->action() == moving_object::action_wait)
 			return (false);
@@ -43,7 +43,7 @@ struct priority
 		);
 	}
 
-	IC static bool predicate(const moving_object* _0, const moving_object* _1)
+	inline static bool predicate(const moving_object* _0, const moving_object* _1)
 	{
 		if (standing(_0))
 		{
@@ -59,7 +59,7 @@ struct priority
 		return (_0 < _1);
 	}
 
-	IC static bool predicate2(const moving_objects::COLLISION_TIME& _0, const moving_objects::COLLISION_TIME& _1)
+	inline static bool predicate2(const moving_objects::COLLISION_TIME& _0, const moving_objects::COLLISION_TIME& _1)
 	{
 		if (_0.first < _1.first)
 			return (true);
@@ -81,12 +81,12 @@ struct collision
 {
 	const moving_object* m_object;
 
-	IC collision(const moving_object* object) :
+	inline collision(const moving_object* object) :
 		m_object(object)
 	{
 	}
 
-	IC bool operator()(const moving_objects::COLLISION_TIME& object) const
+	inline bool operator()(const moving_objects::COLLISION_TIME& object) const
 	{
 		if (object.second.second.first == m_object)
 			return (true);
@@ -102,12 +102,12 @@ struct already_wait_predicate
 {
 	const moving_objects::COLLISIONS* m_collisions;
 
-	IC already_wait_predicate(const moving_objects::COLLISIONS& collisions) :
+	inline already_wait_predicate(const moving_objects::COLLISIONS& collisions) :
 		m_collisions(&collisions)
 	{
 	}
 
-	IC bool operator()(moving_object* object) const
+	inline bool operator()(moving_object* object) const
 	{
 		moving_objects::COLLISIONS::const_iterator I = std::find_if(m_collisions->begin(), m_collisions->end(),
 		                                                            collision(object));
@@ -156,7 +156,7 @@ void moving_objects::fill_nearest_moving(moving_object* object)
 
 	struct already_computed
 	{
-		static IC bool predicate(moving_object* const & object)
+		static inline bool predicate(moving_object* const & object)
 		{
 			return (object->action_frame() == Device.dwFrame);
 		}
@@ -385,7 +385,7 @@ bool moving_objects::fill_collisions(moving_object* object, const Fvector& objec
 
 		struct remove
 		{
-			static IC bool predicate(const COLLISION_TIME& collision)
+			static inline bool predicate(const COLLISION_TIME& collision)
 			{
 				return (!collision.second.second.first);
 			}
@@ -471,12 +471,12 @@ struct decision_predicate
 {
 	const moving_object* m_object;
 
-	IC decision_predicate(const moving_object* object) :
+	inline decision_predicate(const moving_object* object) :
 		m_object(object)
 	{
 	}
 
-	IC bool operator()(const decision& decision) const
+	inline bool operator()(const decision& decision) const
 	{
 		return (m_object == decision.first);
 	}

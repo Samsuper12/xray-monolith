@@ -42,7 +42,7 @@ namespace CDB
 		};
 
 	public:
-		IC u32 IDvert(u32 ID) { return verts[ID]; }
+		inline u32 IDvert(u32 ID) { return verts[ID]; }
 	};
 
 	// Build callback
@@ -75,13 +75,13 @@ namespace CDB
 		MODEL();
 		~MODEL();
 
-		IC Fvector* get_verts() { return verts; }
-		IC const Fvector* get_verts() const { return verts; }
-		IC int get_verts_count() const { return verts_count; }
-		IC const TRI* get_tris() const { return tris; }
-		IC TRI* get_tris() { return tris; }
-		IC int get_tris_count() const { return tris_count; }
-		IC void syncronize() const
+		inline Fvector* get_verts() { return verts; }
+		inline const Fvector* get_verts() const { return verts; }
+		inline int get_verts_count() const { return verts_count; }
+		inline const TRI* get_tris() const { return tris; }
+		inline TRI* get_tris() { return tris; }
+		inline int get_tris_count() const { return tris_count; }
+		inline void syncronize() const
 		{
 			if (S_READY != status)
 			{
@@ -143,22 +143,22 @@ namespace CDB
 		COLLIDER();
 		~COLLIDER();
 
-		ICF void ray_options(u32 f) { ray_mode = f; }
+		inline void ray_options(u32 f) { ray_mode = f; }
 		void ray_query(const MODEL* m_def, const Fvector& r_start, const Fvector& r_dir, float r_range = 10000.f);
 
-		ICF void box_options(u32 f) { box_mode = f; }
+		inline void box_options(u32 f) { box_mode = f; }
 		void box_query(const MODEL* m_def, const Fvector& b_center, const Fvector& b_dim);
 
-		ICF void frustum_options(u32 f) { frustum_mode = f; }
+		inline void frustum_options(u32 f) { frustum_mode = f; }
 		void frustum_query(const MODEL* m_def, const CFrustum& F);
 
-		ICF RESULT* r_begin() { return &*rd.begin(); };
-		ICF RESULT* r_end() { return &*rd.end(); };
+		inline RESULT* r_begin() { return &*rd.begin(); };
+		inline RESULT* r_end() { return &*rd.end(); };
 		RESULT& r_add();
 		void r_free();
-		ICF int r_count() { return rd.size(); };
-		ICF void r_clear() { rd.clear_not_free(); };
-		ICF void r_clear_compact() { rd.clear_and_free(); };
+		inline int r_count() { return rd.size(); };
+		inline void r_clear() { rd.clear_not_free(); };
+		inline void r_clear_compact() { rd.clear_and_free(); };
 	};
 
 	//
@@ -240,7 +240,7 @@ namespace CDB
 		size_t getVS() { return verts.size(); }
 		TRI* getT() { return &*faces.begin(); }
 		u32 getfFlags(u32 index) { return flags[index]; }
-		IC TRI& getT(u32 index) { return faces[index]; }
+		inline TRI& getT(u32 index) { return faces[index]; }
 		size_t getTS() { return faces.size(); }
 		void clear();
 	};

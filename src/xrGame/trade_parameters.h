@@ -49,37 +49,37 @@ private:
 	CTradeBoolParameters m_show;
 
 private:
-	IC const CTradeActionParameters& action(action_buy) const;
-	IC const CTradeActionParameters& action(action_sell) const;
-	IC const CTradeBoolParameters& action(action_show) const;
-	IC CTradeActionParameters& action(action_buy);
-	IC CTradeActionParameters& action(action_sell);
-	IC CTradeBoolParameters& action(action_show);
+	inline const CTradeActionParameters& action(action_buy) const;
+	inline const CTradeActionParameters& action(action_sell) const;
+	inline const CTradeBoolParameters& action(action_show) const;
+	inline CTradeActionParameters& action(action_buy);
+	inline CTradeActionParameters& action(action_sell);
+	inline CTradeBoolParameters& action(action_show);
 
 public:
-	IC CTradeParameters(const shared_str& section = "trade");
-	IC void clear();
+	inline CTradeParameters(const shared_str& section = "trade");
+	inline void clear();
 
 public:
-	IC static CTradeParameters& instance();
-	IC static void clean();
+	inline static CTradeParameters& instance();
+	inline static void clean();
 
 public:
 	template <typename _action_type>
-	IC bool enabled(_action_type type, const shared_str& section) const;
+	inline bool enabled(_action_type type, const shared_str& section) const;
 
 	template <typename _action_type>
-	IC const CTradeFactors& factors(_action_type type, const shared_str& section) const;
+	inline const CTradeFactors& factors(_action_type type, const shared_str& section) const;
 
 	template <typename _action_type>
-	IC void process(_action_type type, CInifile& ini_file, const shared_str& section);
+	inline void process(_action_type type, CInifile& ini_file, const shared_str& section);
 	void process(action_show, CInifile& ini_file, const shared_str& section);
 
 	template <typename _action_type>
-	IC void default_factors(_action_type type, const CTradeFactors& trade_factors);
+	inline void default_factors(_action_type type, const CTradeFactors& trade_factors);
 };
 
-IC CTradeParameters& default_trade_parameters();
+inline CTradeParameters& default_trade_parameters();
 #include <xr_ini.h>
 #include "../xrCore/xr_trims.h"
 #include "trade_parameters_inline.h"

@@ -23,8 +23,8 @@ namespace inventory
 			void construct(const shared_str& group_id, UpgradeBase& parent_upgrade, Manager& manager_r);
 			void add_parent_upgrade(UpgradeBase& parent_upgrade);
 
-			IC const shared_str& id() const;
-			IC LPCSTR id_str() const;
+			inline const shared_str& id() const;
+			inline LPCSTR id_str() const;
 
 #ifdef DEBUG
 				void		log_hierarchy( LPCSTR nesting );

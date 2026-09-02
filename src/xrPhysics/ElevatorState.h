@@ -48,7 +48,7 @@ public:
 	float ClimbDirection();
 	void Deactivate();
 	bool UpdateMaterial(u16& materil_idx);
-	IC Estate State() { return m_state; }
+	inline Estate State() { return m_state; }
 private:
 	void NewState();
 

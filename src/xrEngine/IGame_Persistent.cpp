@@ -316,7 +316,7 @@ void IGame_Persistent::destroy_particles(const bool& all_particles)
 
 		struct destroy_on_game_load
 		{
-			static IC bool predicate(CPS_Instance* const& object)
+			static inline bool predicate(CPS_Instance* const& object)
 			{
 				return (!object->destroy_on_game_load());
 			}

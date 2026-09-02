@@ -3,8 +3,6 @@
 #include "NET_Shared.h"
 #include "NET_Common.h"
 
-#define PVOID void*
-
 struct ip_address;
 
 class XRNETSERVER_API INetQueue
@@ -78,12 +76,12 @@ protected:
 	void SetClientID(ClientID const& local_client) { net_ClientID = local_client; };
 
 
-	IC virtual void SendTo_LL(void* data, u32 size, u32 dwFlags = DPNSEND_GUARANTEED, u32 dwTimeout = 0);
+	inline virtual void SendTo_LL(void* data, u32 size, u32 dwFlags = DPNSEND_GUARANTEED, u32 dwTimeout = 0);
 
 public:
 	IPureClient(CTimer* tm);
 	virtual ~IPureClient();
-	HRESULT net_Handler(u32 dwMessageType, PVOID pMessage);
+	long net_Handler(u32 dwMessageType, void* pMessage);
 
 	BOOL Connect(LPCSTR server_name);
 	void Disconnect();
@@ -93,14 +91,14 @@ public:
 	BOOL net_isFails_Connect() { return net_Connected == EnmConnectionFails; }
 	BOOL net_isCompleted_Sync() { return net_Syncronised; }
 	BOOL net_isDisconnected() { return net_Disconnected; }
-	IC GameDescriptionData const& get_net_DescriptionData() const { return m_game_description; }
+	inline GameDescriptionData const& get_net_DescriptionData() const { return m_game_description; }
 	LPCSTR net_SessionName() { return *(net_Hosts.front().dpSessionName); }
 
 	// receive
-	IC void StartProcessQueue() { net_Queue.Lock(); }; // WARNING ! after Start mast be End !!! <-
-	IC virtual NET_Packet* net_msg_Retreive() { return net_Queue.Retreive(); }; //							|
-	IC void net_msg_Release() { net_Queue.Release(); }; //							|
-	IC void EndProcessQueue() { net_Queue.Unlock(); }; //							<-
+	inline void StartProcessQueue() { net_Queue.Lock(); }; // WARNING ! after Start mast be End !!! <-
+	inline virtual NET_Packet* net_msg_Retreive() { return net_Queue.Retreive(); }; //							|
+	inline void net_msg_Release() { net_Queue.Release(); }; //							|
+	inline void EndProcessQueue() { net_Queue.Unlock(); }; //							<-
 
 	// send
 	virtual void Send(NET_Packet& P, u32 dwFlags = DPNSEND_GUARANTEED, u32 dwTimeout = 0);
@@ -128,14 +126,14 @@ public:
 	void UpdateStatistic();
 	ClientID const& GetClientID() { return net_ClientID; };
 
-	bool GetServerAddress(ip_address& pAddress, DWORD* pPort);
+	bool GetServerAddress(ip_address& pAddress, uint32_t* pPort);
 
 	// time management
-	IC u32 timeServer() { return TimeGlobal(device_timer) + net_TimeDelta + net_TimeDelta_User; }
-	IC u32 timeServer_Async() { return TimerAsync(device_timer) + net_TimeDelta + net_TimeDelta_User; }
-	IC u32 timeServer_Delta() { return net_TimeDelta; }
-	IC void timeServer_UserDelta(s32 d) { net_TimeDelta_User = d; }
-	IC void timeServer_Correct(u32 sv_time, u32 cl_time);
+	inline u32 timeServer() { return TimeGlobal(device_timer) + net_TimeDelta + net_TimeDelta_User; }
+	inline u32 timeServer_Async() { return TimerAsync(device_timer) + net_TimeDelta + net_TimeDelta_User; }
+	inline u32 timeServer_Delta() { return net_TimeDelta; }
+	inline void timeServer_UserDelta(s32 d) { net_TimeDelta_User = d; }
+	inline void timeServer_Correct(u32 sv_time, u32 cl_time);
 
 	virtual BOOL net_IsSyncronised();
 

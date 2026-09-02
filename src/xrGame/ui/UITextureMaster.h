@@ -52,7 +52,7 @@ public:
 	static void GetTextureShader(const shared_str& texture_name, ui_shader& sh);
 	static TEX_INFO FindItem(const shared_str& texture_name);
 protected:
-	IC static bool IsSh(const shared_str& texture_name);
+	inline static bool IsSh(const shared_str& texture_name);
 
 	static xr_map<shared_str, TEX_INFO> m_textures;
 

@@ -14,18 +14,18 @@ protected:
 	const CAI_Stalker* m_object;
 
 public:
-	IC CMemberPredicate(const CAI_Stalker* object)
+	inline CMemberPredicate(const CAI_Stalker* object)
 	{
 		m_object = object;
 	}
 
-	IC bool operator()(const CMemberOrder* order) const
+	inline bool operator()(const CMemberOrder* order) const
 	{
 		return (&order->object() == m_object);
 	}
 };
 
-IC CAgentMemberManager::CAgentMemberManager(CAgentManager* object) :
+inline CAgentMemberManager::CAgentMemberManager(CAgentManager* object) :
 	m_last_throw_time(0),
 	m_throw_time_interval(0)
 {
@@ -35,37 +35,37 @@ IC CAgentMemberManager::CAgentMemberManager(CAgentManager* object) :
 	m_combat_mask = 0;
 }
 
-IC CAgentManager& CAgentMemberManager::object() const
+inline CAgentManager& CAgentMemberManager::object() const
 {
 	VERIFY(m_object);
 	return (*m_object);
 }
 
-IC const CAgentMemberManager::MEMBER_STORAGE& CAgentMemberManager::members() const
+inline const CAgentMemberManager::MEMBER_STORAGE& CAgentMemberManager::members() const
 {
 	return (m_members);
 }
 
-IC CAgentMemberManager::MEMBER_STORAGE& CAgentMemberManager::members()
+inline CAgentMemberManager::MEMBER_STORAGE& CAgentMemberManager::members()
 {
 	return (m_members);
 }
 
-IC CMemberOrder& CAgentMemberManager::member(const CAI_Stalker* object)
+inline CMemberOrder& CAgentMemberManager::member(const CAI_Stalker* object)
 {
 	iterator I = std::find_if(members().begin(), members().end(), CMemberPredicate(object));
 	VERIFY(I != members().end());
 	return (**I);
 }
 
-IC MemorySpace::squad_mask_type CAgentMemberManager::mask(const CAI_Stalker* object) const
+inline MemorySpace::squad_mask_type CAgentMemberManager::mask(const CAI_Stalker* object) const
 {
 	const_iterator I = std::find_if(members().begin(), members().end(), CMemberPredicate(object));
 	VERIFY(I != members().end());
 	return (MemorySpace::squad_mask_type(1) << (I - members().begin()));
 }
 
-IC CAgentMemberManager::iterator CAgentMemberManager::member(MemorySpace::squad_mask_type mask)
+inline CAgentMemberManager::iterator CAgentMemberManager::member(MemorySpace::squad_mask_type mask)
 {
 	iterator I = m_members.begin();
 	iterator E = m_members.end();
@@ -78,22 +78,22 @@ IC CAgentMemberManager::iterator CAgentMemberManager::member(MemorySpace::squad_
 #endif
 }
 
-IC bool CAgentMemberManager::group_behaviour() const
+inline bool CAgentMemberManager::group_behaviour() const
 {
 	return (members().size() > 1);
 }
 
-IC const CAgentMemberManager::squad_mask_type& CAgentMemberManager::combat_mask() const
+inline const CAgentMemberManager::squad_mask_type& CAgentMemberManager::combat_mask() const
 {
 	return (m_combat_mask);
 }
 
-IC const u32& CAgentMemberManager::throw_time_interval() const
+inline const u32& CAgentMemberManager::throw_time_interval() const
 {
 	return (m_throw_time_interval);
 }
 
-IC void CAgentMemberManager::throw_time_interval(const u32& value)
+inline void CAgentMemberManager::throw_time_interval(const u32& value)
 {
 	m_throw_time_interval = value;
 }

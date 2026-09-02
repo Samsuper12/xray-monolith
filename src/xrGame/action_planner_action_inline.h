@@ -12,7 +12,7 @@
 #define CPlanner				CActionPlannerAction<_object_type>
 
 TEMPLATE_SPECIALIZATION
-IC CPlanner::CActionPlannerAction(_object_type* object, LPCSTR action_name) :
+inline CPlanner::CActionPlannerAction(_object_type* object, LPCSTR action_name) :
 	inherited_action(object, action_name)
 {
 }
@@ -51,7 +51,7 @@ bool CPlanner::completed() const
 
 #ifdef LOG_ACTION
 TEMPLATE_SPECIALIZATION
-IC	void CPlanner::set_use_log		(bool value)
+inline	void CPlanner::set_use_log		(bool value)
 {
 	inherited_action::set_use_log		(value);
 	inherited_planner::set_use_log		(value);
@@ -66,20 +66,20 @@ void CPlanner::execute()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPlanner::add_condition(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value)
+inline void CPlanner::add_condition(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value)
 {
 	inherited_planner::add_condition(action, condition_id, condition_value);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CPlanner::add_effect(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value)
+inline void CPlanner::add_effect(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value)
 {
 	inherited_planner::add_effect(action, condition_id, condition_value);
 }
 
 #ifdef LOG_ACTION
 TEMPLATE_SPECIALIZATION
-IC	void CPlanner::show				(LPCSTR offset)
+inline	void CPlanner::show				(LPCSTR offset)
 {
 	inherited_action::show	(offset);
 	inherited_planner::show	(offset);

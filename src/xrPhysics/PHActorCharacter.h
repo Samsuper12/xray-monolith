@@ -83,13 +83,13 @@ struct TPHCharacterRestrictor : public SPHCharacterRestrictor
 DEFINE_VECTOR(SPHCharacterRestrictor*, RESRICTORS_V, RESTRICTOR_I);
 //typedef SPHCharacterRestrictor*		RESRICTORS_V[2];
 //typedef SPHCharacterRestrictor**	RESTRICTOR_I;
-IC RESTRICTOR_I begin(RESRICTORS_V& v)
+inline RESTRICTOR_I begin(RESRICTORS_V& v)
 {
 	//return v;
 	return v.begin();
 }
 
-IC RESTRICTOR_I end(RESRICTORS_V& v)
+inline RESTRICTOR_I end(RESRICTORS_V& v)
 {
 	//return v+sizeof(RESRICTORS_V)/sizeof(SPHCharacterRestrictor*);
 	return v.end();

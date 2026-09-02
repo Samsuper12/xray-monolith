@@ -15,19 +15,19 @@ public:
 	_vector3<T> n;
 	T d;
 public:
-	IC SelfRef set(Self& P)
+	inline SelfRef set(Self& P)
 	{
 		n.set(P.n);
 		d = P.d;
 		return *this;
 	}
 
-	IC BOOL similar(Self& P, T eps_n = EPS, T eps_d = EPS)
+	inline BOOL similar(Self& P, T eps_n = EPS, T eps_d = EPS)
 	{
 		return (n.similar(P.n, eps_n) && (_abs(d - P.d) < eps_d));
 	}
 
-	ICF SelfRef build(const _vector3<T>& v1, const _vector3<T>& v2, const _vector3<T>& v3)
+	inline SelfRef build(const _vector3<T>& v1, const _vector3<T>& v2, const _vector3<T>& v3)
 	{
 		_vector3<T> t1, t2;
 		n.crossproduct(t1.sub(v1, v2), t2.sub(v1, v3)).normalize();
@@ -35,7 +35,7 @@ public:
 		return *this;
 	}
 
-	ICF SelfRef build_precise(const _vector3<T>& v1, const _vector3<T>& v2, const _vector3<T>& v3)
+	inline SelfRef build_precise(const _vector3<T>& v1, const _vector3<T>& v2, const _vector3<T>& v3)
 	{
 		_vector3<T> t1, t2;
 		n.crossproduct(t1.sub(v1, v2), t2.sub(v1, v3));
@@ -44,37 +44,37 @@ public:
 		return *this;
 	}
 
-	ICF SelfRef build(const _vector3<T>& _p, const _vector3<T>& _n)
+	inline SelfRef build(const _vector3<T>& _p, const _vector3<T>& _n)
 	{
 		d = -n.normalize(_n).dotproduct(_p);
 		return *this;
 	}
 
-	ICF SelfRef build_unit_normal(const _vector3<T>& _p, const _vector3<T>& _n)
+	inline SelfRef build_unit_normal(const _vector3<T>& _p, const _vector3<T>& _n)
 	{
 		VERIFY(fsimilar(_n.magnitude(), 1, EPS));
 		d = -n.set(_n).dotproduct(_p);
 		return *this;
 	}
 
-	IC SelfCRef project(_vector3<T>& pdest, _vector3<T> const& psrc) const
+	inline SelfCRef project(_vector3<T>& pdest, _vector3<T> const& psrc) const
 	{
 		pdest.mad(psrc, n, -classify(psrc));
 		return *this;
 	}
 
-	IC SelfRef project(_vector3<T>& pdest, _vector3<T> const& psrc)
+	inline SelfRef project(_vector3<T>& pdest, _vector3<T> const& psrc)
 	{
 		pdest.mad(psrc, n, -classify(psrc));
 		return *this;
 	}
 
-	ICF T classify(const _vector3<T>& v) const
+	inline T classify(const _vector3<T>& v) const
 	{
 		return n.dotproduct(v) + d;
 	}
 
-	IC SelfRef normalize()
+	inline SelfRef normalize()
 	{
 		T denom = 1.f / n.magnitude();
 		n.mul(denom);
@@ -82,12 +82,12 @@ public:
 		return *this;
 	}
 
-	IC T distance(const _vector3<T>& v)
+	inline T distance(const _vector3<T>& v)
 	{
 		return _abs(classify(v));
 	}
 
-	IC BOOL intersectRayDist(const _vector3<T>& P, const _vector3<T>& D, T& dist)
+	inline BOOL intersectRayDist(const _vector3<T>& P, const _vector3<T>& D, T& dist)
 	{
 		T numer = classify(P);
 		T denom = n.dotproduct(D);
@@ -99,7 +99,7 @@ public:
 		return ((dist > 0.f) || fis_zero(dist));
 	}
 
-	ICF BOOL intersectRayPoint(const _vector3<T>& P, const _vector3<T>& D, _vector3<T>& dest)
+	inline BOOL intersectRayPoint(const _vector3<T>& P, const _vector3<T>& D, _vector3<T>& dest)
 	{
 		T numer = classify(P);
 		T denom = n.dotproduct(D);
@@ -113,7 +113,7 @@ public:
 		}
 	}
 
-	IC BOOL intersect(
+	inline BOOL intersect(
 		const _vector3<T>& u, const _vector3<T>& v, // segment
 		_vector3<T>& isect) // intersection point
 	{
@@ -130,7 +130,7 @@ public:
 		return true;
 	}
 
-	IC BOOL intersect_2(
+	inline BOOL intersect_2(
 		const _vector3<T>& u, const _vector3<T>& v, // segment
 		_vector3<T>& isect) // intersection point
 	{
@@ -149,7 +149,7 @@ public:
 		return true;
 	}
 
-	IC SelfRef transform(_matrix<T>& M)
+	inline SelfRef transform(_matrix<T>& M)
 	{
 		// rotate the normal
 		M.transform_dir(n);

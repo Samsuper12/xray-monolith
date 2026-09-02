@@ -34,7 +34,7 @@ void CRenderDevice::_SetupStates()
 	for (u32 i=0; i<HW.Caps.raster.dwStages; i++) {
 	float fBias = -.5f ;
 	CHK_DX(HW.pDevice->SetSamplerState ( i, D3DSAMP_MAXANISOTROPY, 4 ));
-	CHK_DX(HW.pDevice->SetSamplerState ( i, D3DSAMP_MIPMAPLODBIAS, *((LPDWORD) (&fBias))));
+	CHK_DX(HW.pDevice->SetSamplerState ( i, D3DSAMP_MIPMAPLODBIAS, *((uint32_t*) (&fBias))));
 	CHK_DX(HW.pDevice->SetSamplerState ( i, D3DSAMP_MINFILTER, D3DTEXF_LINEAR ));
 	CHK_DX(HW.pDevice->SetSamplerState ( i, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR ));
 	CHK_DX(HW.pDevice->SetSamplerState ( i, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR ));
@@ -148,7 +148,6 @@ void CRenderDevice::ConnectToRender()
 }
 
 extern u32 g_screenmode;
-extern void GetMonitorResolution(u32& horizontal, u32& vertical);
 
 PROTECT_API void CRenderDevice::Create()
 {

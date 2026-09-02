@@ -7,7 +7,7 @@
 #include	"KinematicsAnimated.h"
 
 CBlend* PlayMotionByParts(IKinematicsAnimated* sa, MotionID motion_ID, BOOL bMixIn, PlayCallback Callback,
-                          LPVOID CallbackParam)
+                          void* CallbackParam)
 {
 	CBlend* ret = 0;
 	CMotionDef* md = sa->LL_GetMotionDef(motion_ID);

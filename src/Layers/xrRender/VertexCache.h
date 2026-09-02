@@ -22,7 +22,7 @@ private:
 	xr_vector<int> entries;
 };
 
-IC bool VertexCache::InCache(int entry)
+inline bool VertexCache::InCache(int entry)
 {
 	bool returnVal = false;
 
@@ -39,7 +39,7 @@ IC bool VertexCache::InCache(int entry)
 }
 
 
-IC int VertexCache::AddEntry(int entry)
+inline int VertexCache::AddEntry(int entry)
 {
 	int removed;
 

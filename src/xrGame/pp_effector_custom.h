@@ -33,8 +33,8 @@ class CPPEffectorCustomController
 {
 public:
 	CPPEffectorCustomController();
-	IC virtual void load(LPCSTR section);
-	IC virtual bool active() { return (m_effector != 0); }
+	inline virtual void load(LPCSTR section);
+	inline virtual bool active() { return (m_effector != 0); }
 
 protected:
 	_Effector* m_effector;
@@ -82,7 +82,7 @@ public:
 	CPPEffectorControlled(CPPEffectorController* controller, const SPPInfo& ppi, bool one_instance = false,
 	                      bool destroy_from_engine = true);
 	virtual BOOL update();
-	IC void set_factor(float value) { m_factor = value; }
+	inline void set_factor(float value) { m_factor = value; }
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@ void CSoundRender_Emitter::fill_data(u8* _dest, u32 offset, u32 size)
 {
 	/*
 		Msg				("stream: %10s - %d",*source->fname,size);
-		CopyMemory	(_dest,&source->m_buffer.front()+offset,size);
+		memcpy	(_dest,&source->m_buffer.front()+offset,size);
 		return;
 	//*/
 	/*
@@ -58,7 +58,7 @@ void CSoundRender_Emitter::fill_data(u8* _dest, u32 offset, u32 size)
 		// fill block
 		u32 blk_size = _min(size, line_amount);
 		u8* ptr = (u8*)SoundRender->cache.get_dataptr(source()->CAT, line);
-		CopyMemory(_dest, ptr+line_offs, blk_size);
+		memcpy(_dest, ptr+line_offs, blk_size);
 
 		// advance
 		line ++;
@@ -73,7 +73,7 @@ void CSoundRender_Emitter::fill_data(u8* _dest, u32 offset, u32 size)
 void CSoundRender_Emitter::fill_block(void* ptr, u32 size)
 {
 	//Msg			("stream: %10s - [%X]:%d, p=%d, t=%d",*source->fname,ptr,size,position,source->dwBytesTotal);
-	LPBYTE dest = LPBYTE(ptr);
+	unsigned char* dest = (unsigned char*)(ptr);
 	u32 dwBytesTotal = get_bytes_total();
 
 	if ((get_cursor(true) + size) > dwBytesTotal)

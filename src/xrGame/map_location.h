@@ -78,7 +78,7 @@ public:
 	virtual ~CMapLocation();
 	virtual void destroy();
 
-	IC bool HintEnabled() { return !!m_flags.test(eHintEnabled); }
+	inline bool HintEnabled() { return !!m_flags.test(eHintEnabled); }
 	LPCSTR GetHint();
 	void SetHint(const shared_str& hint);
 	CComplexMapSpot* complex_spot() { return m_complex_spot; }
@@ -87,12 +87,12 @@ public:
 	const CMiniMapSpot* MiniMapSpot() { return m_minimap_spot; }
 	CMiniMapSpot* MiniMapSpotNC() { return m_minimap_spot; }
 
-	IC bool PointerEnabled() { return SpotEnabled() && !!m_flags.test(ePointerEnabled); };
-	IC void EnablePointer() { m_flags.set(ePointerEnabled,TRUE); };
-	IC void DisablePointer() { m_flags.set(ePointerEnabled,FALSE); };
+	inline bool PointerEnabled() { return SpotEnabled() && !!m_flags.test(ePointerEnabled); };
+	inline void EnablePointer() { m_flags.set(ePointerEnabled,TRUE); };
+	inline void DisablePointer() { m_flags.set(ePointerEnabled,FALSE); };
 
-	IC bool Collidable() const { return !!m_flags.test(eCollidable); }
-	IC bool SpotEnabled() { return !!m_flags.test(eSpotEnabled); };
+	inline bool Collidable() const { return !!m_flags.test(eCollidable); }
+	inline bool SpotEnabled() { return !!m_flags.test(eSpotEnabled); };
 	void EnableSpot() { m_flags.set(eSpotEnabled,TRUE); };
 	void DisableSpot() { m_flags.set(eSpotEnabled,FALSE); };
 	virtual void UpdateMiniMap(CUICustomMap* map);
@@ -100,7 +100,7 @@ public:
 
 	void CalcPosition();
 	const Fvector2& CalcDirection();
-	IC const shared_str& GetLevelName() { return m_cached.m_LevelName; }
+	inline const shared_str& GetLevelName() { return m_cached.m_LevelName; }
 	const Fvector2& GetPosition() { return m_cached.m_Position; }
 
 	u16 ObjectID() { return m_objectID; }

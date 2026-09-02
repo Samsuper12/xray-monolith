@@ -121,15 +121,15 @@ private:
 	callback_params m_head_params;
 
 private:
-	IC bool strapped() const;
+	inline bool strapped() const;
 
 public:
 	bool standing() const;
 
 private:
-	IC void fill_object_info();
-	IC u32 object_slot() const;
-	IC EBodyState body_state() const;
+	inline void fill_object_info();
+	inline u32 object_slot() const;
+	inline EBodyState body_state() const;
 
 private:
 	bool need_look_back() const;
@@ -142,7 +142,7 @@ private:
 	MotionID missile_animation(u32 slot, const EBodyState& body_state);
 
 private:
-	IC float legs_switch_factor() const;
+	inline float legs_switch_factor() const;
 	void legs_assign_direction(float switch_factor, const EMovementDirection& direction);
 	void legs_process_direction(float yaw);
 	MotionID legs_move_animation();
@@ -160,24 +160,24 @@ private:
 
 public:
 	MotionID assign_global_animation(bool& animation_movement_controller);
-	IC bool non_script_need_update() const;
+	inline bool non_script_need_update() const;
 
 private:
-	IC bool script_callback() const;
-	IC bool need_update() const;
-	IC void update_tracks();
+	inline bool script_callback() const;
+	inline bool need_update() const;
+	inline void update_tracks();
 
 private:
-	IC void play_script_impl();
+	inline void play_script_impl();
 	bool play_script();
 
 private:
-	IC void play_global_impl(const MotionID& animation, bool const& animation_movement_controller);
+	inline void play_global_impl(const MotionID& animation, bool const& animation_movement_controller);
 	bool play_global();
 
 private:
-	IC void play_head();
-	IC void play_torso();
+	inline void play_head();
+	inline void play_torso();
 	void play_legs();
 	void update_impl();
 
@@ -200,20 +200,20 @@ public:
 	void add_script_animation(LPCSTR animation, bool hand_usage = false, bool use_movement_controller = false);
 	void add_script_animation(LPCSTR animation, bool hand_usage, Fvector position, Fvector rotation,
 	                          bool local_animation);
-	IC void clear_script_animations();
-	IC void pop_script_animation();
-	IC const SCRIPT_ANIMATIONS& script_animations() const;
-	IC void special_danger_move(const bool& value);
+	inline void clear_script_animations();
+	inline void pop_script_animation();
+	inline const SCRIPT_ANIMATIONS& script_animations() const;
+	inline void special_danger_move(const bool& value);
 
 public:
-	IC CStalkerAnimationPair& global();
-	IC CStalkerAnimationPair& head();
-	IC CStalkerAnimationPair& torso();
-	IC CStalkerAnimationPair& legs();
-	IC CStalkerAnimationPair& script();
-	IC CAI_Stalker& object() const;
-	IC const float& target_speed() const;
-	IC const bool& special_danger_move() const;
+	inline CStalkerAnimationPair& global();
+	inline CStalkerAnimationPair& head();
+	inline CStalkerAnimationPair& torso();
+	inline CStalkerAnimationPair& legs();
+	inline CStalkerAnimationPair& script();
+	inline CAI_Stalker& object() const;
+	inline const float& target_speed() const;
+	inline const bool& special_danger_move() const;
 
 #ifdef DEBUG
 private:
@@ -223,13 +223,13 @@ public:
 #endif // DEBUG
 
 public:
-	IC AnimationSelector const& global_selector() const;
-	IC void global_selector(AnimationSelector const& selector);
-	IC AnimationCallback const& global_callback() const;
-	IC void global_callback(AnimationCallback const& callback);
-	IC AnimationModifier const& global_modifier() const;
-	IC void global_modifier(AnimationModifier const& modifier);
-	IC CStalkerAnimationData const& data_storage() const;
+	inline AnimationSelector const& global_selector() const;
+	inline void global_selector(AnimationSelector const& selector);
+	inline AnimationCallback const& global_callback() const;
+	inline void global_callback(AnimationCallback const& callback);
+	inline AnimationModifier const& global_modifier() const;
+	inline void global_modifier(AnimationModifier const& modifier);
+	inline CStalkerAnimationData const& data_storage() const;
 
 public:
 	void remove_bone_callbacks();

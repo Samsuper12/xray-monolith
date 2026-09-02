@@ -31,7 +31,7 @@ protected:
 
 	enum { LRU_MAX_COUNT = 10 };
 
-	IC bool EQ(LPCSTR S1, LPCSTR S2) { return xr_strcmp(S1, S2) == 0; }
+	inline bool EQ(LPCSTR S1, LPCSTR S2) { return xr_strcmp(S1, S2) == 0; }
 public:
 	IConsole_Command(LPCSTR N BENCH_SEC_SIGN) :
 		cName(N),
@@ -637,10 +637,10 @@ public:
 class ENGINE_API CCC_String : public IConsole_Command
 {
 protected:
-	LPSTR value;
+	char * value;
 	int size;
 public:
-	CCC_String(LPCSTR N, LPSTR V, int _size = 2) :
+	CCC_String(LPCSTR N, char * V, int _size = 2) :
 		IConsole_Command(N),
 		value(V),
 		size(_size)

@@ -16,7 +16,7 @@ public:
 	void destroy();
 	void reset_begin();
 	void reset_end();
-	IC BOOL valid() { return !!pTexture; }
+	inline BOOL valid() { return !!pTexture; }
 
 public:
 	ID3DTexture2D* pSurface;
@@ -70,7 +70,7 @@ public:
 	void				destroy			();
 	void				reset_begin		();
 	void				reset_end		();
-	IC BOOL				valid			()	{ return !pTexture; }
+	inline BOOL				valid			()	{ return !pTexture; }
 };
 struct 		resptrcode_crtc	: public resptr_base<CRTC>
 {

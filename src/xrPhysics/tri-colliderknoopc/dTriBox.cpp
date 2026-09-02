@@ -233,7 +233,7 @@ for( u8 i=0;i<3;++i){
  return false;
 }
 */
-IC bool normalize_if_possible(dReal* v)
+inline bool normalize_if_possible(dReal* v)
 {
 	dReal sqr_magnitude = dDOT(v, v);
 	if (sqr_magnitude < EPS_S)

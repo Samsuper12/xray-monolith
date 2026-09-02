@@ -39,7 +39,7 @@ private:
 		BOOL bRecurse;
 	};
 
-	DEFINE_VECTOR(HANDLE, HANDLEVec, HANDLEIt);
+	DEFINE_VECTOR(void*, HANDLEVec, HANDLEIt);
 	DEFINE_VECTOR(Path, PathVec, PathIt);
 	PathVec events;
 public:

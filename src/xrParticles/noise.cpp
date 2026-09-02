@@ -5,7 +5,7 @@
 #include <xmmintrin.h>
 #endif
 
-__forceinline int iFloor_SSE(float const x)
+inline int iFloor_SSE(float const x)
 {
 	//FIXME: return _mm_cvtt_ss2si(_mm_set_ss(x));
 }

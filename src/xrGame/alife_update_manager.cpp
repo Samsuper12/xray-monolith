@@ -37,12 +37,12 @@ private:
 	CALifeSwitchManager* m_switch_manager;
 
 public:
-	IC CSwitchPredicate(CALifeSwitchManager* switch_manager)
+	inline CSwitchPredicate(CALifeSwitchManager* switch_manager)
 	{
 		m_switch_manager = switch_manager;
 	}
 
-	IC bool operator()(CALifeLevelRegistry::_iterator& i, u64 cycle_count, bool) const
+	inline bool operator()(CALifeLevelRegistry::_iterator& i, u64 cycle_count, bool) const
 	{
 		if ((*i).second->m_switch_counter == cycle_count)
 			return (false);
@@ -51,7 +51,7 @@ public:
 		return (true);
 	}
 
-	IC void operator()(CALifeLevelRegistry::_iterator& i, u64 cycle_count) const
+	inline void operator()(CALifeLevelRegistry::_iterator& i, u64 cycle_count) const
 	{
 		m_switch_manager->switch_object((*i).second);
 	}
@@ -324,7 +324,7 @@ bool CALifeUpdateManager::load_game(LPCSTR game_name, bool no_assert)
 	}
 	string512 S, S1;
 	xr_strcpy(S, **m_server_command_line);
-	LPSTR temp = strchr(S, '/');
+	char * temp = strchr(S, '/');
 	R_ASSERT2(temp, "Invalid server options!");
 	strconcat(sizeof(S1), S1, game_name, temp);
 	*m_server_command_line = S1;

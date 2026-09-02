@@ -113,13 +113,13 @@ void xrDebug::backend(const char* expression, const char* description, const cha
 }
 
 void xrDebug::gather_info(const char* expression, const char* description, const char* argument0, const char* argument1,
-                          const char* file, int line, const char* function, LPSTR assertion_info,
+                          const char* file, int line, const char* function, char * assertion_info,
                           u32 const assertion_info_size)
 {
 	if (!expression)
 		expression = "<no expression>";
-	LPSTR buffer_base = assertion_info;
-	LPSTR buffer = assertion_info;
+	char * buffer_base = assertion_info;
+	char * buffer = assertion_info;
 	int assertion_size = (int)assertion_info_size;
 	LPCSTR endline = "\n";
 	LPCSTR prefix = "[error]";

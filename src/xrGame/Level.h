@@ -297,15 +297,15 @@ public:
 	// Save/Load/State
 	void SLS_Load(LPCSTR name); // Game Load
 	void SLS_Default(); // Default/Editor Load
-	IC CSpaceRestrictionManager& space_restriction_manager();
-	IC CSeniorityHierarchyHolder& seniority_holder();
-	IC CClientSpawnManager& client_spawn_manager();
-	IC CAutosaveManager& autosave_manager();
-    IC CDebugRenderer& debug_renderer();
+	inline CSpaceRestrictionManager& space_restriction_manager();
+	inline CSeniorityHierarchyHolder& seniority_holder();
+	inline CClientSpawnManager& client_spawn_manager();
+	inline CAutosaveManager& autosave_manager();
+    inline CDebugRenderer& debug_renderer();
 	void __stdcall script_gc(); // GC-cycle
-	IC CPHCommander& ph_commander();
-	IC CPHCommander& ph_commander_scripts();
-	IC CPHCommander& ph_commander_physics_worldstep();
+	inline CPHCommander& ph_commander();
+	inline CPHCommander& ph_commander_scripts();
+	inline CPHCommander& ph_commander_physics_worldstep();
 
 	CLevel();
 	virtual ~CLevel();
@@ -348,7 +348,7 @@ protected:
 	xr_map<shared_str, script_attachment*> m_script_attachments;
 
 public:
-	IC CBulletManager& BulletManager() { return *m_pBulletManager; }
+	inline CBulletManager& BulletManager() { return *m_pBulletManager; }
 	bool IsServer();
 	bool IsClient();
 	CSE_Abstract* spawn_item(LPCSTR section, const Fvector& position, u32 level_vertex_id, u16 parent_id,
@@ -381,64 +381,64 @@ add_to_type_list(CLevel)
 #define script_type_list save_type_list(CLevel)
 
 // XXX nitrocaster: should not cast to inherited
-IC CLevel& Level() { return *(CLevel*)g_pGameLevel; }
-IC game_cl_GameState& Game() { return *Level().game; }
+inline CLevel& Level() { return *(CLevel*)g_pGameLevel; }
+inline game_cl_GameState& Game() { return *Level().game; }
 u32 GameID();
 
 #ifdef DEBUG
-IC CLevelDebug& DBG() { return *(CLevelDebug*)Level().m_level_debug; }
+inline CLevelDebug& DBG() { return *(CLevelDebug*)Level().m_level_debug; }
 #endif
 
-IC CSpaceRestrictionManager& CLevel::space_restriction_manager()
+inline CSpaceRestrictionManager& CLevel::space_restriction_manager()
 {
 	VERIFY(m_space_restriction_manager);
 	return *m_space_restriction_manager;
 }
 
-IC CSeniorityHierarchyHolder& CLevel::seniority_holder()
+inline CSeniorityHierarchyHolder& CLevel::seniority_holder()
 {
 	VERIFY(m_seniority_hierarchy_holder);
 	return *m_seniority_hierarchy_holder;
 }
 
-IC CClientSpawnManager& CLevel::client_spawn_manager()
+inline CClientSpawnManager& CLevel::client_spawn_manager()
 {
 	VERIFY(m_client_spawn_manager);
 	return *m_client_spawn_manager;
 }
 
-IC CAutosaveManager& CLevel::autosave_manager()
+inline CAutosaveManager& CLevel::autosave_manager()
 {
 	VERIFY(m_autosave_manager);
 	return *m_autosave_manager;
 }
 
-IC CDebugRenderer& CLevel::debug_renderer()
+inline CDebugRenderer& CLevel::debug_renderer()
 {
     VERIFY(m_debug_renderer);
     return *m_debug_renderer;
 }
 
-IC CPHCommander& CLevel::ph_commander()
+inline CPHCommander& CLevel::ph_commander()
 {
 	VERIFY(m_ph_commander);
 	return *m_ph_commander;
 }
 
-IC CPHCommander& CLevel::ph_commander_scripts()
+inline CPHCommander& CLevel::ph_commander_scripts()
 {
 	VERIFY(m_ph_commander_scripts);
 	return *m_ph_commander_scripts;
 }
 
-IC CPHCommander& CLevel::ph_commander_physics_worldstep()
+inline CPHCommander& CLevel::ph_commander_physics_worldstep()
 {
 	VERIFY(m_ph_commander_scripts);
 	return *m_ph_commander_physics_worldstep;
 }
 
-IC bool OnServer() { return Level().IsServer(); }
-IC bool OnClient() { return Level().IsClient(); }
-IC bool IsGameTypeSingle() { return (g_pGamePersistent->GameType() == eGameIDSingle); }
+inline bool OnServer() { return Level().IsServer(); }
+inline bool OnClient() { return Level().IsClient(); }
+inline bool IsGameTypeSingle() { return (g_pGamePersistent->GameType() == eGameIDSingle); }
 
 extern bool g_bDebugEvents;

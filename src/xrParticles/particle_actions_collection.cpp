@@ -2,8 +2,8 @@
 #include "particle_actions_collection.h"
 #include "particle_effect.h"
 
-#include <tbb/parallel_for.h>
-#include <tbb/blocked_range.h>
+// #include <tbb/parallel_for.h>
+// #include <tbb/blocked_range.h>
 
 using namespace PAPI;
 
@@ -1679,7 +1679,7 @@ extern void noise3Init();
 #ifndef _EDITOR
 
 //FIXME:
-// __forceinline __m128 _mm_load_fvector(const Fvector& v)
+// inline __m128 _mm_load_fvector(const Fvector& v)
 // {
 // 	__m128 R1, R2;
 
@@ -1692,7 +1692,7 @@ extern void noise3Init();
 // 	return R1;
 // }
 
-// __forceinline void _mm_store_fvector(Fvector& v, const __m128 R1)
+// inline void _mm_store_fvector(Fvector& v, const __m128 R1)
 // {
 // 	__m128 R2;
 
@@ -1720,7 +1720,7 @@ struct TES_PARAMS
 extern float ps_particle_update_coeff;
 
 
-void PATurbulenceExecuteStream(LPVOID lpvParams)
+void PATurbulenceExecuteStream(void* lpvParams)
 {
 	//FIXME:
 	// pVector pV;

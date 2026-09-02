@@ -13,6 +13,7 @@
 #define __ICECONTAINER_H__
 
 #include "alloc.h"
+#define CopyMemory(a,r,g) memcpy(a,r,g)
 
 #define CONTAINER_STATS
 

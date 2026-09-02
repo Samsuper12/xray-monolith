@@ -431,7 +431,7 @@ void CEnvDescriptorMixer::clear()
 	*/
 }
 
-int get_ref_count(IUnknown* ii);
+// int get_ref_count(IUnknown* ii);
 
 void CEnvDescriptorMixer::lerp(CEnvironment* env, CEnvDescriptor& A, CEnvDescriptor& B, float f, CEnvModifier& Mdf,
                                float modifier_power)
@@ -718,7 +718,7 @@ void CEnvironment::load_weathers()
 	if (!WeatherCycles.empty())
 		return;
 
-	typedef xr_vector<LPSTR> file_list_type;
+	typedef xr_vector<char *> file_list_type;
 	auto file_list = FS.file_list_open("$game_weathers$", "");
 	VERIFY(file_list);
 	
@@ -761,7 +761,7 @@ void CEnvironment::load_weather_effects()
 	if (!WeatherFXs.empty())
 		return;
 
-	typedef xr_vector<LPSTR> file_list_type;
+	typedef xr_vector<char *> file_list_type;
 	auto file_list = FS.file_list_open("$game_weather_effects$", "");
 	VERIFY(!file_list.empty());
 	;

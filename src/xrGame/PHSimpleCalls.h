@@ -14,7 +14,7 @@ public:
 	CPHCallOnStepCondition();
 	virtual bool obsolete() const;
 	virtual bool is_true();
-	IC void set_step(u64 step) { m_step = step; }
+	inline void set_step(u64 step) { m_step = step; }
 	void set_steps_interval(u64 steps);
 	void set_time_interval(u32 time);
 	void set_time_interval(float time);
@@ -24,7 +24,7 @@ public:
 						u64					step						()const			{ return m_step; }
 #endif
 private:
-	IC bool time_out() const;
+	inline bool time_out() const;
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };
 

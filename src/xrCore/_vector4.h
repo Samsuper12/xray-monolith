@@ -14,10 +14,10 @@ struct _vector4
 public:
 	T x, y, z, w;
 
-	IC T& operator[](int i) { return *((T*)this + i); }
-	IC T& operator[](int i) const { return *((T*)this + i); }
+	inline T& operator[](int i) { return *((T*)this + i); }
+	inline T& operator[](int i) const { return *((T*)this + i); }
 
-	IC SelfRef set(T _x, T _y, T _z, T _w = 1)
+	inline SelfRef set(T _x, T _y, T _z, T _w = 1)
 	{
 		x = _x;
 		y = _y;
@@ -26,7 +26,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef set(const Self& v)
+	inline SelfRef set(const Self& v)
 	{
 		x = v.x;
 		y = v.y;
@@ -35,7 +35,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef add(T _x, T _y, T _z, T _w = 1)
+	inline SelfRef add(T _x, T _y, T _z, T _w = 1)
 	{
 		x += _x;
 		y += _y;
@@ -44,7 +44,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef add(const Self& v)
+	inline SelfRef add(const Self& v)
 	{
 		x += v.x;
 		y += v.y;
@@ -53,7 +53,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef add(T s)
+	inline SelfRef add(T s)
 	{
 		x += s;
 		y += s;
@@ -62,7 +62,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef add(const Self& a, const Self& v)
+	inline SelfRef add(const Self& a, const Self& v)
 	{
 		x = a.x + v.x;
 		y = a.y + v.y;
@@ -71,7 +71,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef add(const Self& a, T s)
+	inline SelfRef add(const Self& a, T s)
 	{
 		x = a.x + s;
 		y = a.y + s;
@@ -80,7 +80,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sub(T _x, T _y, T _z, T _w = 1)
+	inline SelfRef sub(T _x, T _y, T _z, T _w = 1)
 	{
 		x -= _x;
 		y -= _y;
@@ -89,7 +89,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sub(const Self& v)
+	inline SelfRef sub(const Self& v)
 	{
 		x -= v.x;
 		y -= v.y;
@@ -98,7 +98,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sub(T s)
+	inline SelfRef sub(T s)
 	{
 		x -= s;
 		y -= s;
@@ -107,7 +107,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sub(const Self& a, const Self& v)
+	inline SelfRef sub(const Self& a, const Self& v)
 	{
 		x = a.x - v.x;
 		y = a.y - v.y;
@@ -116,7 +116,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef sub(const Self& a, T s)
+	inline SelfRef sub(const Self& a, T s)
 	{
 		x = a.x - s;
 		y = a.y - s;
@@ -125,7 +125,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef mul(T _x, T _y, T _z, T _w = 1)
+	inline SelfRef mul(T _x, T _y, T _z, T _w = 1)
 	{
 		x *= _x;
 		y *= _y;
@@ -134,7 +134,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef mul(const Self& v)
+	inline SelfRef mul(const Self& v)
 	{
 		x *= v.x;
 		y *= v.y;
@@ -143,7 +143,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef mul(T s)
+	inline SelfRef mul(T s)
 	{
 		x *= s;
 		y *= s;
@@ -152,7 +152,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef mul(const Self& a, const Self& v)
+	inline SelfRef mul(const Self& a, const Self& v)
 	{
 		x = a.x * v.x;
 		y = a.y * v.y;
@@ -161,7 +161,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef mul(const Self& a, T s)
+	inline SelfRef mul(const Self& a, T s)
 	{
 		x = a.x * s;
 		y = a.y * s;
@@ -170,7 +170,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef div(T _x, T _y, T _z, T _w = 1)
+	inline SelfRef div(T _x, T _y, T _z, T _w = 1)
 	{
 		x /= _x;
 		y /= _y;
@@ -179,7 +179,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef div(const Self& v)
+	inline SelfRef div(const Self& v)
 	{
 		x /= v.x;
 		y /= v.y;
@@ -188,7 +188,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef div(T s)
+	inline SelfRef div(T s)
 	{
 		x /= s;
 		y /= s;
@@ -197,7 +197,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef div(const Self& a, const Self& v)
+	inline SelfRef div(const Self& a, const Self& v)
 	{
 		x = a.x / v.x;
 		y = a.y / v.y;
@@ -206,7 +206,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef div(const Self& a, T s)
+	inline SelfRef div(const Self& a, T s)
 	{
 		x = a.x / s;
 		y = a.y / s;
@@ -216,7 +216,7 @@ public:
 	}
 
 	// Clamp vector3
-	IC SelfRef clamp(const Self& min, const Self& max)
+	inline SelfRef clamp(const Self& min, const Self& max)
 	{
 		std::clamp(x, min.x, max.x);
 		std::clamp(y, min.y, max.y);
@@ -225,7 +225,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef clamp(const Self& _v)
+	inline SelfRef clamp(const Self& _v)
 	{
 		Self v;
 		v.x = _abs(_v.x);
@@ -239,18 +239,18 @@ public:
 		return *this;
 	}
 
-	IC BOOL similar(const Self& v, T E = EPS_L)
+	inline BOOL similar(const Self& v, T E = EPS_L)
 	{
 		return _abs(x - v.x) < E && _abs(y - v.y) < E && _abs(z - v.z) < E && _abs(w - v.w) < E;
 	};
 
-	IC T magnitude_sqr() { return x * x + y * y + z * z + w * w; }
-	IC T magnitude() { return _sqrt(magnitude_sqr()); }
-	IC SelfRef normalize() { return mul(1 / magnitude()); }
+	inline T magnitude_sqr() { return x * x + y * y + z * z + w * w; }
+	inline T magnitude() { return _sqrt(magnitude_sqr()); }
+	inline SelfRef normalize() { return mul(1 / magnitude()); }
 
-	IC SelfRef normalize_as_plane() { return mul(1 / _sqrt(x * x + y * y + z * z)); }
+	inline SelfRef normalize_as_plane() { return mul(1 / _sqrt(x * x + y * y + z * z)); }
 
-	IC SelfRef lerp(const Self& p1, const Self& p2, T t)
+	inline SelfRef lerp(const Self& p1, const Self& p2, T t)
 	{
 		T invt = 1.f - t;
 		x = p1.x * invt + p2.x * t;

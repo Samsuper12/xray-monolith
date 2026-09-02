@@ -33,7 +33,7 @@ namespace inventory
 				using inherited::functr;
 				using inherited::parameter;
 
-				IC return_type operator()() const
+				inline return_type operator()() const
 				{
 					return functr(parameter);
 				}
@@ -44,7 +44,7 @@ namespace inventory
 			{
 				LPCSTR parameter2;
 				using functor<return_type>::functr;
-				IC return_type operator()() const
+				inline return_type operator()() const
 				{
 					return functr(this->parameter, parameter2);
 				}
@@ -55,7 +55,7 @@ namespace inventory
 			{
 				int parameter3;
 
-				IC return_type operator()() const
+				inline return_type operator()() const
 				{
 					return functr(this->parameter, this->parameter2, parameter3);
 				}
@@ -64,7 +64,7 @@ namespace inventory
 			template <>
 			struct functor<void> : public functor_base<void>
 			{
-				IC void operator()() const
+				inline void operator()() const
 				{
 					functr(parameter);
 				}
@@ -74,7 +74,7 @@ namespace inventory
 			struct functor2<void> : public functor<void>
 			{
 				LPCSTR parameter2;
-				IC void operator()() const
+				inline void operator()() const
 				{
 					functr(parameter, parameter2);
 				}
@@ -84,7 +84,7 @@ namespace inventory
 			struct functor3<void> : public functor2<void>
 			{
 				int parameter3;
-				IC void operator()() const
+				inline void operator()() const
 				{
 					functr(parameter, parameter2, parameter3);
 				}
@@ -105,18 +105,18 @@ namespace inventory
 			virtual ~Upgrade();
 			void construct(const shared_str& upgrade_id, Group& parental_group, Manager& manager_r);
 
-			IC LPCSTR section() const;
-			IC shared_str const& parent_group_id() const;
-			IC Group const* parent_group() const;
-			IC LPCSTR icon_name() const;
-			IC LPCSTR name() const;
-			IC LPCSTR description_text() const;
+			inline LPCSTR section() const;
+			inline shared_str const& parent_group_id() const;
+			inline Group const* parent_group() const;
+			inline LPCSTR icon_name() const;
+			inline LPCSTR name() const;
+			inline LPCSTR description_text() const;
 
 			LPCSTR get_prerequisites();
 			UpgradeStateResult get_preconditions();
-			IC bool get_highlight() const;
-			IC shared_str const& get_property_name(u8 index = 0) const;
-			IC Ivector2 const& get_scheme_index() const;
+			inline bool get_highlight() const;
+			inline shared_str const& get_property_name(u8 index = 0) const;
+			inline Ivector2 const& get_scheme_index() const;
 
 #ifdef DEBUG
 	virtual		void		log_hierarchy( LPCSTR nest );

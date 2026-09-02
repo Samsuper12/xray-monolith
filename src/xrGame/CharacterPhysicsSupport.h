@@ -107,12 +107,12 @@ private:
 		m_eState = astate;
 	}
 
-	IC bool isDead()
+	inline bool isDead()
 	{
 		return m_eState == esDead;
 	}
 
-	IC bool isAlive()
+	inline bool isAlive()
 	{
 		return !m_pPhysicsShell;
 	}
@@ -123,10 +123,10 @@ protected:
 
 	virtual bool CanRemoveObject();
 public:
-	IC CPHMovementControl* movement() { return m_PhysicMovementControl; }
-	IC const CPHMovementControl* movement() const { return m_PhysicMovementControl; }
-	IC CPHSoundPlayer* ph_sound_player() { return &m_ph_sound_player; }
-	IC CIKLimbsController* ik_controller() { return m_ik_controller; }
+	inline CPHMovementControl* movement() { return m_PhysicMovementControl; }
+	inline const CPHMovementControl* movement() const { return m_PhysicMovementControl; }
+	inline CPHSoundPlayer* ph_sound_player() { return &m_ph_sound_player; }
+	inline CIKLimbsController* ik_controller() { return m_ik_controller; }
 	bool interactive_motion();
 	bool can_drop_active_weapon();
 	void SetRemoved();
@@ -160,8 +160,8 @@ public:
 	void set_collision_hit_callback(ICollisionHitCallback* cc);
 	void run_interactive(CBlend* B);
 	void update_interactive_anims();
-	IC physics_shell_animated* animation_collision() { return m_physics_shell_animated; }
-	IC const physics_shell_animated* animation_collision() const { return m_physics_shell_animated; }
+	inline physics_shell_animated* animation_collision() { return m_physics_shell_animated; }
+	inline const physics_shell_animated* animation_collision() const { return m_physics_shell_animated; }
 	void create_animation_collision();
 	void destroy_animation_collision();
 	u16 PHGetSyncItemsNumber();
@@ -199,8 +199,8 @@ private:
 	bool CollisionCorrectObjPos(const Fvector& start_from, bool character_create = false);
 
 	void FlyTo(const Fvector& disp);
-	IC void UpdateDeathAnims();
-	IC bool DoCharacterShellCollide();
+	inline void UpdateDeathAnims();
+	inline bool DoCharacterShellCollide();
 	void UpdateCollisionActivatingDellay();
 	void SpawnCharacterCreate();
 };

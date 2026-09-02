@@ -30,35 +30,35 @@ private:
 	bool m_actual;
 
 private:
-	IC void init();
+	inline void init();
 	void merge(const AREA& object_area);
 	void compute_area();
 	obstacles_query(const obstacles_query&);
 	obstacles_query& operator=(const obstacles_query&);
 
 public:
-	IC obstacles_query();
-	IC void clear();
-	IC void swap(obstacles_query& object);
-	IC void copy(const obstacles_query& object);
-	IC void add(const CGameObject* object);
-	IC bool refresh_objects();
+	inline obstacles_query();
+	inline void clear();
+	inline void swap(obstacles_query& object);
+	inline void copy(const obstacles_query& object);
+	inline void add(const CGameObject* object);
+	inline bool refresh_objects();
 	void set_intersection(const obstacles_query& query);
 	void merge(const obstacles_query& query);
 	bool merge(const Fvector& position, const float& radius, const obstacles_query& query);
 	bool objects_changed(const Fvector& position, const float& radius) const;
 	bool remove_objects(const Fvector& position, const float& radius);
-	IC bool update_objects(const Fvector& position, const float& radius);
+	inline bool update_objects(const Fvector& position, const float& radius);
 	void remove_links(CObject* object);
 
 public:
-	IC bool operator==(const obstacles_query& object) const;
-	IC bool operator!=(const obstacles_query& object) const;
-	IC AREA& area();
-	IC const AREA& area() const;
-	IC const OBSTACLES& obstacles() const;
-	IC const u32& crc() const;
-	IC const bool& actual() const;
+	inline bool operator==(const obstacles_query& object) const;
+	inline bool operator!=(const obstacles_query& object) const;
+	inline AREA& area();
+	inline const AREA& area() const;
+	inline const OBSTACLES& obstacles() const;
+	inline const u32& crc() const;
+	inline const bool& actual() const;
 };
 
 #include "obstacles_query_inline.h"

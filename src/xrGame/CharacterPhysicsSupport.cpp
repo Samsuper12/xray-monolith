@@ -60,7 +60,7 @@ float IK_CALC_SSA = 0.006f;
 //}
 
 
-IC bool is_imotion(interactive_motion* im)
+inline bool is_imotion(interactive_motion* im)
 {
 	return im && im->is_enabled();
 }
@@ -408,12 +408,12 @@ void CCharacterPhysicsSupport::in_shedule_Update(u32 DT)
 
 #ifdef DEBUG
 	string64 sdbg_stalker_death_anim = "none";
-	LPSTR dbg_stalker_death_anim = sdbg_stalker_death_anim;
+	char * dbg_stalker_death_anim = sdbg_stalker_death_anim;
 #endif
 BOOL b_death_anim_velocity = TRUE;
 const float cmp_angle = M_PI / 10.f;
 const float cmp_ldisp = 0.1f;
-IC bool cmp(const Fmatrix& f0, const Fmatrix& f1)
+inline bool cmp(const Fmatrix& f0, const Fmatrix& f1)
 {
 	Fmatrix if0;
 	if0.invert(f0);
@@ -566,7 +566,7 @@ void CCharacterPhysicsSupport::in_Hit(SHit& H, bool is_killing)
 }
 
 
-IC void CCharacterPhysicsSupport::UpdateDeathAnims()
+inline void CCharacterPhysicsSupport::UpdateDeathAnims()
 {
 	VERIFY(m_pPhysicsShell->isFullActive());
 

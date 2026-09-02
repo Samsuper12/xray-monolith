@@ -17,7 +17,7 @@
 
 namespace hash_fixed_vertex_manager
 {
-	IC u32 to_u32(shared_str const& string)
+	inline u32 to_u32(shared_str const& string)
 	{
 		const str_value* get = string._get();
 		return (*(u32 const*)&get);
@@ -142,17 +142,17 @@ class id_predicate
 	shared_str m_id;
 
 public:
-	IC id_predicate(shared_str const& id) :
+	inline id_predicate(shared_str const& id) :
 		m_id(id)
 	{
 	}
 
-	IC bool operator()(cover::Vertex const& vertex) const
+	inline bool operator()(cover::Vertex const& vertex) const
 	{
 		return (m_id._get() == vertex.first->id()._get());
 	}
 
-	IC bool operator()(smart_cover::loophole_data::Action const& action) const
+	inline bool operator()(smart_cover::loophole_data::Action const& action) const
 	{
 		return (m_id._get() == action.first._get());
 	}
@@ -262,12 +262,12 @@ struct loophole_predicate
 {
 	smart_cover::loophole const* m_loophole;
 
-	IC loophole_predicate(smart_cover::loophole const* loophole) :
+	inline loophole_predicate(smart_cover::loophole const* loophole) :
 		m_loophole(loophole)
 	{
 	}
 
-	IC bool operator()(cover::Vertex const& vertex) const
+	inline bool operator()(cover::Vertex const& vertex) const
 	{
 		return (vertex.first == m_loophole);
 	}

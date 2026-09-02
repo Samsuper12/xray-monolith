@@ -28,7 +28,7 @@ typedef cs::lua_studio::destroy_world_function_type			destroy_world_function_typ
 
 static create_world_function_type	s_create_world				= 0;
 static destroy_world_function_type	s_destroy_world				= 0;
-static HMODULE						s_script_debugger_handle	= 0;
+static void*						s_script_debugger_handle	= 0;
 static LogCallback					s_old_log_callback			= 0;
 #	endif //!USE_LUA_STUDIO
 #endif
@@ -548,7 +548,7 @@ bool CScriptEngine::function_object(LPCSTR function_to_call, ::luabind::object& 
 	parse_script_namespace(function_to_call, name_space, sizeof(name_space), function, sizeof(function));
 	if (xr_strcmp(name_space, "_G"))
 	{
-		LPSTR file_name = strchr(name_space, '.');
+		char * file_name = strchr(name_space, '.');
 		if (!file_name)
 			process_file(name_space);
 		else
@@ -600,7 +600,7 @@ bool CScriptEngine::no_file_exists(LPCSTR file_name, u32 string_length)
 void CScriptEngine::add_no_file(LPCSTR file_name, u32 string_length)
 {
 	m_last_no_file_length = string_length;
-	CopyMemory(m_last_no_file, file_name, (string_length + 1)*sizeof(char));
+	memcpy(m_last_no_file, file_name, (string_length + 1)*sizeof(char));
 }
 
 void CScriptEngine::collect_all_garbage()

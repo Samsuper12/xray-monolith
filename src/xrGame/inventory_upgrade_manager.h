@@ -27,7 +27,7 @@ namespace inventory
 
 		struct shared_str_predicate
 		{
-			IC bool operator()(const shared_str& a, const shared_str& b) const
+			inline bool operator()(const shared_str& a, const shared_str& b) const
 			{
 				return (a._get() < b._get());
 			}

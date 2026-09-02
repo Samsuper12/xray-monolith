@@ -48,9 +48,9 @@ public:
 	void UpdateCameraRecoil(const CameraRecoil& cam_recoil);
 	void Reset();
 
-	IC bool IsActive() { return m_actived; }
+	inline bool IsActive() { return m_actived; }
 	//		void	SetActive			(bool Active)		{			m_actived = Active;		}
-	IC void StopShoting() { m_shot_end = true; }
+	inline void StopShoting() { m_shot_end = true; }
 
 	void Update();
 

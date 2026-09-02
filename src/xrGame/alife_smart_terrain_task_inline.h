@@ -10,27 +10,27 @@
 #include "ai_space.h"
 #include "game_graph.h"
 
-IC CALifeSmartTerrainTask::CALifeSmartTerrainTask(LPCSTR patrol_path_name)
+inline CALifeSmartTerrainTask::CALifeSmartTerrainTask(LPCSTR patrol_path_name)
 {
 	init(patrol_path_name, 0);
 }
 
-IC CALifeSmartTerrainTask::CALifeSmartTerrainTask(LPCSTR patrol_path_name, const u32& patrol_point_index)
+inline CALifeSmartTerrainTask::CALifeSmartTerrainTask(LPCSTR patrol_path_name, const u32& patrol_point_index)
 {
 	init(patrol_path_name, patrol_point_index);
 }
 
-IC CALifeSmartTerrainTask::CALifeSmartTerrainTask(const shared_str& patrol_path_name)
+inline CALifeSmartTerrainTask::CALifeSmartTerrainTask(const shared_str& patrol_path_name)
 {
 	init(patrol_path_name, 0);
 }
 
-IC CALifeSmartTerrainTask::CALifeSmartTerrainTask(const shared_str& patrol_path_name, const u32& patrol_point_index)
+inline CALifeSmartTerrainTask::CALifeSmartTerrainTask(const shared_str& patrol_path_name, const u32& patrol_point_index)
 {
 	init(patrol_path_name, patrol_point_index);
 }
 
-IC CALifeSmartTerrainTask::CALifeSmartTerrainTask(const GameGraph::_GRAPH_ID& game_vertex_id,
+inline CALifeSmartTerrainTask::CALifeSmartTerrainTask(const GameGraph::_GRAPH_ID& game_vertex_id,
                                                   const u32& level_vertex_id)
 {
 	VERIFY2(ai().game_graph().valid_vertex_id(game_vertex_id),
@@ -39,7 +39,7 @@ IC CALifeSmartTerrainTask::CALifeSmartTerrainTask(const GameGraph::_GRAPH_ID& ga
 	m_level_vertex_id = level_vertex_id;
 }
 
-IC void CALifeSmartTerrainTask::init(const shared_str& patrol_path_name, const u32& patrol_point_index)
+inline void CALifeSmartTerrainTask::init(const shared_str& patrol_path_name, const u32& patrol_point_index)
 {
 #ifdef DEBUG
 	m_patrol_path_name		= patrol_path_name;
@@ -52,18 +52,18 @@ IC void CALifeSmartTerrainTask::init(const shared_str& patrol_path_name, const u
 }
 
 #ifdef DEBUG
-IC	const shared_str &CALifeSmartTerrainTask::patrol_path_name	() const
+inline	const shared_str &CALifeSmartTerrainTask::patrol_path_name	() const
 {
 	return					(m_patrol_path_name);
 }
 
-IC	const u32 &CALifeSmartTerrainTask::patrol_point_index		() const
+inline	const u32 &CALifeSmartTerrainTask::patrol_point_index		() const
 {
 	return					(m_patrol_point_index);
 }
 #endif
 
-IC const CPatrolPoint& CALifeSmartTerrainTask::patrol_point() const
+inline const CPatrolPoint& CALifeSmartTerrainTask::patrol_point() const
 {
 	VERIFY(m_patrol_point);
 	return (*m_patrol_point);

@@ -32,8 +32,8 @@ protected:
 	_item_type* m_item;
 
 public:
-	IC CObjectPropertyEvaluatorBase(_item_type* item, CAI_Stalker* owner);
-	IC CAI_Stalker& object() const;
+	inline CObjectPropertyEvaluatorBase(_item_type* item, CAI_Stalker* owner);
+	inline CAI_Stalker& object() const;
 };
 
 typedef CObjectPropertyEvaluatorBase<CGameObject> CSObjectPropertyEvaluatorBase;
@@ -154,7 +154,7 @@ protected:
 public:
 	CObjectPropertyEvaluatorNoItems(CAI_Stalker* owner);
 	virtual _value_type evaluate();
-	IC CAI_Stalker& object() const;
+	inline CAI_Stalker& object() const;
 };
 
 //////////////////////////////////////////////////////////////////////////

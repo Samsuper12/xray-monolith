@@ -15,7 +15,7 @@ class CStateChimeraThreatenWalk : public CStateMonsterMoveToPointEx<_Object>
 	using inherited::data;
 
 public:
-	IC CStateChimeraThreatenWalk(_Object* obj) : inherited(obj)
+	inline CStateChimeraThreatenWalk(_Object* obj) : inherited(obj)
 	{
 	}
 

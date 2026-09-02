@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-bool CRenderDevice::on_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& result)
+bool CRenderDevice::on_message(void* hWnd, uint32_t uMsg, uintptr_t wParam, intptr_t lParam, intptr_t& result)
 {
 	//FIXME:
 	{ stub_unix(__func__); }
@@ -84,9 +84,9 @@ bool CRenderDevice::on_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 // Name: WndProc()
 // Desc: Static msg handler which passes messages to the application class.
 //-----------------------------------------------------------------------------
-LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+intptr_t  WndProc(void* hWnd, uint32_t uMsg, uintptr_t wParam, intptr_t lParam)
 {
-	LRESULT result;
+	intptr_t result;
 	//if (Device.on_message(hWnd, uMsg, wParam, lParam, result))
 	//	return (result);
 

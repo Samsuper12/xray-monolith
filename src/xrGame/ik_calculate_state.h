@@ -22,14 +22,14 @@ public:
 	{
 	}
 
-	IC const Fmatrix& get() const { return m; }
-	IC void set(const Fmatrix& m_, e_collide_state cl)
+	inline const Fmatrix& get() const { return m; }
+	inline void set(const Fmatrix& m_, e_collide_state cl)
 	{
 		m.set(m_);
 		cl_state = cl;
 	}
 
-	IC e_collide_state collide_state() const { return cl_state; }
+	inline e_collide_state collide_state() const { return cl_state; }
 };
 
 struct calculate_state

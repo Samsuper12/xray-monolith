@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC CAttachableItem::CAttachableItem()
+inline CAttachableItem::CAttachableItem()
 {
 	m_item = 0;
 	m_offset.identity();
@@ -20,7 +20,7 @@ IC CAttachableItem::CAttachableItem()
 #endif
 }
 
-IC shared_str CAttachableItem::bone_name() const
+inline shared_str CAttachableItem::bone_name() const
 {
 #ifdef DEBUG
 	VERIFY(m_valid);
@@ -28,7 +28,7 @@ IC shared_str CAttachableItem::bone_name() const
 	return (m_bone_name);
 }
 
-IC const Fmatrix& CAttachableItem::offset() const
+inline const Fmatrix& CAttachableItem::offset() const
 {
 #ifdef DEBUG
 	VERIFY(m_valid);
@@ -36,7 +36,7 @@ IC const Fmatrix& CAttachableItem::offset() const
 	return (m_offset);
 }
 
-IC u16 CAttachableItem::bone_id() const
+inline u16 CAttachableItem::bone_id() const
 {
 #ifdef DEBUG
 	VERIFY(m_valid);
@@ -44,7 +44,7 @@ IC u16 CAttachableItem::bone_id() const
 	return (m_bone_id);
 }
 
-IC void CAttachableItem::set_bone_id(u16 bone_id)
+inline void CAttachableItem::set_bone_id(u16 bone_id)
 {
 #ifdef DEBUG
 	VERIFY(m_valid);
@@ -52,13 +52,13 @@ IC void CAttachableItem::set_bone_id(u16 bone_id)
 	m_bone_id = bone_id;
 }
 
-IC bool CAttachableItem::enabled() const
+inline bool CAttachableItem::enabled() const
 {
 	//	VERIFY				(m_valid);
 	return (m_enabled);
 }
 
-IC CInventoryItem& CAttachableItem::item() const
+inline CInventoryItem& CAttachableItem::item() const
 {
 	VERIFY(m_item);
 	return (*m_item);

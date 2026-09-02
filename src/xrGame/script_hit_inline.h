@@ -10,7 +10,7 @@
 #include "Hit.h"
 #include "GameObject.h"
 
-IC CScriptHit::CScriptHit()
+inline CScriptHit::CScriptHit()
 {
 	m_fPower = 100;
 	m_tDirection.set(1, 0, 0);
@@ -22,12 +22,12 @@ IC CScriptHit::CScriptHit()
 	bulletId = u32(-1);
 }
 
-IC CScriptHit::CScriptHit(const CScriptHit* tpLuaHit)
+inline CScriptHit::CScriptHit(const CScriptHit* tpLuaHit)
 {
 	*this = *tpLuaHit;
 }
 
-IC CScriptHit::CScriptHit(const SHit* tpHit)
+inline CScriptHit::CScriptHit(const SHit* tpHit)
 {
 	m_fPower = tpHit->power;
 	m_tDirection = tpHit->direction();
@@ -38,12 +38,12 @@ IC CScriptHit::CScriptHit(const SHit* tpHit)
 	bulletId = tpHit->BulletID;
 }
 
-IC LPCSTR CScriptHit::get_bone_name() const
+inline LPCSTR CScriptHit::get_bone_name() const
 {
 	return m_caBoneName.c_str();
 }
 
-IC void CScriptHit::set_bone_name(LPCSTR bone_name)
+inline void CScriptHit::set_bone_name(LPCSTR bone_name)
 {
 	m_caBoneName = bone_name;
 }

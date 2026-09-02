@@ -11,6 +11,7 @@
 // Include Guard
 #ifndef __ICEMATRIX3X3_H__
 #define __ICEMATRIX3X3_H__
+#define CopyMemory(a,r,g) memcpy(a,r,g)
 
 // Forward declarations
 class Quat;

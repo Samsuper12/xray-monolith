@@ -984,7 +984,7 @@ public:
 	COLLIDE_POINTS			*m_points;
 
 public:
-	IC				ray_query_param		(CCustomMonster *holder, float power_threshold, float distance, const Fvector &start_position, const Fvector &direction, COLLIDE_POINTS &points)
+	inline				ray_query_param		(CCustomMonster *holder, float power_threshold, float distance, const Fvector &start_position, const Fvector &direction, COLLIDE_POINTS &points)
 	{
 		m_holder			= holder;
 		m_power				= 1.f;
@@ -996,7 +996,7 @@ public:
 	}
 };
 
-BOOL _ray_query_callback	(collide::rq_result& result, LPVOID params)
+BOOL _ray_query_callback	(collide::rq_result& result, void* params)
 {
 	ray_query_param						*param = (ray_query_param*)params;
 	param->m_points->push_back			(

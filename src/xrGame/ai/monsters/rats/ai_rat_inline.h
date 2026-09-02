@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC void CAI_Rat::vfChangeGoal()
+inline void CAI_Rat::vfChangeGoal()
 {
 	Fvector vP;
 	vP.set(m_tSpawnPosition.x, m_tSpawnPosition.y, m_tSpawnPosition.z);
@@ -17,7 +17,7 @@ IC void CAI_Rat::vfChangeGoal()
 	m_tGoalDir.z = vP.z + m_tVarGoal.z * ::Random.randF(-0.5f, 0.5f);
 }
 
-IC bool CAI_Rat::bfCheckIfGoalChanged(bool bForceChangeGoal)
+inline bool CAI_Rat::bfCheckIfGoalChanged(bool bForceChangeGoal)
 {
 	if (m_fGoalChangeTime <= 0)
 	{
@@ -29,7 +29,7 @@ IC bool CAI_Rat::bfCheckIfGoalChanged(bool bForceChangeGoal)
 	return (false);
 };
 
-IC void CAI_Rat::vfChooseNewSpeed()
+inline void CAI_Rat::vfChooseNewSpeed()
 {
 	int iRandom = ::Random.randI(0, 2);
 	switch (iRandom)
@@ -48,12 +48,12 @@ IC void CAI_Rat::vfChooseNewSpeed()
 	m_fSafeSpeed = m_fSpeed;
 };
 
-IC void CAI_Rat::vfUpdateTime(float fTimeDelta)
+inline void CAI_Rat::vfUpdateTime(float fTimeDelta)
 {
 	m_fGoalChangeTime -= fTimeDelta > .1f ? .1f : fTimeDelta;
 };
 
-IC bool CAI_Rat::use_model_pitch() const
+inline bool CAI_Rat::use_model_pitch() const
 {
 	return (!!g_Alive());
 }

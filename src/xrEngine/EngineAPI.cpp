@@ -52,10 +52,10 @@ ENGINE_API bool is_enough_address_space_available()
 
 #ifndef DEDICATED_SERVER
 
-extern BOOL DllMainXrRenderR1(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
-extern BOOL DllMainXrRenderR2(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
-extern BOOL DllMainXrRenderR3(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
-extern BOOL DllMainXrRenderR4(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
+extern BOOL DllMainXrRenderR1(void* hModule, uint32_t ul_reason_for_call, void* lpReserved);
+extern BOOL DllMainXrRenderR2(void* hModule, uint32_t ul_reason_for_call, void* lpReserved);
+extern BOOL DllMainXrRenderR3(void* hModule, uint32_t ul_reason_for_call, void* lpReserved);
+extern BOOL DllMainXrRenderR4(void* hModule, uint32_t ul_reason_for_call, void* lpReserved);
 extern bool DllMainXrRenderRV();
 
 
@@ -88,7 +88,7 @@ void CEngineAPI::InitializeNotDedicated()
 }
 #endif // DEDICATED_SERVER
 
-extern BOOL DllMainXrGame(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved);
+extern BOOL DllMainXrGame(void* hModule, u32 ul_reason_for_call, void* lpReserved);
 
 extern "C"
 DLL_Pure* __cdecl xrFactory_Create(CLASS_ID clsid);
@@ -106,7 +106,7 @@ void CEngineAPI::Initialize(void)
 		LPCSTR g_name = "xrGame.dll";
 		Log("Loading DLL:", g_name);
 		//hGame = LoadLibrary(g_name);
-		DllMainXrGame(NULL, DLL_PROCESS_ATTACH, NULL);
+		DllMainXrGame(NULL, 0, NULL);
 		//if (0 == hGame) R_CHK(GetLastError());
 		//R_ASSERT2(hGame, "Game DLL raised exception during loading or there is no game DLL at all");
 		//pCreate = (Factory_Create*)GetProcAddress(hGame, "xrFactory_Create");
@@ -139,7 +139,7 @@ void CEngineAPI::Initialize(void)
 void CEngineAPI::Destroy(void)
 {
 	//if (hGame) { FreeLibrary(hGame); hGame = 0; }
-	DllMainXrGame(NULL, DLL_PROCESS_DETACH, NULL);
+	DllMainXrGame(NULL, 0, NULL);
 	//if (hRender) { FreeLibrary(hRender); hRender = 0; }
 	DLL_MAIN_RENDERER();
 	pCreate = 0;
@@ -247,7 +247,7 @@ void CEngineAPI::CreateRendererList()
         // Hide "d3d10.dll not found" message box for XP
         SetErrorMode(SEM_FAILCRITICALERRORS);
         //hRender = LoadLibrary(r4_name);
-		DllMainXrRenderR4(NULL, DLL_PROCESS_ATTACH, NULL);
+		DllMainXrRenderR4(NULL, 0, NULL);
         // Restore error handling
         SetErrorMode(0);
         //if (hRender)

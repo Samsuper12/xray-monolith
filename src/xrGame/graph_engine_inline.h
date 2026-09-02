@@ -10,7 +10,7 @@
 #include "problem_solver.h"
 
 
-IC CGraphEngine::CGraphEngine(u32 max_vertex_count)
+inline CGraphEngine::CGraphEngine(u32 max_vertex_count)
 {
 	m_algorithm = xr_new<CAlgorithm>(max_vertex_count);
 	m_algorithm->data_storage().set_min_bucket_value(_dist_type(0));
@@ -22,7 +22,7 @@ IC CGraphEngine::CGraphEngine(u32 max_vertex_count)
 #endif // AI_COMPILER
 }
 
-IC CGraphEngine::~CGraphEngine()
+inline CGraphEngine::~CGraphEngine()
 {
 	xr_delete(m_algorithm);
 #ifndef AI_COMPILER
@@ -32,7 +32,7 @@ IC CGraphEngine::~CGraphEngine()
 }
 
 #ifndef AI_COMPILER
-IC const CGraphEngine::CSolverAlgorithm& CGraphEngine::solver_algorithm() const
+inline const CGraphEngine::CSolverAlgorithm& CGraphEngine::solver_algorithm() const
 {
 	return (*m_solver_algorithm);
 }
@@ -42,7 +42,7 @@ template <
 	typename _Graph,
 	typename _Parameters
 >
-IC bool CGraphEngine::search(
+inline bool CGraphEngine::search(
 	const _Graph& graph,
 	const _index_type& start_node,
 	const _index_type& dest_node,
@@ -88,7 +88,7 @@ template <
 	typename _Graph,
 	typename _Parameters
 >
-IC bool CGraphEngine::search(
+inline bool CGraphEngine::search(
 	const _Graph& graph,
 	const _index_type& start_node,
 	const _index_type& dest_node,
@@ -135,7 +135,7 @@ template <
 	typename _Parameters,
 	typename _PathManager
 >
-IC bool CGraphEngine::search(
+inline bool CGraphEngine::search(
 	const _Graph& graph,
 	const _index_type& start_node,
 	const _index_type& dest_node,
@@ -185,7 +185,7 @@ template <
 	typename T8,
 	typename _Parameters
 >
-IC bool CGraphEngine::search(
+inline bool CGraphEngine::search(
 	const CProblemSolver<
 		T1,
 		T2,
@@ -238,7 +238,7 @@ template <
 	typename _Graph,
 	typename _Parameters
 >
-IC bool CGraphEngine::search(
+inline bool CGraphEngine::search(
 	const _Graph& graph,
 	const shared_str& start_node,
 	const shared_str& dest_node,

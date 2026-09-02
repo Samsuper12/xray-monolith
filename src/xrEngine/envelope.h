@@ -53,7 +53,7 @@ struct st_Key
 		ZeroMemory(this, sizeof(st_Key));
 	}
 
-	IC bool equal(const st_Key& tgt)
+	inline bool equal(const st_Key& tgt)
 	{
 		if (!fsimilar(value, tgt.value)) return false;
 		if (!fsimilar(shape, tgt.shape)) return false;
@@ -67,7 +67,7 @@ struct st_Key
 		return true;
 	}
 
-	IC void Save(IWriter& F)
+	inline void Save(IWriter& F)
 	{
 		F.w_float(value);
 		F.w_float(time);
@@ -84,7 +84,7 @@ struct st_Key
 		}
 	}
 
-	IC void Load_1(IReader& F)
+	inline void Load_1(IReader& F)
 	{
 		value = F.r_float();
 		time = F.r_float();
@@ -95,7 +95,7 @@ struct st_Key
 		F.r(&param, sizeof(float) * 4);
 	}
 
-	IC void Load_2(IReader& F)
+	inline void Load_2(IReader& F)
 	{
 		value = F.r_float();
 		time = F.r_float();

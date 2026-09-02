@@ -10,22 +10,22 @@
 
 namespace smart_cover
 {
-	IC u32 const& default_behaviour_planner::idle_time() const
+	inline u32 const& default_behaviour_planner::idle_time() const
 	{
 		return (m_idle_time);
 	}
 
-	IC void default_behaviour_planner::idle_time(u32 const& value)
+	inline void default_behaviour_planner::idle_time(u32 const& value)
 	{
 		m_idle_time = value;
 	}
 
-	IC u32 const& default_behaviour_planner::lookout_time() const
+	inline u32 const& default_behaviour_planner::lookout_time() const
 	{
 		return (m_lookout_time);
 	}
 
-	IC void default_behaviour_planner::lookout_time(u32 const& value)
+	inline void default_behaviour_planner::lookout_time(u32 const& value)
 	{
 		m_lookout_time = value;
 	}

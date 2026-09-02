@@ -41,7 +41,7 @@ void cl_light_XFORM::setup(R_constant* C)
 
 //////////////////////////////////////////////////////////////////////////
 /*
-IC void mk_vertex					(CLightR_Vertex& D, Fvector& P, Fvector& N, Fvector& C, float r2)
+inline void mk_vertex					(CLightR_Vertex& D, Fvector& P, Fvector& N, Fvector& C, float r2)
 {
 	D.P.set	(P);
 	D.N.set	(P);
@@ -316,7 +316,7 @@ void CLightR_Manager::render_spot(u32 _priority)
 	//		??? grass ???l
 }
 
-IC void hud_light_apply(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
+inline void hud_light_apply(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
 {
 	for (u32 it = 0; it < source.size(); it++)
 	{
@@ -330,7 +330,7 @@ IC void hud_light_apply(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, 
 	}
 }
 
-IC void hud_light_restore(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
+inline void hud_light_restore(xr_map<light*, std::pair<Fvector, Fvector>>& saved_pos, xr_vector<light*>& source)
 {
 	for (const auto& saved : saved_pos)
 	{

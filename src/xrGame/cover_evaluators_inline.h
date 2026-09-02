@@ -11,27 +11,27 @@
 //////////////////////////////////////////////////////////////////////////
 // CCoverEvaluatorBase
 //////////////////////////////////////////////////////////////////////////
-IC const CCoverPoint* CCoverEvaluatorBase::selected() const
+inline const CCoverPoint* CCoverEvaluatorBase::selected() const
 {
 	return (m_selected);
 }
 
-IC smart_cover::loophole const* CCoverEvaluatorBase::loophole() const
+inline smart_cover::loophole const* CCoverEvaluatorBase::loophole() const
 {
 	return (m_loophole);
 }
 
-IC void CCoverEvaluatorBase::set_inertia(u32 inertia_time)
+inline void CCoverEvaluatorBase::set_inertia(u32 inertia_time)
 {
 	m_inertia_time = inertia_time;
 }
 
-IC void CCoverEvaluatorBase::setup()
+inline void CCoverEvaluatorBase::setup()
 {
 	m_initialized = true;
 }
 
-IC void CCoverEvaluatorBase::initialize(const Fvector& start_position, bool fake_call)
+inline void CCoverEvaluatorBase::initialize(const Fvector& start_position, bool fake_call)
 {
 	VERIFY(initialized());
 	m_start_position = start_position;
@@ -43,59 +43,59 @@ IC void CCoverEvaluatorBase::initialize(const Fvector& start_position, bool fake
 		m_last_update = Device.dwTimeGlobal;
 }
 
-IC void CCoverEvaluatorBase::finalize()
+inline void CCoverEvaluatorBase::finalize()
 {
 	m_initialized = false;
 	m_actuality = true;
 }
 
-IC bool CCoverEvaluatorBase::initialized() const
+inline bool CCoverEvaluatorBase::initialized() const
 {
 	return (m_initialized);
 }
 
-IC bool CCoverEvaluatorBase::accessible(const Fvector& position)
+inline bool CCoverEvaluatorBase::accessible(const Fvector& position)
 {
 	return (m_object ? object().accessible(position) : true);
 }
 
-IC bool CCoverEvaluatorBase::use_smart_covers_only() const
+inline bool CCoverEvaluatorBase::use_smart_covers_only() const
 {
 	return (m_use_smart_covers_only);
 }
 
-IC void CCoverEvaluatorBase::use_smart_covers_only(bool value)
+inline void CCoverEvaluatorBase::use_smart_covers_only(bool value)
 {
 	m_use_smart_covers_only = value;
 }
 
-IC bool CCoverEvaluatorBase::can_use_smart_covers() const
+inline bool CCoverEvaluatorBase::can_use_smart_covers() const
 {
 	return (m_can_use_smart_covers);
 }
 
-IC void CCoverEvaluatorBase::can_use_smart_covers(bool value)
+inline void CCoverEvaluatorBase::can_use_smart_covers(bool value)
 {
 	m_can_use_smart_covers = value;
 }
 
-IC CRestrictedObject& CCoverEvaluatorBase::object() const
+inline CRestrictedObject& CCoverEvaluatorBase::object() const
 {
 	VERIFY(m_object);
 	return (*m_object);
 }
 
-IC bool CCoverEvaluatorBase::actual() const
+inline bool CCoverEvaluatorBase::actual() const
 {
 	return (m_actuality);
 }
 
-IC void CCoverEvaluatorBase::invalidate()
+inline void CCoverEvaluatorBase::invalidate()
 {
 	m_last_update = 0;
 }
 
-IC float CCoverEvaluatorBase::best_value() const
+inline float CCoverEvaluatorBase::best_value() const
 {
 	return (m_best_value);
 }
@@ -104,7 +104,7 @@ IC float CCoverEvaluatorBase::best_value() const
 // CCoverEvaluatorCloseToEnemy
 //////////////////////////////////////////////////////////////////////////
 
-IC CCoverEvaluatorCloseToEnemy::CCoverEvaluatorCloseToEnemy(CRestrictedObject* object) : inherited(object)
+inline CCoverEvaluatorCloseToEnemy::CCoverEvaluatorCloseToEnemy(CRestrictedObject* object) : inherited(object)
 {
 	m_enemy_position.set(flt_max,flt_max,flt_max);
 	m_deviation = flt_max;
@@ -114,13 +114,13 @@ IC CCoverEvaluatorCloseToEnemy::CCoverEvaluatorCloseToEnemy(CRestrictedObject* o
 	m_current_distance = flt_max;
 }
 
-IC void CCoverEvaluatorCloseToEnemy::initialize(const Fvector& start_position, bool fake_call)
+inline void CCoverEvaluatorCloseToEnemy::initialize(const Fvector& start_position, bool fake_call)
 {
 	inherited::initialize(start_position, fake_call);
 	m_current_distance = m_start_position.distance_to(m_enemy_position);
 }
 
-IC void CCoverEvaluatorCloseToEnemy::setup(const Fvector& enemy_position, float min_enemy_distance,
+inline void CCoverEvaluatorCloseToEnemy::setup(const Fvector& enemy_position, float min_enemy_distance,
                                            float max_enemy_distance, float deviation)
 {
 	inherited::setup();
@@ -142,7 +142,7 @@ IC void CCoverEvaluatorCloseToEnemy::setup(const Fvector& enemy_position, float 
 // CCoverEvaluatorAngle
 //////////////////////////////////////////////////////////////////////////
 
-IC CCoverEvaluatorAngle::CCoverEvaluatorAngle(CRestrictedObject* object) : inherited(object)
+inline CCoverEvaluatorAngle::CCoverEvaluatorAngle(CRestrictedObject* object) : inherited(object)
 {
 	m_direction.set(flt_max,flt_max,flt_max);
 	m_best_direction.set(flt_max,flt_max,flt_max);
@@ -150,7 +150,7 @@ IC CCoverEvaluatorAngle::CCoverEvaluatorAngle(CRestrictedObject* object) : inher
 	m_level_vertex_id = u32(-1);
 }
 
-IC void CCoverEvaluatorAngle::setup(const Fvector& enemy_position, float min_enemy_distance, float max_enemy_distance,
+inline void CCoverEvaluatorAngle::setup(const Fvector& enemy_position, float min_enemy_distance, float max_enemy_distance,
                                     u32 level_vertex_id)
 {
 	inherited::setup(enemy_position, min_enemy_distance, max_enemy_distance);
@@ -162,11 +162,11 @@ IC void CCoverEvaluatorAngle::setup(const Fvector& enemy_position, float min_ene
 // CCoverEvaluatorFarFromEnemy
 //////////////////////////////////////////////////////////////////////////
 
-IC CCoverEvaluatorFarFromEnemy::CCoverEvaluatorFarFromEnemy(CRestrictedObject* object) : inherited(object)
+inline CCoverEvaluatorFarFromEnemy::CCoverEvaluatorFarFromEnemy(CRestrictedObject* object) : inherited(object)
 {
 }
 
-IC CCoverEvaluatorBest::CCoverEvaluatorBest(CRestrictedObject* object) : inherited(object)
+inline CCoverEvaluatorBest::CCoverEvaluatorBest(CRestrictedObject* object) : inherited(object)
 {
 }
 
@@ -174,12 +174,12 @@ IC CCoverEvaluatorBest::CCoverEvaluatorBest(CRestrictedObject* object) : inherit
 // CCoverEvaluatorSafe
 //////////////////////////////////////////////////////////////////////////
 
-IC CCoverEvaluatorSafe::CCoverEvaluatorSafe(CRestrictedObject* object) : inherited(object)
+inline CCoverEvaluatorSafe::CCoverEvaluatorSafe(CRestrictedObject* object) : inherited(object)
 {
 	m_min_distance = flt_max;
 }
 
-IC void CCoverEvaluatorSafe::setup(float min_distance)
+inline void CCoverEvaluatorSafe::setup(float min_distance)
 {
 	inherited::setup();
 	m_actuality = m_actuality && fsimilar(m_min_distance, min_distance);
@@ -190,7 +190,7 @@ IC void CCoverEvaluatorSafe::setup(float min_distance)
 // CCoverEvaluatorAmbush
 //////////////////////////////////////////////////////////////////////////
 
-IC CCoverEvaluatorAmbush::CCoverEvaluatorAmbush(CRestrictedObject* object) :
+inline CCoverEvaluatorAmbush::CCoverEvaluatorAmbush(CRestrictedObject* object) :
 	inherited(object)
 {
 	m_my_position.set(flt_max,flt_max,flt_max);

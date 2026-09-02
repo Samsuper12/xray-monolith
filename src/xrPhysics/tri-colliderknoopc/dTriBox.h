@@ -12,7 +12,7 @@ struct dxBox
 	dVector3 side; // side lengths (x,y,z)
 };
 
-IC float dcTriListCollider::dBoxProj(dxGeom* box, const dReal* normal)
+inline float dcTriListCollider::dBoxProj(dxGeom* box, const dReal* normal)
 {
 	VERIFY(dGeomGetClass(box)== dBoxClass);
 	float hside[3];
@@ -28,7 +28,7 @@ IC float dcTriListCollider::dBoxProj(dxGeom* box, const dReal* normal)
 }
 
 
-IC void dcTriListCollider::CrossProjLine(const dReal* pt1, const dReal* vc1, const dReal* pt2, const dReal* vc2,
+inline void dcTriListCollider::CrossProjLine(const dReal* pt1, const dReal* vc1, const dReal* pt2, const dReal* vc2,
                                          dReal* proj)
 {
 	dVector3 ac = {pt1[0] - pt2[0], pt1[1] - pt2[1], pt1[2] - pt2[2]};
@@ -49,7 +49,7 @@ IC void dcTriListCollider::CrossProjLine(const dReal* pt1, const dReal* vc1, con
 	proj[2] = pt1[2] + vc1[8] * t;
 }
 
-IC void dcTriListCollider::CrossProjLine1(const dReal* pt1, const dReal* vc1, const dReal* pt2, const dReal* vc2,
+inline void dcTriListCollider::CrossProjLine1(const dReal* pt1, const dReal* vc1, const dReal* pt2, const dReal* vc2,
                                           dReal* proj)
 {
 	dVector3 ac = {pt1[0] - pt2[0], pt1[1] - pt2[1], pt1[2] - pt2[2]};
@@ -71,7 +71,7 @@ IC void dcTriListCollider::CrossProjLine1(const dReal* pt1, const dReal* vc1, co
 }
 
 
-IC bool dcTriListCollider::CrossProjLine14(const dReal* pt1, const dReal* vc1, const dReal* pt2, const dReal* vc2,
+inline bool dcTriListCollider::CrossProjLine14(const dReal* pt1, const dReal* vc1, const dReal* pt2, const dReal* vc2,
                                            dReal hside, dReal* proj)
 {
 	dVector3 ac = {pt1[0] - pt2[0], pt1[1] - pt2[1], pt1[2] - pt2[2]};
@@ -111,7 +111,7 @@ IC bool dcTriListCollider::CrossProjLine14(const dReal* pt1, const dReal* vc1, c
 }
 
 //is point in Box
-IC bool dcTriListCollider::IsPtInBx(const dReal* Pt, const dReal* BxP, const dReal* BxEx, const dReal* BxR)
+inline bool dcTriListCollider::IsPtInBx(const dReal* Pt, const dReal* BxP, const dReal* BxEx, const dReal* BxR)
 {
 	dVector3 BxPR, PtR;
 
@@ -176,7 +176,7 @@ inline dReal PointBoxTest(const dReal* Pt, const dReal* BxP, const dReal* BxEx, 
 	}
 }
 
-IC dReal dcTriListCollider::FragmentonBoxTest(const dReal* Pt1, const dReal* Pt2, const dReal* BxP, const dReal* BxEx,
+inline dReal dcTriListCollider::FragmentonBoxTest(const dReal* Pt1, const dReal* Pt2, const dReal* BxP, const dReal* BxEx,
                                               const dReal* R, dReal* norm, dReal* pos)
 {
 	dVector3 fragmentonAx = {Pt2[0] - Pt1[0], Pt2[1] - Pt1[1], Pt2[2] - Pt1[2]};

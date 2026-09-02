@@ -59,26 +59,26 @@ lp_tv_uchar tv_yuv2argb(lp_tv_uchar argb_plane, tv_slong argb_width, tv_slong ar
         mov   ecx, -2785792
         mov   edx, -14496256
 
-        lea   ebx, DWORD PTR[ttl+2]
+        lea   ebx, uint32_t PTR[ttl+2]
 
         // building helper tables
         ALIGN 4
     _tb_loop:
         mov   eax, esi
         sar   eax, 16
-        mov   WORD PTR[ebx-2], ax
+        mov   unsigned short PTR[ebx-2], ax
 
         mov   eax, edi
         sar   eax, 16
-        mov   WORD PTR[ebx+0], ax
+        mov   unsigned short PTR[ebx+0], ax
 
         mov   eax, ecx
         sar   eax, 16
-        mov   WORD PTR[ebx+2], ax
+        mov   unsigned short PTR[ebx+2], ax
 
         mov   eax, edx
         sar   eax, 16
-        mov   WORD PTR[ebx+4], ax
+        mov   unsigned short PTR[ebx+4], ax
 
         add   esi, 113443
         add   edi, 45744
@@ -115,32 +115,32 @@ lp_tv_uchar tv_yuv2argb(lp_tv_uchar argb_plane, tv_slong argb_width, tv_slong ar
             {
                 push ebx;
 
-                mov  eax, DWORD PTR y1; eax = y1
-                mov  ebx, DWORD PTR y2; ebx = y2
-                mov  edi, DWORD PTR v; edi = v
+                mov  eax, uint32_t PTR y1; eax = y1
+                mov  ebx, uint32_t PTR y2; ebx = y2
+                mov  edi, uint32_t PTR v; edi = v
 
-                add  eax, DWORD PTR nTempX; eax = y1 + nTempX
-                add  ebx, DWORD PTR nTempX; ebx = y2 + nTempX
+                add  eax, uint32_t PTR nTempX; eax = y1 + nTempX
+                add  ebx, uint32_t PTR nTempX; ebx = y2 + nTempX
 
                 pxor mm2, mm2; mm2 = 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
 
-                add  edi, DWORD PTR nTempX_; edi = v + nTempX_
-                lea  esi, DWORD PTR ttl; esi = ttl
+                add  edi, uint32_t PTR nTempX_; edi = v + nTempX_
+                lea  esi, uint32_t PTR ttl; esi = ttl
 
-                movd mm0, DWORD PTR[eax]; mm0 = 0 | 0 | 0 | 0 | nY4 | nY3 | nY2 | nY1
-                movd mm1, DWORD PTR[ebx]; mm1 = 0 | 0 | 0 | 0 | nY8 | nY7 | nY6 | nY5
+                movd mm0, uint32_t PTR[eax]; mm0 = 0 | 0 | 0 | 0 | nY4 | nY3 | nY2 | nY1
+                movd mm1, uint32_t PTR[ebx]; mm1 = 0 | 0 | 0 | 0 | nY8 | nY7 | nY6 | nY5
 
-                movzx edx, DWORD PTR[edi]; edx = V1
-                movzx ecx, DWORD PTR[edi + 1]; ecx = V2
+                movzx edx, uint32_t PTR[edi]; edx = V1
+                movzx ecx, uint32_t PTR[edi + 1]; ecx = V2
 
                 punpcklbw mm0, mm2; mm0 = nY4 | nY3 | nY2 | nY1
                 punpcklbw mm1, mm2; mm1 = nY8 | nY7 | nY6 | nY5
 
-                pinsrw mm4, WORD PTR[esi + edx * 8 + 0], 00000000b; mm4 = 0 | 0 | 0 | ttl[nV1][0]
-                pinsrw mm5, WORD PTR[esi + ecx * 8 + 0], 00000000b; mm5 = 0 | 0 | 0 | ttl[nV2][0]
+                pinsrw mm4, unsigned short PTR[esi + edx * 8 + 0], 00000000b; mm4 = 0 | 0 | 0 | ttl[nV1][0]
+                pinsrw mm5, unsigned short PTR[esi + ecx * 8 + 0], 00000000b; mm5 = 0 | 0 | 0 | ttl[nV2][0]
 
                 movq mm3, mm0; mm3 = nY4 | nY3 | nY2 | nY1
-                mov  edi, DWORD PTR u; edi = u
+                mov  edi, uint32_t PTR u; edi = u
 
                 punpckldq mm3, mm1; mm3 = nY6 | nY5 | nY2 | nY1
                 punpckhdq mm0, mm1; mm0 = nY8 | nY7 | nY4 | nY3
@@ -148,19 +148,19 @@ lp_tv_uchar tv_yuv2argb(lp_tv_uchar argb_plane, tv_slong argb_width, tv_slong ar
                 pshufw mm4, mm4, 00000000b; mm4 = ttl[nV1][0] | ttl[nV1][0] | ttl[nV1][0] | ttl[nV1][0]
                 pshufw mm5, mm5, 00000000b; mm5 = ttl[nV2][0] | ttl[nV2][0] | ttl[nV2][0] | ttl[nV2][0]
 
-                add  edi, DWORD PTR nTempX_; edi = u + nTempX_
+                add  edi, uint32_t PTR nTempX_; edi = u + nTempX_
 
                 paddsw mm4, mm3; mm4 = P6.R | P5.R | P2.R | P1.R
                 paddsw mm5, mm0; mm5 = P8.R | P7.R | P4.R | P3.R
 
-                pinsrw mm1, WORD PTR[esi + edx * 8 + 2], 00000000b; mm1 = 0 | 0 | 0 | ttl[nV1][1]
-                pinsrw mm2, WORD PTR[esi + ecx * 8 + 2], 00000000b; mm2 = 0 | 0 | 0 | ttl[nV2][1]
+                pinsrw mm1, unsigned short PTR[esi + edx * 8 + 2], 00000000b; mm1 = 0 | 0 | 0 | ttl[nV1][1]
+                pinsrw mm2, unsigned short PTR[esi + ecx * 8 + 2], 00000000b; mm2 = 0 | 0 | 0 | ttl[nV2][1]
 
                 movq mm6, mm3; mm6 = nY6 | nY5 | nY2 | nY1
                 movq mm7, mm0; mm7 = nY8 | nY7 | nY4 | nY3
 
-                movzx edx, DWORD PTR[edi]; edx = U1
-                movzx ecx, DWORD PTR[edi + 1]; ecx = U2
+                movzx edx, uint32_t PTR[edi]; edx = U1
+                movzx ecx, uint32_t PTR[edi + 1]; ecx = U2
 
                 pshufw mm1, mm1, 00000000b; mm1 = ttl[nV1][1] | ttl[nV1][1] | ttl[nV1][1] | ttl[nV1][1]
                 pshufw mm2, mm2, 00000000b; mm2 = ttl[nV2][1] | ttl[nV2][1] | ttl[nV2][1] | ttl[nV2][1]
@@ -168,8 +168,8 @@ lp_tv_uchar tv_yuv2argb(lp_tv_uchar argb_plane, tv_slong argb_width, tv_slong ar
                 psubsw mm6, mm1; mm6 = nY6 - ttl[nV1][1] | nY5 - ttl[nV1][1] | nY2 - ttl[nV1][1] | nY1 - ttl[nV1][1]
                 psubsw mm7, mm2; mm7 = nY8 - ttl[nV2][1] | nY7 - ttl[nV2][1] | nY4 - ttl[nV2][1] | nY3 - ttl[nV2][1]
 
-                pinsrw mm1, WORD PTR[esi + edx * 8 + 4], 00000000b; mm1 = 0 | 0 | 0 | ttl[nU1][2]
-                pinsrw mm2, WORD PTR[esi + ecx * 8 + 4], 00000000b; mm2 = 0 | 0 | 0 | ttl[nU2][2]
+                pinsrw mm1, unsigned short PTR[esi + edx * 8 + 4], 00000000b; mm1 = 0 | 0 | 0 | ttl[nU1][2]
+                pinsrw mm2, unsigned short PTR[esi + ecx * 8 + 4], 00000000b; mm2 = 0 | 0 | 0 | ttl[nU2][2]
 
                 pshufw mm1, mm1, 00000000b; mm1 = ttl[nU1][2] | ttl[nU1][2] | ttl[nU1][2] | ttl[nU1][2]
                 pshufw mm2, mm2, 00000000b; mm2 = ttl[nU2][2] | ttl[nU2][2] | ttl[nU2][2] | ttl[nU2][2]
@@ -177,8 +177,8 @@ lp_tv_uchar tv_yuv2argb(lp_tv_uchar argb_plane, tv_slong argb_width, tv_slong ar
                 psubsw mm6, mm1; mm6 = P6.G | P5.G | P2.G | P1.G
                 psubsw mm7, mm2; mm7 = P8.G | P7.G | P4.G | P3.G
 
-                pinsrw mm1, WORD PTR[esi + edx * 8 + 6], 00000000b; mm1 = 0 | 0 | 0 | ttl[nU1][3]
-                pinsrw mm2, WORD PTR[esi + ecx * 8 + 6], 00000000b; mm2 = 0 | 0 | 0 | ttl[nU2][3]
+                pinsrw mm1, unsigned short PTR[esi + edx * 8 + 6], 00000000b; mm1 = 0 | 0 | 0 | ttl[nU1][3]
+                pinsrw mm2, unsigned short PTR[esi + ecx * 8 + 6], 00000000b; mm2 = 0 | 0 | 0 | ttl[nU2][3]
 
                 pshufw mm1, mm1, 00000000b; mm1 = ttl[nU1][3] | ttl[nU1][3] | ttl[nU1][3] | ttl[nU1][3]
                 pshufw mm2, mm2, 00000000b; mm2 = ttl[nU2][3] | ttl[nU2][3] | ttl[nU2][3] | ttl[nU2][3]
@@ -202,8 +202,8 @@ lp_tv_uchar tv_yuv2argb(lp_tv_uchar argb_plane, tv_slong argb_width, tv_slong ar
                 packuswb mm3, mm0; mm3 = P8.B | P7.B | P4.B | P3.B | P6.B | P5.B | P2.B | P1.B
 
                 // calculating effective store address
-                mov  esi, DWORD PTR line1; esi = line1
-                mov  edi, DWORD PTR line2; edi = line2
+                mov  esi, uint32_t PTR line1; esi = line1
+                mov  edi, uint32_t PTR line2; edi = line2
 
                 // we want
                 ; px1 = 00 | P2.R | P2.G | P2.B | 00 | P1.R | P1.G | P1.B |

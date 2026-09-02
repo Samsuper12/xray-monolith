@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC CScriptObjectAction::CScriptObjectAction()
+inline CScriptObjectAction::CScriptObjectAction()
 {
 	m_dwQueueSize = 0;
 	m_tpObject = 0;
@@ -16,7 +16,7 @@ IC CScriptObjectAction::CScriptObjectAction()
 	m_bCompleted = true;
 }
 
-IC CScriptObjectAction::CScriptObjectAction(CScriptGameObject* tpLuaGameObject,
+inline CScriptObjectAction::CScriptObjectAction(CScriptGameObject* tpLuaGameObject,
                                             MonsterSpace::EObjectAction tObjectActionType, u32 dwQueueSize)
 {
 	SetObject(tpLuaGameObject);
@@ -24,35 +24,35 @@ IC CScriptObjectAction::CScriptObjectAction(CScriptGameObject* tpLuaGameObject,
 	SetQueueSize(dwQueueSize);
 }
 
-IC CScriptObjectAction::CScriptObjectAction(LPCSTR caBoneName, MonsterSpace::EObjectAction tObjectActionType)
+inline CScriptObjectAction::CScriptObjectAction(LPCSTR caBoneName, MonsterSpace::EObjectAction tObjectActionType)
 {
 	SetObject(caBoneName);
 	SetObjectAction(tObjectActionType);
 }
 
-IC CScriptObjectAction::CScriptObjectAction(MonsterSpace::EObjectAction tObjectActionType)
+inline CScriptObjectAction::CScriptObjectAction(MonsterSpace::EObjectAction tObjectActionType)
 {
 	SetObjectAction(tObjectActionType);
 }
 
-IC void CScriptObjectAction::SetObject(LPCSTR caBoneName)
+inline void CScriptObjectAction::SetObject(LPCSTR caBoneName)
 {
 	m_caBoneName = caBoneName;
 	m_bCompleted = false;
 }
 
-IC void CScriptObjectAction::SetObjectAction(MonsterSpace::EObjectAction tObjectActionType)
+inline void CScriptObjectAction::SetObjectAction(MonsterSpace::EObjectAction tObjectActionType)
 {
 	m_tGoalType = tObjectActionType;
 	m_bCompleted = false;
 }
 
-IC void CScriptObjectAction::SetQueueSize(u32 dwQueueSize)
+inline void CScriptObjectAction::SetQueueSize(u32 dwQueueSize)
 {
 	m_dwQueueSize = dwQueueSize;
 	m_bCompleted = false;
 }
 
-IC void CScriptObjectAction::initialize()
+inline void CScriptObjectAction::initialize()
 {
 }

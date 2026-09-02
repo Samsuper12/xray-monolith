@@ -16,7 +16,7 @@ public:
 
 	const CFrustum* F;
 
-	IC void _init(COLLIDER* CL, Fvector* V, TRI* T, const CFrustum* _F)
+	inline void _init(COLLIDER* CL, Fvector* V, TRI* T, const CFrustum* _F)
 	{
 		dest = CL;
 		tris = T;
@@ -24,7 +24,7 @@ public:
 		F = _F;
 	}
 
-	IC EFC_Visible _box(Fvector& C, Fvector& E, u32& mask)
+	inline EFC_Visible _box(Fvector& C, Fvector& E, u32& mask)
 	{
 		Fvector mM[2];
 		mM[0].sub(C, E);
@@ -32,7 +32,7 @@ public:
 		return F->testAABB(&mM[0].x, mask);
 	}
 
-	void _prim(DWORD prim)
+	void _prim(uint32_t prim)
 	{
 		if (bClass3)
 		{
@@ -88,7 +88,7 @@ void COLLIDER::frustum_query(const MODEL* m_def, const CFrustum& F)
 	// Get nodes
 	const AABBNoLeafTree* T = (const AABBNoLeafTree*)m_def->tree->GetTree();
 	const AABBNoLeafNode* N = T->GetNodes();
-	const DWORD mask = F.getMask();
+	const uint32_t mask = F.getMask();
 	r_clear();
 
 	// Binary dispatcher

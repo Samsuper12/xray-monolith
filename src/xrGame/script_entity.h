@@ -32,7 +32,7 @@ public:
 		Fvector m_position;
 		float m_sound_power;
 
-		IC CSavedSound(
+		inline CSavedSound(
 			u16 game_object_id,
 			int sound_type,
 			const Fvector& position,
@@ -122,7 +122,7 @@ public:
 	void set_script_capture(bool val = true) { m_can_capture = val; }
 	bool can_script_capture() { return m_can_capture; }
 public:
-	IC CGameObject& object() const;
+	inline CGameObject& object() const;
 };
 
 #include "script_entity_inline.h"

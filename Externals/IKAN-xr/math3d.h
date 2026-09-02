@@ -37,7 +37,7 @@
 
 #define DTOR(x)  ((x)*M_PI/180.0)
 #define DOT4(u,v)  ((u)[0]*(v)[0]+(u)[1]*(v)[1]+(u)[2]*(v)[2]+(u)[3]*((v)[3]))
-
+#define CopyMemory(a,r,g) memcpy(a,r,g)
 
 typedef float Matrix[4][4];
 typedef float Quaternion[4];

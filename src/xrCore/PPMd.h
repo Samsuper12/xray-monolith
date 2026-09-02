@@ -10,14 +10,15 @@
 #define _PPMD_H_
 
 #include "PPMdType.h"
+#include <_types_own.h>
 
 #ifdef  __cplusplus
 extern "C" {
 #endif
 
-BOOL _STDCALL StartSubAllocator(UINT SubAllocatorSize);
+BOOL _STDCALL StartSubAllocator(uint32_t SubAllocatorSize);
 void _STDCALL StopSubAllocator(); /* it can be called once        */
-DWORD _STDCALL GetUsedMemory(); /* for information only         */
+uint32_t _STDCALL GetUsedMemory(); /* for information only         */
 
 /****************************************************************************
  * Method of model restoration at memory insufficiency:                     *

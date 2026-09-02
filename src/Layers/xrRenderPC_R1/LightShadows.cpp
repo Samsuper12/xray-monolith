@@ -333,7 +333,7 @@ void CLightShadows::calculate()
 
 #define CLS(a)	color_rgba	(a,a,a,a)
 
-IC bool cache_search(const CLightShadows::cache_item& A, const CLightShadows::cache_item& B)
+inline bool cache_search(const CLightShadows::cache_item& A, const CLightShadows::cache_item& B)
 {
 	if (A.O < B.O) return true;
 	if (A.O > B.O) return false;
@@ -342,7 +342,7 @@ IC bool cache_search(const CLightShadows::cache_item& A, const CLightShadows::ca
 	return false; // eq
 }
 
-IC float PLC_energy(Fvector& P, Fvector& N, light* L, float E)
+inline float PLC_energy(Fvector& P, Fvector& N, light* L, float E)
 {
 	Fvector Ldir;
 	if (L->flags.type == IRender_Light::DIRECT)
@@ -372,7 +372,7 @@ IC float PLC_energy(Fvector& P, Fvector& N, light* L, float E)
 	}
 }
 
-IC int PLC_calc(Fvector& P, Fvector& N, light* L, float energy, Fvector& O)
+inline int PLC_calc(Fvector& P, Fvector& N, light* L, float energy, Fvector& O)
 {
 	float E = PLC_energy(P, N, L, energy);
 	float C1 = clampr(Device.vCameraPosition.distance_to_sqr(P) / S_distance2, 0.f, 1.f);

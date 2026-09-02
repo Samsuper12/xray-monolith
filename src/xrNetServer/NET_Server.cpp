@@ -139,17 +139,17 @@ void IClientStatistic::Update(DPN_CONNECTION_INFO& CI)
 }
 
 // {0218FA8B-515B-4bf2-9A5F-2F079D1759F3}
-static const GUID NET_GUID =
-	{0x218fa8b, 0x515b, 0x4bf2, {0x9a, 0x5f, 0x2f, 0x7, 0x9d, 0x17, 0x59, 0xf3}};
-// {8D3F9E5E-A3BD-475b-9E49-B0E77139143C}
-static const GUID CLSID_NETWORKSIMULATOR_DP8SP_TCPIP =
-	{0x8d3f9e5e, 0xa3bd, 0x475b, {0x9e, 0x49, 0xb0, 0xe7, 0x71, 0x39, 0x14, 0x3c}};
+// static const GUID NET_GUID =
+// 	{0x218fa8b, 0x515b, 0x4bf2, {0x9a, 0x5f, 0x2f, 0x7, 0x9d, 0x17, 0x59, 0xf3}};
+// // {8D3F9E5E-A3BD-475b-9E49-B0E77139143C}
+// static const GUID CLSID_NETWORKSIMULATOR_DP8SP_TCPIP =
+// 	{0x8d3f9e5e, 0xa3bd, 0x475b, {0x9e, 0x49, 0xb0, 0xe7, 0x71, 0x39, 0x14, 0x3c}};
 
-static HRESULT WINAPI Handler(PVOID pvUserContext, DWORD dwMessageType, PVOID pMessage)
-{
-	IPureServer* C = (IPureServer*)pvUserContext;
-	return C->net_Handler(dwMessageType, pMessage);
-}
+// static HRESULT  Handler(void* pvUserContext, uint32_t dwMessageType, void* pMessage)
+// {
+// 	IPureServer* C = (IPureServer*)pvUserContext;
+// 	return C->net_Handler(dwMessageType, pMessage);
+// }
 
 
 //------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ IPureServer::_Recieve(const void* data, u32 data_size, u32 param)
 
 	id.set(param);
 	packet.construct(data, data_size);
-	//DWORD currentThreadId = GetCurrentThreadId();
+	//uint32_t currentThreadId = GetCurrentThreadId();
 	//Msg("-S- Entering to csMessages from _Receive [%d]", currentThreadId);
 	csMessage.Enter();
 	//LogStackTrace(
@@ -319,7 +319,7 @@ IPureServer::EConnect IPureServer::Connect(LPCSTR options, GameDescriptionData& 
 // 		//---------------------------
 // 		// Create the IDirectPlay8Client object.
 // 		HRESULT CoCreateInstanceRes = CoCreateInstance(XR_GUID(CLSID_DirectPlay8Server), NULL, CLSCTX_INPROC_SERVER,
-// 		                                               XR_GUID(IID_IDirectPlay8Server), (LPVOID*)&NET);
+// 		                                               XR_GUID(IID_IDirectPlay8Server), (void**)&NET);
 // 		//---------------------------	
 // 		if (CoCreateInstanceRes != S_OK)
 // 		{
@@ -382,11 +382,11 @@ IPureServer::EConnect IPureServer::Connect(LPCSTR options, GameDescriptionData& 
 // 		// Create our IDirectPlay8Address Device Address, --- Set the SP for our Device Address
 // 		net_Address_device = NULL;
 // 		CHK_DX(
-// 			CoCreateInstance (XR_GUID(CLSID_DirectPlay8Address),NULL, CLSCTX_INPROC_SERVER, XR_GUID(IID_IDirectPlay8Address),(LPVOID*) &
+// 			CoCreateInstance (XR_GUID(CLSID_DirectPlay8Address),NULL, CLSCTX_INPROC_SERVER, XR_GUID(IID_IDirectPlay8Address),(void**) &
 // 				net_Address_device ));
 // 		CHK_DX(net_Address_device->SetSP (bSimulator? &CLSID_NETWORKSIMULATOR_DP8SP_TCPIP : &XR_GUID(CLSID_DP8SP_TCPIP) ));
 
-// 		DWORD dwTraversalMode = DPNA_TRAVERSALMODE_NONE;
+// 		uint32_t dwTraversalMode = DPNA_TRAVERSALMODE_NONE;
 // 		CHK_DX(
 // 			net_Address_device->AddComponent(DPNA_KEY_TRAVERSALMODE, &dwTraversalMode, sizeof(dwTraversalMode),
 // 				DPNA_DATATYPE_DWORD));
@@ -463,7 +463,7 @@ void IPureServer::Disconnect()
 	// _RELEASE(NET);
 }
 
-HRESULT IPureServer::net_Handler(u32 dwMessageType, PVOID pMessage)
+long IPureServer::net_Handler(u32 dwMessageType, void* pMessage)
 {
 	// // HRESULT     hr = S_OK;
 
@@ -484,7 +484,7 @@ HRESULT IPureServer::net_Handler(u32 dwMessageType, PVOID pMessage)
 	// 		PDPNMSG_CREATE_PLAYER msg = PDPNMSG_CREATE_PLAYER(pMessage);
 	// 		const u32 max_size = 1024;
 	// 		char bufferData [max_size];
-	// 		DWORD bufferSize = max_size;
+	// 		uint32_t bufferSize = max_size;
 	// 		ZeroMemory(bufferData, bufferSize);
 	// 		string512 res;
 
@@ -570,14 +570,14 @@ HRESULT IPureServer::net_Handler(u32 dwMessageType, PVOID pMessage)
 	// 		if (GetBannedClient(HAddr))
 	// 		{
 	// 			msg->dwReplyDataSize = sizeof(NET_BANNED_STR);
-	// 			msg->pvReplyData = (PVOID)NET_BANNED_STR;
+	// 			msg->pvReplyData = (void*)NET_BANNED_STR;
 	// 			return S_FALSE;
 	// 		};
 	// 		//first connected client is SV_Client so if it is NULL then this server client tries to connect ;)
 	// 		if (SV_Client && !m_ip_filter.is_ip_present(HAddr.m_data.data))
 	// 		{
 	// 			msg->dwReplyDataSize = sizeof(NET_NOTFOR_SUBNET_STR);
-	// 			msg->pvReplyData = (PVOID)NET_NOTFOR_SUBNET_STR;
+	// 			msg->pvReplyData = (void*)NET_NOTFOR_SUBNET_STR;
 	// 			return S_FALSE;
 	// 		}
 	// 	}
@@ -627,7 +627,7 @@ void IPureServer::SendTo_LL(ClientID ID/*DPNID ID*/, void* data, u32 size, u32 d
 // 	// send it
 // 	DPN_BUFFER_DESC desc;
 // 	desc.dwBufferSize = size;
-// 	desc.pBufferData = LPBYTE(data);
+// 	desc.pBufferData = unsigned char*(data);
 
 // #ifdef _DEBUG
 // 	u32 time_global		= TimeGlobal(device_timer);
@@ -764,7 +764,7 @@ BOOL IPureServer::HasBandwidth(IClient* C)
 	// if (psNET_ServerUpdate != 0 && (dwTime - C->dwTime_LastUpdate) > dwInterval)
 	// {
 	// 	// check queue for "empty" state
-	// 	DWORD dwPending;
+	// 	uint32_t dwPending;
 	// 	hr = NET->GetSendQueueInfo(C->ID.value(), &dwPending, 0, 0);
 	// 	if (FAILED(hr)) return FALSE;
 
@@ -870,11 +870,11 @@ bool IPureServer::DisconnectAddress(const ip_address& Address, LPCSTR reason)
 	// return true;
 }
 
-bool IPureServer::GetClientAddress(IDirectPlay8Address* pClientAddress, ip_address& Address, DWORD* pPort)
+bool IPureServer::GetClientAddress(IDirectPlay8Address* pClientAddress, ip_address& Address, uint32_t* pPort)
 {
 	// WCHAR wstrHostname[ 256 ] = {0};
-	// DWORD dwSize = sizeof(wstrHostname);
-	// DWORD dwDataType = 0;
+	// uint32_t dwSize = sizeof(wstrHostname);
+	// uint32_t dwDataType = 0;
 	// CHK_DX(pClientAddress->GetComponentByName( DPNA_KEY_HOSTNAME, wstrHostname, &dwSize, &dwDataType ));
 
 	// string256 HostName;
@@ -884,9 +884,9 @@ bool IPureServer::GetClientAddress(IDirectPlay8Address* pClientAddress, ip_addre
 
 	// if (pPort != NULL)
 	// {
-	// 	DWORD dwPort = 0;
-	// 	DWORD dwPortSize = sizeof(dwPort);
-	// 	DWORD dwPortDataType = DPNA_DATATYPE_DWORD;
+	// 	uint32_t dwPort = 0;
+	// 	uint32_t dwPortSize = sizeof(dwPort);
+	// 	uint32_t dwPortDataType = DPNA_DATATYPE_DWORD;
 	// 	CHK_DX(pClientAddress->GetComponentByName( DPNA_KEY_PORT, &dwPort, &dwPortSize, &dwPortDataType ));
 	// 	*pPort = dwPort;
 	// };
@@ -894,7 +894,7 @@ bool IPureServer::GetClientAddress(IDirectPlay8Address* pClientAddress, ip_addre
 	// return true;
 };
 
-bool IPureServer::GetClientAddress(ClientID ID, ip_address& Address, DWORD* pPort)
+bool IPureServer::GetClientAddress(ClientID ID, ip_address& Address, uint32_t* pPort)
 {
 	// IDirectPlay8Address* pClAddr = NULL;
 	// CHK_DX(NET->GetClientAddress (ID.value(), &pClAddr, 0));

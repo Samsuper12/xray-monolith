@@ -357,7 +357,7 @@ public:
 
 
 	template <typename T>
-	IC T* action_planner();
+	inline T* action_planner();
 
 	// CProjector
 	Fvector GetCurrentDirection();

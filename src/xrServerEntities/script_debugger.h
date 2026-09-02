@@ -77,7 +77,7 @@ public:
 
 	BOOL Active();
 	//	static CScriptDebugger* GetDebugger	() { return m_pDebugger; };
-	LRESULT _SendMessage(UINT message, WPARAM wParam, LPARAM lParam);
+	intptr_t _SendMessage(uint32_t message, uintptr_t wParam, intptr_t lParam);
 
 protected:
 	void DrawVariableInfo(char* varName);
@@ -87,7 +87,7 @@ protected:
 	void FillBreakPointsIn(CMailSlotMsg* msg);
 	bool HasBreakPoint(const char* fileName, s32 lineNum);
 	void CheckNewMessages();
-	LRESULT DebugMessage(UINT nMsg, WPARAM wParam, LPARAM lParam);
+	intptr_t DebugMessage(uint32_t nMsg, uintptr_t wParam, intptr_t lParam);
 	void WaitForReply(bool bWaitForModalResult);
 	bool TranslateIdeMessage(CMailSlotMsg*);
 	void SendMessageToIde(CMailSlotMsg&);
@@ -102,7 +102,7 @@ protected:
 	string_path m_strPathName; //for run_to_line_number
 	int m_nLine; //for run_to_line_number
 
-	HANDLE m_mailSlot;
+	void* m_mailSlot;
 	BOOL m_bIdePresent;
 
 	xr_vector<SBreakPoint> m_breakPoints;

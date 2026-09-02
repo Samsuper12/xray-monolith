@@ -48,9 +48,9 @@ namespace smart_cover
 #endif // DEBUG
 		bool inside(Fvector const& position) const;
 
-		IC float const& enter_min_enemy_distance() const;
-		IC float const& exit_min_enemy_distance() const;
-		IC cover const& cover() const;
+		inline float const& enter_min_enemy_distance() const;
+		inline float const& exit_min_enemy_distance() const;
+		inline cover const& cover() const;
 
 	public:
 	DECLARE_SCRIPT_REGISTER_FUNCTION

@@ -26,25 +26,25 @@ XRNETSERVER_API extern int psNET_ServerPending;
 XRNETSERVER_API extern BOOL psNET_direct_connect;
 
 // work around for GUID symbol conflicts
-#define XR_GUID(x) xrInternalGuid_ ## x
+// #define XR_GUID(x) xrInternalGuid_ ## x
 
 // externs
-extern const GUID XR_GUID(CLSID_DirectPlay8Client);
+// extern const GUID XR_GUID(CLSID_DirectPlay8Client);
 
-// {DA825E1B-6830-43d7-835D-0B5AD82956A2}
-extern const GUID XR_GUID(CLSID_DirectPlay8Server);
+// // {DA825E1B-6830-43d7-835D-0B5AD82956A2}
+// extern const GUID XR_GUID(CLSID_DirectPlay8Server);
 
-// {286F484D-375E-4458-A272-B138E2F80A6A}
-extern const GUID XR_GUID(CLSID_DirectPlay8Peer);
+// // {286F484D-375E-4458-A272-B138E2F80A6A}
+// extern const GUID XR_GUID(CLSID_DirectPlay8Peer);
 
 
 // CLSIDs added for DirectX 9
 
 // {FC47060E-6153-4b34-B975-8E4121EB7F3C}
-extern const GUID XR_GUID(CLSID_DirectPlay8ThreadPool);
+// extern const GUID XR_GUID(CLSID_DirectPlay8ThreadPool);
 
 // {E4C1D9A2-CBF7-48bd-9A69-34A55E0D8941}
-extern const GUID XR_GUID(CLSID_DirectPlay8NATResolver);
+// extern const GUID XR_GUID(CLSID_DirectPlay8NATResolver);
 
 /****************************************************************************
  *
@@ -52,52 +52,52 @@ extern const GUID XR_GUID(CLSID_DirectPlay8NATResolver);
  *
  ****************************************************************************/
 
-typedef REFIID DP8REFIID;
+	// typedef REFIID DP8REFIID;
 
 
-// {5102DACD-241B-11d3-AEA7-006097B01411}
-extern const GUID XR_GUID(IID_IDirectPlay8Client);
+	// // {5102DACD-241B-11d3-AEA7-006097B01411}
+	// extern const GUID XR_GUID(IID_IDirectPlay8Client);
 
-// {5102DACE-241B-11d3-AEA7-006097B01411}
-extern const GUID XR_GUID(IID_IDirectPlay8Server);
+	// // {5102DACE-241B-11d3-AEA7-006097B01411}
+	// extern const GUID XR_GUID(IID_IDirectPlay8Server);
 
-// {5102DACF-241B-11d3-AEA7-006097B01411}
-extern const GUID XR_GUID(IID_IDirectPlay8Peer);
-
-
-// IIDs added for DirectX 9
-
-// {0D22EE73-4A46-4a0d-89B2-045B4D666425}
-extern const GUID XR_GUID(IID_IDirectPlay8ThreadPool);
-
-// {A9E213F2-9A60-486f-BF3B-53408B6D1CBB}
-extern const GUID XR_GUID(IID_IDirectPlay8NATResolver);
-
-// {53934290-628D-11D2-AE0F-006097B01411}
-extern const GUID XR_GUID(CLSID_DP8SP_IPX);
+	// // {5102DACF-241B-11d3-AEA7-006097B01411}
+	// extern const GUID XR_GUID(IID_IDirectPlay8Peer);
 
 
-// {6D4A3650-628D-11D2-AE0F-006097B01411}
-extern const GUID XR_GUID(CLSID_DP8SP_MODEM);
+	// // IIDs added for DirectX 9
+
+	// // {0D22EE73-4A46-4a0d-89B2-045B4D666425}
+	// extern const GUID XR_GUID(IID_IDirectPlay8ThreadPool);
+
+	// // {A9E213F2-9A60-486f-BF3B-53408B6D1CBB}
+	// extern const GUID XR_GUID(IID_IDirectPlay8NATResolver);
+
+	// // {53934290-628D-11D2-AE0F-006097B01411}
+	// extern const GUID XR_GUID(CLSID_DP8SP_IPX);
 
 
-// {743B5D60-628D-11D2-AE0F-006097B01411}
-extern const GUID XR_GUID(CLSID_DP8SP_SERIAL);
+	// // {6D4A3650-628D-11D2-AE0F-006097B01411}
+	// extern const GUID XR_GUID(CLSID_DP8SP_MODEM);
 
 
-// {EBFE7BA0-628D-11D2-AE0F-006097B01411}
-extern const GUID XR_GUID(CLSID_DP8SP_TCPIP);
+	// // {743B5D60-628D-11D2-AE0F-006097B01411}
+	// extern const GUID XR_GUID(CLSID_DP8SP_SERIAL);
 
 
-// Service providers added for DirectX 9
+	// // {EBFE7BA0-628D-11D2-AE0F-006097B01411}
+	// extern const GUID XR_GUID(CLSID_DP8SP_TCPIP);
 
 
-// {995513AF-3027-4b9a-956E-C772B3F78006}
-extern const GUID XR_GUID(CLSID_DP8SP_BLUETOOTH);
+	// // Service providers added for DirectX 9
 
-extern const GUID XR_GUID(CLSID_DirectPlay8Address);
 
-extern const GUID XR_GUID(IID_IDirectPlay8Address);
+	// // {995513AF-3027-4b9a-956E-C772B3F78006}
+	// extern const GUID XR_GUID(CLSID_DP8SP_BLUETOOTH);
+
+	// extern const GUID XR_GUID(CLSID_DirectPlay8Address);
+
+	// extern const GUID XR_GUID(IID_IDirectPlay8Address);
 
 
 enum
@@ -108,8 +108,8 @@ enum
 	NETFLAG_LOG_CL_PACKETS = (1 << 3),
 };
 
-IC u32 TimeGlobal(CTimer* timer) { return timer->GetElapsed_ms(); }
-IC u32 TimerAsync(CTimer* timer) { return TimeGlobal(timer); }
+inline u32 TimeGlobal(CTimer* timer) { return timer->GetElapsed_ms(); }
+inline u32 TimerAsync(CTimer* timer) { return TimeGlobal(timer); }
 
 class XRNETSERVER_API IClientStatistic
 {
@@ -128,18 +128,18 @@ public:
 
 	void Update(DPN_CONNECTION_INFO& CI);
 
-	IC u32 getPing() { return ci_last.dwRoundTripLatencyMS; }
-	IC u32 getBPS() { return ci_last.dwThroughputBPS; }
-	IC u32 getPeakBPS() { return ci_last.dwPeakThroughputBPS; }
-	IC u32 getDroppedCount() { return ci_last.dwPacketsDropped; }
-	IC u32 getRetriedCount() { return ci_last.dwPacketsRetried; }
-	IC u32 getMPS_Receive() { return mps_recive; }
-	IC u32 getMPS_Send() { return mps_send; }
-	IC u32 getReceivedPerSec() { return dwBytesReceivedPerSec; }
-	IC u32 getSendedPerSec() { return dwBytesSendedPerSec; }
+	inline u32 getPing() { return ci_last.dwRoundTripLatencyMS; }
+	inline u32 getBPS() { return ci_last.dwThroughputBPS; }
+	inline u32 getPeakBPS() { return ci_last.dwPeakThroughputBPS; }
+	inline u32 getDroppedCount() { return ci_last.dwPacketsDropped; }
+	inline u32 getRetriedCount() { return ci_last.dwPacketsRetried; }
+	inline u32 getMPS_Receive() { return mps_recive; }
+	inline u32 getMPS_Send() { return mps_send; }
+	inline u32 getReceivedPerSec() { return dwBytesReceivedPerSec; }
+	inline u32 getSendedPerSec() { return dwBytesSendedPerSec; }
 
 
-	IC void Clear()
+	inline void Clear()
 	{
 		CTimer* timer = device_timer;
 		ZeroMemory(this, sizeof(*this));

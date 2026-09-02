@@ -35,10 +35,10 @@ namespace smart_cover
 		virtual void initialize();
 		virtual void update();
 		virtual void finalize();
-		IC u32 const& idle_time() const;
-		IC void idle_time(u32 const& value);
-		IC u32 const& lookout_time() const;
-		IC void lookout_time(u32 const& value);
+		inline u32 const& idle_time() const;
+		inline void idle_time(u32 const& value);
+		inline u32 const& lookout_time() const;
+		inline void lookout_time(u32 const& value);
 		virtual LPCSTR object_name() const;
 
 	private:

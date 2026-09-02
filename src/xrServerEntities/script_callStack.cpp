@@ -65,6 +65,6 @@ void CScriptCallStack::GotoStackTraceLevel(int nLevel)
 
 	char* ppath = m_files[nLevel].path;
 	m_debugger->_SendMessage(DMSG_GOTO_FILELINE,
-	                         (WPARAM)ppath,
-	                         (LPARAM)m_lines[nLevel]);
+	                         (uintptr_t)ppath,
+	                         (intptr_t)m_lines[nLevel]);
 }

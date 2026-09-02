@@ -248,7 +248,7 @@ void CPhysicObject::RunStartupAnim(CSE_Abstract* D)
 	}
 }
 
-IC bool check_blend(CBlend* b, LPCSTR name, LPCSTR sect, LPCSTR visual)
+inline bool check_blend(CBlend* b, LPCSTR name, LPCSTR sect, LPCSTR visual)
 {
 #ifdef	DEBUG
 	if(!b)

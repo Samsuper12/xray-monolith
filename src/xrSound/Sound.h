@@ -155,55 +155,55 @@ public:
 	{
 	}
 
-	IC CSound_source* _handle() const { return _p ? _p->handle : NULL; }
-	IC CSound_emitter* _feedback() { return _p ? _p->feedback : 0; }
-	IC CObject* _g_object()
+	inline CSound_source* _handle() const { return _p ? _p->handle : NULL; }
+	inline CSound_emitter* _feedback() { return _p ? _p->feedback : 0; }
+	inline CObject* _g_object()
 	{
 		VERIFY(_p);
 		return _p->g_object;
 	}
 
-	IC int _g_type()
+	inline int _g_type()
 	{
 		VERIFY(_p);
 		return _p->g_type;
 	}
 
-	IC esound_type _sound_type()
+	inline esound_type _sound_type()
 	{
 		VERIFY(_p);
 		return _p->s_type;
 	}
 
-	IC CSound_UserDataPtr _g_userdata()
+	inline CSound_UserDataPtr _g_userdata()
 	{
 		VERIFY(_p);
 		return _p->g_userdata;
 	}
 
-	IC void create(LPCSTR name, esound_type sound_type, int game_type);
-	IC void attach_tail(LPCSTR name);
+	inline void create(LPCSTR name, esound_type sound_type, int game_type);
+	inline void attach_tail(LPCSTR name);
 
-	IC void clone(const ref_sound& from, esound_type sound_type, int game_type);
+	inline void clone(const ref_sound& from, esound_type sound_type, int game_type);
 
-	IC void destroy();
+	inline void destroy();
 
-	IC void play(CObject* O, u32 flags = 0, float delay = 0.f);
-	IC void play_at_pos(CObject* O, const Fvector& pos, u32 flags = 0, float delay = 0.f);
-	IC void play_no_feedback(CObject* O, u32 flags = 0, float delay = 0.f, Fvector* pos = 0, float* vol = 0,
+	inline void play(CObject* O, u32 flags = 0, float delay = 0.f);
+	inline void play_at_pos(CObject* O, const Fvector& pos, u32 flags = 0, float delay = 0.f);
+	inline void play_no_feedback(CObject* O, u32 flags = 0, float delay = 0.f, Fvector* pos = 0, float* vol = 0,
 	                         float* freq = 0, Fvector2* range = 0);
 
-	IC void stop();
-	IC void stop_deffered();
-	IC void set_position(const Fvector& pos);
-	IC void set_frequency(float freq);
-	IC void set_range(float min, float max);
-	IC void set_volume(float vol);
-	IC void set_priority(float vol);
+	inline void stop();
+	inline void stop_deffered();
+	inline void set_position(const Fvector& pos);
+	inline void set_frequency(float freq);
+	inline void set_range(float min, float max);
+	inline void set_volume(float vol);
+	inline void set_priority(float vol);
 
-	IC const CSound_params* get_params();
-	IC void set_params(CSound_params* p);
-	IC float get_length_sec() const { return _p ? _p->get_length_sec() : 0.0f; };
+	inline const CSound_params* get_params();
+	inline void set_params(CSound_params* p);
+	inline float get_length_sec() const { return _p ? _p->get_length_sec() : 0.0f; };
 };
 
 /// definition (Sound Source)
@@ -259,7 +259,7 @@ public:
 	float pitch_variation;
 
 	// Functions added by Cribbledirge for doppler effect.
-	IC virtual void update_position(const Fvector& newPosition)
+	inline virtual void update_position(const Fvector& newPosition)
 	{
 		// If the position has been set already, start getting a moving average of the velocity.
 		if (set)
@@ -276,7 +276,7 @@ public:
 		position.set(newPosition);
 	}
 
-	IC virtual void update_velocity(const float dt)
+	inline virtual void update_velocity(const float dt)
 	{
 		float a = soundSmoothingParams::getTimeDeltaSmoothing();
 		int p = (int)soundSmoothingParams::power;
@@ -405,7 +405,7 @@ public:
 extern XRSOUND_API CSound_manager_interface* Sound;
 
 /// ********* Sound ********* (utils, accessors, helpers)
-IC ref_sound_data::ref_sound_data()
+inline ref_sound_data::ref_sound_data()
 {
 	handle = 0;
 	feedback = 0;
@@ -414,107 +414,107 @@ IC ref_sound_data::ref_sound_data()
 	s_type = st_Effect;
 }
 
-IC ref_sound_data::ref_sound_data(LPCSTR fName, esound_type sound_type, int game_type)
+inline ref_sound_data::ref_sound_data(LPCSTR fName, esound_type sound_type, int game_type)
 {
 	::Sound->_create_data(*this, fName, sound_type, game_type);
 }
 
-IC ref_sound_data::~ref_sound_data() { ::Sound->_destroy_data(*this); }
+inline ref_sound_data::~ref_sound_data() { ::Sound->_destroy_data(*this); }
 
-IC void ref_sound::create(LPCSTR name, esound_type sound_type, int game_type)
+inline void ref_sound::create(LPCSTR name, esound_type sound_type, int game_type)
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->create(*this, name, sound_type, game_type);
 }
 
-IC void ref_sound::attach_tail(LPCSTR name)
+inline void ref_sound::attach_tail(LPCSTR name)
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->attach_tail(*this, name);
 }
 
-IC void ref_sound::clone(const ref_sound& from, esound_type sound_type, int game_type)
+inline void ref_sound::clone(const ref_sound& from, esound_type sound_type, int game_type)
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->clone(*this, from, sound_type, game_type);
 }
 
-IC void ref_sound::destroy()
+inline void ref_sound::destroy()
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->destroy(*this);
 }
 
-IC void ref_sound::play(CObject* O, u32 flags, float d)
+inline void ref_sound::play(CObject* O, u32 flags, float d)
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->play(*this, O, flags, d);
 }
 
-IC void ref_sound::play_at_pos(CObject* O, const Fvector& pos, u32 flags, float d)
+inline void ref_sound::play_at_pos(CObject* O, const Fvector& pos, u32 flags, float d)
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->play_at_pos(*this, O, pos, flags, d);
 }
 
-IC void ref_sound::play_no_feedback(CObject* O, u32 flags, float d, Fvector* pos, float* vol, float* freq,
+inline void ref_sound::play_no_feedback(CObject* O, u32 flags, float d, Fvector* pos, float* vol, float* freq,
                                     Fvector2* range)
 {
 	VERIFY(!::Sound->i_locked());
 	::Sound->play_no_feedback(*this, O, flags, d, pos, vol, freq, range);
 }
 
-IC void ref_sound::set_position(const Fvector& pos)
+inline void ref_sound::set_position(const Fvector& pos)
 {
 	VERIFY(!::Sound->i_locked());
 	VERIFY(_feedback());
 	_feedback()->set_position(pos);
 }
 
-IC void ref_sound::set_frequency(float freq)
+inline void ref_sound::set_frequency(float freq)
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) _feedback()->set_frequency(freq);
 }
 
-IC void ref_sound::set_range(float min, float max)
+inline void ref_sound::set_range(float min, float max)
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) _feedback()->set_range(min, max);
 }
 
-IC void ref_sound::set_volume(float vol)
+inline void ref_sound::set_volume(float vol)
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) _feedback()->set_volume(vol);
 }
 
-IC void ref_sound::set_priority(float p)
+inline void ref_sound::set_priority(float p)
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) _feedback()->set_priority(p);
 }
 
-IC void ref_sound::stop()
+inline void ref_sound::stop()
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) _feedback()->stop(FALSE);
 }
 
-IC void ref_sound::stop_deffered()
+inline void ref_sound::stop_deffered()
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) _feedback()->stop(TRUE);
 }
 
-IC const CSound_params* ref_sound::get_params()
+inline const CSound_params* ref_sound::get_params()
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback()) return _feedback()->get_params();
 	else return NULL;
 }
 
-IC void ref_sound::set_params(CSound_params* p)
+inline void ref_sound::set_params(CSound_params* p)
 {
 	VERIFY(!::Sound->i_locked());
 	if (_feedback())

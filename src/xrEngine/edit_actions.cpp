@@ -92,7 +92,7 @@ namespace text_editor
 	
 			// The following 3 lines looks useless
 	
-			LPSTR loc;
+			char * loc;
 			STRCONCAT ( loc, ".", _itoa( GetACP(), code_page, 10 ) );
 			setlocale ( LC_ALL, loc );*/
 

@@ -12,7 +12,7 @@
 
 #include "../xrRenderDX10/dx10ConstantBuffer.h"
 
-IC bool p_sort(ref_constant C1, ref_constant C2)
+inline bool p_sort(ref_constant C1, ref_constant C2)
 {
 	return xr_strcmp(C1->name, C2->name) < 0;
 }
@@ -307,7 +307,7 @@ BOOL R_constant_table::parseResources(ID3DShaderReflection* pReflection, int Res
 	return TRUE;
 }
 
-IC u32 dest_to_shift_value(u32 destination)
+inline u32 dest_to_shift_value(u32 destination)
 {
 	switch (destination & 0xFF)
 	{
@@ -333,7 +333,7 @@ IC u32 dest_to_shift_value(u32 destination)
 	return 0;
 }
 
-IC u32 dest_to_cbuf_type(u32 destination)
+inline u32 dest_to_cbuf_type(u32 destination)
 {
 	switch (destination & 0xFF)
 	{

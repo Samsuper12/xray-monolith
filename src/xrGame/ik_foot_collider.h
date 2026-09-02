@@ -37,7 +37,7 @@ public:
 #endif
 	}
 
-	IC bool is_equal(const ik_pick_query& q) const
+	inline bool is_equal(const ik_pick_query& q) const
 	{
 		VERIFY(q.is_valid());
 		//VERIFY( is_valid() );
@@ -48,10 +48,10 @@ public:
 			q.dir().similar(dir());
 	}
 
-	IC const Fvector& pos() const { return _pos; }
-	IC const Fvector& dir() const { return _dir; }
-	IC float range() const { return _range; }
-	IC ik_foot_geom::e_collide_point point() const { return _point; }
+	inline const Fvector& pos() const { return _pos; }
+	inline const Fvector& dir() const { return _dir; }
+	inline float range() const { return _range; }
+	inline ik_foot_geom::e_collide_point point() const { return _point; }
 private:
 	Fvector _pos;
 	Fvector _dir;

@@ -33,7 +33,7 @@ public:
 	void SetHudAffect(bool val) { bHudAffect = val; }
 	bool GetHudAffect() { return bHudAffect; }
 
-	IC ECamEffectorType GetType() { return eType; }
+	inline ECamEffectorType GetType() { return eType; }
 	virtual BOOL Valid() { return fLifeTime > 0.0f; }
 
 	BENCH_SEC_SCRAMBLEVTBL1

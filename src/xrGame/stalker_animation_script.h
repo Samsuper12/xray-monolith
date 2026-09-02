@@ -19,15 +19,15 @@ private:
 	bool m_local_animation;
 
 public:
-	IC CStalkerAnimationScript(const MotionID& animation, bool hand_usage, bool use_movement_controller,
+	inline CStalkerAnimationScript(const MotionID& animation, bool hand_usage, bool use_movement_controller,
 	                           Fmatrix const* transform = 0, bool local_animation = true);
-	IC CStalkerAnimationScript(CStalkerAnimationScript const& object);
-	IC const MotionID& animation() const;
-	IC const bool& hand_usage() const;
-	IC const bool& use_movement_controller() const;
-	IC const bool& local_animation() const;
-	IC Fmatrix const& transform(CObject const& object) const;
-	IC bool has_transform() const;
+	inline CStalkerAnimationScript(CStalkerAnimationScript const& object);
+	inline const MotionID& animation() const;
+	inline const bool& hand_usage() const;
+	inline const bool& use_movement_controller() const;
+	inline const bool& local_animation() const;
+	inline Fmatrix const& transform(CObject const& object) const;
+	inline bool has_transform() const;
 };
 
 #include "stalker_animation_script_inline.h"

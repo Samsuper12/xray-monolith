@@ -18,12 +18,12 @@ class XRCDB_API xrXRC
 {
 	CDB::COLLIDER CL;
 public:
-	IC void ray_options(u32 f)
+	inline void ray_options(u32 f)
 	{
 		CL.ray_options(f);
 	}
 
-	IC void ray_query(const CDB::MODEL* m_def, const Fvector& r_start, const Fvector& r_dir, float r_range = 10000.f)
+	inline void ray_query(const CDB::MODEL* m_def, const Fvector& r_start, const Fvector& r_dir, float r_range = 10000.f)
 	{
 #ifdef DEBUG
 		cdb_clRAY->Begin();
@@ -34,12 +34,12 @@ public:
 #endif
 	}
 
-	IC void box_options(u32 f)
+	inline void box_options(u32 f)
 	{
 		CL.box_options(f);
 	}
 
-	IC void box_query(const CDB::MODEL* m_def, const Fvector& b_center, const Fvector& b_dim)
+	inline void box_query(const CDB::MODEL* m_def, const Fvector& b_center, const Fvector& b_dim)
 	{
 #ifdef DEBUG
 		cdb_clBOX->Begin();
@@ -50,12 +50,12 @@ public:
 #endif
 	}
 
-	IC void frustum_options(u32 f)
+	inline void frustum_options(u32 f)
 	{
 		CL.frustum_options(f);
 	}
 
-	IC void frustum_query(const CDB::MODEL* m_def, const CFrustum& F)
+	inline void frustum_query(const CDB::MODEL* m_def, const CFrustum& F)
 	{
 #ifdef DEBUG
 		cdb_clFRUSTUM->Begin();
@@ -66,12 +66,12 @@ public:
 #endif
 	}
 
-	IC CDB::RESULT* r_begin() { return CL.r_begin(); };
-	IC CDB::RESULT* r_end() { return CL.r_end(); };
-	IC void r_free() { CL.r_free(); }
-	IC int r_count() { return CL.r_count(); };
-	IC void r_clear() { CL.r_clear(); };
-	IC void r_clear_compact() { CL.r_clear_compact(); };
+	inline CDB::RESULT* r_begin() { return CL.r_begin(); };
+	inline CDB::RESULT* r_end() { return CL.r_end(); };
+	inline void r_free() { CL.r_free(); }
+	inline int r_count() { return CL.r_count(); };
+	inline void r_clear() { CL.r_clear(); };
+	inline void r_clear_compact() { CL.r_clear_compact(); };
 
 	xrXRC();
 	~xrXRC();

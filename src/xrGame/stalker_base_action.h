@@ -28,7 +28,7 @@ public:
 	virtual void initialize();
 	virtual void execute();
 	virtual void finalize();
-	IC CAI_Stalker& object() const
+	inline CAI_Stalker& object() const
 	{
 		VERIFY(m_object);
 		return (*m_object);

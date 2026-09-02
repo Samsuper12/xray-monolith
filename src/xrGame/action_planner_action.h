@@ -37,15 +37,15 @@ public:
 #endif
 
 public:
-	IC CActionPlannerAction(_object_type* object = 0, LPCSTR action_name = "");
+	inline CActionPlannerAction(_object_type* object = 0, LPCSTR action_name = "");
 	virtual ~CActionPlannerAction();
 	virtual void setup(_object_type* object, CPropertyStorage* storage);
 	virtual void initialize();
 	virtual void execute();
 	virtual void finalize();
 	virtual bool completed() const;
-	IC void add_condition(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value);
-	IC void add_effect(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value);
+	inline void add_condition(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value);
+	inline void add_effect(inherited_planner::_world_operator* action, inherited_planner::_condition_type condition_id, inherited_planner::_value_type condition_value);
 
 	virtual void save(NET_Packet& packet)
 	{

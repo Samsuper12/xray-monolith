@@ -21,7 +21,7 @@
 #ifndef WIN32
 #include <stdint.h>
 using HWND    = void*;
-using UINT    = unsigned int;
+using uint32_t    = unsigned int;
 
 #endif
 
@@ -131,11 +131,11 @@ public:
 	public:
 		bool isCamReady; // Oeaa aioiaiinoe eaia?u (FOV, iiceoey, e o.i) e ?aiaa?o aoi?iai au?ii?oa
 
-		IC bool IsSVPActive() { return isActive; }
+		inline bool IsSVPActive() { return isActive; }
 		void SetSVPActive(bool bState);
 		bool    IsSVPFrame();
 
-		IC u8 GetSVPFrameDelay() { return frameDelay; }
+		inline u8 GetSVPFrameDelay() { return frameDelay; }
 		void  SetSVPFrameDelay(u8 iDelay)
 		{
 			frameDelay = iDelay;
@@ -146,8 +146,8 @@ public:
 private:
 	// Main objects used for creating and rendering the 3D scene
 	u32 m_dwWindowStyle;
-	RECT m_rcWindowBounds;
-	RECT m_rcWindowClient;
+	//RECT m_rcWindowBounds;
+	//RECT m_rcWindowClient;
 
 	//u32 Timer_MM_Delta;
 	//CTimer_paused Timer;
@@ -159,7 +159,7 @@ private:
 	void _SetupStates();
 public:
 	// HWND m_hWnd;
-	//LRESULT MsgProc(HWND, UINT, WPARAM, LPARAM);
+	//intptr_t MsgProc(HWND, uint32_t, uintptr_t, intptr_t);
 
 	// u32 dwFrame;
 	// u32 dwPrecacheFrame;
@@ -169,7 +169,7 @@ public:
 	float fWidth_2, fHeight_2;
 	// BOOL b_is_Ready;
 	// BOOL b_is_Active;
-	void OnWM_Activate(WPARAM wParam, LPARAM lParam);
+	void OnWM_Activate(uintptr_t wParam, intptr_t lParam);
 public:
 	//ref_shader m_WireShader;
 	//ref_shader m_SelectionShader;
@@ -279,7 +279,7 @@ public:
 
 	// Mode control
 	void DumpFlags();
-	IC CTimer_paused* GetTimerGlobal() { return &TimerGlobal; }
+	inline CTimer_paused* GetTimerGlobal() { return &TimerGlobal; }
 	u32 TimerAsync() { return TimerGlobal.GetElapsed_ms(); }
 	u32 TimerAsync_MMT() { return TimerMM.GetElapsed_ms() + Timer_MM_Delta; }
 
@@ -300,7 +300,7 @@ public:
 		TimerGlobal.time_factor(time_factor);
 	}
 
-	IC const float& time_factor() const
+	inline const float& time_factor() const
 	{
 		VERIFY(Timer.time_factor() == TimerGlobal.time_factor());
 		return (Timer.time_factor());
@@ -406,7 +406,7 @@ public:
 	xrCriticalSection mt_csLeave;
 	volatile BOOL mt_bMustExit;
 
-	ICF void remove_from_seq_parallel(const fastdelegate::FastDelegate0<>& delegate)
+	inline void remove_from_seq_parallel(const fastdelegate::FastDelegate0<>& delegate)
 	{
 		xr_vector<fastdelegate::FastDelegate0<>>::iterator I = std::find(
 			seqParallel.begin(),
@@ -418,13 +418,13 @@ public:
 	}
 
 	//AVO: elapsed famed counter (by alpet)
-	IC u32 frame_elapsed()
+	inline u32 frame_elapsed()
 	{
 		return frame_timer.GetElapsed_ms();
 	}
 
 	// demonized: Perceivable distance depending on FOV, so that objects will behave normal in binoculars
-	IC float GetPerceivedDist(const Fvector& p, float* real_dist = nullptr)
+	inline float GetPerceivedDist(const Fvector& p, float* real_dist = nullptr)
 	{
 		float dist = vCameraPosition.distance_to(p);
 		float fov_rad = deg2rad(fFOV);
@@ -433,7 +433,7 @@ public:
 		return perceived_dist;
 	}
 
-	IC float CalcSSADynamic(const Fvector& C, float R)
+	inline float CalcSSADynamic(const Fvector& C, float R)
 	{
 		Fvector4 v_res1, v_res2;
 		mFullTransform.transform(v_res1, C);
@@ -443,7 +443,7 @@ public:
 
 public:
 	void xr_stdcall on_idle();
-	bool xr_stdcall on_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& result);
+	bool xr_stdcall on_message(void* hWnd, uint32_t uMsg, uintptr_t wParam, intptr_t lParam, intptr_t& result);
 
 private:
 	void message_loop();

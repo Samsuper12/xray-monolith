@@ -464,7 +464,7 @@ void CSE_ALifeItemTorch::UPDATE_Read(NET_Packet& tNetPacket)
 {
 	inherited::UPDATE_Read(tNetPacket);
 
-	BYTE F = tNetPacket.r_u8();
+	unsigned char F = tNetPacket.r_u8();
 	m_active = !!(F & eTorchActive);
 	m_nightvision_active = !!(F & eNightVisionActive);
 	m_attached = !!(F & eAttached);
@@ -474,7 +474,7 @@ void CSE_ALifeItemTorch::UPDATE_Write(NET_Packet& tNetPacket)
 {
 	inherited::UPDATE_Write(tNetPacket);
 
-	BYTE F = 0;
+	unsigned char F = 0;
 	F |= (m_active ? eTorchActive : 0);
 	F |= (m_nightvision_active ? eNightVisionActive : 0);
 	F |= (m_attached ? eAttached : 0);

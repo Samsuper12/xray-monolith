@@ -185,11 +185,11 @@ public:
 	const shared_str& GetIconName() const { return m_icon_name; };
 	Frect GetKillMsgRect() const;
 	//---------------------------------------------------------------------
-	IC float GetCondition() const { return m_fCondition; }
+	inline float GetCondition() const { return m_fCondition; }
 	virtual float GetConditionToShow() const { return GetCondition(); }
-	IC void SetCondition(float val) { m_fCondition = val; }
+	inline void SetCondition(float val) { m_fCondition = val; }
 	void ChangeCondition(float fDeltaCondition);
-	IC float GetLowestBatteryCharge() const { return m_fLowestBatteryCharge; }
+	inline float GetLowestBatteryCharge() const { return m_fLowestBatteryCharge; }
 
 	u16 BaseSlot() const { return m_ItemCurrPlace.base_slot_id; }
 	u16 CurrSlot() const { return m_ItemCurrPlace.slot_id; }
@@ -263,14 +263,14 @@ public:
 	virtual const CInventoryItem* can_kill(const xr_vector<const CGameObject*>& items) const;
 	virtual CInventoryItem* can_make_killing(const CInventory* inventory) const;
 	virtual bool ready_to_kill() const;
-	IC bool useful_for_NPC() const;
+	inline bool useful_for_NPC() const;
 #ifdef DEBUG
 	virtual void				OnRender					();
 #endif
 
 public:
 	virtual DLL_Pure* _construct();
-	IC CPhysicsShellHolder& object() const
+	inline CPhysicsShellHolder& object() const
 	{
 		VERIFY(m_object);
 		return (*m_object);
@@ -291,7 +291,7 @@ public:
 	virtual void modify_holder_params(float& range, float& fov) const;
 
 protected:
-	IC CInventoryOwner& inventory_owner() const;
+	inline CInventoryOwner& inventory_owner() const;
 
 private:
 	CPhysicsShellHolder* m_object;
@@ -317,7 +317,7 @@ protected:
 	Upgrades_type m_upgrades;
 
 public:
-	IC bool has_any_upgrades() { return (m_upgrades.size() != 0); }
+	inline bool has_any_upgrades() { return (m_upgrades.size() != 0); }
 	bool has_upgrade(const shared_str& upgrade_id);
 	bool has_upgrade_group(const shared_str& upgrade_group_id);
 	void add_upgrade(const shared_str& upgrade_id, bool loading);
@@ -336,7 +336,7 @@ public:
 	void	log_upgrades				();
 #endif // DEBUG
 
-	IC Upgrades_type const& upgardes() const;
+	inline Upgrades_type const& upgardes() const;
 	virtual void Interpolate();
 	float interpolate_states(net_update_IItem const& first, net_update_IItem const& last, SPHNetState& current);
 
@@ -345,11 +345,11 @@ protected:
 	virtual bool install_upgrade_impl(LPCSTR section, bool test);
 
 	template <typename T>
-	IC static bool process_if_exists(LPCSTR section, LPCSTR name, T (CInifile::*method)(LPCSTR, LPCSTR) const, T& value,
+	inline static bool process_if_exists(LPCSTR section, LPCSTR name, T (CInifile::*method)(LPCSTR, LPCSTR) const, T& value,
 	                                 bool test);
 
 	template <typename T>
-	IC static bool process_if_exists_set(LPCSTR section, LPCSTR name, T (CInifile::*method)(LPCSTR, LPCSTR) const,
+	inline static bool process_if_exists_set(LPCSTR section, LPCSTR name, T (CInifile::*method)(LPCSTR, LPCSTR) const,
 	                                     T& value, bool test);
 
 	void net_Export_PH_Params(NET_Packet& P, SPHNetState& State, mask_inv_num_items& num_items);
@@ -359,8 +359,8 @@ protected:
 	bool m_activated;
 	float m_fLowestBatteryCharge;
 public:
-	IC bool is_helper_item() { return !!m_flags.test(FIsHelperItem); }
-	IC void set_is_helper(bool is_helper) { m_flags.set(FIsHelperItem, is_helper); }
+	inline bool is_helper_item() { return !!m_flags.test(FIsHelperItem); }
+	inline void set_is_helper(bool is_helper) { m_flags.set(FIsHelperItem, is_helper); }
 	DECLARE_SCRIPT_REGISTER_FUNCTION
 }; // class CInventoryItem
 

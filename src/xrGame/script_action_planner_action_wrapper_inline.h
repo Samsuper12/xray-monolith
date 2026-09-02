@@ -8,7 +8,7 @@
 
 #pragma once
 
-IC CScriptActionPlannerActionWrapper::CScriptActionPlannerActionWrapper(
+inline CScriptActionPlannerActionWrapper::CScriptActionPlannerActionWrapper(
 	CScriptGameObject* object,
 	LPCSTR action_name
 ) :

@@ -11,7 +11,7 @@ add_module(XRay.Physics
   loki
   ode
   robin_hood
-  tbb
+  #tbb
   OPCODE
   
   XRay.Core.Defines

@@ -73,8 +73,8 @@ protected:
 
 	virtual void UpdateLights();
 public:
-	IC u8 GetAfRank() const { return m_af_rank; }
-	IC bool CanBeActivated() { return m_bCanSpawnZone; };
+	inline u8 GetAfRank() const { return m_af_rank; }
+	inline bool CanBeActivated() { return m_bCanSpawnZone; };
 	void ActivateArtefact();
 	void FollowByPath(LPCSTR path_name, int start_idx, Fvector magic_force);
 	bool CanBeInvisible();
@@ -125,14 +125,14 @@ public:
 	// optimization FAST/SLOW mode
 	u32 o_render_frame;
 	BOOL o_fastmode;
-	IC void o_switch_2_fast()
+	inline void o_switch_2_fast()
 	{
 		if (o_fastmode) return;
 		o_fastmode = TRUE;
 		//processing_activate		();
 	}
 
-	IC void o_switch_2_slow()
+	inline void o_switch_2_slow()
 	{
 		if (!o_fastmode) return;
 		o_fastmode = FALSE;

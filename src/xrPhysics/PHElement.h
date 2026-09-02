@@ -75,7 +75,7 @@ private:
 		m_flags.set(flUpdate,TRUE);
 	}
 
-	IC void UpdateInterpolation() //interpolation called from ph update visual influent
+	inline void UpdateInterpolation() //interpolation called from ph update visual influent
 	{
 		///VERIFY(dBodyStateValide(m_body));
 		m_body_interpolation.UpdatePositions();
@@ -167,7 +167,7 @@ public: //
 	void ToBonePos(const CBoneInstance* B, motion_history_state history_state);
 	void ToBonePos(const Fmatrix& BoneTransform, motion_history_state history_state);
 	void ActivatingPos(const Fmatrix& BoneTransform);
-	IC void CalculateBoneTransform(Fmatrix& bone_transform) const;
+	inline void CalculateBoneTransform(Fmatrix& bone_transform) const;
 
 #ifdef		DEBUG
 	virtual void						dbg_draw_velocity						( float scale, u32 color );
@@ -251,8 +251,8 @@ public: //
 	virtual void InterpolateGlobalTransform(Fmatrix* m); //called UpdateCL vis influent
 	virtual void InterpolateGlobalPosition(Fvector* v); //aux
 	virtual void GetGlobalTransformDynamic(Fmatrix* m) const; //aux
-	IC void InverceLocalForm(Fmatrix&);
-	IC void MulB43InverceLocalForm(Fmatrix&) const;
+	inline void InverceLocalForm(Fmatrix&);
+	inline void MulB43InverceLocalForm(Fmatrix&) const;
 
 	////////////////////////////////////////////////////Structure/////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,8 +267,8 @@ public: //
 	virtual const dBodyID get_bodyConst() const { return m_body; } //aux
 	//////////////////////////////////////////////////////Breakable//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	IC CPHFracturesHolder* FracturesHolder() { return m_fratures_holder; } //aux
-	IC const CPHFracturesHolder* constFracturesHolder() const { return m_fratures_holder; } //aux
+	inline CPHFracturesHolder* FracturesHolder() { return m_fratures_holder; } //aux
+	inline const CPHFracturesHolder* constFracturesHolder() const { return m_fratures_holder; } //aux
 	void DeleteFracturesHolder(); //
 	virtual bool isBreakable(); //aux
 	virtual u16 setGeomFracturable(CPHFracture& fracture); //aux
@@ -306,9 +306,9 @@ public:
 };
 
 
-IC CPHElement* cast_PHElement(CPhysicsElement* e) { return static_cast<CPHElement*>(static_cast<CPhysicsElement*>(e)); }
-IC CPHElement* cast_PHElement(void* e) { return static_cast<CPHElement*>(static_cast<CPhysicsElement*>(e)); }
-IC CPhysicsElement* cast_PhysicsElement(CPHElement* e)
+inline CPHElement* cast_PHElement(CPhysicsElement* e) { return static_cast<CPHElement*>(static_cast<CPhysicsElement*>(e)); }
+inline CPHElement* cast_PHElement(void* e) { return static_cast<CPHElement*>(static_cast<CPhysicsElement*>(e)); }
+inline CPhysicsElement* cast_PhysicsElement(CPHElement* e)
 {
 	return static_cast<CPhysicsElement*>(static_cast<CPHElement*>(e));
 }

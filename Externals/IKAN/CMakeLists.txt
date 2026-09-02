@@ -17,7 +17,7 @@ target_link_libraries(IKAN
   robin_hood
   fastdelegate
   
-  XRay.Platform
+  #XRay.Platform
   
   XRay.Core.Defines
 
@@ -27,6 +27,9 @@ target_link_libraries(IKAN
 
 target_compile_options(IKAN
   PRIVATE
+  -Wno-register
+  -Wno-error
+
   $<$<CXX_COMPILER_ID:MSVC>:/wd4996>
   $<$<CXX_COMPILER_ID:MSVC>:/wd5033>
 )

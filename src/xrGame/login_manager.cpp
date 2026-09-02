@@ -424,7 +424,7 @@ namespace gamespy_gp
 
 	void login_manager::save_remember_me_to_registry(bool remember)
 	{
-		//DWORD tmp_value = remember ? 1 : 0;
+		//uint32_t tmp_value = remember ? 1 : 0;
 		//WriteRegistry_DWValue(REGISTRY_VALUE_REMEMBER_PROFILE, tmp_value);
 	}
 
@@ -444,7 +444,7 @@ namespace gamespy_gp
 
 	bool login_manager::get_remember_me_from_registry()
 	{
-		DWORD tmp_value = 0;
+		uint32_t tmp_value = 0;
 		//ReadRegistry_DWValue(REGISTRY_VALUE_REMEMBER_PROFILE, tmp_value);
 		return tmp_value != 0;
 	}

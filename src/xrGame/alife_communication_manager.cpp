@@ -43,7 +43,7 @@ using namespace ALifeCommunication;
 
 class CSortItemByValuePredicate {
 public:
-	IC bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2)  const
+	inline bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2)  const
 	{
 		return						(tpALifeInventoryItem1->m_dwCost < tpALifeInventoryItem2->m_dwCost);
 	};
@@ -58,7 +58,7 @@ public:
 		m_tParentID					= tParentID;
 	}
 
-	IC bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2) const
+	inline bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2) const
 	{
 		if (tpALifeInventoryItem1->m_dwCost == tpALifeInventoryItem2->m_dwCost)
 			if (tpALifeInventoryItem1->m_tPreviousParentID == m_tParentID)

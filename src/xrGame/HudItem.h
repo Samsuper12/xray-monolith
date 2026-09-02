@@ -64,19 +64,19 @@ protected:
 	u32 m_lastState;
 public:
 	CHUDState() { SetState(eHidden); }
-	IC u32 GetNextState() const { return m_nextState; }
-	IC u32 GetState() const { return m_hud_item_state; }
+	inline u32 GetNextState() const { return m_nextState; }
+	inline u32 GetState() const { return m_hud_item_state; }
 
-	IC void SetState(u32 v)
+	inline void SetState(u32 v)
 	{
 		m_hud_item_state = v;
 		m_dw_curr_state_time = Device.dwTimeGlobal;
 		ResetSubStateTime();
 	}
 
-	IC void SetNextState(u32 v) { m_nextState = v; }
-	IC u32 CurrStateTime() const { return Device.dwTimeGlobal - m_dw_curr_state_time; }
-	IC void ResetSubStateTime() { m_dw_curr_substate_time = Device.dwTimeGlobal; }
+	inline void SetNextState(u32 v) { m_nextState = v; }
+	inline u32 CurrStateTime() const { return Device.dwTimeGlobal - m_dw_curr_state_time; }
+	inline void ResetSubStateTime() { m_dw_curr_substate_time = Device.dwTimeGlobal; }
 	virtual void SwitchState(u32 S) = 0;
 	virtual void OnStateSwitch(u32 S, u32 oldState) = 0;
 };
@@ -147,7 +147,7 @@ public:
 
 	BOOL GetHUDmode();
 	void PlayBlendAnm(LPCSTR name, float speed = 1.f, float power = 1.f, bool stop_old = true);
-	IC bool IsPending() const { return !!m_huditem_flags.test(fl_pending); }
+	inline bool IsPending() const { return !!m_huditem_flags.test(fl_pending); }
 
 	virtual void DeleteHudItemData();
 
@@ -199,8 +199,8 @@ public:
 	u32 PlayHUDMotion_noCB(const shared_str& M, BOOL bMixIn, float speed = 1.f, bool bMixIn2 = true);
 	void StopCurrentAnimWithoutCallback();
 
-	IC void RenderHud(BOOL B) { m_huditem_flags.set(fl_renderhud, B); }
-	IC BOOL RenderHud() { return m_huditem_flags.test(fl_renderhud); }
+	inline void RenderHud(BOOL B) { m_huditem_flags.set(fl_renderhud, B); }
+	inline BOOL RenderHud() { return m_huditem_flags.test(fl_renderhud); }
 	attachable_hud_item* HudItemData();
 	bool IsAttachedToHUD();
 	virtual bool ParentIsActor();
@@ -214,8 +214,8 @@ public:
 	virtual void on_outfit_changed();
 	virtual void on_a_hud_attach();
 	virtual void on_b_hud_detach();
-	IC BOOL HudInertionEnabled() const { return m_huditem_flags.test(fl_inertion_enable); }
-	IC BOOL HudInertionAllowed() const { return m_huditem_flags.test(fl_inertion_allow); }
+	inline BOOL HudInertionEnabled() const { return m_huditem_flags.test(fl_inertion_enable); }
+	inline BOOL HudInertionAllowed() const { return m_huditem_flags.test(fl_inertion_allow); }
 	virtual float GetInertionAimFactor() { return 1.f; }; //--#SM+#--
 	virtual void render_hud_mode()
 	{
@@ -227,7 +227,7 @@ public:
 	virtual bool render_item_3d_ui_query() { return true; }
 
 	virtual bool CheckCompatibility(CHudItem*) { return true; }
-	IC void SetPending(bool H) { m_huditem_flags.set(fl_pending, H); }
+	inline void SetPending(bool H) { m_huditem_flags.set(fl_pending, H); }
 
 protected:
 
@@ -237,8 +237,8 @@ protected:
 	u32 dwFP_Frame;
 	u32 dwXF_Frame;
 
-	IC void EnableHudInertion(BOOL B) { m_huditem_flags.set(fl_inertion_enable, B); }
-	IC void AllowHudInertion(BOOL B) { m_huditem_flags.set(fl_inertion_allow, B); }
+	inline void EnableHudInertion(BOOL B) { m_huditem_flags.set(fl_inertion_enable, B); }
+	inline void AllowHudInertion(BOOL B) { m_huditem_flags.set(fl_inertion_allow, B); }
 
 	u32 m_animation_slot;
 
@@ -256,19 +256,19 @@ public:
 		return m_object;
 	}
 
-	IC CPhysicItem& object() const
+	inline CPhysicItem& object() const
 	{
 		VERIFY(m_object);
 		return (*m_object);
 	}
 
-	IC CInventoryItem& item() const
+	inline CInventoryItem& item() const
 	{
 		VERIFY(m_item);
 		return (*m_item);
 	}
 
-	IC u32 animation_slot() { return m_animation_slot; }
+	inline u32 animation_slot() { return m_animation_slot; }
 
 	virtual void on_renderable_Render() = 0;
 
@@ -317,7 +317,7 @@ public:
 	void remove_visual_callback(hud_visual_callback* callback);
 	void SetKinematicsCallback(bool set);
 
-	IC HUD_CALLBACK_VECTOR& visual_callbacks()
+	inline HUD_CALLBACK_VECTOR& visual_callbacks()
 	{
 		return (m_visual_callback);
 	}

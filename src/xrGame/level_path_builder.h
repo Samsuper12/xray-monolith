@@ -34,25 +34,25 @@ private:
 	};
 
 public:
-	IC CLevelPathBuilder(CMovementManager* object) :
+	inline CLevelPathBuilder(CMovementManager* object) :
 		inherited(object),
 		m_next_retry_time(0),
 		m_use_delay_after_fail(true)
 	{
 	}
 
-	IC const u32& dest_vertex_id() const
+	inline const u32& dest_vertex_id() const
 	{
 		return (m_dest_vertex_id);
 	}
 
-	IC void use_delay_after_fail(bool const value)
+	inline void use_delay_after_fail(bool const value)
 	{
 		m_use_delay_after_fail = value;
 		if (!value) m_next_retry_time = 0;
 	}
 
-	IC void setup(const u32& start_vertex_id, const u32& dest_vertex_id, bool extrapolate_path,
+	inline void setup(const u32& start_vertex_id, const u32& dest_vertex_id, bool extrapolate_path,
 	              const Fvector* precise_position)
 	{
 		VERIFY(ai().level_graph().valid_vertex_id(start_vertex_id));
@@ -119,7 +119,7 @@ public:
 		m_object->build_level_path(true);
 	}
 
-	IC void remove()
+	inline void remove()
 	{
 		if (m_object->m_wait_for_distributed_computation)
 			m_object->m_wait_for_distributed_computation = false;

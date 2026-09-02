@@ -22,7 +22,7 @@ protected:
 			PointID(ID), MinEnemyDist(Dist), bFreezed(Freezed)
 		{
 		};
-		IC bool operator<(const RPointData& x) const
+		inline bool operator<(const RPointData& x) const
 		{
 			if (bFreezed && !x.bFreezed) return false;
 			if (!bFreezed && x.bFreezed) return true;
@@ -135,7 +135,7 @@ public:
 
 	virtual void OnPlayerConnect(ClientID id_who);
 	virtual void OnPlayerConnectFinished(ClientID id_who);
-	virtual void OnPlayerDisconnect(ClientID id_who, LPSTR Name, u16 GameID);
+	virtual void OnPlayerDisconnect(ClientID id_who, char * Name, u16 GameID);
 	virtual void OnPlayerReady(ClientID id_who);
 	virtual KILL_RES GetKillResult(game_PlayerState* pKiller, game_PlayerState* pVictim);
 	virtual bool OnKillResult(KILL_RES KillResult, game_PlayerState* pKiller, game_PlayerState* pVictim);

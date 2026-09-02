@@ -29,7 +29,7 @@ class CAniFVector
 public:
 	ANIM_VECTOR A;
 
-	IC void Load(IKinematicsAnimated* tpKinematics, LPCSTR caBaseName)
+	inline void Load(IKinematicsAnimated* tpKinematics, LPCSTR caBaseName)
 	{
 		A.clear();
 		string256 S;
@@ -54,7 +54,7 @@ class CAniCollection
 public:
 	xr_vector<TYPE_NAME> A;
 
-	IC void Load(IKinematicsAnimated* tpKinematics, LPCSTR caBaseName)
+	inline void Load(IKinematicsAnimated* tpKinematics, LPCSTR caBaseName)
 	{
 		A.clear();
 		string256 S;

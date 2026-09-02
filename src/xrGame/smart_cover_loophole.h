@@ -27,7 +27,7 @@ namespace smart_cover
 		class action_predicate
 		{
 		public:
-			IC bool operator()(shared_str const& lhs, shared_str const& rhs) const
+			inline bool operator()(shared_str const& lhs, shared_str const& rhs) const
 			{
 				return (lhs._get() < rhs._get());
 			}
@@ -62,23 +62,23 @@ namespace smart_cover
 	public:
 		loophole(::luabind::object const& description);
 		~loophole();
-		IC shared_str const& id() const;
-		IC float const& range() const;
-		IC float const& fov() const;
-		IC float const& danger_fov() const;
-		IC Fvector const& fov_position() const;
-		IC Fvector const& fov_direction() const;
-		IC Fvector const& danger_fov_direction() const;
-		IC Fvector const& enter_direction() const;
-		IC ActionList const& actions() const;
-		IC bool const& enterable() const;
-		IC void enterable(bool value);
-		IC bool const& usable() const;
-		IC bool const& exitable() const;
-		IC void exitable(bool value);
+		inline shared_str const& id() const;
+		inline float const& range() const;
+		inline float const& fov() const;
+		inline float const& danger_fov() const;
+		inline Fvector const& fov_position() const;
+		inline Fvector const& fov_direction() const;
+		inline Fvector const& danger_fov_direction() const;
+		inline Fvector const& enter_direction() const;
+		inline ActionList const& actions() const;
+		inline bool const& enterable() const;
+		inline void enterable(bool value);
+		inline bool const& usable() const;
+		inline bool const& exitable() const;
+		inline void exitable(bool value);
 		Animations const& action_animations(shared_str const& action_id, shared_str const& animation_id) const;
 		TransitionData const& transition_animations(shared_str const& action_from, shared_str const& action_to) const;
-		IC bool is_action_available(shared_str const& action_id) const;
+		inline bool is_action_available(shared_str const& action_id) const;
 		void exit_position(Fvector& position) const;
 
 	private:

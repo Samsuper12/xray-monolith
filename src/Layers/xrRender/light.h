@@ -3,7 +3,7 @@
 
 #include <ISpatial.h>
 #include <Render.h>
-#include <Shader.h>
+//#include <Shader.h>
 
 #if (RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4)
 #include "Light_Package.h"

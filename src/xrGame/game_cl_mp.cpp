@@ -353,7 +353,7 @@ void game_cl_mp::GetActiveVoting()
 }
 
 u32 Color_Teams_u32[3] = {color_rgba(255, 240, 190, 255), color_rgba(64, 255, 64, 255), color_rgba(64, 64, 255, 255)};
-LPSTR Color_Teams[3] = {"%c[255,255,240,190]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
+char * Color_Teams[3] = {"%c[255,255,240,190]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
 char Color_Main[] = "%c[255,192,192,192]";
 u32 Color_Neutral_u32 = color_rgba(255, 0, 255, 255);
 char Color_Red[] = "%c[255,255,1,1]";
@@ -582,7 +582,7 @@ void game_cl_mp::OnChatMessage(NET_Packet* P)
 
 	if (team < 0 || 2 < team) { team = 0; }
 
-	LPSTR colPlayerName;
+	char * colPlayerName;
 	STRCONCAT(colPlayerName, Color_Teams[team], PlayerName, ":%c[default]");
 	if (Level().CurrentViewEntity() && CurrentGameUI())
 		CurrentGameUI()->m_pMessagesWnd->AddChatMessage(ChatMsg, colPlayerName);
@@ -1107,7 +1107,7 @@ void game_cl_mp::OnPlayerKilled(NET_Packet& P)
 		CurrentGameUI()->m_pMessagesWnd->AddLogMessage(KMS);
 };
 
-extern void WritePlayerName_ToRegistry(LPSTR name);
+extern void WritePlayerName_ToRegistry(char * name);
 
 void game_cl_mp::OnPlayerChangeName(NET_Packet& P)
 {
@@ -1598,23 +1598,23 @@ void game_cl_mp::SendCollectedData(u8 const* buffer, u32 buffer_size, u32 uncomp
 };
 
 
-void game_cl_mp::generate_file_name(
-	string_path& file_name,
-	LPCSTR file_suffix,
-	SYSTEMTIME const& date_time)
-{
-	xr_sprintf(
-		file_name,
-		"%02d%02d%02d-%02d%02d%02d_%s",
-		date_time.wYear % 100,
-		date_time.wMonth,
-		date_time.wDay,
-		date_time.wHour,
-		date_time.wMinute,
-		date_time.wSecond,
-		file_suffix
-	);
-}
+// void game_cl_mp::generate_file_name(
+// 	string_path& file_name,
+// 	LPCSTR file_suffix,
+// 	SYSTEMTIME const& date_time)
+// {
+// 	xr_sprintf(
+// 		file_name,
+// 		"%02d%02d%02d-%02d%02d%02d_%s",
+// 		date_time.wYear % 100,
+// 		date_time.wMonth,
+// 		date_time.wDay,
+// 		date_time.wHour,
+// 		date_time.wMinute,
+// 		date_time.wSecond,
+// 		file_suffix
+// 	);
+// }
 
 
 LPCSTR game_cl_mp::make_file_name(LPCSTR session_id, string_path& dest)
@@ -1659,14 +1659,16 @@ void game_cl_mp::start_receive_server_info(ClientID const& svclient_id)
 void game_cl_mp::PrepareToReceiveFile(ClientID const& from_client, shared_str const& client_session_id,
                                       clientdata_event_t response_event)
 {
+	//FIXME:
+	stub_unix(__func__);
 	string_path screen_shot_fn;
 	LPCSTR dest_file_name = NULL;
 	STRCONCAT(dest_file_name,
 	          make_file_name(client_session_id.c_str(), screen_shot_fn)
 	);
-	SYSTEMTIME date_time;
-	GetLocalTime(&date_time);
-	generate_file_name(screen_shot_fn, dest_file_name, date_time);
+	//SYSTEMTIME date_time;
+	//GetLocalTime(&date_time);
+	//generate_file_name(screen_shot_fn, dest_file_name, date_time);
 
 	fr_callback_binder* tmp_binder = get_receiver_cb_binder();
 	if (!tmp_binder)

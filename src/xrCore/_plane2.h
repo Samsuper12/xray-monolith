@@ -13,36 +13,36 @@ public:
 	_vector2<T> n;
 	T d;
 public:
-	IC SelfRef set(Self& P)
+	inline SelfRef set(Self& P)
 	{
 		n.set(P.n);
 		d = P.d;
 		return *this;
 	}
 
-	IC BOOL similar(Self& P, T eps_n = EPS, T eps_d = EPS)
+	inline BOOL similar(Self& P, T eps_n = EPS, T eps_d = EPS)
 	{
 		return (n.similar(P.n, eps_n) && (_abs(d - P.d) < eps_d));
 	}
 
-	IC SelfRef build(const _vector2<T>& _p, const _vector2<T>& _n)
+	inline SelfRef build(const _vector2<T>& _p, const _vector2<T>& _n)
 	{
 		d = -n.normalize(_n).dotproduct(_p);
 		return *this;
 	}
 
-	IC SelfRef project(_vector2<T>& pdest, _vector2<T>& psrc)
+	inline SelfRef project(_vector2<T>& pdest, _vector2<T>& psrc)
 	{
 		pdest.mad(psrc, n, -classify(psrc));
 		return *this;
 	}
 
-	IC T classify(const _vector2<T>& v) const
+	inline T classify(const _vector2<T>& v) const
 	{
 		return n.dotproduct(v) + d;
 	}
 
-	IC SelfRef normalize()
+	inline SelfRef normalize()
 	{
 		T denom = 1.f / n.magnitude();
 		n.mul(denom);
@@ -50,12 +50,12 @@ public:
 		return *this;
 	}
 
-	IC T distance(const _vector2<T>& v)
+	inline T distance(const _vector2<T>& v)
 	{
 		return _abs(classify(v));
 	}
 
-	IC BOOL intersectRayDist(const _vector2<T>& P, const _vector2<T>& D, T& dist)
+	inline BOOL intersectRayDist(const _vector2<T>& P, const _vector2<T>& D, T& dist)
 	{
 		T numer = classify(P);
 		T denom = n.dotproduct(D);
@@ -67,7 +67,7 @@ public:
 		return ((dist > 0.f) || fis_zero(dist));
 	}
 
-	IC BOOL intersectRayPoint(const _vector2<T>& P, const _vector2<T>& D, _vector2<T>& dest)
+	inline BOOL intersectRayPoint(const _vector2<T>& P, const _vector2<T>& D, _vector2<T>& dest)
 	{
 		T numer = classify(P);
 		T denom = n.dotproduct(D);
@@ -81,7 +81,7 @@ public:
 		}
 	}
 
-	IC BOOL intersect(
+	inline BOOL intersect(
 		const _vector2<T>& u, const _vector2<T>& v, // segment
 		_vector2<T>& isect) // intersection point
 	{
@@ -98,7 +98,7 @@ public:
 		return true;
 	}
 
-	IC BOOL intersect_2(
+	inline BOOL intersect_2(
 		const _vector2<T>& u, const _vector2<T>& v, // segment
 		_vector2<T>& isect) // intersection point
 	{

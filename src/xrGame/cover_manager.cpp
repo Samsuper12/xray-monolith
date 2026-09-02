@@ -31,7 +31,7 @@ CCoverManager::~CCoverManager()
 	xr_delete(m_smart_covers_storage);
 }
 
-IC bool CCoverManager::edge_vertex(u32 index)
+inline bool CCoverManager::edge_vertex(u32 index)
 {
 	CLevelGraph::CVertex* v = ai().level_graph().vertex(index);
 	return (
@@ -46,7 +46,7 @@ IC bool CCoverManager::edge_vertex(u32 index)
 	);
 }
 
-IC bool CCoverManager::cover(CLevelGraph::CVertex* v, u32 index0, u32 index1)
+inline bool CCoverManager::cover(CLevelGraph::CVertex* v, u32 index0, u32 index1)
 {
 	return (
 		ai().level_graph().valid_vertex_id(v->link(index0)) &&
@@ -55,7 +55,7 @@ IC bool CCoverManager::cover(CLevelGraph::CVertex* v, u32 index0, u32 index1)
 	);
 }
 
-IC bool CCoverManager::critical_point(CLevelGraph::CVertex* v, u32 index, u32 index0, u32 index1)
+inline bool CCoverManager::critical_point(CLevelGraph::CVertex* v, u32 index, u32 index0, u32 index1)
 {
 	return (
 		!ai().level_graph().valid_vertex_id(v->link(index)) &&
@@ -68,7 +68,7 @@ IC bool CCoverManager::critical_point(CLevelGraph::CVertex* v, u32 index, u32 in
 	);
 }
 
-IC bool CCoverManager::critical_cover(u32 index)
+inline bool CCoverManager::critical_cover(u32 index)
 {
 	CLevelGraph::CVertex* v = ai().level_graph().vertex(index);
 	return (
@@ -152,12 +152,12 @@ namespace smart_cover
 	{
 		object const* m_object;
 
-		IC predicate(object const& object) :
+		inline predicate(object const& object) :
 			m_object(&object)
 		{
 		}
 
-		IC bool operator()(CCoverPoint* const & cover) const
+		inline bool operator()(CCoverPoint* const & cover) const
 		{
 			if (cover->m_is_smart_cover)
 				return (true);
@@ -225,14 +225,14 @@ private:
 	typedef smart_cover::cover Cover;
 
 public:
-	IC bool operator ()(Cover* lhs, Cover* rhs)
+	inline bool operator ()(Cover* lhs, Cover* rhs)
 	{
 		VERIFY(lhs);
 		VERIFY(rhs);
 		return (lhs->object().cName()._get() < rhs->object().cName()._get());
 	}
 
-	IC bool operator ()(Cover* cover, shared_str const& id)
+	inline bool operator ()(Cover* cover, shared_str const& id)
 	{
 		VERIFY(cover);
 		return (cover->object().cName()._get() < id._get());

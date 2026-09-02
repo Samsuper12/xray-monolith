@@ -10,24 +10,24 @@
 
 #define cover			smart_cover::cover
 
-IC smart_cover::object const&cover::object() const
+inline smart_cover::object const&cover::object() const
 {
 	return (m_object);
 }
 
-IC cover::Loopholes const&cover::loopholes() const
+inline cover::Loopholes const&cover::loopholes() const
 {
 	return (m_loopholes);
 }
 
-IC Fvector cover::fov_position(loophole const& loophole) const
+inline Fvector cover::fov_position(loophole const& loophole) const
 {
 	Fvector position;
 	m_object.XFORM().transform_tiny(position, loophole.fov_position());
 	return (position);
 }
 
-IC Fvector cover::fov_direction(loophole const& loophole) const
+inline Fvector cover::fov_direction(loophole const& loophole) const
 {
 	Fvector direction;
 	m_object.XFORM().transform_dir(direction, loophole.fov_direction());
@@ -35,7 +35,7 @@ IC Fvector cover::fov_direction(loophole const& loophole) const
 	return (direction);
 }
 
-IC Fvector cover::danger_fov_direction(loophole const& loophole) const
+inline Fvector cover::danger_fov_direction(loophole const& loophole) const
 {
 	Fvector direction;
 	m_object.XFORM().transform_dir(direction, loophole.danger_fov_direction());
@@ -43,7 +43,7 @@ IC Fvector cover::danger_fov_direction(loophole const& loophole) const
 	return (direction);
 }
 
-IC Fvector cover::enter_direction(loophole const& loophole) const
+inline Fvector cover::enter_direction(loophole const& loophole) const
 {
 	Fvector direction;
 	m_object.XFORM().transform_dir(direction, loophole.enter_direction());
@@ -51,29 +51,29 @@ IC Fvector cover::enter_direction(loophole const& loophole) const
 	return (direction);
 }
 
-IC Fvector cover::position(Fvector const& position) const
+inline Fvector cover::position(Fvector const& position) const
 {
 	Fvector pos;
 	m_object.XFORM().transform_tiny(pos, position);
 	return (pos);
 }
 
-IC cover::DescriptionPtr const&cover::description() const
+inline cover::DescriptionPtr const&cover::description() const
 {
 	return (m_description);
 }
 
-IC shared_str const&cover::id() const
+inline shared_str const&cover::id() const
 {
 	return (m_id);
 }
 
-IC bool cover::is_combat_cover() const
+inline bool cover::is_combat_cover() const
 {
 	return (m_is_combat_cover);
 }
 
-IC bool cover::can_fire() const
+inline bool cover::can_fire() const
 {
 	return (m_is_combat_cover || m_can_fire);
 }

@@ -76,7 +76,7 @@ struct IReaderBase_Test
 };
 
 template <typename T>
-IC u32 IReaderBase<T>::find_chunk (u32 ID, BOOL* bCompressed)
+inline u32 IReaderBase<T>::find_chunk (u32 ID, BOOL* bCompressed)
 {
 #ifdef FIND_CHUNK_BENCHMARK_ENABLE
     find_chunk_auto_timer timer;
@@ -112,7 +112,7 @@ struct IReaderBase_Test
 #pragma warning (disable:4701)
 
 template <typename T>
-IC u32 IReaderBase<T>::find_chunk(u32 ID, BOOL* bCompressed)
+inline u32 IReaderBase<T>::find_chunk(u32 ID, BOOL* bCompressed)
 {
 #ifdef FIND_CHUNK_BENCHMARK_ENABLE
     find_chunk_auto_timer timer;
@@ -224,7 +224,7 @@ struct IReaderBase_Test
 };
 
 template <typename T>
-IC u32 IReaderBase<T>::find_chunk (u32 ID, BOOL* bCompressed)
+inline u32 IReaderBase<T>::find_chunk (u32 ID, BOOL* bCompressed)
 {
 #ifdef FIND_CHUNK_BENCHMARK_ENABLE
     find_chunk_auto_timer timer;
@@ -296,7 +296,7 @@ struct IReaderBase_Test
 };
 
 template <typename T>
-IC u32 IReaderBase<T>::find_chunk (u32 ID, BOOL* bCompressed)
+inline u32 IReaderBase<T>::find_chunk (u32 ID, BOOL* bCompressed)
 {
 #ifdef FIND_CHUNK_BENCHMARK_ENABLE
     find_chunk_auto_timer timer;

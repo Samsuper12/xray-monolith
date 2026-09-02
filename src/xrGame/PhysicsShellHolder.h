@@ -43,7 +43,7 @@ public:
 		b_sheduled = false;
 	}
 
-	IC bool IsSheduled() { return b_sheduled; }
+	inline bool IsSheduled() { return b_sheduled; }
 public:
 
 	typedef CGameObject inherited;
@@ -57,12 +57,12 @@ public:
 
 	virtual bool ActivationSpeedOverriden(Fvector& dest, bool clear_override) { return false; }
 
-	IC CPhysicsShell*& PPhysicsShell()
+	inline CPhysicsShell*& PPhysicsShell()
 	{
 		return m_pPhysicsShell;
 	}
 
-	IC CPhysicsShellHolder* PhysicsShellHolder()
+	inline CPhysicsShellHolder* PhysicsShellHolder()
 	{
 		return this;
 	}

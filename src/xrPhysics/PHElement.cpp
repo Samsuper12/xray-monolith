@@ -876,7 +876,7 @@ void CPHElement::GetAnimBonePos(Fmatrix& bp)
 	pK->Bone_GetAnimPos(bp, m_SelfID, u8(-1), true);
 }
 
-IC bool put_in_range(Fvector& v, float range)
+inline bool put_in_range(Fvector& v, float range)
 {
 	VERIFY(range > EPS_S);
 	float sq_mag = v.square_magnitude();
@@ -1704,7 +1704,7 @@ void CPHElement::GetPointVel(Fvector& res_vel, const Fvector& point) const
 	dVector3 res;
 	//Fvector	 res_vel;
 	dBodyGetPointVel(get_bodyConst(), point.x, point.y, point.z, res);
-	CopyMemory(&res_vel, res, sizeof(Fvector));
+	memcpy(&res_vel, res, sizeof(Fvector));
 }
 
 void CPHElement::ActivatingPos(const Fmatrix& BoneTransform)

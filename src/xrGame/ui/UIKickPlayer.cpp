@@ -139,7 +139,7 @@ void CUIKickPlayer::OnBtnCancel()
 	HideDialog();
 }
 
-IC bool DM_Compare_Players(game_PlayerState* v1, game_PlayerState* v2);
+inline bool DM_Compare_Players(game_PlayerState* v1, game_PlayerState* v2);
 
 DEFINE_VECTOR(game_PlayerState*, ItemVec, ItemIt);
 

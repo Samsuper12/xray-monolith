@@ -76,7 +76,7 @@ public:
 	virtual ~UITaskListWndItem();
 
 	bool init_task(CGameTask* task, UITaskListWnd* parent);
-	IC u32 get_priority_task() const;
+	inline u32 get_priority_task() const;
 
 	virtual void OnFocusReceive();
 	virtual void OnFocusLost();

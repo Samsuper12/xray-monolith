@@ -13,17 +13,17 @@ namespace inventory
 {
 	namespace upgrade
 	{
-		IC const shared_str& UpgradeBase::id() const
+		inline const shared_str& UpgradeBase::id() const
 		{
 			return (m_id);
 		}
 
-		IC LPCSTR UpgradeBase::id_str() const
+		inline LPCSTR UpgradeBase::id_str() const
 		{
 			return (m_id.c_str());
 		}
 
-		IC bool UpgradeBase::is_known() const
+		inline bool UpgradeBase::is_known() const
 		{
 			return (m_known);
 		}

@@ -87,7 +87,7 @@ namespace GraphEngineSpace
 			m_value = value;
 		}
 
-		IC bool operator==(const _solver_condition_type& condition) const
+		inline bool operator==(const _solver_condition_type& condition) const
 		{
 			return (condition == m_condition);
 		}

@@ -6,6 +6,8 @@ set(LZO_DIR ../LZO-xr)
 
 target_compile_options(LZO
   PRIVATE
+  -Wno-register
+  -Wno-error
   $<$<CXX_COMPILER_ID:MSVC>:/permissive->
   $<$<CXX_COMPILER_ID:MSVC>:/wd5033>
 )

@@ -28,12 +28,12 @@ namespace inventory
 			virtual ~Property();
 
 			void construct(const shared_str& property_id, Manager& manager_r);
-			IC shared_str const& id() const;
-			IC LPCSTR id_str() const;
-			IC LPCSTR icon_name() const;
-			IC LPCSTR name() const;
+			inline shared_str const& id() const;
+			inline LPCSTR id_str() const;
+			inline LPCSTR icon_name() const;
+			inline LPCSTR name() const;
 
-			IC FunctorParams_type const& functor_params() const;
+			inline FunctorParams_type const& functor_params() const;
 
 			bool run_functor(LPCSTR parameter, string256& result);
 

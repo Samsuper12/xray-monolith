@@ -2,7 +2,6 @@
 #define xrPoolH
 
 //#pragma once
-typedef void *LPVOID;
 
 template <class T, int granularity>
 class poolSS
@@ -11,7 +10,7 @@ private:
 	T* list;
 	xr_vector<T*> blocks;
 private:
-	T** access(T* P) { return (T**)LPVOID(P); }
+	T** access(T* P) { return (T**)P; }
 
 	void block_create()
 	{

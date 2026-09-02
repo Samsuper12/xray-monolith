@@ -42,7 +42,7 @@ namespace PAPI
 		}
 
 		~ParticleActions() { clear(); }
-		IC void clear()
+		inline void clear()
 		{
 			R_ASSERT(!m_bLocked);
 			for (PAVecIt it = actions.begin(); it != actions.end(); it++)
@@ -50,17 +50,17 @@ namespace PAPI
 			actions.clear();
 		}
 
-		IC void append(ParticleAction* pa)
+		inline void append(ParticleAction* pa)
 		{
 			R_ASSERT(!m_bLocked);
 			actions.push_back(pa);
 		}
 
-		IC bool empty() { return actions.empty(); }
-		IC PAVecIt begin() { return actions.begin(); }
-		IC PAVecIt end() { return actions.end(); }
-		IC int size() { return actions.size(); }
-		IC void resize(int cnt)
+		inline bool empty() { return actions.empty(); }
+		inline PAVecIt begin() { return actions.begin(); }
+		inline PAVecIt end() { return actions.end(); }
+		inline int size() { return actions.size(); }
+		inline void resize(int cnt)
 		{
 			R_ASSERT(!m_bLocked);
 			actions.resize(cnt);

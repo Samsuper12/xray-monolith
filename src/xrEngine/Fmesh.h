@@ -184,8 +184,8 @@ struct ENGINE_API FSlideWindowItem
 // u32 Count; // Number of vertices
 
 // OGF_BONES
-// BYTE Count;
-// BYTE Indices[...]
+// unsigned char Count;
+// unsigned char Indices[...]
 
 // OGF_TREEDEF
 // xform : matrix4x4

@@ -540,7 +540,7 @@ const Fvector hemi_3[HEMI3_VERTS] =
 };
 #pragma warning(default:4305)
 
-void ECORE_API xrHemisphereBuild(int quality, float energy, xrHemisphereIterator* iterator, LPVOID param)
+void ECORE_API xrHemisphereBuild(int quality, float energy, xrHemisphereIterator* iterator, void* param)
 {
 	const Fvector* hemi = 0;
 	int h_count = xrHemisphereVertices(quality, hemi);

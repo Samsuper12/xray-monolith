@@ -6,4 +6,4 @@ add_module(XRay
   build_config_defines.h
 )
 
-include(XRay.Platform)
+#include(XRay.Platform)

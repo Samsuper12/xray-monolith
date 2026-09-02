@@ -35,7 +35,7 @@ public:
 	rat_state_manager();
 	~rat_state_manager();
 	void construct(CAI_Rat* object);
-	IC void change_state(state_id_type const& state_id);
+	inline void change_state(state_id_type const& state_id);
 	void push_state(state_id_type const& state_id);
 	void pop_state();
 	void add_state(state_id_type const& state_id, rat_state_base* state);

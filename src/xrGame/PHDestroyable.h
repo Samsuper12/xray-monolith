@@ -66,9 +66,9 @@ public:
 	void Load(CInifile* ini, LPCSTR section);
 	virtual void NotificateDestroy(CPHDestroyableNotificate* dn);
 	void PhysicallyRemoveSelf();
-	IC bool Destroyable() { return !!m_flags.test(fl_destroyable); }
-	IC bool Destroyed() { return !!m_flags.test(fl_destroyed); }
-	IC bool CanDestroy() { return m_flags.test(fl_destroyable) && !m_flags.test(fl_destroyed); }
+	inline bool Destroyable() { return !!m_flags.test(fl_destroyable); }
+	inline bool Destroyed() { return !!m_flags.test(fl_destroyed); }
+	inline bool CanDestroy() { return m_flags.test(fl_destroyable) && !m_flags.test(fl_destroyed); }
 	virtual bool CanRemoveObject() { return true; }
 	virtual void SheduleUpdate(u32 dt);
 	virtual void GenSpawnReplace(u16 source_id, LPCSTR section, shared_str visual_name);

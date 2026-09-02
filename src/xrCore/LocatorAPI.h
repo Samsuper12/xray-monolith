@@ -99,12 +99,12 @@ public:
 	u32 dwOpenCounter;
 
 private:
-	void check_cached_files(LPSTR fname, const u32& fname_size, const file& desc, LPCSTR& source_name);
+	void check_cached_files(char * fname, const u32& fname_size, const file& desc, LPCSTR& source_name);
 
-	void file_from_cache_impl(IReader*& R, LPSTR fname, const file& desc);
-	void file_from_cache_impl(CStreamReader*& R, LPSTR fname, const file& desc);
+	void file_from_cache_impl(IReader*& R, char * fname, const file& desc);
+	void file_from_cache_impl(CStreamReader*& R, char * fname, const file& desc);
 	template <typename T>
-	void file_from_cache(T*& R, LPSTR fname, const u32& fname_size, const file& desc, LPCSTR& source_name);
+	void file_from_cache(T*& R, char * fname, const u32& fname_size, const file& desc, LPCSTR& source_name);
 
 	void file_from_archive(IReader*& R, LPCSTR fname, const file& desc);
 	void file_from_archive(CStreamReader*& R, LPCSTR fname, const file& desc);
@@ -117,7 +117,7 @@ private:
 	bool check_for_file(LPCSTR path, LPCSTR _fname, string_path& fname, const file*& desc);
 
 	template <typename T>
-	IC T* r_open_impl(LPCSTR path, LPCSTR _fname);
+	inline T* r_open_impl(LPCSTR path, LPCSTR _fname);
 
 private:
 	void setup_fs_path(LPCSTR fs_name, string_path& fs_path);
@@ -133,14 +133,14 @@ public:
 
 	CStreamReader* rs_open(LPCSTR initial, LPCSTR N);
 	IReader* r_open(LPCSTR initial, LPCSTR N);
-	IC IReader* r_open(LPCSTR N) { return r_open(0, N); }
+	inline IReader* r_open(LPCSTR N) { return r_open(0, N); }
 	void r_close(IReader*& S);
 	void r_close(CStreamReader*& fs);
 
 	IWriter* w_open(LPCSTR initial, LPCSTR N);
-	IC IWriter* w_open(LPCSTR N) { return w_open(0, N); }
+	inline IWriter* w_open(LPCSTR N) { return w_open(0, N); }
 	IWriter* w_open_ex(LPCSTR initial, LPCSTR N);
-	IC IWriter* w_open_ex(LPCSTR N) { return w_open_ex(0, N); }
+	inline IWriter* w_open_ex(LPCSTR N) { return w_open_ex(0, N); }
 	void w_close(IWriter*& S);
 
 	const file* exist(std::filesystem::path N);

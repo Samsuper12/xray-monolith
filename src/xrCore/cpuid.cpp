@@ -30,12 +30,12 @@ int _cpuid ( _processor_info *pinfo )
 }
 #else
 
-DWORD countSetBits(ULONG_PTR bitMask)
+uint32_t countSetBits(uintptr_t bitMask)
 {
-	DWORD LSHIFT = sizeof(ULONG_PTR) * 8 - 1;
-	DWORD bitSetCount = 0;
-	ULONG_PTR bitTest = static_cast<ULONG_PTR>(1) << LSHIFT;
-	DWORD i;
+	uint32_t LSHIFT = sizeof(uintptr_t) * 8 - 1;
+	uint32_t bitSetCount = 0;
+	uintptr_t bitTest = static_cast<uintptr_t>(1) << LSHIFT;
+	uint32_t i;
 
 	for (i = 0; i <= LSHIFT; ++i)
 	{
@@ -142,11 +142,11 @@ int _cpuid(_processor_info* pinfo)
 	// pinfo->stepping = cpui[0] & 0xf;
 
 	// // Calculate available processors
-	// ULONG_PTR pa_mask_save, sa_mask_stub = 0;
+	// uintptr_t pa_mask_save, sa_mask_stub = 0;
 	// GetProcessAffinityMask(GetCurrentProcess(), &pa_mask_save, &sa_mask_stub);
 
-	// DWORD returnedLength = 0;
-	// DWORD byteOffset = 0;
+	// uint32_t returnedLength = 0;
+	// uint32_t byteOffset = 0;
 	// GetLogicalProcessorInformation(nullptr, &returnedLength);
 
 	// auto buffer = std::make_unique<u8[]>(returnedLength);

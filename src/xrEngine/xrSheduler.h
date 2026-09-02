@@ -14,7 +14,7 @@ private:
 		ISheduled* Object;
 		u32 dwPadding; // for align-issues
 
-		IC bool operator <(const Item& I) const
+		inline bool operator <(const Item& I) const
 		{
 			return dwTimeForExecute > I.dwTimeForExecute;
 		}
@@ -35,9 +35,9 @@ private:
 	ISheduled* m_current_step_obj;
 	bool m_processing_now;
 
-	IC void Push(Item& I);
-	IC void Pop();
-	IC Item& Top()
+	inline void Push(Item& I);
+	inline void Pop();
+	inline Item& Top()
 	{
 		return Items.front();
 	}

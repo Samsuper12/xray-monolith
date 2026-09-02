@@ -60,9 +60,9 @@ public:
 	virtual void Init();
 	void InitInventory(CInventoryItem* item, bool can_upgrade);
 
-	IC CInventoryItem const* get_inventory() const { return m_inv_item; }
-	IC LPCSTR get_cell_texture(UIUpgrade::ViewState state) const { return m_cell_textures[state].c_str(); }
-	IC LPCSTR get_point_texture(UIUpgrade::ViewState state) const { return m_point_textures[state].c_str(); }
+	inline CInventoryItem const* get_inventory() const { return m_inv_item; }
+	inline LPCSTR get_cell_texture(UIUpgrade::ViewState state) const { return m_cell_textures[state].c_str(); }
+	inline LPCSTR get_point_texture(UIUpgrade::ViewState state) const { return m_point_textures[state].c_str(); }
 	Fvector2 get_scheme_position() const { return m_scheme_wnd->GetWndPos(); }
 	Fvector2 get_item_position() const { return m_item->GetWndPos(); }
 

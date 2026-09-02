@@ -456,7 +456,7 @@ void game_sv_CaptureTheArtefact::OnPlayerConnectFinished(ClientID id_who)
 	xrCData->net_Ready = TRUE;
 }
 
-void game_sv_CaptureTheArtefact::OnPlayerDisconnect(ClientID id_who, LPSTR Name, u16 GameID)
+void game_sv_CaptureTheArtefact::OnPlayerDisconnect(ClientID id_who, char * Name, u16 GameID)
 {
 	CSE_Abstract* actor = m_server->ID_to_entity(GameID);
 	if (!actor)
@@ -1046,7 +1046,7 @@ bool game_sv_CaptureTheArtefact::LoadAnomaliesItems(
 
 	u32 const str_size = xr_strlen(anomaly_string);
 	u32 const buffer_size = (str_size + 1) * sizeof(char);
-	PSTR temp_str = static_cast<PSTR>(alloca(buffer_size));
+	char * temp_str = static_cast<char *>(alloca(buffer_size));
 	for (u32 i = 0; i < items_count; ++i)
 	{
 		_GetItem(anomaly_string, i, temp_str, buffer_size);
@@ -1427,7 +1427,7 @@ bool game_sv_CaptureTheArtefact::OnKillResult(KILL_RES KillResult, game_PlayerSt
 					IClient* tmp_client = m_server->FindClient(tmp_predicate);
 					if (tmp_client)
 					{
-						LPSTR reason;
+						char * reason;
 						STRCONCAT(reason, CStringTable().translate("st_kicked_by_server").c_str());
 						m_server->DisconnectClient(tmp_client, reason);
 					}

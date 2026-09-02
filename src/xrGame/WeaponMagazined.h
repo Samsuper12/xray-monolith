@@ -133,7 +133,7 @@ public:
 	}
 
 	virtual void SetQueueSize(int size);
-	IC int GetQueueSize() const
+	inline int GetQueueSize() const
 	{
 		return m_iQueueSize;
 	};

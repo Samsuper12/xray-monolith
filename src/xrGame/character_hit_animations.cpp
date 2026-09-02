@@ -58,12 +58,12 @@ void character_hit_animation_controller::SetupHitMotions(IKinematicsAnimated& ca
 		block_blends[i] = 0;
 }
 
-ICF int sign(float x)
+inline int sign(float x)
 {
 	return x < 0 ? -1 : 1;
 }
 
-IC void set_blend_params(CBlend* B)
+inline void set_blend_params(CBlend* B)
 {
 	if (!B)
 		return;
@@ -71,7 +71,7 @@ IC void set_blend_params(CBlend* B)
 }
 
 
-IC void play_cycle(IKinematicsAnimated* CA, const MotionID& m, u8 channel, CBlend* & blend_block, float base_power)
+inline void play_cycle(IKinematicsAnimated* CA, const MotionID& m, u8 channel, CBlend* & blend_block, float base_power)
 {
 	const BOOL mixin = TRUE;
 	float power = base_power;

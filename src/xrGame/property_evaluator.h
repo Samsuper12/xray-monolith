@@ -30,13 +30,13 @@ public:
 	//#endif
 
 public:
-	IC CPropertyEvaluator(_object_type* object = 0, LPCSTR evaluator_name = "");
+	inline CPropertyEvaluator(_object_type* object = 0, LPCSTR evaluator_name = "");
 	virtual ~CPropertyEvaluator();
-	IC void init(_object_type* object, LPCSTR evaluator_name);
+	inline void init(_object_type* object, LPCSTR evaluator_name);
 	virtual void setup(_object_type* object, CPropertyStorage* storage);
 	virtual void Load(LPCSTR section);
 	virtual _value_type evaluate();
-	IC const _value_type& property(const _condition_type& condition_id) const;
+	inline const _value_type& property(const _condition_type& condition_id) const;
 
 	virtual void save(NET_Packet& packet)
 	{

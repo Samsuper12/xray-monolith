@@ -11,7 +11,7 @@
 
 #define MODULE
 
-//typedef unsigned char BYTE;
+//typedef unsigned char unsigned char;
 
 unsigned textsize = 0, codesize = 0;
 
@@ -45,7 +45,7 @@ int prnt[T + N_CHAR + 1]; /* pointers to parent nodes, except for the */
 int son[T]; /* pointers to child nodes (son[], son[] + 1) */
 
 //************************** Internal FS
-//typedef xr_vector<BYTE> vecB;
+//typedef xr_vector<unsigned char> vecB;
 class LZfs
 {
 private:
@@ -63,13 +63,13 @@ private:
 	u8* out_end;
 	u8* out_iterator;
 public:
-	IC int _getb()
+	inline int _getb()
 	{
 		if (in_iterator == in_end) return EOF;
 		return *in_iterator++;
 	}
 
-	IC void _putb(int c)
+	inline void _putb(int c)
 	{
 		if (out_iterator == out_end)
 		{
@@ -87,7 +87,7 @@ public:
 		out_start = out_end = out_iterator = 0;
 	}
 
-	IC void Init_Input(u8* _start, u8* _end)
+	inline void Init_Input(u8* _start, u8* _end)
 	{
 		// input
 		in_start = _start;
@@ -98,7 +98,7 @@ public:
 		getbuf = getlen = putbuf = putlen = 0;
 	}
 
-	IC void Init_Output(int _rsize)
+	inline void Init_Output(int _rsize)
 	{
 		// output
 		out_start = (u8*)xr_malloc(_rsize);
@@ -106,22 +106,22 @@ public:
 		out_iterator = out_start;
 	}
 
-	IC u32 InputSize()
+	inline u32 InputSize()
 	{
 		return u32(in_end - in_start);
 	}
 
-	IC u32 OutSize()
+	inline u32 OutSize()
 	{
 		return u32(out_iterator - out_start);
 	}
 
-	IC u8* OutPointer()
+	inline u8* OutPointer()
 	{
 		return out_start;
 	}
 
-	IC void OutRelease()
+	inline void OutRelease()
 	{
 		xr_free(out_start);
 		out_start = 0;
@@ -129,7 +129,7 @@ public:
 		out_iterator = 0;
 	}
 
-	IC int GetBit(void) /* get one bit */
+	inline int GetBit(void) /* get one bit */
 	{
 		unsigned i;
 
@@ -145,7 +145,7 @@ public:
 		return (int)((i & 0x8000) >> 15);
 	}
 
-	IC int GetByte(void) /* get one byte */
+	inline int GetByte(void) /* get one byte */
 	{
 		unsigned i;
 
@@ -161,7 +161,7 @@ public:
 		return (int)((i & 0xff00) >> 8);
 	}
 
-	IC void PutCode(int l, unsigned c) /* output c bits of code */
+	inline void PutCode(int l, unsigned c) /* output c bits of code */
 	{
 		putbuf |= c >> putlen;
 		if ((putlen += l) >= 8)
@@ -182,7 +182,7 @@ public:
 		}
 	}
 
-	IC void PutFlush()
+	inline void PutFlush()
 	{
 		if (putlen)
 		{
@@ -194,7 +194,7 @@ public:
 
 static LZfs fs;
 //************************** Internal FS
-IC void InitTree(void) /* initialize trees */
+inline void InitTree(void) /* initialize trees */
 {
 	int i;
 
@@ -711,16 +711,18 @@ void Decode(void) /* recover */
 
 unsigned _writeLZ(int hf, void* d, unsigned size)
 {
-	u8* start = (u8*)d;
-	fs.Init_Input(start, start + size);
+	// FIXME:
+	stub_unix(__func__);
+	// u8* start = (u8*)d;
+	// fs.Init_Input(start, start + size);
 
-	// Actual compression
-	Encode();
-	// Flush cache
-	int size_out = fs.OutSize();
-	if (size_out) _write(hf, fs.OutPointer(), size_out);
-	fs.OutRelease();
-	return size_out;
+	// // Actual compression
+	// Encode();
+	// // Flush cache
+	// int size_out = fs.OutSize();
+	// if (size_out) _write(hf, fs.OutPointer(), size_out);
+	// fs.OutRelease();
+	// return size_out;
 }
 
 void _compressLZ(u8** dest, unsigned* dest_sz, void* src, unsigned src_sz)
@@ -743,9 +745,11 @@ void _decompressLZ(u8** dest, unsigned* dest_sz, void* src, unsigned src_sz)
 
 unsigned _readLZ(int hf, void*& d, unsigned size)
 {
+	//FIXME:
+	stub_unix(__func__);
 	// Read file in memory
 	u8* data = (u8*)xr_malloc(size);
-	_read(hf, data, size);
+	//_read(hf, data, size);
 
 	fs.Init_Input(data, data + size);
 

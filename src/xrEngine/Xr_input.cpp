@@ -189,9 +189,9 @@
 // 	if (b_altF4) return;
 
 // 	HRESULT hr;
-// 	DWORD dwElements = KEYBOARDBUFFERSIZE;
+// 	uint32_t dwElements = KEYBOARDBUFFERSIZE;
 // 	auto od = std::make_unique<DIDEVICEOBJECTDATA[]>(KEYBOARDBUFFERSIZE);
-// 	DWORD key = 0;
+// 	uint32_t key = 0;
 
 // 	VERIFY(pKeyboard);
 
@@ -269,13 +269,13 @@
 // 	if (b_alt_tab) {
 // 		BOOL fullscreen = (g_screenmode == 2);
 // 		if (fullscreen)
-// 			SendMessage(Device.m_hWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
+// 			SendMessage(Device.m_hWnd, , SC_MINIMIZE, 0);
 // 	}
 // #endif
 // 	/*
 // 	#ifndef _EDITOR
 // 	//update xinput if exist
-// 	for( DWORD iUserIndex=0; iUserIndex<DXUT_MAX_CONTROLLERS; iUserIndex++ )
+// 	for( uint32_t iUserIndex=0; iUserIndex<DXUT_MAX_CONTROLLERS; iUserIndex++ )
 // 	{
 // 	DXUTGetGamepadState( iUserIndex, &g_GamePads[iUserIndex], true, false );
 
@@ -317,12 +317,12 @@
 // 	}
 // }
 
-// bool CInput::get_dik_name(int dik, LPSTR dest_str, int dest_sz)
+// bool CInput::get_dik_name(int dik, char * dest_str, int dest_sz)
 // {
 // 	DIPROPSTRING keyname;
 // 	keyname.diph.dwSize = sizeof(DIPROPSTRING);
 // 	keyname.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-// 	keyname.diph.dwObj = static_cast<DWORD>(dik);
+// 	keyname.diph.dwObj = static_cast<uint32_t>(dik);
 // 	keyname.diph.dwHow = DIPH_BYOFFSET;
 // 	HRESULT hr = pKeyboard->GetProperty(DIPROP_KEYNAME, &keyname.diph);
 // 	if (FAILED(hr))
@@ -367,7 +367,7 @@
 // void CInput::MouseUpdate()
 // {
 // 	HRESULT hr;
-// 	DWORD dwElements = MOUSEBUFFERSIZE;
+// 	uint32_t dwElements = MOUSEBUFFERSIZE;
 // 	auto od = std::make_unique<DIDEVICEOBJECTDATA[]>(MOUSEBUFFERSIZE);
 
 // 	VERIFY(pMouse);

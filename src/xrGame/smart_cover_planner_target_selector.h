@@ -42,7 +42,7 @@ namespace smart_cover
 		virtual void update();
 		virtual LPCSTR object_name() const;
 		void callback(callback_type const& callback);
-		IC callback_type const& callback() const;
+		inline callback_type const& callback() const;
 	};
 } //namespace smart_cover
 

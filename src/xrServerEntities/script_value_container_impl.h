@@ -13,12 +13,12 @@
 #	include "script_value.h"
 #endif
 
-IC CScriptValueContainer::~CScriptValueContainer()
+inline CScriptValueContainer::~CScriptValueContainer()
 {
 	clear();
 }
 
-IC void CScriptValueContainer::add(CScriptValue* new_value)
+inline void CScriptValueContainer::add(CScriptValue* new_value)
 {
 #ifdef XRSE_FACTORY_EXPORTS
 	CScriptValue		*value = 0;
@@ -37,7 +37,7 @@ IC void CScriptValueContainer::add(CScriptValue* new_value)
 #endif
 }
 
-IC void CScriptValueContainer::assign()
+inline void CScriptValueContainer::assign()
 {
 #ifdef XRSE_FACTORY_EXPORTS
 	xr_vector<CScriptValue*>::iterator	I = m_values.begin();
@@ -47,7 +47,7 @@ IC void CScriptValueContainer::assign()
 #endif
 }
 
-IC void CScriptValueContainer::clear()
+inline void CScriptValueContainer::clear()
 {
 	delete_data(m_values);
 }

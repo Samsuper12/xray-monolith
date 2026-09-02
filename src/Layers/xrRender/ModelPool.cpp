@@ -583,13 +583,13 @@ void CModelPool::memory_stats(u32& vb_mem_video, u32& vb_mem_system, u32& ib_mem
 }
 
 #ifdef _EDITOR
-IC bool	_IsBoxVisible(dxRender_Visual* visual, const Fmatrix& transform)
+inline bool	_IsBoxVisible(dxRender_Visual* visual, const Fmatrix& transform)
 {
     Fbox 		bb; 
     bb.xform	(visual->vis.box,transform);
     return 		::Render->occ_visible(bb);
 }
-IC bool	_IsValidShader(dxRender_Visual* visual, u32 priority, bool strictB2F)
+inline bool	_IsValidShader(dxRender_Visual* visual, u32 priority, bool strictB2F)
 {
 	if (visual->shader)
         return (priority==visual->shader->E[0]->flags.iPriority)&&(strictB2F==visual->shader->E[0]->flags.bStrictB2F);

@@ -21,7 +21,7 @@ public:
 	TOnDrawThumbnail OnDrawThumbnail;
 public:
 	int tag;
-	LPVOID m_Object;
+	void* m_Object;
 	int icon_index;
 	u32 prop_color;
 public:
@@ -45,12 +45,12 @@ public:
 	};
 	void SetName(LPCSTR _key) { key = _key; }
 
-	IC void Visible(BOOL val) { m_Flags.set(flHidden, !val); }
-	IC BOOL Visible() const { return !m_Flags.test(flHidden); }
-	IC int Type() { return type; }
-	IC void* Item() { return item; }
-	IC LPCSTR Key() { return *key; }
-	IC void SetIcon(int index) { icon_index = index; }
+	inline void Visible(BOOL val) { m_Flags.set(flHidden, !val); }
+	inline BOOL Visible() const { return !m_Flags.test(flHidden); }
+	inline int Type() { return type; }
+	inline void* Item() { return item; }
+	inline LPCSTR Key() { return *key; }
+	inline void SetIcon(int index) { icon_index = index; }
 };
 
 DEFINE_VECTOR(ListItem*, ListItemsVec, ListItemsIt);

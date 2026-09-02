@@ -77,7 +77,7 @@
 >
 
 TEMPLATE_SPECIALIZATION
-IC CSAStar::CAStar(const u32 max_vertex_count) :
+inline CSAStar::CAStar(const u32 max_vertex_count) :
 	inherited(max_vertex_count)
 {
 }
@@ -89,7 +89,7 @@ CSAStar::~CAStar()
 
 TEMPLATE_SPECIALIZATION
 template <typename _PathManager>
-IC void CSAStar::initialize(_PathManager& path_manager)
+inline void CSAStar::initialize(_PathManager& path_manager)
 {
 	THROW2(!this->m_search_started, "Recursive graph engine usage is not allowed!");
 	this->m_search_started = true;
@@ -116,7 +116,7 @@ IC void CSAStar::initialize(_PathManager& path_manager)
 
 TEMPLATE_SPECIALIZATION
 template <typename _PathManager>
-IC bool CSAStar::step(_PathManager& path_manager)
+inline bool CSAStar::step(_PathManager& path_manager)
 {
 	// get the best node, i.e. a node with the minimum 'f'
 	CGraphVertex& best = this->data_storage().get_best();
@@ -244,7 +244,7 @@ IC bool CSAStar::step(_PathManager& path_manager)
 
 TEMPLATE_SPECIALIZATION
 template <typename _PathManager>
-IC bool CSAStar::find(_PathManager& path_manager)
+inline bool CSAStar::find(_PathManager& path_manager)
 {
 	// initialize data structures with new search
 	initialize(path_manager);

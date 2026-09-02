@@ -9,7 +9,7 @@
 #pragma once
 
 #ifdef AI_COMPILER
-IC CGameLevelCrossTable::CGameLevelCrossTable(LPCSTR fName)
+inline CGameLevelCrossTable::CGameLevelCrossTable(LPCSTR fName)
 {
 	m_tpCrossTableVFS	= FS.r_open(fName);
 	R_ASSERT2			(m_tpCrossTableVFS,"Can't open cross table!");
@@ -27,7 +27,7 @@ IC CGameLevelCrossTable::CGameLevelCrossTable(LPCSTR fName)
 }
 #endif // AI_COMPILER
 
-IC CGameLevelCrossTable::CGameLevelCrossTable(const void* buffer, const u32& buffer_size)
+inline CGameLevelCrossTable::CGameLevelCrossTable(const void* buffer, const u32& buffer_size)
 {
 	Memory.mem_copy(&m_tCrossTableHeader, buffer, sizeof(m_tCrossTableHeader));
 	buffer = (const u8*)buffer + sizeof(m_tCrossTableHeader);
@@ -37,52 +37,52 @@ IC CGameLevelCrossTable::CGameLevelCrossTable(const void* buffer, const u32& buf
 	m_tpaCrossTable = (CCell*)buffer;
 }
 
-IC CGameLevelCrossTable::~CGameLevelCrossTable()
+inline CGameLevelCrossTable::~CGameLevelCrossTable()
 {
 };
 
-IC const CGameLevelCrossTable::CCell& CGameLevelCrossTable::vertex(u32 level_vertex_id) const
+inline const CGameLevelCrossTable::CCell& CGameLevelCrossTable::vertex(u32 level_vertex_id) const
 {
 	VERIFY(level_vertex_id < header().level_vertex_count());
 	return (m_tpaCrossTable[level_vertex_id]);
 }
 
-IC u32 CGameLevelCrossTable::CHeader::version() const
+inline u32 CGameLevelCrossTable::CHeader::version() const
 {
 	return (dwVersion);
 }
 
-IC u32 CGameLevelCrossTable::CHeader::level_vertex_count() const
+inline u32 CGameLevelCrossTable::CHeader::level_vertex_count() const
 {
 	return (dwNodeCount);
 }
 
-IC u32 CGameLevelCrossTable::CHeader::game_vertex_count() const
+inline u32 CGameLevelCrossTable::CHeader::game_vertex_count() const
 {
 	return (dwGraphPointCount);
 }
 
-IC const xrGUID& CGameLevelCrossTable::CHeader::level_guid() const
+inline const xrGUID& CGameLevelCrossTable::CHeader::level_guid() const
 {
 	return (m_level_guid);
 }
 
-IC const xrGUID& CGameLevelCrossTable::CHeader::game_guid() const
+inline const xrGUID& CGameLevelCrossTable::CHeader::game_guid() const
 {
 	return (m_game_guid);
 }
 
-IC GameGraph::_GRAPH_ID CGameLevelCrossTable::CCell::game_vertex_id() const
+inline GameGraph::_GRAPH_ID CGameLevelCrossTable::CCell::game_vertex_id() const
 {
 	return (tGraphIndex);
 }
 
-IC float CGameLevelCrossTable::CCell::distance() const
+inline float CGameLevelCrossTable::CCell::distance() const
 {
 	return (fDistance);
 }
 
-IC const CGameLevelCrossTable::CHeader& CGameLevelCrossTable::header() const
+inline const CGameLevelCrossTable::CHeader& CGameLevelCrossTable::header() const
 {
 	return (m_tCrossTableHeader);
 }

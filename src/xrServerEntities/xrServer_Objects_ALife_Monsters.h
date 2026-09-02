@@ -230,13 +230,13 @@ public:
 	virtual u8 g_squad();
 	virtual u8 g_group();
 
-	IC float get_health() const { return fHealth; }
-	IC ALife::_OBJECT_ID get_killer_id() const { return m_killer_id; }
+	inline float get_health() const { return fHealth; }
+	inline ALife::_OBJECT_ID get_killer_id() const { return m_killer_id; }
 
 	void set_health(float const health_value);
 	void set_killer_id(ALife::_OBJECT_ID const killer_id);
 
-	IC bool g_Alive() const { return (get_health() > 0.f); }
+	inline bool g_Alive() const { return (get_health() > 0.f); }
 	virtual bool used_ai_locations() const;
 	virtual bool can_switch_online() const;
 	virtual bool can_switch_offline() const;
@@ -285,7 +285,7 @@ public:
 public:
 	CSE_ALifeMonsterAbstract(LPCSTR caSection);
 	virtual ~CSE_ALifeMonsterAbstract();
-	IC float g_MaxHealth() const { return m_fMaxHealthValue; }
+	inline float g_MaxHealth() const { return m_fMaxHealthValue; }
 	virtual CSE_Abstract* init();
 	virtual CSE_Abstract* base();
 	virtual const CSE_Abstract* base() const;
@@ -293,7 +293,7 @@ public:
 	virtual CSE_ALifeSchedulable* cast_schedulable() { return this; };
 	virtual CSE_ALifeMonsterAbstract* cast_monster_abstract() { return this; };
 
-	IC CALifeMonsterBrain& brain() const
+	inline CALifeMonsterBrain& brain() const
 	{
 		VERIFY(m_brain);
 		return (*m_brain);
@@ -304,7 +304,7 @@ public:
 	virtual u32 ef_weapon_type() const;
 	virtual u32 ef_detector_type() const;
 
-	IC int Rank() { return m_rank; }
+	inline int Rank() { return m_rank; }
 
 #ifdef XRGAME_EXPORTS
 	void kill();
@@ -521,7 +521,7 @@ public:
 	virtual CSE_ALifeHumanAbstract* cast_human_abstract() { return this; };
 	virtual bool natural_weapon() const { return false; }
 	virtual bool natural_detector() const { return false; }
-	IC CALifeHumanBrain& brain() const
+	inline CALifeHumanBrain& brain() const
 	{
 		VERIFY(m_brain);
 		return (*m_brain);
@@ -595,7 +595,7 @@ private:
 	CALifeOnlineOfflineGroupBrain* m_brain;
 
 public:
-	IC CALifeOnlineOfflineGroupBrain& brain() const
+	inline CALifeOnlineOfflineGroupBrain& brain() const
 	{
 		VERIFY(m_brain);
 		return (*m_brain);

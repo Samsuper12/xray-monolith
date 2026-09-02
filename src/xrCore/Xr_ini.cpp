@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <utility>
 
 #include <string_concatenations.h>
 #include <xr_trims.h>
@@ -45,7 +46,7 @@ bool item_pred(const CInifile::Item& x, LPCSTR val)
 //------------------------------------------------------------------------------
 //Тело функций Inifile
 //------------------------------------------------------------------------------
-XRCORE_API BOOL _parse(LPSTR dest, LPCSTR src)
+XRCORE_API BOOL _parse(char * dest, LPCSTR src)
 {
 	BOOL bInsideSTR = false;
 	if (src)
@@ -76,7 +77,7 @@ XRCORE_API BOOL _parse(LPSTR dest, LPCSTR src)
 	return bInsideSTR;
 }
 
-XRCORE_API void _decorate(LPSTR dest, LPCSTR src)
+XRCORE_API void _decorate(char * dest, LPCSTR src)
 {
 	if (src)
 	{
@@ -220,7 +221,7 @@ static void insert_item(CInifile::Sect* tgt, const CInifile::Item& I)
 	}
 }
 
-IC BOOL is_empty_line_now(IReader* F)
+inline BOOL is_empty_line_now(IReader* F)
 {
 	char* a0 = (char*)F->pointer() - 4;
 	char* a1 = (char*)(F->pointer()) - 3;
@@ -455,8 +456,8 @@ void CInifile::Load(IReader* F, std::fs::path path
 				continue;
 			}
 
-			LPSTR comm = strchr(str, ';');
-			LPSTR comm_1 = strchr(str, '/');
+			char * comm = strchr(str, ';');
+			char * comm_1 = strchr(str, '/');
 
 			if (comm_1 && (*(comm_1 + 1) == '/') && ((!comm) || (comm && (comm_1 < comm))))
 			{
@@ -464,7 +465,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 			}
 
 #ifdef DEBUG
-			LPSTR comment = 0;
+			char * comment = 0;
 #endif
 			if (comm)
 			{
@@ -764,7 +765,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 						case InsertType::Parent:		return IsStringDLTXDelete(sect_it->second);
 						}
 
-						_STL_UNREACHABLE;
+						__builtin_unreachable();
 					}();
 
 					if (bShouldInsert)
@@ -1266,17 +1267,13 @@ u32 CInifile::r_u32(LPCSTR S, LPCSTR L) const
 u64 CInifile::r_u64(LPCSTR S, LPCSTR L) const
 {
 	LPCSTR C = r_string(S, L);
-#ifndef _EDITOR
-	return _strtoui64(C, NULL, 10);
-#else
-    return (u64)_atoi64(C);
-#endif
+  return std::atoll(C);
 }
 
 s64 CInifile::r_s64(LPCSTR S, LPCSTR L) const
 {
 	LPCSTR C = r_string(S, L);
-	return _atoi64(C);
+	return std::atoll(C);
 }
 
 s8 CInifile::r_s8(LPCSTR S, LPCSTR L) const
@@ -1503,22 +1500,15 @@ void CInifile::w_u32(LPCSTR S, LPCSTR L, u32 V, LPCSTR comment)
 void CInifile::w_u64(LPCSTR S, LPCSTR L, u64 V, LPCSTR comment)
 {
 	string128 temp;
-#ifndef _EDITOR
-	_ui64toa_s(V, temp, sizeof(temp), 10);
-#else
-    _ui64toa(V, temp, 10);
-#endif
+
+	std::to_chars(temp, temp + sizeof(temp), V, 10);
 	w_string(S, L, temp, comment);
 }
 
 void CInifile::w_s64(LPCSTR S, LPCSTR L, s64 V, LPCSTR comment)
 {
 	string128 temp;
-#ifndef _EDITOR
-	_i64toa_s(V, temp, sizeof(temp), 10);
-#else
-    _i64toa(V, temp, 10);
-#endif
+	std::to_chars(temp, temp + sizeof(temp), V, 10);
 	w_string(S, L, temp, comment);
 }
 

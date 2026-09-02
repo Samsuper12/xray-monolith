@@ -11,14 +11,14 @@
 
 #include "smart_cover.h"
 
-IC void stalker_movement_params::construct(stalker_movement_manager_smart_cover* manager)
+inline void stalker_movement_params::construct(stalker_movement_manager_smart_cover* manager)
 {
 	VERIFY(!m_manager);
 	VERIFY(manager);
 	m_manager = manager;
 }
 
-IC void stalker_movement_params::desired_position(Fvector const* position)
+inline void stalker_movement_params::desired_position(Fvector const* position)
 {
 	if (!position)
 	{
@@ -33,12 +33,12 @@ IC void stalker_movement_params::desired_position(Fvector const* position)
 	m_desired_position = &m_desired_position_impl;
 }
 
-IC Fvector const* stalker_movement_params::desired_position() const
+inline Fvector const* stalker_movement_params::desired_position() const
 {
 	return (m_desired_position);
 }
 
-IC void stalker_movement_params::desired_direction(Fvector const* direction)
+inline void stalker_movement_params::desired_direction(Fvector const* direction)
 {
 	if (!direction)
 	{
@@ -54,22 +54,22 @@ IC void stalker_movement_params::desired_direction(Fvector const* direction)
 	m_desired_direction = &m_desired_direction_impl;
 }
 
-IC Fvector const* stalker_movement_params::desired_direction() const
+inline Fvector const* stalker_movement_params::desired_direction() const
 {
 	return (m_desired_direction);
 }
 
-IC shared_str const& stalker_movement_params::cover_id() const
+inline shared_str const& stalker_movement_params::cover_id() const
 {
 	return (m_cover_id);
 }
 
-IC smart_cover::cover const* stalker_movement_params::cover() const
+inline smart_cover::cover const* stalker_movement_params::cover() const
 {
 	return (m_cover);
 }
 
-IC void stalker_movement_params::cover_fire_object(CGameObject const* object)
+inline void stalker_movement_params::cover_fire_object(CGameObject const* object)
 {
 	m_cover_fire_object = object;
 	if (!object)
@@ -79,12 +79,12 @@ IC void stalker_movement_params::cover_fire_object(CGameObject const* object)
 	m_cover_fire_position_impl.set(flt_max, flt_max, flt_max);
 }
 
-IC CGameObject const* stalker_movement_params::cover_fire_object() const
+inline CGameObject const* stalker_movement_params::cover_fire_object() const
 {
 	return (m_cover_fire_object);
 }
 
-IC void stalker_movement_params::cover_fire_position(Fvector const* position)
+inline void stalker_movement_params::cover_fire_position(Fvector const* position)
 {
 	if (!position)
 	{
@@ -98,12 +98,12 @@ IC void stalker_movement_params::cover_fire_position(Fvector const* position)
 	m_cover_fire_position = &m_cover_fire_position_impl;
 }
 
-IC Fvector const* stalker_movement_params::cover_fire_position() const
+inline Fvector const* stalker_movement_params::cover_fire_position() const
 {
 	return (m_cover_fire_position);
 }
 
-IC void stalker_movement_params::cover_loophole_id(shared_str const& loophole_id)
+inline void stalker_movement_params::cover_loophole_id(shared_str const& loophole_id)
 {
 	cover_fire_object(0);
 	cover_fire_position(0);

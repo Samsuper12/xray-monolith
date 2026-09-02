@@ -112,7 +112,7 @@ void xrServer::client_Replicate()
 
 IClient* xrServer::client_Find_Get(ClientID ID)
 {
-	DWORD dwPort = 0;
+	uint32_t dwPort = 0;
 	ip_address tmp_ip_address;
 
 
@@ -210,7 +210,7 @@ void xrServer::GetPooledState(xrClientData* xrCL)
 int g_Dump_Update_Write = 0;
 
 #ifdef DEBUG
-INT g_sv_SendUpdate = 0;
+int32_t g_sv_SendUpdate = 0;
 #endif
 
 void xrServer::Update()
@@ -420,7 +420,7 @@ u32 xrServer::OnDelayedMessage(NET_Packet& P, ClientID sender) // Non-Zero means
 				Msg("* Radmin [%s] is running command: %s", CL->ps->getName(), buff);
 				SetLogCB(console_log_cb);
 				_tmp_log.clear();
-				LPSTR result_command;
+				char * result_command;
 				string64 tmp_number_str;
 				xr_sprintf(tmp_number_str, " raid:%u", CL->ID.value());
 				STRCONCAT(result_command, buff, tmp_number_str);
@@ -908,7 +908,7 @@ void xrServer::Server_Client_Check(IClient* CL)
 		return;
 	};
 
-	if (CL->process_id == GetCurrentProcessId())
+	if (CL->process_id == getpid())
 	{
 		CL->flags.bLocal = 1;
 		SV_Client = (xrClientData*)CL;
@@ -1045,7 +1045,7 @@ void xrServer::create_direct_client()
 	SClientConnectData cl_data;
 	cl_data.clientID.set(1);
 	xr_strcpy(cl_data.name, "single_player");
-	cl_data.process_id = GetCurrentProcessId();
+	cl_data.process_id = getpid();
 
 	new_client(&cl_data);
 }
@@ -1071,7 +1071,7 @@ void xrServer::AddDelayedPacket(NET_Packet& Packet, ClientID Sender)
 	m_aDelayedPackets.push_back(DelayedPacket());
 	DelayedPacket* NewPacket = &(m_aDelayedPackets.back());
 	NewPacket->SenderID = Sender;
-	CopyMemory(&(NewPacket->Packet), &Packet, sizeof(NET_Packet));
+	memcpy(&(NewPacket->Packet), &Packet, sizeof(NET_Packet));
 
 	DelayedPackestCS.Leave();
 }
@@ -1110,7 +1110,7 @@ void xrServer::PerformCheckClientsForMaxPing()
 				if (Client->m_ping_warn.m_maxPingWarnings >= g_sv_maxPingWarningsCount)
 				{
 					//kick
-					LPSTR reason;
+					char * reason;
 					STRCONCAT(reason, CStringTable().translate("st_kicked_by_server").c_str());
 					Level().Server->DisconnectClient(Client, reason);
 				}

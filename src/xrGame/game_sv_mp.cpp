@@ -648,7 +648,7 @@ void game_sv_mp::OnPlayerConnect(ClientID id_who)
 	inherited::OnPlayerConnect(id_who);
 }
 
-void game_sv_mp::OnPlayerDisconnect(ClientID id_who, LPSTR Name, u16 GameID)
+void game_sv_mp::OnPlayerDisconnect(ClientID id_who, char * Name, u16 GameID)
 {
 	//---------------------------------------------------
 	NET_Packet P;

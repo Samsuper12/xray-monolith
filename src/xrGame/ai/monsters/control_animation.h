@@ -29,12 +29,12 @@ private:
 struct SControlAnimationData : public ControlCom::IComData
 {
 	float _speed;
-	IC void set_speed(float v)
+	inline void set_speed(float v)
 	{
 		_speed = v;
 		VERIFY2(_abs(_speed)<1000, "SControlAnimationData::set_speed too big");
 	};
-	IC float get_speed() { return _speed; };
+	inline float get_speed() { return _speed; };
 	SAnimationPart global;
 	SAnimationPart legs;
 	SAnimationPart torso;
@@ -45,7 +45,7 @@ struct SAnimationSignalEventData : public ControlCom::IEventData
 	MotionID motion;
 	float time_perc;
 	u32 event_id;
-	IC SAnimationSignalEventData(MotionID m, float perc, u32 id) : time_perc(perc), event_id(id), motion(m)
+	inline SAnimationSignalEventData(MotionID m, float perc, u32 id) : time_perc(perc), event_id(id), motion(m)
 	{
 	}
 };
@@ -95,7 +95,7 @@ public:
 	void unfreeze();
 
 	// Services
-	IC float motion_time(MotionID motion_id, IRenderVisual* visual);
+	inline float motion_time(MotionID motion_id, IRenderVisual* visual);
 
 
 private:
@@ -115,7 +115,7 @@ public:
 };
 
 // get motion time, when just MotionID available
-IC float CControlAnimation::motion_time(MotionID motion_id, IRenderVisual* visual)
+inline float CControlAnimation::motion_time(MotionID motion_id, IRenderVisual* visual)
 {
 	IKinematicsAnimated* skeleton_animated = smart_cast<IKinematicsAnimated*>(visual);
 	VERIFY(skeleton_animated);

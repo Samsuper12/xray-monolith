@@ -23,7 +23,7 @@ constexpr u32 color_rgba(u32 r, u32 g, u32 b, u32 a) noexcept
     return color_argb(a, r, g, b);
 }
 
-ICF u32 color_argb_f(f32 a, f32 r, f32 g, f32 b) noexcept
+inline u32 color_argb_f(f32 a, f32 r, f32 g, f32 b) noexcept
 {
 #if 0
     s32 _r = clampr(iFloor(r*255.f), 0, 255);
@@ -39,7 +39,7 @@ ICF u32 color_argb_f(f32 a, f32 r, f32 g, f32 b) noexcept
     return color_argb(_a, _r, _g, _b);
 }
 
-ICF u32 color_rgba_f(f32 r, f32 g, f32 b, f32 a) noexcept
+inline u32 color_rgba_f(f32 r, f32 g, f32 b, f32 a) noexcept
 {
     return color_argb_f(a, r, g, b);
 }
@@ -63,7 +63,7 @@ public:
 public:
 	T r, g, b, a;
 
-	ICF SelfRef set(u32 dw)
+	inline SelfRef set(u32 dw)
 	{
 		const T f = T(1.0) / T(255.0);
 		a = f * T((dw >> 24) & 0xff);
@@ -72,7 +72,7 @@ public:
 		b = f * T((dw >> 0) & 0xff);
 		return *this;
 	};
-	IC SelfRef set(T _r, T _g, T _b, T _a)
+	inline SelfRef set(T _r, T _g, T _b, T _a)
 	{
 		r = _r;
 		g = _g;
@@ -80,7 +80,7 @@ public:
 		a = _a;
 		return *this;
 	};
-	IC SelfRef set(SelfCRef dw)
+	inline SelfRef set(SelfCRef dw)
 	{
 		r = dw.r;
 		g = dw.g;
@@ -88,40 +88,40 @@ public:
 		a = dw.a;
 		return *this;
 	};
-	ICF u32 get() const { return color_rgba_f(r, g, b, a); }
-	IC u32 get_windows() const
+	inline u32 get() const { return color_rgba_f(r, g, b, a); }
+	inline u32 get_windows() const
 	{
-		BYTE _a, _r, _g, _b;
-		_a = (BYTE)(a * 255.f);
-		_r = (BYTE)(r * 255.f);
-		_g = (BYTE)(g * 255.f);
-		_b = (BYTE)(b * 255.f);
+		unsigned char _a, _r, _g, _b;
+		_a = (unsigned char)(a * 255.f);
+		_r = (unsigned char)(r * 255.f);
+		_g = (unsigned char)(g * 255.f);
+		_b = (unsigned char)(b * 255.f);
 		return ((u32)(_a << 24) | (_b << 16) | (_g << 8) | (_r));
 	};
-	IC SelfRef set_windows(u32 dw)
+	inline SelfRef set_windows(u32 dw)
 	{
 		const T f = 1.0f / 255.0f;
-		a = f * (T)(BYTE)(dw >> 24);
-		b = f * (T)(BYTE)(dw >> 16);
-		g = f * (T)(BYTE)(dw >> 8);
-		r = f * (T)(BYTE)(dw >> 0);
+		a = f * (T)(unsigned char)(dw >> 24);
+		b = f * (T)(unsigned char)(dw >> 16);
+		g = f * (T)(unsigned char)(dw >> 8);
+		r = f * (T)(unsigned char)(dw >> 0);
 		return *this;
 	};
-	IC SelfRef adjust_contrast(T f) // >1 - contrast will be increased
+	inline SelfRef adjust_contrast(T f) // >1 - contrast will be increased
 	{
 		r = 0.5f + f * (r - 0.5f);
 		g = 0.5f + f * (g - 0.5f);
 		b = 0.5f + f * (b - 0.5f);
 		return *this;
 	};
-	IC SelfRef adjust_contrast(SelfCRef in, T f) // >1 - contrast will be increased
+	inline SelfRef adjust_contrast(SelfCRef in, T f) // >1 - contrast will be increased
 	{
 		r = 0.5f + f * (in.r - 0.5f);
 		g = 0.5f + f * (in.g - 0.5f);
 		b = 0.5f + f * (in.b - 0.5f);
 		return *this;
 	};
-	IC SelfRef adjust_saturation(T s)
+	inline SelfRef adjust_saturation(T s)
 	{
 		// Approximate values for each component's contribution to luminance.
 		// Based upon the NTSC standard described in ITU-R Recommendation BT.709.
@@ -132,7 +132,7 @@ public:
 		b = grey + s * (b - grey);
 		return *this;
 	};
-	IC SelfRef adjust_saturation(SelfCRef in, T s)
+	inline SelfRef adjust_saturation(SelfCRef in, T s)
 	{
 		// Approximate values for each component's contribution to luminance.
 		// Based upon the NTSC standard described in ITU-R Recommendation BT.709.
@@ -143,7 +143,7 @@ public:
 		b = grey + s * (in.b - grey);
 		return *this;
 	};
-	IC SelfRef modulate(_color& in)
+	inline SelfRef modulate(_color& in)
 	{
 		r *= in.r;
 		g *= in.g;
@@ -151,7 +151,7 @@ public:
 		a *= in.a;
 		return *this;
 	};
-	IC SelfRef modulate(SelfCRef in1, SelfCRef in2)
+	inline SelfRef modulate(SelfCRef in1, SelfCRef in2)
 	{
 		r = in1.r * in2.r;
 		g = in1.g * in2.g;
@@ -159,7 +159,7 @@ public:
 		a = in1.a * in2.a;
 		return *this;
 	};
-	IC SelfRef negative(SelfCRef in)
+	inline SelfRef negative(SelfCRef in)
 	{
 		r = 1.0f - in.r;
 		g = 1.0f - in.g;
@@ -167,7 +167,7 @@ public:
 		a = 1.0f - in.a;
 		return *this;
 	};
-	IC SelfRef negative(void)
+	inline SelfRef negative(void)
 	{
 		r = 1.0f - r;
 		g = 1.0f - g;
@@ -175,7 +175,7 @@ public:
 		a = 1.0f - a;
 		return *this;
 	};
-	IC SelfRef sub_rgb(T s)
+	inline SelfRef sub_rgb(T s)
 	{
 		r -= s;
 		g -= s;
@@ -183,14 +183,14 @@ public:
 		// a=1.0f-a;
 		return *this;
 	};
-	IC SelfRef add_rgb(T s)
+	inline SelfRef add_rgb(T s)
 	{
 		r += s;
 		g += s;
 		b += s;
 		return *this;
 	};
-	IC SelfRef add_rgba(T s)
+	inline SelfRef add_rgba(T s)
 	{
 		r += s;
 		g += s;
@@ -198,7 +198,7 @@ public:
 		a += s;
 		return *this;
 	};
-	IC SelfRef mul_rgba(T s)
+	inline SelfRef mul_rgba(T s)
 	{
 		r *= s;
 		g *= s;
@@ -206,14 +206,14 @@ public:
 		a *= s;
 		return *this;
 	};
-	IC SelfRef mul_rgb(T s)
+	inline SelfRef mul_rgb(T s)
 	{
 		r *= s;
 		g *= s;
 		b *= s;
 		return *this;
 	};
-	IC SelfRef mul_rgba(SelfCRef c, T s)
+	inline SelfRef mul_rgba(SelfCRef c, T s)
 	{
 		r = c.r * s;
 		g = c.g * s;
@@ -221,7 +221,7 @@ public:
 		a = c.a * s;
 		return *this;
 	};
-	IC SelfRef mul_rgb(SelfCRef c, T s)
+	inline SelfRef mul_rgb(SelfCRef c, T s)
 	{
 		r = c.r * s;
 		g = c.g * s;
@@ -230,36 +230,36 @@ public:
 	};
 
 	// SQ magnitude
-	IC T magnitude_sqr_rgb(void) const
+	inline T magnitude_sqr_rgb(void) const
 	{
 		return r * r + g * g + b * b;
 	}
 
 	// magnitude
-	IC T magnitude_rgb(void) const
+	inline T magnitude_rgb(void) const
 	{
 		return _sqrt(magnitude_sqr_rgb());
 	}
 
-	IC T intensity(void) const
+	inline T intensity(void) const
 	{
 		return (r + g + b) / 3.f;
 	}
 
 	// Normalize
-	IC SelfRef normalize_rgb(void)
+	inline SelfRef normalize_rgb(void)
 	{
 		VERIFY(magnitude_sqr_rgb() > EPS_S);
 		return mul_rgb(1.f / magnitude_rgb());
 	}
 
-	IC SelfRef normalize_rgb(SelfCRef c)
+	inline SelfRef normalize_rgb(SelfCRef c)
 	{
 		VERIFY(c.magnitude_sqr_rgb() > EPS_S);
 		return mul_rgb(c, 1.f / c.magnitude_rgb());
 	}
 
-	IC SelfRef lerp(SelfCRef c1, SelfCRef c2, T t)
+	inline SelfRef lerp(SelfCRef c1, SelfCRef c2, T t)
 	{
 		T invt = 1.f - t;
 		r = c1.r * invt + c2.r * t;
@@ -269,7 +269,7 @@ public:
 		return *this;
 	}
 
-	IC SelfRef lerp(SelfCRef c1, SelfCRef c2, SelfCRef c3, T t)
+	inline SelfRef lerp(SelfCRef c1, SelfCRef c2, SelfCRef c3, T t)
 	{
 		if (t > .5f)
 		{
@@ -281,11 +281,11 @@ public:
 		}
 	}
 
-	IC BOOL similar_rgba(SelfCRef v, T E = EPS_L) const
+	inline BOOL similar_rgba(SelfCRef v, T E = EPS_L) const
 	{
 		return _abs(r - v.r) < E && _abs(g - v.g) < E && _abs(b - v.b) < E && _abs(a - v.a) < E;
 	};
-	IC BOOL similar_rgb(SelfCRef v, T E = EPS_L) const
+	inline BOOL similar_rgb(SelfCRef v, T E = EPS_L) const
 	{
 		return _abs(r - v.r) < E && _abs(g - v.g) < E && _abs(b - v.b) < E;
 	};

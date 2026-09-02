@@ -334,14 +334,14 @@ bool CCC_LoadCFG_custom::allow(LPCSTR cmd)
 //-----------------------------------------------------------------------
 class CCC_Start : public IConsole_Command
 {
-	void parse(LPSTR dest, LPCSTR args, LPCSTR name)
+	void parse(char * dest, LPCSTR args, LPCSTR name)
 	{
 		dest[0] = 0;
 		if (strstr(args, name))
 			sscanf(strstr(args, name) + xr_strlen(name), "(%[^)])", dest);
 	}
 
-	void protect_Name_strlwr(LPSTR str)
+	void protect_Name_strlwr(char * str)
 	{
 		string4096 out;
 		xr_strcpy(out, sizeof(out), str);
@@ -530,7 +530,6 @@ public:
 	}
 };
 
-extern void GetMonitorResolution(u32& horizontal, u32& vertical);
 
 class CCC_Screenmode : public CCC_Token
 {
@@ -617,9 +616,9 @@ public:
 //-----------------------------------------------------------------------
 /*
 #ifdef DEBUG
-extern INT g_bDR_LM_UsePointsBBox;
-extern INT g_bDR_LM_4Steps;
-extern INT g_iDR_LM_Step;
+extern int32_t g_bDR_LM_UsePointsBBox;
+extern int32_t g_bDR_LM_4Steps;
+extern int32_t g_iDR_LM_Step;
 extern Fvector g_DR_LM_Min, g_DR_LM_Max;
 
 class CCC_DR_ClearPoint : public IConsole_Command

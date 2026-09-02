@@ -65,8 +65,8 @@ public:
 	bool in_range(shared_str const& cover_id, shared_str const& loophole_id, Fvector const& position) const;
 	bool in_current_loophole_fov(Fvector const& position) const;
 	bool in_current_loophole_range(Fvector const& position) const;
-	IC float const& apply_loophole_direction_distance() const;
-	IC void apply_loophole_direction_distance(float const& value);
+	inline float const& apply_loophole_direction_distance() const;
+	inline void apply_loophole_direction_distance(float const& value);
 
 	// forced to be public
 public:
@@ -78,7 +78,7 @@ public:
 	Fvector position_to_cover_from() const;
 
 public:
-	IC target_selector_type& target_selector();
+	inline target_selector_type& target_selector();
 	void target_selector(CScriptCallbackEx<void> const& callback);
 	void target_idle();
 	void target_lookout();
@@ -87,12 +87,12 @@ public:
 	void target_default(bool const& value);
 
 public:
-	IC animation_selector_type& animation_selector() const;
-	IC void property_storage(CPropertyStorage* storage);
-	IC bool entering_smart_cover_with_animation() const;
+	inline animation_selector_type& animation_selector() const;
+	inline void property_storage(CPropertyStorage* storage);
+	inline bool entering_smart_cover_with_animation() const;
 	bool default_behaviour() const;
-	IC void combat_behaviour(bool value);
-	IC bool combat_behaviour() const;
+	inline void combat_behaviour(bool value);
+	inline bool combat_behaviour() const;
 
 public:
 	float const& idle_min_time() const;
@@ -126,10 +126,10 @@ private:
 	shared_str const& next_loophole_id();
 
 private:
-	IC void non_animated_loophole_change(bool const& value);
+	inline void non_animated_loophole_change(bool const& value);
 
 private:
-	IC animation_action const& current_transition_animation() const;
+	inline animation_action const& current_transition_animation() const;
 
 private:
 	typedef xr_vector<shared_str> LoopholePath;

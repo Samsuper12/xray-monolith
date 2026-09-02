@@ -186,7 +186,7 @@ public:
 		return *m_pCharacterInfo;
 	}
 
-	IC const CSpecificCharacter& SpecificCharacter() const { return CharacterInfo().m_SpecificCharacter; };
+	inline const CSpecificCharacter& SpecificCharacter() const { return CharacterInfo().m_SpecificCharacter; };
 	bool InfinitiveMoney() { return CharacterInfo().m_SpecificCharacter.MoneyDef().inf_money; }
 
 	//установка группировки на клиентском и серверном объкте
@@ -231,8 +231,8 @@ protected:
 	u32 m_ammo_in_box_to_spawn;
 
 public:
-	IC const shared_str& item_to_spawn() const { return m_item_to_spawn; }
-	IC const u32& ammo_in_box_to_spawn() const { return m_ammo_in_box_to_spawn; }
+	inline const shared_str& item_to_spawn() const { return m_item_to_spawn; }
+	inline const u32& ammo_in_box_to_spawn() const { return m_ammo_in_box_to_spawn; }
 
 public:
 	virtual bool unlimited_ammo() = 0;
@@ -253,7 +253,7 @@ private:
 	bool m_deadbody_closed;
 
 public:
-	IC CTradeParameters& trade_parameters() const;
+	inline CTradeParameters& trade_parameters() const;
 	virtual LPCSTR trade_section() const;
 	float deficit_factor(const shared_str& section) const;
 	void buy_supplies(CInifile& ini_file, LPCSTR section);
@@ -274,9 +274,9 @@ public:
 	virtual bool NeedOsoznanieMode() { return m_need_osoznanie_mode != FALSE; }
 
 	void deadbody_can_take(bool status);
-	IC bool deadbody_can_take_status() const { return m_deadbody_can_take; }
+	inline bool deadbody_can_take_status() const { return m_deadbody_can_take; }
 	void deadbody_closed(bool status);
-	IC bool deadbody_closed_status() const { return m_deadbody_closed; }
+	inline bool deadbody_closed_status() const { return m_deadbody_closed; }
 	DECLARE_SCRIPT_REGISTER_FUNCTION
 };
 

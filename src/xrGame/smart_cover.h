@@ -62,29 +62,29 @@ class cover :
 		cover(object const& object, DescriptionPtr description, bool is_combat_cover, bool can_fire,
 		      ::luabind::object const& loopholes);
 		~cover();
-		IC Loopholes const& loopholes() const;
-		IC object const& object() const;
-		IC Fvector fov_position(loophole const& loophole) const;
-		IC Fvector fov_direction(loophole const& loophole) const;
-		IC Fvector danger_fov_direction(loophole const& loophole) const;
-		IC Fvector enter_direction(loophole const& loophole) const;
+		inline Loopholes const& loopholes() const;
+		inline object const& object() const;
+		inline Fvector fov_position(loophole const& loophole) const;
+		inline Fvector fov_direction(loophole const& loophole) const;
+		inline Fvector danger_fov_direction(loophole const& loophole) const;
+		inline Fvector enter_direction(loophole const& loophole) const;
 		u32 const& level_vertex_id(loophole const& loophole) const;
-		IC Fvector position(Fvector const& position) const;
+		inline Fvector position(Fvector const& position) const;
 		u32 const& action_level_vertex_id(loophole const& loophole, shared_str const& action_id) const;
 		loophole* best_loophole(Fvector const& position, float& value, bool const& use_default_behaviour,
 		                        bool is_smart_cover_entered) const;
-		IC DescriptionPtr const& description() const;
+		inline DescriptionPtr const& description() const;
 		void evaluate_loophole(Fvector const& position, loophole* & source, loophole* & result, float& value,
 		                       bool is_smart_cover_entered) const;
-		IC shared_str const& id() const;
+		inline shared_str const& id() const;
 		void evaluate_loophole_for_default_usage(Fvector const& position, smart_cover::loophole* & source,
 		                                         smart_cover::loophole* & result, float& value) const;
 		bool is_position_in_fov(loophole const& source, Fvector const& position) const;
 		bool is_position_in_danger_fov(loophole const& source, Fvector const& position) const;
 		bool is_position_in_range(loophole const& source, Fvector const& position) const;
 		bool in_min_acceptable_range(loophole const& source, Fvector const& position, float const& min_range) const;
-		IC bool is_combat_cover() const;
-		IC bool can_fire() const;
+		inline bool is_combat_cover() const;
+		inline bool can_fire() const;
 
 #ifdef DEBUG
 private:
@@ -98,12 +98,12 @@ struct loophole_id_predicate
 {
 	shared_str m_id;
 
-	IC loophole_id_predicate(shared_str const& id) :
+	inline loophole_id_predicate(shared_str const& id) :
 		m_id(id)
 	{
 	}
 
-	IC bool operator()(smart_cover::loophole* loophole) const
+	inline bool operator()(smart_cover::loophole* loophole) const
 	{
 		return (loophole->id()._get() == m_id._get());
 	}

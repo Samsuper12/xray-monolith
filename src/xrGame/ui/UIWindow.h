@@ -7,7 +7,7 @@ class CUIWindow;
 
 struct _12b
 {
-	DWORD _[3];
+	uint32_t _[3];
 };
 
 // extern poolSS<_12b, 128> ui_allocator;
@@ -195,12 +195,12 @@ public:
 		Enable(status);
 	}
 
-	IC bool IsShown() { return GetVisible(); }
+	inline bool IsShown() { return GetVisible(); }
 	void ShowChildren(bool show);
 
 	//абсолютные координаты
-	IC void GetAbsoluteRect(Frect& r);
-	IC void GetAbsolutePos(Fvector2& p)
+	inline void GetAbsoluteRect(Frect& r);
+	inline void GetAbsolutePos(Fvector2& p)
 	{
 		Frect abs;
 		GetAbsoluteRect(abs);
@@ -221,7 +221,7 @@ public:
 
 	void SetPPMode();
 	void ResetPPMode();
-	IC bool GetPPMode() { return m_bPP; };
+	inline bool GetPPMode() { return m_bPP; };
 	//для перевода окна и потомков в исходное состояние
 	virtual void Reset();
 	void ResetAll();
@@ -233,8 +233,8 @@ public:
 	WINDOW_LIST& GetChildWndList() { return m_ChildWndList; }
 
 
-	IC bool IsAutoDelete() { return m_bAutoDelete; }
-	IC void SetAutoDelete(bool auto_delete) { m_bAutoDelete = auto_delete; }
+	inline bool IsAutoDelete() { return m_bAutoDelete; }
+	inline void SetAutoDelete(bool auto_delete) { m_bAutoDelete = auto_delete; }
 
 	// Name of the window
 	const shared_str WindowName() const { return m_windowName; }
@@ -242,14 +242,14 @@ public:
 	LPCSTR WindowName_script() { return m_windowName.c_str(); }
 	CUIWindow* FindChild(const shared_str name);
 
-	IC bool CursorOverWindow() const { return m_bCursorOverWindow; }
-	IC u32 FocusReceiveTime() const { return m_dwFocusReceiveTime; }
+	inline bool CursorOverWindow() const { return m_bCursorOverWindow; }
+	inline u32 FocusReceiveTime() const { return m_dwFocusReceiveTime; }
 
-	IC bool GetCustomDraw() const { return m_bCustomDraw; }
-	IC void SetCustomDraw(bool b) { m_bCustomDraw = b; }
+	inline bool GetCustomDraw() const { return m_bCustomDraw; }
+	inline void SetCustomDraw(bool b) { m_bCustomDraw = b; }
 
 protected:
-	IC void SafeRemoveChild(CUIWindow* child)
+	inline void SafeRemoveChild(CUIWindow* child)
 	{
 		WINDOW_LIST_it it = std::find(m_ChildWndList.begin(), m_ChildWndList.end(), child);
 		if (it != m_ChildWndList.end())m_ChildWndList.erase(it);

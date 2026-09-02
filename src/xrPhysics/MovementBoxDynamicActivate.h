@@ -14,8 +14,8 @@ public:
 	                             bool bLight) =0;
 	virtual const Fbox* Boxes() = 0;
 	virtual const Fbox& Box() = 0;
-	virtual void InterpolateBox(DWORD id, float k) = 0;
+	virtual void InterpolateBox(uint32_t id, float k) = 0;
 };
 
-XRPHYSICS_API bool ActivateBoxDynamic(IPHMovementControl* mov_control, bool character_exist, DWORD id, int num_it/*=8*/,
+XRPHYSICS_API bool ActivateBoxDynamic(IPHMovementControl* mov_control, bool character_exist, uint32_t id, int num_it/*=8*/,
                                       int num_steps/*5*/, float resolve_depth/*=0.01f*/);

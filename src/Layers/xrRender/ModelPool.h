@@ -23,7 +23,7 @@ private:
 
 	struct str_pred
 	{
-		IC bool operator()(const shared_str& x, const shared_str& y) const
+		inline bool operator()(const shared_str& x, const shared_str& y) const
 		{
 			return xr_strcmp(x, y) < 0;
 		}

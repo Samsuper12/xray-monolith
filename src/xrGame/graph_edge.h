@@ -26,10 +26,10 @@ private:
 	_vertex_type* m_vertex;
 
 public:
-	IC CEdgeBase(const _edge_weight_type& weight, _vertex_type* vertex);
-	IC const _edge_weight_type& weight() const;
-	IC _vertex_type* vertex() const;
-	IC const _vertex_id_type& vertex_id() const;
+	inline CEdgeBase(const _edge_weight_type& weight, _vertex_type* vertex);
+	inline const _edge_weight_type& weight() const;
+	inline _vertex_type* vertex() const;
+	inline const _vertex_id_type& vertex_id() const;
 };
 
 template <
@@ -47,11 +47,11 @@ private:
 	_edge_data_type m_data;
 
 public:
-	IC CEdge(const _edge_weight_type& weight, _vertex_type* vertex);
-	IC bool operator==(const _vertex_id_type& vertex_id) const;
-	IC bool operator==(const CEdge& obj) const;
-	IC const _edge_data_type& data() const;
-	IC _edge_data_type& data();
+	inline CEdge(const _edge_weight_type& weight, _vertex_type* vertex);
+	inline bool operator==(const _vertex_id_type& vertex_id) const;
+	inline bool operator==(const CEdge& obj) const;
+	inline const _edge_data_type& data() const;
+	inline _edge_data_type& data();
 };
 
 template <
@@ -65,9 +65,9 @@ private:
 	typedef typename _vertex_type::_vertex_id_type _vertex_id_type;
 
 public:
-	IC CEdge(const _edge_weight_type& weight, _vertex_type* vertex);
-	IC bool operator==(const _vertex_id_type& vertex_id) const;
-	IC bool operator==(const CEdge& obj) const;
+	inline CEdge(const _edge_weight_type& weight, _vertex_type* vertex);
+	inline bool operator==(const _vertex_id_type& vertex_id) const;
+	inline bool operator==(const CEdge& obj) const;
 };
 
 #include "graph_edge_inline.h"

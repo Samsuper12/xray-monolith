@@ -6,6 +6,16 @@
 
 #include "SoundRender_Cache.h"
 
+struct WAVEFORMATEX {
+  unsigned short wFormatTag;
+  unsigned short nChannels;
+  uint32_t nSamplesPerSec;
+  uint32_t nAvgBytesPerSec;
+  unsigned short nBlockAlign;
+  unsigned short wBitsPerSample;
+  unsigned short cbSize;
+};
+
 // refs
 struct OggVorbis_File;
 

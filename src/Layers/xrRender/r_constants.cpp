@@ -29,12 +29,12 @@ void R_constant_table::fatal(LPCSTR S)
 }
 
 // predicates
-IC bool p_search(ref_constant C, LPCSTR S)
+inline bool p_search(ref_constant C, LPCSTR S)
 {
 	return xr_strcmp(*C->name, S) < 0;
 }
 
-IC bool p_sort(ref_constant C1, ref_constant C2)
+inline bool p_sort(ref_constant C1, ref_constant C2)
 {
 	return xr_strcmp(C1->name, C2->name) < 0;
 }

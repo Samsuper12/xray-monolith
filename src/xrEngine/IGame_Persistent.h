@@ -126,7 +126,7 @@ public:
 #endif
 	IMainMenu* m_pMainMenu;
 	ScriptWallmarksManager* m_pWallmarksManager;
-	IC ScriptWallmarksManager& GetWallmarksManager() const { return *m_pWallmarksManager; }
+	inline ScriptWallmarksManager& GetWallmarksManager() const { return *m_pWallmarksManager; }
 	ShadersExternalData* m_pGShaderConstants; //--#SM+#--
 	xr_vector<script_attachment*> AttachmentUIsToRender;
 
@@ -188,7 +188,7 @@ public:
 	IGame_Persistent();
 	virtual ~IGame_Persistent();
 
-	ICF u32 GameType() { return m_game_params.m_e_game_type; };
+	inline u32 GameType() { return m_game_params.m_e_game_type; };
 	virtual void Statistics(CGameFont* F)
 #ifndef _EDITOR
 	= 0;

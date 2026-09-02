@@ -63,7 +63,7 @@ typedef struct tagSoundElement
 		return (value < s.value);
 	}
 
-	IC void SetConvert(const CObject* who, int eType, const Fvector& position, float power, TTime time)
+	inline void SetConvert(const CObject* who, int eType, const Fvector& position, float power, TTime time)
 	{
 		this->who = who;
 		type = ConvertSoundType((ESoundTypes)eType);
@@ -100,7 +100,7 @@ public:
 
 	void HearSound(const SoundElem& s);
 	void HearSound(const CObject* who, int eType, const Fvector& Position, float power, TTime time);
-	IC bool IsRememberSound() { return (!Sounds.empty()); }
+	inline bool IsRememberSound() { return (!Sounds.empty()); }
 
 	// Lain: added
 	int GetNumSounds() { return Sounds.size(); }

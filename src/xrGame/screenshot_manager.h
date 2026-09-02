@@ -54,8 +54,8 @@ private:
 	complete_callback_t m_complete_callback;
 
 	void process_screenshot(bool in_other_thread);
-	HANDLE m_make_start_event;
-	HANDLE m_make_done_event;
+	void* m_make_start_event;
+	void* m_make_done_event;
 	static void screenshot_maker_thread(void* this_ptr);
 
 

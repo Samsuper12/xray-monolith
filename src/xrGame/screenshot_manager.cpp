@@ -59,6 +59,8 @@ screenshot_manager::screenshot_manager()
 
 screenshot_manager::~screenshot_manager()
 {
+	//FIXME:
+	stub_unix(__func__);
 	if (is_active())
 	{
 		Engine.Sheduler.Unregister(this);
@@ -68,10 +70,10 @@ screenshot_manager::~screenshot_manager()
 	xr_free(m_buffer_for_compress);
 	if (m_make_start_event)
 	{
-		SetEvent(m_make_start_event);
-		WaitForSingleObject(m_make_done_event, INFINITE); //thread stoped
-		CloseHandle(m_make_done_event);
-		CloseHandle(m_make_start_event);
+		// SetEvent(m_make_start_event);
+		// WaitForSingleObject(m_make_done_event, INFINITE); //thread stoped
+		// CloseHandle(m_make_done_event);
+		// CloseHandle(m_make_start_event);
 	}
 }
 
@@ -167,6 +169,8 @@ void screenshot_manager::sign_jpeg_file()
 
 void screenshot_manager::shedule_Update(u32 dt)
 {
+	//FIXME:
+	stub_unix(__func__);
 	R_ASSERT(m_state & making_screenshot || m_state & drawing_download_states);
 	bool is_make_in_progress = is_making_screenshot();
 	if (is_make_in_progress && (m_defered_ssframe_counter == 0))
@@ -182,13 +186,13 @@ void screenshot_manager::shedule_Update(u32 dt)
 		}
 		else
 		{
-			DWORD thread_result = WaitForSingleObject(m_make_done_event, 0);
-			R_ASSERT((thread_result != WAIT_ABANDONED) && (thread_result != WAIT_FAILED));
-			if (thread_result == WAIT_OBJECT_0)
-			{
-				m_complete_callback(m_buffer_for_compress, m_buffer_for_compress_size, m_jpeg_buffer_size);
-				m_state &= ~making_screenshot;
-			}
+			//uint32_t thread_result = WaitForSingleObject(m_make_done_event, 0);
+			//R_ASSERT((thread_result != WAIT_ABANDONED) && (thread_result != WAIT_FAILED));
+			// if (thread_result == WAIT_OBJECT_0)
+			// {
+			// 	m_complete_callback(m_buffer_for_compress, m_buffer_for_compress_size, m_jpeg_buffer_size);
+			// 	m_state &= ~making_screenshot;
+			// }
 		}
 		if (!is_making_screenshot() && !is_drawing_downloads())
 		{
@@ -212,12 +216,12 @@ void screenshot_manager::shedule_Update(u32 dt)
 					}
 				}
 		#endif //#ifdef DEBUG*/
-		DWORD_PTR process_affinity_mask;
-		DWORD_PTR tmp_dword;
-		GetProcessAffinityMask(
-			GetCurrentProcess(),
-			&process_affinity_mask,
-			&tmp_dword);
+		uintptr_t process_affinity_mask;
+		uintptr_t tmp_dword;
+		// GetProcessAffinityMask(
+		// 	GetCurrentProcess(),
+		// 	&process_affinity_mask,
+		// 	&tmp_dword);
 		process_screenshot(
 			btwCount1(static_cast<u32>(process_affinity_mask)) == 1
 		);
@@ -273,13 +277,15 @@ void screenshot_manager::set_draw_downloads(bool draw)
 
 void screenshot_manager::process_screenshot(bool singlecore)
 {
+	//FIXME:
+	stub_unix(__func__);
 	if (m_make_start_event)
 	{
-		SetEvent(m_make_start_event);
+		//SetEvent(m_make_start_event);
 		return;
 	}
-	m_make_start_event = CreateEvent(NULL, FALSE, TRUE, NULL);
-	m_make_done_event = CreateEvent(NULL, FALSE, FALSE, NULL);
+	//m_make_start_event = CreateEvent(NULL, FALSE, TRUE, NULL);
+	//m_make_done_event = CreateEvent(NULL, FALSE, FALSE, NULL);
 	thread_spawn(&screenshot_manager::screenshot_maker_thread, "screenshot_maker", 0, this);
 }
 
@@ -290,37 +296,39 @@ void __stdcall screenshot_manager::jpeg_compress_cb(long progress)
 	#endif*/
 	if (progress % 5 == 0)
 	{
-		if (!SwitchToThread())
-			sleep(10);
+		// if (!SwitchToThread())
+		// 	sleep(10);
 	}
 }
 
 void screenshot_manager::screenshot_maker_thread(void* arg_ptr)
 {
 	PROF_EVENT();
+	//FIXME:
+	stub_unix(__func__);
 
 	screenshot_manager* this_ptr = static_cast<screenshot_manager*>(arg_ptr);
-	DWORD wait_result = WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
-	while ((wait_result != WAIT_ABANDONED) || (wait_result != WAIT_FAILED))
-	{
-		if (!this_ptr->is_active())
-			break;
-		this_ptr->timer_begin("preparing image");
-		this_ptr->prepare_image();
-		this_ptr->timer_end();
-		this_ptr->timer_begin("making jpeg");
-		this_ptr->make_jpeg_file();
-		this_ptr->timer_end();
-		this_ptr->timer_begin("signing jpeg data");
-		this_ptr->sign_jpeg_file();
-		this_ptr->timer_end();
-		this_ptr->timer_begin("compressing_image");
-		this_ptr->compress_image();
-		this_ptr->timer_end();
-		SetEvent(this_ptr->m_make_done_event);
-		wait_result = WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
-	}
-	SetEvent(this_ptr->m_make_done_event);
+	//uint32_t wait_result = WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
+	// while ((wait_result != WAIT_ABANDONED) || (wait_result != WAIT_FAILED))
+	// {
+	// 	if (!this_ptr->is_active())
+	// 		break;
+	// 	this_ptr->timer_begin("preparing image");
+	// 	this_ptr->prepare_image();
+	// 	this_ptr->timer_end();
+	// 	this_ptr->timer_begin("making jpeg");
+	// 	this_ptr->make_jpeg_file();
+	// 	this_ptr->timer_end();
+	// 	this_ptr->timer_begin("signing jpeg data");
+	// 	this_ptr->sign_jpeg_file();
+	// 	this_ptr->timer_end();
+	// 	this_ptr->timer_begin("compressing_image");
+	// 	this_ptr->compress_image();
+	// 	this_ptr->timer_end();
+	// 	//SetEvent(this_ptr->m_make_done_event);
+	// 	wait_result = 0;//WaitForSingleObject(this_ptr->m_make_start_event, INFINITE);
+	// }
+	//SetEvent(this_ptr->m_make_done_event);
 }
 
 void screenshot_manager::realloc_compress_buffer(u32 need_size)

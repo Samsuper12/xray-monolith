@@ -42,7 +42,7 @@ struct XRCORE_API IIniFileStream
 	virtual void __stdcall r_s32(s32&) = 0;
 	virtual void __stdcall r_s64(s64&) = 0;
 
-	virtual void __stdcall r_string(LPSTR dest, u32 dest_size) = 0;
+	virtual void __stdcall r_string(char * dest, u32 dest_size) = 0;
 	// virtual void __stdcall r_tell () = 0;
 	// virtual void __stdcall r_seek (u32 pos) = 0;
 	virtual void __stdcall skip_stringZ() = 0;
@@ -63,7 +63,7 @@ if(inistream)\
 
 struct NET_Buffer
 {
-	BYTE data[NET_PacketSizeLimit];
+	unsigned char data[NET_PacketSizeLimit];
 	u32 count;
 };
 
@@ -88,13 +88,13 @@ public:
 	}
 
 	// writing - main
-	IC void write_start()
+	inline void write_start()
 	{
 		B.count = 0;
 		INI_W(move_begin());
 	}
 
-	IC void w_begin(u16 type)
+	inline void w_begin(u16 type)
 	{
 		B.count = 0;
 		w_u16(type);
@@ -107,105 +107,105 @@ public:
 		~W_guard() { *guarded = false; }
 	};
 
-	IC void w(const void* p, u32 count)
+	inline void w(const void* p, u32 count)
 	{
 		R_ASSERT(inistream == NULL || w_allow);
 		VERIFY(p && count);
 		VERIFY(B.count + count < NET_PacketSizeLimit);
-		CopyMemory(&B.data[B.count], p, count);
+		memcpy(&B.data[B.count], p, count);
 		B.count += count;
 		VERIFY(B.count < NET_PacketSizeLimit);
 	}
 
 	void w_seek(u32 pos, const void* p, u32 count);
-	IC u32 w_tell() { return B.count; }
+	inline u32 w_tell() { return B.count; }
 
 	// writing - utilities
-	IC void w_float(float a)
+	inline void w_float(float a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 4);
 		INI_W(w_float(a));
 	} // float
-	IC void w_vec3(const Fvector& a)
+	inline void w_vec3(const Fvector& a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 3 * sizeof(float));
 		INI_W(w_vec3(a));
 	} // vec3
-	IC void w_vec4(const Fvector4& a)
+	inline void w_vec4(const Fvector4& a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 4 * sizeof(float));
 		INI_W(w_vec4(a));
 	} // vec4
-	IC void w_u64(u64 a)
+	inline void w_u64(u64 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 8);
 		INI_W(w_u64(a));
 	} // qword (8b)
-	IC void w_s64(s64 a)
+	inline void w_s64(s64 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 8);
 		INI_W(w_s64(a));
 	} // qword (8b)
-	IC void w_u32(u32 a)
+	inline void w_u32(u32 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 4);
 		INI_W(w_u32(a));
 	} // dword (4b)
-	IC void w_s32(s32 a)
+	inline void w_s32(s32 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 4);
 		INI_W(w_s32(a));
 	} // dword (4b)
-	IC void w_u16(u16 a)
+	inline void w_u16(u16 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 2);
 		INI_W(w_u16(a));
 	} // word (2b)
-	IC void w_s16(s16 a)
+	inline void w_s16(s16 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 2);
 		INI_W(w_s16(a));
 	} // word (2b)
-	IC void w_u8(u8 a)
+	inline void w_u8(u8 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 1);
 		INI_W(w_u8(a));
 	} // byte (1b)
-	IC void w_s8(s8 a)
+	inline void w_s8(s8 a)
 	{
 		W_guard g(&w_allow);
 		w(&a, 1);
 		INI_W(w_s8(a));
 	} // byte (1b)
 
-	IC void w_float_q16(float a, float min, float max)
+	inline void w_float_q16(float a, float min, float max)
 	{
 		VERIFY(a >= min && a <= max);
 		float q = (a - min) / (max - min);
 		w_u16(u16(iFloor(q * 65535.f + 0.5f)));
 	}
 
-	IC void w_float_q8(float a, float min, float max)
+	inline void w_float_q8(float a, float min, float max)
 	{
 		VERIFY(a >= min && a <= max);
 		float q = (a - min) / (max - min);
 		w_u8(u8(iFloor(q * 255.f + 0.5f)));
 	}
 
-	IC void w_angle16(float a) { w_float_q16(angle_normalize(a), 0, PI_MUL_2); }
-	IC void w_angle8(float a) { w_float_q8(angle_normalize(a), 0, PI_MUL_2); }
-	IC void w_dir(const Fvector& D) { w_u16(pvCompress(D)); }
-	IC void w_sdir(const Fvector& D)
+	inline void w_angle16(float a) { w_float_q16(angle_normalize(a), 0, PI_MUL_2); }
+	inline void w_angle8(float a) { w_float_q8(angle_normalize(a), 0, PI_MUL_2); }
+	inline void w_dir(const Fvector& D) { w_u16(pvCompress(D)); }
+	inline void w_sdir(const Fvector& D)
 	{
 		Fvector C;
 		float mag = D.magnitude();
@@ -222,14 +222,14 @@ public:
 		w_float(mag);
 	}
 
-	IC void w_stringZ(LPCSTR S)
+	inline void w_stringZ(LPCSTR S)
 	{
 		W_guard g(&w_allow);
 		w(S, (u32)xr_strlen(S) + 1);
 		INI_W(w_stringZ(S));
 	}
 
-	IC void w_stringZ(const shared_str& p)
+	inline void w_stringZ(const shared_str& p)
 	{
 		W_guard g(&w_allow);
 		if (*p)
@@ -245,7 +245,7 @@ public:
 		INI_W(w_stringZ(p.c_str()));
 	}
 
-	IC void w_matrix(Fmatrix& M)
+	inline void w_matrix(Fmatrix& M)
 	{
 		w_vec3(M.i);
 		w_vec3(M.j);
@@ -253,16 +253,16 @@ public:
 		w_vec3(M.c);
 	}
 
-	IC void w_clientID(ClientID& C) { w_u32(C.value()); }
+	inline void w_clientID(ClientID& C) { w_u32(C.value()); }
 
-	IC void w_chunk_open8(u32& position)
+	inline void w_chunk_open8(u32& position)
 	{
 		position = w_tell();
 		w_u8(0);
 		INI_ASSERT(w_chunk_open8)
 	}
 
-	IC void w_chunk_close8(u32 position)
+	inline void w_chunk_close8(u32 position)
 	{
 		u32 size = u32(w_tell() - position) - sizeof(u8);
 		VERIFY(size < 256);
@@ -271,14 +271,14 @@ public:
 		INI_ASSERT(w_chunk_close8)
 	}
 
-	IC void w_chunk_open16(u32& position)
+	inline void w_chunk_open16(u32& position)
 	{
 		position = w_tell();
 		w_u16(0);
 		INI_ASSERT(w_chunk_open16)
 	}
 
-	IC void w_chunk_close16(u32 position)
+	inline void w_chunk_close16(u32 position)
 	{
 		u32 size = u32(w_tell() - position) - sizeof(u16);
 		VERIFY(size < 65536);
@@ -293,11 +293,11 @@ public:
 	void r_seek(u32 pos);
 	u32 r_tell();
 
-	IC void r(void* p, u32 count)
+	inline void r(void* p, u32 count)
 	{
 		R_ASSERT(inistream == NULL);
 		VERIFY(p && count);
-		CopyMemory(p, &B.data[r_pos], count);
+		memcpy(p, &B.data[r_pos], count);
 		r_pos += count;
 		VERIFY(r_pos <= B.count);
 	}
@@ -341,13 +341,13 @@ public:
 	void r_dir(Fvector& A);
 
 	void r_sdir(Fvector& A);
-	void r_stringZ(LPSTR S);
+	void r_stringZ(char * S);
 	void r_stringZ(xr_string& dest);
 	void r_stringZ(shared_str& dest);
 
 	void skip_stringZ();
 
-	void r_stringZ_s(LPSTR string, u32 size);
+	void r_stringZ_s(char * string, u32 size);
 
 	template <u32 size>
 	inline void r_stringZ_s(char (&string)[size])

@@ -22,8 +22,8 @@ private:
 	u32 m_last_update_time;
 
 public:
-	IC refreshable_obstacles_query();
-	IC const float& refresh_radius();
+	inline refreshable_obstacles_query();
+	inline const float& refresh_radius();
 };
 
 #include "refreshable_obstacles_query_inline.h"

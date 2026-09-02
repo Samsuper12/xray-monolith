@@ -273,7 +273,7 @@ float CActor::CameraHeight()
 	return m_fCamHeightFactor * (R.y - cammera_into_collision_shift);
 }
 
-IC float viewport_near(float& w, float& h)
+inline float viewport_near(float& w, float& h)
 {
 	w = 2.f * VIEWPORT_NEAR * tan(deg2rad(Device.fFOV) / 2.f);
 	h = w * Device.fASPECT;
@@ -281,20 +281,20 @@ IC float viewport_near(float& w, float& h)
 	return _max(_max(VIEWPORT_NEAR, _max(w, h)), c);
 }
 
-ICF void calc_point(Fvector& pt, float radius, float depth, float alpha)
+inline void calc_point(Fvector& pt, float radius, float depth, float alpha)
 {
 	pt.x = radius * _sin(alpha);
 	pt.y = radius + radius * _cos(alpha);
 	pt.z = depth;
 }
 
-ICF void calc_gl_point(Fvector& pt, const Fmatrix& xform, float radius, float angle)
+inline void calc_gl_point(Fvector& pt, const Fmatrix& xform, float radius, float angle)
 {
 	calc_point(pt, radius,VIEWPORT_NEAR / 2, angle);
 	xform.transform_tiny(pt);
 }
 
-ICF BOOL test_point(const Fvector& pt, xrXRC& xrc, const Fmatrix33& mat, const Fvector& ext)
+inline BOOL test_point(const Fvector& pt, xrXRC& xrc, const Fmatrix33& mat, const Fvector& ext)
 {
 	CDB::RESULT* it = xrc.r_begin();
 	CDB::RESULT* end = xrc.r_end();
@@ -310,7 +310,7 @@ ICF BOOL test_point(const Fvector& pt, xrXRC& xrc, const Fmatrix33& mat, const F
 }
 
 
-IC bool test_point(const Fvector& pt, const Fmatrix33& mat, const Fvector& ext, CActor* actor)
+inline bool test_point(const Fvector& pt, const Fmatrix33& mat, const Fvector& ext, CActor* actor)
 {
 	Fmatrix fmat = Fidentity;
 	fmat.i.set(mat.i);
@@ -352,7 +352,7 @@ void	dbg_draw_viewport( const T &cam_info, float _viewport_near )
 
 }
 #endif
-IC void get_box_mat(Fmatrix33& mat, float alpha, const SRotation& r_torso)
+inline void get_box_mat(Fmatrix33& mat, float alpha, const SRotation& r_torso)
 {
 	float dZ = ((PI_DIV_2 - ((PI + alpha) / 2)));
 	Fmatrix xformR;
@@ -362,7 +362,7 @@ IC void get_box_mat(Fmatrix33& mat, float alpha, const SRotation& r_torso)
 	mat.k = xformR.k;
 }
 
-IC void get_q_box(Fbox& xf, float c, float alpha, float radius)
+inline void get_q_box(Fbox& xf, float c, float alpha, float radius)
 {
 	Fvector src_pt, tgt_pt;
 	calc_point(tgt_pt, radius, 0, alpha);
@@ -373,7 +373,7 @@ IC void get_q_box(Fbox& xf, float c, float alpha, float radius)
 	xf.grow(c);
 }
 
-IC void get_cam_oob(Fvector& bc, Fvector& bd, Fmatrix33& mat, const Fmatrix& xform, const SRotation& r_torso,
+inline void get_cam_oob(Fvector& bc, Fvector& bd, Fmatrix33& mat, const Fmatrix& xform, const SRotation& r_torso,
                     float alpha, float radius, float c)
 {
 	get_box_mat(mat, alpha, r_torso);
@@ -384,7 +384,7 @@ IC void get_cam_oob(Fvector& bc, Fvector& bd, Fmatrix33& mat, const Fmatrix& xfo
 	xf.get_CD(bc, bd);
 }
 
-IC void get_cam_oob(Fvector& bd, Fmatrix& mat, const Fmatrix& xform, const SRotation& r_torso, float alpha,
+inline void get_cam_oob(Fvector& bd, Fmatrix& mat, const Fmatrix& xform, const SRotation& r_torso, float alpha,
                     float radius, float c)
 {
 	Fmatrix33 mat3;

@@ -26,14 +26,14 @@ private:
 
 #ifdef DEBUG
 private:
-	IC		const shared_str		&patrol_path_name		() const;
-	IC		const u32				&patrol_point_index		() const;
+	inline		const shared_str		&patrol_path_name		() const;
+	inline		const u32				&patrol_point_index		() const;
 #endif
 
 private:
 	void setup_patrol_point(const shared_str& patrol_path_name, const u32& patrol_point_index);
-	IC const CPatrolPoint& patrol_point() const;
-	IC void init(const shared_str& patrol_path_name, const u32& patrol_point_index);
+	inline const CPatrolPoint& patrol_point() const;
+	inline void init(const shared_str& patrol_path_name, const u32& patrol_point_index);
 
 public:
 	CALifeSmartTerrainTask(LPCSTR patrol_path_name);

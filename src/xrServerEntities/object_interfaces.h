@@ -17,7 +17,7 @@ public:
 	virtual void destroy() = 0;
 };
 
-IC IPureDestroyableObject::~IPureDestroyableObject()
+inline IPureDestroyableObject::~IPureDestroyableObject()
 {
 }
 
@@ -30,7 +30,7 @@ public:
 };
 
 template <typename _storage_type>
-IC IPureLoadableObject<_storage_type>::~IPureLoadableObject()
+inline IPureLoadableObject<_storage_type>::~IPureLoadableObject()
 {
 }
 
@@ -43,7 +43,7 @@ public:
 };
 
 template <typename _storage_type>
-IC IPureSavableObject<_storage_type>::~IPureSavableObject()
+inline IPureSavableObject<_storage_type>::~IPureSavableObject()
 {
 }
 
@@ -56,7 +56,7 @@ public:
 };
 
 template <typename _storage_type_load, typename _storage_type_save>
-IC IPureSerializeObject< _storage_type_load,  _storage_type_save>::~IPureSerializeObject()
+inline IPureSerializeObject< _storage_type_load,  _storage_type_save>::~IPureSerializeObject()
 {
 }
 
@@ -70,7 +70,7 @@ public:
 	virtual void UPDATE_Read(NET_Packet& tNetPacket) = 0;
 };
 
-IC IPureServerObject::~IPureServerObject()
+inline IPureServerObject::~IPureServerObject()
 {
 }
 
@@ -81,6 +81,6 @@ public:
 	virtual void update() = 0;
 };
 
-IC IPureSchedulableObject::~IPureSchedulableObject()
+inline IPureSchedulableObject::~IPureSchedulableObject()
 {
 }

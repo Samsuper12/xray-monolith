@@ -181,20 +181,20 @@ namespace text_editor
 		clamp(m_buffer_size, (int)MIN_BUF_SIZE, (int)MAX_BUF_SIZE);
 
 		xr_free(m_edit_str);
-		m_edit_str = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_edit_str = (char *)xr_malloc(m_buffer_size * sizeof(char));
 		xr_free(m_inserted);
-		m_inserted = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_inserted = (char *)xr_malloc(m_buffer_size * sizeof(char));
 		xr_free(m_undo_buf);
-		m_undo_buf = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_undo_buf = (char *)xr_malloc(m_buffer_size * sizeof(char));
 
 		xr_free(m_buf0);
-		m_buf0 = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_buf0 = (char *)xr_malloc(m_buffer_size * sizeof(char));
 		xr_free(m_buf1);
-		m_buf1 = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_buf1 = (char *)xr_malloc(m_buffer_size * sizeof(char));
 		xr_free(m_buf2);
-		m_buf2 = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_buf2 = (char *)xr_malloc(m_buffer_size * sizeof(char));
 		xr_free(m_buf3);
-		m_buf3 = (LPSTR)xr_malloc(m_buffer_size * sizeof(char));
+		m_buf3 = (char *)xr_malloc(m_buffer_size * sizeof(char));
 
 		clear_states();
 
@@ -583,7 +583,7 @@ namespace text_editor
 			}
 		}
 
-		PSTR buf = (PSTR)alloca((m_buffer_size + 1) * sizeof(char));
+		char * buf = (char *)alloca((m_buffer_size + 1) * sizeof(char));
 
 		strncpy_s(buf, m_buffer_size, m_edit_str, m_p1); // part 1
 		strncpy_s(m_undo_buf, m_buffer_size, m_edit_str + m_p1, m_p2 - m_p1);
@@ -620,7 +620,7 @@ namespace text_editor
 			return;
 		}
 		u32 edit_len = xr_strlen(m_edit_str);
-		PSTR buf = (PSTR)alloca((edit_len + 1) * sizeof(char));
+		char * buf = (char *)alloca((edit_len + 1) * sizeof(char));
 		strncpy_s(buf, edit_len + 1, m_edit_str + m_p1, m_p2 - m_p1);
 		buf[edit_len] = 0;
 		os_clipboard::copy_to_clipboard(buf);
@@ -790,14 +790,14 @@ namespace text_editor
 
 	// -------------------------------------------------------------------------------------------------
 
-	void remove_spaces(PSTR str) // in & out
+	void remove_spaces(char * str) // in & out
 	{
 		u32 str_size = xr_strlen(str);
 		if (str_size < 1)
 		{
 			return;
 		}
-		PSTR new_str = (PSTR)alloca((str_size + 1) * sizeof(char));
+		char * new_str = (char *)alloca((str_size + 1) * sizeof(char));
 		new_str[0] = 0;
 
 		u32 a = 0, b = 0, i = 0;
@@ -823,7 +823,7 @@ namespace text_editor
 		}
 	}
 
-	void split_cmd(PSTR first, PSTR second, LPCSTR str)
+	void split_cmd(char * first, char * second, LPCSTR str)
 	{
 		first[0] = 0;
 		second[0] = 0;

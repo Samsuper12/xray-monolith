@@ -541,7 +541,7 @@ void CPHWorld::FrameStep(dReal step)
 		m_frame_time = frame_time;
 		return;
 	}
-	//for(UINT i=0;i<(m_reduce_delay+1);++i)
+	//for(uint32_t i=0;i<(m_reduce_delay+1);++i)
 #ifdef DEBUG
 	debug_output().DBG_DrawFrameStart();
 	debug_output().DBG_DrawStatBeforeFrameStep();
@@ -551,7 +551,7 @@ void CPHWorld::FrameStep(dReal step)
 	start_time = Device().dwTimeGlobal; // - u32(m_frame_time*1000);
 	if (ph_console::g_bDebugDumpPhysicsStep && it_number > 20)
 		Msg("!!!TOO MANY PHYSICS STEPS PER FRAME = %d !!!", it_number);
-	for (UINT i = 0; i < it_number; ++i)
+	for (uint32_t i = 0; i < it_number; ++i)
 		Step();
 	b_processing = false;
 #ifdef DEBUG

@@ -298,7 +298,7 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
-bool ActivateBoxDynamic(IPHMovementControl* mov_control, bool character_exist, DWORD id, int num_it/*=8*/,
+bool ActivateBoxDynamic(IPHMovementControl* mov_control, bool character_exist, uint32_t id, int num_it/*=8*/,
                         int num_steps/*5*/, float resolve_depth/*=0.01f*/)
 {
 	/////////////////////////////////////////////////////////////////////////////

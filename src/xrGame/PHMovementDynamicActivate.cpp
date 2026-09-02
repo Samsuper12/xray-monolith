@@ -12,7 +12,7 @@
 #include "../xrPhysics/PHCharacter.h"
 #include "../xrPhysics/IPhysicsShellHolder.h"
 
-bool CPHMovementControl::ActivateBoxDynamic(DWORD id, int num_it/*=8*/, int num_steps/*5*/,
+bool CPHMovementControl::ActivateBoxDynamic(uint32_t id, int num_it/*=8*/, int num_steps/*5*/,
                                             float resolve_depth/*=0.01f*/)
 {
 	bool character_exist = CharacterExist();
@@ -28,7 +28,7 @@ bool CPHMovementControl::ActivateBoxDynamic(DWORD id, int num_it/*=8*/, int num_
 	}
 	if (!m_character || m_character->PhysicsRefObject()->ObjectPPhysicsShell())
 		return false;
-	DWORD old_id = BoxID();
+	uint32_t old_id = BoxID();
 
 	bool character_disabled = character_exist && !m_character->IsEnabled();
 

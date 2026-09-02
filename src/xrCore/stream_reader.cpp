@@ -3,7 +3,7 @@
 #include "stream_reader.h"
 
 void CStreamReader::construct(
-	const HANDLE& file_mapping_handle,
+	const void* file_mapping_handle,
 	const u32& start_offset,
 	const u32& file_size,
 	const u32& archive_size,
@@ -26,6 +26,8 @@ void CStreamReader::destroy()
 
 void CStreamReader::map(const u32& new_offset)
 {
+	// TODO:
+	stub_unix(__func__);
 	VERIFY(new_offset <= m_file_size);
 	m_current_offset_from_start = new_offset;
 
@@ -45,14 +47,14 @@ void CStreamReader::map(const u32& new_offset)
 		end_offset = m_archive_size;
 
 	m_current_window_size = end_offset - start_offset;
-	m_current_map_view_of_file = (u8*)
-		MapViewOfFile(
-			m_file_mapping_handle,
-			FILE_MAP_READ,
-			0,
-			start_offset,
-			m_current_window_size
-		);
+	m_current_map_view_of_file = 0;//(u8*)
+		// MapViewOfFile(
+		// 	m_file_mapping_handle,
+		// 	FILE_MAP_READ,
+		// 	0,
+		// 	start_offset,
+		// 	m_current_window_size
+		// );
 	m_current_pointer = m_current_map_view_of_file;
 
 	u32 difference = pure_start_offset - start_offset;
@@ -162,7 +164,7 @@ void CStreamReader::r_stringZ(shared_str& dest)
 		u32 current_chunk_size = static_cast<u32>(end_ptr - m_current_pointer);
 		R_ASSERT(current_str_size + current_chunk_size <= 4096);
 
-		CopyMemory(dest_str, m_current_pointer, current_chunk_size);
+		memcpy(dest_str, m_current_pointer, current_chunk_size);
 		current_str_size += current_chunk_size;
 		remap(m_current_offset_from_start + current_chunk_size);
 		VERIFY(m_current_pointer == m_start_pointer);

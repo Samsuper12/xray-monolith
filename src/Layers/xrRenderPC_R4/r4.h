@@ -249,11 +249,11 @@ public:
 	int translateSector(IRender_Sector* pSector);
 
 	// HW-occlusion culling
-	IC u32 occq_begin(u32& ID) { return HWOCC.occq_begin(ID); }
-	IC void occq_end(u32& ID) { HWOCC.occq_end(ID); }
-	IC R_occlusion::occq_result occq_get(u32& ID) { return HWOCC.occq_get(ID); }
+	inline u32 occq_begin(u32& ID) { return HWOCC.occq_begin(ID); }
+	inline void occq_end(u32& ID) { HWOCC.occq_end(ID); }
+	inline R_occlusion::occq_result occq_get(u32& ID) { return HWOCC.occq_get(ID); }
 
-	ICF void apply_object(IRenderable* O)
+	inline void apply_object(IRenderable* O)
 	{
 		if (0 == O) return;
 		if (0 == O->renderable_ROS()) return;
@@ -272,7 +272,7 @@ public:
 		CopyMemory(o_hemi_cube, LT.get_hemi_cube(), CROS_impl::NUM_FACES*sizeof(float));
 	}
 	
-	IC void apply_lmaterial()
+	inline void apply_lmaterial()
 	{
 		ref_constant C = RCache.get_c(c_sbase); // get sampler
 		if (0 == C) return;

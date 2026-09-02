@@ -44,8 +44,8 @@ private:
 	MagicBox3 m_min_box;
 
 private:
-	IC bool inside(const Fvector& position, const float& radius) const;
-	IC bool inside(const Fvector& position, const float& radius, const float& increment, const u32 step_count) const;
+	inline bool inside(const Fvector& position, const float& radius) const;
+	inline bool inside(const Fvector& position, const float& radius, const float& increment, const u32 step_count) const;
 	void prepare_inside(Fvector& start, Fvector& dest);
 	void correct_position(Fvector& position);
 	void compute_impl();
@@ -53,14 +53,14 @@ private:
 	void compute_matrix(Fmatrix& result, const Fvector& additional);
 
 public:
-	IC ai_obstacle(CGameObject* object);
-	IC const AREA& area();
-	IC const AREA& danger_area();
+	inline ai_obstacle(CGameObject* object);
+	inline const AREA& area();
+	inline const AREA& danger_area();
 	void on_move();
-	IC bool inside(const u32& vertex_id) const;
-	IC const u32& crc();
+	inline bool inside(const u32& vertex_id) const;
+	inline const u32& crc();
 	float distance_to(const Fvector& position) const;
-	IC const MagicBox3 min_box();
+	inline const MagicBox3 min_box();
 };
 
 #include "ai_obstacle_inline.h"

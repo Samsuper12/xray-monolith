@@ -17,11 +17,11 @@ protected:
 	u32 m_version;
 
 public:
-	IC CALifeSimulatorHeader(LPCSTR section);
+	inline CALifeSimulatorHeader(LPCSTR section);
 	virtual ~CALifeSimulatorHeader();
 	virtual void save(IWriter& tMemoryStream);
 	virtual void load(IReader& tFileStream);
-	IC u32 version() const;
+	inline u32 version() const;
 	bool valid(IReader& file_stream) const;
 };
 

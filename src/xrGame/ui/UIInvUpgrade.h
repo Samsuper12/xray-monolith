@@ -119,9 +119,9 @@ public:
 
 	void highlight_relation(bool enable);
 
-	IC ButtonState get_button_state() const { return m_button_state; }
+	inline ButtonState get_button_state() const { return m_button_state; }
 	void set_button_state(ButtonState state) { m_button_state = state; }
-	IC Ivector2 const& get_scheme_index() const { return m_scheme_index; }
+	inline Ivector2 const& get_scheme_index() const { return m_scheme_index; }
 
 	Upgrade_type* get_upgrade();
 	CUIInventoryUpgradeWnd* get_upgrade_window() { return m_parent_wnd; }

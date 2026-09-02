@@ -96,7 +96,7 @@ CScriptIniFile* create_ini_file(LPCSTR ini_string)
 
 // demonized: get modded exes version
 int get_modded_exes_version() {
-	LPSTR month_id[12] =
+	char * month_id[12] =
 	{
 		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 	};

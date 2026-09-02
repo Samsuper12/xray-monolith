@@ -107,12 +107,12 @@ private:
 	moving_object* m_object;
 
 public:
-	IC ignore_predicate(moving_object* object) :
+	inline ignore_predicate(moving_object* object) :
 		m_object(object)
 	{
 	}
 
-	IC bool operator()(const CObject* object) const
+	inline bool operator()(const CObject* object) const
 	{
 		if (m_object->ignored(object))
 			return (true);

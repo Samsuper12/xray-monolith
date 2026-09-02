@@ -27,8 +27,8 @@ namespace steering_behaviour
 		virtual Fvector direction() = 0;
 
 	public:
-		IC void enabled(bool const& value);
-		IC bool const& enabled() const;
+		inline void enabled(bool const& value);
+		inline bool const& enabled() const;
 
 	private:
 		CAI_Rat const* m_object;

@@ -71,10 +71,10 @@ protected:
 	Fvector2 m_origin_size;
 
 public:
-	IC void SetWndPosOrigin(const Fvector2& pos) { m_origin_pos = pos; }
-	IC void SetWndSizeOrigin(const Fvector2& size) { m_origin_size = size; }
-	IC const Fvector2& GetWndPosOrigin() const { return m_origin_pos; }
-	IC const Fvector2& GetWndSizeOrigin() const { return m_origin_size; }
+	inline void SetWndPosOrigin(const Fvector2& pos) { m_origin_pos = pos; }
+	inline void SetWndSizeOrigin(const Fvector2& size) { m_origin_size = size; }
+	inline const Fvector2& GetWndPosOrigin() const { return m_origin_pos; }
+	inline const Fvector2& GetWndSizeOrigin() const { return m_origin_size; }
 
 	void InitWndOrigin();
 	void ScaleOrigin(float k);

@@ -55,7 +55,7 @@ private:
 
 public:
 	CALifeMonsterDetailPathManager(object_type* object);
-	IC object_type& object() const;
+	inline object_type& object() const;
 
 public:
 	void target(const GameGraph::_GRAPH_ID& game_vertex_id, const u32& level_vertex_id, const Fvector& position);
@@ -67,16 +67,16 @@ public:
 	void update();
 	void on_switch_online();
 	void on_switch_offline();
-	IC void speed(const float& speed);
+	inline void speed(const float& speed);
 
 public:
-	IC const float& speed() const;
+	inline const float& speed() const;
 	bool completed() const;
 	bool actual() const;
 	void make_inactual();
 	bool failed() const;
-	IC const PATH& path() const;
-	IC const float& walked_distance() const;
+	inline const PATH& path() const;
+	inline const float& walked_distance() const;
 	Fvector draw_level_position() const;
 
 DECLARE_SCRIPT_REGISTER_FUNCTION

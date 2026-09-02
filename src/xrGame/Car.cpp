@@ -2099,7 +2099,7 @@ void CCar::CarExplode()
 //}
 
 template <class T>
-IC void CCar::fill_wheel_vector(LPCSTR S, xr_vector<T>& type_wheels)
+inline void CCar::fill_wheel_vector(LPCSTR S, xr_vector<T>& type_wheels)
 {
 	IKinematics* pKinematics = smart_cast<IKinematics*>(Visual());
 	string64 S1;
@@ -2134,7 +2134,7 @@ IC void CCar::fill_wheel_vector(LPCSTR S, xr_vector<T>& type_wheels)
 	}
 }
 
-IC void CCar::fill_exhaust_vector(LPCSTR S, xr_vector<SExhaust>& exhausts)
+inline void CCar::fill_exhaust_vector(LPCSTR S, xr_vector<SExhaust>& exhausts)
 {
 	IKinematics* pKinematics = smart_cast<IKinematics*>(Visual());
 	string64 S1;
@@ -2157,7 +2157,7 @@ IC void CCar::fill_exhaust_vector(LPCSTR S, xr_vector<SExhaust>& exhausts)
 	}
 }
 
-IC void CCar::fill_doors_map(LPCSTR S, xr_map<u16, SDoor>& doors)
+inline void CCar::fill_doors_map(LPCSTR S, xr_map<u16, SDoor>& doors)
 {
 	IKinematics* pKinematics = smart_cast<IKinematics*>(Visual());
 	string64 S1;

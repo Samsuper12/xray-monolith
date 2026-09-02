@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 // calculate
 //------------------------------------------------------------------------------
-IC void KEY_Interp(CKey& D, const CKey& K1, const CKey& K2, float delta)
+inline void KEY_Interp(CKey& D, const CKey& K1, const CKey& K2, float delta)
 {
 	VERIFY(_valid(delta));
 	VERIFY(delta>=0.f && delta<=1.f);
@@ -21,20 +21,20 @@ struct ConsistantKey
 	const CKey* K;
 	float w;
 
-	IC void set(const CKey* _K, float _w)
+	inline void set(const CKey* _K, float _w)
 	{
 		K = _K;
 		w = _w;
 	}
 };
 
-IC bool operator <(const ConsistantKey& A, const ConsistantKey& B) // note: inverse operator
+inline bool operator <(const ConsistantKey& A, const ConsistantKey& B) // note: inverse operator
 {
 	return A.w > B.w;
 }
 
 /*
-IC void MakeKeysConsistant(ConsistantKey *keys, int count)
+inline void MakeKeysConsistant(ConsistantKey *keys, int count)
 {
 	// sort in decreasing order
 	std::sort(keys,keys+count);
@@ -48,14 +48,14 @@ IC void MakeKeysConsistant(ConsistantKey *keys, int count)
 	}
 }
 */
-IC void MakeKeysSelected(ConsistantKey* keys, int count)
+inline void MakeKeysSelected(ConsistantKey* keys, int count)
 {
 	// sort in decreasing order
 	std::sort(keys, keys + count);
 }
 
 /*
-ICF float smooth(float x)
+inline float smooth(float x)
 {
     float x0	= x*2.f-1.f;
     float s 	= (x0<0.f)?-1.f:1.f;
@@ -63,7 +63,7 @@ ICF float smooth(float x)
     return ((s*pow(_abs(x0),1.f/1.5f))+1.f)/2.f;
 }
 */
-IC void QR2Quat(const CKeyQR& K, Fquaternion& Q)
+inline void QR2Quat(const CKeyQR& K, Fquaternion& Q)
 {
 	Q.x = float(K.x) * KEY_QuantI;
 	Q.y = float(K.y) * KEY_QuantI;
@@ -71,21 +71,21 @@ IC void QR2Quat(const CKeyQR& K, Fquaternion& Q)
 	Q.w = float(K.w) * KEY_QuantI;
 }
 
-IC void QT8_2T(const CKeyQT8& K, const CMotion& M, Fvector& T)
+inline void QT8_2T(const CKeyQT8& K, const CMotion& M, Fvector& T)
 {
 	T.x = float(K.x1) * M._sizeT.x + M._initT.x;
 	T.y = float(K.y1) * M._sizeT.y + M._initT.y;
 	T.z = float(K.z1) * M._sizeT.z + M._initT.z;
 }
 
-IC void QT16_2T(const CKeyQT16& K, const CMotion& M, Fvector& T)
+inline void QT16_2T(const CKeyQT16& K, const CMotion& M, Fvector& T)
 {
 	T.x = float(K.x1) * M._sizeT.x + M._initT.x;
 	T.y = float(K.y1) * M._sizeT.y + M._initT.y;
 	T.z = float(K.z1) * M._sizeT.z + M._initT.z;
 }
 
-IC void Dequantize(CKey& K, const CBlend& BD, const CMotion& M)
+inline void Dequantize(CKey& K, const CBlend& BD, const CMotion& M)
 {
 	CKey* D = &K;
 	const CBlend* B = &BD;
@@ -188,7 +188,7 @@ IC void Dequantize(CKey& K, const CBlend& BD, const CMotion& M)
 }
 
 
-IC void MixInterlerp(CKey& Result, const CKey* R, const CBlend* const BA[MAX_BLENDED], int b_count)
+inline void MixInterlerp(CKey& Result, const CKey* R, const CBlend* const BA[MAX_BLENDED], int b_count)
 {
 	VERIFY(MAX_BLENDED >= b_count);
 	switch (b_count)
@@ -273,7 +273,7 @@ IC void MixInterlerp(CKey& Result, const CKey* R, const CBlend* const BA[MAX_BLE
 }
 
 
-IC void key_sub(CKey& rk, const CKey& k0, const CKey& k1) //sub right
+inline void key_sub(CKey& rk, const CKey& k0, const CKey& k1) //sub right
 {
 	Fquaternion q;
 	q.inverse(k1.Q);
@@ -282,20 +282,20 @@ IC void key_sub(CKey& rk, const CKey& k0, const CKey& k1) //sub right
 	rk.T.sub(k0.T, k1.T);
 }
 
-IC void key_identity(CKey& k)
+inline void key_identity(CKey& k)
 {
 	k.Q.identity();
 	k.T.set(0, 0, 0);
 }
 
-IC void key_add(CKey& res, const CKey& k0, const CKey& k1) //add right
+inline void key_add(CKey& res, const CKey& k0, const CKey& k1) //add right
 {
 	res.Q.set(Fquaternion().mul(k0.Q, k1.Q));
 	//res.Q.normalize();
 	res.T.add(k0.T, k1.T);
 }
 
-IC void q_scale(Fquaternion& q, float v)
+inline void q_scale(Fquaternion& q, float v)
 {
 	float angl;
 	Fvector ax;
@@ -304,14 +304,14 @@ IC void q_scale(Fquaternion& q, float v)
 	//q.normalize();
 }
 
-IC void key_scale(CKey& res, const CKey& k, float v)
+inline void key_scale(CKey& res, const CKey& k, float v)
 {
 	res = k;
 	q_scale(res.Q, v);
 	res.T.mul(v);
 }
 
-IC void key_mad(CKey& res, const CKey& k0, const CKey& k1, float v)
+inline void key_mad(CKey& res, const CKey& k0, const CKey& k1, float v)
 {
 	CKey k;
 	key_scale(k, k1, v);
@@ -319,7 +319,7 @@ IC void key_mad(CKey& res, const CKey& k0, const CKey& k1, float v)
 }
 
 
-IC void keys_substruct(CKey* R, const CKey* BR, int b_count)
+inline void keys_substruct(CKey* R, const CKey* BR, int b_count)
 {
 	for (int i = 0; i < b_count; i++)
 	{
@@ -330,7 +330,7 @@ IC void keys_substruct(CKey* R, const CKey* BR, int b_count)
 }
 
 
-IC void q_scalem(Fmatrix& m, float v)
+inline void q_scalem(Fmatrix& m, float v)
 {
 	Fquaternion q;
 	q.set(m);
@@ -340,7 +340,7 @@ IC void q_scalem(Fmatrix& m, float v)
 
 
 //sclale base' * q by scale_factor returns result in matrix  m_res
-IC void q_scale_vs_basem(Fmatrix& m_res, const Fquaternion& q, const Fquaternion& base, float scale_factor)
+inline void q_scale_vs_basem(Fmatrix& m_res, const Fquaternion& q, const Fquaternion& base, float scale_factor)
 {
 	Fmatrix mb, imb;
 	mb.rotation(base);
@@ -353,7 +353,7 @@ IC void q_scale_vs_basem(Fmatrix& m_res, const Fquaternion& q, const Fquaternion
 }
 
 
-IC void q_add_scaled_basem(Fquaternion& q, const Fquaternion& base, const Fquaternion& q0, const Fquaternion& q1,
+inline void q_add_scaled_basem(Fquaternion& q, const Fquaternion& base, const Fquaternion& q0, const Fquaternion& q1,
                            float v1)
 {
 	//VERIFY(0.f =< v && 1.f >= v );
@@ -366,7 +366,7 @@ IC void q_add_scaled_basem(Fquaternion& q, const Fquaternion& base, const Fquate
 	q.normalize();
 }
 
-IC float DET(const Fmatrix& a)
+inline float DET(const Fmatrix& a)
 {
 	return
 	((a._11 * (a._22 * a._33 - a._23 * a._32) -
@@ -374,20 +374,20 @@ IC float DET(const Fmatrix& a)
 		a._13 * (a._21 * a._32 - a._22 * a._31)));
 }
 
-IC bool check_scale(const Fmatrix& m)
+inline bool check_scale(const Fmatrix& m)
 {
 	float det = DET(m);
 	return (0.8f < det && det < 1.3f);
 }
 
-IC bool check_scale(const Fquaternion& q)
+inline bool check_scale(const Fquaternion& q)
 {
 	Fmatrix m;
 	m.rotation(q);
 	return check_scale(m);
 }
 
-IC void MixFactors(float* F, int b_count)
+inline void MixFactors(float* F, int b_count)
 {
 	float sum = 0;
 	for (int i = 0; i < b_count; i++)
@@ -396,19 +396,19 @@ IC void MixFactors(float* F, int b_count)
 		F[i2] /= sum;
 }
 
-IC void MixinAdd(CKey& Result, const CKey* R, const float* BA, int b_count)
+inline void MixinAdd(CKey& Result, const CKey* R, const float* BA, int b_count)
 {
 	for (int i = 0; i < b_count; i++)
 		key_mad(Result, Result, R[i], BA[i]);
 }
 
-IC void MixAdd(CKey& Result, const CKey* R, const float* BA, int b_count)
+inline void MixAdd(CKey& Result, const CKey* R, const float* BA, int b_count)
 {
 	key_identity(Result);
 	MixinAdd(Result, R, BA, b_count);
 }
 
-IC void process_single_channel(CKey& Result, const animation::channel_def& ch, const CKey* R,
+inline void process_single_channel(CKey& Result, const animation::channel_def& ch, const CKey* R,
                                const CBlend* const BA[MAX_BLENDED], int b_count)
 {
 	MixInterlerp(Result, R, BA, b_count);
@@ -416,7 +416,7 @@ IC void process_single_channel(CKey& Result, const animation::channel_def& ch, c
 	VERIFY(_valid( Result.Q ));
 }
 
-IC void MixChannels(CKey& Result, const CKey* R, const animation::channel_def* BA, int b_count)
+inline void MixChannels(CKey& Result, const CKey* R, const animation::channel_def* BA, int b_count)
 {
 	VERIFY(b_count>0);
 	Result = R[0];

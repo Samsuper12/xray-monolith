@@ -42,7 +42,7 @@ public:
 	virtual void __stdcall assign_shapes(CShapeData::shape_def* shapes, u32 cnt) =0;
 };
 
-IC ISE_Shape::~ISE_Shape()
+inline ISE_Shape::~ISE_Shape()
 {
 }
 
@@ -109,7 +109,7 @@ struct ISE_AbstractLEOwner
 	virtual void __stdcall get_bone_xform(LPCSTR name, Fmatrix& xform) = 0;
 };
 
-IC ISE_AbstractLEOwner::~ISE_AbstractLEOwner()
+inline ISE_AbstractLEOwner::~ISE_AbstractLEOwner()
 {
 }
 // // #pragma pack(push,1)
@@ -134,7 +134,7 @@ public:
 
 	virtual ~ISE_Abstract() = 0;
 	Flags32 m_editor_flags;
-	IC void set_editor_flag(u32 mask) { m_editor_flags.set(mask,TRUE); }
+	inline void set_editor_flag(u32 mask) { m_editor_flags.set(mask,TRUE); }
 
 public:
 	virtual void __stdcall Spawn_Write(NET_Packet& tNetPacket, BOOL bLocal) = 0;
@@ -159,7 +159,7 @@ public:
 	virtual bool __stdcall validate() = 0;
 };
 
-IC ISE_Abstract::~ISE_Abstract()
+inline ISE_Abstract::~ISE_Abstract()
 {
 }
 #pragma warning(pop)

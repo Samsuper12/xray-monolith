@@ -33,8 +33,8 @@ namespace steering_behaviour
 			                             local::random_component()));
 		}
 
-		ICF float min(float a, float b) { return a < b ? a : b; }
-		ICF float max(float a, float b) { return a < b ? a : b; }
+		inline float min(float a, float b) { return a < b ? a : b; }
+		inline float max(float a, float b) { return a < b ? a : b; }
 	} // namespace detail
 
 	//----------------------------------------------------------

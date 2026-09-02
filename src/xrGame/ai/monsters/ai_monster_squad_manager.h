@@ -34,7 +34,7 @@ public:
 };
 
 
-IC CMonsterSquadManager& monster_squad();
+inline CMonsterSquadManager& monster_squad();
 extern CMonsterSquadManager* g_monster_squad;
 
 #include "ai_monster_squad_manager_inline.h"

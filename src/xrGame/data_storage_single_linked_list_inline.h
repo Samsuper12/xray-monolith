@@ -18,7 +18,7 @@
 #define CSingleLinkedList	CDataStorageSingleLinkedList<sorted>::template CDataStorage<_data_storage,_vertex>
 
 TEMPLATE_SPECIALIZATION
-IC CSingleLinkedList::CDataStorage(const u32 vertex_count, const _dist_type _max_distance) :
+inline CSingleLinkedList::CDataStorage(const u32 vertex_count, const _dist_type _max_distance) :
 	inherited(vertex_count)
 {
 	m_max_distance = _max_distance;
@@ -30,7 +30,7 @@ CSingleLinkedList::~CDataStorage()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSingleLinkedList::init()
+inline void CSingleLinkedList::init()
 {
 	inherited::init();
 	ZeroMemory(m_list_data, 2*sizeof(CGraphVertex));
@@ -41,13 +41,13 @@ IC void CSingleLinkedList::init()
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CSingleLinkedList::is_opened_empty() const
+inline bool CSingleLinkedList::is_opened_empty() const
 {
 	return (m_list_head->next() == m_list_tail);
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSingleLinkedList::add_opened(CGraphVertex& vertex)
+inline void CSingleLinkedList::add_opened(CGraphVertex& vertex)
 {
 	inherited::add_opened(vertex);
 	if (!sorted)
@@ -68,7 +68,7 @@ IC void CSingleLinkedList::add_opened(CGraphVertex& vertex)
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSingleLinkedList::decrease_opened(CGraphVertex& vertex, const _dist_type value)
+inline void CSingleLinkedList::decrease_opened(CGraphVertex& vertex, const _dist_type value)
 {
 	VERIFY(!is_opened_empty());
 
@@ -100,21 +100,21 @@ IC void CSingleLinkedList::decrease_opened(CGraphVertex& vertex, const _dist_typ
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSingleLinkedList::remove_best_opened()
+inline void CSingleLinkedList::remove_best_opened()
 {
 	VERIFY(!is_opened_empty());
 	m_list_head->next() = m_list_head->next()->next();
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CSingleLinkedList::add_best_closed()
+inline void CSingleLinkedList::add_best_closed()
 {
 	VERIFY(!is_opened_empty());
 	inherited::add_closed(*m_list_head->next());
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CSingleLinkedList::CGraphVertex&CSingleLinkedList::get_best() const
+inline typename CSingleLinkedList::CGraphVertex&CSingleLinkedList::get_best() const
 {
 	VERIFY(!is_opened_empty());
 

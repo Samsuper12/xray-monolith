@@ -52,8 +52,8 @@ namespace smart_cover
 		void save(NET_Packet& packet);
 		void load(IReader& packet);
 		void setup(CAI_Stalker* object, CPropertyStorage* storage);
-		IC CPropertyStorage* property_storage();
-		IC animation_planner& planner();
+		inline CPropertyStorage* property_storage();
+		inline animation_planner& planner();
 	};
 } // namespace smart_cover
 

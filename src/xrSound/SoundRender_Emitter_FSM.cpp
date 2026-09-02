@@ -324,7 +324,7 @@ void CSoundRender_Emitter::update(float dt)
 #endif
 }
 
-IC void volume_lerp(float& c, float t, float s, float dt)
+inline void volume_lerp(float& c, float t, float s, float dt)
 {
 	float diff = t - c;
 	float diff_a = _abs(diff);

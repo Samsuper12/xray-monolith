@@ -208,7 +208,7 @@ void CServerList::FillUpDetailedServerInfo()
 
 	//	if (2 == teams)
 	//	{
-	//		LPSTR _buff = NULL;
+	//		char * _buff = NULL;
 
 	//		CUIListBoxItem* pItemAdv;
 

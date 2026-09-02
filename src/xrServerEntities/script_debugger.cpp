@@ -19,7 +19,7 @@ void CScriptDebugger::SendMessageToIde(CMailSlotMsg& msg)
 		m_bIdePresent = false;
 }
 
-LRESULT CScriptDebugger::_SendMessage(u32 message, WPARAM wParam, LPARAM lParam)
+intptr_t CScriptDebugger::_SendMessage(u32 message, uintptr_t wParam, intptr_t lParam)
 {
 	//	if ( (m_pDebugger)&&(m_pDebugger->Active())&&(message >= _DMSG_FIRST_MSG && message <= _DMSG_LAST_MSG) )
 	//		return m_pDebugger->DebugMessage(message, wParam, lParam);
@@ -29,7 +29,7 @@ LRESULT CScriptDebugger::_SendMessage(u32 message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-LRESULT CScriptDebugger::DebugMessage(UINT nMsg, WPARAM wParam, LPARAM lParam)
+intptr_t CScriptDebugger::DebugMessage(uint32_t nMsg, uintptr_t wParam, intptr_t lParam)
 {
 	CMailSlotMsg msg;
 
@@ -179,11 +179,11 @@ CScriptDebugger::CScriptDebugger()
 	m_nLevel = 0;
 	m_mailSlot = CreateMailSlotByName(DEBUGGER_MAIL_SLOT);
 
-	if (m_mailSlot == INVALID_HANDLE_VALUE)
-	{
+	// if (m_mailSlot == INVALID_HANDLE_VALUE)
+	// {
 		m_bIdePresent = false;
 		return;
-	}
+	// }
 	Connect(IDE_MAIL_SLOT);
 }
 
@@ -207,7 +207,7 @@ CScriptDebugger::~CScriptDebugger()
 	if (Active())
 		_SendMessage(DMSG_CLOSE_CONNECTION, 0, 0);
 
-	CloseHandle(m_mailSlot);
+	//CloseHandle(m_mailSlot);
 
 	xr_delete(m_threads);
 	xr_delete(m_callStack);
@@ -247,7 +247,7 @@ void CScriptDebugger::initiateDebugBreak()
 
 void CScriptDebugger::Write(const char* szMsg)
 {
-	_SendMessage(DMSG_WRITE_DEBUG, (WPARAM)szMsg, 0);
+	_SendMessage(DMSG_WRITE_DEBUG, (uintptr_t)szMsg, 0);
 }
 
 void CScriptDebugger::LineHook(const char* szFile, int nLine)
@@ -337,7 +337,7 @@ void CScriptDebugger::AddStackTrace(const char* szDesc, const char* szFile, int 
 	xr_strcat(st.szDesc, szDesc);
 	xr_strcat(st.szFile, szFile);
 	st.nLine = nLine;
-	_SendMessage(DMSG_ADD_STACKTRACE, (WPARAM)&st, 0);
+	_SendMessage(DMSG_ADD_STACKTRACE, (uintptr_t)&st, 0);
 }
 
 int CScriptDebugger::GetStackTraceLevel()
@@ -362,7 +362,7 @@ void CScriptDebugger::ClearLocalVariables()
 
 void CScriptDebugger::AddLocalVariable(const Variable& var)
 {
-	_SendMessage(DMSG_ADD_LOCALVARIABLE, (WPARAM)&var, 0);
+	_SendMessage(DMSG_ADD_LOCALVARIABLE, (uintptr_t)&var, 0);
 }
 
 void CScriptDebugger::ClearGlobalVariables()
@@ -376,7 +376,7 @@ void CScriptDebugger::AddGlobalVariable(const char* name, const char* type, cons
 	xr_strcat(var.szName, name);
 	xr_strcat(var.szType, type);
 	xr_strcat(var.szValue, value);
-	_SendMessage(DMSG_ADD_GLOBALVARIABLE, (WPARAM)&var, 0);
+	_SendMessage(DMSG_ADD_GLOBALVARIABLE, (uintptr_t)&var, 0);
 }
 
 
@@ -398,7 +398,7 @@ void CScriptDebugger::CheckNewMessages()
 	};
 }
 
-void CScriptDebugger::WaitForReply(bool bWaitForModalResult) //UINT nMsg)
+void CScriptDebugger::WaitForReply(bool bWaitForModalResult) //uint32_t nMsg)
 {
 	bool mr = false;
 	do
@@ -504,7 +504,7 @@ bool CScriptDebugger::TranslateIdeMessage(CMailSlotMsg* msg)
 			string512 varName;
 			varName[0] = 0;
 			msg->r_string(varName);
-			_SendMessage(DMSG_GET_VAR_TABLE, (WPARAM)varName, 0);
+			_SendMessage(DMSG_GET_VAR_TABLE, (uintptr_t)varName, 0);
 			return false;
 		}
 		break;
@@ -517,7 +517,7 @@ bool CScriptDebugger::TranslateIdeMessage(CMailSlotMsg* msg)
 			int iItem;
 			msg->r_string(watch);
 			msg->r_int(iItem);
-			_SendMessage(DMSG_EVAL_WATCH, (WPARAM)watch, (LPARAM)iItem);
+			_SendMessage(DMSG_EVAL_WATCH, (uintptr_t)watch, (intptr_t)iItem);
 			return false;
 		}
 		break;
@@ -573,5 +573,5 @@ void CScriptDebugger::ClearThreads()
 
 void CScriptDebugger::AddThread(SScriptThread& th)
 {
-	_SendMessage(DMSG_ADD_THREAD, (WPARAM)(&th), 0);
+	_SendMessage(DMSG_ADD_THREAD, (uintptr_t)(&th), 0);
 }

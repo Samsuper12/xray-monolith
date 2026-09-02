@@ -7,7 +7,7 @@
 #define TRACE_QZERO_TOLERANCE 0.1f
 
 template <class T>
-IC _quaternion<T>& _quaternion<T>::set(const _matrix<T>& M)
+inline _quaternion<T>& _quaternion<T>::set(const _matrix<T>& M)
 {
 	float trace, s;
 

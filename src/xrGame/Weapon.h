@@ -87,9 +87,9 @@ public:
 	}
 
 	float GetSecondVPFov() const;
-	IC float GetZRotatingFactor()    const { return m_zoom_params.m_fZoomRotationFactor; }
-	IC float GetSecondVPZoomFactor() const { return m_zoom_params.m_fSecondVPFovFactor; }
-	IC float IsSecondVPZoomPresent() const { return GetSecondVPZoomFactor() > 0.005f; }
+	inline float GetZRotatingFactor()    const { return m_zoom_params.m_fZoomRotationFactor; }
+	inline float GetSecondVPZoomFactor() const { return m_zoom_params.m_fSecondVPFovFactor; }
+	inline float IsSecondVPZoomPresent() const { return GetSecondVPZoomFactor() > 0.005f; }
 
 	// Up
 	// Magazine system & etc
@@ -204,7 +204,7 @@ public:
 		undefined_ammo_type = u8(-1)
 	};
 
-	IC BOOL IsValid() const
+	inline BOOL IsValid() const
 	{
 		return iAmmoElapsed;
 	}
@@ -334,7 +334,7 @@ public:
 		return m_sSilencerName;
 	}
 
-	IC void ForceUpdateAmmo()
+	inline void ForceUpdateAmmo()
 	{
 		m_BriefInfo_CalcFrame = 0;
 	}
@@ -405,7 +405,7 @@ private:
 
 public:
 
-	IC bool IsZoomEnabled() const
+	inline bool IsZoomEnabled() const
 	{
 		return m_zoom_params.m_bZoomEnabled;
 	}
@@ -415,7 +415,7 @@ public:
 	virtual void ZoomDec();
 	virtual void OnZoomIn();
 	virtual void OnZoomOut();
-	IC bool IsZoomed() const
+	inline bool IsZoomed() const
 	{
 		return m_zoom_params.m_bIsZoomModeNow;
 	};
@@ -423,12 +423,12 @@ public:
 
 	bool ZoomHideCrosshair();
 
-	IC float GetZoomFactor() const
+	inline float GetZoomFactor() const
 	{
 		return m_zoom_params.m_fCurrentZoomFactor;
 	}
 
-	IC void SetZoomFactor(float f)
+	inline void SetZoomFactor(float f)
 	{
 		m_zoom_params.m_fCurrentZoomFactor = f;
 	}
@@ -476,22 +476,22 @@ public:
 	}
 
 public:
-	IC LPCSTR strap_bone0() const
+	inline LPCSTR strap_bone0() const
 	{
 		return m_strap_bone0;
 	}
 
-	IC LPCSTR strap_bone1() const
+	inline LPCSTR strap_bone1() const
 	{
 		return m_strap_bone1;
 	}
 
-	IC void strapped_mode(bool value)
+	inline void strapped_mode(bool value)
 	{
 		m_strapped_mode = value;
 	}
 
-	IC bool strapped_mode() const
+	inline bool strapped_mode() const
 	{
 		return m_strapped_mode;
 	}
@@ -559,7 +559,7 @@ protected:
 	virtual void UpdateXForm() override;
 	void InterpolateOffset(Fvector& current, const Fvector& target, const float factor) const;
 	virtual void UpdateHudAdditional(Fmatrix& trans) override;
-	IC void UpdateFireDependencies()
+	inline void UpdateFireDependencies()
 	{
 		if (dwFP_Frame == Device.dwFrame) return;
 		UpdateFireDependencies_internal();
@@ -567,31 +567,31 @@ protected:
 
 	virtual void LoadFireParams(LPCSTR section) override;
 public:
-	IC const Fvector& get_LastFP()
+	inline const Fvector& get_LastFP()
 	{
 		UpdateFireDependencies();
 		return m_current_firedeps.vLastFP;
 	}
 
-	IC const Fvector& get_LastFP2()
+	inline const Fvector& get_LastFP2()
 	{
 		UpdateFireDependencies();
 		return m_current_firedeps.vLastFP2;
 	}
 
-	IC const Fvector& get_LastFPSilencer()
+	inline const Fvector& get_LastFPSilencer()
 	{
 		UpdateFireDependencies();
 		return m_current_firedeps.vLastFPSilencer;
 	}
 
-	IC const Fvector& get_LastFD()
+	inline const Fvector& get_LastFD()
 	{
 		UpdateFireDependencies();
 		return m_current_firedeps.vLastFD;
 	}
 
-	IC const Fvector& get_LastSP()
+	inline const Fvector& get_LastSP()
 	{
 		UpdateFireDependencies();
 		return m_current_firedeps.vLastSP;
@@ -788,12 +788,12 @@ protected:
 	int GetAmmoCount(u8 ammo_type) const;
 
 public:
-	IC int GetAmmoElapsed() const
+	inline int GetAmmoElapsed() const
 	{
 		return iAmmoElapsed;
 	}
 
-	IC int GetAmmoMagSize() const
+	inline int GetAmmoMagSize() const
 	{
 		return iMagazineSize;
 	}
@@ -1051,7 +1051,7 @@ public:
 	virtual bool GetSilencedTracers() { return m_bSilencedTracers; }
 
 	bool unlimited_ammo();
-	IC bool can_be_strapped() const
+	inline bool can_be_strapped() const
 	{
 		return m_can_be_strapped;
 	};
@@ -1078,7 +1078,7 @@ public:
 	virtual void SetHitImpulse(float val) { fHitImpulse = val; };
 	virtual void SetFireDistance(float val) { fireDistance = val; };
 	
-	IC u8 GetZoomType() const
+	inline u8 GetZoomType() const
 	{
 		return m_zoomtype;
 	}

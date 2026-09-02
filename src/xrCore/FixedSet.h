@@ -24,7 +24,7 @@ private:
 	u32 pool;
 	u32 limit;
 
-	IC u32 Size(u32 Count)
+	inline u32 Size(u32 Count)
 	{
 		return Count * sizeof(TNode);
 	}
@@ -38,7 +38,7 @@ private:
 
 		ZeroMemory(newNodes, Size(newLimit));
 		if (limit)
-			CopyMemory(newNodes, nodes, Size(limit));
+			memcpy(newNodes, nodes, Size(limit));
 
 		for (u32 I = 0; I < pool; I++)
 		{
@@ -65,7 +65,7 @@ private:
 		limit = newLimit;
 	}
 
-	IC TNode* Alloc(const K& key)
+	inline TNode* Alloc(const K& key)
 	{
 		if (pool == limit) Realloc();
 		TNode* node = nodes + pool;
@@ -75,7 +75,7 @@ private:
 		return node;
 	}
 
-	IC TNode* CreateChild(TNode*& parent, const K& key)
+	inline TNode* CreateChild(TNode*& parent, const K& key)
 	{
 		u32 PID = u32(parent - nodes);
 		TNode* N = Alloc(key);
@@ -83,14 +83,14 @@ private:
 		return N;
 	}
 
-	IC void recurseLR(TNode* N, callback CB)
+	inline void recurseLR(TNode* N, callback CB)
 	{
 		if (N->left) recurseLR(N->left, CB);
 		CB(N);
 		if (N->right) recurseLR(N->right, CB);
 	}
 
-	IC void recurseRL(TNode* N, callback CB)
+	inline void recurseRL(TNode* N, callback CB)
 	{
 		if (N->right) recurseRL(N->right, CB);
 		CB(N);
@@ -111,7 +111,7 @@ public:
 		dealloc(nodes);
 	}
 
-	IC TNode* insert(const K& k)
+	inline TNode* insert(const K& k)
 	{
 		if (pool)
 		{
@@ -154,7 +154,7 @@ public:
 		}
 	}
 
-	IC TNode* insertInAnyWay(const K& k)
+	inline TNode* insertInAnyWay(const K& k)
 	{
 		if (pool)
 		{
@@ -196,31 +196,31 @@ public:
 		}
 	}
 
-	IC void clear() { pool = 0; }
-	IC TNode* begin() { return nodes; }
-	IC TNode* end() { return nodes + pool; }
-	IC TNode* last() { return nodes + limit; } // for setup only
-	IC u32 size() { return pool; }
-	IC TNode& operator[](int v) { return nodes[v]; }
+	inline void clear() { pool = 0; }
+	inline TNode* begin() { return nodes; }
+	inline TNode* end() { return nodes + pool; }
+	inline TNode* last() { return nodes + limit; } // for setup only
+	inline u32 size() { return pool; }
+	inline TNode& operator[](int v) { return nodes[v]; }
 
-	IC void traverseLR(callback CB)
+	inline void traverseLR(callback CB)
 	{
 		if (pool) recurseLR(nodes, CB);
 	}
 
-	IC void traverseRL(callback CB)
+	inline void traverseRL(callback CB)
 	{
 		if (pool) recurseRL(nodes, CB);
 	}
 
-	IC void traverseANY(callback CB)
+	inline void traverseANY(callback CB)
 	{
 		TNode* _end = end();
 		for (TNode* cur = begin(); cur != _end; cur++)
 			CB(cur);
 	}
 
-	IC void for_each(callback CB)
+	inline void for_each(callback CB)
 	{
 		for (int i = 0; i < limit; i++)
 			CB(nodes + i);

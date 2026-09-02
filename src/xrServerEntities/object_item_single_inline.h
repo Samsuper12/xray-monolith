@@ -15,7 +15,7 @@
 #define CSObjectItemSingle CObjectItemSingle<_unknown_type,_client_object>
 
 TEMPLATE_SPECIALIZATION
-IC CSObjectItemSingle::CObjectItemSingle(const CLASS_ID& clsid, LPCSTR script_clsid) :
+inline CSObjectItemSingle::CObjectItemSingle(const CLASS_ID& clsid, LPCSTR script_clsid) :
 	inherited(clsid, script_clsid)
 {
 }
@@ -37,7 +37,7 @@ ObjectFactory::SERVER_BASE_CLASS*CSObjectItemSingle::server_object(LPCSTR sectio
 
 #ifndef NO_XR_GAME
 template <typename _unknown_type>
-IC CObjectItemSingle<_unknown_type, true>::CObjectItemSingle(const CLASS_ID& clsid, LPCSTR script_clsid) :
+inline CObjectItemSingle<_unknown_type, true>::CObjectItemSingle(const CLASS_ID& clsid, LPCSTR script_clsid) :
 	inherited(clsid, script_clsid)
 {
 }

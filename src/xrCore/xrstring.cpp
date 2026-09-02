@@ -197,7 +197,7 @@ str_value* str_container::dock(str_c value)
 		result->dwReference = 0;
 		result->dwLength = sv->dwLength;
 		result->dwCRC = sv->dwCRC;
-		CopyMemory(result->value, value, s_len_with_zero);
+		memcpy(result->value, value, s_len_with_zero);
 
 		impl->insert(result);
 	}
@@ -351,7 +351,7 @@ str_value* str_container::dock(str_c value)
         result->dwCRC = sv->dwCRC;
         result->next = NULL;
 
-        CopyMemory(result->value, value, s_len_with_zero);
+        memcpy(result->value, value, s_len_with_zero);
 
         impl->container.insert(result);
     }

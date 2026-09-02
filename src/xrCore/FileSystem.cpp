@@ -33,7 +33,7 @@ xr_string EFS_Utils::ExcludeBasePath(LPCSTR full_path, LPCSTR excl_path)
 xr_string EFS_Utils::ChangeFileExt(LPCSTR src, LPCSTR ext)
 {
 	xr_string tmp;
-	LPSTR src_ext = strext(src);
+	char * src_ext = strext(src);
 	if (src_ext)
 	{
 		size_t ext_pos = src_ext - src;
@@ -101,14 +101,14 @@ void MakeFilter(string1024& dest, LPCSTR info, LPCSTR ext)
 //------------------------------------------------------------------------------
 
 // Vista uses this hook for old-style save dialog
-// UINT_PTR CALLBACK OFNHookProcOldStyle(HWND, UINT, WPARAM, LPARAM)
+// UINT_PTR CALLBACK OFNHookProcOldStyle(HWND, uint32_t, uintptr_t, intptr_t)
 // {
 // 	// let default hook work on this message
 // 	return 0;
 // }
 
 // TODO: Editor
-// bool EFS_Utils::GetOpenNameInternal(LPCSTR initial, LPSTR buffer, int sz_buf, bool bMulti, LPCSTR offset,
+// bool EFS_Utils::GetOpenNameInternal(LPCSTR initial, char * buffer, int sz_buf, bool bMulti, LPCSTR offset,
 //                                     int start_flt_ext)
 // {
 // 	VERIFY(buffer && (sz_buf > 0));
@@ -156,7 +156,7 @@ void MakeFilter(string1024& dest, LPCSTR info, LPCSTR ext)
 
 // 	/*
 // 	 unsigned int dwVersion = GetVersion();
-// 	 unsigned int dwWindowsMajorVersion = (DWORD)(LOBYTE(LOWORD(dwVersion)));
+// 	 unsigned int dwWindowsMajorVersion = (uint32_t)(LOBYTE(LOWORD(dwVersion)));
 // 	 if ( dwWindowsMajorVersion == 6 )
 // 	 {
 // 	 ofn.Flags |= OFN_ENABLEHOOK;
@@ -207,7 +207,7 @@ void MakeFilter(string1024& dest, LPCSTR info, LPCSTR ext)
 bool EFS_Utils::GetSaveName(LPCSTR initial, string_path& buffer, LPCSTR offset, int start_flt_ext)
 {
 	// unsigned int dwVersion = GetVersion();
-	// unsigned int dwWindowsMajorVersion = (DWORD)(LOBYTE(LOWORD(dwVersion)));
+	// unsigned int dwWindowsMajorVersion = (uint32_t)(LOBYTE(LOWORD(dwVersion)));
 
 	stub_unix(__func__);
 	// FS_Path& P = *FS.get_path(initial);
@@ -271,19 +271,19 @@ bool EFS_Utils::GetSaveName(LPCSTR initial, string_path& buffer, LPCSTR offset, 
 }
 
 //----------------------------------------------------
-LPCSTR EFS_Utils::AppendFolderToName(LPSTR tex_name, u32 const tex_name_size, int depth, BOOL full_name)
+LPCSTR EFS_Utils::AppendFolderToName(char * tex_name, u32 const tex_name_size, int depth, BOOL full_name)
 {
 	string256 _fn;
 	xr_strcpy(tex_name, tex_name_size, AppendFolderToName(tex_name, _fn, sizeof(_fn), depth, full_name));
 	return tex_name;
 }
 
-LPCSTR EFS_Utils::AppendFolderToName(LPCSTR src_name, LPSTR dest_name, u32 const dest_name_size, int depth,
+LPCSTR EFS_Utils::AppendFolderToName(LPCSTR src_name, char * dest_name, u32 const dest_name_size, int depth,
                                      BOOL full_name)
 {
 	shared_str tmp = src_name;
 	LPCSTR s = src_name;
-	LPSTR d = dest_name;
+	char * d = dest_name;
 	int sv_depth = depth;
 	for (; *s && depth; s++, d++)
 	{
@@ -307,7 +307,7 @@ LPCSTR EFS_Utils::AppendFolderToName(LPCSTR src_name, LPSTR dest_name, u32 const
 	return dest_name;
 }
 
-LPCSTR EFS_Utils::GenerateName(LPCSTR base_path, LPCSTR base_name, LPCSTR def_ext, LPSTR out_name,
+LPCSTR EFS_Utils::GenerateName(LPCSTR base_path, LPCSTR base_name, LPCSTR def_ext, char * out_name,
                                u32 const out_name_size)
 {
 	int cnt = 0;

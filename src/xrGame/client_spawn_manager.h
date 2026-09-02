@@ -39,7 +39,7 @@ protected:
 	void merge_spawn_callbacks(CSpawnCallback& new_callback, CSpawnCallback& old_callback);
 
 public:
-	IC CClientSpawnManager();
+	inline CClientSpawnManager();
 	virtual ~CClientSpawnManager();
 	void add(ALife::_OBJECT_ID requesting_id, ALife::_OBJECT_ID requested_id, const ::luabind::functor<void>& functor,
 	         const ::luabind::object& object);
@@ -54,7 +54,7 @@ public:
 	void callback(CSpawnCallback& spawn_callback, CObject* object);
 	const CSpawnCallback* callback(ALife::_OBJECT_ID requesting_id, ALife::_OBJECT_ID requested_id) const;
 #ifdef DEBUG
-	IC		const REQUEST_REGISTRY &registry	() const;
+	inline		const REQUEST_REGISTRY &registry	() const;
 			void		dump					() const;
 			void		dump					(ALife::_OBJECT_ID	requesting_id) const;
 #endif // DEBUG

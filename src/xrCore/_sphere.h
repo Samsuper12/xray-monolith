@@ -9,19 +9,19 @@ struct _sphere
 	_vector3<T> P;
 	T R;
 public:
-	IC void set(const _vector3<T>& _P, T _R)
+	inline void set(const _vector3<T>& _P, T _R)
 	{
 		P.set(_P);
 		R = _R;
 	}
 
-	IC void set(const _sphere<T>& S)
+	inline void set(const _sphere<T>& S)
 	{
 		P.set(S.P);
 		R = S.R;
 	}
 
-	IC void identity()
+	inline void identity()
 	{
 		P.set(0, 0, 0);
 		R = 1;
@@ -36,7 +36,7 @@ public:
 	};
 
 	// Ray-sphere intersection
-	ICF ERP_Result intersect(const _vector3<T>& S, const _vector3<T>& D, T range, int& quantity, T afT[2]) const
+	inline ERP_Result intersect(const _vector3<T>& S, const _vector3<T>& D, T range, int& quantity, T afT[2]) const
 	{
 		// set up quadratic Q(t) = a*t^2 + 2*b*t + c
 		_vector3<T> kDiff;
@@ -97,7 +97,7 @@ public:
 	 range2 =range*range;
 	 }
 	 */
-	ICF ERP_Result intersect_full(const _vector3<T>& start, const _vector3<T>& dir, T& dist) const
+	inline ERP_Result intersect_full(const _vector3<T>& start, const _vector3<T>& dir, T& dist) const
 	{
 		int quantity;
 		float afT[2];
@@ -118,7 +118,7 @@ public:
 		return result;
 	}
 
-	ICF ERP_Result intersect(const _vector3<T>& start, const _vector3<T>& dir, T& dist) const
+	inline ERP_Result intersect(const _vector3<T>& start, const _vector3<T>& dir, T& dist) const
 	{
 		int quantity;
 		T afT[2];
@@ -135,7 +135,7 @@ public:
 		return rpNone;
 	}
 
-	IC ERP_Result intersect2(const _vector3<T>& S, const _vector3<T>& D, T& range) const
+	inline ERP_Result intersect2(const _vector3<T>& S, const _vector3<T>& D, T& range) const
 	{
 		_vector3<T> Q;
 		Q.sub(P, S);
@@ -157,7 +157,7 @@ public:
 		return rpNone;
 	}
 
-	ICF BOOL intersect(const _vector3<T>& S, const _vector3<T>& D) const
+	inline BOOL intersect(const _vector3<T>& S, const _vector3<T>& D) const
 	{
 		_vector3<T> Q;
 		Q.sub(P, S);
@@ -168,19 +168,19 @@ public:
 		return (d > 0);
 	}
 
-	ICF BOOL intersect(const _sphere<T>& S) const
+	inline BOOL intersect(const _sphere<T>& S) const
 	{
 		T SumR = R + S.R;
 		return P.distance_to_sqr(S.P) < SumR * SumR;
 	}
 
-	IC BOOL contains(const _vector3<T>& PT) const
+	inline BOOL contains(const _vector3<T>& PT) const
 	{
 		return P.distance_to_sqr(PT) <= (R * R + EPS_S);
 	}
 
 	// returns true if this wholly contains the argument sphere
-	IC BOOL contains(const _sphere<T>& S) const
+	inline BOOL contains(const _sphere<T>& S) const
 	{
 		// can't contain a sphere that's bigger than me !
 		const T RDiff = R - S.R;
@@ -190,7 +190,7 @@ public:
 	}
 
 	// return's volume of sphere
-	IC T volume() const
+	inline T volume() const
 	{
 		return T(PI_MUL_4 / 3) * (R * R * R);
 	}

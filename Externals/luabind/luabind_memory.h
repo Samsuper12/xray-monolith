@@ -13,6 +13,8 @@
 #include <map>
 #include <set>
 #include <string>
+#include <stdlib.h>
+
 
 #ifdef DEBUG
 #	ifdef NDEBUG

@@ -25,7 +25,7 @@ namespace inventory
 			Root();
 			virtual ~Root();
 			void construct(const shared_str& root_id, Manager& manager_r);
-			IC LPCSTR scheme() const;
+			inline LPCSTR scheme() const;
 
 			void add_upgrade(Upgrade* upgr);
 			virtual bool is_root();

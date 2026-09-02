@@ -25,7 +25,7 @@ private:
 
 
 public:
-	IC CAttachableItem();
+	inline CAttachableItem();
 	virtual ~CAttachableItem();
 	virtual DLL_Pure* _construct();
 	virtual CAttachableItem* cast_attachable_item() { return this; }
@@ -37,13 +37,13 @@ public:
 	bool load_attach_position(LPCSTR section);
 	virtual void afterAttach();
 	virtual void afterDetach();
-	IC CInventoryItem& item() const;
+	inline CInventoryItem& item() const;
 	CPhysicsShellHolder& object() const;
-	IC shared_str bone_name() const;
-	IC u16 bone_id() const;
-	IC void set_bone_id(u16 bone_id);
-	IC const Fmatrix& offset() const;
-	IC bool enabled() const;
+	inline shared_str bone_name() const;
+	inline u16 bone_id() const;
+	inline void set_bone_id(u16 bone_id);
+	inline const Fmatrix& offset() const;
+	inline bool enabled() const;
 	virtual void enable(bool value);
 protected:
 	virtual bool use_parent_ai_locations() const

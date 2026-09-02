@@ -36,15 +36,15 @@ class CPHJoint :
 		float force; //max force
 		float velocity; //velocity to achieve
 		Fvector direction; //axis direction
-		IC void set_limits(float h, float l)
+		inline void set_limits(float h, float l)
 		{
 			high = h;
 			low = l;
 		}
 
-		IC void set_direction(const Fvector& v) { direction.set(v); }
-		IC void set_direction(const float x, const float y, const float z) { direction.set(x, y, z); }
-		IC void set_param(const float e, const float c)
+		inline void set_direction(const Fvector& v) { direction.set(v); }
+		inline void set_direction(const float x, const float y, const float z) { direction.set(x, y, z); }
+		inline void set_param(const float e, const float c)
 		{
 			erp = e;
 			cfm = c;
@@ -129,8 +129,8 @@ public:
 	virtual CPhysicsElement* PSecond_element();
 	virtual u16 BoneID() { return m_bone_id; }
 	virtual void SetBoneID(u16 bone_id) { m_bone_id = bone_id; }
-	IC CPHElement* PFirstElement() { return pFirst_element; }
-	IC CPHElement* PSecondElement() { return pSecond_element; }
+	inline CPHElement* PFirstElement() { return pFirst_element; }
+	inline CPHElement* PSecondElement() { return pSecond_element; }
 	virtual void Activate();
 	virtual void Create();
 	virtual void RunSimulation();
@@ -169,7 +169,7 @@ public:
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-IC void own_axis(const Fmatrix& m, Fvector& axis)
+inline void own_axis(const Fmatrix& m, Fvector& axis)
 {
 	if (m._11 == 1.f)
 	{
@@ -201,7 +201,7 @@ IC void own_axis(const Fmatrix& m, Fvector& axis)
 }
 
 
-IC void own_axis_angle(const Fmatrix& m, Fvector& axis, float& angle)
+inline void own_axis_angle(const Fmatrix& m, Fvector& axis, float& angle)
 {
 	own_axis(m, axis);
 	Fvector ort1, ort2;
@@ -227,7 +227,7 @@ IC void own_axis_angle(const Fmatrix& m, Fvector& axis, float& angle)
 	if (sinus < 0.f) angle = -angle;
 }
 
-IC void axis_angleB(const Fmatrix& m, const Fvector& axis, float& angle)
+inline void axis_angleB(const Fmatrix& m, const Fvector& axis, float& angle)
 {
 	Fvector ort1, ort2;
 	if (!(fis_zero(axis.z) && fis_zero(axis.y)))
@@ -265,7 +265,7 @@ IC void axis_angleB(const Fmatrix& m, const Fvector& axis, float& angle)
 }
 
 
-IC void axis_angleA(const Fmatrix& m, const Fvector& axis, float& angle)
+inline void axis_angleA(const Fmatrix& m, const Fvector& axis, float& angle)
 {
 	Fvector ort1, ort2, axis_t;
 	m.transform_dir(axis_t, axis);

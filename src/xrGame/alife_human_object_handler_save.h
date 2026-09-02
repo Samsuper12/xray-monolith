@@ -3,14 +3,14 @@
 
 /**
 struct CSortItemPredicate {
-	IC bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2)  const
+	inline bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2)  const
 	{
 		return						(float(tpALifeInventoryItem1->m_dwCost) > float(tpALifeInventoryItem2->m_dwCost));
 	};
 };
 
 struct CSortItemVolumePredicate {
-	IC bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2)  const
+	inline bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem1, const CSE_ALifeInventoryItem *tpALifeInventoryItem2)  const
 	{
 		return						(float(tpALifeInventoryItem1->m_iGridWidth*tpALifeInventoryItem1->m_iGridHeight) > float(tpALifeInventoryItem2->m_iGridWidth*tpALifeInventoryItem2->m_iGridHeight));
 	};
@@ -26,7 +26,7 @@ struct CRemoveSlotAndCellItemsPredicate {
 		m_temp_weapons			= tpWeaponVector;
 	}
 
-	IC bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem)
+	inline bool							operator()							(const CSE_ALifeInventoryItem *tpALifeInventoryItem)
 	{
 		const CSE_ALifeItemWeapon	*l_tpALifeItemWeapon = smart_cast<const CSE_ALifeItemWeapon*>(tpALifeInventoryItem);
 		if (l_tpALifeItemWeapon && ((*m_temp_weapons)[l_tpALifeItemWeapon->m_dwSlot] == l_tpALifeItemWeapon))

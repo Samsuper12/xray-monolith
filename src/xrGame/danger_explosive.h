@@ -24,8 +24,8 @@ public:
 	u32 m_time;
 
 public:
-	IC CDangerExplosive(const CExplosive* grenade, const CGameObject* game_object, CAI_Stalker* reactor, u32 time);
-	IC bool operator==(const CExplosive* grenade) const;
+	inline CDangerExplosive(const CExplosive* grenade, const CGameObject* game_object, CAI_Stalker* reactor, u32 time);
+	inline bool operator==(const CExplosive* grenade) const;
 	bool operator==(const u16& id) const;
 };
 

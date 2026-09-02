@@ -4,7 +4,7 @@
 
 u32 sdbg_state_sequence_number = 130;
 
-IC Fmatrix& cvm(Matrix& IM) { return *((Fmatrix*)(&IM)); }
+inline Fmatrix& cvm(Matrix& IM) { return *((Fmatrix*)(&IM)); }
 
 #ifdef	IK_DBG_STATE_SEQUENCE
 void	dbg_matrises::next_state( SCalculateData &cd )

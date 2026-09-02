@@ -1,6 +1,6 @@
 #pragma once
 
-IC CMonsterSquadManager& monster_squad()
+inline CMonsterSquadManager& monster_squad()
 {
 	if (!g_monster_squad)
 		g_monster_squad = xr_new<CMonsterSquadManager>();

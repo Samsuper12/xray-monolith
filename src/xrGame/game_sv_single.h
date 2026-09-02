@@ -53,13 +53,13 @@ public:
 	virtual void on_death(CSE_Abstract* e_dest, CSE_Abstract* e_src);
 	void restart_simulator(LPCSTR saved_game_name);
 
-	IC xrServer& server() const
+	inline xrServer& server() const
 	{
 		VERIFY(m_server);
 		return (*m_server);
 	}
 
-	IC CALifeSimulator& alife() const
+	inline CALifeSimulator& alife() const
 	{
 		VERIFY(m_alife_simulator);
 		return (*m_alife_simulator);

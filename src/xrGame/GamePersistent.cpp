@@ -819,7 +819,7 @@ void CGamePersistent::OnEvent(EVENT E, u64 P1, u64 P2)
 		if (g_tutorial2)
 			g_tutorial2->Stop();
 
-		LPSTR saved_name = (LPSTR)(P1);
+		char * saved_name = (char *)(P1);
 
 		Level().remove_objects();
 		game_sv_Single* game = smart_cast<game_sv_Single*>(Level().Server->game);

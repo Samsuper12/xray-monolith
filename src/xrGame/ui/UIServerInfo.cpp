@@ -100,7 +100,7 @@ char const* CUIServerInfo::tmp_logo_file_name = "tmp_sv_logo.dds";
 void CUIServerInfo::SetServerLogo(u8 const* data_ptr, u32 const data_size)
 {
 	// FIXME: CxImage
-	// CxMemFile tmp_memfile(const_cast<BYTE*>(data_ptr), data_size);
+	// CxMemFile tmp_memfile(const_cast<unsigned char*>(data_ptr), data_size);
 	// CxImage tmp_image;
 	// if (!tmp_image.Decode(&tmp_memfile, CXIMAGE_FORMAT_JPG))
 	// {

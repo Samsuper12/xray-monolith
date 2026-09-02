@@ -167,7 +167,7 @@ void stalker_movement_manager_base::reinit()
 	m_last_turn_index = u32(-1);
 }
 
-IC void stalker_movement_manager_base::setup_head_speed(stalker_movement_params& movement_params)
+inline void stalker_movement_manager_base::setup_head_speed(stalker_movement_params& movement_params)
 {
 	if (movement_params.m_mental_state == eMentalStateFree)
 	{
@@ -178,7 +178,7 @@ IC void stalker_movement_manager_base::setup_head_speed(stalker_movement_params&
 		m_head.speed = m_danger_head_speed;
 }
 
-IC void stalker_movement_manager_base::add_velocity(int mask, float linear, float compute_angular, float angular)
+inline void stalker_movement_manager_base::add_velocity(int mask, float linear, float compute_angular, float angular)
 {
 	detail().add_velocity(
 		mask,
@@ -190,7 +190,7 @@ IC void stalker_movement_manager_base::add_velocity(int mask, float linear, floa
 	);
 }
 
-IC float stalker_movement_manager_base::path_direction_angle()
+inline float stalker_movement_manager_base::path_direction_angle()
 {
 	if (!path().empty() && (path().size() > detail().curr_travel_point_index() + 1))
 	{
@@ -230,7 +230,7 @@ void stalker_movement_manager_base::set_desired_position(const Fvector* position
 	m_target.desired_position(position);
 }
 
-IC void stalker_movement_manager_base::setup_body_orientation()
+inline void stalker_movement_manager_base::setup_body_orientation()
 {
 	if (path().empty())
 		return;
@@ -722,7 +722,7 @@ bool stalker_movement_manager_base::is_object_on_the_way(const CGameObject* obje
 	return (m_last_query_result);
 }
 
-IC float distance_to_line(const Fvector& p0, const Fvector& p1, const Fvector& p2)
+inline float distance_to_line(const Fvector& p0, const Fvector& p1, const Fvector& p2)
 {
 	if (p0.similar(p2))
 		return (0.f);

@@ -93,7 +93,7 @@ namespace PS
 			void Set(dxRender_Visual* e);
 			void Clear();
 
-			IC u32 GetVisuals(xr_vector<dxRender_Visual*>& visuals)
+			inline u32 GetVisuals(xr_vector<dxRender_Visual*>& visuals)
 			{
 				visuals.reserve(_children_related.size() + _children_free.size() + 1);
 				if (_effect) visuals.push_back(_effect);

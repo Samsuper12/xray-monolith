@@ -121,7 +121,7 @@ private:
 	u32 trying_times[4];
 	Fvector trying_poses[4];
 	u64 block_damage_step_end;
-	DWORD m_dwCurBox;
+	uint32_t m_dwCurBox;
 
 	float fMass;
 	float fMinCrashSpeed;
@@ -211,18 +211,18 @@ public:
 	void CalcMaximumVelocity(float& /*dest**/, float /*accel**/, float /*friction**/)
 	{};
 
-	void ActivateBox(DWORD id, bool Check = false);
-	bool ActivateBoxDynamic(DWORD id, int num_it = 9, int num_steps = 5, float resolve_depth = 0.01f);
-	void InterpolateBox(DWORD id, float k);
+	void ActivateBox(uint32_t id, bool Check = false);
+	bool ActivateBoxDynamic(uint32_t id, int num_it = 9, int num_steps = 5, float resolve_depth = 0.01f);
+	void InterpolateBox(uint32_t id, float k);
 	EEnvironment Environment() { return eEnvironment; }
 	EEnvironment OldEnvironment() { return eOldEnvironment; }
 	const Fbox& Box() { return aabb; }
-	DWORD BoxID() const { return m_dwCurBox; }
+	uint32_t BoxID() const { return m_dwCurBox; }
 	const Fbox* Boxes() { return boxes; }
 	float FootRadius();
 	void CollisionEnable(BOOL enable);
 
-	void SetBox(DWORD id, const Fbox& BB)
+	void SetBox(uint32_t id, const Fbox& BB)
 	{
 		boxes[id].set(BB);
 		aabb.set(BB);
@@ -269,7 +269,7 @@ public:
 	void EnableCharacter();
 	void SetOjectContactCallback(ObjectContactCallbackFun* callback);
 	void SetFootCallBack(ObjectContactCallbackFun* callback);
-	static BOOL BorderTraceCallback(collide::rq_result& result, LPVOID params);
+	static BOOL BorderTraceCallback(collide::rq_result& result, void* params);
 	ObjectContactCallbackFun* ObjectContactCallback();
 	u16 ContactBone();
 	const ICollisionDamageInfo* CollisionDamageInfo() const;

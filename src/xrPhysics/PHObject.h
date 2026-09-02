@@ -67,7 +67,7 @@ protected:
 
 	CPHObject* SelfPointer() { return this; }
 public:
-	IC BOOL IsRayMotion() { return m_flags.test(fl_ray_motions); }
+	inline BOOL IsRayMotion() { return m_flags.test(fl_ray_motions); }
 	void IslandReinit() { m_island.Unmerge(); }
 	void IslandStep(dReal step) { m_island.Step(step); }
 	void MergeIsland(CPHObject* obj) { m_island.Merge(&obj->m_island); }
@@ -95,7 +95,7 @@ public:
 
 	void Freeze();
 	void UnFreeze();
-	IC bool IsFreezed() { return !!(m_flags.test(st_freezed)); }
+	inline bool IsFreezed() { return !!(m_flags.test(st_freezed)); }
 	void NetInterpolationON() { m_flags.set(st_net_interpolation,TRUE); }
 	void NetInterpolationOFF() { m_flags.set(st_net_interpolation,TRUE); }
 	bool NetInterpolation() { return !!(m_flags.test(st_net_interpolation)); }
@@ -106,7 +106,7 @@ public:
 
 	CPHObject();
 	void activate();
-	IC bool is_active() const { return !!m_flags.test(st_activated)/*b_activated*/; }
+	inline bool is_active() const { return !!m_flags.test(st_activated)/*b_activated*/; }
 	void deactivate();
 	void put_in_recently_deactivated();
 	void remove_from_recently_deactivated();
@@ -134,10 +134,10 @@ public:
 virtual		IPhysicsShellHolder	*ref_object					()										=0;
 #endif
 
-	IC CLBits& collide_bits() { return m_collide_bits; }
-	IC _flags<CLClassBits>& collide_class_bits() { return m_collide_class_bits; }
-	IC const CLBits& collide_bits() const { return m_collide_bits; }
-	IC const _flags<CLClassBits>& collide_class_bits() const { return m_collide_class_bits; }
+	inline CLBits& collide_bits() { return m_collide_bits; }
+	inline _flags<CLClassBits>& collide_class_bits() { return m_collide_class_bits; }
+	inline const CLBits& collide_bits() const { return m_collide_bits; }
+	inline const _flags<CLClassBits>& collide_class_bits() const { return m_collide_class_bits; }
 	void CollideDynamics();
 };
 

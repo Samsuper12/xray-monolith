@@ -204,9 +204,9 @@ public:
 	}
 
 	bool m_skip_transfer_enemy;
-	IC void skip_transfer_enemy(bool value) { m_skip_transfer_enemy = value; }
+	inline void skip_transfer_enemy(bool value) { m_skip_transfer_enemy = value; }
 
-	IC int Rank() { return m_rank; }
+	inline int Rank() { return m_rank; }
 
 	//----------------------------------------------------------------------------------
 
@@ -365,7 +365,7 @@ public:
 	//--------------------------------------------------------------------
 public:
 	u32 time_berserk_start;
-	IC void set_berserk() { time_berserk_start = time(); }
+	inline void set_berserk() { time_berserk_start = time(); }
 	bool berserk_always;
 
 	//--------------------------------------------------------------------
@@ -373,8 +373,8 @@ public:
 	//--------------------------------------------------------------------
 
 	float m_default_panic_threshold;
-	IC void set_custom_panic_threshold(float value);
-	IC void set_default_panic_threshold();
+	inline void set_custom_panic_threshold(float value);
+	inline void set_default_panic_threshold();
 	//--------------------------------------------------------------------
 
 
@@ -410,15 +410,15 @@ public:
 	u32 m_prev_sound_type;
 	virtual u32 get_attack_rebuild_time();
 
-	IC virtual EAction CustomVelocityIndex2Action(u32 velocity_index) { return ACT_STAND_IDLE; }
+	inline virtual EAction CustomVelocityIndex2Action(u32 velocity_index) { return ACT_STAND_IDLE; }
 	virtual void TranslateActionToPathParams();
 
 	bool state_invisible;
 
 	void set_action(EAction action);
 	void set_state_sound(u32 type, bool once = false);
-	IC void fall_asleep() { m_bSleep = true; }
-	IC void wake_up() { m_bSleep = false; }
+	inline void fall_asleep() { m_bSleep = true; }
+	inline void wake_up() { m_bSleep = false; }
 
 	// Temp
 	u32 m_time_last_attack_success;
@@ -429,7 +429,7 @@ private:
 	bool ignore_collision_hit;
 
 public:
-	IC void set_ignore_collision_hit(bool value) { ignore_collision_hit = value; }
+	inline void set_ignore_collision_hit(bool value) { ignore_collision_hit = value; }
 	// -----------------------------------------------------------------------------
 	//////////////////////////////////////////////////////////////////////////
 

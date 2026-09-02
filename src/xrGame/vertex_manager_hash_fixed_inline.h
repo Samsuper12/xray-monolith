@@ -25,7 +25,7 @@
 #define CHashFixedVertexManager	CVertexManagerHashFixed<_path_id_type,_index_type,hash_size,fix_size>::template CDataStorage<_vertex,_index_vertex,_data_storage>
 
 TEMPLATE_SPECIALIZATION
-IC CHashFixedVertexManager::CDataStorage(const u32 vertex_count) :
+inline CHashFixedVertexManager::CDataStorage(const u32 vertex_count) :
 	inherited(vertex_count),
 	m_current_path_id(_path_id_type(0))
 {
@@ -51,7 +51,7 @@ CHashFixedVertexManager::~CDataStorage()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CHashFixedVertexManager::init()
+inline void CHashFixedVertexManager::init()
 {
 	inherited::init();
 	++m_current_path_id;
@@ -67,37 +67,37 @@ IC void CHashFixedVertexManager::init()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CHashFixedVertexManager::add_opened(CGraphVertex& vertex)
+inline void CHashFixedVertexManager::add_opened(CGraphVertex& vertex)
 {
 	vertex.opened() = 1;
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CHashFixedVertexManager::add_closed(CGraphVertex& vertex)
+inline void CHashFixedVertexManager::add_closed(CGraphVertex& vertex)
 {
 	vertex.opened() = 0;
 }
 
 TEMPLATE_SPECIALIZATION
-IC _path_id_type CHashFixedVertexManager::current_path_id() const
+inline _path_id_type CHashFixedVertexManager::current_path_id() const
 {
 	return (m_current_path_id);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CHashFixedVertexManager::is_opened(const CGraphVertex& vertex) const
+inline bool CHashFixedVertexManager::is_opened(const CGraphVertex& vertex) const
 {
 	return (vertex.opened());
 }
 
 TEMPLATE_SPECIALIZATION
-IC u32 CHashFixedVertexManager::hash_index(const _index_type& vertex_id) const
+inline u32 CHashFixedVertexManager::hash_index(const _index_type& vertex_id) const
 {
 	return (hash_fixed_vertex_manager::to_u32(vertex_id) % hash_size);
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CHashFixedVertexManager::is_visited(const _index_type& vertex_id) const
+inline bool CHashFixedVertexManager::is_visited(const _index_type& vertex_id) const
 {
 	u32 index = hash_index(vertex_id);
 	CGraphIndexVertex* vertex = m_hash[index];
@@ -110,13 +110,13 @@ IC bool CHashFixedVertexManager::is_visited(const _index_type& vertex_id) const
 }
 
 TEMPLATE_SPECIALIZATION
-IC bool CHashFixedVertexManager::is_closed(const CGraphVertex& vertex) const
+inline bool CHashFixedVertexManager::is_closed(const CGraphVertex& vertex) const
 {
 	return (!is_opened(vertex));
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CHashFixedVertexManager::CGraphVertex&CHashFixedVertexManager::get_node(const _index_type& vertex_id) const
+inline typename CHashFixedVertexManager::CGraphVertex&CHashFixedVertexManager::get_node(const _index_type& vertex_id) const
 {
 	VERIFY(is_visited(vertex_id));
 	CGraphIndexVertex* vertex = m_hash[hash_index(vertex_id)];
@@ -130,7 +130,7 @@ IC typename CHashFixedVertexManager::CGraphVertex&CHashFixedVertexManager::get_n
 }
 
 TEMPLATE_SPECIALIZATION
-IC typename CHashFixedVertexManager::CGraphVertex& CHashFixedVertexManager::create_vertex(
+inline typename CHashFixedVertexManager::CGraphVertex& CHashFixedVertexManager::create_vertex(
 	CGraphVertex& vertex, const _index_type& vertex_id)
 {
 	// allocating new index node

@@ -974,7 +974,7 @@ void CSkeletonX_PM::AfterLoad(CKinematics* parent, u16 child_idx)
 }
 
 template <typename T>
-IC void get_pos_bones(const T& v, Fvector& p, CKinematics* Parent)
+inline void get_pos_bones(const T& v, Fvector& p, CKinematics* Parent)
 {
 	v.get_pos_bones(p, Parent);
 }
@@ -1458,7 +1458,7 @@ void CSkeletonX_PM::FillVertices(const Fmatrix& view, CSkeletonWallmark& wm, con
 
 /*
 template < typename _Pred >
-IC void EnumFaces( _Pred &pred, CBoneData::FacesVec& faces)
+inline void EnumFaces( _Pred &pred, CBoneData::FacesVec& faces)
 {
 	for (CBoneData::FacesVecIt it=faces.begin(); it!=faces.end(); it++)
 		pred(*it)
@@ -1511,7 +1511,7 @@ void CSkeletonX_ext::TEnumBoneVertices	( vertHW_2W &verteses, u16 bone_id, u16* 
 
 
 template <typename vertex_buffer_type>
-IC void TEnumBoneVertices(vertex_buffer_type vertices, u16* indices, CBoneData::FacesVec& faces,
+inline void TEnumBoneVertices(vertex_buffer_type vertices, u16* indices, CBoneData::FacesVec& faces,
                           SEnumVerticesCallback& C)
 {
 	for (CBoneData::FacesVecIt it = faces.begin(); it != faces.end(); it++)

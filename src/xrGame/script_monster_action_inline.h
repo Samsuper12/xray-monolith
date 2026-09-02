@@ -8,21 +8,21 @@
 
 #pragma once
 
-IC CScriptMonsterAction::CScriptMonsterAction()
+inline CScriptMonsterAction::CScriptMonsterAction()
 {
 	m_tObject = NULL;
 	m_tAction = MonsterSpace::eGA_None;
 	m_bCompleted = true;
 }
 
-IC CScriptMonsterAction::CScriptMonsterAction(MonsterSpace::EScriptMonsterGlobalAction action)
+inline CScriptMonsterAction::CScriptMonsterAction(MonsterSpace::EScriptMonsterGlobalAction action)
 {
 	m_tObject = NULL;
 	m_tAction = action;
 	m_bCompleted = false;
 }
 
-IC CScriptMonsterAction::CScriptMonsterAction(MonsterSpace::EScriptMonsterGlobalAction action, CScriptGameObject* tObj)
+inline CScriptMonsterAction::CScriptMonsterAction(MonsterSpace::EScriptMonsterGlobalAction action, CScriptGameObject* tObj)
 {
 	m_tAction = action;
 	m_bCompleted = false;

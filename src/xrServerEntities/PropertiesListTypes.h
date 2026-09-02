@@ -81,13 +81,13 @@ public:
 	virtual xr_string GetDrawText(TOnDrawTextEvent OnDrawText) =0;
 	virtual void ResetValue() =0;
 	virtual bool Equal(PropValue* prop) =0;
-	IC PropItem* Owner() { return m_Owner; }
+	inline PropItem* Owner() { return m_Owner; }
 };
 
 //------------------------------------------------------------------------------
 
 template <class T>
-IC void set_value(T& val, const T& _val)
+inline void set_value(T& val, const T& _val)
 {
 	val = _val;
 };
@@ -178,34 +178,34 @@ public:
 		for (PropValueIt it = values.begin(); values.end() != it; ++it)
 			xr_delete(*it);
 	};
-	IC TProperties* Owner() { return m_Owner; }
+	inline TProperties* Owner() { return m_Owner; }
 
 	void SetName(const shared_str& name)
 	{
 		key = name;
 	}
 
-	IC void ResetValues()
+	inline void ResetValues()
 	{
 		for (PropValueIt it = values.begin(); values.end() != it; ++it)
 			(*it)->ResetValue();
 		CheckMixed();
 	}
 
-	IC void AppendValue(PropValue* value)
+	inline void AppendValue(PropValue* value)
 	{
 		if (!values.empty() && !value->Equal(values.front()))
 			m_Flags.set(flMixed,TRUE);
 		values.push_back(value);
 	}
 
-	IC xr_string GetDrawText()
+	inline xr_string GetDrawText()
 	{
 		VERIFY(!values.empty());
 		return m_Flags.is(flMixed) ? xr_string("(mixed)") : values.front()->GetDrawText(OnDrawTextEvent);
 	}
 
-	IC void CheckMixed()
+	inline void CheckMixed()
 	{
 		m_Flags.set(flMixed,FALSE);
 		if (values.size() > 1)
@@ -225,7 +225,7 @@ public:
 	}
 
 	template <class T1, class T2>
-	IC void BeforeEdit(T2& val)
+	inline void BeforeEdit(T2& val)
 	{
 		T1* CV = smart_cast<T1*>(values.front());
 		VERIFY(CV);
@@ -233,7 +233,7 @@ public:
 	}
 
 	template <class T1, class T2>
-	IC bool AfterEdit(T2& val)
+	inline bool AfterEdit(T2& val)
 	{
 		T1* CV = smart_cast<T1*>(values.front());
 		VERIFY(CV);
@@ -242,7 +242,7 @@ public:
 	}
 
 	template <class T1, class T2>
-	IC bool ApplyValue(const T2& val)
+	inline bool ApplyValue(const T2& val)
 	{
 		bool bChanged = false;
 		m_Flags.set(flMixed,FALSE);
@@ -261,17 +261,17 @@ public:
 		return bChanged;
 	}
 
-	IC PropValueVec& Values() { return values; }
-	IC PropValue* GetFrontValue()
+	inline PropValueVec& Values() { return values; }
+	inline PropValue* GetFrontValue()
 	{
 		VERIFY(!values.empty());
 		return values.front();
 	};
-	IC EPropType Type() { return type; }
-	IC LPCSTR Key() { return key.c_str(); }
-	IC void Enable(BOOL val) { m_Flags.set(flDisabled, !val); }
-	IC BOOL Enabled() { return !m_Flags.is(flDisabled); }
-	IC void OnChange()
+	inline EPropType Type() { return type; }
+	inline LPCSTR Key() { return key.c_str(); }
+	inline void Enable(BOOL val) { m_Flags.set(flDisabled, !val); }
+	inline BOOL Enabled() { return !m_Flags.is(flDisabled); }
+	inline void OnChange()
 	{
 		for (PropValueIt it = values.begin(); values.end() != it; ++it)
 			if (!(*it)->OnChangeEvent.empty())
@@ -280,7 +280,7 @@ public:
 
 	/*    
 	    template <class T1, class T2>
-		IC void				OnBeforeEdit	()
+		inline void				OnBeforeEdit	()
 	    {
 		    for (PropValueIt it=values.begin(); values.end() != it; ++it){
 		        T1* CV		= smart_cast<T1*>(*it); VERIFY(CV);
@@ -385,7 +385,7 @@ public:
 
 //------------------------------------------------------------------------------
 
-IC bool operator ==(const xr_shortcut& A, const xr_shortcut& B) { return !!A.similar(B); }
+inline bool operator ==(const xr_shortcut& A, const xr_shortcut& B) { return !!A.similar(B); }
 
 class ShortcutValue : public CustomValue<xr_shortcut>
 {
@@ -450,7 +450,7 @@ class CTextValue : public PropValue
 {
 	xr_string init_value;
 public:
-	LPSTR value;
+	char * value;
 public:
 	typedef fastdelegate::FastDelegate2<PropValue*, xr_string&> TOnBeforeEditEvent;
 	typedef fastdelegate::FastDelegate2<PropValue*, xr_string&, bool> TOnAfterEditEvent;
@@ -459,7 +459,7 @@ public:
 public:
 	int lim;
 public:
-	CTextValue(LPSTR val, int _lim): value(val), init_value(val), lim(_lim)
+	CTextValue(char * val, int _lim): value(val), init_value(val), lim(_lim)
 	{
 		OnBeforeEditEvent = 0;
 		OnAfterEditEvent = 0;
@@ -487,7 +487,7 @@ public:
 		return false;
 	}
 
-	LPSTR GetValue() { return value; }
+	char * GetValue() { return value; }
 	virtual void ResetValue() { xr_strcpy(value, init_value.size() + 1, init_value.c_str()); }
 };
 
@@ -523,7 +523,7 @@ public:
 typedef CustomValue<BOOL> BOOLValue;
 //------------------------------------------------------------------------------
 
-IC bool operator ==(const WaveForm& A, const WaveForm& B) { return !!A.Similar(B); }
+inline bool operator ==(const WaveForm& A, const WaveForm& B) { return !!A.Similar(B); }
 
 class WaveValue : public CustomValue<WaveForm>
 {
@@ -534,7 +534,7 @@ public:
 	virtual xr_string GetDrawText(TOnDrawTextEvent) { return "[Wave]"; }
 };
 
-IC bool operator ==(const GameTypeChooser& A, const GameTypeChooser& B)
+inline bool operator ==(const GameTypeChooser& A, const GameTypeChooser& B)
 {
 	return A.m_GameType.flags == B.m_GameType.flags;
 }
@@ -550,7 +550,7 @@ public:
 
 //------------------------------------------------------------------------------
 
-IC bool operator ==(const Fcolor& A, const Fcolor& B)
+inline bool operator ==(const Fcolor& A, const Fcolor& B)
 {
 	return !!A.similar_rgba(B);
 }
@@ -604,7 +604,7 @@ public:
 
 //------------------------------------------------------------------------------
 template <class T>
-IC xr_string draw_sprintf(xr_string& s, const T& V, int tag)
+inline xr_string draw_sprintf(xr_string& s, const T& V, int tag)
 {
 	string256 tmp;
 	xr_sprintf(tmp, sizeof(tmp), "%d", V);
@@ -613,7 +613,7 @@ IC xr_string draw_sprintf(xr_string& s, const T& V, int tag)
 }
 
 //------------------------------------------------------------------------------
-IC xr_string draw_sprintf(xr_string& s, const float& V, int dec)
+inline xr_string draw_sprintf(xr_string& s, const float& V, int dec)
 {
 	string32 fmt;
 	xr_sprintf(fmt, sizeof(fmt), "%%.%df", dec);
@@ -624,19 +624,19 @@ IC xr_string draw_sprintf(xr_string& s, const float& V, int dec)
 }
 
 //------------------------------------------------------------------------------
-IC bool operator ==(const Fvector& A, const Fvector& B)
+inline bool operator ==(const Fvector& A, const Fvector& B)
 {
 	return !!A.similar(B);
 }
 
-IC void clamp(Fvector& V, const Fvector& mn, const Fvector& mx)
+inline void clamp(Fvector& V, const Fvector& mn, const Fvector& mx)
 {
 	clamp(V.x, mn.x, mx.x);
 	clamp(V.y, mn.y, mx.y);
 	clamp(V.z, mn.z, mx.z);
 }
 
-IC xr_string draw_sprintf(xr_string& s, const Fvector& V, int dec)
+inline xr_string draw_sprintf(xr_string& s, const Fvector& V, int dec)
 {
 	string128 fmt;
 	xr_sprintf(fmt, sizeof(fmt), "{%%.%df, %%.%df, %%.%df}", dec, dec, dec);
@@ -856,7 +856,7 @@ public:
 	xr_string* items;
 	u32 item_count;
 public:
-	CListValue(LPSTR val, u32 sz, xr_string* _items, u32 cnt): CTextValue(val, sz), items(_items), item_count(cnt)
+	CListValue(char * val, u32 sz, xr_string* _items, u32 cnt): CTextValue(val, sz), items(_items), item_count(cnt)
 	{
 	};
 

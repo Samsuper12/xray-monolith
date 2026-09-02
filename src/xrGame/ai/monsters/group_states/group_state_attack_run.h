@@ -30,7 +30,7 @@ class CStateGroupAttackRun : public CState<_Object>
 	Fvector m_predicted_vel;
 
 public:
-	IC CStateGroupAttackRun(_Object* obj);
+	inline CStateGroupAttackRun(_Object* obj);
 
 	virtual void initialize();
 	virtual void execute();

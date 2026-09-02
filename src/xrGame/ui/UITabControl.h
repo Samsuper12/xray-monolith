@@ -44,7 +44,7 @@ public:
 	const u32 GetTabsCount() const { return m_TabsArr.size(); }
 
 	// Режим клавилатурных акселераторов (вкл/выкл)
-	IC bool GetAcceleratorsMode() const { return m_bAcceleratorsEnable; }
+	inline bool GetAcceleratorsMode() const { return m_bAcceleratorsEnable; }
 	void SetAcceleratorsMode(bool bEnable) { m_bAcceleratorsEnable = bEnable; }
 
 

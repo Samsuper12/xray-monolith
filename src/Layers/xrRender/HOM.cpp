@@ -58,7 +58,7 @@ struct HOM_poly
 };
 // #pragma pack(pop)
 
-IC float Area(Fvector& v0, Fvector& v1, Fvector& v2)
+inline float Area(Fvector& v0, Fvector& v1, Fvector& v2)
 {
 	float e1 = v0.distance_to(v1);
 	float e2 = v0.distance_to(v2);
@@ -152,14 +152,14 @@ public:
 	{
 	}
 
-	ICF bool operator()(const CDB::RESULT& _1, const CDB::RESULT& _2) const
+	inline bool operator()(const CDB::RESULT& _1, const CDB::RESULT& _2) const
 	{
 		occTri& t0 = m_pTris[_1.id];
 		occTri& t1 = m_pTris[_2.id];
 		return camera.distance_to_sqr(t0.center) < camera.distance_to_sqr(t1.center);
 	}
 
-	ICF bool operator()(const CDB::RESULT& _1) const
+	inline bool operator()(const CDB::RESULT& _1) const
 	{
 		occTri& T = m_pTris[_1.id];
 		return T.skip > Device.dwFrame;
@@ -270,7 +270,7 @@ void CHOM::Render(CFrustum& base)
 	Device.Statistic->RenderCALC_HOM.End();
 }
 
-ICF BOOL xform_b0(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _x, float _y, float _z)
+inline BOOL xform_b0(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _x, float _y, float _z)
 {
 	float z = _x * X._13 + _y * X._23 + _z * X._33 + X._43;
 	if (z < EPS) return TRUE;
@@ -281,7 +281,7 @@ ICF BOOL xform_b0(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _
 	return FALSE;
 }
 
-ICF BOOL xform_b1(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _x, float _y, float _z)
+inline BOOL xform_b1(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _x, float _y, float _z)
 {
 	float t;
 	float z = _x * X._13 + _y * X._23 + _z * X._33 + X._43;
@@ -298,7 +298,7 @@ ICF BOOL xform_b1(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _
 	return FALSE;
 }
 
-IC BOOL _visible(Fbox& B, Fmatrix& m_xform_01)
+inline BOOL _visible(Fbox& B, Fmatrix& m_xform_01)
 {
 	// Find min/max points of xformed-box
 	Fvector2 min, max;

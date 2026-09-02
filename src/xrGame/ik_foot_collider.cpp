@@ -63,7 +63,7 @@ bool ignore_static_tri(int tri)
 	return ignore_tri(*triangle);
 }
 
-IC bool ignore_object(CObject* O)
+inline bool ignore_object(CObject* O)
 {
 	VERIFY(O);
 	if (static_cast<CGameObject*>(O)->cast_entity_alive()
@@ -73,7 +73,7 @@ IC bool ignore_object(CObject* O)
 }
 
 
-IC bool ignore_result(collide::rq_result& R)
+inline bool ignore_result(collide::rq_result& R)
 {
 	if (R.O)
 		return ignore_object(R.O);
@@ -81,7 +81,7 @@ IC bool ignore_result(collide::rq_result& R)
 		return ignore_static_tri(R.element);
 }
 
-IC void tri_plane(const Fvector& v0, const Fvector& v1, const Fvector& v2, Fplane& p)
+inline void tri_plane(const Fvector& v0, const Fvector& v1, const Fvector& v2, Fplane& p)
 {
 	p.n.mknormal(v0, v1, v2);
 	VERIFY(!fis_zero( p.n.magnitude() ));
@@ -89,13 +89,13 @@ IC void tri_plane(const Fvector& v0, const Fvector& v1, const Fvector& v2, Fplan
 	p.d = -p.n.dotproduct(v0);
 }
 
-IC void tri_plane(const CDB::TRI& tri, Fplane& p)
+inline void tri_plane(const CDB::TRI& tri, Fplane& p)
 {
 	Fvector* pVerts = Level().ObjectSpace.GetStaticVerts();
 	tri_plane(pVerts[tri.verts[0]], pVerts[tri.verts[1]], pVerts[tri.verts[2]], p);
 }
 
-IC bool get_plane_static(ik_pick_result& r, Fvector& next_pos, float& next_range, const collide::rq_result& R,
+inline bool get_plane_static(ik_pick_result& r, Fvector& next_pos, float& next_range, const collide::rq_result& R,
                          float pick_dist, const Fvector& pos, const Fvector& pick_v)
 {
 	VERIFY(Level( ).ObjectSpace.GetStaticModel()->get_tris_count() > R.element);
@@ -131,7 +131,7 @@ IC bool get_plane_static(ik_pick_result& r, Fvector& next_pos, float& next_range
 	return true;
 }
 
-IC bool get_plane_dynamic(ik_pick_result& r, Fvector& next_pos, float& next_range, const collide::rq_result R,
+inline bool get_plane_dynamic(ik_pick_result& r, Fvector& next_pos, float& next_range, const collide::rq_result R,
                           float pick_dist, const Fvector& pos, const Fvector& pick_v)
 {
 	next_pos.add(pos, Fvector().mul(pick_v, R.range + EPS_L));
@@ -169,7 +169,7 @@ IC bool get_plane_dynamic(ik_pick_result& r, Fvector& next_pos, float& next_rang
 }
 
 static const float reach_dist = 1.5f;
-IC bool get_plane(ik_pick_result& r, Fvector& next_pos, float& next_range, const collide::rq_result R, float pick_dist,
+inline bool get_plane(ik_pick_result& r, Fvector& next_pos, float& next_range, const collide::rq_result R, float pick_dist,
                   const Fvector& pos, const Fvector& pick_v)
 {
 	if (!R.O)

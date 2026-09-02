@@ -19,7 +19,7 @@ public:
 		m_safe_value = 0.f;
 	}
 
-	IC void new_val(float& val)
+	inline void new_val(float& val)
 	{
 		if (_valid(val))m_safe_value = val;
 		else val = m_safe_value;
@@ -32,7 +32,7 @@ class CSafeVector3
 	CSafeValue m_safe_values [3];
 public:
 
-	IC void new_val(float* val)
+	inline void new_val(float* val)
 	{
 		m_safe_values[0].new_val(val[0]);
 		m_safe_values[1].new_val(val[1]);
@@ -45,7 +45,7 @@ class CSafeVector4
 	CSafeValue m_safe_values [4];
 public:
 
-	IC void new_val(float* val)
+	inline void new_val(float* val)
 	{
 		m_safe_values[0].new_val(val[0]);
 		m_safe_values[1].new_val(val[1]);
@@ -59,13 +59,13 @@ class CSafeBodyLinearState
 	CSafeVector3 m_safe_position;
 	CSafeVector3 m_safe_linear_vel;
 public:
-	IC void create(dBodyID b)
+	inline void create(dBodyID b)
 	{
 		R_ASSERT(dBodyStateValide(b));
 		new_state(b);
 	}
 
-	IC void new_state(dBodyID b)
+	inline void new_state(dBodyID b)
 	{
 		dVector3 v;
 		dVectorSet(v, dBodyGetPosition(b));
@@ -88,20 +88,20 @@ public:
 		dRSetIdentity(rotation);
 	}
 
-	IC void create(dBodyID b)
+	inline void create(dBodyID b)
 	{
 		R_ASSERT(dBodyStateValide(b));
 		std::copy_n(dBodyGetRotation(b), sizeof(rotation) / sizeof(dReal), rotation);
 		new_state(b);
 	}
 
-	IC void set_rotation(const dMatrix3 r)
+	inline void set_rotation(const dMatrix3 r)
 	{
 		VERIFY(sizeof(rotation) == sizeof(dMatrix3));
 		std::copy_n(r, sizeof(rotation) / sizeof(dReal), rotation);
 	}
 
-	IC void new_state(dBodyID b)
+	inline void new_state(dBodyID b)
 	{
 		dBodySetRotation(b, rotation);
 		dBodySetAngularVel(b, 0.f, 0.f, 0.f);
@@ -114,13 +114,13 @@ class CSafeBodyAngularState
 	CSafeVector3 m_safe_angular_vel;
 	CSafeVector4 m_safe_quaternion;
 public:
-	IC void create(dBodyID b)
+	inline void create(dBodyID b)
 	{
 		R_ASSERT(dBodyStateValide(b));
 		new_state(b);
 	}
 
-	IC void new_state(dBodyID b)
+	inline void new_state(dBodyID b)
 	{
 		dVector3 v;
 
@@ -140,13 +140,13 @@ class CSafeBodyState
 	CSafeBodyLinearState m_safe_linear_state;
 	CSafeBodyAngularState m_safe_angular_state;
 public:
-	IC void create(dBodyID b)
+	inline void create(dBodyID b)
 	{
 		R_ASSERT(dBodyStateValide(b));
 		new_state(b);
 	}
 
-	IC void new_state(dBodyID b)
+	inline void new_state(dBodyID b)
 	{
 		m_safe_linear_state.new_state(b);
 		m_safe_angular_state.new_state(b);

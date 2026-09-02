@@ -32,13 +32,9 @@ DLL_API void __cdecl xrFactory_Destroy(DLL_Pure* O)
 void CCC_RegisterCommands();
 void setup_luabind_allocator();
 
-//BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
-BOOL DllMainXrGame(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
+//BOOL APIENTRY DllMain(void* hModule, u32 ul_reason_for_call, void* lpReserved)
+BOOL DllMainXrGame(void* hModule, u32 ul_reason_for_call, void* lpReserved)
 {
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-		{
 			// register console commands
 			CCC_RegisterCommands();
 			// keyboard binding
@@ -48,13 +44,6 @@ BOOL DllMainXrGame(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
 #ifdef DEBUG
 			g_profiler			= xr_new<CProfiler>();
 #endif
-			break;
-		}
 
-	case DLL_PROCESS_DETACH:
-		{
-			break;
-		}
-	}
 	return (TRUE);
 }

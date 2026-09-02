@@ -28,13 +28,13 @@ struct remove_non_savable_predicate
 {
 	xrServer* m_server;
 
-	IC remove_non_savable_predicate(xrServer* server)
+	inline remove_non_savable_predicate(xrServer* server)
 	{
 		VERIFY(server);
 		m_server = server;
 	}
 
-	IC bool operator()(const ALife::_OBJECT_ID& id) const
+	inline bool operator()(const ALife::_OBJECT_ID& id) const
 	{
 		CSE_Abstract* object = m_server->game->get_entity_from_eid(id);
 		VERIFY(object);

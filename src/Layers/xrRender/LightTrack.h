@@ -98,19 +98,19 @@ public:
 	void update(IRenderable* O);
 	void update_smooth(IRenderable* O = 0);
 
-	ICF float get_hemi()
+	inline float get_hemi()
 	{
 		if (dwFrameSmooth != Device.dwFrame) update_smooth();
 		return hemi_smooth;
 	}
 
-	ICF float get_sun()
+	inline float get_sun()
 	{
 		if (dwFrameSmooth != Device.dwFrame) update_smooth();
 		return sun_smooth;
 	}
 
-	ICF Fvector3& get_approximate()
+	inline Fvector3& get_approximate()
 	{
 		if (dwFrameSmooth != Device.dwFrame) update_smooth();
 		return approximate;

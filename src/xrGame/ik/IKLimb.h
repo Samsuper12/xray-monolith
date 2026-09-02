@@ -41,12 +41,12 @@ public:
 	void SetGoal(SCalculateData& cd);
 	void Update(CGameObject* O, const CBlend* b, const extrapolation::points& object_pose_extrapolation);
 public:
-	IC u16 get_id() const { return m_id; }
+	inline u16 get_id() const { return m_id; }
 	float ObjShiftDown(float current_shift, const SCalculateData& cd) const;
-	IC Fmatrix& ref_bone_to_foot(Fmatrix& ref_bone) const;
-	IC IKinematics* Kinematics() const { return m_foot.Kinematics(); }
-	IC IKinematicsAnimated* KinematicsAnimated() const { return m_K; }
-	IC u16 ref_bone() const { return m_foot.ref_bone(); }
+	inline Fmatrix& ref_bone_to_foot(Fmatrix& ref_bone) const;
+	inline IKinematics* Kinematics() const { return m_foot.Kinematics(); }
+	inline IKinematicsAnimated* KinematicsAnimated() const { return m_K; }
+	inline u16 ref_bone() const { return m_foot.ref_bone(); }
 	Fmatrix& transform(Fmatrix& m, u16 bone0, u16 bone1) const;
 	float time_to_footstep() const { return state_predict.time_to_footstep; }
 	float footstep_shift() const { return state_predict.footstep_shift; }
@@ -63,7 +63,7 @@ private:
 	void Invalidate();
 private:
 	void Solve(SCalculateData& cd);
-	IC void AnimGoal(Fmatrix& gl);
+	inline void AnimGoal(Fmatrix& gl);
 	void SetAnimGoal(SCalculateData& cd);
 	void SetNewGoal(const SIKCollideData& cld, SCalculateData& cd);
 	void SetNewStepGoal(const SIKCollideData& cld, SCalculateData& cd);
@@ -80,7 +80,7 @@ private:
 	void GetPickDir(Fvector& v, SCalculateData& cd) const;
 	void ToeTimeDiff(Fvector& v, const SCalculateData& cd) const;
 	void ToeTimeDiffPredict(Fvector& v) const;
-	IC static void get_start(Fmatrix& start, SCalculateData& D, u16 bone);
+	inline static void get_start(Fmatrix& start, SCalculateData& D, u16 bone);
 #ifdef	DEBUG
 				void		DBGDrawSetNewGoal	( SCalculateData& cd, const SIKCollideData &cld );
 #endif

@@ -195,7 +195,7 @@ static void play_object(dxGeomUserData* data, SGameMtlPair* mtl_pair, const dCon
 }
 
 template <class Pars>
-IC bool play_liquid_particle_criteria(dxGeomUserData& data, float vel_cret)
+inline bool play_liquid_particle_criteria(dxGeomUserData& data, float vel_cret)
 {
 	if (vel_cret > Pars::vel_cret_particles)
 		return true;

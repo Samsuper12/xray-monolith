@@ -174,7 +174,7 @@ public:
 			SWheelCollisionParams();
 		} collision_params;
 
-		IC static void applywheelCollisionParams(const dxGeomUserData* ud, bool& do_colide, dContact& c,
+		inline static void applywheelCollisionParams(const dxGeomUserData* ud, bool& do_colide, dContact& c,
 		                                         SGameMtl* material_1, SGameMtl* material_2);
 		static void WheellCollisionCallback(bool& do_colide, bool bo1, dContact& c, SGameMtl* material_1,
 		                                    SGameMtl* material_2);
@@ -495,7 +495,7 @@ private:
 	float EnginePower();
 	float EngineDriveSpeed();
 	float DriveWheelsMeanAngleRate();
-	IC float EngineRpmFromWheels() { return _abs(DriveWheelsMeanAngleRate() * m_current_gear_ratio); }
+	inline float EngineRpmFromWheels() { return _abs(DriveWheelsMeanAngleRate() * m_current_gear_ratio); }
 	/////////////////////////////////////////////////////////////////////////	
 	void SteerRight();
 	void SteerLeft();
@@ -504,7 +504,7 @@ private:
 	void CircleSwitchTransmission();
 	void TransmissionUp();
 	void TransmissionDown();
-	IC size_t CurrentTransmission() { return m_current_transmission_num; }
+	inline size_t CurrentTransmission() { return m_current_transmission_num; }
 	void PressRight();
 	void PressLeft();
 	void PressForward();
@@ -689,9 +689,9 @@ public:
 	virtual CEntity* cast_entity() { return this; }
 private:
 	template <class T>
-	IC void fill_wheel_vector(LPCSTR S, xr_vector<T>& type_wheels);
-	IC void fill_exhaust_vector(LPCSTR S, xr_vector<SExhaust>& exhausts);
-	IC void fill_doors_map(LPCSTR S, xr_map<u16, SDoor>& doors);
+	inline void fill_wheel_vector(LPCSTR S, xr_vector<T>& type_wheels);
+	inline void fill_exhaust_vector(LPCSTR S, xr_vector<SExhaust>& exhausts);
+	inline void fill_doors_map(LPCSTR S, xr_map<u16, SDoor>& doors);
 
 	//Inventory for the car
 	CInventory* inventory;

@@ -24,7 +24,7 @@ void CAgentMemoryManager::remove_links(CObject* object)
 }
 
 template <typename T>
-IC void CAgentMemoryManager::reset_memory_masks(T& objects)
+inline void CAgentMemoryManager::reset_memory_masks(T& objects)
 {
 	typename T::iterator I = objects.begin();
 	typename T::iterator E = objects.end();
@@ -41,7 +41,7 @@ void CAgentMemoryManager::reset_memory_masks()
 }
 
 template <typename T>
-IC void CAgentMemoryManager::update_memory_masks(const squad_mask_type& mask, T& objects)
+inline void CAgentMemoryManager::update_memory_masks(const squad_mask_type& mask, T& objects)
 {
 	typename T::iterator I = objects.begin();
 	typename T::iterator E = objects.end();

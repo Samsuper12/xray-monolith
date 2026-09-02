@@ -15,26 +15,26 @@
 // reverse enginered AVI index v.1 format
 /*struct AviIndex {
 
- DWORD dwChunkType; // chunk type, i.e. '##dc' - DIB compressed
- DWORD dwFlags; // key-frame etc.
- DWORD dwOffset; // sub-chunk offset from the begining of the LIST chunk
- DWORD dwLenght; // chunk lenght
+ uint32_t dwChunkType; // chunk type, i.e. '##dc' - DIB compressed
+ uint32_t dwFlags; // key-frame etc.
+ uint32_t dwOffset; // sub-chunk offset from the begining of the LIST chunk
+ uint32_t dwLenght; // chunk lenght
 
  };
 
  typedef struct {
  FOURCC fccType;
  FOURCC fccHandler;
- DWORD dwFlags;
- DWORD dwPriority;
- DWORD dwInitialFrames;
- DWORD dwScale;
- DWORD dwRate;
- DWORD dwStart;
- DWORD dwLength;
- DWORD dwSuggestedBufferSize;
- DWORD dwQuality;
- DWORD dwSampleSize;
+ uint32_t dwFlags;
+ uint32_t dwPriority;
+ uint32_t dwInitialFrames;
+ uint32_t dwScale;
+ uint32_t dwRate;
+ uint32_t dwStart;
+ uint32_t dwLength;
+ uint32_t dwSuggestedBufferSize;
+ uint32_t dwQuality;
+ uint32_t dwSampleSize;
  RECT rcFrame;
  } AVIStreamHeader;
  */
@@ -42,23 +42,23 @@ typedef struct
 {
 	FOURCC fccType;
 	FOURCC fccHandler;
-	DWORD dwFlags;
-	DWORD dwPriority;
-	DWORD dwInitialFrames;
-	DWORD dwScale;
-	DWORD dwRate;
-	DWORD dwStart;
-	DWORD dwLength;
-	DWORD dwSuggestedBufferSize;
-	DWORD dwQuality;
-	DWORD dwSampleSize;
+	uint32_t dwFlags;
+	uint32_t dwPriority;
+	uint32_t dwInitialFrames;
+	uint32_t dwScale;
+	uint32_t dwRate;
+	uint32_t dwStart;
+	uint32_t dwLength;
+	uint32_t dwSuggestedBufferSize;
+	uint32_t dwQuality;
+	uint32_t dwSampleSize;
 
 	struct
 	{
-		WORD left;
-		WORD top;
-		WORD right;
-		WORD bottom;
+		unsigned short left;
+		unsigned short top;
+		unsigned short right;
+		unsigned short bottom;
 	};
 
 	// RECT rcFrame; - лажа в MSDN
@@ -70,9 +70,9 @@ protected:
 	CAviPlayerCustom* alpha;
 protected:
 	AVIINDEXENTRY* m_pMovieIndex;
-	BYTE* m_pMovieData;
+	unsigned char* m_pMovieData;
 	HIC m_aviIC;
-	BYTE* m_pDecompressedBuf;
+	unsigned char* m_pDecompressedBuf;
 
 	BITMAPINFOHEADER m_biOutFormat;
 	BITMAPINFOHEADER m_biInFormat;
@@ -80,29 +80,29 @@ protected:
 	float m_fRate; // стандартная скорость, fps
 	float m_fCurrentRate; // текущая скорость, fps
 
-	DWORD m_dwFrameTotal;
-	DWORD m_dwFrameCurrent;
+	uint32_t m_dwFrameTotal;
+	uint32_t m_dwFrameCurrent;
 	u32 m_dwFirstFrameOffset;
 
 
-	DWORD CalcFrame();
+	uint32_t CalcFrame();
 
-	BOOL DecompressFrame(DWORD dwFrameNum);
-	VOID PreRoll(DWORD dwFrameNum);
+	BOOL DecompressFrame(uint32_t dwFrameNum);
+	void PreRoll(uint32_t dwFrameNum);
 
 public:
 	CAviPlayerCustom();
 	~CAviPlayerCustom();
 
-	DWORD m_dwWidth, m_dwHeight;
+	uint32_t m_dwWidth, m_dwHeight;
 
-	VOID GetSize(DWORD* dwWidth, DWORD* dwHeight);
+	void GetSize(uint32_t* dwWidth, uint32_t* dwHeight);
 
 	BOOL Load(char* fname);
-	BOOL GetFrame(BYTE** pDest);
+	BOOL GetFrame(unsigned char** pDest);
 
 	BOOL NeedUpdate() { return CalcFrame() != m_dwFrameCurrent; }
-	INT SetSpeed(INT nPercent);
+	int32_t SetSpeed(int32_t nPercent);
 };
 #endif
 

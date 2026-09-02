@@ -62,7 +62,7 @@ protected:
 	virtual void FireStart();
 	virtual void FireEnd();
 public:
-	IC BOOL IsWorking() const { return bWorking; }
+	inline BOOL IsWorking() const { return bWorking; }
 	virtual BOOL ParentMayHaveAimBullet() { return FALSE; }
 	virtual bool SOParentIsActor() { return false; }
 
@@ -104,7 +104,7 @@ protected:
 		float condition_shot_dec;
 
 		SilencerKoeffs() { Reset(); }
-		IC void Reset()
+		inline void Reset()
 		{
 			hit_power = 1.0f;
 			hit_impulse = 1.0f;
@@ -136,7 +136,7 @@ public:
 		float zoom_rotate_time;
 
 		ScopeKoeffs() { Reset(); }
-		IC void Reset()
+		inline void Reset()
 		{
 			cam_dispersion = 1.0f;
 			cam_disper_inc = 1.0f;
@@ -164,7 +164,7 @@ public:
 		float zoom_rotate_time;
 
 		LauncherKoeffs() { Reset(); }
-		IC void Reset()
+		inline void Reset()
 		{
 			cam_dispersion = 1.0f;
 			cam_disper_inc = 1.0f;

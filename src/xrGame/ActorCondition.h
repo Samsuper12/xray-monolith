@@ -87,9 +87,9 @@ public:
 	void ConditionJump(float weight);
 	void ConditionWalk(float weight, bool accel, bool sprint);
 	void ConditionStand(float weight);
-	IC float MaxWalkWeight() const { return m_MaxWalkWeight; }
-	IC void SetMaxWalkWeight(float mww) { m_MaxWalkWeight = mww; }
-	IC float GetCarryWeightBoost() const { return m_CarryWeightBoost; }
+	inline float MaxWalkWeight() const { return m_MaxWalkWeight; }
+	inline void SetMaxWalkWeight(float mww) { m_MaxWalkWeight = mww; }
+	inline float GetCarryWeightBoost() const { return m_CarryWeightBoost; }
 
 	float GetPsyBar() { return m_fPsyBar; }
 	void SetPsyBar(float psybar) { m_fPsyBar = psybar; }
@@ -98,7 +98,7 @@ public:
 	float xr_stdcall GetPsy() { return 1.0f - GetPsyHealth(); }
 	virtual float GetSatiety() { return m_fSatiety; }
 	virtual void SetSatiety(float satiety) { m_fSatiety = satiety; }
-	IC float GetSatietyPower() const { return IsSleeping() ? m_fV_SatietyPowerSleep * m_fSatiety : m_fV_SatietyPower * m_fSatiety; };
+	inline float GetSatietyPower() const { return IsSleeping() ? m_fV_SatietyPowerSleep * m_fSatiety : m_fV_SatietyPower * m_fSatiety; };
 
 	void AffectDamage_InjuriousMaterialAndMonstersInfluence();
 	float GetInjuriousMaterialDamage();
@@ -107,7 +107,7 @@ public:
 	float GetZoneDanger() const;
 
 public:
-	IC CActor& object() const
+	inline CActor& object() const
 	{
 		VERIFY(m_object);
 		return (*m_object);
@@ -115,11 +115,11 @@ public:
 
 	virtual void save(NET_Packet& output_packet);
 	virtual void load(IReader& input_packet);
-	//	IC		float const&	Satiety					()	{ return m_fSatiety; }
-	IC float const& V_Satiety() { return IsSleeping() ? m_fV_SatietySleep : m_fV_Satiety; }
-	IC float const& V_SatietyPower() { return IsSleeping() ? m_fV_SatietyPowerSleep : m_fV_SatietyPower; }
-	IC float const& V_SatietyHealth() { return IsSleeping() ? m_fV_SatietyHealthSleep : m_fV_SatietyHealth; }
-	IC float const& SatietyCritical() { return m_fSatietyCritical; }
+	//	inline		float const&	Satiety					()	{ return m_fSatiety; }
+	inline float const& V_Satiety() { return IsSleeping() ? m_fV_SatietySleep : m_fV_Satiety; }
+	inline float const& V_SatietyPower() { return IsSleeping() ? m_fV_SatietyPowerSleep : m_fV_SatietyPower; }
+	inline float const& V_SatietyHealth() { return IsSleeping() ? m_fV_SatietyHealthSleep : m_fV_SatietyHealth; }
+	inline float const& SatietyCritical() { return m_fSatietyCritical; }
 
 	float GetZoneMaxPower(ALife::EInfluenceType type) const;
 	float GetZoneMaxPower(ALife::EHitType hit_type) const;
@@ -211,6 +211,6 @@ public:
 	CActorDeathEffector(CActorCondition* parent, LPCSTR sect); // -((
 	~CActorDeathEffector();
 	void UpdateCL();
-	IC bool IsActual() { return m_b_actual; }
+	inline bool IsActual() { return m_b_actual; }
 	void Stop();
 };

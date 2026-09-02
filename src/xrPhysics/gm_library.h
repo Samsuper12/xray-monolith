@@ -4,7 +4,7 @@
 #include <xrDebug.h>
 
 class CGameMtlLibrary;
-IC CGameMtlLibrary& GMLibrary()
+inline CGameMtlLibrary& GMLibrary()
 {
 	VERIFY(PGMLib);
 	return *PGMLib;

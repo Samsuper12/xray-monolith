@@ -9,7 +9,7 @@ xr_dsa_verifyer::xr_dsa_verifyer(u8 const p_number[crypto::xr_dsa::public_key_le
 	STATIC_CHECK(
 		sizeof(m_public_key.m_value) == crypto::xr_dsa::public_key_length,
 		public_key_sizes_not_equal);
-	CopyMemory(m_public_key.m_value, public_key, sizeof(m_public_key.m_value));
+	memcpy(m_public_key.m_value, public_key, sizeof(m_public_key.m_value));
 }
 
 xr_dsa_verifyer::~xr_dsa_verifyer()

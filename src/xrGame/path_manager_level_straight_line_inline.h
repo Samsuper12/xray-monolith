@@ -36,7 +36,7 @@ CLevelStraightLinePathManager::~CPathManager()
 }
 
 TEMPLATE_SPECIALIZATION
-IC void CLevelStraightLinePathManager::setup(
+inline void CLevelStraightLinePathManager::setup(
 	const _Graph* _graph,
 	_DataStorage* _data_storage,
 	xr_vector<_index_type>* _path,
@@ -59,7 +59,7 @@ IC void CLevelStraightLinePathManager::setup(
 
 TEMPLATE_SPECIALIZATION
 template <typename T>
-IC void CLevelStraightLinePathManager::create_path(T& vertex)
+inline void CLevelStraightLinePathManager::create_path(T& vertex)
 {
 	inherited::create_path(vertex);
 

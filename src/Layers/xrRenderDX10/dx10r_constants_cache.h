@@ -23,7 +23,7 @@ public:
 	// fp, non-array versions
 
 	template <typename T>
-	ICF void set(R_constant* C, const T& A)
+	inline void set(R_constant* C, const T& A)
 	{
 		if (C->destination & RC_dest_pixel) { set(C, C->ps, A, BT_PixelBuffer); } // a_pixel.b_dirty=TRUE;		}
 		if (C->destination & RC_dest_vertex) { set(C, C->vs, A, BT_VertexBuffer); } //  a_vertex.b_dirty=TRUE;		}
@@ -36,7 +36,7 @@ public:
 	}
 
 	template <typename T>
-	ICF void seta(R_constant* C, u32 e, const T& A)
+	inline void seta(R_constant* C, u32 e, const T& A)
 	{
 		if (C->destination & RC_dest_pixel) { seta(C, C->ps, e, A, BT_PixelBuffer); } //  a_pixel.b_dirty=TRUE;	}
 		if (C->destination & RC_dest_vertex) { seta(C, C->vs, e, A, BT_VertexBuffer); } //  a_vertex.b_dirty=TRUE;	}
@@ -48,21 +48,21 @@ public:
 #endif
 	}
 
-	//ICF void				set		(R_constant* C, const Fmatrix& A)		{
+	//inline void				set		(R_constant* C, const Fmatrix& A)		{
 	//	if (C->destination&RC_dest_pixel)	{ set	(C,C->ps,A, BT_PixelBuffer); }	// a_pixel.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_vertex)	{ set	(C,C->vs,A, BT_VertexBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_geometry){ set	(C,C->gs,A, BT_GeometryBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_hull)	{ set	(C,C->hs,A, BT_HullBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_domain)	{ set	(C,C->ds,A, BT_DomainBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//}
-	//ICF void				set		(R_constant* C, const Fvector4& A)		{
+	//inline void				set		(R_constant* C, const Fvector4& A)		{
 	//	if (C->destination&RC_dest_pixel)	{ set	(C,C->ps,A, BT_PixelBuffer); }	//  a_pixel.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_vertex)	{ set	(C,C->vs,A, BT_VertexBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_geometry){ set	(C,C->gs,A, BT_GeometryBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_hull)	{ set	(C,C->hs,A, BT_HullBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_domain)	{ set	(C,C->ds,A, BT_DomainBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//}
-	ICF void set(R_constant* C, float x, float y, float z, float w)
+	inline void set(R_constant* C, float x, float y, float z, float w)
 	{
 		Fvector4 data;
 		data.set(x, y, z, w);
@@ -70,7 +70,7 @@ public:
 	}
 
 	// scalars, non-array versions
-	//ICF	void				set		(R_constant* C, float A)
+	//inline	void				set		(R_constant* C, float A)
 	//{ 
 	//	if (C->destination&RC_dest_pixel)	{ set	(C,C->ps,A, BT_PixelBuffer); }	//  a_pixel.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_vertex)	{ set	(C,C->vs,A, BT_VertexBuffer); }	//  a_vertex.b_dirty=TRUE;		}
@@ -79,7 +79,7 @@ public:
 	//	if (C->destination&RC_dest_domain)	{ set	(C,C->ds,A, BT_DomainBuffer); }	//  a_vertex.b_dirty=TRUE;		}
 	//}
 
-	//ICF	void				set		(R_constant* C, int A)
+	//inline	void				set		(R_constant* C, int A)
 	//{
 	//	if (C->destination&RC_dest_pixel)	{ set	(C,C->ps,A, BT_PixelBuffer); }	//  a_pixel.b_dirty=TRUE;		}
 	//	if (C->destination&RC_dest_vertex)	{ set	(C,C->vs,A, BT_VertexBuffer); }	//  a_vertex.b_dirty=TRUE;		}
@@ -87,17 +87,17 @@ public:
 	//}
 
 	// fp, array versions
-	//ICF void				seta	(R_constant* C, u32 e, const Fmatrix& A)		{
+	//inline void				seta	(R_constant* C, u32 e, const Fmatrix& A)		{
 	//	if (C->destination&RC_dest_pixel)	{ seta	(C,C->ps,e,A, BT_PixelBuffer); }	//  a_pixel.b_dirty=TRUE;	}
 	//	if (C->destination&RC_dest_vertex)	{ seta	(C,C->vs,e,A, BT_VertexBuffer); }	//  a_vertex.b_dirty=TRUE;	}
 	//	if (C->destination&RC_dest_geometry){ seta	(C,C->gs,e,A, BT_GeometryBuffer); }	//  a_vertex.b_dirty=TRUE;	}
 	//}
-	//ICF void				seta	(R_constant* C, u32 e, const Fvector4& A)		{
+	//inline void				seta	(R_constant* C, u32 e, const Fvector4& A)		{
 	//	if (C->destination&RC_dest_pixel)	{ seta	(C,C->ps,e,A, BT_PixelBuffer); }	//  a_pixel.b_dirty=TRUE;	}
 	//	if (C->destination&RC_dest_vertex)	{ seta	(C,C->vs,e,A, BT_VertexBuffer); }	//  a_vertex.b_dirty=TRUE;	}
 	//	if (C->destination&RC_dest_geometry){ seta	(C,C->gs,e,A, BT_GeometryBuffer); }	//  a_vertex.b_dirty=TRUE;	}
 	//}
-	ICF void seta(R_constant* C, u32 e, float x, float y, float z, float w)
+	inline void seta(R_constant* C, u32 e, float x, float y, float z, float w)
 	{
 		Fvector4 data;
 		data.set(x, y, z, w);
@@ -105,13 +105,13 @@ public:
 	}
 
 	//
-	ICF void flush()
+	inline void flush()
 	{
 		//if (a_pixel.b_dirty || a_vertex.b_dirty)	flush_cache();
 		flush_cache();
 	}
 
-	ICF void access_direct(R_constant* C, u32 DataSize, void** ppVData, void** ppGData, void** ppPData)
+	inline void access_direct(R_constant* C, u32 DataSize, void** ppVData, void** ppGData, void** ppPData)
 	{
 		if (ppPData)
 		{

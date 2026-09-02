@@ -15,7 +15,7 @@ using namespace Opcode;
 	if(x2>max) max=x2;
 
 //! TO BE DOCUMENTED
-ICF bool planeBoxOverlap(const Point& normal, const float d, const Point& maxbox)
+inline bool planeBoxOverlap(const Point& normal, const float d, const Point& maxbox)
 {
 	Point vmin, vmax;
 	for (udword q = 0; q <= 2; q++)
@@ -99,7 +99,7 @@ public:
 
 	Point mLeafVerts [3];
 
-	IC void _init(COLLIDER* CL, Fvector* V, TRI* T, const Fvector& C, const Fvector& E)
+	inline void _init(COLLIDER* CL, Fvector* V, TRI* T, const Fvector& C, const Fvector& E)
 	{
 		dest = CL;
 		verts = V;
@@ -110,7 +110,7 @@ public:
 		b_max.add(C, E);
 	}
 
-	ICF bool _box(const Fvector& C, const Fvector& E)
+	inline bool _box(const Fvector& C, const Fvector& E)
 	{
 		if (b_max.x < C.x - E.x) return false;
 		if (b_max.y < C.y - E.y) return false;
@@ -120,7 +120,7 @@ public:
 		if (b_min.z > C.z + E.z) return false;
 		return true;
 	};
-	ICF bool _tri()
+	inline bool _tri()
 	{
 		// move everything so that the boxcenter is in (0,0,0) 
 		Point v0, v1, v2;
@@ -194,7 +194,7 @@ public:
 		return true;
 	}
 
-	void _prim(DWORD prim)
+	void _prim(uint32_t prim)
 	{
 		TRI& T = tris[prim];
 		Fvector& v0 = verts[T.verts[0]];

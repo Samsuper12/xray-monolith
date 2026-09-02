@@ -55,7 +55,7 @@ public:
 CEvent::CEvent(const char* S)
 {
 	Name = xr_strdup(S);
-	_strupr(Name);
+	_strupr_s(Name, strlen(Name));
 	dwRefCount = 1;
 }
 
@@ -65,7 +65,7 @@ CEvent::~CEvent()
 }
 
 //-----------------------------------------
-IC bool ev_sort(CEvent* E1, CEvent* E2)
+inline bool ev_sort(CEvent* E1, CEvent* E2)
 {
 	return E1->GetFull() < E2->GetFull();
 }
@@ -175,7 +175,7 @@ void msParse(LPCSTR c)
     }
     if (0 == _stricmp(c, "quit"))
     {
-        TerminateProcess(GetCurrentProcess(), 0);
+        //TerminateProcess(GetCurrentProcess(), 0);
         Console->Execute("quit");
     }
 }

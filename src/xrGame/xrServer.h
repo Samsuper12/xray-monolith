@@ -68,7 +68,7 @@ struct svs_respawn
 	u16 phantom;
 };
 
-IC bool operator <(const svs_respawn& A, const svs_respawn& B) { return A.timestamp < B.timestamp; }
+inline bool operator <(const svs_respawn& A, const svs_respawn& B) { return A.timestamp < B.timestamp; }
 
 struct CheaterToKick
 {
@@ -169,17 +169,17 @@ public:
 	BOOL PerformRP(CSE_Abstract* E);
 	void PerformMigration(CSE_Abstract* E, xrClientData* from, xrClientData* to);
 
-	IC void clear_ids()
+	inline void clear_ids()
 	{
 		m_tID_Generator = id_generator_type();
 	}
 
-	IC u16 PerformIDgen(u16 ID)
+	inline u16 PerformIDgen(u16 ID)
 	{
 		return (m_tID_Generator.tfGetID(ID));
 	}
 
-	IC void FreeID(u16 ID, u32 time)
+	inline void FreeID(u16 ID, u32 time)
 	{
 		return (m_tID_Generator.vfFreeID(ID, time));
 	}

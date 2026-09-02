@@ -8,19 +8,19 @@
 
 #pragma once
 
-IC CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType)
+inline CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType)
 {
 	SetWatchType(tWatchType);
 	m_tGoalType = eGoalTypeWatchType;
 }
 
-IC CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType, const Fvector& tDirection)
+inline CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType, const Fvector& tDirection)
 {
 	SetWatchDirection(tDirection);
 	SetWatchType(tWatchType);
 }
 
-IC CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType, CScriptGameObject* tpObjectToWatch,
+inline CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType, CScriptGameObject* tpObjectToWatch,
                                           LPCSTR bone_to_watch)
 {
 	SetWatchType(tWatchType);
@@ -29,7 +29,7 @@ IC CScriptWatchAction::CScriptWatchAction(SightManager::ESightType tWatchType, C
 }
 
 // Searchlight look ///////////////////////////////////////////////
-IC CScriptWatchAction::
+inline CScriptWatchAction::
 CScriptWatchAction(const Fvector& tTarget, float vel1, float vel2) : m_tWatchType(), m_tGoalType()
 {
 	m_tpObjectToWatch = 0;
@@ -39,7 +39,7 @@ CScriptWatchAction(const Fvector& tTarget, float vel1, float vel2) : m_tWatchTyp
 	m_bCompleted = false;
 }
 
-IC CScriptWatchAction::CScriptWatchAction(CScriptGameObject* tpObjectToWatch, float vel1, float vel2)
+inline CScriptWatchAction::CScriptWatchAction(CScriptGameObject* tpObjectToWatch, float vel1, float vel2)
 {
 	SetWatchObject(tpObjectToWatch);
 	vel_bone_x = vel1;
@@ -47,25 +47,25 @@ IC CScriptWatchAction::CScriptWatchAction(CScriptGameObject* tpObjectToWatch, fl
 	m_bCompleted = false;
 }
 
-IC void CScriptWatchAction::SetWatchType(SightManager::ESightType tWatchType)
+inline void CScriptWatchAction::SetWatchType(SightManager::ESightType tWatchType)
 {
 	m_tWatchType = tWatchType;
 	m_bCompleted = false;
 }
 
-IC void CScriptWatchAction::SetWatchDirection(const Fvector& tDirection)
+inline void CScriptWatchAction::SetWatchDirection(const Fvector& tDirection)
 {
 	m_tWatchVector = tDirection;
 	m_tGoalType = eGoalTypeDirection;
 	m_bCompleted = false;
 }
 
-IC void CScriptWatchAction::SetWatchBone(LPCSTR bone_to_watch)
+inline void CScriptWatchAction::SetWatchBone(LPCSTR bone_to_watch)
 {
 	m_bone_to_watch = bone_to_watch;
 	m_bCompleted = false;
 }
 
-IC void CScriptWatchAction::initialize()
+inline void CScriptWatchAction::initialize()
 {
 }

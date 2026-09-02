@@ -8,7 +8,7 @@
 #include "UIStatic.h"
 #include "UIXmlInit.h"
 
-IC bool DM_Compare_Players(game_PlayerState* p1, game_PlayerState* p2);
+inline bool DM_Compare_Players(game_PlayerState* p1, game_PlayerState* p2);
 
 CUIStatsPlayerList::CUIStatsPlayerList()
 {

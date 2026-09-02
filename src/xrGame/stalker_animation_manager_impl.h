@@ -10,12 +10,12 @@
 
 #include "CharacterPhysicsSupport.h"
 
-IC CStalkerAnimationManager::EBodyState CStalkerAnimationManager::body_state() const
+inline CStalkerAnimationManager::EBodyState CStalkerAnimationManager::body_state() const
 {
 	return (object().movement().body_state());
 }
 
-IC void CStalkerAnimationManager::fill_object_info()
+inline void CStalkerAnimationManager::fill_object_info()
 {
 	CInventoryItem* item = object().inventory().ActiveItem();
 	VERIFY(item);
@@ -23,13 +23,13 @@ IC void CStalkerAnimationManager::fill_object_info()
 	m_missile = smart_cast<CMissile*>(item);
 }
 
-IC bool CStalkerAnimationManager::strapped() const
+inline bool CStalkerAnimationManager::strapped() const
 {
 	VERIFY(m_weapon);
 	return (object().CObjectHandler::weapon_strapped(m_weapon));
 }
 
-IC u32 CStalkerAnimationManager::object_slot() const
+inline u32 CStalkerAnimationManager::object_slot() const
 {
 	if (m_weapon)
 		return (m_weapon->animation_slot());

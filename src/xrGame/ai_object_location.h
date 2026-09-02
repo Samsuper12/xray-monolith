@@ -27,17 +27,17 @@ private:
 	_GRAPH_ID m_game_vertex_id;
 
 public:
-	IC CAI_ObjectLocation();
-	IC void init();
-	IC void reinit();
-	IC void game_vertex(CVertex const* game_vertex);
+	inline CAI_ObjectLocation();
+	inline void init();
+	inline void reinit();
+	inline void game_vertex(CVertex const* game_vertex);
 	void game_vertex(_GRAPH_ID const& game_vertex_id);
-	IC const CVertex* game_vertex() const;
-	IC const _GRAPH_ID game_vertex_id() const;
-	IC void level_vertex(CLevelVertex const* level_vertex);
+	inline const CVertex* game_vertex() const;
+	inline const _GRAPH_ID game_vertex_id() const;
+	inline void level_vertex(CLevelVertex const* level_vertex);
 	void level_vertex(u32 const& level_vertex_id);
 	const CLevelVertex* level_vertex() const;
-	IC const u32 level_vertex_id() const;
+	inline const u32 level_vertex_id() const;
 };
 
 #include "ai_object_location_inline.h"

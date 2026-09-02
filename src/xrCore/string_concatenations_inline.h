@@ -88,7 +88,7 @@ namespace xray
 				{
 					VERIFY(m_count > 0);
 
-					LPSTR i = const_cast<LPSTR>(result);
+					char * i = const_cast<char *>(result);
 					Memory.mem_copy(i, m_strings[0].first, m_strings[0].second * sizeof(*m_strings[0].first));
 					i += m_strings[0].second;
 

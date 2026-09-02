@@ -15,19 +15,23 @@ void _STDCALL PrintInfo(_PPMD_FILE* DecodedFile, _PPMD_FILE* EncodedFile)
 }
 
 
-static LONG PPMd_Locked = 0;
+static long PPMd_Locked = 0;
 
 static inline void
 PPMd_Lock()
 {
-	while (::InterlockedExchange(&PPMd_Locked, 1))
-		::sleep(0);
+	//FIXME:
+	stub_unix(__func__);
+	// while (::InterlockedExchange(&PPMd_Locked, 1))
+	// 	::sleep(0);
 }
 
 static inline void
 PPMd_Unlock()
 {
-	::InterlockedExchange(&PPMd_Locked, 0);
+	//FIXME:
+	stub_unix(__func__);
+	//::InterlockedExchange(&PPMd_Locked, 0);
 }
 
 

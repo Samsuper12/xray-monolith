@@ -14,19 +14,21 @@
 
 void CLevel::PrepareToSaveDemo()
 {
+	//FIXME:
+	stub_unix(__func__);
 	R_ASSERT(!m_DemoPlay);
 	string_path demo_name = "";
 	std::filesystem::path demo_path;
-	SYSTEMTIME Time;
-	GetLocalTime(&Time);
-	xr_sprintf(demo_name, "xray_%02d-%02d-%02d_%02d-%02d-%02d.demo",
-	           Time.wMonth,
-	           Time.wDay,
-	           Time.wYear,
-	           Time.wHour,
-	           Time.wMinute,
-	           Time.wSecond
-	);
+	//SYSTEMTIME Time;
+	//GetLocalTime(&Time);
+	// xr_sprintf(demo_name, "xray_%02d-%02d-%02d_%02d-%02d-%02d.demo",
+	//            Time.wMonth,
+	//            Time.wDay,
+	//            Time.wYear,
+	//            Time.wHour,
+	//            Time.wMinute,
+	//            Time.wSecond
+	// );
 	Msg("Demo would be stored in - %s", demo_name);
 	FS.update_path(demo_path, "$logs$", demo_name);
 	m_writer = FS.w_open(demo_path.c_str());

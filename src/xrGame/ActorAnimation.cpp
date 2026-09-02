@@ -36,7 +36,7 @@ static const float r_shoulder_factor = 0.2f;
 static const float r_head_factor = 0.2f;
 
 CBlend* PlayMotionByParts(IKinematicsAnimated* sa, MotionID motion_ID, BOOL bMixIn, PlayCallback Callback,
-                          LPVOID CallbackParam);
+                          void* CallbackParam);
 
 void CActor::Spin0Callback(CBoneInstance* B)
 {

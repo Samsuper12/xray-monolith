@@ -91,7 +91,7 @@ namespace mp_anticheat
 		if (!ret)
 			return false;
 
-		CopyMemory(
+		memcpy(
 			sha_checksum,
 			m_verifyer.get_sha_checksum(),
 			sizeof(sha_checksum));

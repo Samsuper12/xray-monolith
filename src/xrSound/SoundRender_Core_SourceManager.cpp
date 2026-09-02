@@ -1,5 +1,5 @@
 #include <LocatorAPI.h>
-#include <tbb/parallel_for_each.h>
+//#include <tbb/parallel_for_each.h>
 #include <profiler.h>
 
 #include "SoundRender_Core.h"
@@ -53,11 +53,10 @@ void CSoundRender_Core::i_create_all_sources()
 			*strext(id) = 0;
 
 		{
-			ScopeLock scope(&lock);
+			[[maybe_unused]] ScopeLock scope(&lock);
 			const auto it = s_sources.find(id);
 			if (it != s_sources.end())
 				return;
-			UNUSED(scope);
 		}
 
 		CSoundRender_Source* S = new CSoundRender_Source();
@@ -68,7 +67,7 @@ void CSoundRender_Core::i_create_all_sources()
 		lock.Leave();
 	};
 
-	tbb::parallel_for_each(flist, processFile);
+	//tbb::parallel_for_each(flist, processFile);
 
 	Msg("Finished creating %d sound sources. Duration: %d ms", s_sources.size() - sizeBefore, T.GetElapsed_ms());
 }

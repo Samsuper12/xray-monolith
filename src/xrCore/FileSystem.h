@@ -17,7 +17,7 @@
 class XRCORE_API EFS_Utils
 {
 protected:
-	// bool GetOpenNameInternal(LPCSTR initial, LPSTR buffer, int sz_buf, bool bMulti = false, LPCSTR offset = 0,
+	// bool GetOpenNameInternal(LPCSTR initial, char * buffer, int sz_buf, bool bMulti = false, LPCSTR offset = 0,
 	//                          int start_flt_ext = -1);
 public:
 	EFS_Utils();
@@ -31,7 +31,7 @@ public:
 	{
 	}
 
-	LPCSTR GenerateName(LPCSTR base_path, LPCSTR base_name, LPCSTR def_ext, LPSTR out_name, u32 const out_name_size);
+	LPCSTR GenerateName(LPCSTR base_path, LPCSTR base_name, LPCSTR def_ext, char * out_name, u32 const out_name_size);
 
 	bool GetOpenName(LPCSTR initial, string_path& buffer, int sz_buf, bool bMulti = false, LPCSTR offset = 0,
 	                 int start_flt_ext = -1);
@@ -44,8 +44,8 @@ public:
 
 	xr_string AppendFolderToName(xr_string& tex_name, int depth, BOOL full_name);
 
-	LPCSTR AppendFolderToName(LPSTR tex_name, u32 const tex_name_size, int depth, BOOL full_name);
-	LPCSTR AppendFolderToName(LPCSTR src_name, LPSTR dest_name, u32 const dest_name_size, int depth, BOOL full_name);
+	LPCSTR AppendFolderToName(char * tex_name, u32 const tex_name_size, int depth, BOOL full_name);
+	LPCSTR AppendFolderToName(LPCSTR src_name, char * dest_name, u32 const dest_name_size, int depth, BOOL full_name);
 
 	xr_string ChangeFileExt(LPCSTR src, LPCSTR ext);
 	xr_string ChangeFileExt(const xr_string& src, LPCSTR ext);

@@ -22,7 +22,7 @@ public:
 	void all_Stop();
 protected:
 
-	IC bool check_file(LPCSTR fname);
+	inline bool check_file(LPCSTR fname);
 
 	ref_sound m_music_stereo;
 

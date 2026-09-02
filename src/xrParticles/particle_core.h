@@ -29,7 +29,7 @@ namespace PAPI
 		void transform_dir(const pDomain& domain, const Fmatrix& m);
 		// This constructor is used when default constructing a
 		// ParticleAction that has a pDomain.
-		IC pDomain()
+		inline pDomain()
 		{
 		}
 

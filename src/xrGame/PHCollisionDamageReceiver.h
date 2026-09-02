@@ -30,7 +30,7 @@ protected:
 private:
 	void BoneInsert(u16 id, float k);
 
-	IC DAMAGE_BONES_I FindBone(u16 id)
+	inline DAMAGE_BONES_I FindBone(u16 id)
 	{
 		return std::find_if(m_controled_bones.begin(), m_controled_bones.end(), SFind(id));
 	}

@@ -48,7 +48,7 @@ static const float min_linear_velocity_component = -32.f;
 static const float max_linear_velocity_component = 32.f;
 
 #ifdef USE_DIFFERENCES
-IC	bool is_similar						(const Fvector &_0, const Fvector &_1)
+inline	bool is_similar						(const Fvector &_0, const Fvector &_1)
 {
 	return		(
 		fsimilar(_0.x,_1.x,EPS) &&
@@ -57,23 +57,23 @@ IC	bool is_similar						(const Fvector &_0, const Fvector &_1)
 	);
 }
 
-IC	bool is_similar						(const float &_0, const float &_1)
+inline	bool is_similar						(const float &_0, const float &_1)
 {
 	return		(!!fsimilar(_0,_1,EPS));
 }
 
-IC	bool is_similar						(const u32 &_0, const u32 &_1)
+inline	bool is_similar						(const u32 &_0, const u32 &_1)
 {
 	return		(_0 == _1);
 }
 
-IC	bool is_similar						(const u16 &_0, const u16 &_1)
+inline	bool is_similar						(const u16 &_0, const u16 &_1)
 {
 	return		(_0 == _1);
 }
 #endif // USE_DIFFERENCES
 
-IC bool actor_mp_state_holder::check(const int& flag) const
+inline bool actor_mp_state_holder::check(const int& flag) const
 {
 #ifdef USE_DIFFERENCES
 	return		(!!(m_mask & flag));
@@ -82,14 +82,14 @@ IC bool actor_mp_state_holder::check(const int& flag) const
 #endif // USE_DIFFERENCES
 }
 
-IC void write(const u32& bit_count, const u32& value, u32& current, u32& output)
+inline void write(const u32& bit_count, const u32& value, u32& current, u32& output)
 {
 	output |= ((value & ((u32(1) << bit_count) - 1)) << current);
 	current += bit_count;
 	VERIFY(current <= 32);
 }
 
-IC u32 read(const u32& bit_count, u32& current, const u32& output)
+inline u32 read(const u32& bit_count, u32& current, const u32& output)
 {
 	u32 result = (output >> current) & ((u32(1) << bit_count) - 1);
 	current += bit_count;
@@ -97,14 +97,14 @@ IC u32 read(const u32& bit_count, u32& current, const u32& output)
 	return (result);
 }
 
-IC float unpack(const u32& packed_value, const u32 bit_count)
+inline float unpack(const u32& packed_value, const u32 bit_count)
 {
 	u32 max_value = (u32(1) << bit_count) - 1;
 	float result = float(packed_value) / (float(max_value) + .0001f);
 	return (result);
 }
 
-IC u32 pack(const float& unpacked_value, const u32 bit_count)
+inline u32 pack(const float& unpacked_value, const u32 bit_count)
 {
 	float inValue = unpacked_value;
 	clamp(inValue, 0.f, 1.f);

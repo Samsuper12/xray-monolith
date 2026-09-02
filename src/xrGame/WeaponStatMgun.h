@@ -289,7 +289,7 @@ public:
 		eWpnReload,
 	};
 	virtual void SetParam(int id, Fvector val);
-	IC BOOL IsWorking() { return CShootingObject::IsWorking(); }
+	inline BOOL IsWorking() { return CShootingObject::IsWorking(); }
 	virtual void UpdateEx(float fov);
 	virtual void shedule_Update(u32 dt);
 
@@ -297,7 +297,7 @@ public:
 	virtual bool is_ai_obstacle() const;
 	virtual CPhysicsShellHolder *cast_physics_shell_holder() { return this; }
 
-	IC bool IsActive() { return m_bActive; }
+	inline bool IsActive() { return m_bActive; }
 	CScriptGameObject *GetOwner() { return (Owner()) ? Owner()->lua_game_object() : nullptr; }
 	Fvector GetFirePos() { return m_fire_pos; }
 	Fvector GetFireDir() { return m_fire_dir; }
@@ -420,8 +420,8 @@ public:
 
 protected:
 	virtual void OnShot(SStmBarrel &B);
-	IC u16 GetState() const { return m_state_index; }
-	IC float GetStateDelay() const { return m_state_delay; }
+	inline u16 GetState() const { return m_state_index; }
+	inline float GetStateDelay() const { return m_state_delay; }
 	virtual void SwitchState(u16 new_tate);
 	virtual void switch2_Idle();
 	virtual void switch2_Fire();
@@ -473,22 +473,22 @@ protected:
 	void SpawnAmmo(u32 boxCurr = 0xffffffff, LPCSTR ammoSect = NULL, u32 ParentID = 0xffffffff);
 
 public:
-	IC int GetAmmoMagSize() const
+	inline int GetAmmoMagSize() const
 	{
 		return iMagazineSize;
 	}
 
-	IC int GetAmmoElapsed() const
+	inline int GetAmmoElapsed() const
 	{
 		return iAmmoElapsed;
 	}
 	void SetAmmoElapsed(int ammo_count);
 
-	IC u8 HasAmmoType(u8 type) const
+	inline u8 HasAmmoType(u8 type) const
 	{
 		return type < m_ammoTypes.size();
 	}
-	IC u8 GetAmmoType() const
+	inline u8 GetAmmoType() const
 	{
 		return m_ammoType;
 	}

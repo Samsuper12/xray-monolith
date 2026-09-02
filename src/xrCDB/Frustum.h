@@ -49,7 +49,7 @@ public:
 	int p_count;
 
 public:
-	ICF EFC_Visible AABB_OverlapPlane(const fplane& P, const float* mM) const
+	inline EFC_Visible AABB_OverlapPlane(const fplane& P, const float* mM) const
 	{
 		// calc extreme pts (neg,pos) along normal axis (pos in dir of norm, etc.)
 		u32* id = frustum_aabb_remap[P.aabb_overlap_id];
@@ -66,7 +66,7 @@ public:
 	}
 
 public:
-	IC void _clear() { p_count = 0; }
+	inline void _clear() { p_count = 0; }
 	void _add(Fplane& P);
 	void _add(Fvector& P1, Fvector& P2, Fvector& P3);
 
@@ -90,13 +90,13 @@ public:
 	EFC_Visible testSAABB(Fvector& c, float r, const float* mM, u32& test_mask) const;
 	BOOL testPolyInside_dirty(Fvector* p, int count) const;
 
-	IC BOOL testPolyInside(sPoly& src) const
+	inline BOOL testPolyInside(sPoly& src) const
 	{
 		sPoly d;
 		return !!ClipPoly(src, d);
 	}
 
-	IC BOOL testPolyInside(Fvector* p, int count) const
+	inline BOOL testPolyInside(Fvector* p, int count) const
 	{
 		sPoly src(p, count);
 		return testPolyInside(src);

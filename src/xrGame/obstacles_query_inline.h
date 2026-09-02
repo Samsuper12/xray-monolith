@@ -9,24 +9,24 @@
 #ifndef OBSTACLES_QUERY_INLINE_H
 #define OBSTACLES_QUERY_INLINE_H
 
-IC obstacles_query::obstacles_query()
+inline obstacles_query::obstacles_query()
 {
 	init();
 }
 
-IC void obstacles_query::init()
+inline void obstacles_query::init()
 {
 	m_crc = 0;
 }
 
-IC void obstacles_query::clear()
+inline void obstacles_query::clear()
 {
 	m_area.clear_not_free();
 	m_obstacles.clear();
 	init();
 }
 
-IC void obstacles_query::swap(obstacles_query& object)
+inline void obstacles_query::swap(obstacles_query& object)
 {
 	m_area.swap(object.m_area);
 	m_obstacles.swap(object.m_obstacles);
@@ -34,7 +34,7 @@ IC void obstacles_query::swap(obstacles_query& object)
 	std::swap(m_actual, object.m_actual);
 }
 
-IC void obstacles_query::copy(const obstacles_query& object)
+inline void obstacles_query::copy(const obstacles_query& object)
 {
 	m_area = object.m_area;
 	m_obstacles = object.m_obstacles;
@@ -42,7 +42,7 @@ IC void obstacles_query::copy(const obstacles_query& object)
 	m_actual = object.m_actual;
 }
 
-IC void obstacles_query::add(const CGameObject* object)
+inline void obstacles_query::add(const CGameObject* object)
 {
 	VERIFY(object);
 	if (m_obstacles.find(object) != m_obstacles.end())
@@ -52,7 +52,7 @@ IC void obstacles_query::add(const CGameObject* object)
 	m_obstacles.insert(std::make_pair(object, u32(-1)));
 }
 
-IC bool obstacles_query::refresh_objects()
+inline bool obstacles_query::refresh_objects()
 {
 	m_actual = false;
 	u32 crc_before = crc();
@@ -60,12 +60,12 @@ IC bool obstacles_query::refresh_objects()
 	return (crc_before != crc());
 }
 
-IC bool obstacles_query::update_objects(const Fvector& position, const float& radius)
+inline bool obstacles_query::update_objects(const Fvector& position, const float& radius)
 {
 	return (objects_changed(position, radius) ? refresh_objects() : false);
 }
 
-IC bool obstacles_query::operator==(const obstacles_query& object) const
+inline bool obstacles_query::operator==(const obstacles_query& object) const
 {
 	if (crc() != object.crc())
 		return (false);
@@ -79,17 +79,17 @@ IC bool obstacles_query::operator==(const obstacles_query& object) const
 	return (true);
 }
 
-IC bool obstacles_query::operator!=(const obstacles_query& object) const
+inline bool obstacles_query::operator!=(const obstacles_query& object) const
 {
 	return (!operator==(object));
 }
 
-IC const obstacles_query::AREA& obstacles_query::area() const
+inline const obstacles_query::AREA& obstacles_query::area() const
 {
 	return (const_cast<obstacles_query*>(this)->area());
 }
 
-IC obstacles_query::AREA& obstacles_query::area()
+inline obstacles_query::AREA& obstacles_query::area()
 {
 	if (!actual())
 		compute_area();
@@ -97,17 +97,17 @@ IC obstacles_query::AREA& obstacles_query::area()
 	return (m_area);
 }
 
-IC const obstacles_query::OBSTACLES& obstacles_query::obstacles() const
+inline const obstacles_query::OBSTACLES& obstacles_query::obstacles() const
 {
 	return (m_obstacles);
 }
 
-IC const u32& obstacles_query::crc() const
+inline const u32& obstacles_query::crc() const
 {
 	return (m_crc);
 }
 
-IC const bool& obstacles_query::actual() const
+inline const bool& obstacles_query::actual() const
 {
 	return (m_actual);
 }

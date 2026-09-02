@@ -72,7 +72,7 @@ public:
 	virtual void Reset();
 	void Refresh();
 	void SetStepSize(int step);
-	IC int GetStepSize() { return m_iStepSize; }
+	inline int GetStepSize() { return m_iStepSize; }
 	void SetRange(int iMin, int iMax);
 
 	void GetRange(int& iMin, int& iMax)

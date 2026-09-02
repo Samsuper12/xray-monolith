@@ -267,7 +267,7 @@ void CParticleEffect::OnDeviceDestroy()
 
 #ifndef _EDITOR
 //----------------------------------------------------
-IC void FillSprite_fpu(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvector& pos, const Fvector2& lt,
+inline void FillSprite_fpu(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvector& pos, const Fvector2& lt,
                        const Fvector2& rb, float r1, float r2, u32 clr, float angle)
 {
 	float sa = _sin(angle);
@@ -305,7 +305,7 @@ IC void FillSprite_fpu(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const 
 
 Lock m_sprite_section;
 
-IC void FillSprite(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvector& pos, const Fvector2& lt,
+inline void FillSprite(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvector& pos, const Fvector2& lt,
                    const Fvector2& rb, float r1, float r2, u32 clr, float sina, float cosa)
 {
 	m_sprite_section.Enter();
@@ -366,7 +366,7 @@ IC void FillSprite(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvec
 	m_sprite_section.Leave();
 }
 
-IC void FillSprite(FVF::LIT*& pv, const Fvector& pos, const Fvector& dir, const Fvector2& lt, const Fvector2& rb,
+inline void FillSprite(FVF::LIT*& pv, const Fvector& pos, const Fvector& dir, const Fvector2& lt, const Fvector2& rb,
                    float r1, float r2, u32 clr, float sina, float cosa)
 {
 #ifdef _GPA_ENABLED
@@ -431,7 +431,7 @@ struct PRS_PARAMS
 	CParticleEffect* pPE;
 };
 
-__forceinline void magnitude_sse(Fvector& vec, float& res)
+inline void magnitude_sse(Fvector& vec, float& res)
 {
 	__m128 tv, tu;
 
@@ -629,7 +629,7 @@ void CParticleEffect::Render(float)
 #else
 
 //----------------------------------------------------
-IC void FillSprite	(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvector& pos, const Fvector2& lt, const Fvector2& rb, float r1, float r2, u32 clr, float angle)
+inline void FillSprite	(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fvector& pos, const Fvector2& lt, const Fvector2& rb, float r1, float r2, u32 clr, float angle)
 {
 	float sa	= _sin(angle);  
 	float ca	= _cos(angle);  
@@ -652,7 +652,7 @@ IC void FillSprite	(FVF::LIT*& pv, const Fvector& T, const Fvector& R, const Fve
 	pv->set		(b.x+pos.x,b.y+pos.y,b.z+pos.z,	clr, rb.x,lt.y);	pv++;
 }
 
-IC void FillSprite	(FVF::LIT*& pv, const Fvector& pos, const Fvector& dir, const Fvector2& lt, const Fvector2& rb, float r1, float r2, u32 clr, float angle)
+inline void FillSprite	(FVF::LIT*& pv, const Fvector& pos, const Fvector& dir, const Fvector2& lt, const Fvector2& rb, float r1, float r2, u32 clr, float angle)
 {
 	float sa	= _sin(angle);  
 	float ca	= _cos(angle);  

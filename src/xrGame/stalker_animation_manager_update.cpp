@@ -32,7 +32,7 @@ void CStalkerAnimationManager::play_delayed_callbacks()
 	}
 }
 
-IC bool CStalkerAnimationManager::script_callback() const
+inline bool CStalkerAnimationManager::script_callback() const
 {
 	if (script_animations().empty())
 		return (false);
@@ -40,7 +40,7 @@ IC bool CStalkerAnimationManager::script_callback() const
 	return (object().callback(GameObject::eScriptAnimation));
 }
 
-IC bool CStalkerAnimationManager::need_update() const
+inline bool CStalkerAnimationManager::need_update() const
 {
 	if (script_callback())
 		return (true);
@@ -48,7 +48,7 @@ IC bool CStalkerAnimationManager::need_update() const
 	return (non_script_need_update());
 }
 
-IC void CStalkerAnimationManager::update_tracks()
+inline void CStalkerAnimationManager::update_tracks()
 {
 	if (!need_update())
 		return;
@@ -57,7 +57,7 @@ IC void CStalkerAnimationManager::update_tracks()
 }
 
 #ifdef USE_HEAD_BONE_PART_FAKE
-IC void CStalkerAnimationManager::play_script_impl()
+inline void CStalkerAnimationManager::play_script_impl()
 {
 	clear_unsafe_callbacks();
 	global().reset();
@@ -92,7 +92,7 @@ IC void CStalkerAnimationManager::play_script_impl()
 	head().play(m_skeleton_animated, head_play_callback, false, false);
 }
 #else // USE_HEAD_BONE_PART_FAKE
-IC	void CStalkerAnimationManager::play_script_impl			()
+inline	void CStalkerAnimationManager::play_script_impl			()
 {
     clear_unsafe_callbacks	();
     global().reset			();
@@ -128,7 +128,7 @@ bool CStalkerAnimationManager::play_script()
 }
 
 #ifdef USE_HEAD_BONE_PART_FAKE
-IC void CStalkerAnimationManager::play_global_impl(const MotionID& animation, bool const& animation_movement_controller)
+inline void CStalkerAnimationManager::play_global_impl(const MotionID& animation, bool const& animation_movement_controller)
 {
 	torso().reset();
 	legs().reset();
@@ -151,7 +151,7 @@ IC void CStalkerAnimationManager::play_global_impl(const MotionID& animation, bo
 	head().play(m_skeleton_animated, head_play_callback, false, false);
 }
 #else // USE_HEAD_BONE_PART_FAKE
-IC	void CStalkerAnimationManager::play_global_impl			(const MotionID &animation, bool const &animation_movement_controller)
+inline	void CStalkerAnimationManager::play_global_impl			(const MotionID &animation, bool const &animation_movement_controller)
 {
     head().reset			();
     torso().reset			();
@@ -178,13 +178,13 @@ bool CStalkerAnimationManager::play_global()
 	return (true);
 }
 
-IC void CStalkerAnimationManager::play_head()
+inline void CStalkerAnimationManager::play_head()
 {
 	head().animation(assign_head_animation());
 	head().play(m_skeleton_animated, head_play_callback, false, false);
 }
 
-IC void CStalkerAnimationManager::play_torso()
+inline void CStalkerAnimationManager::play_torso()
 {
 	torso().animation(assign_torso_animation());
 	torso().play(m_skeleton_animated, torso_play_callback, false, false);

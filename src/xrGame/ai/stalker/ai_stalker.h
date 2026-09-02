@@ -300,7 +300,7 @@ public:
 	virtual float GetWeaponAccuracy() const;
 	virtual bool unlimited_ammo();
 	virtual void spawn_supplies();
-	IC CAgentManager& agent_manager() const;
+	inline CAgentManager& agent_manager() const;
 
 	virtual bool human_being() const
 	{
@@ -327,7 +327,7 @@ public:
 	bool can_kill_member();
 	bool can_kill_enemy();
 	float pick_distance();
-	IC float start_pick_distance() const;
+	inline float start_pick_distance() const;
 	bool fire_make_sense();
 
 	virtual LPCSTR Name() const;
@@ -346,7 +346,7 @@ private:
 		ALife::_OBJECT_ID m_owner_id;
 		ALife::_OBJECT_ID m_new_owner_id;
 
-		IC CTradeItem(
+		inline CTradeItem(
 			CInventoryItem* item,
 			ALife::_OBJECT_ID owner_id,
 			ALife::_OBJECT_ID new_owner_id
@@ -357,8 +357,8 @@ private:
 			m_new_owner_id = new_owner_id;
 		}
 
-		IC bool operator<(const CTradeItem& trade_item) const;
-		IC bool operator==(u16 id) const;
+		inline bool operator<(const CTradeItem& trade_item) const;
+		inline bool operator==(u16 id) const;
 	};
 
 private:
@@ -376,7 +376,7 @@ public:
 protected:
 	u32 fill_items(CInventory& inventory, CGameObject* old_owner, ALife::_OBJECT_ID new_owner_id);
 
-	IC void buy_item_virtual(CTradeItem& item);
+	inline void buy_item_virtual(CTradeItem& item);
 	void attach_available_ammo(CWeapon* weapon);
 	void choose_food();
 	void choose_weapon(ALife::EWeaponPriorityType weapon_priority_type);
@@ -400,9 +400,9 @@ protected:
 	void on_after_take(const CGameObject* object);
 	virtual bool AllowItemToTrade(CInventoryItem const* item, const SInvItemPlace& place) const;
 public:
-	IC CStalkerAnimationManager& animation() const;
-	IC CStalkerPlanner& brain() const;
-	IC CSightManager& sight() const;
+	inline CStalkerAnimationManager& animation() const;
+	inline CStalkerPlanner& brain() const;
+	inline CSightManager& sight() const;
 
 private:
 	CStalkerSoundDataVisitor* m_sound_user_data_visitor;
@@ -413,11 +413,11 @@ protected:
 	virtual CMovementManager* create_movement_manager();
 
 public:
-	IC stalker_movement_manager_smart_cover& movement() const;
+	inline stalker_movement_manager_smart_cover& movement() const;
 	virtual DLL_Pure* _construct();
 
 private:
-	IC bool frame_check(u32& frame);
+	inline bool frame_check(u32& frame);
 	virtual bool natural_weapon() const { return false; }
 	virtual bool natural_detector() const { return false; }
 	virtual bool use_center_to_aim() const;
@@ -427,7 +427,7 @@ private:
 	bool m_group_behaviour;
 
 public:
-	IC bool group_behaviour() const;
+	inline bool group_behaviour() const;
 	virtual void update_range_fov(float& new_range, float& new_fov, float start_range, float start_fov);
 	void __stdcall update_object_handler();
 	bool zoom_state() const;
@@ -443,8 +443,8 @@ public:
 	virtual void on_weapon_shot_stop();
 	virtual void on_weapon_shot_remove(CWeapon* weapon);
 	virtual void on_weapon_hide(CWeapon* weapon);
-	IC CWeaponShotEffector& weapon_shot_effector() const;
-	IC Fvector weapon_shot_effector_direction(const Fvector& current) const;
+	inline CWeaponShotEffector& weapon_shot_effector() const;
+	inline Fvector weapon_shot_effector_direction(const Fvector& current) const;
 	virtual void UpdateCamera();
 	virtual bool can_attach(const CInventoryItem* inventory_item) const;
 	// because we don't want to use this feature for stalkers
@@ -553,103 +553,103 @@ private:
 	float m_auto_queue_fire_dist_med;
 	float m_auto_queue_fire_dist_far;
 public:
-	IC u32 pstl_min_queue_size_far() const;
-	IC u32 pstl_max_queue_size_far() const;
-	IC u32 pstl_min_queue_interval_far() const;
-	IC u32 pstl_max_queue_interval_far() const;
+	inline u32 pstl_min_queue_size_far() const;
+	inline u32 pstl_max_queue_size_far() const;
+	inline u32 pstl_min_queue_interval_far() const;
+	inline u32 pstl_max_queue_interval_far() const;
 
-	IC u32 pstl_min_queue_size_medium() const;
-	IC u32 pstl_max_queue_size_medium() const;
-	IC u32 pstl_min_queue_interval_medium() const;
-	IC u32 pstl_max_queue_interval_medium() const;
+	inline u32 pstl_min_queue_size_medium() const;
+	inline u32 pstl_max_queue_size_medium() const;
+	inline u32 pstl_min_queue_interval_medium() const;
+	inline u32 pstl_max_queue_interval_medium() const;
 
-	IC u32 pstl_min_queue_size_close() const;
-	IC u32 pstl_max_queue_size_close() const;
-	IC u32 pstl_min_queue_interval_close() const;
-	IC u32 pstl_max_queue_interval_close() const;
-
-
-	IC u32 shtg_min_queue_size_far() const;
-	IC u32 shtg_max_queue_size_far() const;
-	IC u32 shtg_min_queue_interval_far() const;
-	IC u32 shtg_max_queue_interval_far() const;
-
-	IC u32 shtg_min_queue_size_medium() const;
-	IC u32 shtg_max_queue_size_medium() const;
-	IC u32 shtg_min_queue_interval_medium() const;
-	IC u32 shtg_max_queue_interval_medium() const;
-
-	IC u32 shtg_min_queue_size_close() const;
-	IC u32 shtg_max_queue_size_close() const;
-	IC u32 shtg_min_queue_interval_close() const;
-	IC u32 shtg_max_queue_interval_close() const;
+	inline u32 pstl_min_queue_size_close() const;
+	inline u32 pstl_max_queue_size_close() const;
+	inline u32 pstl_min_queue_interval_close() const;
+	inline u32 pstl_max_queue_interval_close() const;
 
 
-	IC u32 snp_min_queue_size_far() const;
-	IC u32 snp_max_queue_size_far() const;
-	IC u32 snp_min_queue_interval_far() const;
-	IC u32 snp_max_queue_interval_far() const;
+	inline u32 shtg_min_queue_size_far() const;
+	inline u32 shtg_max_queue_size_far() const;
+	inline u32 shtg_min_queue_interval_far() const;
+	inline u32 shtg_max_queue_interval_far() const;
 
-	IC u32 snp_min_queue_size_medium() const;
-	IC u32 snp_max_queue_size_medium() const;
-	IC u32 snp_min_queue_interval_medium() const;
-	IC u32 snp_max_queue_interval_medium() const;
+	inline u32 shtg_min_queue_size_medium() const;
+	inline u32 shtg_max_queue_size_medium() const;
+	inline u32 shtg_min_queue_interval_medium() const;
+	inline u32 shtg_max_queue_interval_medium() const;
 
-	IC u32 snp_min_queue_size_close() const;
-	IC u32 snp_max_queue_size_close() const;
-	IC u32 snp_min_queue_interval_close() const;
-	IC u32 snp_max_queue_interval_close() const;
-
-	IC u32 mchg_min_queue_size_far() const;
-	IC u32 mchg_max_queue_size_far() const;
-	IC u32 mchg_min_queue_interval_far() const;
-	IC u32 mchg_max_queue_interval_far() const;
-
-	IC u32 mchg_min_queue_size_medium() const;
-	IC u32 mchg_max_queue_size_medium() const;
-	IC u32 mchg_min_queue_interval_medium() const;
-	IC u32 mchg_max_queue_interval_medium() const;
-
-	IC u32 mchg_min_queue_size_close() const;
-	IC u32 mchg_max_queue_size_close() const;
-	IC u32 mchg_min_queue_interval_close() const;
-	IC u32 mchg_max_queue_interval_close() const;
+	inline u32 shtg_min_queue_size_close() const;
+	inline u32 shtg_max_queue_size_close() const;
+	inline u32 shtg_min_queue_interval_close() const;
+	inline u32 shtg_max_queue_interval_close() const;
 
 
-	IC u32 auto_min_queue_size_far() const;
-	IC u32 auto_max_queue_size_far() const;
-	IC u32 auto_min_queue_interval_far() const;
-	IC u32 auto_max_queue_interval_far() const;
+	inline u32 snp_min_queue_size_far() const;
+	inline u32 snp_max_queue_size_far() const;
+	inline u32 snp_min_queue_interval_far() const;
+	inline u32 snp_max_queue_interval_far() const;
 
-	IC u32 auto_min_queue_size_medium() const;
-	IC u32 auto_max_queue_size_medium() const;
-	IC u32 auto_min_queue_interval_medium() const;
-	IC u32 auto_max_queue_interval_medium() const;
+	inline u32 snp_min_queue_size_medium() const;
+	inline u32 snp_max_queue_size_medium() const;
+	inline u32 snp_min_queue_interval_medium() const;
+	inline u32 snp_max_queue_interval_medium() const;
 
-	IC u32 auto_min_queue_size_close() const;
-	IC u32 auto_max_queue_size_close() const;
-	IC u32 auto_min_queue_interval_close() const;
-	IC u32 auto_max_queue_interval_close() const;
+	inline u32 snp_min_queue_size_close() const;
+	inline u32 snp_max_queue_size_close() const;
+	inline u32 snp_min_queue_interval_close() const;
+	inline u32 snp_max_queue_interval_close() const;
 
-	//	IC		float						pstl_queue_fire_dist_close		() const;
-	IC float pstl_queue_fire_dist_med() const;
-	IC float pstl_queue_fire_dist_far() const;
+	inline u32 mchg_min_queue_size_far() const;
+	inline u32 mchg_max_queue_size_far() const;
+	inline u32 mchg_min_queue_interval_far() const;
+	inline u32 mchg_max_queue_interval_far() const;
 
-	//	IC		float						shtg_queue_fire_dist_close		() const;
-	IC float shtg_queue_fire_dist_med() const;
-	IC float shtg_queue_fire_dist_far() const;
+	inline u32 mchg_min_queue_size_medium() const;
+	inline u32 mchg_max_queue_size_medium() const;
+	inline u32 mchg_min_queue_interval_medium() const;
+	inline u32 mchg_max_queue_interval_medium() const;
 
-	//	IC		float						snp_queue_fire_dist_close		() const;
-	IC float snp_queue_fire_dist_med() const;
-	IC float snp_queue_fire_dist_far() const;
+	inline u32 mchg_min_queue_size_close() const;
+	inline u32 mchg_max_queue_size_close() const;
+	inline u32 mchg_min_queue_interval_close() const;
+	inline u32 mchg_max_queue_interval_close() const;
 
-	//	IC		float						mchg_queue_fire_dist_close		() const;
-	IC float mchg_queue_fire_dist_med() const;
-	IC float mchg_queue_fire_dist_far() const;
 
-	//	IC		float						auto_queue_fire_dist_close		() const;
-	IC float auto_queue_fire_dist_med() const;
-	IC float auto_queue_fire_dist_far() const;
+	inline u32 auto_min_queue_size_far() const;
+	inline u32 auto_max_queue_size_far() const;
+	inline u32 auto_min_queue_interval_far() const;
+	inline u32 auto_max_queue_interval_far() const;
+
+	inline u32 auto_min_queue_size_medium() const;
+	inline u32 auto_max_queue_size_medium() const;
+	inline u32 auto_min_queue_interval_medium() const;
+	inline u32 auto_max_queue_interval_medium() const;
+
+	inline u32 auto_min_queue_size_close() const;
+	inline u32 auto_max_queue_size_close() const;
+	inline u32 auto_min_queue_interval_close() const;
+	inline u32 auto_max_queue_interval_close() const;
+
+	//	inline		float						pstl_queue_fire_dist_close		() const;
+	inline float pstl_queue_fire_dist_med() const;
+	inline float pstl_queue_fire_dist_far() const;
+
+	//	inline		float						shtg_queue_fire_dist_close		() const;
+	inline float shtg_queue_fire_dist_med() const;
+	inline float shtg_queue_fire_dist_far() const;
+
+	//	inline		float						snp_queue_fire_dist_close		() const;
+	inline float snp_queue_fire_dist_med() const;
+	inline float snp_queue_fire_dist_far() const;
+
+	//	inline		float						mchg_queue_fire_dist_close		() const;
+	inline float mchg_queue_fire_dist_med() const;
+	inline float mchg_queue_fire_dist_far() const;
+
+	//	inline		float						auto_queue_fire_dist_close		() const;
+	inline float auto_queue_fire_dist_med() const;
+	inline float auto_queue_fire_dist_far() const;
 public:
 	typedef fastdelegate::FastDelegate<void (const CCoverPoint*, const CCoverPoint*)> on_best_cover_changed_delegate;
 	typedef fastdelegate::FastDelegate<bool (SHit const*)> HitCallback;
@@ -678,7 +678,7 @@ public:
 	void best_cover_invalidate();
 	void best_cover_can_try_advance();
 	const CCoverPoint* best_cover(const Fvector& position_to_cover_from);
-	IC CCoverPoint const* const& current_best_cover() const;
+	inline CCoverPoint const* const& current_best_cover() const;
 
 public:
 	void subscribe_on_best_cover_changed(const on_best_cover_changed_delegate& delegate);
@@ -695,7 +695,7 @@ public:
 	void wounded(bool value);
 	bool wounded(const CRestrictedObject* object) const;
 	void set_enable_movement_collision(bool value);
-	IC bool wounded() const;
+	inline bool wounded() const;
 
 	// throwing grenades
 private:
@@ -722,14 +722,14 @@ private:
 #endif // DEBUG
 
 public:
-	IC const bool& throw_enabled();
+	inline const bool& throw_enabled();
 
 private:
 	bool m_can_throw_grenades;
 
 public:
-	IC const bool& can_throw_grenades() const;
-	IC void can_throw_grenades(const bool& value);
+	inline const bool& can_throw_grenades() const;
+	inline void can_throw_grenades(const bool& value);
 
 private:
 	bool throw_check_error(
@@ -749,10 +749,10 @@ public:
 	virtual bool use_throw_randomness();
 	void throw_target(const Fvector& position, CObject* throw_ignore_object);
 	void throw_target(const Fvector& position, u32 const vertex_id, CObject* throw_ignore_object);
-	IC const Fvector& throw_target() const;
+	inline const Fvector& throw_target() const;
 	void update_throw_params();
 	void on_throw_completed();
-	IC const u32& last_throw_time() const;
+	inline const u32& last_throw_time() const;
 
 #ifdef DEBUG
 public:
@@ -778,7 +778,7 @@ private:
 
 public:
 	bool critically_wounded();
-	IC const CRITICAL_WOUND_WEIGHTS& critical_wound_weights() const;
+	inline const CRITICAL_WOUND_WEIGHTS& critical_wound_weights() const;
 
 private:
 	bool can_cry_enemy_is_wounded() const;
@@ -803,8 +803,8 @@ private:
 	bool m_can_select_items;
 
 public:
-	IC const u32& throw_time_interval() const;
-	IC void throw_time_interval(const u32& value);
+	inline const u32& throw_time_interval() const;
+	inline void throw_time_interval(const u32& value);
 
 public:
 	bool too_far_to_kill_enemy(const Fvector& position);
@@ -817,10 +817,10 @@ private:
 	bool m_sniper_fire_mode;
 
 public:
-	IC void sniper_update_rate(bool value);
-	IC bool sniper_update_rate() const;
-	IC void sniper_fire_mode(bool value);
-	IC bool sniper_fire_mode() const;
+	inline void sniper_update_rate(bool value);
+	inline bool sniper_update_rate() const;
+	inline void sniper_fire_mode(bool value);
+	inline bool sniper_fire_mode() const;
 
 private:
 	shared_str m_aim_bone_id;
@@ -834,7 +834,7 @@ private:
 	HitCallback m_hit_callback;
 
 public:
-	IC void hit_callback(HitCallback const& callback);
+	inline void hit_callback(HitCallback const& callback);
 	void use_smart_covers_only(bool value);
 	bool use_smart_covers_only() const;
 
@@ -845,11 +845,11 @@ private:
 	virtual BOOL AlwaysTheCrow();
 
 public:
-	IC void take_items_enabled(bool value);
-	IC bool take_items_enabled() const;
+	inline void take_items_enabled(bool value);
+	inline bool take_items_enabled() const;
 
-	IC void death_sound_enabled(bool value);
-	IC bool death_sound_enabled() const;
+	inline void death_sound_enabled(bool value);
+	inline bool death_sound_enabled() const;
 
 private:
 	bool m_take_items_enabled;

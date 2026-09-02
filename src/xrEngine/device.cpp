@@ -144,10 +144,11 @@ void CRenderDevice::End(void)
 
 			if (g_pGamePersistent->GameType() == 1) //haCk
 			{
-				WINDOWINFO wi;
-				//GetWindowInfo(m_hWnd, &wi);
-				if (wi.dwWindowStatus != WS_ACTIVECAPTION)
-					Pause(TRUE, TRUE, TRUE, "application start");
+				// TODO:
+				// WINDOWINFO wi;
+				// //GetWindowInfo(m_hWnd, &wi);
+				// if (wi.dwWindowStatus != WS_ACTIVECAPTION)
+				// 	Pause(TRUE, TRUE, TRUE, "application start");
 			}
 		}
 	}
@@ -247,41 +248,22 @@ ENGINE_API xr_list<LOADING_EVENT> g_loading_events;
 
 extern bool IsMainMenuActive(); //ECO_RENDER add
 
-void GetMonitorResolution(u32& horizontal, u32& vertical)
-{
-	HMONITOR hMonitor = MonitorFromWindow(
-		Device.m_hWnd, MONITOR_DEFAULTTOPRIMARY);
 
-	MONITORINFO mi;
-	mi.cbSize = sizeof(mi);
-	if (GetMonitorInfoA(hMonitor, &mi))
-	{
-		horizontal = mi.rcMonitor.right - mi.rcMonitor.left;
-		vertical = mi.rcMonitor.bottom - mi.rcMonitor.top;
-	}
-	else
-	{
-		RECT desktop;
-		const HWND hDesktop = GetDesktopWindow();
-		GetWindowRect(hDesktop, &desktop);
-		horizontal = desktop.right - desktop.left;
-		vertical = desktop.bottom - desktop.top;
-	}
-}
 
 float GetMonitorRefresh()
 {
-	DEVMODE lpDevMode;
-	memset(&lpDevMode, 0, sizeof(DEVMODE));
-	lpDevMode.dmSize = sizeof(DEVMODE);
-	lpDevMode.dmDriverExtra = 0;
+	//TODO: monitor refresh rate
+	// DEVMODE lpDevMode;
+	// memset(&lpDevMode, 0, sizeof(DEVMODE));
+	// lpDevMode.dmSize = sizeof(DEVMODE);
+	// lpDevMode.dmDriverExtra = 0;
 
-	if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &lpDevMode) == 0)
-	{
+	// if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &lpDevMode) == 0)
+	// {
 		return 1.f / 60.f;
-	}
-	else
-		return 1.f / lpDevMode.dmDisplayFrequency;
+	// }
+	// else
+	// 	return 1.f / lpDevMode.dmDisplayFrequency;
 }
 
 extern int ps_framelimiter;
@@ -723,7 +705,7 @@ bool CRenderDevice::Paused()
 	return g_pauseMngr().Paused();
 }
 
-void CRenderDevice::OnWM_Activate(WPARAM wParam, LPARAM lParam)
+void CRenderDevice::OnWM_Activate(uintptr_t wParam, intptr_t lParam)
 {
 	Device.b_is_Active = TRUE;
 

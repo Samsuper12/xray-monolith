@@ -3,7 +3,7 @@
 #include	"KinematicsAnimated.h"
 #include	"motion.h"
 
-IC bool is_in(const motion_marks::interval& i, float v)
+inline bool is_in(const motion_marks::interval& i, float v)
 {
 	if (i.first < i.second)
 		return i.first < v && i.second > v;
@@ -44,7 +44,7 @@ bool blend_in(const CBlend& b, const motion_marks& marks)
 	return NULL != marks.pick_mark(blend_time(b));
 }
 
-IC bool b_is_blending(const CBlend* current_blend, const CBlend* b)
+inline bool b_is_blending(const CBlend* current_blend, const CBlend* b)
 {
 	return current_blend &&
 		current_blend->blend_state() != CBlend::eFREE_SLOT &&

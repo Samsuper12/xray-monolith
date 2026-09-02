@@ -80,7 +80,7 @@ void CPortalTraverser::destroy()
 	f_shader.destroy();
 }
 
-ICF bool psort_pred(const std::pair<CPortal*, float>& _1, const std::pair<CPortal*, float>& _2)
+inline bool psort_pred(const std::pair<CPortal*, float>& _1, const std::pair<CPortal*, float>& _2)
 {
 	float d1 = PortalTraverser.i_vBase.distance_to_sqr(_1.first->S.P);
 	float d2 = PortalTraverser.i_vBase.distance_to_sqr(_2.first->S.P);

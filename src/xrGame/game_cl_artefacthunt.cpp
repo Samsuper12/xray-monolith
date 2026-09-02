@@ -168,10 +168,10 @@ void game_cl_ArtefactHunt::TranslateGameMessage(u32 msg, NET_Packet& P)
 	CStringTable st;
 	string512 Text;
 	string512 tmp;
-	//	LPSTR	Color_Teams[3]		= {"%c[255,255,255,255]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
+	//	char *	Color_Teams[3]		= {"%c[255,255,255,255]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
 	char Color_Main[] = "%c[255,192,192,192]";
 	char Color_Artefact[] = "%c[255,255,255,0]";
-	//	LPSTR	TeamsNames[3]		= {"Zero Team", "Team Green", "Team Blue"};
+	//	char *	TeamsNames[3]		= {"Zero Team", "Team Green", "Team Blue"};
 
 	switch (msg)
 	{

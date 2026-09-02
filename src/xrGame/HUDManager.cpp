@@ -349,7 +349,7 @@ bool CHUDManager::AimposActive()
 		|| (psActorFlags.test(AF_AIMPOS_ZOOM) && zFac >= 1.f);
 }
 
-ICF static BOOL pick_trace_callback(collide::rq_result& result, LPVOID params)
+inline static BOOL pick_trace_callback(collide::rq_result& result, void* params)
 {
 	SPickParam* pp = (SPickParam*)params;
 	//	collide::rq_result* RQ	= pp->RQ;

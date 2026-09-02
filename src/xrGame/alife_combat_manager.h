@@ -41,7 +41,7 @@ public:
 	CALifeCombatManager(xrServer* server, LPCSTR section);
 	/*
 		virtual							~CALifeCombatManager		();
-		IC		ALife::ECombatType		combat_type					() const;
+		inline		ALife::ECombatType		combat_type					() const;
 				ALife::ECombatAction	choose_combat_action		(int						iCombatGroupIndex);
 				ALife::ERelationType	relation_type				(CSE_ALifeMonsterAbstract	*tpALifeMonsterAbstract1,	CSE_ALifeMonsterAbstract*tpALifeMonsterAbstract2) const;
 	*/

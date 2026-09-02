@@ -31,17 +31,17 @@ public:
 	int anim_index;
 
 public:
-	IC CScriptAnimationAction();
-	IC CScriptAnimationAction(LPCSTR caAnimationToPlay, bool use_animation_movement_controller = false);
-	IC CScriptAnimationAction(MonsterSpace::EMentalState tMentalState);
+	inline CScriptAnimationAction();
+	inline CScriptAnimationAction(LPCSTR caAnimationToPlay, bool use_animation_movement_controller = false);
+	inline CScriptAnimationAction(MonsterSpace::EMentalState tMentalState);
 	// -------------------------------------------------------------------------------------------------
 	// Monster
 	// -------------------------------------------------------------------------------------------------
-	IC CScriptAnimationAction(MonsterSpace::EScriptMonsterAnimAction tAnimAction, int index);
+	inline CScriptAnimationAction(MonsterSpace::EScriptMonsterAnimAction tAnimAction, int index);
 	virtual ~CScriptAnimationAction();
-	IC void SetAnimation(LPCSTR caAnimationToPlay);
-	IC void SetMentalState(MonsterSpace::EMentalState tMentalState);
-	IC void initialize();
+	inline void SetAnimation(LPCSTR caAnimationToPlay);
+	inline void SetMentalState(MonsterSpace::EMentalState tMentalState);
+	inline void initialize();
 
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };

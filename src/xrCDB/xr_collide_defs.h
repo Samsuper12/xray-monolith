@@ -100,7 +100,7 @@ namespace collide
 		CObject* O; // if NULL - static
 		float range; // range to intersection
 		int element; // номер кости/номер треугольника
-		IC rq_result& set(CObject* _O, float _range, int _element)
+		inline rq_result& set(CObject* _O, float _range, int _element)
 		{
 			O = _O;
 			range = _range;
@@ -108,7 +108,7 @@ namespace collide
 			return *this;
 		}
 
-		IC BOOL set_if_less(CDB::RESULT* I)
+		inline BOOL set_if_less(CDB::RESULT* I)
 		{
 			if (I->range < range)
 			{
@@ -118,7 +118,7 @@ namespace collide
 			else return FALSE;
 		}
 
-		IC BOOL set_if_less(rq_result* R)
+		inline BOOL set_if_less(rq_result* R)
 		{
 			if (R->range < range)
 			{
@@ -128,7 +128,7 @@ namespace collide
 			else return FALSE;
 		}
 
-		IC BOOL set_if_less(CObject* _who, float _range, int _element)
+		inline BOOL set_if_less(CObject* _who, float _range, int _element)
 		{
 			if (_range < range)
 			{
@@ -138,7 +138,7 @@ namespace collide
 			else return FALSE;
 		}
 
-		IC BOOL valid() { return (element >= 0); }
+		inline BOOL valid() { return (element >= 0); }
 	};
 
 	DEFINE_VECTOR(rq_result, rqVec, rqIt);
@@ -149,7 +149,7 @@ namespace collide
 		rqVec results;
 		static bool r_sort_pred(const rq_result& a, const rq_result& b) { return a.range < b.range; }
 	public:
-		IC BOOL append_result(CObject* _who, float _range, int _element, BOOL bNearest)
+		inline BOOL append_result(CObject* _who, float _range, int _element, BOOL bNearest)
 		{
 			if (bNearest && !results.empty())
 			{
@@ -171,21 +171,21 @@ namespace collide
 			return TRUE;
 		}
 
-		IC void append_result(rq_result& res)
+		inline void append_result(rq_result& res)
 		{
 			if (0 == results.capacity()) results.reserve(8);
 			results.push_back(res);
 		}
 
-		IC int r_count() { return results.size(); }
-		IC rq_result* r_begin() { return &*results.begin(); }
-		IC rq_result* r_end() { return &*results.end(); }
-		IC void r_clear() { results.clear_not_free(); }
-		IC void r_sort() { std::sort(results.begin(), results.end(), r_sort_pred); }
-		IC rqVec& r_results() { return results; }
+		inline int r_count() { return results.size(); }
+		inline rq_result* r_begin() { return &*results.begin(); }
+		inline rq_result* r_end() { return &*results.end(); }
+		inline void r_clear() { results.clear_not_free(); }
+		inline void r_sort() { std::sort(results.begin(), results.end(), r_sort_pred); }
+		inline rqVec& r_results() { return results; }
 	};
 
-	typedef BOOL rq_callback(rq_result& result, LPVOID user_data);
-	typedef BOOL test_callback(const ray_defs& rd, CObject* object, LPVOID user_data);
+	typedef BOOL rq_callback(rq_result& result, void* user_data);
+	typedef BOOL test_callback(const ray_defs& rd, CObject* object, void* user_data);
 };
 #endif

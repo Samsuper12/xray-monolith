@@ -284,7 +284,7 @@ void CALifeSimulatorBase::release(CSE_Abstract* abstract, bool alife_query)
 		u32 children_count = object->children.size();
 		u32 bytes = children_count * sizeof(ALife::_OBJECT_ID);
 		ALife::_OBJECT_ID* children = (ALife::_OBJECT_ID*)alloca(bytes);
-		CopyMemory(children, &*object->children.begin(), bytes);
+		memcpy(children, &*object->children.begin(), bytes);
 
 		ALife::_OBJECT_ID* I = children;
 		ALife::_OBJECT_ID* E = children + children_count;

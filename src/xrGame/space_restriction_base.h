@@ -34,7 +34,7 @@ public:
 
 public:
 #ifdef DEBUG
-	IC		bool		correct				() const;
+	inline		bool		correct				() const;
 #endif
 };
 

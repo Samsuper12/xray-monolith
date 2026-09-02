@@ -59,12 +59,12 @@ class id_predicate
 	loophole const* m_loophole;
 
 public:
-	IC id_predicate(loophole const& loophole) :
+	inline id_predicate(loophole const& loophole) :
 		m_loophole(&loophole)
 	{
 	}
 
-	IC bool operator()(loophole* const & loophole) const
+	inline bool operator()(loophole* const & loophole) const
 	{
 		VERIFY(loophole);
 		return (m_loophole->id()._get() == loophole->id()._get());
@@ -74,7 +74,7 @@ public:
 class enterable_predicate
 {
 public:
-	IC bool operator()(loophole* const & loophole) const
+	inline bool operator()(loophole* const & loophole) const
 	{
 		VERIFY(loophole);
 		return (loophole->enterable());
@@ -84,7 +84,7 @@ public:
 class exitable_predicate
 {
 public:
-	IC bool operator()(loophole* const & loophole) const
+	inline bool operator()(loophole* const & loophole) const
 	{
 		VERIFY(loophole);
 		return (loophole->exitable());
@@ -94,7 +94,7 @@ public:
 class usable_predicate
 {
 public:
-	IC bool operator()(loophole* const & loophole) const
+	inline bool operator()(loophole* const & loophole) const
 	{
 		VERIFY(loophole);
 		return (loophole->usable());
@@ -256,7 +256,7 @@ template <typename _data_type,
           typename _edge_weight_type,
           typename _vertex_id_type,
           typename _edge_data_type>
-IC void delete_data(const CGraphAbstract<_data_type, _edge_weight_type, _vertex_id_type, _edge_data_type>& graph_)
+inline void delete_data(const CGraphAbstract<_data_type, _edge_weight_type, _vertex_id_type, _edge_data_type>& graph_)
 {
 	typedef CGraphAbstract<_data_type, _edge_weight_type, _vertex_id_type, _edge_data_type> Graph;
 
@@ -294,12 +294,12 @@ loophole const* description::loophole(shared_str const& loophole_id) const
 		shared_str m_id;
 
 	public:
-		IC id_predicate(shared_str const& id) :
+		inline id_predicate(shared_str const& id) :
 			m_id(id)
 		{
 		}
 
-		IC bool operator()(smart_cover::loophole const* loophole) const
+		inline bool operator()(smart_cover::loophole const* loophole) const
 		{
 			return (m_id._get() == loophole->id()._get());
 		}

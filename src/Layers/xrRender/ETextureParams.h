@@ -129,17 +129,17 @@ struct ECORE_API STextureParams
 		Clear();
 	}
 
-	IC void destroy_shared_str(shared_str& object)
+	inline void destroy_shared_str(shared_str& object)
 	{
 		object.~shared_str();
 	}
 
-	IC void construct_shared_str(shared_str& object)
+	inline void construct_shared_str(shared_str& object)
 	{
 		::new(&object) shared_str();
 	}
 
-	IC void Clear()
+	inline void Clear()
 	{
 		destroy_shared_str(detail_name);
 		destroy_shared_str(bump_name);
@@ -161,13 +161,13 @@ struct ECORE_API STextureParams
 		bump_virtual_height = 0.05f;
 	}
 
-	IC BOOL HasAlpha()
+	inline BOOL HasAlpha()
 	{
 		// исходная текстура содержит альфа канал
 		return flags.is(flHasAlpha);
 	}
 
-	IC BOOL HasAlphaChannel() // игровая текстура содержит альфа канал
+	inline BOOL HasAlphaChannel() // игровая текстура содержит альфа канал
 	{
 		switch (fmt)
 		{

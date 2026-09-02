@@ -38,10 +38,10 @@ CScriptProcess::~CScriptProcess()
 
 void CScriptProcess::run_scripts()
 {
-	LPSTR S;
+	char * S;
 	for (; !m_scripts_to_run.empty();)
 	{
-		LPSTR I = m_scripts_to_run.back().m_script_name;
+		char * I = m_scripts_to_run.back().m_script_name;
 		bool do_string = m_scripts_to_run.back().m_do_string;
 		bool reload = m_scripts_to_run.back().m_reload;
 		S = xr_strdup(I);

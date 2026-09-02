@@ -47,11 +47,11 @@ private:
 	              CObject* ignore_object);
 	BOOL _RayPick(const Fvector& start, const Fvector& dir, float range, collide::rq_target tgt, collide::rq_result& R,
 				  xr_vector<CObject*>& ignore_objects);
-	BOOL _RayQuery(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, LPVOID user_data,
+	BOOL _RayQuery(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, void* user_data,
 	               collide::test_callback* tb, CObject* ignore_object);
-	BOOL _RayQuery2(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, LPVOID user_data,
+	BOOL _RayQuery2(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, void* user_data,
 	                collide::test_callback* tb, CObject* ignore_object);
-	BOOL _RayQuery3(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, LPVOID user_data,
+	BOOL _RayQuery3(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, void* user_data,
 	                collide::test_callback* tb, CObject* ignore_object);
 public:
 	CObjectSpace();
@@ -72,7 +72,7 @@ public:
 				 xr_vector<CObject*>& ignore_objects);
 
 	// General collision query
-	BOOL RayQuery(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, LPVOID user_data,
+	BOOL RayQuery(collide::rq_results& dest, const collide::ray_defs& rq, collide::rq_callback* cb, void* user_data,
 	              collide::test_callback* tb, CObject* ignore_object);
 	BOOL RayQuery(collide::rq_results& dest, ICollisionForm* target, const collide::ray_defs& rq);
 

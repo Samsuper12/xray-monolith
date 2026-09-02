@@ -81,22 +81,22 @@ public:
 	u8 GetAmmoType2() { return m_ammoType2; };
 	int GetAmmoCount2(u8 ammo2_type) const;
 
-	IC int GetAmmoElapsed2() const
+	inline int GetAmmoElapsed2() const
 	{
 		return iAmmoElapsed2;
 	}
 
-	IC int GetAmmoMagSize2() const
+	inline int GetAmmoMagSize2() const
 	{
 		return iMagazineSize2;
 	}
 
-	IC bool GetGrenadeLauncherMode() const
+	inline bool GetGrenadeLauncherMode() const
 	{
 		return m_bGrenadeMode;
 	}
 
-	IC void SetGrenadeLauncherMode(bool mode)
+	inline void SetGrenadeLauncherMode(bool mode)
 	{
 		if (!IsGrenadeLauncherAttached())
 			return;

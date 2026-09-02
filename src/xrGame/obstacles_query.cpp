@@ -129,13 +129,13 @@ struct too_far_predicate
 	Fvector m_position;
 	float m_radius_sqr;
 
-	IC too_far_predicate(const Fvector& position, const float& radius)
+	inline too_far_predicate(const Fvector& position, const float& radius)
 	{
 		m_position = position;
 		m_radius_sqr = _sqr(radius);
 	}
 
-	IC bool operator()(const std::pair<const CGameObject*, u32>& object) const
+	inline bool operator()(const std::pair<const CGameObject*, u32>& object) const
 	{
 		typedef obstacles_query::AREA AREA;
 		const AREA& area = object.first->obstacle().area();

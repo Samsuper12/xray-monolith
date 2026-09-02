@@ -44,7 +44,7 @@ u32* src = (u32*)pSource;
 
 // avoid redundant processing
 if (dwTypeDest==dwTypeSrc) {
-CopyMemory (pDest,pSource,dwSizeDest*dwCount*4);
+memcpy (pDest,pSource,dwSizeDest*dwCount*4);
 return;
 }
 

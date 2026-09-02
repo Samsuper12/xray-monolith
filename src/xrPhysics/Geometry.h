@@ -61,43 +61,43 @@ public:
 	void clear_cashed_tries();
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	IC dGeomID geom()
+	inline dGeomID geom()
 	{
 		return dGeomTransformGetGeom(m_geom_transform);
 	}
 
-	IC dGeomID geometry_transform()
+	inline dGeomID geometry_transform()
 	{
 		return m_geom_transform;
 	}
 
-	IC dGeomID geometry()
+	inline dGeomID geometry()
 	{
 		return m_geom_transform ? (geom() ? geom() : m_geom_transform) : NULL;
 	}
 
-	IC dGeomID geometry_bt()
+	inline dGeomID geometry_bt()
 	{
 		if (is_transformed_bt()) return geom();
 		else return geometry_transform();
 	}
 
-	IC const dGeomID geom() const
+	inline const dGeomID geom() const
 	{
 		return dGeomTransformGetGeom(m_geom_transform);
 	}
 
-	IC const dGeomID geometry_transform() const
+	inline const dGeomID geometry_transform() const
 	{
 		return m_geom_transform;
 	}
 
-	IC const dGeomID geometry() const
+	inline const dGeomID geometry() const
 	{
 		return m_geom_transform ? (geom() ? geom() : m_geom_transform) : NULL;
 	}
 
-	IC const dGeomID geometry_bt() const
+	inline const dGeomID geometry_bt() const
 	{
 		if (is_transformed_bt()) return geom();
 		else return geometry_transform();
@@ -105,17 +105,17 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	ICF static bool is_transform(dGeomID g)
+	inline static bool is_transform(dGeomID g)
 	{
 		return dGeomGetClass(g) == dGeomTransformClass;
 	}
 
-	IC bool is_transformed_bt() const
+	inline bool is_transformed_bt() const
 	{
 		return is_transform(m_geom_transform);
 	}
 
-	IC u16& element_position()
+	inline u16& element_position()
 	{
 		return dGeomGetUserData(geometry())->element_position;
 	}

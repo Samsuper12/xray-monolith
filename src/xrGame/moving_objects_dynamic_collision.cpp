@@ -27,7 +27,7 @@
 #	define MSG(...)
 #endif
 
-IC MagicBox3& moving_objects::continuous_box(moving_object* object, const Fvector& position, MagicBox3& result,
+inline MagicBox3& moving_objects::continuous_box(moving_object* object, const Fvector& position, MagicBox3& result,
                                              const bool& use_box_enlargement) const
 {
 	result = object->object().obstacle().min_box();
@@ -47,12 +47,12 @@ struct collision_predicate
 {
 	const moving_objects::COLLISION* m_collision;
 
-	IC collision_predicate(const moving_objects::COLLISION& collision) :
+	inline collision_predicate(const moving_objects::COLLISION& collision) :
 		m_collision(&collision)
 	{
 	}
 
-	IC bool operator()(const moving_objects::COLLISION_TIME& collision_time) const
+	inline bool operator()(const moving_objects::COLLISION_TIME& collision_time) const
 	{
 		const moving_objects::COLLISION& object = collision_time.second.second;
 		if (m_collision->first != object.first)

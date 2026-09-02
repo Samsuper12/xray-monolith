@@ -67,7 +67,7 @@ private:
 #endif // DEBUG
 
 private:
-	IC bool collided(const CObject* object, const Fvector& position, const float& radius) const;
+	inline bool collided(const CObject* object, const Fvector& position, const float& radius) const;
 	bool collided_static(const Fvector& position, const float& radius);
 	bool collided_static(moving_object* object, const Fvector& dest_position);
 	void fill_static(obstacles_query& query, const Fvector& position, const float& radius);
@@ -76,7 +76,7 @@ private:
 	void fill_nearest_list(const Fvector& position, const float& radius, moving_object* object);
 
 private:
-	IC MagicBox3& continuous_box(moving_object* object0, const Fvector& position0, MagicBox3& result,
+	inline MagicBox3& continuous_box(moving_object* object0, const Fvector& position0, MagicBox3& result,
 	                             const bool& use_box_enlargement) const;
 	void resolve_collision_previous(boxes& current, moving_object* object0, moving_object* object1,
 	                                possible_actions& action) const;
@@ -115,7 +115,7 @@ public:
 	void query_action_dynamic(moving_object* object);
 	void query_action_static(moving_object* object, const Fvector& start_position, const Fvector& dest_position);
 	void query_action_static(moving_object* object);
-	IC const COLLISIONS& collisions() const;
+	inline const COLLISIONS& collisions() const;
 	void clear();
 };
 

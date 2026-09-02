@@ -30,40 +30,40 @@ public:
 	{
 		m_glow.destroy();
 	}
-	IC void Enable(bool state)				{ m_glow->set_active(state); }
-	IC const bool IsEnabled() const			{ return m_glow->get_active(); }
-	IC const float GetRange() const			{ return fRange; }
-	IC void SetPosition(Fvector pos)		{ m_glow->set_position(pos); }
-	IC void SetPosition(float x, float y, float z) { m_glow->set_position(Fvector{x,y,z}); }
-	IC void SetDirection(Fvector dir)		{ m_glow->set_direction(dir); }
-	IC void SetDirection(float x, float y, float z) { m_glow->set_direction(Fvector{ x,y,z }); }
-	IC const Fcolor GetColor() const		{ return color; }
-	IC const LPCSTR GetTexture() const		{ return texture; }
-	IC void SetBrightness(float val)		{ fBrightness = val; }
-	IC const float GetBrightness() const	{ return fBrightness; }
-	IC void SetLanim(LPCSTR name) { m_light_anim = LALib.FindItem(name); }
-	IC LPCSTR GetLanim() const { return m_light_anim != nullptr ? *m_light_anim->cName : nullptr; }
+	inline void Enable(bool state)				{ m_glow->set_active(state); }
+	inline const bool IsEnabled() const			{ return m_glow->get_active(); }
+	inline const float GetRange() const			{ return fRange; }
+	inline void SetPosition(Fvector pos)		{ m_glow->set_position(pos); }
+	inline void SetPosition(float x, float y, float z) { m_glow->set_position(Fvector{x,y,z}); }
+	inline void SetDirection(Fvector dir)		{ m_glow->set_direction(dir); }
+	inline void SetDirection(float x, float y, float z) { m_glow->set_direction(Fvector{ x,y,z }); }
+	inline const Fcolor GetColor() const		{ return color; }
+	inline const LPCSTR GetTexture() const		{ return texture; }
+	inline void SetBrightness(float val)		{ fBrightness = val; }
+	inline const float GetBrightness() const	{ return fBrightness; }
+	inline void SetLanim(LPCSTR name) { m_light_anim = LALib.FindItem(name); }
+	inline LPCSTR GetLanim() const { return m_light_anim != nullptr ? *m_light_anim->cName : nullptr; }
 
-	IC void SetRange(float range)
+	inline void SetRange(float range)
 	{
 		m_glow->set_radius(range);
 		fRange = range;
 	}
 
-	IC void SetTexture(LPCSTR name)
+	inline void SetTexture(LPCSTR name)
 	{
 		m_glow->set_texture(name);
 		texture = name;
 	}
 
-	IC void SetColor(Fcolor col)
+	inline void SetColor(Fcolor col)
 	{
 		m_light_anim = nullptr;
 		m_glow->set_color(col);
 		color = col;
 	}
 
-	IC void Update()
+	inline void Update()
 	{
 		if (m_light_anim)
 		{
@@ -125,56 +125,56 @@ public:
 		m_light.destroy();
 	}
 
-	IC void SetLanim(LPCSTR name)						{ m_light_anim = LALib.FindItem(name); }
-	IC LPCSTR GetLanim() const							{ return m_light_anim != nullptr ? *m_light_anim->cName : nullptr; }
-	IC void SetPosition(Fvector pos)					{ m_light->set_position(pos); }
-	IC void SetPosition(float x, float y, float z)		{ m_light->set_position(Fvector{ x,y,z }); }
-	IC void SetDirection(Fvector dir)					{ m_light->set_rotation(dir, Fvector().set(1, 0, 0)); }
-	IC void SetDirection(float x, float y, float z)		{ m_light->set_rotation(Fvector{ x,y,z }, Fvector().set(1, 0, 0)); }
-	IC void SetDirection(Fvector dir, Fvector right)	{ m_light->set_rotation(dir, right); }
-	IC void SetCone(float angle)						{ m_light->set_cone(angle); }
-	IC void Enable(bool state)							{ m_light->set_active(state); }
-	IC const bool IsEnabled() const						{ return m_light->get_active(); }
-	IC void SetHudMode(bool b)							{ m_light->set_hud_mode(b); }
-	IC const bool GetHudMode() const					{ return m_light->get_hud_mode(); }
+	inline void SetLanim(LPCSTR name)						{ m_light_anim = LALib.FindItem(name); }
+	inline LPCSTR GetLanim() const							{ return m_light_anim != nullptr ? *m_light_anim->cName : nullptr; }
+	inline void SetPosition(Fvector pos)					{ m_light->set_position(pos); }
+	inline void SetPosition(float x, float y, float z)		{ m_light->set_position(Fvector{ x,y,z }); }
+	inline void SetDirection(Fvector dir)					{ m_light->set_rotation(dir, Fvector().set(1, 0, 0)); }
+	inline void SetDirection(float x, float y, float z)		{ m_light->set_rotation(Fvector{ x,y,z }, Fvector().set(1, 0, 0)); }
+	inline void SetDirection(Fvector dir, Fvector right)	{ m_light->set_rotation(dir, right); }
+	inline void SetCone(float angle)						{ m_light->set_cone(angle); }
+	inline void Enable(bool state)							{ m_light->set_active(state); }
+	inline const bool IsEnabled() const						{ return m_light->get_active(); }
+	inline void SetHudMode(bool b)							{ m_light->set_hud_mode(b); }
+	inline const bool GetHudMode() const					{ return m_light->get_hud_mode(); }
 	
-	IC void SetBrightness(float br)						{ fBrightness = br; }
-	IC const float GetBrightness() const				{ return fBrightness; }
-	IC const bool GetVolumetric() const					{ return bVolEnable; }
-	IC const float GetVolumetricDistance() const		{ return fVolDistance; }
-	IC const float GetVolumetricIntensity() const		{ return fVolIntensity; }
-	IC const float GetVolumetricQuality() const			{ return fVolQuality; }
-	IC const bool GetShadow() const						{ return bShadow; }
-	IC const float GetRange() const						{ return fRange; }
-	IC const Fcolor GetColor() const					{ return color; }
-	IC const LPCSTR GetTexture() const					{ return texture; }
-	IC const int GetType() const						{ return iType; }
+	inline void SetBrightness(float br)						{ fBrightness = br; }
+	inline const float GetBrightness() const				{ return fBrightness; }
+	inline const bool GetVolumetric() const					{ return bVolEnable; }
+	inline const float GetVolumetricDistance() const		{ return fVolDistance; }
+	inline const float GetVolumetricIntensity() const		{ return fVolIntensity; }
+	inline const float GetVolumetricQuality() const			{ return fVolQuality; }
+	inline const bool GetShadow() const						{ return bShadow; }
+	inline const float GetRange() const						{ return fRange; }
+	inline const Fcolor GetColor() const					{ return color; }
+	inline const LPCSTR GetTexture() const					{ return texture; }
+	inline const int GetType() const						{ return iType; }
 
-	IC void SetShadow(bool state) 
+	inline void SetShadow(bool state) 
 	{ 
 		m_light->set_shadow(state); 
 		bShadow = state;
 	}
 
-	IC void SetRange(float range) 
+	inline void SetRange(float range) 
 	{
 		m_light->set_range(range); 
 		fRange = range;
 	}
 
-	IC void SetType(int type) 
+	inline void SetType(int type) 
 	{
 		m_light->set_type((IRender_Light::LT) type); 
 		iType = type;
 	}
 
-	IC void SetTexture(LPCSTR name) 
+	inline void SetTexture(LPCSTR name) 
 	{
 		m_light->set_texture(name); 
 		texture = name;
 	}
 
-	IC void SetVolumetric(bool state) 
+	inline void SetVolumetric(bool state) 
 	{ 
 		m_light->set_volumetric(state);
 		bVolEnable = state;
@@ -182,32 +182,32 @@ public:
 		if (state) SetShadow(true);
 	}
 
-	IC void SetVolumetricDistance(float val) 
+	inline void SetVolumetricDistance(float val) 
 	{
 		m_light->set_volumetric_distance(val);
 		fVolDistance = val; 
 	}
 
-	IC void SetVolumetricIntensity(float val)
+	inline void SetVolumetricIntensity(float val)
 	{ 
 		m_light->set_volumetric_intensity(val); 
 		fVolIntensity = val; 
 	}
 
-	IC void SetVolumetricQuality(float val) 
+	inline void SetVolumetricQuality(float val) 
 	{ 
 		m_light->set_volumetric_quality(val);
 		fVolQuality = val;
 	}
 
-	IC void SetColor(Fcolor col)
+	inline void SetColor(Fcolor col)
 	{
 		m_light_anim = nullptr;
 		m_light->set_color(col);
 		color = col;
 	}
 
-	IC void Update()
+	inline void Update()
 	{
 		if (m_light_anim)
 		{
@@ -240,22 +240,22 @@ public:
 
 	virtual ~AttachmentScriptLight() {}
 
-	IC void SetPosition(Fvector pos) { m_offset.translate_over(pos); }
-	IC void SetPosition(float x, float y, float z) { m_offset.translate_over(x, y, z); }
-	IC void SetDirection(Fvector dir)
+	inline void SetPosition(Fvector pos) { m_offset.translate_over(pos); }
+	inline void SetPosition(float x, float y, float z) { m_offset.translate_over(x, y, z); }
+	inline void SetDirection(Fvector dir)
 	{
 		Fvector pos = m_offset.c;
 		m_offset.setHPB(dir.x, dir.y, dir.z);
 		m_offset.c = pos;
 	}
-	IC void SetDirection(float x, float y, float z)
+	inline void SetDirection(float x, float y, float z)
 	{
 		Fvector pos = m_offset.c;
 		m_offset.setHPB(x, y, z);
 		m_offset.c = pos;
 	}
-	IC void SetDirection(Fvector dir, Fvector right) { SetDirection(dir); }
-	IC void SetXFORM(Fmatrix& mat)
+	inline void SetDirection(Fvector dir, Fvector right) { SetDirection(dir); }
+	inline void SetXFORM(Fmatrix& mat)
 	{
 		mat.mulB_43(m_offset);
 		m_light->set_position(mat.c);

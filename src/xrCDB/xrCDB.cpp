@@ -20,22 +20,6 @@ namespace Opcode
 using namespace CDB;
 using namespace Opcode;
 
-//BOOL APIENTRY DllMain( HANDLE hModule, 
-BOOL DllMainIgnore1(HANDLE hModule,
-                    u32 ul_reason_for_call,
-                    LPVOID lpReserved
-)
-{
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
 
 // Model building
 MODEL::MODEL()
@@ -118,12 +102,12 @@ void MODEL::build_internal(Fvector* V, int Vcnt, TRI* T, int Tcnt, build_callbac
 	// verts
 	verts_count = Vcnt;
 	verts = CALLOC(Fvector, verts_count);
-	CopyMemory(verts, V, verts_count*sizeof(Fvector));
+	memcpy(verts, V, verts_count*sizeof(Fvector));
 
 	// tris
 	tris_count = Tcnt;
 	tris = CALLOC(TRI, tris_count);
-	CopyMemory(tris, T, tris_count*sizeof(TRI));
+	memcpy(tris, T, tris_count*sizeof(TRI));
 
 	// callback
 	if (bc) bc(verts, Vcnt, tris, Tcnt, bcp);

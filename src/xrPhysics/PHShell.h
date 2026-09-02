@@ -233,7 +233,7 @@ public:
 	virtual bool isActive() const { return !!m_flags.test(flActive); }
 	virtual bool isFullActive() const { return isActive() && !m_flags.test(flActivating); }
 	void SetNotActivating() { m_flags.set(flActivating,FALSE); }
-	IC void SetObjVsShellTransform(const Fmatrix& root_transform);
+	inline void SetObjVsShellTransform(const Fmatrix& root_transform);
 	//CPHObject	 
 	virtual void vis_update_activate();
 	virtual void vis_update_deactivate();
@@ -323,7 +323,7 @@ private:
 	void ClearBreakInfo();
 	Fmatrix& get_animation_root_matrix(Fmatrix& m);
 	void update_root_transforms();
-	IC CPHElement& root_element()
+	inline CPHElement& root_element()
 	{
 		VERIFY(!elements.empty());
 		return *(*elements.begin());
@@ -340,7 +340,7 @@ public:
 };
 
 
-IC void CPHShell::SetObjVsShellTransform(const Fmatrix& root_transform)
+inline void CPHShell::SetObjVsShellTransform(const Fmatrix& root_transform)
 {
 	m_object_in_root.set(root_transform);
 	m_object_in_root.invert();

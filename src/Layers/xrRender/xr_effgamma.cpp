@@ -55,7 +55,7 @@ void CGammaControl::GenLUT(const DXGI_GAMMA_CONTROL_CAPABILITIES& GC, DXGI_GAMMA
 
 #else	//	USE_DX10
 
-IC u16 clr2gamma(float c)
+inline u16 clr2gamma(float c)
 {
 	int C = iFloor(c);
 	clamp(C, 0, 65535);

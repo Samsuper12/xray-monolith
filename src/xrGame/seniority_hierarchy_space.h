@@ -13,7 +13,7 @@
 
 namespace SeniorityHierarchy
 {
-	IC shared_str to_string(u32 number)
+	inline shared_str to_string(u32 number)
 	{
 		string16 S;
 		snprintf(S, 10, "%d", number);
@@ -22,7 +22,7 @@ namespace SeniorityHierarchy
 	}
 
 	template <typename T1>
-	IC void assign_svector(T1& container, u32 count, const typename T1::value_type& value)
+	inline void assign_svector(T1& container, u32 count, const typename T1::value_type& value)
 	{
 		container.resize(count);
 		typename T1::iterator I = container.begin();

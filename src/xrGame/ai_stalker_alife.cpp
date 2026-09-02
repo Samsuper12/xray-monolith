@@ -28,12 +28,12 @@ extern u32 get_rank(const shared_str& section);
 static const int MAX_AMMO_ATTACH_COUNT = 1;
 static const int enough_ammo_box_count = 1;
 
-IC bool CAI_Stalker::CTradeItem::operator<(const CTradeItem& trade_item) const
+inline bool CAI_Stalker::CTradeItem::operator<(const CTradeItem& trade_item) const
 {
 	return (m_item->object().ID() < trade_item.m_item->object().ID());
 }
 
-IC bool CAI_Stalker::CTradeItem::operator==(u16 id) const
+inline bool CAI_Stalker::CTradeItem::operator==(u16 id) const
 {
 	return (m_item->object().ID() == id);
 }
@@ -90,7 +90,7 @@ void CAI_Stalker::transfer_item(CInventoryItem* item, CGameObject* old_owner, CG
 	O->u_EventSend(P);
 }
 
-IC void CAI_Stalker::buy_item_virtual(CTradeItem& item)
+inline void CAI_Stalker::buy_item_virtual(CTradeItem& item)
 {
 	item.m_new_owner_id = ID();
 	m_total_money -= item.m_item->Cost();

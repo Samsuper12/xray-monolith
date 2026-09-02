@@ -76,7 +76,7 @@ namespace InventoryUtilities
 	const shared_str GetTimeAndDateAsString(ALife::_TIME_ID time);
 	const shared_str Get_GameTimeAndDate_AsString();
 
-	LPCSTR GetTimePeriodAsString(LPSTR _buff, u32 buff_sz, ALife::_TIME_ID _from, ALife::_TIME_ID _to);
+	LPCSTR GetTimePeriodAsString(char * _buff, u32 buff_sz, ALife::_TIME_ID _from, ALife::_TIME_ID _to);
 	// Отобразить вес, который несет (*pInvOwner)
 	void UpdateWeightStr(CUITextWnd& wnd, CUITextWnd& wnd_max, CInventoryOwner* pInvOwner);
 

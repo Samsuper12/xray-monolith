@@ -38,7 +38,7 @@
 #ifdef DEBUG
 #include    "debug_output.h"
 #endif
-IC bool PhOutOfBoundaries(const Fvector& v)
+inline bool PhOutOfBoundaries(const Fvector& v)
 {
 	return v.y < phBoundaries.y1;
 }
@@ -781,7 +781,7 @@ void CPHShell::ClearBreakInfo()
 }
 
 
-ICF bool no_physics_shape(const SBoneShape& shape)
+inline bool no_physics_shape(const SBoneShape& shape)
 {
 	return shape.type == SBoneShape::stNone || shape.flags.test(SBoneShape::sfNoPhysics);
 }

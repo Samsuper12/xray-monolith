@@ -16,8 +16,8 @@ struct WaveForm
 		fFORCE32 = u32(-1)
 	};
 
-	IC float signf(float t) { return t / _abs(t); }
-	IC float Func(float t)
+	inline float signf(float t) { return t / _abs(t); }
+	inline float Func(float t)
 	{
 		switch (F)
 		{
@@ -35,7 +35,7 @@ public:
 	EFunction F;
 	float arg[4];
 
-	IC float Calculate(float t)
+	inline float Calculate(float t)
 	{
 		// y = arg0 + arg1*func( (time+arg2)*arg3 )
 		float x = (t + arg[2]) * arg[3];
@@ -51,7 +51,7 @@ public:
 		arg[3] = 1;
 	}
 
-	IC BOOL Similar(const WaveForm& W) const
+	inline BOOL Similar(const WaveForm& W) const
 	{
 		if (!fsimilar(arg[0], W.arg[0], EPS_L)) return FALSE;
 		if (!fsimilar(arg[1], W.arg[1], EPS_L)) return FALSE;

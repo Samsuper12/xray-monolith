@@ -129,7 +129,7 @@ virtual		void DBG_ObjBeforeCollision		( CPHObject *obj )=0;
 
 extern XRPHYSICS_API	IDebugOutput	*ph_debug_output; 
 
-IC	IDebugOutput	&debug_output()
+inline	IDebugOutput	&debug_output()
 {
 	VERIFY(ph_debug_output);
 	return *ph_debug_output;

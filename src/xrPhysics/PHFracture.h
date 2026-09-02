@@ -13,17 +13,17 @@ class CPHElement;
 
 DEFINE_VECTOR(dJointFeedback, CFEEDBACK_STORAGE, CFEEDBACK_I)
 
-IC void sub_diapasones(u16& from1, u16& to1, const u16& from0, const u16& to0);
+inline void sub_diapasones(u16& from1, u16& to1, const u16& from0, const u16& to0);
 
 class CShellSplitInfo
 {
 	friend class CPHFracturesHolder;
 	friend class CPHShellSplitterHolder;
 	friend class CPHElement;
-	IC bool HaveElements() { return m_end_el_num != m_start_el_num; }
-	IC bool HaveJoints() { return m_start_jt_num != m_end_jt_num; }
+	inline bool HaveElements() { return m_end_el_num != m_start_el_num; }
+	inline bool HaveJoints() { return m_start_jt_num != m_end_jt_num; }
 public:
-	IC void sub_diapasone(const CShellSplitInfo& sub)
+	inline void sub_diapasone(const CShellSplitInfo& sub)
 	{
 		sub_diapasones(m_start_el_num, m_end_el_num, sub.m_start_el_num, sub.m_end_el_num);
 		sub_diapasones(m_start_jt_num, m_end_jt_num, sub.m_start_jt_num, sub.m_end_jt_num);
@@ -55,7 +55,7 @@ class CPHFracture : public CShellSplitInfo
 	CPHFracture();
 public:
 	bool Update(CPHElement* element);
-	IC bool Breaked() { return m_breaked; }
+	inline bool Breaked() { return m_breaked; }
 	void SetMassParts(const dMass& first, const dMass& second);
 	void MassSetZerro();
 	void MassAddToFirst(const dMass& m);
@@ -112,7 +112,7 @@ public:
 	void ApplyImpactsToElement(CPHElement* element);
 };
 
-IC void sub_diapasones(u16& from1, u16& to1, const u16& from0, const u16& to0)
+inline void sub_diapasones(u16& from1, u16& to1, const u16& from0, const u16& to0)
 {
 	if (from0 == to0 || from1 == to1 || to1 <= from0 || to1 == u16(-1)) return;
 	R_ASSERT(from0>=from1&&to0<=to1);

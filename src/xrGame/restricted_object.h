@@ -37,14 +37,14 @@ private:
 
 protected:
 	template <typename P, bool value>
-	IC void construct_restriction_string(LPSTR temp_restrictions, u32 const temp_restrictions_size,
+	inline void construct_restriction_string(char * temp_restrictions, u32 const temp_restrictions_size,
 	                                     const xr_vector<ALife::_OBJECT_ID>& restrictions,
 	                                     shared_str current_restrictions, const P& p);
-	IC void add_object_restriction(ALife::_OBJECT_ID id, const RestrictionSpace::ERestrictorTypes& restrictor_type);
-	IC void remove_object_restriction(ALife::_OBJECT_ID id, const RestrictionSpace::ERestrictorTypes& restrictor_type);
+	inline void add_object_restriction(ALife::_OBJECT_ID id, const RestrictionSpace::ERestrictorTypes& restrictor_type);
+	inline void remove_object_restriction(ALife::_OBJECT_ID id, const RestrictionSpace::ERestrictorTypes& restrictor_type);
 
 public:
-	IC CRestrictedObject(CCustomMonster* object);
+	inline CRestrictedObject(CCustomMonster* object);
 	virtual ~CRestrictedObject();
 	virtual BOOL net_Spawn(CSE_Abstract* data);
 	virtual void net_Destroy();
@@ -73,14 +73,14 @@ public:
 	shared_str out_restrictions() const;
 	shared_str base_in_restrictions() const;
 	shared_str base_out_restrictions() const;
-	IC bool applied() const;
-	IC CCustomMonster& object() const;
-	IC bool actual() const;
+	inline bool applied() const;
+	inline CCustomMonster& object() const;
+	inline bool actual() const;
 	void actual(bool value);
 
 public:
 #ifdef DEBUG
-	IC		void			initialize						();
+	inline		void			initialize						();
 #endif
 };
 

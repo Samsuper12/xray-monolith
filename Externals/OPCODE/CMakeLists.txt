@@ -16,7 +16,7 @@ target_link_libraries(OPCODE
   robin_hood
   fastdelegate
   
-  XRay.Platform
+  #XRay.Platform
 
   XRay.Core.Defines
 

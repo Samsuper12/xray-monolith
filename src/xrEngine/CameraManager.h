@@ -16,7 +16,7 @@ struct ENGINE_API SPPInfo
 		{
 		}
 
-		IC operator u32()
+		inline operator u32()
 		{
 			int _r = clampr(iFloor(r * 255.f + .5f), 0, 255);
 			int _g = clampr(iFloor(g * 255.f + .5f), 0, 255);
@@ -24,12 +24,12 @@ struct ENGINE_API SPPInfo
 			return color_rgba(_r, _g, _b, 0);
 		}
 
-		IC operator const Fvector&()
+		inline operator const Fvector&()
 		{
 			return *((Fvector*)this);
 		}
 
-		IC SColor& operator +=(const SColor& ppi)
+		inline SColor& operator +=(const SColor& ppi)
 		{
 			r += ppi.r;
 			g += ppi.g;
@@ -37,7 +37,7 @@ struct ENGINE_API SPPInfo
 			return *this;
 		}
 
-		IC SColor& operator -=(const SColor& ppi)
+		inline SColor& operator -=(const SColor& ppi)
 		{
 			r -= ppi.r;
 			g -= ppi.g;
@@ -45,7 +45,7 @@ struct ENGINE_API SPPInfo
 			return *this;
 		}
 
-		IC SColor& set(float _r, float _g, float _b)
+		inline SColor& set(float _r, float _g, float _b)
 		{
 			r = _r;
 			g = _g;
@@ -68,7 +68,7 @@ struct ENGINE_API SPPInfo
 		{
 		}
 
-		IC SDuality& set(float _h, float _v)
+		inline SDuality& set(float _h, float _v)
 		{
 			h = _h;
 			v = _v;
@@ -89,7 +89,7 @@ struct ENGINE_API SPPInfo
 		{
 		}
 
-		IC SNoise& set(float _i, float _g, float _f)
+		inline SNoise& set(float _i, float _g, float _f)
 		{
 			intensity = _i;
 			grain = _g;
@@ -163,14 +163,14 @@ public:
 	CEffectorPP* AddPPEffector(CEffectorPP* ef);
 	void RemovePPEffector(EEffectorPPType type);
 
-	IC Fvector Position() const { return m_cam_info.p; }
-	IC Fvector Direction() const { return m_cam_info.d; }
-	IC Fvector Up() const { return m_cam_info.n; }
-	IC Fvector Right() const { return m_cam_info.r; }
-	IC float Fov() const { return m_cam_info.fFov; }
-	IC float Aspect() const { return m_cam_info.fAspect; }
+	inline Fvector Position() const { return m_cam_info.p; }
+	inline Fvector Direction() const { return m_cam_info.d; }
+	inline Fvector Up() const { return m_cam_info.n; }
+	inline Fvector Right() const { return m_cam_info.r; }
+	inline float Fov() const { return m_cam_info.fFov; }
+	inline float Aspect() const { return m_cam_info.fAspect; }
 
-	IC void camera_Matrix(Fmatrix& M) { M.set(m_cam_info.r, m_cam_info.n, m_cam_info.d, m_cam_info.p); }
+	inline void camera_Matrix(Fmatrix& M) { M.set(m_cam_info.r, m_cam_info.n, m_cam_info.d, m_cam_info.p); }
 	void Update(const Fvector& P, const Fvector& D, const Fvector& N, float fFOV_Dest, float fASPECT_Dest,
 	            float fFAR_Dest, u32 flags);
 	void UpdateFromCamera(const CCameraBase* C);

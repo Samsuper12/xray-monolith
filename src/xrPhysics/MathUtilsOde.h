@@ -15,7 +15,7 @@
 
 static const dReal accurate_normalize_epsilon = 1.192092896e-05F;
 
-ICF void accurate_normalize(float* a)
+inline void accurate_normalize(float* a)
 {
 	dReal sqr_magnitude = a[0] * a[0] + a[1] * a[1] + a[2] * a[2];
 
@@ -86,7 +86,7 @@ ICF void accurate_normalize(float* a)
 	}
 }
 
-IC bool dVectorLimit(const float* v, float l, float* lv)
+inline bool dVectorLimit(const float* v, float l, float* lv)
 {
 	float mag = _sqrt(dDOT(v, v));
 	if (mag > l)
@@ -104,7 +104,7 @@ IC bool dVectorLimit(const float* v, float l, float* lv)
 	}
 }
 
-IC void dVectorInterpolate(float* res, const float* from, const float* to, float k) //changes to
+inline void dVectorInterpolate(float* res, const float* from, const float* to, float k) //changes to
 {
 	dVector3 tov;
 	dVectorSet(res, from);

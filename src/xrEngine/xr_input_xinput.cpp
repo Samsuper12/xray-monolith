@@ -5,12 +5,12 @@
 
 DXUT_GAMEPAD g_GamePads[DXUT_MAX_CONTROLLERS];
 
-typedef DWORD (WINAPI* LPXINPUTGETSTATE)(DWORD dwUserIndex, XINPUT_STATE* pState );
-typedef DWORD (WINAPI* LPXINPUTSETSTATE)(DWORD dwUserIndex, XINPUT_VIBRATION* pVibration );
-typedef DWORD (WINAPI* LPXINPUTGETCAPABILITIES)( DWORD dwUserIndex, DWORD dwFlags, XINPUT_CAPABILITIES* pCapabilities );
+typedef uint32_t (WINAPI* LPXINPUTGETSTATE)(uint32_t dwUserIndex, XINPUT_STATE* pState );
+typedef uint32_t (WINAPI* LPXINPUTSETSTATE)(uint32_t dwUserIndex, XINPUT_VIBRATION* pVibration );
+typedef uint32_t (WINAPI* LPXINPUTGETCAPABILITIES)( uint32_t dwUserIndex, uint32_t dwFlags, XINPUT_CAPABILITIES* pCapabilities );
 typedef void (WINAPI* LPXINPUTENABLE)(BOOL bEnable);
 
-HRESULT DXUTGetGamepadState( DWORD dwPort, DXUT_GAMEPAD* pGamePad, bool bThumbstickDeadZone, bool bSnapThumbstickToCardinals )
+HRESULT DXUTGetGamepadState( uint32_t dwPort, DXUT_GAMEPAD* pGamePad, bool bThumbstickDeadZone, bool bSnapThumbstickToCardinals )
 {
 if( dwPort >= DXUT_MAX_CONTROLLERS || pGamePad == NULL )
 return E_FAIL;
@@ -30,7 +30,7 @@ if( s_pXInputGetState == NULL )
 return E_FAIL;
 
 XINPUT_STATE InputState;
-DWORD dwResult = s_pXInputGetState( dwPort, &InputState );
+uint32_t dwResult = s_pXInputGetState( dwPort, &InputState );
 
 // Track insertion and removals
 BOOL bWasConnected = pGamePad->bConnected;

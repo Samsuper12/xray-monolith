@@ -27,12 +27,12 @@ public:
 		u32 m_time;
 		bool m_processing;
 
-		IC CMemberDeathReaction()
+		inline CMemberDeathReaction()
 		{
 			clear();
 		}
 
-		IC void clear()
+		inline void clear()
 		{
 			m_member = 0;
 			m_time = 0;
@@ -47,12 +47,12 @@ public:
 		u32 m_time;
 		bool m_processing;
 
-		IC CGrenadeReaction()
+		inline CGrenadeReaction()
 		{
 			clear();
 		}
 
-		IC void clear()
+		inline void clear()
 		{
 			m_grenade = 0;
 			m_game_object = 0;
@@ -74,22 +74,22 @@ protected:
 	bool m_detour;
 
 public:
-	IC CMemberOrder(CAI_Stalker* object);
-	IC bool initialized() const;
-	IC CAI_Stalker& object() const;
-	IC float probability() const;
-	IC bool processed() const;
-	IC u32 selected_enemy() const;
-	IC const CCoverPoint* cover() const;
-	IC CMemberDeathReaction& member_death_reaction();
-	IC CGrenadeReaction& grenade_reaction();
-	IC xr_vector<u32>& enemies();
-	IC void cover(const CCoverPoint* object_cover) const;
-	IC void probability(float probability);
-	IC void processed(bool processed);
-	IC void selected_enemy(u32 selected_enemy);
-	IC bool detour() const;
-	IC void detour(const bool& value);
+	inline CMemberOrder(CAI_Stalker* object);
+	inline bool initialized() const;
+	inline CAI_Stalker& object() const;
+	inline float probability() const;
+	inline bool processed() const;
+	inline u32 selected_enemy() const;
+	inline const CCoverPoint* cover() const;
+	inline CMemberDeathReaction& member_death_reaction();
+	inline CGrenadeReaction& grenade_reaction();
+	inline xr_vector<u32>& enemies();
+	inline void cover(const CCoverPoint* object_cover) const;
+	inline void probability(float probability);
+	inline void processed(bool processed);
+	inline void selected_enemy(u32 selected_enemy);
+	inline bool detour() const;
+	inline void detour(const bool& value);
 };
 
 #include "member_order_inline.h"

@@ -21,7 +21,7 @@
 
 //#define NO_HUMAN_BRAIN
 
-IC CLASS_ID CBaseFunction::clsid_member_item() const
+inline CLASS_ID CBaseFunction::clsid_member_item() const
 {
 	CLASS_ID result;
 	if (ef_storage().non_alife().member_item())
@@ -34,7 +34,7 @@ IC CLASS_ID CBaseFunction::clsid_member_item() const
 	return (result);
 }
 
-IC CLASS_ID CBaseFunction::clsid_enemy_item() const
+inline CLASS_ID CBaseFunction::clsid_enemy_item() const
 {
 	CLASS_ID result;
 	if (ef_storage().non_alife().enemy_item())
@@ -47,7 +47,7 @@ IC CLASS_ID CBaseFunction::clsid_enemy_item() const
 	return (result);
 }
 
-IC CLASS_ID CBaseFunction::clsid_member() const
+inline CLASS_ID CBaseFunction::clsid_member() const
 {
 	CLASS_ID result;
 	if (ef_storage().non_alife().member())
@@ -63,7 +63,7 @@ IC CLASS_ID CBaseFunction::clsid_member() const
 	return (result);
 }
 
-IC CLASS_ID CBaseFunction::clsid_enemy() const
+inline CLASS_ID CBaseFunction::clsid_enemy() const
 {
 	CLASS_ID result;
 	if (ef_storage().non_alife().enemy())

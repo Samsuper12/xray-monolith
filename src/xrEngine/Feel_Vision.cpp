@@ -32,7 +32,7 @@ namespace Feel
 		}
 	};
 
-	IC BOOL feel_vision_callback(collide::rq_result& result, LPVOID params)
+	inline BOOL feel_vision_callback(collide::rq_result& result, void* params)
 	{
 		SFeelParam* fp = (SFeelParam*)params;
 		float vis = fp->parent->feel_vision_mtl_transp(result.O, result.element);
@@ -49,7 +49,7 @@ namespace Feel
 	}
 
 #ifdef SPATIAL_CHANGE
-	IC BOOL feel_vision_test_callback(const collide::ray_defs &rd, CObject *object, LPVOID user_data)
+	inline BOOL feel_vision_test_callback(const collide::ray_defs &rd, CObject *object, void* user_data)
 	{
 		/* Return FALSE to see through object. */
 		if (object->spatial.type | STYPE_FEELVISIONIGNORE)

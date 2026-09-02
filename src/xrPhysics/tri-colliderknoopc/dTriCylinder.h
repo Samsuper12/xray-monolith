@@ -11,7 +11,7 @@ struct dxCylinder
 };
 
 
-IC float dcTriListCollider::dCylProj(dxGeom* cylinder, const dReal* normal)
+inline float dcTriListCollider::dCylProj(dxGeom* cylinder, const dReal* normal)
 {
 	VERIFY(dGeomGetClass(cylinder)== dCylinderClassUser);
 	float hlz, radius;

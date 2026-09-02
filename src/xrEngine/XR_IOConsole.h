@@ -54,7 +54,7 @@ struct TipString
 		HL_finish = 0;
 	}
 
-	IC bool operator==(shared_str const& tips_text)
+	inline bool operator==(shared_str const& tips_text)
 	{
 		return (text == tips_text);
 	}
@@ -90,7 +90,7 @@ class ENGINE_API CConsole :
 public:
 	struct str_pred
 	{
-		IC bool operator()(const char* x, const char* y) const
+		inline bool operator()(const char* x, const char* y) const
 		{
 			return (xr_strcmp(x, y) < 0);
 		}
@@ -116,7 +116,7 @@ protected:
 
 	FactoryPtr<IUIShader>* m_hShader_back;
 
-	POINT m_mouse_pos;
+	//POINT m_mouse_pos;
 	bool m_disable_tips;
 
 private:

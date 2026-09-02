@@ -85,7 +85,7 @@ protected:
 	virtual void OnConnected();
 };
 
-IC bool TDM_Compare_Players(game_PlayerState* p1, game_PlayerState* p2)
+inline bool TDM_Compare_Players(game_PlayerState* p1, game_PlayerState* p2)
 {
 	return DM_Compare_Players(p1, p2);
 };

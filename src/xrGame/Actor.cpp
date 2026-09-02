@@ -532,7 +532,7 @@ void CActor::PHHit(SHit& H)
 
 struct playing_pred
 {
-	IC bool operator()(ref_sound& s)
+	inline bool operator()(ref_sound& s)
 	{
 		return (NULL != s._feedback());
 	}

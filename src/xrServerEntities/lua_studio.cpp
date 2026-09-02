@@ -9,7 +9,7 @@
 #include "pch_script.h"
 #include "lua_studio.h"
 
-#define pstr			LPSTR
+#define pstr			char *
 #define	pcstr			LPCSTR
 #define	pcvoid			void const*
 #define	sz_cmp			xr_strcmp

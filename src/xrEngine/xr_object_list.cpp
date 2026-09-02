@@ -19,7 +19,7 @@ public:
 	fClassEQ(CLASS_ID C) : cls(C)
 	{
 	};
-	IC bool operator()(CObject* O) { return cls == O->CLS_ID; }
+	inline bool operator()(CObject* O) { return cls == O->CLS_ID; }
 };
 #ifdef DEBUG
 BOOL debug_destroy = TRUE;

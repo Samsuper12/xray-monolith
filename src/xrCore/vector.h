@@ -10,8 +10,8 @@
 #include "_std_extensions.h"
 #include "math_funcs_inline.h"
 
-ICF int iFloor(float x);
-ICF int iCeil(float x);
+inline int iFloor(float x);
+inline int iCeil(float x);
 
 // linear interpolation
 template <class T>
@@ -28,7 +28,7 @@ inline constexpr T _lerpc(const T& _val_a, const T& _val_b, const float& _factor
 }
 
 // inertion
-IC float _inertion(float _val_cur, float _val_trgt, float _friction)
+inline float _inertion(float _val_cur, float _val_trgt, float _friction)
 {
 	float friction_i = 1.f - _friction;
 	return _val_cur * _friction + _val_trgt * friction_i;

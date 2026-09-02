@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <glm_main.hpp>
 
-using UINT = unsigned int;
+using uint32_t = unsigned int;
 
 //#include "IRenderDetailModel.h"
 
@@ -241,7 +241,7 @@ public:
 	virtual GenerationLevel get_generation() = 0;
 
 	virtual bool is_sun_static() = 0;
-	virtual DWORD get_dx_level() = 0;
+	virtual uint32_t get_dx_level() = 0;
 
 	// Loading / Unloading
 	virtual void create() = 0;
@@ -259,11 +259,11 @@ public:
 	void shader_option_skinning(s32 mode) { m_skinning = mode; }
 	virtual bool shader_compile(
 		LPCSTR name,
-		DWORD const* pSrcData,
-		UINT SrcDataLen,
+		uint32_t const* pSrcData,
+		uint32_t SrcDataLen,
 		LPCSTR pFunctionName,
 		LPCSTR pTarget,
-		DWORD Flags,
+		uint32_t Flags,
 		void*& result
 	) = 0;
 
@@ -282,7 +282,7 @@ public:
 	virtual auto getRenderTargetSize() -> glm::vec2 = 0;
 
 	// Main
-	IC void set_Frustum(CFrustum* O)
+	inline void set_Frustum(CFrustum* O)
 	{
 		VERIFY(O);
 		View = O;

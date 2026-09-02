@@ -44,8 +44,8 @@ public:
 public:
 	void update();
 public:
-	IC object_type& object() const;
-	IC movement_manager_type& movement() const;
+	inline object_type& object() const;
+	inline movement_manager_type& movement() const;
 
 DECLARE_SCRIPT_REGISTER_FUNCTION
 };

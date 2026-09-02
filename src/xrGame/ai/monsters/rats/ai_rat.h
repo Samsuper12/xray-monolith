@@ -325,16 +325,16 @@ public:
 	bool m_bStraightForward;
 
 public:
-	IC void vfChangeGoal();
-	IC bool bfCheckIfGoalChanged(bool bForceChangeGoal = true);
-	IC void vfChooseNewSpeed();
-	IC void vfUpdateTime(float fTimeDelta);
-	IC void add_active_member(bool bForceActive = false);
-	IC void vfRemoveActiveMember();
-	IC void vfAddStandingMember();
-	IC void vfRemoveStandingMember();
-	IC bool bfCheckIfSoundFrightful();
-	IC bool bfCheckIfOutsideAIMap(Fvector& tTemp1);
+	inline void vfChangeGoal();
+	inline bool bfCheckIfGoalChanged(bool bForceChangeGoal = true);
+	inline void vfChooseNewSpeed();
+	inline void vfUpdateTime(float fTimeDelta);
+	inline void add_active_member(bool bForceActive = false);
+	inline void vfRemoveActiveMember();
+	inline void vfAddStandingMember();
+	inline void vfRemoveStandingMember();
+	inline bool bfCheckIfSoundFrightful();
+	inline bool bfCheckIfOutsideAIMap(Fvector& tTemp1);
 
 	//////////////////////////
 	// FSM STATES

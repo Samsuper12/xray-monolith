@@ -57,9 +57,9 @@ public:
 	}
 
 	virtual void SetWndPos(const Fvector2& pos) { m_wndPos.set(pos.x, pos.y); }
-	IC const Fvector2& GetWndPos() const { return m_wndPos; }
+	inline const Fvector2& GetWndPos() const { return m_wndPos; }
 	virtual void SetWndSize(const Fvector2& size) { m_wndSize = size; }
-	IC const Fvector2& GetWndSize() const { return m_wndSize; }
+	inline const Fvector2& GetWndSize() const { return m_wndSize; }
 
 	virtual void SetWndRect(const Frect& rect)
 	{
@@ -69,22 +69,22 @@ public:
 
 	virtual void SetHeight(float height) { m_wndSize.y = height; }
 	virtual bool StopAnyMove() { return true; }
-	IC float GetHeight() const { return m_wndSize.y; }
+	inline float GetHeight() const { return m_wndSize.y; }
 	virtual void SetWidth(float width) { m_wndSize.x = width; }
-	IC float GetWidth() const { return m_wndSize.x; }
-	IC void SetVisible(bool vis) { m_bShowMe = vis; }
-	IC bool GetVisible() const { return m_bShowMe; }
-	IC void SetAlignment(EWindowAlignment al) { m_alignment = al; };
-	IC EWindowAlignment GetAlignment() const { return m_alignment; };
+	inline float GetWidth() const { return m_wndSize.x; }
+	inline void SetVisible(bool vis) { m_bShowMe = vis; }
+	inline bool GetVisible() const { return m_bShowMe; }
+	inline void SetAlignment(EWindowAlignment al) { m_alignment = al; };
+	inline EWindowAlignment GetAlignment() const { return m_alignment; };
 
-	IC Frect GetWndRect() const
+	inline Frect GetWndRect() const
 	{
 		Frect r;
 		GetWndRect(r);
 		return r;
 	}
 
-	IC void GetWndRect(Frect& res) const
+	inline void GetWndRect(Frect& res) const
 	{
 		switch (m_alignment)
 		{

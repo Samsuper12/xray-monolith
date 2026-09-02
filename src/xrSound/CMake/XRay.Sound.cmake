@@ -34,7 +34,7 @@ add_module(XRay.Sound
   libvorbisfile
   OpenAL
   robin_hood
-  tbb
+  #tbb
 
   XRay.Core.Defines
 

@@ -52,7 +52,7 @@ public:
 	virtual void OnAfterExplosion();
 	virtual void OnBeforeExplosion();
 	virtual void SetCurrentParentID(u16 parent_id) { m_iCurrentParentID = parent_id; }
-	IC u16 CurrentParentID() const { return m_iCurrentParentID; }
+	inline u16 CurrentParentID() const { return m_iCurrentParentID; }
 
 	virtual void SetInitiator(u16 id) { SetCurrentParentID(id); }
 	virtual u16 Initiator();
@@ -198,7 +198,7 @@ add_to_type_list(CExplosive)
 #undef script_type_list
 #define script_type_list save_type_list(CExplosive)
 
-IC void random_point_in_object_box(Fvector& out_pos, CObject* obj)
+inline void random_point_in_object_box(Fvector& out_pos, CObject* obj)
 {
 	const Fbox& l_b1 = obj->BoundingBox();
 	Fvector l_c, l_d;

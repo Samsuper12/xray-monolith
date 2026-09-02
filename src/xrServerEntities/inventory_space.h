@@ -97,7 +97,7 @@ struct II_BriefInfo
 
 	II_BriefInfo() { clear(); }
 
-	IC void clear()
+	inline void clear()
 	{
 		name = "";
 		icon = "";

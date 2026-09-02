@@ -9,6 +9,7 @@
 #define _PPMDTYPE_H_
 
 #include <stdio.h>
+#include <stdint.h>
 
 #define _WIN32_ENVIRONMENT_
 //#define _DOS32_ENVIRONMENT_
@@ -24,13 +25,13 @@
 // typedef int   BOOL;
 #define FALSE 0
 #define TRUE  1
-typedef unsigned char  BYTE;
-typedef unsigned short WORD;
-typedef unsigned long  DWORD;
-typedef unsigned int   UINT;
+typedef unsigned char  unsigned char;
+typedef unsigned short unsigned short;
+typedef unsigned long  uint32_t;
+typedef unsigned int   uint32_t;
 #endif /* defined(_WIN32_ENVIRONMENT_)  */
 
-const DWORD PPMdSignature = 0x84ACAF8F, Variant = 'I';
+const uint32_t PPMdSignature = 0x84ACAF8F, Variant = 'I';
 const int MAX_O = 16; /* maximum allowed model order  */
 
 #define _USE_PREFETCHING                    /* for puzzling mainly          */
@@ -83,7 +84,7 @@ enum { BUF_SIZE=64*1024 };
     BOOL  atEOS() const { return (Count < 0); }
 protected:
     int Error, StrPos, Count;
-    BYTE* p, Buf[BUF_SIZE];
+    unsigned char* p, Buf[BUF_SIZE];
     virtual int  fill(     ) = 0;           // it must fill Buf[]
     virtual int flush(int c) = 0;           // it must remove (p-Buf) bytes
 };

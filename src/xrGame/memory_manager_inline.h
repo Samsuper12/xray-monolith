@@ -14,7 +14,7 @@ class CEntityAlive;
 
 
 template <typename T, typename _predicate>
-IC void CMemoryManager::fill_enemies(const xr_vector<T>& objects, const _predicate& predicate) const
+inline void CMemoryManager::fill_enemies(const xr_vector<T>& objects, const _predicate& predicate) const
 {
 	auto I = objects.begin();
 	auto E = objects.end();
@@ -31,56 +31,56 @@ IC void CMemoryManager::fill_enemies(const xr_vector<T>& objects, const _predica
 }
 
 template <typename _predicate>
-IC void CMemoryManager::fill_enemies(const _predicate& predicate) const
+inline void CMemoryManager::fill_enemies(const _predicate& predicate) const
 {
 	fill_enemies(visual().objects(), predicate);
 	//	fill_enemies			(sound().objects(),predicate);
 	//	fill_enemies			(hit().objects(),predicate);
 }
 
-IC CVisualMemoryManager& CMemoryManager::visual() const
+inline CVisualMemoryManager& CMemoryManager::visual() const
 {
 	VERIFY(m_visual);
 	return (*m_visual);
 }
 
-IC CSoundMemoryManager& CMemoryManager::sound() const
+inline CSoundMemoryManager& CMemoryManager::sound() const
 {
 	VERIFY(m_sound);
 	return (*m_sound);
 }
 
-IC CHitMemoryManager& CMemoryManager::hit() const
+inline CHitMemoryManager& CMemoryManager::hit() const
 {
 	VERIFY(m_hit);
 	return (*m_hit);
 }
 
-IC CEnemyManager& CMemoryManager::enemy() const
+inline CEnemyManager& CMemoryManager::enemy() const
 {
 	VERIFY(m_enemy);
 	return (*m_enemy);
 }
 
-IC CItemManager& CMemoryManager::item() const
+inline CItemManager& CMemoryManager::item() const
 {
 	VERIFY(m_item);
 	return (*m_item);
 }
 
-IC CDangerManager& CMemoryManager::danger() const
+inline CDangerManager& CMemoryManager::danger() const
 {
 	VERIFY(m_danger);
 	return (*m_danger);
 }
 
-IC CCustomMonster& CMemoryManager::object() const
+inline CCustomMonster& CMemoryManager::object() const
 {
 	VERIFY(m_object);
 	return (*m_object);
 }
 
-IC CAI_Stalker& CMemoryManager::stalker() const
+inline CAI_Stalker& CMemoryManager::stalker() const
 {
 	VERIFY(m_stalker);
 	return (*m_stalker);

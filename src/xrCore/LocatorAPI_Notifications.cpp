@@ -17,9 +17,10 @@ static CRITICAL_SECTION CS;
 // TShellChangeThread -------------------------------------------------------
 CFS_PathNotificator::CFS_PathNotificator() : CThread(0)
 {
-	FMutex = CreateMutex(NULL, true /* initial owner - must be Release'd by this thread*/, NULL);
-	if (FMutex)
-		WaitForSingleObject(FMutex, INFINITE);
+	// TODO:
+	// FMutex = CreateMutex(NULL, true /* initial owner - must be Release'd by this thread*/, NULL);
+	// if (FMutex)
+	// 	WaitForSingleObject(FMutex, INFINITE);
 }
 
 //---------------------------------------------------------------------------
@@ -32,7 +33,7 @@ CFS_PathNotificator::~CFS_PathNotificator(void)
 		P.FChangeEvent = 0;
 		if (P.FWaitHandle != INVALID_HANDLE_VALUE)
 		{
-			HANDLE hOld = P.FWaitHandle;
+			void* hOld = P.FWaitHandle;
 			P.FWaitHandle = 0;
 			FindCloseChangeNotification(hOld);
 		}
@@ -62,52 +63,52 @@ void CFS_PathNotificator::RegisterPath(FS_Path& path)
 void CFS_PathNotificator::Execute(void)
 {
 	PROF_EVENT();
+	stub_unix(__func__);
 
-	EnterCriticalSection(&CS);
-	for (PathIt it = events.begin(); it != events.end(); it++)
-	{
-		Path& P = *it;
-		P.FWaitHandle = FindFirstChangeNotification(P.FDirectory.c_str(), P.bRecurse, FNotifyOptionFlags);
-		if (P.FWaitHandle == INVALID_HANDLE_VALUE)
-			Debug.fatal(DEBUG_INFO, "Can't create notify handle for path: '%s'\nwith error: '%s'", P.FDirectory.c_str(),
-			            Debug.error2string(GetLastError()));
-	}
-	LeaveCriticalSection(&CS);
-	// if (FWaitHandle == INVALID_HANDLE_VALUE)
-	// return;
-	while (!Terminated)
-	{
-		HANDLEVec hHandles;
-		hHandles.push_back(FMutex);
-		for (PathIt it = events.begin(); it != events.end(); it++)
-			hHandles.push_back(it->FWaitHandle);
+	//EnterCriticalSection(&CS);
+	// for (PathIt it = events.begin(); it != events.end(); it++)
+	// {
+	// 	Path& P = *it;
+	// 	P.FWaitHandle = FindFirstChangeNotification(P.FDirectory.c_str(), P.bRecurse, FNotifyOptionFlags);
+	// 	if (P.FWaitHandle == INVALID_HANDLE_VALUE)
+	// 		Debug.fatal(DEBUG_INFO, "Can't create notify handle for path: '%s'\nwith error: ", P.FDirectory.c_str());
+	// }
+	// //LeaveCriticalSection(&CS);
+	// // if (FWaitHandle == INVALID_HANDLE_VALUE)
+	// // return;
+	// while (!Terminated)
+	// {
+	// 	HANDLEVec hHandles;
+	// 	hHandles.push_back(FMutex);
+	// 	for (PathIt it = events.begin(); it != events.end(); it++)
+	// 		hHandles.push_back(it->FWaitHandle);
 
-		int Obj = WaitForMultipleObjects(hHandles.size(), &*hHandles.begin(), false, INFINITE);
-		if (Obj == WAIT_OBJECT_0)
-		{
-			ReleaseMutex(FMutex);
-			break;
-		}
-		else if (Obj > WAIT_OBJECT_0)
-		{
-			u32 idx = Obj - WAIT_OBJECT_0 - 1;
-			if (idx < events.size())
-			{
-				Path& P = events[idx];
-				if (!P.FChangeEvent.empty())P.FChangeEvent();
-				if (P.FWaitHandle) FindNextChangeNotification(P.FWaitHandle);
-			}
-		}
-		else
-			return;
-	}
+	// 	int Obj = 0;//WaitForMultipleObjects(hHandles.size(), &*hHandles.begin(), false, INFINITE);
+	// 	if (Obj == WAIT_OBJECT_0)
+	// 	{
+	// 		ReleaseMutex(FMutex);
+	// 		break;
+	// 	}
+	// 	else if (Obj > WAIT_OBJECT_0)
+	// 	{
+	// 		u32 idx = Obj - WAIT_OBJECT_0 - 1;
+	// 		if (idx < events.size())
+	// 		{
+	// 			Path& P = events[idx];
+	// 			if (!P.FChangeEvent.empty())P.FChangeEvent();
+	// 			if (P.FWaitHandle) FindNextChangeNotification(P.FWaitHandle);
+	// 		}
+	// 	}
+	// 	else
+	// 		return;
+	// }
 }
 
 //---------------------------------------------------------------------------
 
 void CLocatorAPI::SetEventNotification()
 {
-	InitializeCriticalSection(&CS);
+	//InitializeCriticalSection(&CS);
 	FThread = xr_new<CFS_PathNotificator>();
 	FThread->FNotifyOptionFlags = FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME |
 		FILE_NOTIFY_CHANGE_LAST_WRITE;
@@ -124,5 +125,5 @@ void CLocatorAPI::ClearEventNotification()
 		ReleaseMutex(FThread->FMutex); // this current thread must release the mutex
 		xr_delete(FThread);
 	}
-	DeleteCriticalSection(&CS);
+	//DeleteCriticalSection(&CS);
 }

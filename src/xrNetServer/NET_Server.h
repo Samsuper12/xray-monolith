@@ -79,7 +79,7 @@ public:
 	u32 dwTime_LastUpdate;
 
 	ip_address m_cAddress;
-	DWORD m_dwPort;
+	uint32_t m_dwPort;
 	u32 process_id;
 
 	IPureServer* server;
@@ -90,7 +90,7 @@ private:
 };
 
 
-IC bool operator==(IClient const* pClient, ClientID const& ID) { return pClient->ID == ID; }
+inline bool operator==(IClient const* pClient, ClientID const& ID) { return pClient->ID == ID; }
 
 class XRNETSERVER_API IServerStatistic
 {
@@ -197,7 +197,7 @@ protected:
 	IClient* ID_to_client(ClientID ID, bool ScanAll = false);
 
 	virtual IClient* new_client(SClientConnectData* cl_data) =0;
-	bool GetClientAddress(IDirectPlay8Address* pClientAddress, ip_address& Address, DWORD* pPort = NULL);
+	bool GetClientAddress(IDirectPlay8Address* pClientAddress, ip_address& Address, uint32_t* pPort = NULL);
 
 	IBannedClient* GetBannedClient(const ip_address& Address);
 	void BannedList_Save();
@@ -210,7 +210,7 @@ protected:
 public:
 	IPureServer(CTimer* timer, BOOL Dedicated = FALSE);
 	virtual ~IPureServer();
-	HRESULT net_Handler(u32 dwMessageType, PVOID pMessage);
+	long net_Handler(u32 dwMessageType, void* pMessage);
 
 	virtual EConnect Connect(LPCSTR session_name, GameDescriptionData& game_descr);
 	virtual void Disconnect();
@@ -239,16 +239,16 @@ public:
 	virtual void client_Replicate() = 0; // replicate current state to client
 	virtual void client_Destroy(IClient* C) = 0; // destroy client info
 
-	//IC u32					client_Count		()			{ return net_Players.size(); }
-	//IC IClient*				client_Get			(u32 num)	{ return net_Players[num]; }
+	//inline u32					client_Count		()			{ return net_Players.size(); }
+	//inline IClient*				client_Get			(u32 num)	{ return net_Players[num]; }
 
-	//IC u32					disconnected_client_Count		()			{ return net_Players_disconnected.size(); }
-	//IC IClient*				disconnected_client_Get			(u32 num)	{ return net_Players_disconnected[num]; }
+	//inline u32					disconnected_client_Count		()			{ return net_Players_disconnected.size(); }
+	//inline IClient*				disconnected_client_Get			(u32 num)	{ return net_Players_disconnected[num]; }
 
 	BOOL HasBandwidth(IClient* C);
 
-	IC int GetPort() { return psNET_Port; };
-	bool GetClientAddress(ClientID ID, ip_address& Address, DWORD* pPort = NULL);
+	inline int GetPort() { return psNET_Port; };
+	bool GetClientAddress(ClientID ID, ip_address& Address, uint32_t* pPort = NULL);
 	//			bool			DisconnectClient		(IClient* C);
 	virtual bool DisconnectClient(IClient* C, LPCSTR Reason);
 	virtual bool DisconnectAddress(const ip_address& Address, LPCSTR reason);

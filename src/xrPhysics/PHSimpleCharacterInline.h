@@ -138,7 +138,7 @@ void CPHSimpleCharacter::UpdateDynamicDamage(dContact* c, u16 obj_material_idx, 
 }
 
 
-IC void CPHSimpleCharacter::foot_material_update(u16 contact_material_idx, u16 foot_material_idx)
+inline void CPHSimpleCharacter::foot_material_update(u16 contact_material_idx, u16 foot_material_idx)
 {
 	if (m_elevator_state.UpdateMaterial(*p_lastMaterialIDX))
 		return;

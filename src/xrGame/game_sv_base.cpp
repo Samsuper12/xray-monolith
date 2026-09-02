@@ -35,7 +35,7 @@ xr_token round_end_result_str[] =
 	{"Time limit", eRoundEnd_TimeLimit},
 	{"Frag limit", eRoundEnd_FragLimit},
 	{"Artefact limit", eRoundEnd_ArtrefactLimit},
-	{"Unknown", eRoundEnd_Force},
+	// {"Unknown", eRoundEnd_Force},
 	{0, 0}
 };
 
@@ -366,7 +366,7 @@ void game_sv_GameState::OnPlayerConnect(ClientID /*id_who**/)
 	signal_Syncronize();
 }
 
-void game_sv_GameState::OnPlayerDisconnect(ClientID id_who, LPSTR, u16)
+void game_sv_GameState::OnPlayerDisconnect(ClientID id_who, char *, u16)
 {
 	signal_Syncronize();
 }

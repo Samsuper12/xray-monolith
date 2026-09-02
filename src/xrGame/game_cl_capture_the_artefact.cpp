@@ -263,10 +263,10 @@ void game_cl_CaptureTheArtefact::TranslateGameMessage(u32 msg, NET_Packet& P)
 	CStringTable st;
 	string1024 Text;
 	//string512 tmp;
-	//	LPSTR	Color_Teams[3]		= {"%c[255,255,255,255]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
+	//	char *	Color_Teams[3]		= {"%c[255,255,255,255]", "%c[255,64,255,64]", "%c[255,64,64,255]"};
 	char Color_Main[] = "%c[255,192,192,192]";
 	char Color_Artefact[] = "%c[255,255,255,0]";
-	//	LPSTR	TeamsNames[3]		= {"Zero Team", "Team Green", "Team Blue"};
+	//	char *	TeamsNames[3]		= {"Zero Team", "Team Green", "Team Blue"};
 
 	switch (msg)
 	{
@@ -1656,7 +1656,7 @@ void game_cl_CaptureTheArtefact::OnRender()
 				VERIFY(ps->getName());
 				string64 upper_name;
 				xr_strcpy(upper_name, ps->getName());
-				_strupr_s(upper_name);
+				_strupr_s(upper_name, strlen(upper_name));
 				pActor->RenderText(upper_name, IPos, &dup, PLAYER_NAME_COLOR);
 			}
 			if (m_bFriendlyIndicators)

@@ -22,7 +22,7 @@
 template <bool _is_pm, typename T>
 struct cspecial_free
 {
-	IC void operator()(T* & ptr)
+	inline void operator()(T* & ptr)
 	{
 		void* _real_ptr = fast_dynamic_cast<void*>(ptr);
 		ptr->~T();
@@ -33,7 +33,7 @@ struct cspecial_free
 template <typename T>
 struct cspecial_free<false, T>
 {
-	IC void operator()(T* & ptr)
+	inline void operator()(T* & ptr)
 	{
 		ptr->~T();
 		CFREE(ptr);
@@ -41,7 +41,7 @@ struct cspecial_free<false, T>
 };
 
 template <class T>
-IC void cdelete(T* & ptr)
+inline void cdelete(T* & ptr)
 {
 	if (ptr)
 	{
