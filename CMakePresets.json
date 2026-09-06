@@ -41,7 +41,8 @@
       "generator": "Ninja Multi-Config",
 
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/CMake/Toolchains/MacOS-LLVM.cmake"
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/CMake/Toolchains/MacOS-LLVM.cmake",
+        "CXXFLAGS": "-stdlib=libc++"
       },
       "condition": {
         "type": "equals",

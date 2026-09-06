@@ -49,6 +49,11 @@ add_module(XRay.Core
 
   resource.h
   xrCore.rc
+
+  CXX_MODULES
+  Core.cppm
+  STL.cppm
+  Math.cppm
 )
 
 find_package(args CONFIG REQUIRED)
