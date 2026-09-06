@@ -1,6 +1,7 @@
 #ifndef LensFlareRender_included
 #define LensFlareRender_included
 #pragma once
+#include <_types_own.h>
 
 class IFlareRender
 {

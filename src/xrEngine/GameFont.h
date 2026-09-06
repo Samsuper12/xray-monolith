@@ -7,12 +7,13 @@
 #include <xrstring.h>
 
 #include "MbHelpers.h"
-#include "FontRender.h"
+#include <FontRender.h>
+class IFontRender;
 
 class ENGINE_API CGameFont
 {
 	friend class dxFontRender;
-	friend class vkFontRender;
+	//friend class vkFontRender;
 public:
 	enum EAligment
 	{
@@ -21,7 +22,7 @@ public:
 		alCenter
 	};
 
-private:
+public:
 	struct String
 	{
 		string1024 string;
@@ -31,7 +32,7 @@ private:
 		EAligment align;
 	};
 
-protected:
+public:
 	Fvector2 vHalfPixel;
 	Ivector2 vTS;
 
@@ -66,7 +67,7 @@ public:
 		fsForceDWORD = u32(-1)
 	};
 
-protected:
+public:
 	inline const Fvector& GetCharTC(u16 c) { return TCMap[c]; }
 
 public:

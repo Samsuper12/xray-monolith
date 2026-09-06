@@ -1,6 +1,7 @@
 #ifndef	UIShader_included
 #define	UIShader_included
 #pragma once
+#include <_types_own.h>
 
 class IUIShader
 {

@@ -1,6 +1,8 @@
 #ifndef FontRender_included
 #define FontRender_included
 #pragma once
+#include <GameFont.h>
+#include <_types_own.h>
 
 class CGameFont;
 

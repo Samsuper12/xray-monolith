@@ -1,7 +1,7 @@
 #ifndef ApplicationRender_included
 #define ApplicationRender_included
 #pragma once
-
+#include <_types_own.h>
 class CApplication;
 
 class IApplicationRender

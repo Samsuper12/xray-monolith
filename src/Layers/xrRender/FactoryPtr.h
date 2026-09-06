@@ -1,13 +1,13 @@
 #ifndef	FactoryPtr_included
 #define FactoryPtr_included
 #pragma once
-
+#include <_types_own.h>
 #include "RenderFactory.h"
 #include "../xrAPI/xrAPI.h"
 #if 0
 #include "dxRenderFactory.h"
 #endif
-#include "../xrRenderPC_RV/render_factory/vkRenderFactory.hpp"
+#include "../xrRenderPC_RV/RenderFactory/vkRenderFactory.hpp"
 
 #define FACTORY_PTR_INSTANCIATE(Class) \
     template<> \

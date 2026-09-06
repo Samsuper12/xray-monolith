@@ -1,9 +1,32 @@
-#include "vkImGuiRender.hpp"
+module;
+#include <vulkan_main.hpp>
 #include "render_stub.hpp"
-#include "utils/vkUtil.hpp"
+#include <ImGuiRender.h>
 #include <imgui/backends/imgui_impl_sdl3.h>
 #include <imgui/backends/imgui_impl_vulkan.h>
 #include <imgui/imgui.h>
+export module RenderFactory.ImGuiRender;
+import RV.HW;
+import RV.Utils;
+
+export class vkImGuiRender : public IImGuiRender {
+  void SetState(ImDrawData *data);
+
+public:
+  void Copy(IImGuiRender &_in) override;
+
+  void Frame() override;
+  void Render(ImDrawData *data) override;
+
+  void OnDeviceCreate(ImGuiContext *context) override;
+  void OnDeviceDestroy() override;
+  void OnDeviceResetBegin() override;
+  void OnDeviceResetEnd() override;
+
+private:
+  VkViewport viewport;
+  VkDescriptorPool imguiPool;
+};
 
 void vkImGuiRender::SetState(ImDrawData *data) {
   // TODO:

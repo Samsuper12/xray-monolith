@@ -3,6 +3,7 @@
 #pragma once
 
 #include <limits>
+#include <_types_own.h>
 
 class IUISequenceVideoItem
 {

@@ -1,11 +1,41 @@
-#include "vkFontRender.hpp"
-#include "VkHW.hpp"
-#include "render_stub.hpp"
-#include "utils/vkUtil.hpp"
-#include "vkRenderDeviceRender.hpp"
-#include "vkUIRender.hpp"
+module;
+#include <FontRender.h>
+#include <glm_main.hpp>
+#include <memory>
+#include <vulkan_main.hpp>
 
 extern Fvector2 g_current_font_scale;
+
+export module RenderFactory.FontRender;
+import RenderFactory.UIRender;
+import RenderFactory.RenderDeviceRender;
+import RV.HW;
+import RV.Utils;
+
+// TODO: use quads
+// TODO: font antialiasing
+// TODO: vkCmdDrawIndirect
+// TODO: generate mipmaps
+
+export class vkFontRender : public IFontRender {
+public:
+  vkFontRender();
+  virtual ~vkFontRender();
+
+  virtual void Initialize(LPCSTR cShader, LPCSTR cTexture);
+  virtual void OnRender(CGameFont &owner);
+
+private:
+  std::shared_ptr<ShaderPass> shaderPass;
+  std::shared_ptr<AllocatedImage> texture;
+
+  AllocatedBuffer vertexBuffer;
+  VkDeviceAddress vertexBufferAddress;
+  size_t vertexBufferSize;
+  uint64_t vertexCursor;
+  uint64_t vertexIndex;
+  uint64_t currentFrame;
+};
 
 vkFontRender::vkFontRender() : vertexBufferSize(16384 * 6) {
   vertexBuffer = HW.createBuffer(sizeof(GPU_Vertex) * vertexBufferSize,
@@ -24,10 +54,10 @@ vkFontRender::~vkFontRender() { HW.destroyBuffer(vertexBuffer); }
 
 void vkFontRender::Initialize(LPCSTR cShader, LPCSTR cTexture) {
 
-  auto texItt = DEV->m_textures.find(cTexture);
+  auto texItt = DEV()->m_textures.find(cTexture);
 
-  if (auto shaderItt = DEV->m_passes.find(cShader);
-      shaderItt != DEV->m_passes.end()) {
+  if (auto shaderItt = DEV()->m_passes.find(cShader);
+      shaderItt != DEV()->m_passes.end()) {
     shaderPass = shaderItt->second;
   } else {
     DescriptorLayoutBuilder layoutBuilder;
@@ -50,11 +80,11 @@ void vkFontRender::Initialize(LPCSTR cShader, LPCSTR cTexture) {
         .zTest = false,
         .zWrite = false,
     };
-    shaderPass = DEV->createPass(cShader, cfg, pipelineInput);
+    shaderPass = DEV()->createPass(cShader, cfg, pipelineInput);
   }
 
-  texture = texItt != DEV->m_textures.end() ? texItt->second
-                                            : DEV->createTexture(cTexture);
+  texture = texItt != DEV()->m_textures.end() ? texItt->second
+                                              : DEV()->createTexture(cTexture);
 }
 
 void vkFontRender::OnRender(CGameFont &owner) {

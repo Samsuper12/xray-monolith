@@ -1,7 +1,7 @@
 #ifndef	ThunderboltDescRender_included
 #define	ThunderboltDescRender_included
 #pragma once
-
+#include <_types_own.h>
 class IThunderboltDescRender
 {
 public:
