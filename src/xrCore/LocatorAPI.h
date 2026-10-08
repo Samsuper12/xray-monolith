@@ -27,6 +27,7 @@ public:
 	struct file
 	{
 		std::fs::path name; // low-case name
+		std::fs::path realPath;
 		u32 vfs; // 0xffffffff - standart file
 		u32 crc; // contents CRC
 		u32 ptr; // pointer inside vfs

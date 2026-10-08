@@ -227,14 +227,31 @@ CLocatorAPI::~CLocatorAPI()
 	_dump_open_files(1);
 }
 
+static bool isHidden(const std::filesystem::path &p)
+{
+    std::string name = p.filename();
+    if(name != ".." &&
+       name != "."  &&
+       name[0] == '.')
+    {
+       return true;
+    }
+
+    return false;
+}
+
 void CLocatorAPI::Register(std::fs::path path, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, time_t modif)
 {
 	PROF_EVENT();
+
+	auto lwrPath = xr_pathlwr(path);
+	if (isHidden(lwrPath)) return;
+
 	// try to add a folder before
-	auto parent_path = vfs::parent_path(path);
+	auto parent_path = vfs::parent_path(lwrPath);
 	if (m_files.find({.name = parent_path}) == m_files.end()) {
 		m_files.insert(file {
-			.name = xr_pathlwr(parent_path),
+			.name = parent_path,
 			.vfs = vfs,
 			.crc = 0,
 			.ptr = 0,
@@ -243,9 +260,14 @@ void CLocatorAPI::Register(std::fs::path path, u32 vfs, u32 crc, u32 ptr, u32 si
 			.modif = u32(-1),
 		});
 	}
-	
-	m_files.insert(file {
-		.name = xr_pathlwr(path),
+
+	if (auto f = m_files.find({.name = lwrPath}); f != m_files.end()) {
+		m_files.erase(f);
+	}
+
+	m_files.insert( file {
+		.name = lwrPath,
+		.realPath = path,
 		.vfs = vfs,
 		.crc = crc,
 		.ptr = ptr,
@@ -795,7 +817,7 @@ std::vector<CLocatorAPI::file> CLocatorAPI::file_list_open_impl(const std::strin
 	for (auto itt = begin; itt != m_files.end(); itt++) {
 		const auto& entry = *itt;
 		// FIXME: C++23 std::string::contains.
-		if (strncmp(entry.name.c_str(), N.c_str(), N.string().size()) != 0) break;
+		if (!strstr(entry.name.c_str(), N.c_str())) break;
 		if ((flags & FS_RootOnly) != 0 && vfs::parent_path(entry.name) != begin->name) continue;
 		if (useRegex && !patternMatch(entry.name)) continue;
 
@@ -891,12 +913,10 @@ void CLocatorAPI::check_cached_files(char * fname, const u32& fname_size, const 
 
 void CLocatorAPI::file_from_cache_impl(IReader*& R, char * fname, const file& desc)
 {
-	if (desc.size_real < 16 * 1024)
-	{
-		R = xr_new<CFileReader>(fname);
-		return;
-	}
-
+	R = xr_new<CFileReader>(desc.realPath.c_str());
+	if (R) return;
+	// TODO: virtual file reader out of support for now.
+	assert(false);
 	R = xr_new<CVirtualFileReader>(fname);
 }
 
@@ -1138,13 +1158,6 @@ CStreamReader* CLocatorAPI::rs_open(LPCSTR path, LPCSTR _fname)
 IReader* CLocatorAPI::r_open(LPCSTR path, LPCSTR _fname)
 {
 	PROF_EVENT();
-	static bool p = false;
-	if (p) {
-		FILE* fw = fopen("/Users/eva00/all_files.txt", "w+");
-		for(auto&& f : m_files) {
-			fprintf(fw, "%s\n", f.name.c_str());
-		}
-	}
 	return (r_open_impl<IReader>(path, _fname));
 }
 
