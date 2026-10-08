@@ -345,6 +345,21 @@ extern void export_classes(lua_State* L);
 extern xr_unordered_map<std::string, std::set<std::string>> unlocalizers;
 extern bool unlocalizerPassed;
 
+static void attach_debugger(lua_State* L)
+{
+    lua_getglobal(L, "debugger_attach");
+    if (!lua_isfunction(L, -1))
+    {
+        lua_pop(L, 1);
+        return;
+    }
+    if (lua_pcall(L, 0, 0, 0))
+    {
+        Msg("! [LuaPanda] debugger_attach failed: %s", lua_tostring(L, -1));
+        lua_pop(L, 1);
+    }
+}
+
 void CScriptEngine::init()
 {
 #ifdef USE_LUA_STUDIO
@@ -404,6 +419,8 @@ void CScriptEngine::init()
 	load_common_scripts();
 #endif
 	m_stack_level = lua_gettop(lua());
+
+	attach_debugger(lua());
 }
 
 void CScriptEngine::remove_script_process(const EScriptProcessors& process_id)

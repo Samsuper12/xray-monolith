@@ -119,6 +119,9 @@ public:
 		args::Flag gpu_sw{p, "gpu_sw", "gpu_sw", {"-gpu_sw"}};
 		args::Flag gpu_nopure{p, "gpu_nopure", "gpu_nopure", {"-gpu_nopure"}};
 		args::Flag gpu_ref{p, "gpu_ref", "gpu_ref", {"-gpu_ref"}};
+
+		// Lua debug
+		args::Flag lua_debug{p, "lua_debug", "Enable LuaPanda debug port", {"lua_debug"}};
 	};
 
 	std::string ApplicationName;

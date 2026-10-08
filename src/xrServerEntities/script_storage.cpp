@@ -43,11 +43,13 @@ extern "C"
 struct luajit
 {
 	static void open_lib(lua_State* L, pcstr module_name, lua_CFunction function)
-	{
-		lua_pushcfunction(L, function);
-		lua_pushstring(L, module_name);
-		lua_call(L, 1, 0);
-	}
+{
+    lua_getglobal(L, "package");
+    lua_getfield(L, -1, "preload");
+    lua_pushcfunction(L, function);
+    lua_setfield(L, -2, module_name);
+    lua_pop(L, 2);
+}
 };
 
 LPCSTR file_header_old =
@@ -380,9 +382,7 @@ bool LoadKernelScriptToGlobal(lua_State* L, const char* name)
 			int	l_iErrorCode = lua_pcall(L, 0, 0, (-1 == errFuncId) ? 0 : errFuncId);
 			if (l_iErrorCode)
 			{
-#ifdef DEBUG
-				g_pScriptEngine->print_output(L, name, l_iErrorCode);
-#endif
+				CScriptEngine::print_output(L, name, l_iErrorCode);
 				lua_settop(L, start);
 				return false;
 			}
@@ -405,8 +405,6 @@ static void *l_alloc(void *ud, void *ptr, size_t osize, size_t nsize) {
     return realloc(ptr, nsize);
 }
 
-
-BOOL lua_debug = FALSE;
 void CScriptStorage::reinit()
 {
 	if (m_virtual_machine)
@@ -464,11 +462,10 @@ void CScriptStorage::reinit()
 	}
 
 #endif //!USE_LUAJIT_ONE
-	bool isDebugEnabled = lua_debug;
-	luaopen_lua_extensions(lua(), isDebugEnabled);
+	luaopen_lua_extensions(lua(), Core.Params.lua_debug);
 	disable_os_funcs(lua());
 
-	if (isDebugEnabled)
+	if (Core.Params.lua_debug)
 	{
 		Msg("!lua_debug 1, opening socket and initializing LuaPanda");
 		LoadKernelScriptToGlobal(lua(), "global.lua");
