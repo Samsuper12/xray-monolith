@@ -1,14 +1,10 @@
-// xrRender_R2.cpp : Defines the entry point for the DLL application.
-//
-#include "rv.hpp"
-#include "render_factory/vkRenderFactory.hpp"
-#include "render_factory/vkUIRender.hpp"
+#include "RenderFactory/vkRenderFactory.hpp"
 #include <xrRender_console.h>
+#include <Render.h>
 
-//#include "render_factory/dxDebugRender.h"
+import xr.RV;
 
 extern void xrRender_initconsole();
-
 BOOL DllMainXrRenderRV()
 {
 		Render = &RImplementation;

@@ -1,6 +1,7 @@
 module;
 #include <glm_main.hpp>
 #include <vulkan_main.hpp>
+#include <device.h>
 module RV.HW:Rendering;
 import :Interface;
 
@@ -70,9 +71,9 @@ void VkHW::BeginRendering() {
               .height = drawExtent.height,
           },
   };
-  // FIXME:!
-  auto m_view = glm::mat4(1);    // fmatrix_to_glm(Device.mView);
-  auto m_project = glm::mat4(1); // fmatrix_to_glm(Device.mProject);
+  
+  auto m_view = fmatrix_to_glm(Device.mView);
+  auto m_project = fmatrix_to_glm(Device.mProject);
 
   auto *sceneData =
       static_cast<GPU_SceneData *>(sceneDataBuffer.info.pMappedData);

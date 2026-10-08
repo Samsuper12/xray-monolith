@@ -46,7 +46,9 @@ add_module(XRay.Render.RV
 
   RV.cppm
   
+  RenderVisual/RenderVisual.cppm
   RenderVisual/vkRenderVisual.cppm
+  
   ResourceManager.cppm
 
   RenderFactory/vkRenderFactory.cppm
