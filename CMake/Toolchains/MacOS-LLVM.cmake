@@ -70,15 +70,6 @@ if(NOT EXISTS "${LLVM_LD64}")
     )
 endif()
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT
-    "-fuse-ld=${LLVM_LD64}"
-)
-set(CMAKE_SHARED_LINKER_FLAGS_INIT
-    "-fuse-ld=${LLVM_LD64}"
-)
-set(CMAKE_MODULE_LINKER_FLAGS_INIT
-    "-fuse-ld=${LLVM_LD64}"
-)
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET
     "26.0"
