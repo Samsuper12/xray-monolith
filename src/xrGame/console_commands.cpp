@@ -1155,7 +1155,7 @@ public:
 	virtual void Execute(LPCSTR /*args**/)
 	{
 		FlushLog();
-		Msg("* Log file has been saved successfully!");
+		//Msg("* Log file has been saved successfully!");
 	}
 };
 
