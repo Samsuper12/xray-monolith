@@ -373,7 +373,7 @@ void CInifile::Load(IReader* F, std::fs::path path
 					if (!bIsCurrentSectionOverride)
 					{
 
-						Debug.fatal(DEBUG_INFO, "[DLTX] Duplicate section '%s' wasn't marked as an override.\n\nOverride section by prefixing it with '!' (![%s]) or give it a unique name.\n\nCheck this file and its DLTX mods:\n\"%s\",\nfile with section \"%s\",\nfile with duplicate \"%s\"", *Current->Name, *Current->Name, m_file_name, SectionToFilename[std::string(Current->Name.c_str())].c_str(), currentFileName);
+						//Debug.fatal(DEBUG_INFO, "[DLTX] Duplicate section '%s' wasn't marked as an override.\n\nOverride section by prefixing it with '!' (![%s]) or give it a unique name.\n\nCheck this file and its DLTX mods:\n\"%s\",\nfile with section \"%s\",\nfile with duplicate \"%s\"", *Current->Name, *Current->Name, m_file_name, SectionToFilename[std::string(Current->Name.c_str())].c_str(), currentFileName);
 					}
 
 					//Overwrite existing override data
@@ -418,11 +418,11 @@ void CInifile::Load(IReader* F, std::fs::path path
 
 				//Collect all files that could potentially be confused as a root file by our mod files
 				FS_FileSet AmbiguousFiles;
-				FS.file_list(AmbiguousFiles, FilePath.parent_path().c_str(), FS_ListFiles, {std::regex((std::string(FilePath.stem()) + "_*\.ltx$"))}); 
+				FS.file_list(AmbiguousFiles, FilePath.parent_path().c_str(), FS_ListFiles, {std::regex((std::string(FilePath.stem()) + "_.*\\.ltx$"))}); 
 
 				//Collect all matching mod files
 				FS_FileSet ModFiles;
-				FS.file_list(ModFiles, FilePath.c_str(), FS_ListFiles, {std::regex(("mod_" + std::string(FilePath.stem()) + "_*\.ltx$"))});
+				FS.file_list(ModFiles, FilePath.c_str(), FS_ListFiles, {std::regex(("mod_" + std::string(FilePath.stem()) + "_.*\\.ltx$"))});
 
 				for (auto It = ModFiles.begin(); It != ModFiles.end(); ++It)
 				{

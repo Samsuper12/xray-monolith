@@ -180,7 +180,7 @@ inline char *strncpy_s(char (&strDest)[size], const char *strSource,
 }
 
 inline auto GlobToRegex = [](std::string glob) -> std::string {
-  std::string rx = "^";
+  std::string rx;
   for (char c : glob) {
     switch (c) {
     case '*':
@@ -199,7 +199,6 @@ inline auto GlobToRegex = [](std::string glob) -> std::string {
       rx += c;
     }
   }
-  rx += "$";
   return rx;
 };
 
